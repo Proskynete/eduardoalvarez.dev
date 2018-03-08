@@ -1,20 +1,18 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const BUILD_DIR = path.resolve(__dirname, 'src/client');
 const APP_DIR = path.resolve(__dirname, 'src/client/app');
-const PUBLIC_PATH = path.resolve(__dirname, '/src/client');
+const BUILD_DIR = path.resolve(__dirname, 'src/client/');
 
 const config = {
 	entry: APP_DIR + '/index.jsx',
 	output: {
   	path: BUILD_DIR,
-  	filename: 'bundle.js',
-    publicPath: PUBLIC_PATH
+  	filename: 'bundle.js'
 	},
   devServer: {
-    host: '0.0.0.0',
-    port: 8093,
+		contentBase: BUILD_DIR,
+    port: 8080,
     compress: true,
     inline: true
   },
