@@ -948,9 +948,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(18);
 
-var _Header = __webpack_require__(27);
+var _Description = __webpack_require__(27);
 
-var _Header2 = _interopRequireDefault(_Header);
+var _Description2 = _interopRequireDefault(_Description);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -975,7 +975,7 @@ var App = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'container' },
-        _react2.default.createElement(_Header2.default, null)
+        _react2.default.createElement(_Description2.default, null)
       );
     }
   }]);
@@ -18310,21 +18310,48 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _me = __webpack_require__(28);
+
+var _me2 = _interopRequireDefault(_me);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Header = function Header() {
+var Description = function Description() {
   return _react2.default.createElement(
-    "div",
-    { className: "header" },
+    'div',
+    { className: 'description' },
+    _react2.default.createElement('img', { src: _me2.default, className: '' }),
     _react2.default.createElement(
-      "h1",
-      null,
-      "Eduardo Alvarez Casta\xF1eda"
+      'h1',
+      { className: 'name' },
+      'Eduardo Alvarez Casta\xF1eda'
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'information' },
+      _react2.default.createElement(
+        'p',
+        null,
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'socials' },
+        _react2.default.createElement('i', { className: 'fa fa-twitter-square' }),
+        _react2.default.createElement('i', { className: 'fa fa-twitter-square' }),
+        _react2.default.createElement('i', { className: 'fa fa-twitter-square' })
+      )
     )
   );
 };
 
-exports.default = Header;
+exports.default = Description;
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "6840691bb97294340eb05c7c3dca2911.png";
 
 /***/ })
 /******/ ]);

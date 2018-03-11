@@ -22,11 +22,13 @@ const config = {
  			{
       	test : /\.jsx?/,
       	include : APP_DIR,
+				exclude: ["bower_components", "node_modules"],
       	loader : 'babel-loader'
     	},
 			{
         test: /\.(jpe?g|png|gif|mp3)$/i,
         include: IMAGES,
+				exclude: ["bower_components", "node_modules"],
         loader: 'file-loader'
       }
   	]
