@@ -1,9 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const APP_DIR = path.resolve(__dirname, 'src/client/app');
-const BUILD_DIR = path.resolve(__dirname, 'src/client/');
-const IMAGES = path.resolve(__dirname, 'src/client/assets/img/');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const APP_DIR = path.resolve(__dirname, 'src/app');
+const BUILD_DIR = path.resolve(__dirname, './public/');
+const IMAGES = path.resolve(__dirname, 'src/assets/img/');
 
 const config = {
 	entry: APP_DIR + '/index.jsx',
@@ -32,7 +35,10 @@ const config = {
         loader: 'file-loader'
       }
   	]
-	}
+	},
+	plugins: [
+    new HtmlWebpackPlugin({ template: './src/index.html' })
+  ]
 };
 
 module.exports = config;
