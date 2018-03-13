@@ -15,7 +15,7 @@ const config = {
   	filename: 'bundle.js'
 	},
   devServer: {
-		contentBase: BUILD_DIR,
+		contentBase: './',
     port: 8080,
     compress: true,
     inline: true

@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "production": "webpack -p",
-    "build": "webpack --watch --colors",
+    "build": "webpack --colors",
     "serve": "webpack-dev-server",
-    "start": "npm run build && npm run serve"
+    "start": "yarn run build && yarn run serve"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
