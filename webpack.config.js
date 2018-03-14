@@ -9,6 +9,7 @@ const BUILD_DIR = path.resolve(__dirname, './public/');
 const IMAGES = path.resolve(__dirname, 'src/assets/img/');
 
 const config = {
+	devtool: "source-map",
 	entry: APP_DIR + '/index.jsx',
 	output: {
   	path: BUILD_DIR,
@@ -22,6 +23,20 @@ const config = {
   },
 	module : {
   	loaders : [
+			{
+				test: /\.(sass|scss)$/,
+				loaders: [
+					{ loader: 'style-loader' },
+					{
+						loader: 'css-loader',
+						options: { sourceMap: true, sourceMapContents: true }
+					},
+					{
+						loader: 'sass-loader',
+						options: { sourceMap: true, sourceMapContents: true }
+					}
+				]
+			},
  			{
       	test : /\.jsx?/,
       	include : APP_DIR,

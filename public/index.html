@@ -19,7 +19,7 @@
     <meta property="og:description" content="Sitio Web de Eduardo Alvarez Castañeda, Full Stack Web Development - Javascript evangelist" />
     <meta property="og:url" content="http://www.eduardoalvarez.cl/" />
     <meta property="og:site_name" content="Sitio Web de Eduardo Alvarez Castañeda" />
-    <meta property="og:image" content="http://www.eduardoalvarez.cl/assets/img/me.png" />
+    <meta property="og:image" content="http://www.eduardoalvarez.cl/src/assets/img/me.png" />
     <meta property="fb:admins" content="FB-AppID" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:description" content="Sitio Web de Eduardo Alvarez Castañeda, Full Stack Web Development - Javascript evangelist" />
@@ -28,19 +28,27 @@
     <meta name="twitter:creator" content="@Proskynete" />
 
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../bower_components/wow/css/libs/animate.css" />
+    <link rel="stylesheet" href="../bower_components/fontawesome/web-fonts-with-css/css/fontawesome-all.css" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen:700" />
 
     <title>Eduardo Alvarez || Evangelista de JavaScript </title>
-
   </head>
 
   <body>
     <!--[if lte IE 9]>
       <p class="browserupgrade">Estás usando un navegador <strong>obsoleto</strong>. Te recomiendo que lo <a href="http://browsehappy.com/">actualices</a> para poder tener una mejor experiencia. ^^</p>
     <![endif]-->
+      <div class="container-fluid">
+        <div id="app" />
+      </div>
 
-    <div id="app" />
-
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
-
+    <script type="text/javascript" src="../bower_components/wow/dist/wow.js"></script>
+    <script type="text/javascript"> new WOW().init(); </script>
   <script type="text/javascript" src="bundle.js"></script></body>
 </html>
