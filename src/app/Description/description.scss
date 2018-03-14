@@ -10,21 +10,14 @@
   color: $gray-color-whitout-opacity;
   font-weight: 300;
   height: 100vh;
-  padding-top: 80px;
+  padding-top: 20px;
   padding-right: 20px;
-  padding-bottom: 40px;
+  padding-bottom: 0;
   padding-left: 20px;
-
-  &__img {
-    img {
-      background-color: $green-color-whitout-opacity;
-      width: 70%;
-    }
-  }
 
   &__logo {
     color: $white-color-whitout-opacity;
-    margin-top: 20px;
+    margin-bottom: 20px;
     font-family: 'Amatic sc', sans-serif;
     font-size: 1.8em;
     text-transform: lowercase;
@@ -41,23 +34,20 @@
     }
   }
 
-  &__information {
-    font-family: 'Amatic sc', cursive;
-    font-size: 1.5em;
-    font-weight: 500;
-    p {
-      span {
-        color: $white-color-whitout-opacity;
-      }
+  &__img {
+    img {
+      background-color: $green-color-whitout-opacity;
+      width: 70%;
     }
   }
 
   &__socials {
-    margin-top: 40px;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
     a {
       color: $white-color-whitout-opacity;
-      margin-left: .5em;
-      margin-right: .5em;
+      margin-left: 1em;
+      margin-right: 1em;
 
       &:hover {
         color: $green-color-whitout-opacity;
@@ -65,7 +55,23 @@
       }
 
       i {
-        font-size: 1.2em;
+        font-size: 1.5em;
+      }
+    }
+  }
+
+  &__information {
+    font-family: 'Amatic sc', cursive;
+    font-size: 1.3em;
+    font-weight: 500;
+    margin-top: 20px;
+    p {
+      span {
+        color: $white-color-whitout-opacity;
+      }
+
+      &:nth-child(3){
+        color: $green-color-whitout-opacity;
       }
     }
   }
@@ -75,6 +81,6 @@
     border: 0;
     height: 1px;
     text-align: center;
-    width: 50%;
+    width: 70%;
   }
 }
