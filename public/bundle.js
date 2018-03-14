@@ -18826,7 +18826,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, "body {\n  background-color: rgba(41, 40, 32, 0.9);\n  height: 100%;\n  position: fixed;\n  top: 0px;\n  width: 100%; }\n\nbody > div {\n  background-image: url(" + escape(__webpack_require__(32)) + ");\n  background-position: center top;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100%;\n  position: absolute;\n  top: 0px;\n  width: 100%; }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/src/app/index.scss"],"names":[],"mappings":"AAAA;EACE,wCAAsC;EACtC,aAAY;EACZ,gBAAe;EACf,SAAQ;EACR,YAAW,EACZ;;AAED;EACE,gDAA6C;EAC7C,gCAA+B;EAC/B,6BAA4B;EAC5B,uBAAsB;EACtB,aAAY;EACZ,mBAAkB;EAClB,SAAQ;EACR,YAAW,EACZ","file":"index.scss","sourcesContent":["body {\n  background-color: rgba(41, 40, 32, .9);\n  height: 100%;\n  position: fixed;\n  top: 0px;\n  width: 100%;\n}\n\nbody > div {\n  background-image: url(\"../assets/img/bg.png\");\n  background-position: center top;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100%;\n  position: absolute;\n  top: 0px;\n  width: 100%;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "body {\n  background-color: rgba(41, 40, 32, 0);\n  height: 100%;\n  position: fixed;\n  top: 0;\n  width: 100%; }\n\nbody > div {\n  background-image: url(" + escape(__webpack_require__(32)) + ");\n  background-position: center top;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  width: 100%; }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/src/app/index.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAEA;EACE,sCCYgD;EDXhD,aAAY;EACZ,gBAAe;EACf,OAAM;EACN,YAAW,EACZ;;AAED;EACE,gDAA6C;EAC7C,gCAA+B;EAC/B,6BAA4B;EAC5B,uBAAsB;EACtB,aAAY;EACZ,mBAAkB;EAClB,OAAM;EACN,YAAW,EACZ","file":"index.scss","sourcesContent":["@import '../assets/scss/colors';\n\nbody {\n  background-color: $blackgray-color-with-opacity;\n  height: 100%;\n  position: fixed;\n  top: 0;\n  width: 100%;\n}\n\nbody > div {\n  background-image: url('../assets/img/bg.png');\n  background-position: center top;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -18986,14 +18986,33 @@ var Description = function Description() {
     'div',
     { className: 'description text-center' },
     _react2.default.createElement(
+      'h1',
+      { className: 'description__logo text-center' },
+      'EduardoAlvarez'
+    ),
+    _react2.default.createElement(
       'div',
       { className: 'description__img' },
       _react2.default.createElement('img', { src: _me2.default, className: 'rounded-circle' })
     ),
     _react2.default.createElement(
-      'h1',
-      { className: 'description__logo text-center' },
-      'EduardoAlvarez'
+      'div',
+      { className: 'description__socials' },
+      _react2.default.createElement(
+        'a',
+        { href: 'https://www.linkedin.com/in/proskynete/', target: '_blank' },
+        _react2.default.createElement('i', { className: 'fab fa-linkedin' })
+      ),
+      _react2.default.createElement(
+        'a',
+        { href: 'https://github.com/Proskynete', target: '_blank' },
+        _react2.default.createElement('i', { className: 'fab fa-github-square' })
+      ),
+      _react2.default.createElement(
+        'a',
+        { href: 'http://curriculum.eduardoalvarez.cl', target: '_blank' },
+        _react2.default.createElement('i', { className: 'far fa-file-alt' })
+      )
     ),
     _react2.default.createElement('hr', null),
     _react2.default.createElement(
@@ -19011,7 +19030,7 @@ var Description = function Description() {
         _react2.default.createElement(
           'span',
           null,
-          'Eduardo \xC1lvarez Casta\xF1eda'
+          'Eduardo \xC1lvarez'
         ),
         '... Que genial el que hayas venido.'
       ),
@@ -19036,7 +19055,13 @@ var Description = function Description() {
           null,
           'f\xFAtbol'
         ),
-        ', y sobre todo, compartir con mis ',
+        ', pero sobre todo, compartir una ',
+        _react2.default.createElement(
+          'span',
+          null,
+          'cerveza'
+        ),
+        ' con mis ',
         _react2.default.createElement(
           'span',
           null,
@@ -19051,49 +19076,29 @@ var Description = function Description() {
         '.'
       ),
       _react2.default.createElement(
-        'div',
-        { className: 'description__socials' },
+        'p',
+        null,
         _react2.default.createElement(
-          'a',
-          { href: 'https://web.facebook.com/proskynete', target: '_blank' },
-          _react2.default.createElement('i', { className: 'fab fa-facebook-square' })
+          'span',
+          null,
+          'Si no'
         ),
+        ' est\xE1s dispuesto ',
         _react2.default.createElement(
-          'a',
-          { href: 'https://twitter.com/proskynete', target: '_blank' },
-          _react2.default.createElement('i', { className: 'fab fa-twitter-square' })
+          'span',
+          null,
+          'a darlo todo'
         ),
+        ', no tienes ',
         _react2.default.createElement(
-          'a',
-          { href: 'https://www.linkedin.com/in/proskynete/', target: '_blank' },
-          _react2.default.createElement('i', { className: 'fab fa-linkedin' })
+          'span',
+          null,
+          'derecho a intentarlo'
         ),
-        _react2.default.createElement(
-          'a',
-          { href: 'https://github.com/Proskynete', target: '_blank' },
-          _react2.default.createElement('i', { className: 'fab fa-github-square' })
-        ),
-        _react2.default.createElement(
-          'a',
-          { href: 'https://instagram.com/proskynete/', target: '_blank' },
-          _react2.default.createElement('i', { className: 'fab fa-instagram' })
-        ),
-        _react2.default.createElement(
-          'a',
-          { href: 'http://curriculum.eduardoalvarez.cl', target: '_blank' },
-          _react2.default.createElement('i', { className: 'far fa-file-alt' })
-        )
+        '.'
       )
     ),
-    _react2.default.createElement(
-      'div',
-      { className: 'd-flex justify-content-center' },
-      _react2.default.createElement(
-        'div',
-        { className: 'd-flex align-items-end' },
-        _react2.default.createElement(_index2.default, null)
-      )
-    )
+    _react2.default.createElement(_index2.default, null)
   );
 };
 
@@ -19121,16 +19126,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Footer = function Footer() {
   return _react2.default.createElement(
     'div',
-    { className: 'footer' },
+    { className: 'd-flex flex-column justify-content-center' },
     _react2.default.createElement(
       'div',
-      { className: 'footer__tecnologies' },
-      _react2.default.createElement('i', { className: 'fab fa-facebook-square' }),
-      _react2.default.createElement('i', { className: 'fab fa-twitter-square' }),
-      _react2.default.createElement('i', { className: 'fab fa-linkedin' }),
-      _react2.default.createElement('i', { className: 'fab fa-github-square' }),
-      _react2.default.createElement('i', { className: 'fab fa-instagram' }),
-      _react2.default.createElement('i', { className: 'far fa-file-alt' })
+      { className: 'footer flex-row align-items-end' },
+      _react2.default.createElement(
+        'div',
+        { className: 'footer__copyright' },
+        'Copyright 2016 - 2018'
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'footer__tecnologies d-none d-sm-block' },
+        _react2.default.createElement('i', { className: 'fab fa-html5' }),
+        _react2.default.createElement('i', { className: 'fab fa-css3' }),
+        _react2.default.createElement('i', { className: 'fab fa-js-square' }),
+        _react2.default.createElement('i', { className: 'fab fa-react' }),
+        _react2.default.createElement('i', { className: 'fab fa-node-js' }),
+        _react2.default.createElement('i', { className: 'fab fa-sass' }),
+        _react2.default.createElement('i', { className: 'fab fa-linode' })
+      )
     )
   );
 };
@@ -19196,7 +19211,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, ".footer {\n  position: relative; }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/Footer/src/app/Footer/footer.scss"],"names":[],"mappings":"AAAA;EACE,mBAAkB,EACnB","file":"footer.scss","sourcesContent":[".footer{\n  position: relative;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".footer__copyright {\n  color: white;\n  font-family: 'Amatic sc', sans-serif;\n  font-size: .9em;\n  letter-spacing: .2em;\n  margin-top: 2em; }\n  @media screen and (min-width: 992px) {\n    .footer__copyright {\n      font-size: 1em; } }\n\n.footer__tecnologies i {\n  font-size: .9em;\n  margin-left: .2em;\n  margin-right: .2em; }\n\n@media screen and (min-width: 992px) {\n  .footer__tecnologies {\n    margin-top: .2em; }\n    .footer__tecnologies i {\n      font-size: 1em;\n      margin-left: .3em;\n      margin-right: .3em; } }\n\n@media screen and (min-width: 992px) {\n  .footer {\n    margin-top: 1.3em; } }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/Footer/src/app/Footer/footer.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/Footer/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAGE;EACE,aCCgD;EDAhD,qCAAoC;EACpC,gBAAe;EACf,qBAAoB;EACpB,gBAAe,EAKhB;EAHC;IAPF;MAQI,eAAc,EAEjB,EAAA;;AAED;EAEI,gBAAe;EACf,kBAAiB;EACjB,mBAAkB,EACnB;;AAED;EAPF;IAQI,iBAAgB,EAQnB;IAhBD;MAWM,eAAc;MACd,kBAAiB;MACjB,mBAAkB,EACnB,EAAA;;AAIL;EA/BF;IAgCI,kBAAiB,EAEpB,EAAA","file":"footer.scss","sourcesContent":["@import '../../assets/scss/colors';\n\n.footer {\n  &__copyright {\n    color: $white-color-whitout-opacity;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: .9em;\n    letter-spacing: .2em;\n    margin-top: 2em;\n\n    @media screen and (min-width: 992px) {\n      font-size: 1em;\n    }\n  }\n\n  &__tecnologies {\n    i {\n      font-size: .9em;\n      margin-left: .2em;\n      margin-right: .2em;\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-top: .2em;\n\n      i {\n        font-size: 1em;\n        margin-left: .3em;\n        margin-right: .3em;\n      }\n    }\n  }\n\n  @media screen and (min-width: 992px) {\n    margin-top: 1.3em;\n  }\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -19266,7 +19281,7 @@ exports = module.exports = __webpack_require__(7)(true);
 
 
 // module
-exports.push([module.i, ".description {\n  color: #bebebe;\n  font-weight: 300;\n  height: 100vh;\n  padding-top: 80px;\n  padding-right: 20px;\n  padding-bottom: 40px;\n  padding-left: 20px; }\n  .description__img img {\n    background-color: #5e8f86;\n    width: 70%; }\n  .description__logo {\n    color: white;\n    margin-top: 20px;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    text-transform: lowercase;\n    letter-spacing: 3px; }\n    .description__logo:before {\n      color: #5e8f86;\n      content: \"<\";\n      font-weight: bolder;\n      margin-right: 5px; }\n    .description__logo:after {\n      color: #5e8f86;\n      content: \"/>\";\n      font-weight: bolder;\n      margin-left: 5px; }\n  .description__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.5em;\n    font-weight: 500; }\n    .description__information p span {\n      color: white; }\n  .description__socials {\n    margin-top: 40px; }\n    .description__socials a {\n      color: white;\n      margin-left: .5em;\n      margin-right: .5em; }\n      .description__socials a:hover {\n        color: #5e8f86;\n        transition: ease-in .3s; }\n      .description__socials a i {\n        font-size: 1.2em; }\n  .description hr {\n    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), white, rgba(255, 255, 255, 0));\n    border: 0;\n    height: 1px;\n    text-align: center;\n    width: 50%; }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/Description/src/app/Description/description.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/Description/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAQA;EACE,eCGiD;EDFjD,iBAAgB;EAChB,cAAa;EACb,kBAAiB;EACjB,oBAAmB;EACnB,qBAAoB;EACpB,mBAAkB,EAgEnB;EA9DC;IAEI,0BCA6C;IDC7C,WAAU,EACX;EAGH;IACE,aCpBgD;IDqBhD,iBAAgB;IAChB,qCAAoC;IACpC,iBAAgB;IAChB,0BAAyB;IACzB,oBAAmB,EAWpB;IAjBD;MArBA,eCgBiD;MDfjD,aA6BsC;MA5BtC,oBAAmB;MA6Bf,kBAAiB,EAClB;IAXH;MArBA,eCgBiD;MDfjD,cAkCuC;MAjCvC,oBAAmB;MAkCf,iBAAgB,EACjB;EAGH;IACE,kCAAiC;IACjC,iBAAgB;IAChB,iBAAgB,EAMjB;IATD;MAMM,aC5C4C,ED6C7C;EAIL;IACE,iBAAgB,EAejB;IAhBD;MAGI,aCpD8C;MDqD9C,kBAAiB;MACjB,mBAAkB,EAUnB;MAfH;QAQM,eC3C2C;QD4C3C,wBAAuB,EACxB;MAVL;QAaM,iBAAgB,EACjB;EA5DP;IAiEI,mGAA+H;IAC/H,UAAS;IACT,YAAW;IACX,mBAAkB;IAClB,WAAU,EACX","file":"description.scss","sourcesContent":["@import '../../assets/scss/colors.scss';\n\n@mixin generate-after-before($content) {\n  color: $green-color-whitout-opacity;\n  content: $content;\n  font-weight: bolder;\n}\n\n.description {\n  color: $gray-color-whitout-opacity;\n  font-weight: 300;\n  height: 100vh;\n  padding-top: 80px;\n  padding-right: 20px;\n  padding-bottom: 40px;\n  padding-left: 20px;\n\n  &__img {\n    img {\n      background-color: $green-color-whitout-opacity;\n      width: 70%;\n    }\n  }\n\n  &__logo {\n    color: $white-color-whitout-opacity;\n    margin-top: 20px;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    text-transform: lowercase;\n    letter-spacing: 3px;\n\n    &:before {\n      @include generate-after-before(\"<\");\n      margin-right: 5px;\n    }\n\n    &:after {\n      @include generate-after-before(\"/>\");\n      margin-left: 5px;\n    }\n  }\n\n  &__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.5em;\n    font-weight: 500;\n    p {\n      span {\n        color: $white-color-whitout-opacity;\n      }\n    }\n  }\n\n  &__socials {\n    margin-top: 40px;\n    a {\n      color: $white-color-whitout-opacity;\n      margin-left: .5em;\n      margin-right: .5em;\n\n      &:hover {\n        color: $green-color-whitout-opacity;\n        transition: ease-in .3s;\n      }\n\n      i {\n        font-size: 1.2em;\n      }\n    }\n  }\n\n  hr {\n    background-image: linear-gradient(to right, $white-color-with-opacity, $white-color-whitout-opacity, $white-color-with-opacity);\n    border: 0;\n    height: 1px;\n    text-align: center;\n    width: 50%;\n  }\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n"],"sourceRoot":""}]);
+exports.push([module.i, ".description {\n  color: #bebebe;\n  font-weight: 300;\n  height: 100vh;\n  margin-bottom: 0;\n  margin-left: 20px;\n  margin-right: 20px;\n  margin-top: 15px; }\n  @media screen and (min-width: 992px) {\n    .description {\n      border-right: 1px solid rgba(138, 178, 170, 0.5);\n      margin-top: 0;\n      padding-right: 41px;\n      padding-top: 40px; } }\n  .description__logo {\n    color: white;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    letter-spacing: 3px;\n    margin-bottom: 10px; }\n    .description__logo::before {\n      color: #5e8f86;\n      content: \"<\";\n      font-weight: bolder;\n      margin-right: 5px; }\n    .description__logo::after {\n      color: #5e8f86;\n      content: \"/>\";\n      font-weight: bolder;\n      margin-left: 5px; }\n    @media screen and (min-width: 992px) {\n      .description__logo {\n        margin-bottom: 30px; } }\n  .description__img img {\n    background-color: #5e8f86;\n    width: 70%; }\n  .description__socials {\n    margin-bottom: 1em;\n    margin-top: 1.5em; }\n    .description__socials a {\n      color: white; }\n      .description__socials a:hover {\n        color: #5e8f86;\n        transition: ease-in .3s; }\n      .description__socials a i {\n        font-size: 1.8em;\n        margin-left: .5em;\n        margin-right: .5em; }\n    @media screen and (min-width: 992px) {\n      .description__socials {\n        margin-bottom: 2em;\n        margin-top: 2em; } }\n  .description__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.3em; }\n    .description__information p {\n      margin-bottom: .2em; }\n      .description__information p span {\n        color: white; }\n      .description__information p:nth-child(3) {\n        color: #5e8f86; }\n        .description__information p:nth-child(3) span {\n          color: #8ab2aa; }\n    @media screen and (min-width: 992px) {\n      .description__information {\n        font-size: 1.5em; } }\n  .description hr {\n    background: linear-gradient(to right, rgba(255, 255, 255, 0), white, rgba(255, 255, 255, 0));\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%; }\n    @media screen and (min-width: 992px) {\n      .description hr {\n        margin-bottom: 1em;\n        margin-top: 1em; } }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/Description/src/app/Description/description.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/Description/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAQA;EACE,eCGiD;EDFjD,iBAAgB;EAChB,cAAa;EACb,iBAAgB;EAChB,kBAAiB;EACjB,mBAAkB;EAClB,iBAAgB,EAsGjB;EApGC;IATF;MAUI,iDCasD;MDZtD,cAAa;MACb,oBAAmB;MACnB,kBAAiB,EAgGpB,EAAA;EA7FC;IACE,aCpBgD;IDqBhD,qCAAoC;IACpC,iBAAgB;IAChB,oBAAmB;IACnB,oBAAmB,EAepB;IApBD;MArBA,eCuBiD;MDtBjD,aA4BsC;MA3BtC,oBAAmB;MA4Bf,kBAAiB,EAClB;IAVH;MArBA,eCuBiD;MDtBjD,cAiCuC;MAhCvC,oBAAmB;MAiCf,iBAAgB,EACjB;IAED;MAjBF;QAkBI,oBAAmB,EAEtB,EAAA;EAED;IAEI,0BCtB6C;IDuB7C,WAAU,EACX;EAGH;IACE,mBAAkB;IAClB,kBAAiB,EAqBlB;IAvBD;MAKI,aCrD8C,EDiE/C;MAjBH;QAQM,eCnC2C;QDoC3C,wBAAuB,EACxB;MAVL;QAaM,iBAAgB;QAChB,kBAAiB;QACjB,mBAAkB,EACnB;IAGH;MAnBF;QAoBI,mBAAkB;QAClB,gBAAe,EAElB,EAAA;EAED;IACE,kCAAiC;IACjC,iBAAgB,EAqBjB;IAvBD;MAKI,oBAAmB,EAapB;MAlBH;QAQM,aCjF4C,EDkF7C;MATL;QAYM,eChE2C,EDqE5C;QAjBL;UAeQ,eC5D+C,ED6DhD;IAIL;MApBF;QAqBI,iBAAgB,EAEnB,EAAA;EA7FH;IAgGI,6FAAyH;IACzH,UAAS;IACT,YAAW;IACX,oBAAmB;IACnB,iBAAgB;IAChB,mBAAkB;IAClB,WAAU,EAMX;IAJC;MAxGJ;QAyGM,mBAAkB;QAClB,gBAAe,EAElB,EAAA","file":"description.scss","sourcesContent":["@import '../../assets/scss/colors';\n\n@mixin generate-after-before($content) {\n  color: $green-color-whitout-opacity;\n  content: $content;\n  font-weight: bolder;\n}\n\n.description {\n  color: $gray-color-whitout-opacity;\n  font-weight: 300;\n  height: 100vh;\n  margin-bottom: 0;\n  margin-left: 20px;\n  margin-right: 20px;\n  margin-top: 15px;\n\n  @media screen and (min-width: 992px) {\n    border-right: 1px solid $lightgreen-color-with-opacity-50;\n    margin-top: 0;\n    padding-right: 41px;\n    padding-top: 40px;\n  }\n\n  &__logo {\n    color: $white-color-whitout-opacity;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    letter-spacing: 3px;\n    margin-bottom: 10px;\n\n    &::before {\n      @include generate-after-before('<');\n      margin-right: 5px;\n    }\n\n    &::after {\n      @include generate-after-before('/>');\n      margin-left: 5px;\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 30px;\n    }\n  }\n\n  &__img {\n    img {\n      background-color: $green-color-whitout-opacity;\n      width: 70%;\n    }\n  }\n\n  &__socials {\n    margin-bottom: 1em;\n    margin-top: 1.5em;\n\n    a {\n      color: $white-color-whitout-opacity;\n\n      &:hover {\n        color: $green-color-whitout-opacity;\n        transition: ease-in .3s;\n      }\n\n      i {\n        font-size: 1.8em;\n        margin-left: .5em;\n        margin-right: .5em;\n      }\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 2em;\n      margin-top: 2em;\n    }\n  }\n\n  &__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.3em;\n\n    p {\n      margin-bottom: .2em;\n\n      span {\n        color: $white-color-whitout-opacity;\n      }\n\n      &:nth-child(3) {\n        color: $green-color-whitout-opacity;\n\n        span {\n          color: $lightgreen-color-whitout-opacity;\n        }\n      }\n    }\n\n    @media screen and (min-width: 992px) {\n      font-size: 1.5em;\n    }\n  }\n\n  hr {\n    background: linear-gradient(to right, $white-color-with-opacity, $white-color-whitout-opacity, $white-color-with-opacity);\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%;\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 1em;\n      margin-top: 1em;\n    }\n  }\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
 
 // exports
 

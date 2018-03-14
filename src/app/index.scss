@@ -1,18 +1,20 @@
+@import '../assets/scss/colors';
+
 body {
-  background-color: rgba(41, 40, 32, .9);
+  background-color: $blackgray-color-without-opacity;
   height: 100%;
   position: fixed;
-  top: 0px;
+  top: 0;
   width: 100%;
 }
 
 body > div {
-  background-image: url("../assets/img/bg.png");
+  background-image: url('../assets/img/bg.png');
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
   position: absolute;
-  top: 0px;
+  top: 0;
   width: 100%;
 }
