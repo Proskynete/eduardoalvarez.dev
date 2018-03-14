@@ -14,25 +14,23 @@ const Description = () => {
       </div>
 
       <div className="description__socials">
-        <a href="https://web.facebook.com/proskynete" target="_blank"><i className="fab fa-facebook-square"></i></a>
-        <a href="https://twitter.com/proskynete" target="_blank"><i className="fab fa-twitter-square"></i></a>
         <a href="https://www.linkedin.com/in/proskynete/" target="_blank"><i className="fab fa-linkedin"></i></a>
         <a href="https://github.com/Proskynete" target="_blank"><i className="fab fa-github-square"></i></a>
-        <a href="https://instagram.com/proskynete/" target="_blank"><i className="fab fa-instagram"></i></a>
         <a href="http://curriculum.eduardoalvarez.cl" target="_blank"><i className="far fa-file-alt"></i></a>
       </div>
 
       <hr />
+
       <div className="description__information">
         <p>
-          <span>Holaaa!!</span> Mi nombre es <span>Eduardo Álvarez Castañeda</span>... Que genial el que hayas venido.
+          <span>Holaaa!!</span> Mi nombre es <span>Eduardo Álvarez</span>... Que genial el que hayas venido.
         </p>
         <p>
           Me gusta el <span>desarrollo web</span> en su amplio espectro, jugar <span>LOL</span> o algún partido de <span>fútbol</span>,
           pero sobre todo, compartir una <span>cerveza</span> con mis <span>amigos</span> los <span>fines de semana</span>.
         </p>
         <p>
-          Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo.
+          <span>Si no</span> estás dispuesto <span>a darlo todo</span>, no tienes <span>derecho a intentarlo</span>.
         </p>
       </div>
 
