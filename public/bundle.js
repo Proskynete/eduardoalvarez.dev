@@ -258,6 +258,21 @@ process.umask = function() { return 0; };
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports = __webpack_require__(17);
+} else {
+  module.exports = __webpack_require__(18);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
 /**
@@ -296,272 +311,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(17);
-} else {
-  module.exports = __webpack_require__(18);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-
-
-/* eslint-disable no-unused-vars */
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
-	}
-
-	return Object(val);
-}
-
-function shouldUseNative() {
-	try {
-		if (!Object.assign) {
-			return false;
-		}
-
-		// Detect buggy property enumeration order in older V8 versions.
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
-		test1[5] = 'de';
-		if (Object.getOwnPropertyNames(test1)[0] === '5') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test2 = {};
-		for (var i = 0; i < 10; i++) {
-			test2['_' + String.fromCharCode(i)] = i;
-		}
-		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-			return test2[n];
-		});
-		if (order2.join('') !== '0123456789') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-			test3[letter] = letter;
-		});
-		if (Object.keys(Object.assign({}, test3)).join('') !==
-				'abcdefghijklmnopqrst') {
-			return false;
-		}
-
-		return true;
-	} catch (err) {
-		// We don't expect any of the above to throw, but better to be safe.
-		return false;
-	}
-}
-
-module.exports = shouldUseNative() ? Object.assign : function (target, source) {
-	var from;
-	var to = toObject(target);
-	var symbols;
-
-	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments[s]);
-
-		for (var key in from) {
-			if (hasOwnProperty.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
-
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
-		}
-	}
-
-	return to;
-};
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-var emptyObject = {};
-
-if (process.env.NODE_ENV !== 'production') {
-  Object.freeze(emptyObject);
-}
-
-module.exports = emptyObject;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var validateFormat = function validateFormat(format) {};
-
-if (process.env.NODE_ENV !== 'production') {
-  validateFormat = function validateFormat(format) {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  };
-}
-
-function invariant(condition, format, a, b, c, d, e, f) {
-  validateFormat(format);
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(format.replace(/%s/g, function () {
-        return args[argIndex++];
-      }));
-      error.name = 'Invariant Violation';
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-}
-
-module.exports = invariant;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-var emptyFunction = __webpack_require__(1);
-
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
-
-var warning = emptyFunction;
-
-if (process.env.NODE_ENV !== 'production') {
-  var printWarning = function printWarning(format) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-
-    var argIndex = 0;
-    var message = 'Warning: ' + format.replace(/%s/g, function () {
-      return args[argIndex++];
-    });
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-
-  warning = function warning(condition, format) {
-    if (format === undefined) {
-      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-    }
-
-    if (format.indexOf('Failed Composite propType: ') === 0) {
-      return; // Ignore CompositeComponent proptype check.
-    }
-
-    if (!condition) {
-      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-        args[_key2 - 2] = arguments[_key2];
-      }
-
-      printWarning.apply(undefined, [format].concat(args));
-    }
-  };
-}
-
-module.exports = warning;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 7 */
 /***/ (function(module, exports) {
 
 /*
@@ -643,7 +393,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 8 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -1025,6 +775,256 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var emptyObject = {};
+
+if (process.env.NODE_ENV !== 'production') {
+  Object.freeze(emptyObject);
+}
+
+module.exports = emptyObject;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var validateFormat = function validateFormat(format) {};
+
+if (process.env.NODE_ENV !== 'production') {
+  validateFormat = function validateFormat(format) {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  };
+}
+
+function invariant(condition, format, a, b, c, d, e, f) {
+  validateFormat(format);
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return args[argIndex++];
+      }));
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+}
+
+module.exports = invariant;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var emptyFunction = __webpack_require__(2);
+
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var warning = emptyFunction;
+
+if (process.env.NODE_ENV !== 'production') {
+  var printWarning = function printWarning(format) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    var argIndex = 0;
+    var message = 'Warning: ' + format.replace(/%s/g, function () {
+      return args[argIndex++];
+    });
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+
+  warning = function warning(condition, format) {
+    if (format === undefined) {
+      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+    }
+
+    if (format.indexOf('Failed Composite propType: ') === 0) {
+      return; // Ignore CompositeComponent proptype check.
+    }
+
+    if (!condition) {
+      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+        args[_key2 - 2] = arguments[_key2];
+      }
+
+      printWarning.apply(undefined, [format].concat(args));
+    }
+  };
+}
+
+module.exports = warning;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1039,8 +1039,8 @@ function updateLink (link, options, obj) {
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(5);
-  var warning = __webpack_require__(6);
+  var invariant = __webpack_require__(7);
+  var warning = __webpack_require__(8);
   var ReactPropTypesSecret = __webpack_require__(19);
   var loggedTypeFailures = {};
 }
@@ -1146,7 +1146,7 @@ module.exports = ExecutionEnvironment;
  * @typechecks
  */
 
-var emptyFunction = __webpack_require__(1);
+var emptyFunction = __webpack_require__(2);
 
 /**
  * Upstream version of event listener. Does not take into account specific
@@ -1406,7 +1406,7 @@ module.exports = focusNode;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1417,6 +1417,10 @@ __webpack_require__(29);
 var _Description = __webpack_require__(34);
 
 var _Description2 = _interopRequireDefault(_Description);
+
+var _Posts = __webpack_require__(41);
+
+var _Posts2 = _interopRequireDefault(_Posts);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1446,7 +1450,11 @@ var App = function (_Component) {
           { className: 'col-12 col-md-3' },
           _react2.default.createElement(_Description2.default, null)
         ),
-        _react2.default.createElement('div', { className: 'col-12 col-md-9' })
+        _react2.default.createElement(
+          'div',
+          { className: 'col-12 col-md-9' },
+          _react2.default.createElement(_Posts2.default, null)
+        )
       );
     }
   }]);
@@ -1472,7 +1480,7 @@ var App = function (_Component) {
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(3),n=__webpack_require__(4),p=__webpack_require__(1),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
+var m=__webpack_require__(5),n=__webpack_require__(6),p=__webpack_require__(2),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
 function y(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var z={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function A(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}A.prototype.isReactComponent={};A.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?y("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};A.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function B(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}function C(){}C.prototype=A.prototype;var D=B.prototype=new C;D.constructor=B;m(D,A.prototype);D.isPureReactComponent=!0;function E(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}var F=E.prototype=new C;F.constructor=E;m(F,A.prototype);F.unstable_isAsyncReactComponent=!0;F.render=function(){return this.props.children};var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
@@ -1508,11 +1516,11 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(3);
-var emptyObject = __webpack_require__(4);
-var invariant = __webpack_require__(5);
-var warning = __webpack_require__(6);
-var emptyFunction = __webpack_require__(1);
+var _assign = __webpack_require__(5);
+var emptyObject = __webpack_require__(6);
+var invariant = __webpack_require__(7);
+var warning = __webpack_require__(8);
+var emptyFunction = __webpack_require__(2);
 var checkPropTypes = __webpack_require__(9);
 
 // TODO: this is special because it gets imported during build.
@@ -2933,7 +2941,7 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(2),l=__webpack_require__(10),B=__webpack_require__(3),C=__webpack_require__(1),ba=__webpack_require__(11),da=__webpack_require__(12),ea=__webpack_require__(13),fa=__webpack_require__(14),ia=__webpack_require__(15),D=__webpack_require__(4);
+var aa=__webpack_require__(1),l=__webpack_require__(10),B=__webpack_require__(5),C=__webpack_require__(2),ba=__webpack_require__(11),da=__webpack_require__(12),ea=__webpack_require__(13),fa=__webpack_require__(14),ia=__webpack_require__(15),D=__webpack_require__(6);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -3230,18 +3238,18 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var React = __webpack_require__(2);
-var invariant = __webpack_require__(5);
-var warning = __webpack_require__(6);
+var React = __webpack_require__(1);
+var invariant = __webpack_require__(7);
+var warning = __webpack_require__(8);
 var ExecutionEnvironment = __webpack_require__(10);
-var _assign = __webpack_require__(3);
-var emptyFunction = __webpack_require__(1);
+var _assign = __webpack_require__(5);
+var emptyFunction = __webpack_require__(2);
 var EventListener = __webpack_require__(11);
 var getActiveElement = __webpack_require__(12);
 var shallowEqual = __webpack_require__(13);
 var containsNode = __webpack_require__(14);
 var focusNode = __webpack_require__(15);
-var emptyObject = __webpack_require__(4);
+var emptyObject = __webpack_require__(6);
 var checkPropTypes = __webpack_require__(9);
 var hyphenateStyleName = __webpack_require__(25);
 var camelizeStyleName = __webpack_require__(27);
@@ -18785,7 +18793,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(8)(content, options);
+var update = __webpack_require__(4)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -18821,12 +18829,12 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var escape = __webpack_require__(31);
-exports = module.exports = __webpack_require__(7)(true);
+exports = module.exports = __webpack_require__(3)(true);
 // imports
 
 
 // module
-exports.push([module.i, "body {\n  background-color: rgba(41, 40, 32, 0);\n  height: 100%;\n  position: fixed;\n  top: 0;\n  width: 100%; }\n\nbody > div {\n  background-image: url(" + escape(__webpack_require__(32)) + ");\n  background-position: center top;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  width: 100%; }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/src/app/index.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAEA;EACE,sCCYgD;EDXhD,aAAY;EACZ,gBAAe;EACf,OAAM;EACN,YAAW,EACZ;;AAED;EACE,gDAA6C;EAC7C,gCAA+B;EAC/B,6BAA4B;EAC5B,uBAAsB;EACtB,aAAY;EACZ,mBAAkB;EAClB,OAAM;EACN,YAAW,EACZ","file":"index.scss","sourcesContent":["@import '../assets/scss/colors';\n\nbody {\n  background-color: $blackgray-color-with-opacity;\n  height: 100%;\n  position: fixed;\n  top: 0;\n  width: 100%;\n}\n\nbody > div {\n  background-image: url('../assets/img/bg.png');\n  background-position: center top;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
+exports.push([module.i, "body {\n  background-color: #292820;\n  height: 100%;\n  position: fixed;\n  top: 0;\n  width: 100%; }\n\nbody > div {\n  background-image: url(" + escape(__webpack_require__(32)) + ");\n  background-position: center top;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  width: 100%; }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/src/app/index.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAEA;EACE,0BCgBmD;EDfnD,aAAY;EACZ,gBAAe;EACf,OAAM;EACN,YAAW,EACZ;;AAED;EACE,gDAA6C;EAC7C,gCAA+B;EAC/B,6BAA4B;EAC5B,uBAAsB;EACtB,aAAY;EACZ,mBAAkB;EAClB,OAAM;EACN,YAAW,EACZ","file":"index.scss","sourcesContent":["@import '../assets/scss/colors';\n\nbody {\n  background-color: $blackgray-color-without-opacity;\n  height: 100%;\n  position: fixed;\n  top: 0;\n  width: 100%;\n}\n\nbody > div {\n  background-image: url('../assets/img/bg.png');\n  background-position: center top;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -18965,13 +18973,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _index = __webpack_require__(35);
+var _Footer = __webpack_require__(35);
 
-var _index2 = _interopRequireDefault(_index);
+var _Footer2 = _interopRequireDefault(_Footer);
 
 var _me = __webpack_require__(38);
 
@@ -19098,7 +19106,7 @@ var Description = function Description() {
         '.'
       )
     ),
-    _react2.default.createElement(_index2.default, null)
+    _react2.default.createElement(_Footer2.default, null)
   );
 };
 
@@ -19115,7 +19123,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -19171,13 +19179,13 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(8)(content, options);
+var update = __webpack_require__(4)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
 if(false) {
-	module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--0-1!../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./footer.scss", function() {
-		var newContent = require("!!../../../node_modules/css-loader/index.js??ref--0-1!../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./footer.scss");
+	module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--0-1!../../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./footer.scss", function() {
+		var newContent = require("!!../../../../node_modules/css-loader/index.js??ref--0-1!../../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./footer.scss");
 
 		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 
@@ -19206,12 +19214,12 @@ if(false) {
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(7)(true);
+exports = module.exports = __webpack_require__(3)(true);
 // imports
 
 
 // module
-exports.push([module.i, ".footer__copyright {\n  color: white;\n  font-family: 'Amatic sc', sans-serif;\n  font-size: .9em;\n  letter-spacing: .2em;\n  margin-top: 2em; }\n  @media screen and (min-width: 992px) {\n    .footer__copyright {\n      font-size: 1em; } }\n\n.footer__tecnologies i {\n  font-size: .9em;\n  margin-left: .2em;\n  margin-right: .2em; }\n\n@media screen and (min-width: 992px) {\n  .footer__tecnologies {\n    margin-top: .2em; }\n    .footer__tecnologies i {\n      font-size: 1em;\n      margin-left: .3em;\n      margin-right: .3em; } }\n\n@media screen and (min-width: 992px) {\n  .footer {\n    margin-top: 1.3em; } }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/Footer/src/app/Footer/footer.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/Footer/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAGE;EACE,aCCgD;EDAhD,qCAAoC;EACpC,gBAAe;EACf,qBAAoB;EACpB,gBAAe,EAKhB;EAHC;IAPF;MAQI,eAAc,EAEjB,EAAA;;AAED;EAEI,gBAAe;EACf,kBAAiB;EACjB,mBAAkB,EACnB;;AAED;EAPF;IAQI,iBAAgB,EAQnB;IAhBD;MAWM,eAAc;MACd,kBAAiB;MACjB,mBAAkB,EACnB,EAAA;;AAIL;EA/BF;IAgCI,kBAAiB,EAEpB,EAAA","file":"footer.scss","sourcesContent":["@import '../../assets/scss/colors';\n\n.footer {\n  &__copyright {\n    color: $white-color-whitout-opacity;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: .9em;\n    letter-spacing: .2em;\n    margin-top: 2em;\n\n    @media screen and (min-width: 992px) {\n      font-size: 1em;\n    }\n  }\n\n  &__tecnologies {\n    i {\n      font-size: .9em;\n      margin-left: .2em;\n      margin-right: .2em;\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-top: .2em;\n\n      i {\n        font-size: 1em;\n        margin-left: .3em;\n        margin-right: .3em;\n      }\n    }\n  }\n\n  @media screen and (min-width: 992px) {\n    margin-top: 1.3em;\n  }\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
+exports.push([module.i, ".footer__copyright {\n  color: white;\n  font-family: 'Amatic sc', sans-serif;\n  font-size: .9em;\n  letter-spacing: .2em;\n  margin-top: 1em; }\n  @media screen and (min-width: 992px) {\n    .footer__copyright {\n      font-size: 1em;\n      margin-top: 2em; } }\n\n.footer__tecnologies i {\n  font-size: .9em;\n  margin-left: .2em;\n  margin-right: .2em; }\n\n@media screen and (min-width: 992px) {\n  .footer__tecnologies {\n    margin-top: .2em; }\n    .footer__tecnologies i {\n      font-size: 1em;\n      margin-left: .3em;\n      margin-right: .3em; } }\n\n@media screen and (min-width: 992px) {\n  .footer {\n    margin-top: 1.3em; } }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/components/Footer/src/app/components/Footer/footer.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/components/Footer/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAGE;EACE,aCCgD;EDAhD,qCAAoC;EACpC,gBAAe;EACf,qBAAoB;EACpB,gBAAe,EAMhB;EAJC;IAPF;MAQI,eAAc;MACd,gBAAe,EAElB,EAAA;;AAED;EAEI,gBAAe;EACf,kBAAiB;EACjB,mBAAkB,EACnB;;AAED;EAPF;IAQI,iBAAgB,EAQnB;IAhBD;MAWM,eAAc;MACd,kBAAiB;MACjB,mBAAkB,EACnB,EAAA;;AAIL;EAhCF;IAiCI,kBAAiB,EAEpB,EAAA","file":"footer.scss","sourcesContent":["@import '../../../assets/scss/colors';\n\n.footer {\n  &__copyright {\n    color: $white-color-whitout-opacity;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: .9em;\n    letter-spacing: .2em;\n    margin-top: 1em;\n\n    @media screen and (min-width: 992px) {\n      font-size: 1em;\n      margin-top: 2em;\n    }\n  }\n\n  &__tecnologies {\n    i {\n      font-size: .9em;\n      margin-left: .2em;\n      margin-right: .2em;\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-top: .2em;\n\n      i {\n        font-size: 1em;\n        margin-left: .3em;\n        margin-right: .3em;\n      }\n    }\n  }\n\n  @media screen and (min-width: 992px) {\n    margin-top: 1.3em;\n  }\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -19241,13 +19249,13 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(8)(content, options);
+var update = __webpack_require__(4)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
 if(false) {
-	module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--0-1!../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./description.scss", function() {
-		var newContent = require("!!../../../node_modules/css-loader/index.js??ref--0-1!../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./description.scss");
+	module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--0-1!../../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./description.scss", function() {
+		var newContent = require("!!../../../../node_modules/css-loader/index.js??ref--0-1!../../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./description.scss");
 
 		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 
@@ -19276,12 +19284,260 @@ if(false) {
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(7)(true);
+exports = module.exports = __webpack_require__(3)(true);
 // imports
 
 
 // module
-exports.push([module.i, ".description {\n  color: #bebebe;\n  font-weight: 300;\n  height: 100vh;\n  margin-bottom: 0;\n  margin-left: 20px;\n  margin-right: 20px;\n  margin-top: 15px; }\n  @media screen and (min-width: 992px) {\n    .description {\n      border-right: 1px solid rgba(138, 178, 170, 0.5);\n      margin-top: 0;\n      padding-right: 41px;\n      padding-top: 40px; } }\n  .description__logo {\n    color: white;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    letter-spacing: 3px;\n    margin-bottom: 10px; }\n    .description__logo::before {\n      color: #5e8f86;\n      content: \"<\";\n      font-weight: bolder;\n      margin-right: 5px; }\n    .description__logo::after {\n      color: #5e8f86;\n      content: \"/>\";\n      font-weight: bolder;\n      margin-left: 5px; }\n    @media screen and (min-width: 992px) {\n      .description__logo {\n        margin-bottom: 30px; } }\n  .description__img img {\n    background-color: #5e8f86;\n    width: 70%; }\n  .description__socials {\n    margin-bottom: 1em;\n    margin-top: 1.5em; }\n    .description__socials a {\n      color: white; }\n      .description__socials a:hover {\n        color: #5e8f86;\n        transition: ease-in .3s; }\n      .description__socials a i {\n        font-size: 1.8em;\n        margin-left: .5em;\n        margin-right: .5em; }\n    @media screen and (min-width: 992px) {\n      .description__socials {\n        margin-bottom: 2em;\n        margin-top: 2em; } }\n  .description__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.3em; }\n    .description__information p {\n      margin-bottom: .2em; }\n      .description__information p span {\n        color: white; }\n      .description__information p:nth-child(3) {\n        color: #5e8f86; }\n        .description__information p:nth-child(3) span {\n          color: #8ab2aa; }\n    @media screen and (min-width: 992px) {\n      .description__information {\n        font-size: 1.5em; } }\n  .description hr {\n    background: linear-gradient(to right, rgba(255, 255, 255, 0), white, rgba(255, 255, 255, 0));\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%; }\n    @media screen and (min-width: 992px) {\n      .description hr {\n        margin-bottom: 1em;\n        margin-top: 1em; } }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/Description/src/app/Description/description.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/Description/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAQA;EACE,eCGiD;EDFjD,iBAAgB;EAChB,cAAa;EACb,iBAAgB;EAChB,kBAAiB;EACjB,mBAAkB;EAClB,iBAAgB,EAsGjB;EApGC;IATF;MAUI,iDCasD;MDZtD,cAAa;MACb,oBAAmB;MACnB,kBAAiB,EAgGpB,EAAA;EA7FC;IACE,aCpBgD;IDqBhD,qCAAoC;IACpC,iBAAgB;IAChB,oBAAmB;IACnB,oBAAmB,EAepB;IApBD;MArBA,eCuBiD;MDtBjD,aA4BsC;MA3BtC,oBAAmB;MA4Bf,kBAAiB,EAClB;IAVH;MArBA,eCuBiD;MDtBjD,cAiCuC;MAhCvC,oBAAmB;MAiCf,iBAAgB,EACjB;IAED;MAjBF;QAkBI,oBAAmB,EAEtB,EAAA;EAED;IAEI,0BCtB6C;IDuB7C,WAAU,EACX;EAGH;IACE,mBAAkB;IAClB,kBAAiB,EAqBlB;IAvBD;MAKI,aCrD8C,EDiE/C;MAjBH;QAQM,eCnC2C;QDoC3C,wBAAuB,EACxB;MAVL;QAaM,iBAAgB;QAChB,kBAAiB;QACjB,mBAAkB,EACnB;IAGH;MAnBF;QAoBI,mBAAkB;QAClB,gBAAe,EAElB,EAAA;EAED;IACE,kCAAiC;IACjC,iBAAgB,EAqBjB;IAvBD;MAKI,oBAAmB,EAapB;MAlBH;QAQM,aCjF4C,EDkF7C;MATL;QAYM,eChE2C,EDqE5C;QAjBL;UAeQ,eC5D+C,ED6DhD;IAIL;MApBF;QAqBI,iBAAgB,EAEnB,EAAA;EA7FH;IAgGI,6FAAyH;IACzH,UAAS;IACT,YAAW;IACX,oBAAmB;IACnB,iBAAgB;IAChB,mBAAkB;IAClB,WAAU,EAMX;IAJC;MAxGJ;QAyGM,mBAAkB;QAClB,gBAAe,EAElB,EAAA","file":"description.scss","sourcesContent":["@import '../../assets/scss/colors';\n\n@mixin generate-after-before($content) {\n  color: $green-color-whitout-opacity;\n  content: $content;\n  font-weight: bolder;\n}\n\n.description {\n  color: $gray-color-whitout-opacity;\n  font-weight: 300;\n  height: 100vh;\n  margin-bottom: 0;\n  margin-left: 20px;\n  margin-right: 20px;\n  margin-top: 15px;\n\n  @media screen and (min-width: 992px) {\n    border-right: 1px solid $lightgreen-color-with-opacity-50;\n    margin-top: 0;\n    padding-right: 41px;\n    padding-top: 40px;\n  }\n\n  &__logo {\n    color: $white-color-whitout-opacity;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    letter-spacing: 3px;\n    margin-bottom: 10px;\n\n    &::before {\n      @include generate-after-before('<');\n      margin-right: 5px;\n    }\n\n    &::after {\n      @include generate-after-before('/>');\n      margin-left: 5px;\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 30px;\n    }\n  }\n\n  &__img {\n    img {\n      background-color: $green-color-whitout-opacity;\n      width: 70%;\n    }\n  }\n\n  &__socials {\n    margin-bottom: 1em;\n    margin-top: 1.5em;\n\n    a {\n      color: $white-color-whitout-opacity;\n\n      &:hover {\n        color: $green-color-whitout-opacity;\n        transition: ease-in .3s;\n      }\n\n      i {\n        font-size: 1.8em;\n        margin-left: .5em;\n        margin-right: .5em;\n      }\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 2em;\n      margin-top: 2em;\n    }\n  }\n\n  &__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.3em;\n\n    p {\n      margin-bottom: .2em;\n\n      span {\n        color: $white-color-whitout-opacity;\n      }\n\n      &:nth-child(3) {\n        color: $green-color-whitout-opacity;\n\n        span {\n          color: $lightgreen-color-whitout-opacity;\n        }\n      }\n    }\n\n    @media screen and (min-width: 992px) {\n      font-size: 1.5em;\n    }\n  }\n\n  hr {\n    background: linear-gradient(to right, $white-color-with-opacity, $white-color-whitout-opacity, $white-color-with-opacity);\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%;\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 1em;\n      margin-top: 1em;\n    }\n  }\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
+exports.push([module.i, ".description {\n  color: #bebebe;\n  font-weight: 300;\n  height: 100vh;\n  margin-bottom: 0;\n  margin-left: 20px;\n  margin-right: 20px;\n  margin-top: 15px; }\n  @media screen and (min-width: 992px) {\n    .description {\n      border-right: 1px solid rgba(138, 178, 170, 0.5);\n      margin-top: 0;\n      padding-right: 41px;\n      padding-top: 40px; } }\n  .description__logo {\n    color: white;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    letter-spacing: 3px;\n    margin-bottom: 10px; }\n    .description__logo::before {\n      color: #5e8f86;\n      content: \"<\";\n      font-weight: bolder;\n      margin-right: 5px; }\n    .description__logo::after {\n      color: #5e8f86;\n      content: \"/>\";\n      font-weight: bolder;\n      margin-left: 5px; }\n    @media screen and (min-width: 992px) {\n      .description__logo {\n        margin-bottom: 30px; } }\n  .description__img img {\n    background-color: #5e8f86;\n    width: 70%; }\n  .description__socials {\n    margin-bottom: 1em;\n    margin-top: 1.5em; }\n    .description__socials a {\n      color: white; }\n      .description__socials a:hover {\n        color: #5e8f86;\n        transition: ease-in .3s; }\n      .description__socials a i {\n        font-size: 1.8em;\n        margin-left: .5em;\n        margin-right: .5em; }\n    @media screen and (min-width: 992px) {\n      .description__socials {\n        margin-bottom: 2em;\n        margin-top: 2em; } }\n  .description__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.3em; }\n    .description__information p {\n      margin-bottom: .2em; }\n      .description__information p span {\n        color: white; }\n      .description__information p:nth-child(3) {\n        color: #5e8f86; }\n        .description__information p:nth-child(3) span {\n          color: #8ab2aa; }\n    @media screen and (min-width: 992px) {\n      .description__information {\n        font-size: 1.5em; }\n        .description__information p:nth-child(3) {\n          margin-top: 30px; } }\n  .description hr {\n    background: linear-gradient(to right, rgba(255, 255, 255, 0), white, rgba(255, 255, 255, 0));\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%; }\n    @media screen and (min-width: 992px) {\n      .description hr {\n        margin-bottom: 1em;\n        margin-top: 1em; } }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/views/Description/src/app/views/Description/description.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/views/Description/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAQA;EACE,eCGiD;EDFjD,iBAAgB;EAChB,cAAa;EACb,iBAAgB;EAChB,kBAAiB;EACjB,mBAAkB;EAClB,iBAAgB,EA0GjB;EAxGC;IATF;MAUI,iDCasD;MDZtD,cAAa;MACb,oBAAmB;MACnB,kBAAiB,EAoGpB,EAAA;EAjGC;IACE,aCpBgD;IDqBhD,qCAAoC;IACpC,iBAAgB;IAChB,oBAAmB;IACnB,oBAAmB,EAepB;IApBD;MArBA,eCuBiD;MDtBjD,aA4BsC;MA3BtC,oBAAmB;MA4Bf,kBAAiB,EAClB;IAVH;MArBA,eCuBiD;MDtBjD,cAiCuC;MAhCvC,oBAAmB;MAiCf,iBAAgB,EACjB;IAED;MAjBF;QAkBI,oBAAmB,EAEtB,EAAA;EAED;IAEI,0BCtB6C;IDuB7C,WAAU,EACX;EAGH;IACE,mBAAkB;IAClB,kBAAiB,EAqBlB;IAvBD;MAKI,aCrD8C,EDiE/C;MAjBH;QAQM,eCnC2C;QDoC3C,wBAAuB,EACxB;MAVL;QAaM,iBAAgB;QAChB,kBAAiB;QACjB,mBAAkB,EACnB;IAGH;MAnBF;QAoBI,mBAAkB;QAClB,gBAAe,EAElB,EAAA;EAED;IACE,kCAAiC;IACjC,iBAAgB,EAyBjB;IA3BD;MAKI,oBAAmB,EAapB;MAlBH;QAQM,aCjF4C,EDkF7C;MATL;QAYM,eChE2C,EDqE5C;QAjBL;UAeQ,eC5D+C,ED6DhD;IAIL;MApBF;QAqBI,iBAAgB,EAMnB;QA3BD;UAwBM,iBAAgB,EACjB,EAAA;EA/FP;IAoGI,6FAAyH;IACzH,UAAS;IACT,YAAW;IACX,oBAAmB;IACnB,iBAAgB;IAChB,mBAAkB;IAClB,WAAU,EAMX;IAJC;MA5GJ;QA6GM,mBAAkB;QAClB,gBAAe,EAElB,EAAA","file":"description.scss","sourcesContent":["@import '../../../assets/scss/colors';\n\n@mixin generate-after-before($content) {\n  color: $green-color-whitout-opacity;\n  content: $content;\n  font-weight: bolder;\n}\n\n.description {\n  color: $gray-color-whitout-opacity;\n  font-weight: 300;\n  height: 100vh;\n  margin-bottom: 0;\n  margin-left: 20px;\n  margin-right: 20px;\n  margin-top: 15px;\n\n  @media screen and (min-width: 992px) {\n    border-right: 1px solid $lightgreen-color-with-opacity-50;\n    margin-top: 0;\n    padding-right: 41px;\n    padding-top: 40px;\n  }\n\n  &__logo {\n    color: $white-color-whitout-opacity;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    letter-spacing: 3px;\n    margin-bottom: 10px;\n\n    &::before {\n      @include generate-after-before('<');\n      margin-right: 5px;\n    }\n\n    &::after {\n      @include generate-after-before('/>');\n      margin-left: 5px;\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 30px;\n    }\n  }\n\n  &__img {\n    img {\n      background-color: $green-color-whitout-opacity;\n      width: 70%;\n    }\n  }\n\n  &__socials {\n    margin-bottom: 1em;\n    margin-top: 1.5em;\n\n    a {\n      color: $white-color-whitout-opacity;\n\n      &:hover {\n        color: $green-color-whitout-opacity;\n        transition: ease-in .3s;\n      }\n\n      i {\n        font-size: 1.8em;\n        margin-left: .5em;\n        margin-right: .5em;\n      }\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 2em;\n      margin-top: 2em;\n    }\n  }\n\n  &__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.3em;\n\n    p {\n      margin-bottom: .2em;\n\n      span {\n        color: $white-color-whitout-opacity;\n      }\n\n      &:nth-child(3) {\n        color: $green-color-whitout-opacity;\n\n        span {\n          color: $lightgreen-color-whitout-opacity;\n        }\n      }\n    }\n\n    @media screen and (min-width: 992px) {\n      font-size: 1.5em;\n\n      p:nth-child(3) {\n        margin-top: 30px;\n      }\n    }\n  }\n\n  hr {\n    background: linear-gradient(to right, $white-color-with-opacity, $white-color-whitout-opacity, $white-color-with-opacity);\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%;\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 1em;\n      margin-top: 1em;\n    }\n  }\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Post = __webpack_require__(42);
+
+var _Post2 = _interopRequireDefault(_Post);
+
+__webpack_require__(45);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Posts = function (_Component) {
+  _inherits(Posts, _Component);
+
+  function Posts(props) {
+    _classCallCheck(this, Posts);
+
+    var _this = _possibleConstructorReturn(this, (Posts.__proto__ || Object.getPrototypeOf(Posts)).call(this, props));
+
+    _this.state = { posts: [] };
+    return _this;
+  }
+
+  _createClass(Posts, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this2 = this;
+
+      var url = "http://localhost:3000/node/api/blog/";
+      fetch(url).then(function (res) {
+        return res.json();
+      }).then(function (response) {
+        console.log(response.response);
+        _this2.setState({
+          posts: response.response
+        });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      console.log(this.state.posts);
+      if (this.state.posts.length > 0) {
+        alert('yes');
+        return _react2.default.createElement(
+          'div',
+          { className: 'posts' },
+          _react2.default.createElement(_Post2.default, { detalle: this.state.posts })
+        );
+      } else {
+        alert('nop');
+        return _react2.default.createElement(
+          'p',
+          { className: 'text-center' },
+          'Cargando empleados...'
+        );
+      }
+    }
+  }]);
+
+  return Posts;
+}(_react.Component);
+
+;
+
+exports.default = Posts;
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(43);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Post = function Post() {
+  return _react2.default.createElement(
+    'section',
+    { className: 'post col-8' },
+    _react2.default.createElement(
+      'h1',
+      null,
+      'T\xEDtulo del post'
+    )
+  );
+};
+
+exports.default = Post;
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(44);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(4)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {
+	module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--0-1!../../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./Post.scss", function() {
+		var newContent = require("!!../../../../node_modules/css-loader/index.js??ref--0-1!../../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./Post.scss");
+
+		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(true);
+// imports
+
+
+// module
+exports.push([module.i, ".post {\n  border: 1px solid #bebebe;\n  color: #bebebe;\n  margin-bottom: 35px; }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/components/Post/src/app/components/Post/Post.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/components/Post/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAEA;EACE,0BCSiD;EDRjD,eCQiD;EDPjD,oBAAmB,EACpB","file":"Post.scss","sourcesContent":["@import '../../../assets/scss/colors';\n\n.post {\n  border: 1px solid $gray-color-whitout-opacity;\n  color: $gray-color-whitout-opacity;\n  margin-bottom: 35px;\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(46);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(4)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {
+	module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--0-1!../../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./Posts.scss", function() {
+		var newContent = require("!!../../../../node_modules/css-loader/index.js??ref--0-1!../../../../node_modules/sass-loader/lib/loader.js??ref--0-2!./Posts.scss");
+
+		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(true);
+// imports
+
+
+// module
+exports.push([module.i, ".posts:first-child {\n  margin-top: 45px; }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/views/Posts/src/app/views/Posts/Posts.scss"],"names":[],"mappings":"AAAA;EAEI,iBAAgB,EACjB","file":"Posts.scss","sourcesContent":[".posts{\n  &:first-child{\n    margin-top: 45px;\n  }\n}\n"],"sourceRoot":""}]);
 
 // exports
 

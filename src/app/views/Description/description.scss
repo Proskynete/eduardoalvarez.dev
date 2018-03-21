@@ -1,4 +1,4 @@
-@import '../../assets/scss/colors';
+@import '../../../assets/scss/colors';
 
 @mixin generate-after-before($content) {
   color: $green-color-whitout-opacity;
@@ -9,7 +9,7 @@
 .description {
   color: $gray-color-whitout-opacity;
   font-weight: 300;
-  height: 100vh;
+  height: 100%;
   margin-bottom: 0;
   margin-left: 20px;
   margin-right: 20px;
@@ -17,6 +17,7 @@
 
   @media screen and (min-width: 992px) {
     border-right: 1px solid $lightgreen-color-with-opacity-50;
+    height: 100vh;
     margin-top: 0;
     padding-right: 41px;
     padding-top: 40px;
@@ -98,6 +99,10 @@
 
     @media screen and (min-width: 992px) {
       font-size: 1.5em;
+
+      p:nth-child(3) {
+        margin-top: 30px;
+      }
     }
   }
 

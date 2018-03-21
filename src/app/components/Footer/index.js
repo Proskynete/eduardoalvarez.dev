@@ -4,7 +4,7 @@ import './footer.scss';
 const Footer = () => {
   return (
       <div className="d-flex flex-column justify-content-center">
-        <div className="footer flex-row align-items-end">
+        <div className="footer flex-row align-items-end d-none d-sm-block">
           <div className="footer__copyright">Copyright 2016 - 2018</div>
           <div className="footer__tecnologies d-none d-sm-block">
             <i className="fab fa-html5"></i>

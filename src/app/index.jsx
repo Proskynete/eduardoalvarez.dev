@@ -3,16 +3,19 @@ import { render } from 'react-dom';
 
 import './index.scss';
 
-import Description from './Description/';
+import Description from './views/Description/';
+import Posts from './views/Posts/';
 
 class App extends Component {
   render () {
-  	return(
+  	return (
       <div className="row">
         <div className="col-12 col-md-3">
           <Description />
         </div>
-        <div className="col-12 col-md-9" />
+        <div className="col-12 col-md-9">
+          <Posts />
+        </div>
       </div>
   	);
   };

@@ -1,7 +1,7 @@
 import React from 'react';
-import Footer from '../Footer/index.jsx';
+import Footer from '../../components/Footer/';
 
-import image from '../../assets/img/me.png';
+import image from '../../../assets/img/me.png';
 import './description.scss';
 
 const Description = () => {
@@ -33,6 +33,7 @@ const Description = () => {
           <span>Si no</span> estás dispuesto <span>a darlo todo</span>, no tienes <span>derecho a intentarlo</span>.
         </p>
       </div>
+
 
       <Footer />
     </div>
