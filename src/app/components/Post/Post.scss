@@ -9,48 +9,44 @@
   &__header {
     &__author-name {
       font-size: 14px;
+      margin: 0;
     }
 
     &__date {
-      font-size: 12px;
+      font-size: 10px;
       margin-bottom: 20px;
-    }
-
-    &__title {
-      font-family: 'Amatic sc', cursive;
-      font-size: 30px;
-
-      &:hover {
-        color: $green-color-whitout-opacity;
-      }
     }
   }
 
   &__body {
-    text-align: justify;
-  }
+    &__title {
+      font-family: 'Amatic sc', cursive;
+      font-size: 30px;
+    }
 
-  &__footer {
-    font-family: 'Amatic sc', cursive;
-    margin-top: 10px;
+    &__content {
+      text-align: justify;
+    }
 
-    &__category {
-      font-size: 20px;
+    &:hover {
+      color: $green-color-whitout-opacity;
+      cursor: pointer;
     }
   }
 
-  hr {
-    background: linear-gradient(to right, $white-color-with-opacity, $white-color-whitout-opacity, $white-color-with-opacity);
-    border: 0;
-    height: 1px;
-    margin-bottom: .5em;
-    margin-top: .5em;
-    text-align: center;
-    width: 70%;
+  &__footer {
+    border-top: 1px solid $gray-color-whitout-opacity;
+    margin-top: 30px;
+    padding-top: 10px;
 
-    @media screen and (min-width: 992px) {
-      margin-bottom: 1em;
-      margin-top: 1em;
+    &__title {
+      font-size: 10px;
+      margin: 0;
+    }
+
+    &__categories {
+      font-family: 'Amatic sc', cursive;
+      font-size: 18px;
     }
   }
 }
