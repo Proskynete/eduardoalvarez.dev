@@ -19137,7 +19137,7 @@ var Footer = function Footer() {
     { className: 'd-flex flex-column justify-content-center' },
     _react2.default.createElement(
       'div',
-      { className: 'footer flex-row align-items-end' },
+      { className: 'footer flex-row align-items-end d-none d-sm-block' },
       _react2.default.createElement(
         'div',
         { className: 'footer__copyright' },
@@ -19289,7 +19289,7 @@ exports = module.exports = __webpack_require__(3)(true);
 
 
 // module
-exports.push([module.i, ".description {\n  color: #bebebe;\n  font-weight: 300;\n  height: 100vh;\n  margin-bottom: 0;\n  margin-left: 20px;\n  margin-right: 20px;\n  margin-top: 15px; }\n  @media screen and (min-width: 992px) {\n    .description {\n      border-right: 1px solid rgba(138, 178, 170, 0.5);\n      margin-top: 0;\n      padding-right: 41px;\n      padding-top: 40px; } }\n  .description__logo {\n    color: white;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    letter-spacing: 3px;\n    margin-bottom: 10px; }\n    .description__logo::before {\n      color: #5e8f86;\n      content: \"<\";\n      font-weight: bolder;\n      margin-right: 5px; }\n    .description__logo::after {\n      color: #5e8f86;\n      content: \"/>\";\n      font-weight: bolder;\n      margin-left: 5px; }\n    @media screen and (min-width: 992px) {\n      .description__logo {\n        margin-bottom: 30px; } }\n  .description__img img {\n    background-color: #5e8f86;\n    width: 70%; }\n  .description__socials {\n    margin-bottom: 1em;\n    margin-top: 1.5em; }\n    .description__socials a {\n      color: white; }\n      .description__socials a:hover {\n        color: #5e8f86;\n        transition: ease-in .3s; }\n      .description__socials a i {\n        font-size: 1.8em;\n        margin-left: .5em;\n        margin-right: .5em; }\n    @media screen and (min-width: 992px) {\n      .description__socials {\n        margin-bottom: 2em;\n        margin-top: 2em; } }\n  .description__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.3em; }\n    .description__information p {\n      margin-bottom: .2em; }\n      .description__information p span {\n        color: white; }\n      .description__information p:nth-child(3) {\n        color: #5e8f86; }\n        .description__information p:nth-child(3) span {\n          color: #8ab2aa; }\n    @media screen and (min-width: 992px) {\n      .description__information {\n        font-size: 1.5em; }\n        .description__information p:nth-child(3) {\n          margin-top: 30px; } }\n  .description hr {\n    background: linear-gradient(to right, rgba(255, 255, 255, 0), white, rgba(255, 255, 255, 0));\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%; }\n    @media screen and (min-width: 992px) {\n      .description hr {\n        margin-bottom: 1em;\n        margin-top: 1em; } }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/views/Description/src/app/views/Description/description.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/views/Description/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAQA;EACE,eCGiD;EDFjD,iBAAgB;EAChB,cAAa;EACb,iBAAgB;EAChB,kBAAiB;EACjB,mBAAkB;EAClB,iBAAgB,EA0GjB;EAxGC;IATF;MAUI,iDCasD;MDZtD,cAAa;MACb,oBAAmB;MACnB,kBAAiB,EAoGpB,EAAA;EAjGC;IACE,aCpBgD;IDqBhD,qCAAoC;IACpC,iBAAgB;IAChB,oBAAmB;IACnB,oBAAmB,EAepB;IApBD;MArBA,eCuBiD;MDtBjD,aA4BsC;MA3BtC,oBAAmB;MA4Bf,kBAAiB,EAClB;IAVH;MArBA,eCuBiD;MDtBjD,cAiCuC;MAhCvC,oBAAmB;MAiCf,iBAAgB,EACjB;IAED;MAjBF;QAkBI,oBAAmB,EAEtB,EAAA;EAED;IAEI,0BCtB6C;IDuB7C,WAAU,EACX;EAGH;IACE,mBAAkB;IAClB,kBAAiB,EAqBlB;IAvBD;MAKI,aCrD8C,EDiE/C;MAjBH;QAQM,eCnC2C;QDoC3C,wBAAuB,EACxB;MAVL;QAaM,iBAAgB;QAChB,kBAAiB;QACjB,mBAAkB,EACnB;IAGH;MAnBF;QAoBI,mBAAkB;QAClB,gBAAe,EAElB,EAAA;EAED;IACE,kCAAiC;IACjC,iBAAgB,EAyBjB;IA3BD;MAKI,oBAAmB,EAapB;MAlBH;QAQM,aCjF4C,EDkF7C;MATL;QAYM,eChE2C,EDqE5C;QAjBL;UAeQ,eC5D+C,ED6DhD;IAIL;MApBF;QAqBI,iBAAgB,EAMnB;QA3BD;UAwBM,iBAAgB,EACjB,EAAA;EA/FP;IAoGI,6FAAyH;IACzH,UAAS;IACT,YAAW;IACX,oBAAmB;IACnB,iBAAgB;IAChB,mBAAkB;IAClB,WAAU,EAMX;IAJC;MA5GJ;QA6GM,mBAAkB;QAClB,gBAAe,EAElB,EAAA","file":"description.scss","sourcesContent":["@import '../../../assets/scss/colors';\n\n@mixin generate-after-before($content) {\n  color: $green-color-whitout-opacity;\n  content: $content;\n  font-weight: bolder;\n}\n\n.description {\n  color: $gray-color-whitout-opacity;\n  font-weight: 300;\n  height: 100vh;\n  margin-bottom: 0;\n  margin-left: 20px;\n  margin-right: 20px;\n  margin-top: 15px;\n\n  @media screen and (min-width: 992px) {\n    border-right: 1px solid $lightgreen-color-with-opacity-50;\n    margin-top: 0;\n    padding-right: 41px;\n    padding-top: 40px;\n  }\n\n  &__logo {\n    color: $white-color-whitout-opacity;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    letter-spacing: 3px;\n    margin-bottom: 10px;\n\n    &::before {\n      @include generate-after-before('<');\n      margin-right: 5px;\n    }\n\n    &::after {\n      @include generate-after-before('/>');\n      margin-left: 5px;\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 30px;\n    }\n  }\n\n  &__img {\n    img {\n      background-color: $green-color-whitout-opacity;\n      width: 70%;\n    }\n  }\n\n  &__socials {\n    margin-bottom: 1em;\n    margin-top: 1.5em;\n\n    a {\n      color: $white-color-whitout-opacity;\n\n      &:hover {\n        color: $green-color-whitout-opacity;\n        transition: ease-in .3s;\n      }\n\n      i {\n        font-size: 1.8em;\n        margin-left: .5em;\n        margin-right: .5em;\n      }\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 2em;\n      margin-top: 2em;\n    }\n  }\n\n  &__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.3em;\n\n    p {\n      margin-bottom: .2em;\n\n      span {\n        color: $white-color-whitout-opacity;\n      }\n\n      &:nth-child(3) {\n        color: $green-color-whitout-opacity;\n\n        span {\n          color: $lightgreen-color-whitout-opacity;\n        }\n      }\n    }\n\n    @media screen and (min-width: 992px) {\n      font-size: 1.5em;\n\n      p:nth-child(3) {\n        margin-top: 30px;\n      }\n    }\n  }\n\n  hr {\n    background: linear-gradient(to right, $white-color-with-opacity, $white-color-whitout-opacity, $white-color-with-opacity);\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%;\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 1em;\n      margin-top: 1em;\n    }\n  }\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
+exports.push([module.i, ".description {\n  color: #bebebe;\n  font-weight: 300;\n  height: 100%;\n  margin-bottom: 0;\n  margin-left: 20px;\n  margin-right: 20px;\n  margin-top: 15px; }\n  @media screen and (min-width: 992px) {\n    .description {\n      border-right: 1px solid rgba(138, 178, 170, 0.5);\n      height: 100vh;\n      margin-top: 0;\n      padding-right: 41px;\n      padding-top: 40px; } }\n  .description__logo {\n    color: white;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    letter-spacing: 3px;\n    margin-bottom: 10px; }\n    .description__logo::before {\n      color: #5e8f86;\n      content: \"<\";\n      font-weight: bolder;\n      margin-right: 5px; }\n    .description__logo::after {\n      color: #5e8f86;\n      content: \"/>\";\n      font-weight: bolder;\n      margin-left: 5px; }\n    @media screen and (min-width: 992px) {\n      .description__logo {\n        margin-bottom: 30px; } }\n  .description__img img {\n    background-color: #5e8f86;\n    width: 70%; }\n  .description__socials {\n    margin-bottom: 1em;\n    margin-top: 1.5em; }\n    .description__socials a {\n      color: white; }\n      .description__socials a:hover {\n        color: #5e8f86;\n        transition: ease-in .3s; }\n      .description__socials a i {\n        font-size: 1.8em;\n        margin-left: .5em;\n        margin-right: .5em; }\n    @media screen and (min-width: 992px) {\n      .description__socials {\n        margin-bottom: 2em;\n        margin-top: 2em; } }\n  .description__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.3em; }\n    .description__information p {\n      margin-bottom: .2em; }\n      .description__information p span {\n        color: white; }\n      .description__information p:nth-child(3) {\n        color: #5e8f86; }\n        .description__information p:nth-child(3) span {\n          color: #8ab2aa; }\n    @media screen and (min-width: 992px) {\n      .description__information {\n        font-size: 1.5em; }\n        .description__information p:nth-child(3) {\n          margin-top: 30px; } }\n  .description hr {\n    background: linear-gradient(to right, rgba(255, 255, 255, 0), white, rgba(255, 255, 255, 0));\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%; }\n    @media screen and (min-width: 992px) {\n      .description hr {\n        margin-bottom: 1em;\n        margin-top: 1em; } }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/views/Description/src/app/views/Description/description.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/views/Description/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAQA;EACE,eCGiD;EDFjD,iBAAgB;EAChB,aAAY;EACZ,iBAAgB;EAChB,kBAAiB;EACjB,mBAAkB;EAClB,iBAAgB,EA2GjB;EAzGC;IATF;MAUI,iDCasD;MDZtD,cAAa;MACb,cAAa;MACb,oBAAmB;MACnB,kBAAiB,EAoGpB,EAAA;EAjGC;IACE,aCrBgD;IDsBhD,qCAAoC;IACpC,iBAAgB;IAChB,oBAAmB;IACnB,oBAAmB,EAepB;IApBD;MAtBA,eCuBiD;MDtBjD,aA6BsC;MA5BtC,oBAAmB;MA6Bf,kBAAiB,EAClB;IAVH;MAtBA,eCuBiD;MDtBjD,cAkCuC;MAjCvC,oBAAmB;MAkCf,iBAAgB,EACjB;IAED;MAjBF;QAkBI,oBAAmB,EAEtB,EAAA;EAED;IAEI,0BCvB6C;IDwB7C,WAAU,EACX;EAGH;IACE,mBAAkB;IAClB,kBAAiB,EAqBlB;IAvBD;MAKI,aCtD8C,EDkE/C;MAjBH;QAQM,eCpC2C;QDqC3C,wBAAuB,EACxB;MAVL;QAaM,iBAAgB;QAChB,kBAAiB;QACjB,mBAAkB,EACnB;IAGH;MAnBF;QAoBI,mBAAkB;QAClB,gBAAe,EAElB,EAAA;EAED;IACE,kCAAiC;IACjC,iBAAgB,EAyBjB;IA3BD;MAKI,oBAAmB,EAapB;MAlBH;QAQM,aClF4C,EDmF7C;MATL;QAYM,eCjE2C,EDsE5C;QAjBL;UAeQ,eC7D+C,ED8DhD;IAIL;MApBF;QAqBI,iBAAgB,EAMnB;QA3BD;UAwBM,iBAAgB,EACjB,EAAA;EAhGP;IAqGI,6FAAyH;IACzH,UAAS;IACT,YAAW;IACX,oBAAmB;IACnB,iBAAgB;IAChB,mBAAkB;IAClB,WAAU,EAMX;IAJC;MA7GJ;QA8GM,mBAAkB;QAClB,gBAAe,EAElB,EAAA","file":"description.scss","sourcesContent":["@import '../../../assets/scss/colors';\n\n@mixin generate-after-before($content) {\n  color: $green-color-whitout-opacity;\n  content: $content;\n  font-weight: bolder;\n}\n\n.description {\n  color: $gray-color-whitout-opacity;\n  font-weight: 300;\n  height: 100%;\n  margin-bottom: 0;\n  margin-left: 20px;\n  margin-right: 20px;\n  margin-top: 15px;\n\n  @media screen and (min-width: 992px) {\n    border-right: 1px solid $lightgreen-color-with-opacity-50;\n    height: 100vh;\n    margin-top: 0;\n    padding-right: 41px;\n    padding-top: 40px;\n  }\n\n  &__logo {\n    color: $white-color-whitout-opacity;\n    font-family: 'Amatic sc', sans-serif;\n    font-size: 1.8em;\n    letter-spacing: 3px;\n    margin-bottom: 10px;\n\n    &::before {\n      @include generate-after-before('<');\n      margin-right: 5px;\n    }\n\n    &::after {\n      @include generate-after-before('/>');\n      margin-left: 5px;\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 30px;\n    }\n  }\n\n  &__img {\n    img {\n      background-color: $green-color-whitout-opacity;\n      width: 70%;\n    }\n  }\n\n  &__socials {\n    margin-bottom: 1em;\n    margin-top: 1.5em;\n\n    a {\n      color: $white-color-whitout-opacity;\n\n      &:hover {\n        color: $green-color-whitout-opacity;\n        transition: ease-in .3s;\n      }\n\n      i {\n        font-size: 1.8em;\n        margin-left: .5em;\n        margin-right: .5em;\n      }\n    }\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 2em;\n      margin-top: 2em;\n    }\n  }\n\n  &__information {\n    font-family: 'Amatic sc', cursive;\n    font-size: 1.3em;\n\n    p {\n      margin-bottom: .2em;\n\n      span {\n        color: $white-color-whitout-opacity;\n      }\n\n      &:nth-child(3) {\n        color: $green-color-whitout-opacity;\n\n        span {\n          color: $lightgreen-color-whitout-opacity;\n        }\n      }\n    }\n\n    @media screen and (min-width: 992px) {\n      font-size: 1.5em;\n\n      p:nth-child(3) {\n        margin-top: 30px;\n      }\n    }\n  }\n\n  hr {\n    background: linear-gradient(to right, $white-color-with-opacity, $white-color-whitout-opacity, $white-color-with-opacity);\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%;\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 1em;\n      margin-top: 1em;\n    }\n  }\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -19328,10 +19328,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Posts = function (_Component) {
   _inherits(Posts, _Component);
 
-  function Posts(props) {
+  function Posts() {
     _classCallCheck(this, Posts);
 
-    var _this = _possibleConstructorReturn(this, (Posts.__proto__ || Object.getPrototypeOf(Posts)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Posts.__proto__ || Object.getPrototypeOf(Posts)).call(this));
 
     _this.state = { posts: [] };
     return _this;
@@ -19343,32 +19343,27 @@ var Posts = function (_Component) {
       var _this2 = this;
 
       var url = "http://localhost:3000/node/api/blog/";
-      fetch(url).then(function (res) {
-        return res.json();
+      fetch(url).then(function (response) {
+        return response.json();
       }).then(function (response) {
-        console.log(response.response);
         _this2.setState({
-          posts: response.response
+          posts: response.response.posts
         });
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.state.posts);
-      if (this.state.posts.length > 0) {
-        alert('yes');
+      if (this.state.posts.length < 1) {
+        return _react2.default.createElement('p', { className: 'text-center' });
+      } else {
+        var postContent = this.state.posts.map(function (data) {
+          return _react2.default.createElement(_Post2.default, { content: data, key: data._id });
+        });
         return _react2.default.createElement(
           'div',
           { className: 'posts' },
-          _react2.default.createElement(_Post2.default, { detalle: this.state.posts })
-        );
-      } else {
-        alert('nop');
-        return _react2.default.createElement(
-          'p',
-          { className: 'text-center' },
-          'Cargando empleados...'
+          postContent
         );
       }
     }
@@ -19392,6 +19387,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
@@ -19400,17 +19397,75 @@ __webpack_require__(43);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Post = function Post() {
-  return _react2.default.createElement(
-    'section',
-    { className: 'post col-8' },
-    _react2.default.createElement(
-      'h1',
-      null,
-      'T\xEDtulo del post'
-    )
-  );
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Post = function (_Component) {
+  _inherits(Post, _Component);
+
+  function Post(props) {
+    _classCallCheck(this, Post);
+
+    var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
+
+    console.log(props.content);
+    return _this;
+  }
+
+  _createClass(Post, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'section',
+        { className: 'post col-12 col-md-8' },
+        _react2.default.createElement(
+          'div',
+          { className: 'post__header' },
+          _react2.default.createElement(
+            'h2',
+            { className: 'post__header__author-name' },
+            'Eduardo Alvarez'
+          ),
+          _react2.default.createElement(
+            'h4',
+            { className: 'post__header__date' },
+            this.props.content.createDate
+          ),
+          _react2.default.createElement(
+            'h1',
+            { className: 'post__header__title' },
+            this.props.content.title
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'post__body' },
+          _react2.default.createElement(
+            'p',
+            { className: 'post__body__content' },
+            this.props.content.shortDescription
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'post__footer text-right' },
+          _react2.default.createElement(
+            'h3',
+            { className: 'post__footer__category' },
+            this.props.content.category
+          )
+        )
+      );
+    }
+  }]);
+
+  return Post;
+}(_react.Component);
+
+;
 
 exports.default = Post;
 
@@ -19473,7 +19528,7 @@ exports = module.exports = __webpack_require__(3)(true);
 
 
 // module
-exports.push([module.i, ".post {\n  border: 1px solid #bebebe;\n  color: #bebebe;\n  margin-bottom: 35px; }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/components/Post/src/app/components/Post/Post.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/components/Post/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAEA;EACE,0BCSiD;EDRjD,eCQiD;EDPjD,oBAAmB,EACpB","file":"Post.scss","sourcesContent":["@import '../../../assets/scss/colors';\n\n.post {\n  border: 1px solid $gray-color-whitout-opacity;\n  color: $gray-color-whitout-opacity;\n  margin-bottom: 35px;\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
+exports.push([module.i, ".post {\n  border: 1px solid #bebebe;\n  color: #bebebe;\n  margin-bottom: 35px;\n  padding: 40px 48px 20px; }\n  .post__header__author-name {\n    font-size: 14px; }\n  .post__header__date {\n    font-size: 12px;\n    margin-bottom: 20px; }\n  .post__header__title {\n    font-family: 'Amatic sc', cursive;\n    font-size: 30px; }\n    .post__header__title:hover {\n      color: #8ab2aa; }\n  .post__body {\n    text-align: justify; }\n  .post__footer {\n    font-family: 'Amatic sc', cursive;\n    margin-top: 10px; }\n    .post__footer__category {\n      font-size: 20px; }\n  .post hr {\n    background: linear-gradient(to right, rgba(255, 255, 255, 0), white, rgba(255, 255, 255, 0));\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%; }\n    @media screen and (min-width: 992px) {\n      .post hr {\n        margin-bottom: 1em;\n        margin-top: 1em; } }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/components/Post/src/app/components/Post/Post.scss","/Users/eduardo.alvarez/Desktop/blog/blog/src/app/components/Post/src/assets/scss/_colors.scss"],"names":[],"mappings":"AAEA;EACE,0BCSiD;EDRjD,eCQiD;EDPjD,oBAAmB;EACnB,wBAAuB,EAiDxB;EA9CG;IACE,gBAAe,EAChB;EAED;IACE,gBAAe;IACf,oBAAmB,EACpB;EAED;IACE,kCAAiC;IACjC,gBAAe,EAKhB;IAPD;MAKI,eCUiD,EDTlD;EAIL;IACE,oBAAmB,EACpB;EAED;IACE,kCAAiC;IACjC,iBAAgB,EAKjB;IAHC;MACE,gBAAe,EAChB;EApCL;IAwCI,6FAAyH;IACzH,UAAS;IACT,YAAW;IACX,oBAAmB;IACnB,iBAAgB;IAChB,mBAAkB;IAClB,WAAU,EAMX;IAJC;MAhDJ;QAiDM,mBAAkB;QAClB,gBAAe,EAElB,EAAA","file":"Post.scss","sourcesContent":["@import '../../../assets/scss/colors';\n\n.post {\n  border: 1px solid $gray-color-whitout-opacity;\n  color: $gray-color-whitout-opacity;\n  margin-bottom: 35px;\n  padding: 40px 48px 20px;\n\n  &__header {\n    &__author-name {\n      font-size: 14px;\n    }\n\n    &__date {\n      font-size: 12px;\n      margin-bottom: 20px;\n    }\n\n    &__title {\n      font-family: 'Amatic sc', cursive;\n      font-size: 30px;\n\n      &:hover {\n        color: $lightgreen-color-whitout-opacity;\n      }\n    }\n  }\n\n  &__body {\n    text-align: justify;\n  }\n\n  &__footer {\n    font-family: 'Amatic sc', cursive;\n    margin-top: 10px;\n\n    &__category {\n      font-size: 20px;\n    }\n  }\n\n  hr {\n    background: linear-gradient(to right, $white-color-with-opacity, $white-color-whitout-opacity, $white-color-with-opacity);\n    border: 0;\n    height: 1px;\n    margin-bottom: .5em;\n    margin-top: .5em;\n    text-align: center;\n    width: 70%;\n\n    @media screen and (min-width: 992px) {\n      margin-bottom: 1em;\n      margin-top: 1em;\n    }\n  }\n}\n","// White color\n$white-color-with-opacity: rgba(255, 255, 255, 0);\n$white-color-with-opacity-75: rbga(255, 255, 255, .75);\n$white-color-with-opacity-50: rbga(255, 255, 255, .5);\n$white-color-with-opacity-25: rbga(255, 255, 255, .25);\n$white-color-whitout-opacity: rgba(255, 255, 255, 1);\n\n// Gray color\n$gray-color-with-opacity: rgba(190, 190, 190, 0);\n$gray-color-with-opacity-75: rgba(190, 190, 190, .75);\n$gray-color-with-opacity-50: rgba(190, 190, 190, .5);\n$gray-color-with-opacity-25: rgba(190, 190, 190, .25);\n$gray-color-whitout-opacity: rgba(190, 190, 190, 1);\n\n//BlackGray Color\n$blackgray-color-with-opacity: rgba(41, 40, 32, 0);\n$blackgray-color-with-opacity-75: rgba(41, 40, 32, .75);\n$blackgray-color-with-opacity-50: rgba(41, 40, 32, .5);\n$blackgray-color-with-opacity-25: rgba(41, 40, 32, .25);\n$blackgray-color-without-opacity: rgba(41, 40, 32, 1);\n\n// Green color\n$green-color-with-opacity: rgba(94, 143, 134, 0);\n$green-color-with-opacity-75: rgba(94, 143, 134, .75);\n$green-color-with-opacity-50: rgba(94, 143, 134, .5);\n$green-color-with-opacity-25: rgba(94, 143, 134, .25);\n$green-color-whitout-opacity: rgba(94, 143, 134, 1);\n\n//LightGreen Color\n$lightgreen-color-with-opacity: rgba(138, 178, 170, 0);\n$lightgreen-color-with-opacity-75: rgba(138, 178, 170, .75);\n$lightgreen-color-with-opacity-50: rgba(138, 178, 170, .5);\n$lightgreen-color-with-opacity-25: rgba(138, 178, 170, .25);\n$lightgreen-color-whitout-opacity: rgba(138, 178, 170, 1);\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -19537,7 +19592,7 @@ exports = module.exports = __webpack_require__(3)(true);
 
 
 // module
-exports.push([module.i, ".posts:first-child {\n  margin-top: 45px; }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/views/Posts/src/app/views/Posts/Posts.scss"],"names":[],"mappings":"AAAA;EAEI,iBAAgB,EACjB","file":"Posts.scss","sourcesContent":[".posts{\n  &:first-child{\n    margin-top: 45px;\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".posts:first-child {\n  margin-top: 45px; }\n", "", {"version":3,"sources":["/Users/eduardo.alvarez/Desktop/blog/blog/src/app/views/Posts/src/app/views/Posts/Posts.scss"],"names":[],"mappings":"AAAA;EAEI,iBAAgB,EACjB","file":"Posts.scss","sourcesContent":[".posts {\n  &:first-child {\n    margin-top: 45px;\n  }\n}\n"],"sourceRoot":""}]);
 
 // exports
 

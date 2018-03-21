@@ -4,8 +4,8 @@ import Post from '../../components/Post/';
 import './Posts.scss';
 
 class Posts extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = { posts: [] }
   }
 
@@ -23,14 +23,11 @@ class Posts extends Component {
   }
 
   render() {
-    if (this.state.posts.length > 0) {
-      return (
-        <div className="posts">
-          <Post detalle={this.state.posts} />
-        </div>
-      );
+    if (this.state.posts.length < 1) {
+      return <p className="text-center"></p>
     } else {
-      return <p className="text-center">Cargando empleados...</p>
+      const postContent = this.state.posts.map((data) => <Post content={data} key={data._id} />);
+      return <div className="posts">{postContent}</div>;
     }
   }
 };

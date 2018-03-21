@@ -4,4 +4,53 @@
   border: 1px solid $gray-color-whitout-opacity;
   color: $gray-color-whitout-opacity;
   margin-bottom: 35px;
+  padding: 40px 48px 20px;
+
+  &__header {
+    &__author-name {
+      font-size: 14px;
+    }
+
+    &__date {
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    &__title {
+      font-family: 'Amatic sc', cursive;
+      font-size: 30px;
+
+      &:hover {
+        color: $green-color-whitout-opacity;
+      }
+    }
+  }
+
+  &__body {
+    text-align: justify;
+  }
+
+  &__footer {
+    font-family: 'Amatic sc', cursive;
+    margin-top: 10px;
+
+    &__category {
+      font-size: 20px;
+    }
+  }
+
+  hr {
+    background: linear-gradient(to right, $white-color-with-opacity, $white-color-whitout-opacity, $white-color-with-opacity);
+    border: 0;
+    height: 1px;
+    margin-bottom: .5em;
+    margin-top: .5em;
+    text-align: center;
+    width: 70%;
+
+    @media screen and (min-width: 992px) {
+      margin-bottom: 1em;
+      margin-top: 1em;
+    }
+  }
 }
