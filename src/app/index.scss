@@ -3,9 +3,13 @@
 body {
   background-color: $blackgray-color-without-opacity;
   height: 100%;
-  position: fixed;
+  position: absolute;
   top: 0;
   width: 100%;
+
+  @media screen and (min-width: 992px) {
+    position: fixed;
+  }
 }
 
 body > div {
