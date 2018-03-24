@@ -3,3 +3,5 @@ bower_components/
 
 yarn-error.log
 yarn.lock
+
+npm-debug.log

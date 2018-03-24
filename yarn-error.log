@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/bin/node /Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/bin/yarn add marky-markdown
+  /Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/bin/node /Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/bin/yarn lint
 
 PATH: 
   /Users/eduardo.alvarez/.jenv/shims:/Users/eduardo.alvarez/.jenv/bin:/Users/eduardo.alvarez/.jenv/shims:/Users/eduardo.alvarez/.jenv/bin:/Users/eduardo.alvarez/.jenv/shims:/Users/eduardo.alvarez/.jenv/bin:/Users/eduardo.alvarez/.jenv/shims:/Users/eduardo.alvarez/.jenv/bin:/Users/eduardo.alvarez/bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/Users/eduardo.alvarez/.jenv/shims:/Users/eduardo.alvarez/.jenv/bin:/Users/eduardo.alvarez/.sdkman/candidates/java/current/bin:/Users/eduardo.alvarez/.sdkman/candidates/gradle/current/bin:/Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/bin:/Users/eduardo.alvarez/bin
@@ -23,24 +23,26 @@ npm manifest:
       "production": "webpack -p",
       "build": "webpack --colors",
       "serve": "webpack-dev-server",
-      "start": "yarn run build && yarn run serve"
+      "start": "yarn run build && yarn run serve",
+      "lint": "eslint ./src --ignore-path .gitignore",
     },
     "dependencies": {
       "babel-core": "^6.26.0",
       "babel-loader": "^7.1.2",
       "babel-preset-es2015": "^6.24.1",
       "babel-preset-react": "^6.24.1",
-      "css-loader": "^0.28.10",
+      "eslint": "^3.14.0",
       "moment-timezone": "^0.5.14",
       "prop-types": "^15.6.1",
       "react": "^16.2.0",
       "react-dom": "^16.2.0",
       "react-moment": "^0.7.0",
+      "react-pure-lifecycle": "^2.1.0",
       "webpack": "^3.10.0",
       "webpack-dev-server": "^2.9.7"
     },
     "devDependencies": {
-      "eslint": "^3.14.0",
+      "css-loader": "^0.28.10",
       "eslint-config-airbnb": "^14.0.0",
       "eslint-import-resolver-webpack": "^0.8.1",
       "eslint-plugin-import": "^2.2.0",
@@ -5556,7 +5558,14 @@ Lockfile:
     version "0.7.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/react-moment/-/react-moment-0.7.0.tgz#9ccb5c87be683d08c253b48469167443f09c3d89"
   
-  react@^16.2.0:
+  react-pure-lifecycle@^2.1.0:
+    version "2.1.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/react-pure-lifecycle/-/react-pure-lifecycle-2.1.0.tgz#1d1d18646a8497d88ea814be8be86004f261e71f"
+    dependencies:
+      lodash "^4.17.4"
+      react "^15.3.0 || ^16.0.0"
+  
+  "react@^15.3.0 || ^16.0.0", react@^16.2.0:
     version "16.2.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
     dependencies:
@@ -6391,10 +6400,6 @@ Lockfile:
     version "1.1.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
   
-  string-to-html@^1.3.4:
-    version "1.3.4"
-    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/string-to-html/-/string-to-html-1.3.4.tgz#bc44557854a6d8c0ae6ef894a27ea59702bcff34"
-  
   string-width@^1.0.1, string-width@^1.0.2:
     version "1.0.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/string-width/-/string-width-1.0.2.tgz#118bdf5b8cdc51a2a7e70d211e07e2b0b9b107d3"
@@ -6799,6 +6804,10 @@ Lockfile:
   unc-path-regex@^0.1.0:
     version "0.1.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/unc-path-regex/-/unc-path-regex-0.1.2.tgz#e73dd3d7b0d7c5ed86fbac6b0ae7d8c6a69d50fa"
+  
+  underscore@^1.8.3:
+    version "1.8.3"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
   
   union-value@^1.0.0:
     version "1.0.0"
@@ -7301,14 +7310,9 @@ Lockfile:
       fd-slicer "~1.0.1"
 
 Trace: 
-  Error: https://packages.it.lan.com/artifactory/api/npm/lnpm/first-mate: not_found
-      at Request.params.callback [as _callback] (/Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/lib/node_modules/yarn/lib/cli.js:62098:18)
-      at Request.self.callback (/Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/lib/node_modules/yarn/lib/cli.js:123085:22)
-      at emitTwo (events.js:106:13)
-      at Request.emit (events.js:191:7)
-      at Request.<anonymous> (/Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/lib/node_modules/yarn/lib/cli.js:124068:10)
-      at emitOne (events.js:96:13)
-      at Request.emit (events.js:188:7)
-      at IncomingMessage.<anonymous> (/Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/lib/node_modules/yarn/lib/cli.js:123988:12)
-      at IncomingMessage.g (events.js:292:16)
-      at emitNone (events.js:91:20)
+  SyntaxError: /Users/eduardo.alvarez/Desktop/blog/blog/package.json: Unexpected token } in JSON at position 303
+      at Object.parse (native)
+      at /Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/lib/node_modules/yarn/lib/cli.js:770:59
+      at next (native)
+      at step (/Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/lib/node_modules/yarn/lib/cli.js:92:30)
+      at /Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/lib/node_modules/yarn/lib/cli.js:103:13
