@@ -1,0 +1,34 @@
+{
+    "status": 200,
+    "response": {
+        "posts": [
+            {
+                "_id": "5aa5b7da4c641a63720a37ba",
+                "category": "html",
+                "body": "el cuerpo del post escrito con markdown 10",
+                "shortDescription": "una pequeña descripcion 10",
+                "image": " url de la imagen 1",
+                "title": "prueba de titulo 1",
+                "createDate": "2018-03-24T21:10:35.961Z"
+            },
+            {
+                "_id": "5aa5b8972a060063ce68d3c3",
+                "category": "html",
+                "body": "el cuerpo del post escrito con markdown 20",
+                "shortDescription": "una pequeña descripcion 20",
+                "image": " url de la imagen 2",
+                "title": "prueba de titulo 2",
+                "createDate": "2018-03-24T21:10:35.961Z"
+            },
+            {
+                "_id": "5aa5b8f05cbbd963decb5247",
+                "category": "html",
+                "body": "el cuerpo del post escrito con markdown 30",
+                "shortDescription": "una pequeña descripcion 30",
+                "image": " url de la imagen 3",
+                "title": "prueba de titulo 3",
+                "createDate": "2018-03-24T21:10:35.961Z"
+            }
+        ]
+    }
+}

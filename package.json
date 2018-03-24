@@ -4,13 +4,15 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "production": "webpack -p",
     "build": "webpack --colors",
+    "lint": "eslint ./src --ignore-path .gitignore",
+    "production": "webpack -p",
     "serve": "webpack-dev-server",
-    "start": "yarn run build && yarn run serve",
-    "lint": "eslint ./src --ignore-path .gitignore"
+    "start": "concurrently 'yarn stubby' 'yarn build' 'yarn serve'",
+    "stubby": "stubby --watch --data test/stubs/stubby.json"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
@@ -21,10 +23,14 @@
     "react-dom": "^16.2.0",
     "react-moment": "^0.7.0",
     "react-pure-lifecycle": "^2.1.0",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "stubby": "^4.0.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
     "css-loader": "^0.28.10",
     "eslint": "^3.14.0",
     "eslint-config-airbnb": "^14.0.0",

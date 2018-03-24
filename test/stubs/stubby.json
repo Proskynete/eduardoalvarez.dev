@@ -1,0 +1,16 @@
+[
+  {
+    "request": {
+      "url": "http://localhost:3000/node/api/blog/",
+      "status": 200,
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "./response-posts.json"
+    }
+  }
+]
