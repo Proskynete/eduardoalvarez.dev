@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const APP_DIR = path.resolve(__dirname, 'src/app');
 const BUILD_DIR = path.resolve(__dirname, './public/');
