@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/bin/node /Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/bin/yarn lint
+  /Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/bin/node /Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/bin/yarn test:unit-coverage
 
 PATH: 
   /Users/eduardo.alvarez/.jenv/shims:/Users/eduardo.alvarez/.jenv/bin:/Users/eduardo.alvarez/.jenv/shims:/Users/eduardo.alvarez/.jenv/bin:/Users/eduardo.alvarez/.jenv/shims:/Users/eduardo.alvarez/.jenv/bin:/Users/eduardo.alvarez/.jenv/shims:/Users/eduardo.alvarez/.jenv/bin:/Users/eduardo.alvarez/bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/Users/eduardo.alvarez/.jenv/shims:/Users/eduardo.alvarez/.jenv/bin:/Users/eduardo.alvarez/.sdkman/candidates/java/current/bin:/Users/eduardo.alvarez/.sdkman/candidates/gradle/current/bin:/Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/bin:/Users/eduardo.alvarez/bin
@@ -20,41 +20,68 @@ npm manifest:
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-      "production": "webpack -p",
       "build": "webpack --colors",
-      "serve": "webpack-dev-server",
-      "start": "yarn run build && yarn run serve",
       "lint": "eslint ./src --ignore-path .gitignore",
+      "production": "webpack -p",
+      "serve": "webpack-dev-server",
+      "start": "concurrently 'yarn stubby' 'yarn build' 'yarn serve'",
+      "stubby": "stubby --watch --data test/stubs/stubby.json",
+      "test": "concurrently 'yarn lint' 'uarn test:unit'",
+      "test:unit": "nyc mocha test/unit --compilers js:babel-core/register --require ignore-styles --no-deprecation",
+      "test:unit-coverage": "nyc report --reporter=lcov coverage/lcov-report && http-server -p 3000 ",
     },
     "dependencies": {
-      "babel-core": "^6.26.0",
-      "babel-loader": "^7.1.2",
-      "babel-preset-es2015": "^6.24.1",
-      "babel-preset-react": "^6.24.1",
-      "eslint": "^3.14.0",
+      "axios": "^0.18.0",
+      "chai": "^4.1.2",
+      "html-webpack-plugin": "^3.0.6",
       "moment-timezone": "^0.5.14",
       "prop-types": "^15.6.1",
       "react": "^16.2.0",
       "react-dom": "^16.2.0",
       "react-moment": "^0.7.0",
-      "react-pure-lifecycle": "^2.1.0",
-      "webpack": "^3.10.0",
-      "webpack-dev-server": "^2.9.7"
+      "react-redux": "^5.0.7",
+      "redux": "^3.7.2"
     },
     "devDependencies": {
+      "babel-core": "^6.26.0",
+      "babel-loader": "^7.1.2",
+      "babel-preset-es2015": "^6.24.1",
+      "babel-preset-react": "^6.24.1",
+      "concurrently": "^3.5.1",
       "css-loader": "^0.28.10",
+      "eslint": "^3.14.0",
       "eslint-config-airbnb": "^14.0.0",
       "eslint-import-resolver-webpack": "^0.8.1",
       "eslint-plugin-import": "^2.2.0",
       "eslint-plugin-jsx-a11y": "^4.0.0",
       "eslint-plugin-react": "^7.7.0",
-      "extract-text-webpack-plugin": "^3.0.2",
       "file-loader": "^1.1.11",
-      "html-webpack-plugin": "^3.0.6",
       "image-webpack-loader": "^4.1.0",
+      "mocha": "^5.0.5",
+      "nyc": "^11.6.0",
       "node-sass": "^4.7.2",
       "sass-loader": "^6.0.7",
-      "style-loader": "^0.20.3"
+      "stubby": "^4.0.0",
+      "style-loader": "^0.20.3",
+      "webpack": "^3.10.0",
+      "webpack-dev-server": "^2.9.7"
+    },
+    "nyc": {
+      "check-coverage": true,
+      "statements": 80,
+      "branches": 80,
+      "function": 80,
+      "lines": 80,
+      "include": [
+        "src/actions/*.js",
+        "src/app/**/*.js",
+        "src/helpers/*.js",
+        "src/reducers/*.js"
+      ],
+      "exclude": [
+        "test/**/*.spec.js",
+        "src/config/"
+      ]
     }
   }
 
@@ -120,7 +147,7 @@ Lockfile:
       co "^4.6.0"
       json-stable-stringify "^1.0.1"
   
-  ajv@^5.0.0, ajv@^5.1.0:
+  ajv@^5.1.0:
     version "5.5.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/ajv/-/ajv-5.5.2.tgz#73b5eeca3fab653e3d3f9422b341ad42205dc965"
     dependencies:
@@ -167,6 +194,10 @@ Lockfile:
     version "0.0.7"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/ansi-html/-/ansi-html-0.0.7.tgz#813584021962a9e9e6fd039f940d12f56ca7859e"
   
+  ansi-regex@^0.2.0, ansi-regex@^0.2.1:
+    version "0.2.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/ansi-regex/-/ansi-regex-0.2.1.tgz#0d8e946967a3d8143f93e24e298525fc1b2235f9"
+  
   ansi-regex@^2.0.0:
     version "2.1.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/ansi-regex/-/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"
@@ -174,6 +205,10 @@ Lockfile:
   ansi-regex@^3.0.0:
     version "3.0.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/ansi-regex/-/ansi-regex-3.0.0.tgz#ed0317c322064f79466c02966bddb605ab37d998"
+  
+  ansi-styles@^1.1.0:
+    version "1.1.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/ansi-styles/-/ansi-styles-1.1.0.tgz#eaecbf66cd706882760b2f4691582b8f55d7a7de"
   
   ansi-styles@^2.2.1:
     version "2.2.1"
@@ -196,6 +231,12 @@ Lockfile:
       micromatch "^3.1.4"
       normalize-path "^2.1.1"
   
+  append-transform@^0.4.0:
+    version "0.4.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/append-transform/-/append-transform-0.4.0.tgz#d76ebf8ca94d276e247a36bad44a4b74ab611991"
+    dependencies:
+      default-require-extensions "^1.0.0"
+  
   aproba@^1.0.3:
     version "1.2.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
@@ -205,6 +246,10 @@ Lockfile:
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/archive-type/-/archive-type-3.2.0.tgz#9cd9c006957ebe95fadad5bd6098942a813737f6"
     dependencies:
       file-type "^3.1.0"
+  
+  archy@^1.0.0:
+    version "1.0.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/archy/-/archy-1.0.0.tgz#f9c8c13757cc1dd7bc379ac77b2c62a5c2868c40"
   
   are-we-there-yet@~1.1.2:
     version "1.1.4"
@@ -288,7 +333,7 @@ Lockfile:
     version "0.3.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
   
-  arrify@^1.0.0:
+  arrify@^1.0.0, arrify@^1.0.1:
     version "1.0.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
   
@@ -322,6 +367,10 @@ Lockfile:
     dependencies:
       util "0.10.3"
   
+  assertion-error@^1.0.1:
+    version "1.1.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/assertion-error/-/assertion-error-1.1.0.tgz#e60b6b0e8f301bd97e5375215bda406c85118c0b"
+  
   assign-symbols@^1.0.0:
     version "1.0.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/assign-symbols/-/assign-symbols-1.0.0.tgz#59667f41fadd4f20ccbc2bb96b8d4f7f78ec0367"
@@ -342,15 +391,15 @@ Lockfile:
     version "0.1.3"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/async-foreach/-/async-foreach-0.1.3.tgz#36121f845c0578172de419a97dbeb1d16ec34542"
   
-  async@^1.5.2:
-    version "1.5.2"
-    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
-  
-  async@^2.1.2, async@^2.4.1:
+  async@>=0.2.7, async@^2.1.2:
     version "2.6.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/async/-/async-2.6.0.tgz#61a29abb6fcc026fea77e56d1c6ec53a795951f4"
     dependencies:
       lodash "^4.14.0"
+  
+  async@^1.4.0, async@^1.5.2:
+    version "1.5.2"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
   
   asynckit@^0.4.0:
     version "0.4.0"
@@ -382,6 +431,13 @@ Lockfile:
   aws4@^1.2.1, aws4@^1.6.0:
     version "1.6.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
+  
+  axios@^0.18.0:
+    version "0.18.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
+    dependencies:
+      follow-redirects "^1.3.0"
+      is-buffer "^1.1.5"
   
   babel-code-frame@^6.16.0, babel-code-frame@^6.26.0:
     version "6.26.0"
@@ -415,7 +471,7 @@ Lockfile:
       slash "^1.0.0"
       source-map "^0.5.6"
   
-  babel-generator@^6.26.0:
+  babel-generator@^6.18.0, babel-generator@^6.26.0:
     version "6.26.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/babel-generator/-/babel-generator-6.26.1.tgz#1844408d3b8f0d35a404ea7ac180f087a601bd90"
     dependencies:
@@ -820,7 +876,7 @@ Lockfile:
       core-js "^2.4.0"
       regenerator-runtime "^0.11.0"
   
-  babel-template@^6.24.1, babel-template@^6.26.0:
+  babel-template@^6.16.0, babel-template@^6.24.1, babel-template@^6.26.0:
     version "6.26.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/babel-template/-/babel-template-6.26.0.tgz#de03e2d16396b069f46dd9fff8521fb1a0e35e02"
     dependencies:
@@ -830,7 +886,7 @@ Lockfile:
       babylon "^6.18.0"
       lodash "^4.17.4"
   
-  babel-traverse@^6.24.1, babel-traverse@^6.26.0:
+  babel-traverse@^6.18.0, babel-traverse@^6.24.1, babel-traverse@^6.26.0:
     version "6.26.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/babel-traverse/-/babel-traverse-6.26.0.tgz#46a9cbd7edcc62c8e5c064e2d2d8d0f4035766ee"
     dependencies:
@@ -844,7 +900,7 @@ Lockfile:
       invariant "^2.2.2"
       lodash "^4.17.4"
   
-  babel-types@^6.19.0, babel-types@^6.24.1, babel-types@^6.26.0:
+  babel-types@^6.18.0, babel-types@^6.19.0, babel-types@^6.24.1, babel-types@^6.26.0:
     version "6.26.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/babel-types/-/babel-types-6.26.0.tgz#a3b073f94ab49eb6fa55cd65227a334380632497"
     dependencies:
@@ -1047,6 +1103,10 @@ Lockfile:
     version "1.1.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
   
+  browser-stdout@1.3.1:
+    version "1.3.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/browser-stdout/-/browser-stdout-1.3.1.tgz#baa559ee14ced73452229bad7326467c61fabd60"
+  
   browserify-aes@^1.0.0, browserify-aes@^1.0.4:
     version "1.1.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/browserify-aes/-/browserify-aes-1.1.1.tgz#38b7ab55edb806ff2dcda1a7f1620773a477c49f"
@@ -1165,6 +1225,14 @@ Lockfile:
       union-value "^1.0.0"
       unset-value "^1.0.0"
   
+  caching-transform@^1.0.0:
+    version "1.0.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/caching-transform/-/caching-transform-1.0.1.tgz#6dbdb2f20f8d8fbce79f3e94e9d1742dcdf5c0a1"
+    dependencies:
+      md5-hex "^1.2.0"
+      mkdirp "^0.5.1"
+      write-file-atomic "^1.1.4"
+  
   caller-path@^0.1.0:
     version "0.1.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/caller-path/-/caller-path-0.1.0.tgz#94085ef63581ecd3daa92444a8fe94e82577751f"
@@ -1246,6 +1314,27 @@ Lockfile:
       align-text "^0.1.3"
       lazy-cache "^1.0.3"
   
+  chai@^4.1.2:
+    version "4.1.2"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/chai/-/chai-4.1.2.tgz#0f64584ba642f0f2ace2806279f4f06ca23ad73c"
+    dependencies:
+      assertion-error "^1.0.1"
+      check-error "^1.0.1"
+      deep-eql "^3.0.0"
+      get-func-name "^2.0.0"
+      pathval "^1.0.0"
+      type-detect "^4.0.0"
+  
+  chalk@0.5.1:
+    version "0.5.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/chalk/-/chalk-0.5.1.tgz#663b3a648b68b55d04690d49167aa837858f2174"
+    dependencies:
+      ansi-styles "^1.1.0"
+      escape-string-regexp "^1.0.0"
+      has-ansi "^0.1.0"
+      strip-ansi "^0.3.0"
+      supports-color "^0.2.0"
+  
   chalk@^1.0.0, chalk@^1.1.1, chalk@^1.1.3:
     version "1.1.3"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"
@@ -1263,6 +1352,10 @@ Lockfile:
       ansi-styles "^3.2.1"
       escape-string-regexp "^1.0.5"
       supports-color "^5.3.0"
+  
+  check-error@^1.0.1:
+    version "1.0.2"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
   
   chokidar@^2.0.0, chokidar@^2.0.2:
     version "2.0.2"
@@ -1338,6 +1431,14 @@ Lockfile:
     dependencies:
       string-width "^1.0.1"
       strip-ansi "^3.0.1"
+      wrap-ansi "^2.0.0"
+  
+  cliui@^4.0.0:
+    version "4.0.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/cliui/-/cliui-4.0.0.tgz#743d4650e05f36d1ed2575b59638d87322bfbbcc"
+    dependencies:
+      string-width "^2.1.1"
+      strip-ansi "^4.0.0"
       wrap-ansi "^2.0.0"
   
   clone-deep@^2.0.1:
@@ -1422,6 +1523,10 @@ Lockfile:
       css-color-names "0.0.4"
       has "^1.0.1"
   
+  colors@>=0.6.0:
+    version "1.2.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/colors/-/colors-1.2.1.tgz#f4a3d302976aaf042356ba1ade3b1a2c62d9d794"
+  
   colors@~1.1.2:
     version "1.1.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/colors/-/colors-1.1.2.tgz#168a4701756b6a7f51a12ce0c97bfa28c084ed63"
@@ -1432,9 +1537,17 @@ Lockfile:
     dependencies:
       delayed-stream "~1.0.0"
   
+  commander@2.11.0:
+    version "2.11.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/commander/-/commander-2.11.0.tgz#157152fd1e7a6c8d98a5b715cf376df928004563"
+  
   commander@2.14.x, commander@~2.14.1:
     version "2.14.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/commander/-/commander-2.14.1.tgz#2235123e37af8ca3c65df45b026dbd357b01b9aa"
+  
+  commander@2.6.0:
+    version "2.6.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/commander/-/commander-2.6.0.tgz#9df7e52fb2a0cb0fb89058ee80c3104225f37e1d"
   
   commander@^2.9.0:
     version "2.15.0"
@@ -1493,6 +1606,19 @@ Lockfile:
       readable-stream "^2.2.2"
       typedarray "^0.0.6"
   
+  concurrently@^3.5.1:
+    version "3.5.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/concurrently/-/concurrently-3.5.1.tgz#ee8b60018bbe86b02df13e5249453c6ececd2521"
+    dependencies:
+      chalk "0.5.1"
+      commander "2.6.0"
+      date-fns "^1.23.0"
+      lodash "^4.5.1"
+      rx "2.3.24"
+      spawn-command "^0.0.2-1"
+      supports-color "^3.2.3"
+      tree-kill "^1.1.0"
+  
   connect-history-api-fallback@^1.3.0:
     version "1.5.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/connect-history-api-fallback/-/connect-history-api-fallback-1.5.0.tgz#b06873934bc5e344fef611a196a6faae0aee015a"
@@ -1527,7 +1653,7 @@ Lockfile:
     version "1.0.4"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/content-type/-/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
   
-  convert-source-map@^1.1.1, convert-source-map@^1.5.0:
+  convert-source-map@^1.1.1, convert-source-map@^1.5.0, convert-source-map@^1.5.1:
     version "1.5.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/convert-source-map/-/convert-source-map-1.5.1.tgz#b8278097b9bc229365de5c62cf5fcaed8b5599e5"
   
@@ -1591,6 +1717,13 @@ Lockfile:
   cross-spawn@^3.0.0:
     version "3.0.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/cross-spawn/-/cross-spawn-3.0.1.tgz#1256037ecb9f0c5f79e3d6ef135e30770184b982"
+    dependencies:
+      lru-cache "^4.0.1"
+      which "^1.2.9"
+  
+  cross-spawn@^4:
+    version "4.0.2"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/cross-spawn/-/cross-spawn-4.0.2.tgz#7b9247621c23adfdd3856004a823cbe397424d41"
     dependencies:
       lru-cache "^4.0.1"
       which "^1.2.9"
@@ -1753,6 +1886,10 @@ Lockfile:
     dependencies:
       assert-plus "^1.0.0"
   
+  date-fns@^1.23.0:
+    version "1.29.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
+  
   date-now@^0.1.4:
     version "0.1.4"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -1761,13 +1898,17 @@ Lockfile:
     version "2.2.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/dateformat/-/dateformat-2.2.0.tgz#4065e2013cf9fb916ddfd82efb506ad4c6769062"
   
+  debug-log@^1.0.1:
+    version "1.0.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/debug-log/-/debug-log-1.0.1.tgz#2307632d4c04382b8df8a32f70b895046d52745f"
+  
   debug@2.6.9, debug@^2.1.1, debug@^2.2.0, debug@^2.3.3, debug@^2.6.6, debug@^2.6.8, debug@^2.6.9:
     version "2.6.9"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
     dependencies:
       ms "2.0.0"
   
-  debug@^3.1.0:
+  debug@3.1.0, debug@^3.1.0:
     version "3.1.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
     dependencies:
@@ -1841,6 +1982,12 @@ Lockfile:
       vinyl-assign "^1.0.1"
       vinyl-fs "^2.2.0"
   
+  deep-eql@^3.0.0:
+    version "3.0.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/deep-eql/-/deep-eql-3.0.1.tgz#dfc9404400ad1c8fe023e7da1df1c147c4b444df"
+    dependencies:
+      type-detect "^4.0.0"
+  
   deep-equal@^1.0.1:
     version "1.0.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/deep-equal/-/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
@@ -1852,6 +1999,12 @@ Lockfile:
   deep-is@~0.1.3:
     version "0.1.3"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
+  
+  default-require-extensions@^1.0.0:
+    version "1.0.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/default-require-extensions/-/default-require-extensions-1.0.0.tgz#f37ea15d3e13ffd9b437d33e1a75b5fb97874cb8"
+    dependencies:
+      strip-bom "^2.0.0"
   
   define-properties@^1.1.2:
     version "1.1.2"
@@ -1946,6 +2099,10 @@ Lockfile:
   detect-node@^2.0.3:
     version "2.0.3"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/detect-node/-/detect-node-2.0.3.tgz#a2033c09cc8e158d37748fbde7507832bd6ce127"
+  
+  diff@3.5.0:
+    version "3.5.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
   
   diffie-hellman@^5.0.0:
     version "5.0.2"
@@ -2086,6 +2243,10 @@ Lockfile:
   ee-first@1.1.1:
     version "1.1.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
+  
+  ejs@>=0.8.4:
+    version "2.5.7"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/ejs/-/ejs-2.5.7.tgz#cc872c168880ae3c7189762fd5ffc00896c9518a"
   
   electron-to-chromium@^1.2.7:
     version "1.3.37"
@@ -2234,7 +2395,7 @@ Lockfile:
     version "1.0.3"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   
-  escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
+  escape-string-regexp@1.0.5, escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
     version "1.0.5"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   
@@ -2581,15 +2742,6 @@ Lockfile:
       snapdragon "^0.8.1"
       to-regex "^3.0.1"
   
-  extract-text-webpack-plugin@^3.0.2:
-    version "3.0.2"
-    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/extract-text-webpack-plugin/-/extract-text-webpack-plugin-3.0.2.tgz#5f043eaa02f9750a9258b78c0a6e0dc1408fb2f7"
-    dependencies:
-      async "^2.4.1"
-      loader-utils "^1.1.0"
-      schema-utils "^0.3.0"
-      webpack-sources "^1.0.1"
-  
   extsprintf@1.3.0:
     version "1.3.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/extsprintf/-/extsprintf-1.3.0.tgz#96918440e3041a7a414f8c52e3c574eb3c3e1e05"
@@ -2728,6 +2880,14 @@ Lockfile:
       statuses "~1.3.1"
       unpipe "~1.0.0"
   
+  find-cache-dir@^0.1.1:
+    version "0.1.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/find-cache-dir/-/find-cache-dir-0.1.1.tgz#c8defae57c8a52a8a784f9e31c57c742e993a0b9"
+    dependencies:
+      commondir "^1.0.1"
+      mkdirp "^0.5.1"
+      pkg-dir "^1.0.0"
+  
   find-cache-dir@^1.0.0:
     version "1.0.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/find-cache-dir/-/find-cache-dir-1.0.0.tgz#9288e3e9e3cc3748717d39eade17cf71fc30ee6f"
@@ -2779,6 +2939,12 @@ Lockfile:
     version "1.0.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
   
+  follow-redirects@^1.3.0:
+    version "1.4.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/follow-redirects/-/follow-redirects-1.4.1.tgz#d8120f4518190f55aac65bb6fc7b85fcd666d6aa"
+    dependencies:
+      debug "^3.1.0"
+  
   for-in@^0.1.3:
     version "0.1.8"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/for-in/-/for-in-0.1.8.tgz#d8773908e31256109952b1fdb9b3fa867d2775e1"
@@ -2802,6 +2968,13 @@ Lockfile:
   foreach@^2.0.5:
     version "2.0.5"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/foreach/-/foreach-2.0.5.tgz#0bee005018aeb260d0a3af3ae658dd0136ec1b99"
+  
+  foreground-child@^1.5.3, foreground-child@^1.5.6:
+    version "1.5.6"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/foreground-child/-/foreground-child-1.5.6.tgz#4fd71ad2dfde96789b980a5c0a295937cb2f5ce9"
+    dependencies:
+      cross-spawn "^4"
+      signal-exit "^3.0.0"
   
   forever-agent@~0.6.1:
     version "0.6.1"
@@ -2902,6 +3075,10 @@ Lockfile:
     version "1.0.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
   
+  get-func-name@^2.0.0:
+    version "2.0.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/get-func-name/-/get-func-name-2.0.0.tgz#ead774abee72e20409433a066366023dd6887a41"
+  
   get-proxy@^1.0.1:
     version "1.1.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/get-proxy/-/get-proxy-1.1.0.tgz#894854491bc591b0f147d7ae570f5c678b7256eb"
@@ -2967,6 +3144,17 @@ Lockfile:
       to-absolute-glob "^0.1.1"
       unique-stream "^2.0.2"
   
+  glob@7.1.2, glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.0.6, glob@~7.1.1:
+    version "7.1.2"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
+    dependencies:
+      fs.realpath "^1.0.0"
+      inflight "^1.0.4"
+      inherits "2"
+      minimatch "^3.0.4"
+      once "^1.3.0"
+      path-is-absolute "^1.0.0"
+  
   glob@^5.0.3:
     version "5.0.15"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/glob/-/glob-5.0.15.tgz#1bc936b9e02f4a603fcc222ecf7633d30b8b93b1"
@@ -2984,17 +3172,6 @@ Lockfile:
       inflight "^1.0.4"
       inherits "2"
       minimatch "2 || 3"
-      once "^1.3.0"
-      path-is-absolute "^1.0.0"
-  
-  glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@~7.1.1:
-    version "7.1.2"
-    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
-    dependencies:
-      fs.realpath "^1.0.0"
-      inflight "^1.0.4"
-      inherits "2"
-      minimatch "^3.0.4"
       once "^1.3.0"
       path-is-absolute "^1.0.0"
   
@@ -3057,13 +3234,17 @@ Lockfile:
       unzip-response "^1.0.2"
       url-parse-lax "^1.0.0"
   
-  graceful-fs@^4.0.0, graceful-fs@^4.1.2:
+  graceful-fs@^4.0.0, graceful-fs@^4.1.11, graceful-fs@^4.1.2:
     version "4.1.11"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
   
   "graceful-readlink@>= 1.0.0":
     version "1.0.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
+  
+  growl@1.10.3:
+    version "1.10.3"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/growl/-/growl-1.10.3.tgz#1926ba90cf3edfe2adb4927f5880bc22c66c790f"
   
   gulp-decompress@^1.2.0:
     version "1.2.0"
@@ -3121,6 +3302,16 @@ Lockfile:
     version "1.2.5"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/handle-thing/-/handle-thing-1.2.5.tgz#fd7aad726bf1a5fd16dfc29b2f7a6601d27139c4"
   
+  handlebars@^4.0.3:
+    version "4.0.11"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/handlebars/-/handlebars-4.0.11.tgz#630a35dfe0294bc281edae6ffc5d329fc7982dcc"
+    dependencies:
+      async "^1.4.0"
+      optimist "^0.6.1"
+      source-map "^0.4.4"
+    optionalDependencies:
+      uglify-js "^2.6"
+  
   har-schema@^1.0.5:
     version "1.0.5"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/har-schema/-/har-schema-1.0.5.tgz#d263135f43307c02c602afc8fe95970c0151369e"
@@ -3151,6 +3342,12 @@ Lockfile:
     dependencies:
       ajv "^5.1.0"
       har-schema "^2.0.0"
+  
+  has-ansi@^0.1.0:
+    version "0.1.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/has-ansi/-/has-ansi-0.1.0.tgz#84f265aae8c0e6a88a12d7022894b7568894c62e"
+    dependencies:
+      ansi-regex "^0.2.0"
   
   has-ansi@^2.0.0:
     version "2.0.0"
@@ -3251,7 +3448,7 @@ Lockfile:
       hoek "4.x.x"
       sntp "2.x.x"
   
-  he@1.1.x:
+  he@1.1.1, he@1.1.x:
     version "1.1.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
   
@@ -3270,6 +3467,10 @@ Lockfile:
   hoek@4.x.x:
     version "4.2.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/hoek/-/hoek-4.2.1.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
+  
+  hoist-non-react-statics@^2.5.0:
+    version "2.5.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
   
   home-or-tmp@^2.0.0:
     version "2.0.0"
@@ -3403,6 +3604,10 @@ Lockfile:
   ieee754@^1.1.4:
     version "1.1.8"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
+  
+  ignore-styles@^5.0.1:
+    version "5.0.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/ignore-styles/-/ignore-styles-5.0.1.tgz#b49ef2274bdafcd8a4880a966bfe38d1a0bf4671"
   
   ignore@^3.2.0:
     version "3.3.7"
@@ -3555,6 +3760,12 @@ Lockfile:
   interpret@^1.0.0:
     version "1.1.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"
+  
+  invariant@^2.0.0:
+    version "2.2.4"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
+    dependencies:
+      loose-envify "^1.0.0"
   
   invariant@^2.2.2:
     version "2.2.3"
@@ -3950,6 +4161,57 @@ Lockfile:
     version "0.1.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   
+  istanbul-lib-coverage@^1.1.2, istanbul-lib-coverage@^1.2.0:
+    version "1.2.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/istanbul-lib-coverage/-/istanbul-lib-coverage-1.2.0.tgz#f7d8f2e42b97e37fe796114cb0f9d68b5e3a4341"
+  
+  istanbul-lib-hook@^1.1.0:
+    version "1.1.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/istanbul-lib-hook/-/istanbul-lib-hook-1.1.0.tgz#8538d970372cb3716d53e55523dd54b557a8d89b"
+    dependencies:
+      append-transform "^0.4.0"
+  
+  istanbul-lib-instrument@^1.10.0:
+    version "1.10.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/istanbul-lib-instrument/-/istanbul-lib-instrument-1.10.1.tgz#724b4b6caceba8692d3f1f9d0727e279c401af7b"
+    dependencies:
+      babel-generator "^6.18.0"
+      babel-template "^6.16.0"
+      babel-traverse "^6.18.0"
+      babel-types "^6.18.0"
+      babylon "^6.18.0"
+      istanbul-lib-coverage "^1.2.0"
+      semver "^5.3.0"
+  
+  istanbul-lib-report@^1.1.3:
+    version "1.1.3"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/istanbul-lib-report/-/istanbul-lib-report-1.1.3.tgz#2df12188c0fa77990c0d2176d2d0ba3394188259"
+    dependencies:
+      istanbul-lib-coverage "^1.1.2"
+      mkdirp "^0.5.1"
+      path-parse "^1.0.5"
+      supports-color "^3.1.2"
+  
+  istanbul-lib-source-maps@^1.2.3:
+    version "1.2.3"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/istanbul-lib-source-maps/-/istanbul-lib-source-maps-1.2.3.tgz#20fb54b14e14b3fb6edb6aca3571fd2143db44e6"
+    dependencies:
+      debug "^3.1.0"
+      istanbul-lib-coverage "^1.1.2"
+      mkdirp "^0.5.1"
+      rimraf "^2.6.1"
+      source-map "^0.5.3"
+  
+  istanbul-reports@^1.1.4:
+    version "1.3.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/istanbul-reports/-/istanbul-reports-1.3.0.tgz#2f322e81e1d9520767597dca3c20a0cce89a3554"
+    dependencies:
+      handlebars "^4.0.3"
+  
+  isutf8@>=1.0.11:
+    version "2.0.2"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/isutf8/-/isutf8-2.0.2.tgz#49d27c759061d29b0a0862bb7c176d73582ca182"
+  
   js-base64@^2.1.8, js-base64@^2.1.9:
     version "2.4.3"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/js-base64/-/js-base64-2.4.3.tgz#2e545ec2b0f2957f41356510205214e98fad6582"
@@ -3958,7 +4220,7 @@ Lockfile:
     version "3.0.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
   
-  js-yaml@^3.5.1:
+  js-yaml@>=1.0.1, js-yaml@^3.5.1:
     version "3.11.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/js-yaml/-/js-yaml-3.11.0.tgz#597c1a8bd57152f26d622ce4117851a51f5ebaef"
     dependencies:
@@ -4145,6 +4407,10 @@ Lockfile:
       p-locate "^2.0.0"
       path-exists "^3.0.0"
   
+  lodash-es@^4.17.5, lodash-es@^4.2.1:
+    version "4.17.7"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/lodash-es/-/lodash-es-4.17.7.tgz#db240a3252c3dd8360201ac9feef91ac977ea856"
+  
   lodash._basecopy@^3.0.0:
     version "3.0.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/lodash._basecopy/-/lodash._basecopy-3.0.1.tgz#8da0e6a876cf344c0ad8a54882111dd3c5c7ca36"
@@ -4277,7 +4543,7 @@ Lockfile:
     version "4.5.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   
-  lodash@^4.0.0, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.3.0, lodash@~4.17.4:
+  lodash@^4.0.0, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.1, lodash@~4.17.4:
     version "4.17.5"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
   
@@ -4361,6 +4627,16 @@ Lockfile:
     version "1.2.17"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/math-expression-evaluator/-/math-expression-evaluator-1.2.17.tgz#de819fdbcd84dccd8fae59c6aeb79615b9d266ac"
   
+  md5-hex@^1.2.0:
+    version "1.3.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/md5-hex/-/md5-hex-1.3.0.tgz#d2c4afe983c4370662179b8cad145219135046c4"
+    dependencies:
+      md5-o-matic "^0.1.1"
+  
+  md5-o-matic@^0.1.1:
+    version "0.1.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/md5-o-matic/-/md5-o-matic-0.1.1.tgz#822bccd65e117c514fab176b25945d54100a03c3"
+  
   md5.js@^1.3.4:
     version "1.3.4"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/md5.js/-/md5.js-1.3.4.tgz#e9bdbde94a20a5ac18b04340fc5764d5b09d901d"
@@ -4408,6 +4684,12 @@ Lockfile:
     version "1.0.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
   
+  merge-source-map@^1.0.2:
+    version "1.1.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/merge-source-map/-/merge-source-map-1.1.0.tgz#2fdde7e6020939f70906a68f2d7ae685e4c8c646"
+    dependencies:
+      source-map "^0.6.1"
+  
   merge-stream@^1.0.0:
     version "1.0.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/merge-stream/-/merge-stream-1.0.1.tgz#4041202d508a342ba00174008df0c251b8c135e1"
@@ -4454,6 +4736,24 @@ Lockfile:
       snapdragon "^0.8.1"
       to-regex "^3.0.1"
   
+  micromatch@^3.1.8:
+    version "3.1.10"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/micromatch/-/micromatch-3.1.10.tgz#70859bc95c9840952f359a068a3fc49f9ecfac23"
+    dependencies:
+      arr-diff "^4.0.0"
+      array-unique "^0.3.2"
+      braces "^2.3.1"
+      define-property "^2.0.2"
+      extend-shallow "^3.0.2"
+      extglob "^2.0.4"
+      fragment-cache "^0.2.1"
+      kind-of "^6.0.2"
+      nanomatch "^1.2.9"
+      object.pick "^1.3.0"
+      regex-not "^1.0.0"
+      snapdragon "^0.8.1"
+      to-regex "^3.0.2"
+  
   miller-rabin@^4.0.0:
     version "4.0.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/miller-rabin/-/miller-rabin-4.0.1.tgz#f080351c865b0dc562a8462966daa53543c78a4d"
@@ -4475,7 +4775,7 @@ Lockfile:
     version "1.4.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
   
-  mime@^1.5.0:
+  mime@^1.2.9, mime@^1.5.0:
     version "1.6.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
   
@@ -4505,6 +4805,10 @@ Lockfile:
     version "1.2.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
   
+  minimist@~0.0.1:
+    version "0.0.10"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
+  
   mixin-deep@^1.2.0:
     version "1.3.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/mixin-deep/-/mixin-deep-1.3.1.tgz#a49e7268dce1a0d9698e45326c5626df3543d0fe"
@@ -4519,11 +4823,26 @@ Lockfile:
       for-in "^0.1.3"
       is-extendable "^0.1.1"
   
-  mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@~0.5.1:
+  mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@~0.5.1:
     version "0.5.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
     dependencies:
       minimist "0.0.8"
+  
+  mocha@^5.0.5:
+    version "5.0.5"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/mocha/-/mocha-5.0.5.tgz#e228e3386b9387a4710007a641f127b00be44b52"
+    dependencies:
+      browser-stdout "1.3.1"
+      commander "2.11.0"
+      debug "3.1.0"
+      diff "3.5.0"
+      escape-string-regexp "1.0.5"
+      glob "7.1.2"
+      growl "1.10.3"
+      he "1.1.1"
+      mkdirp "0.5.1"
+      supports-color "4.4.0"
   
   moment-timezone@^0.5.14:
     version "0.5.14"
@@ -4710,6 +5029,14 @@ Lockfile:
       stdout-stream "^1.4.0"
       "true-case-path" "^1.0.2"
   
+  node-static@>=0.6.4:
+    version "0.7.10"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/node-static/-/node-static-0.7.10.tgz#a1ddb72027c7f67179fb33487807b57e8bc7d2e7"
+    dependencies:
+      colors ">=0.6.0"
+      mime "^1.2.9"
+      optimist ">=0.3.4"
+  
   node-status-codes@^1.0.0:
     version "1.0.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/node-status-codes/-/node-status-codes-1.0.0.tgz#5ae5541d024645d32a58fcddc9ceecea7ae3ac2f"
@@ -4783,6 +5110,38 @@ Lockfile:
   number-is-nan@^1.0.0:
     version "1.0.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
+  
+  nyc@^11.6.0:
+    version "11.6.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/nyc/-/nyc-11.6.0.tgz#d9c7b51ffceb6bba099a4683a6adc1b331b98853"
+    dependencies:
+      archy "^1.0.0"
+      arrify "^1.0.1"
+      caching-transform "^1.0.0"
+      convert-source-map "^1.5.1"
+      debug-log "^1.0.1"
+      default-require-extensions "^1.0.0"
+      find-cache-dir "^0.1.1"
+      find-up "^2.1.0"
+      foreground-child "^1.5.3"
+      glob "^7.0.6"
+      istanbul-lib-coverage "^1.1.2"
+      istanbul-lib-hook "^1.1.0"
+      istanbul-lib-instrument "^1.10.0"
+      istanbul-lib-report "^1.1.3"
+      istanbul-lib-source-maps "^1.2.3"
+      istanbul-reports "^1.1.4"
+      md5-hex "^1.2.0"
+      merge-source-map "^1.0.2"
+      micromatch "^2.3.11"
+      mkdirp "^0.5.0"
+      resolve-from "^2.0.0"
+      rimraf "^2.5.4"
+      signal-exit "^3.0.1"
+      spawn-wrap "^1.4.2"
+      test-exclude "^4.2.0"
+      yargs "11.1.0"
+      yargs-parser "^8.0.0"
   
   oauth-sign@~0.8.1, oauth-sign@~0.8.2:
     version "0.8.2"
@@ -4868,6 +5227,13 @@ Lockfile:
     dependencies:
       is-wsl "^1.1.0"
   
+  optimist@>=0.3.4, optimist@^0.6.1:
+    version "0.6.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/optimist/-/optimist-0.6.1.tgz#da3ea74686fa21a19a111c326e90eb15a0196686"
+    dependencies:
+      minimist "~0.0.1"
+      wordwrap "~0.0.2"
+  
   optionator@^0.8.2:
     version "0.8.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/optionator/-/optionator-0.8.2.tgz#364c5e409d3f4d6301d6c0b4c05bba50180aeb64"
@@ -4908,7 +5274,7 @@ Lockfile:
     version "1.0.3"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/os-filter-obj/-/os-filter-obj-1.0.3.tgz#5915330d90eced557d2d938a31c6dd214d9c63ad"
   
-  os-homedir@^1.0.0:
+  os-homedir@^1.0.0, os-homedir@^1.0.1:
     version "1.0.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
   
@@ -5059,6 +5425,10 @@ Lockfile:
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/path-type/-/path-type-2.0.0.tgz#f012ccb8415b7096fc2daa1054c3d72389594c73"
     dependencies:
       pify "^2.0.0"
+  
+  pathval@^1.0.0:
+    version "1.1.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/pathval/-/pathval-1.1.0.tgz#b942e6d4bde653005ef6b71361def8727d0645e0"
   
   pbkdf2@^3.0.3:
     version "3.0.14"
@@ -5558,14 +5928,18 @@ Lockfile:
     version "0.7.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/react-moment/-/react-moment-0.7.0.tgz#9ccb5c87be683d08c253b48469167443f09c3d89"
   
-  react-pure-lifecycle@^2.1.0:
-    version "2.1.0"
-    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/react-pure-lifecycle/-/react-pure-lifecycle-2.1.0.tgz#1d1d18646a8497d88ea814be8be86004f261e71f"
+  react-redux@^5.0.7:
+    version "5.0.7"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/react-redux/-/react-redux-5.0.7.tgz#0dc1076d9afb4670f993ffaef44b8f8c1155a4c8"
     dependencies:
-      lodash "^4.17.4"
-      react "^15.3.0 || ^16.0.0"
+      hoist-non-react-statics "^2.5.0"
+      invariant "^2.0.0"
+      lodash "^4.17.5"
+      lodash-es "^4.17.5"
+      loose-envify "^1.1.0"
+      prop-types "^15.6.0"
   
-  "react@^15.3.0 || ^16.0.0", react@^16.2.0:
+  react@^16.2.0:
     version "16.2.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
     dependencies:
@@ -5684,6 +6058,15 @@ Lockfile:
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/reduce-function-call/-/reduce-function-call-1.0.2.tgz#5a200bf92e0e37751752fe45b0ab330fd4b6be99"
     dependencies:
       balanced-match "^0.4.2"
+  
+  redux@^3.7.2:
+    version "3.7.2"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
+    dependencies:
+      lodash "^4.2.1"
+      lodash-es "^4.2.1"
+      loose-envify "^1.1.0"
+      symbol-observable "^1.0.3"
   
   regenerate@^1.2.1:
     version "1.3.3"
@@ -5888,6 +6271,10 @@ Lockfile:
     version "1.0.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/resolve-from/-/resolve-from-1.0.1.tgz#26cbfe935d1aeeeabb29bc3fe5aeb01e93d44226"
   
+  resolve-from@^2.0.0:
+    version "2.0.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/resolve-from/-/resolve-from-2.0.0.tgz#9480ab20e94ffa1d9e80a804c7ea147611966b57"
+  
   resolve-from@^3.0.0:
     version "3.0.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/resolve-from/-/resolve-from-3.0.0.tgz#b22c7af7d9d6881bc8b6e653335eebcb0a188748"
@@ -5919,7 +6306,7 @@ Lockfile:
     dependencies:
       align-text "^0.1.1"
   
-  rimraf@2, rimraf@^2.2.6, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.5.4, rimraf@^2.6.1:
+  rimraf@2, rimraf@^2.2.6, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2:
     version "2.6.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
     dependencies:
@@ -5941,6 +6328,10 @@ Lockfile:
   rx-lite@^3.1.2:
     version "3.1.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/rx-lite/-/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"
+  
+  rx@2.3.24:
+    version "2.3.24"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/rx/-/rx-2.3.24.tgz#14f950a4217d7e35daa71bbcbe58eff68ea4b2b7"
   
   safe-buffer@5.1.1, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
     version "5.1.1"
@@ -5974,12 +6365,6 @@ Lockfile:
   sax@~1.2.1:
     version "1.2.4"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
-  
-  schema-utils@^0.3.0:
-    version "0.3.0"
-    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/schema-utils/-/schema-utils-0.3.0.tgz#f5877222ce3e931edae039f17eb3716e7137f8cf"
-    dependencies:
-      ajv "^5.0.0"
   
   schema-utils@^0.4.5:
     version "0.4.5"
@@ -6149,7 +6534,7 @@ Lockfile:
       interpret "^1.0.0"
       rechoir "^0.6.2"
   
-  signal-exit@^3.0.0:
+  signal-exit@^3.0.0, signal-exit@^3.0.1, signal-exit@^3.0.2:
     version "3.0.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   
@@ -6160,6 +6545,10 @@ Lockfile:
   slice-ansi@0.0.4:
     version "0.0.4"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
+  
+  slide@^1.1.5:
+    version "1.1.6"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
   
   snapdragon-node@^2.0.1:
     version "2.1.1"
@@ -6252,7 +6641,7 @@ Lockfile:
     version "0.5.7"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
   
-  source-map@^0.4.2:
+  source-map@^0.4.2, source-map@^0.4.4:
     version "0.4.4"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/source-map/-/source-map-0.4.4.tgz#eba4f5da9c0dc999de68032d8b4f76173652036b"
     dependencies:
@@ -6265,6 +6654,21 @@ Lockfile:
   sparkles@^1.0.0:
     version "1.0.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/sparkles/-/sparkles-1.0.0.tgz#1acbbfb592436d10bbe8f785b7cc6f82815012c3"
+  
+  spawn-command@^0.0.2-1:
+    version "0.0.2-1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/spawn-command/-/spawn-command-0.0.2-1.tgz#62f5e9466981c1b796dc5929937e11c9c6921bd0"
+  
+  spawn-wrap@^1.4.2:
+    version "1.4.2"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/spawn-wrap/-/spawn-wrap-1.4.2.tgz#cff58e73a8224617b6561abdc32586ea0c82248c"
+    dependencies:
+      foreground-child "^1.5.6"
+      mkdirp "^0.5.0"
+      os-homedir "^1.0.1"
+      rimraf "^2.6.2"
+      signal-exit "^3.0.2"
+      which "^1.3.0"
   
   spdx-correct@^3.0.0:
     version "3.0.0"
@@ -6408,7 +6812,7 @@ Lockfile:
       is-fullwidth-code-point "^1.0.0"
       strip-ansi "^3.0.0"
   
-  string-width@^2.0.0:
+  string-width@^2.0.0, string-width@^2.1.1:
     version "2.1.1"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/string-width/-/string-width-2.1.1.tgz#ab93f27a8dc13d28cac815c462143a6d9012ae9e"
     dependencies:
@@ -6434,6 +6838,12 @@ Lockfile:
   stringstream@~0.0.4, stringstream@~0.0.5:
     version "0.0.5"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/stringstream/-/stringstream-0.0.5.tgz#4e484cd4de5a0bbbee18e46307710a8a81621878"
+  
+  strip-ansi@^0.3.0:
+    version "0.3.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/strip-ansi/-/strip-ansi-0.3.0.tgz#25f48ea22ca79187f3174a4db8759347bb126220"
+    dependencies:
+      ansi-regex "^0.2.1"
   
   strip-ansi@^3.0.0, strip-ansi@^3.0.1:
     version "3.0.1"
@@ -6495,6 +6905,16 @@ Lockfile:
     dependencies:
       escape-string-regexp "^1.0.2"
   
+  stubby@^4.0.0:
+    version "4.0.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/stubby/-/stubby-4.0.0.tgz#455122882133edd4ceb7371a80e0e0fb1ebec929"
+    dependencies:
+      async ">=0.2.7"
+      ejs ">=0.8.4"
+      isutf8 ">=1.0.11"
+      js-yaml ">=1.0.1"
+      node-static ">=0.6.4"
+  
   style-loader@^0.20.3:
     version "0.20.3"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/style-loader/-/style-loader-0.20.3.tgz#ebef06b89dec491bcb1fdb3452e913a6fd1c10c4"
@@ -6508,11 +6928,21 @@ Lockfile:
     dependencies:
       chalk "^1.0.0"
   
+  supports-color@4.4.0:
+    version "4.4.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/supports-color/-/supports-color-4.4.0.tgz#883f7ddabc165142b2a61427f3352ded195d1a3e"
+    dependencies:
+      has-flag "^2.0.0"
+  
+  supports-color@^0.2.0:
+    version "0.2.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/supports-color/-/supports-color-0.2.0.tgz#d92de2694eb3f67323973d7ae3d8b55b4c22190a"
+  
   supports-color@^2.0.0:
     version "2.0.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
   
-  supports-color@^3.2.3:
+  supports-color@^3.1.2, supports-color@^3.2.3:
     version "3.2.3"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/supports-color/-/supports-color-3.2.3.tgz#65ac0504b3954171d8a64946b2ae3cbb8a5f54f6"
     dependencies:
@@ -6541,6 +6971,10 @@ Lockfile:
       mkdirp "~0.5.1"
       sax "~1.2.1"
       whet.extend "~0.9.9"
+  
+  symbol-observable@^1.0.3:
+    version "1.2.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
   
   table@^3.7.8:
     version "3.8.3"
@@ -6612,6 +7046,16 @@ Lockfile:
     dependencies:
       temp-dir "^1.0.0"
       uuid "^3.0.1"
+  
+  test-exclude@^4.2.0:
+    version "4.2.1"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/test-exclude/-/test-exclude-4.2.1.tgz#dfa222f03480bca69207ca728b37d74b45f724fa"
+    dependencies:
+      arrify "^1.0.1"
+      micromatch "^3.1.8"
+      object-assign "^4.1.0"
+      read-pkg-up "^1.0.1"
+      require-main-filename "^1.0.1"
   
   text-table@~0.2.0:
     version "0.2.0"
@@ -6691,7 +7135,7 @@ Lockfile:
       is-number "^3.0.0"
       repeat-string "^1.6.1"
   
-  to-regex@^3.0.1:
+  to-regex@^3.0.1, to-regex@^3.0.2:
     version "3.0.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/to-regex/-/to-regex-3.0.2.tgz#13cfdd9b336552f30b51f33a8ae1b42a7a7599ce"
     dependencies:
@@ -6709,6 +7153,10 @@ Lockfile:
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/tough-cookie/-/tough-cookie-2.3.4.tgz#ec60cee38ac675063ffc97a5c18970578ee83655"
     dependencies:
       punycode "^1.4.1"
+  
+  tree-kill@^1.1.0:
+    version "1.2.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/tree-kill/-/tree-kill-1.2.0.tgz#5846786237b4239014f05db156b643212d4c6f36"
   
   trim-newlines@^1.0.0:
     version "1.0.0"
@@ -6754,6 +7202,10 @@ Lockfile:
     dependencies:
       prelude-ls "~1.1.2"
   
+  type-detect@^4.0.0:
+    version "4.0.8"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/type-detect/-/type-detect-4.0.8.tgz#7646fb5f18871cfbb7749e69bd39a6388eb7450c"
+  
   type-is@~1.6.15:
     version "1.6.16"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/type-is/-/type-is-1.6.16.tgz#f89ce341541c672b25ee7ae3c73dee3b2be50194"
@@ -6776,7 +7228,7 @@ Lockfile:
       commander "~2.14.1"
       source-map "~0.6.1"
   
-  uglify-js@^2.8.29:
+  uglify-js@^2.6, uglify-js@^2.8.29:
     version "2.8.29"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/uglify-js/-/uglify-js-2.8.29.tgz#29c5733148057bb4e1f75df35b7a9cb72e6a59dd"
     dependencies:
@@ -6804,10 +7256,6 @@ Lockfile:
   unc-path-regex@^0.1.0:
     version "0.1.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/unc-path-regex/-/unc-path-regex-0.1.2.tgz#e73dd3d7b0d7c5ed86fbac6b0ae7d8c6a69d50fa"
-  
-  underscore@^1.8.3:
-    version "1.8.3"
-    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
   
   union-value@^1.0.0:
     version "1.0.0"
@@ -7158,7 +7606,7 @@ Lockfile:
     version "2.0.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/which-module/-/which-module-2.0.0.tgz#d9ef07dce77b9902b8a3a8fa4b31c3e3f7e6e87a"
   
-  which@1, which@^1.2.9:
+  which@1, which@^1.2.9, which@^1.3.0:
     version "1.3.0"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/which/-/which-1.3.0.tgz#ff04bdfc010ee547d780bec38e1ac1c2777d253a"
     dependencies:
@@ -7177,6 +7625,10 @@ Lockfile:
   wordwrap@0.0.2:
     version "0.0.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/wordwrap/-/wordwrap-0.0.2.tgz#b79669bb42ecb409f83d583cad52ca17eaa1643f"
+  
+  wordwrap@~0.0.2:
+    version "0.0.3"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/wordwrap/-/wordwrap-0.0.3.tgz#a3d5da6cd5c0bc0008d37234bbaf1bed63059107"
   
   wordwrap@~1.0.0:
     version "1.0.0"
@@ -7198,6 +7650,14 @@ Lockfile:
   wrappy@1:
     version "1.0.2"
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
+  
+  write-file-atomic@^1.1.4:
+    version "1.3.4"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/write-file-atomic/-/write-file-atomic-1.3.4.tgz#f807a4f0b1d9e913ae7a48112e6cc3af1991b45f"
+    dependencies:
+      graceful-fs "^4.1.11"
+      imurmurhash "^0.1.4"
+      slide "^1.1.5"
   
   write@^0.2.1:
     version "0.2.1"
@@ -7238,6 +7698,35 @@ Lockfile:
     resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/yargs-parser/-/yargs-parser-7.0.0.tgz#8d0ac42f16ea55debd332caf4c4038b3e3f5dfd9"
     dependencies:
       camelcase "^4.1.0"
+  
+  yargs-parser@^8.0.0:
+    version "8.1.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/yargs-parser/-/yargs-parser-8.1.0.tgz#f1376a33b6629a5d063782944da732631e966950"
+    dependencies:
+      camelcase "^4.1.0"
+  
+  yargs-parser@^9.0.2:
+    version "9.0.2"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/yargs-parser/-/yargs-parser-9.0.2.tgz#9ccf6a43460fe4ed40a9bb68f48d43b8a68cc077"
+    dependencies:
+      camelcase "^4.1.0"
+  
+  yargs@11.1.0:
+    version "11.1.0"
+    resolved "https://packages.it.lan.com:443/artifactory/api/npm/lnpm/yargs/-/yargs-11.1.0.tgz#90b869934ed6e871115ea2ff58b03f4724ed2d77"
+    dependencies:
+      cliui "^4.0.0"
+      decamelize "^1.1.1"
+      find-up "^2.1.0"
+      get-caller-file "^1.0.1"
+      os-locale "^2.0.0"
+      require-directory "^2.1.1"
+      require-main-filename "^1.0.1"
+      set-blocking "^2.0.0"
+      string-width "^2.0.0"
+      which-module "^2.0.0"
+      y18n "^3.2.1"
+      yargs-parser "^9.0.2"
   
   yargs@6.6.0:
     version "6.6.0"
@@ -7310,7 +7799,7 @@ Lockfile:
       fd-slicer "~1.0.1"
 
 Trace: 
-  SyntaxError: /Users/eduardo.alvarez/Desktop/blog/blog/package.json: Unexpected token } in JSON at position 303
+  SyntaxError: /Users/eduardo.alvarez/Desktop/blog/blog/package.json: Unexpected token } in JSON at position 659
       at Object.parse (native)
       at /Users/eduardo.alvarez/.nvm/versions/node/v6.12.0/lib/node_modules/yarn/lib/cli.js:770:59
       at next (native)
