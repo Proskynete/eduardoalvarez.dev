@@ -2,8 +2,8 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
-import Description from '../../src/app/views/Description/';
-import config from '../../src/config/config';
+import Description from '../../../src/app/views/Description/';
+import config from '../../../src/config/config';
 
 describe('<Description />', () => {
   it('should render the component', () => {

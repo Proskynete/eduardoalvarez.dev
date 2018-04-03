@@ -19,4 +19,16 @@ export default {
       { text: 'pero sobre todo, compartir una cerveza con mis amigos los fines de semana.' },
     ],
   },
+  getUrl() {
+    const url = {
+      development: 'http://localhost:8080',
+    };
+    return url[this.getEnvironment()];
+  },
+  getEnvironment() {
+    return (window.LAN && window.LAN.Environment.env) || 'development';
+  },
+  getEntryPointApi() {
+    return '/node/api/blog/';
+  },
 };
