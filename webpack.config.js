@@ -23,6 +23,7 @@ const config = {
     loaders: [
       {
         test: /\.(sass|scss)$/,
+        exclude: /(node_modules|bower_components)/,
         loaders: [
           { loader: 'style-loader' },
           { loader: 'css-loader', options: { sourceMap: true, sourceMapContents: true } },
@@ -41,6 +42,7 @@ const config = {
       },
       {
         test: /\.json$/,
+        exclude: /(node_modules|bower_components)/,
         loader: 'json-loader',
       },
       {

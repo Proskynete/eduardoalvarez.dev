@@ -42578,6 +42578,10 @@ __webpack_require__(381);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var handleSplitCategories = function handleSplitCategories(_categories) {
+  return _categories.toString();
+};
+
 var Post = function Post(_ref) {
   var content = _ref.content;
   var authorName = content.authorName,
@@ -42586,12 +42590,6 @@ var Post = function Post(_ref) {
       shortDescription = content.shortDescription,
       categories = content.categories;
 
-
-  var handleSplitCategories = function handleSplitCategories(cats) {
-    cats.map(function (category) {
-      return '' + category;
-    });
-  };
 
   return _react2.default.createElement(
     'section',
