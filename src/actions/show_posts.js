@@ -1,11 +1,13 @@
 import axios from 'axios';
-import context from '../config/config';
+import config from '../config/config';
 
 const SHOW_POSTS = 'SHOW_POSTS';
 
+const context = config.getUrl();
+
 const showPosts = () =>
   (dispatch) => {
-    const url = context.links.api;
+    const url = `${context}${config.getEntryPointApi()}`;
     axios.get(url)
       .then((response) => {
         dispatch({
@@ -14,7 +16,6 @@ const showPosts = () =>
         });
       });
   };
-
 export {
   SHOW_POSTS,
   showPosts,

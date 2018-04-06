@@ -5,22 +5,22 @@ import 'moment-timezone';
 
 import './Post.scss';
 
+const handleSplitCategories = _categories => _categories.toString();
+
 const Post = ({ content }) => {
   const {
     authorName,
     createDate,
     title,
     shortDescription,
-    category,
+    categories,
   } = content;
 
   return (<section className="post col-12 col-md-7">
     <div className="post__header">
       <h2 className="post__header__author-name">{authorName}</h2>
       <h4 className="post__header__date">
-        <Moment format="LL" locale="es">
-          {createDate}
-        </Moment>
+        <Moment format="LL" locale="es">{createDate}</Moment>
       </h4>
     </div>
     <div className="post__body">
@@ -29,7 +29,7 @@ const Post = ({ content }) => {
     </div>
     <div className="post__footer text-right">
       <p className="post__footer__title">Categorías</p>
-      <h3 className="post__footer__categories">{category}</h3>
+      <h3 className="post__footer__categories">{handleSplitCategories(categories)}</h3>
     </div>
   </section>);
 };

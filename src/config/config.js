@@ -4,7 +4,6 @@ export default {
     linkedin: 'https://www.linkedin.com/in/proskynete/',
     github: 'https://github.com/Proskynete',
     curriculum: 'http://curriculum.eduardoalvarez.cl',
-    api: 'http://localhost:3000/node/api/blog/',
   },
   philosophies: [
     { text: 'Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo' },
@@ -21,7 +20,7 @@ export default {
   },
   getUrl() {
     const url = {
-      development: 'http://localhost:8080',
+      development: 'http://localhost:8882',
     };
     return url[this.getEnvironment()];
   },
