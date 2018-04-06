@@ -6,19 +6,12 @@ body {
   position: absolute;
   top: 0;
   width: 100%;
-
-  @media screen and (min-width: 992px) {
-    position: fixed;
-  }
 }
 
 body > div {
+  background-attachment: fixed;
   background-image: url('../assets/img/bg.png');
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  width: 100%;
 }
