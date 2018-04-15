@@ -12,7 +12,7 @@ const showPosts = () =>
       .then((response) => {
         dispatch({
           type: SHOW_POSTS,
-          payload: response.data.response.posts,
+          payload: response.data.posts,
         });
       });
   };
