@@ -13,9 +13,10 @@ const showData = (id = false) =>
     axios.get(url)
       .then((response) => {
         const type = id ? SHOW_DETAILS : SHOW_POSTS;
+        const payload = id ? response.data.description : response.data.posts;
         dispatch({
           type,
-          payload: response.data.posts,
+          payload,
         });
       });
   };

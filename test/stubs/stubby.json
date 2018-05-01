@@ -1,14 +1,30 @@
-{
-  "request": {
-    "url": "/node/api/blog/",
-    "status": 200,
-    "method": "GET"
-    },
-  "response": {
-    "status": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "file": "./response-posts.json"
-  }
-}
+[
+  {
+    "request": {
+      "url": "/node/api/blog/",
+      "status": 200,
+      "method": "GET"
+      },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "./response-posts.json"
+    }
+  },
+  {
+    "request": {
+      "url": "/node/api/blog/([a-zA-Z0-9]+)",
+      "status": 200,
+      "method": "GET"
+      },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "file": "./descriptions/content-<% url[1] %>.json"
+    }
+  },
+]
