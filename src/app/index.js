@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Description from './views/Description/';
+import ContentPost from './views/ContentPost/';
 import Posts from './views/Posts/';
 
 import './index.scss';
@@ -9,7 +10,7 @@ import './index.scss';
 const App = (props) => {
   const profile = {
     posts: (<Posts />),
-    details: (<Description />),
+    details: (<ContentPost />),
   };
 
   return (<div className="row">
