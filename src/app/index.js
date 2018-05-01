@@ -1,18 +1,34 @@
 import React from 'react';
-
-import './index.scss';
-
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Description from './views/Description/';
 import Posts from './views/Posts/';
 
-const App = () =>
-  (<div className="row">
+import './index.scss';
+
+const App = (props) => {
+  const profile = {
+    posts: (<Posts />),
+    details: (<Description />),
+  };
+
+  return (<div className="row">
     <div className="col-12 col-md-3">
       <Description />
     </div>
     <div className="col-12 col-md-9">
-      <Posts />
+      {profile[props.profile]}
     </div>
   </div>);
+};
 
-export default App;
+const mapStateToProps = state => ({
+  profile: state.profile.profile,
+});
+
+App.propTypes = {
+  profile: PropTypes.string.isRequired,
+};
+
+
+export default connect(mapStateToProps)(App);

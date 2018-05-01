@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import 'moment-timezone';
+import { showData } from '../../../actions/get_data';
 
 import './Post.scss';
 
@@ -9,6 +10,7 @@ const handleSplitCategories = _categories => _categories.toString();
 
 const Post = ({ content }) => {
   const {
+    _id,
     authorName,
     createDate,
     title,
@@ -16,7 +18,7 @@ const Post = ({ content }) => {
     categories,
   } = content;
 
-  return (<section className="post col-12 col-md-7">
+  return (<section className="post col-12 col-md-7" onClick={showData(_id)}>
     <div className="post__header">
       <h2 className="post__header__author-name">{authorName}</h2>
       <h4 className="post__header__date">

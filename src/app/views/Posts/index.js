@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Post from '../../components/Post/';
-import { showPosts } from '../../../actions/show_posts';
+import { showData } from '../../../actions/get_data';
 
 import './Posts.scss';
 
 class Posts extends Component {
   componentWillMount() {
-    this.props.showPosts();
+    this.props.showData();
   }
 
   render() {
@@ -27,8 +27,8 @@ const mapStateToProps = state => ({
 });
 
 Posts.propTypes = {
-  showPosts: PropTypes.func.isRequired,
+  showData: PropTypes.func.isRequired,
   posts: PropTypes.array.isRequired,
 };
 
-export default connect(mapStateToProps, { showPosts })(Posts);
+export default connect(mapStateToProps, { showData })(Posts);

@@ -1,4 +1,4 @@
-import { SHOW_POSTS } from '../actions/show_posts';
+import { SHOW_POSTS } from '../actions/get_data';
 
 const initialState = {
   posts: [],
