@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "url": "/node/api/blog/",
+      "url": "/node/api/blog",
       "status": 200,
       "method": "GET"
       },

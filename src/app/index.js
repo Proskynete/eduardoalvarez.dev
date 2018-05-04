@@ -31,5 +31,4 @@ App.propTypes = {
   profile: PropTypes.string.isRequired,
 };
 
-
 export default connect(mapStateToProps)(App);

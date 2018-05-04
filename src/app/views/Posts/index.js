@@ -10,7 +10,7 @@ import './Posts.scss';
 
 class Posts extends Component {
   componentWillMount() {
-    this.props.showData();
+    this.props.showDataMethod();
   }
 
   render() {
@@ -22,13 +22,16 @@ class Posts extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  posts: state.posts.posts,
-});
-
 Posts.propTypes = {
-  showData: PropTypes.func.isRequired,
+  showDataMethod: PropTypes.func.isRequired,
   posts: PropTypes.array.isRequired,
 };
 
-export default connect(mapStateToProps, { showData })(Posts);
+export default connect(
+  state => ({
+    posts: state.posts.posts,
+  }),
+  dispatch => ({
+    showDataMethod: showData(dispatch),
+  }),
+)(Posts);

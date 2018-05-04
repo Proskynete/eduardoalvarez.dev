@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { showData } from '../../../actions/get_data';
@@ -8,7 +9,7 @@ import './Post.scss';
 
 const handleSplitCategories = _categories => _categories.toString();
 
-const Post = ({ content }) => {
+const Post = ({ content, showDataMethod }) => {
   const {
     _id,
     authorName,
@@ -18,7 +19,7 @@ const Post = ({ content }) => {
     categories,
   } = content;
 
-  return (<section className="post col-12 col-md-7" onClick={showData(_id)}>
+  return (<section className="post col-12 col-md-7" onClick={() => { showDataMethod(_id)} }>
     <div className="post__header">
       <h2 className="post__header__author-name">{authorName}</h2>
       <h4 className="post__header__date">
@@ -31,13 +32,21 @@ const Post = ({ content }) => {
     </div>
     <div className="post__footer text-right">
       <p className="post__footer__title">Categorías</p>
-      <h3 className="post__footer__categories">{handleSplitCategories(categories)}</h3>
+      <h3 className="post__footer__categories">{ handleSplitCategories(categories) }</h3>
     </div>
   </section>);
 };
 
 Post.propTypes = {
+  showDataMethod: PropTypes.func.isRequired,
   content: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
-export default Post;
+export default connect(
+  state => ({
+    state,
+  }),
+  dispatch => ({
+    showDataMethod: showData(dispatch),
+  }),
+)(Post);

@@ -6,8 +6,8 @@ const SHOW_DETAILS = 'SHOW_DETAILS';
 
 const context = config.getUrl();
 
-const showData = (id = false) =>
-  (dispatch) => {
+const showData = dispatch =>
+  (id = false) => {
     const uri = id || '';
     const url = `${context}${config.getEntryPointApi()}${uri}`;
     axios.get(url)
