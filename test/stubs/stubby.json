@@ -15,7 +15,7 @@
   },
   {
     "request": {
-      "url": "^/node/api/blog/([0-9]+)",
+      "url": "^/node/api/blog/([a-zA-Z0-9]+)",
       "status": 200,
       "method": "GET"
       },
