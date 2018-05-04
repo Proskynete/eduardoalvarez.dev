@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { onlyDate, prettyFormat } from '../../../helpers/date-format';
-import './contentpost.scss';
+import './index.scss';
 
-const ContentPost = ({ description }) => {
+const ContentArticle = ({ description }) => {
   const {
     title,
     authorName,
@@ -36,7 +36,7 @@ const ContentPost = ({ description }) => {
   );
 };
 
-ContentPost.propTypes = {
+ContentArticle.propTypes = {
   description: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
@@ -44,4 +44,4 @@ export default connect(
   state => ({
     description: state.description.description,
   }),
-)(ContentPost);
+)(ContentArticle);

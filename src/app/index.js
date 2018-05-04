@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Description from './views/Description/';
-import ContentPost from './views/ContentPost/';
-import Posts from './views/Posts/';
+import ContentArticle from './views/ContentArticle/';
+import Articles from './views/Articles/';
 
 import './index.scss';
 
 const App = (props) => {
   const profile = {
-    posts: (<Posts />),
-    details: (<ContentPost />),
+    articles: (<Articles />),
+    details: (<ContentArticle />),
   };
 
   return (<div className="row">

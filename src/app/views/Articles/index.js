@@ -3,35 +3,35 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Post from '../../components/Post/';
+import Article from '../../components/Article/';
 import { showData } from '../../../actions/get_data';
 
-import './Posts.scss';
+import './index.scss';
 
-class Posts extends Component {
+class Articles extends Component {
   componentWillMount() {
     this.props.showDataMethod();
   }
 
   render() {
-    if (this.props.posts.length < 1) {
+    if (this.props.articles.length < 1) {
       return (<p className="text-center" />);
     }
-    const postContent = this.props.posts.map(data => <Post content={data} key={data._id} />);
-    return (<div className="posts">{postContent}</div>);
+    const articleContent = this.props.articles.map(data => <Article content={data} key={data._id} />);
+    return (<div className="posts">{articleContent}</div>);
   }
 }
 
-Posts.propTypes = {
+Articles.propTypes = {
   showDataMethod: PropTypes.func.isRequired,
-  posts: PropTypes.array.isRequired,
+  articles: PropTypes.array.isRequired,
 };
 
 export default connect(
   state => ({
-    posts: state.posts.posts,
+    articles: state.articles.articles,
   }),
   dispatch => ({
     showDataMethod: showData(dispatch),
   }),
-)(Posts);
+)(Articles);

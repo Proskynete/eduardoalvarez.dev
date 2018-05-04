@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import showPosts from './posts';
+import showArticles from './articles';
 import showProfile from './profile';
 import showDescription from './description';
 
 const rootReducer = combineReducers({
-  posts: showPosts,
+  articles: showArticles,
   profile: showProfile,
   description: showDescription,
 });

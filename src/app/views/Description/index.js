@@ -4,7 +4,7 @@ import config from '../../../config/config';
 import randomTextWithTimer from '../../../helpers/random-text';
 
 import image from '../../../assets/img/me.png';
-import './description.scss';
+import './index.scss';
 
 const Description = () =>
   (<div className="description text-center">

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config/config';
 
-const SHOW_POSTS = 'SHOW_POSTS';
+const SHOW_ARTICLES = 'SHOW_ARTICLES';
 const SHOW_DETAILS = 'SHOW_DETAILS';
 
 const context = config.getUrl();
@@ -12,8 +12,8 @@ const showData = dispatch =>
     const url = `${context}${config.getEntryPointApi()}${uri}`;
     axios.get(url)
       .then((response) => {
-        const type = id ? SHOW_DETAILS : SHOW_POSTS;
-        const payload = id ? response.data.description : response.data.posts;
+        const type = id ? SHOW_DETAILS : SHOW_ARTICLES;
+        const payload = id ? response.data.description : response.data.articles;
         dispatch({
           type,
           payload,
@@ -22,7 +22,7 @@ const showData = dispatch =>
   };
 
 export {
-  SHOW_POSTS,
+  SHOW_ARTICLES,
   SHOW_DETAILS,
   showData,
 };

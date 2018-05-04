@@ -1,6 +1,6 @@
 {
-  "profile": "posts",
-  "posts": [
+  "profile": "articles",
+  "articles": [
     {
       "_id": "01",
       "authorName": "Eduardo Álvarez",
