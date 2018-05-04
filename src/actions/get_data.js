@@ -1,4 +1,3 @@
-import axios from 'axios';
 import config from '../config/config';
 
 const SHOW_ARTICLES = 'SHOW_ARTICLES';
@@ -10,14 +9,17 @@ const showData = dispatch =>
   (id = false) => {
     const uri = id || '';
     const url = `${context}${config.getEntryPointApi()}${uri}`;
-    axios.get(url)
+    fetch(url)
       .then((response) => {
-        const type = id ? SHOW_DETAILS : SHOW_ARTICLES;
-        const payload = id ? response.data.description : response.data.articles;
-        dispatch({
-          type,
-          payload,
-        });
+        response.json()
+          .then((data) => {
+            const type = id ? SHOW_DETAILS : SHOW_ARTICLES;
+            const payload = id ? data.description : data.articles;
+            dispatch({
+              type,
+              payload,
+            });
+          });
       });
   };
 
