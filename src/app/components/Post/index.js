@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Moment from 'react-moment';
-import 'moment-timezone';
 import { showData } from '../../../actions/get_data';
+import { onlyDate, agoFormat } from '../../../helpers/date-format';
 
 import './Post.scss';
 
@@ -23,7 +22,7 @@ const Post = ({ content, showDataMethod }) => {
     <div className="post__header">
       <h2 className="post__header__author-name">{authorName}</h2>
       <h4 className="post__header__date">
-        <Moment format="LL" locale="es">{createDate}</Moment>
+        <time dateTime={onlyDate(createDate)}>{agoFormat(createDate)}</time>
       </h4>
     </div>
     <div className="post__body">

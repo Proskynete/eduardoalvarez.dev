@@ -7,7 +7,7 @@ const initialState = {
 const showDescription = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_DETAILS:
-      return Object.assign({}, state, { posts: action.payload });
+      return Object.assign({}, state, { description: action.payload });
     default:
       return state;
   }
