@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showData } from '../../../actions/get_data';
 import { onlyDate, agoFormat } from '../../../helpers/date-format';
-
-  import './index.scss';
+import './index.scss';
 
 const handleSplitCategories = _categories => _categories.toString();
 
@@ -18,22 +17,32 @@ const Article = ({ content, showDataMethod }) => {
     categories,
   } = content;
 
-  return (<section className="article col-12 col-md-7" onClick={() => { showDataMethod(_id)} }>
-    <div className="article__header">
-      <h2 className="article__header__author-name">{authorName}</h2>
-      <h4 className="article__header__date">
-        <time dateTime={onlyDate(createDate)}>{agoFormat(createDate)}</time>
-      </h4>
-    </div>
-    <div className="article__body">
-      <h1 className="article__body__title">{title}</h1>
-      <p className="article__body__content">{shortDescription}</p>
-    </div>
-    <div className="article__footer text-right">
-      <p className="article__footer__title">Categorías</p>
-      <h3 className="article__footer__categories">{ handleSplitCategories(categories) }</h3>
-    </div>
-  </section>);
+  return (
+    <a
+      className="article col-12 col-md-7"
+      onClick={() => { showDataMethod(_id); }}
+      role="button"
+      tabIndex="0"
+    >
+      <div className="article__header">
+        <h2 className="article__header__author-name">{authorName}</h2>
+        <h4 className="article__header__date">
+          <time dateTime={onlyDate(createDate)}>
+            {agoFormat(createDate)}
+          </time>
+        </h4>
+      </div>
+      <div className="article__body">
+        <h1 className="article__body__title">{title}</h1>
+        <p className="article__body__content">{shortDescription}</p>
+      </div>
+      <div className="article__footer text-right">
+        <p className="article__footer__title">Categorías</p>
+        <h3 className="article__footer__categories">
+          {handleSplitCategories(categories)}
+        </h3>
+      </div>
+    </a>);
 };
 
 Article.propTypes = {

@@ -17,7 +17,9 @@ class Articles extends Component {
     if (this.props.articles.length < 1) {
       return (<p className="text-center" />);
     }
-    const articleContent = this.props.articles.map(data => <Article content={data} key={data._id} />);
+    const articleContent = this.props.articles.map(data =>
+      (<Article content={data} key={data._id} />),
+    );
     return (<div className="posts">{articleContent}</div>);
   }
 }

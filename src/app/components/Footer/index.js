@@ -1,5 +1,5 @@
 import React from 'react';
-import './footer.scss';
+import './index.scss';
 
 const Footer = () =>
   (<div className="d-flex flex-column justify-content-center">

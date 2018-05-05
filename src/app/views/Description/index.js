@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../../components/Footer/';
 import config from '../../../config/config';
-import randomTextWithTimer from '../../../helpers/random-text';
+import randomText from '../../../helpers/random-text';
 
 import image from '../../../assets/img/me.png';
 import './index.scss';
@@ -45,7 +45,7 @@ const Description = () =>
         {config.description.parragraph[1].text}
         {config.description.parragraph[2].text}
       </p>
-      <p>{randomTextWithTimer(config.philosophies)}</p>
+      <p>{randomText(config.philosophies)}</p>
     </div>
 
     <Footer />
