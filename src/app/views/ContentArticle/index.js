@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { onlyDate, prettyFormat } from '../../../helpers/date-format';
+import { showData } from '../../../actions/get_data';
 import './index.scss';
 
-const ContentArticle = ({ description }) => {
+const ContentArticle = ({ description, showDataMethod }) => {
   const {
     title,
     authorName,
@@ -15,7 +16,12 @@ const ContentArticle = ({ description }) => {
 
   return (
     <section className="content col-12 col-md-8">
-      <button className="content__button">
+      <button
+        className="content__button"
+        onClick={() => { showDataMethod(); }}
+        role="button"
+        tabIndex="0"
+      >
         <i className="fas fa-undo-alt" /> Volver a los artículos
       </button>
       <img src={image} alt={title} className="content__image" />
@@ -37,11 +43,15 @@ const ContentArticle = ({ description }) => {
 };
 
 ContentArticle.propTypes = {
+  showDataMethod: PropTypes.func.isRequired,
   description: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default connect(
   state => ({
     description: state.description.description,
+  }),
+  dispatch => ({
+    showDataMethod: showData(dispatch),
   }),
 )(ContentArticle);
