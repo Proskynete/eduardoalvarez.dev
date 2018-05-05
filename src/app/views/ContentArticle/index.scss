@@ -2,7 +2,6 @@
 
 .content {
   color: $gray-color-whitout-opacity;
-  height: 100vh;
   margin-top: 45px;
 
   &__button {
@@ -10,8 +9,19 @@
     border: 1px solid $gray-color-whitout-opacity;
     border-radius: 5px;
     color: $gray-color-whitout-opacity;
+    cursor: pointer;
     padding: 10px 16px;
     text-align: center;
+
+    &:hover {
+      border: 1px solid $white-color-whitout-opacity;
+      color: $white-color-whitout-opacity;
+      transition: ease-in .1s;
+    }
+
+    &:focus {
+      outline: inherit;
+    }
   }
 
   &__image {

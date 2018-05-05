@@ -20,7 +20,7 @@ class Articles extends Component {
     const articleContent = this.props.articles.map(data =>
       (<Article content={data} key={data._id} />),
     );
-    return (<div className="posts">{articleContent}</div>);
+    return (<div className="articles">{articleContent}</div>);
   }
 }
 

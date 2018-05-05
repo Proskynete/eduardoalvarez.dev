@@ -13,6 +13,10 @@
     text-decoration: none;
   }
 
+  &:focus {
+    outline: inherit;
+  }
+
   &__header {
     &__author-name {
       font-size: 14px;
