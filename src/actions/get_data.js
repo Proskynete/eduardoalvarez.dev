@@ -3,12 +3,12 @@ import config from '../config/config';
 const SHOW_ARTICLES = 'SHOW_ARTICLES';
 const SHOW_DETAILS = 'SHOW_DETAILS';
 
-const context = config.getUrl();
+const context = config.handleGetUrl();
 
 const showData = dispatch =>
   (id = false) => {
     const uri = id || '';
-    const url = `${context}${config.getEntryPointApi()}${uri}`;
+    const url = `${context}${config.handleGetEntryPointApi()}${uri}`;
     fetch(url)
       .then((response) => {
         response.json()

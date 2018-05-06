@@ -19,16 +19,17 @@ export default {
       { text: 'pero sobre todo, compartir una cerveza con mis amigos los fines de semana.' },
     ],
   },
-  getUrl() {
+  handleGetUrl() {
     const url = {
       development: 'http://localhost:8882',
+      integration: 'http://localhost:3000',
     };
-    return url[this.getEnvironment()];
+    return url[this.handleGetEnvironment()];
   },
-  getEnvironment() {
-    return (window.LAN && window.LAN.Environment.env) || 'development';
+  handleGetEnvironment() {
+    return 'development';
   },
-  getEntryPointApi() {
+  handleGetEntryPointApi() {
     return '/node/api/blog/';
   },
 };
