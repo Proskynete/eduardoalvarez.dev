@@ -16,7 +16,7 @@ export default {
     parragraph: [
       { text: 'Holaaa!! Mi nombre es Eduardo Álvarez... Que genial el que hayas venido.' },
       { text: 'Me gusta el desarrollo web en su amplio espectro, jugar LOL o algún partido de fútbol, ' },
-      { text: 'pero sobre todo, compartir una cerveza con mis amigos los fines de semana.' },
+      { text: 'pero sobre todo, compartir con mis amigos cada vez que se puede.' },
     ],
   },
   handleGetUrl() {
