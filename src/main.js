@@ -10,8 +10,10 @@ import reducers from './reducers/';
 const eduardoalvarez = applyMiddleware(thunk)(createStore);
 
 const Main = () =>
-  (<Provider store={eduardoalvarez(reducers)}>
-    <App />
-  </Provider>);
+    (<Provider store={eduardoalvarez(reducers)}>
+        <div className="container-fluid">
+            <App />
+        </div>
+    </Provider>);
 
 ReactDOM.render(<Main />, document.getElementById('app'));
