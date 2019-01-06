@@ -1,0 +1,22 @@
+{
+    "name": "blog",
+    "description": "blog",
+    "main": "",
+    "authors": [
+      "Eduardo Alvarez Castañeda (http://www.eduardoalvarezc.cl)"
+    ],
+    "license": "MIT",
+    "private": true,
+    "ignore": [
+      "**/.*",
+      "node_modules",
+      "bower_components"
+    ],
+    "dependencies": {
+      "bootstrap": "4.2.1",
+      "fontawesome": "5.6.3",
+      "jquery": "3.3.1",
+      "wow": "1.1.2"
+    }
+  }
+  
