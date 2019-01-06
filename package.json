@@ -1,6 +1,6 @@
 {
   "name": "blog",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -8,9 +8,9 @@
     "lint": "eslint ./src --ignore-path .gitignore",
     "production": "webpack -p",
     "serve": "webpack-dev-server",
-    "start": "concurrently 'yarn stubby' 'yarn serve'",
+    "start": "concurrently \"yarn stubby\" \"yarn serve\"",
     "stubby": "stubby -w -d test/stubs/stubby.json",
-    "test": "concurrently 'yarn lint' 'yarn test:unit'",
+    "test": "concurrently \"yarn lint\" \"yarn test:unit\"",
     "test:unit": "nyc mocha test/unit --compilers js:babel-core/register --require ignore-styles --no-deprecation",
     "test:unit-coverage": "nyc report --reporter=lcov coverage/lcov-report && http-server -p 3001 "
   },
