@@ -7,11 +7,13 @@ const BUILD_DIR = path.resolve(__dirname, './public/');
 const IMAGES = path.resolve(__dirname, 'src/assets/img/');
 
 const config = {
-  devtool: 'source-map',
   entry: path.resolve(__dirname, 'src', 'main.js'),
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js',
+  },
+  resolve: {
+      extensions: ['.jsx', '.js']
   },
   devServer: {
     contentBase: './',
@@ -20,7 +22,7 @@ const config = {
     inline: true,
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(sass|scss)$/,
         exclude: /(node_modules|bower_components)/,
