@@ -1,6 +1,8 @@
+@import '../../assets/scss/colors.scss';
+
 .nav {
     align-items: center;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid $lightgrey_color;
     display: flex;
     flex-direction: row;
     height: 60px;
