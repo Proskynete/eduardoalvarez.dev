@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app.js';
+import App from './app';
 
-const Main = () => <div className="container-fluid">
+const Main = () => (
     <App />
-</div>
+);
 
 ReactDOM.render(<Main />, document.getElementById('app'));

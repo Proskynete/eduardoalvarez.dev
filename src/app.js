@@ -1,5 +1,8 @@
 import React from 'react';
+import Nav from './components/nav/';
 
-const App = () => <h1>Hello world</h1>;
+const App = () => (
+    <Nav />
+);
 
 export default App;
