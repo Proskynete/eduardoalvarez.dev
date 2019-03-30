@@ -28,7 +28,7 @@ const config = {
         exclude: /(node_modules|bower_components)/,
         loaders: [
           { loader: 'style-loader' },
-          { loader: 'css-loader', options: { sourceMap: true, sourceMapContents: true } },
+          { loader: 'css-loader', options: { sourceMap: true } },
           { loader: 'sass-loader', options: { sourceMap: true, sourceMapContents: true } },
         ],
       },
