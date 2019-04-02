@@ -1,10 +1,22 @@
 export default {
     appName: 'eduardoalvarez.cl',
-    links: {
-        linkedin: 'https://www.linkedin.com/in/eduardoalvarezc/',
-        github: 'https://github.com/Proskynete',
-        curriculum: 'http://curriculum.eduardoalvarez.cl',
-    },
+    socials: [{
+        name: "Linkedin",
+        icon: "fab fa-linkedin-in",
+        link: "https://www.linkedin.com/in/eduardoalvarezc/"
+    }, {
+        name: "Github",
+        icon: "fab fa-github",
+        link: "https://github.com/Proskynete/"
+    }, {
+        name: "Correo",
+        icon: "far fa-envelope",
+        link: "mailto:eduardo.a1993@gmail.com"
+    }, {
+        name: "Curriculum",
+        icon: "fas fa-file",
+        link: "http://curriculum.eduardoalvarez.cl"
+    }],
     philosophies: [
         { text: 'Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo' },
         { text: 'No permitas que las cosas tomen más del tiempo que deben tomar' },

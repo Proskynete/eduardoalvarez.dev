@@ -1,6 +1,14 @@
 import React from 'react';
 import Logo from '../logo/';
+import config from '../../config/config';
+import randomText from '../../helpers/random-text';
 import './index.scss';
+
+const handleShowIconSocials = socials => (
+    socials.map(social => <a key={social.name} className="header__inner__container__socials__link" href={social.link}>
+        <i className={social.icon} title={social.name} />
+    </a>)
+);
 
 const Header = () => (
     <div className="header">
@@ -10,10 +18,10 @@ const Header = () => (
                     <Logo />
                 </div>
                 <div className="header__inner__container__slogan">
-                    Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo
+                    { randomText(config.philosophies) }
                 </div>
                 <div className="header__inner__container__socials">
-                    Linkedin - Github - Curriculum
+                    { handleShowIconSocials(config.socials) }
                 </div>
             </div>
         </div>
