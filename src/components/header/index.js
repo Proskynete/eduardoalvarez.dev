@@ -1,4 +1,5 @@
 import React from 'react';
+import Logo from '../logo/';
 import './index.scss';
 
 const Header = () => (
@@ -6,7 +7,7 @@ const Header = () => (
         <div className="header__inner">
             <div className="header__inner__container">
                 <div className="header__inner__container__logo">
-                    EDUARDOALVAREZ
+                    <Logo />
                 </div>
                 <div className="header__inner__container__slogan">
                     Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo
