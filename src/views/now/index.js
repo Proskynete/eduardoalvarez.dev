@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../../components/header/';
+import Footer from '../../components/footer/';
 
 const Now = () => (
     <div className="container-fluid">
@@ -10,6 +11,9 @@ const Now = () => (
             <div className="col col-md-8">
                 <h1>Now</h1>
             </div>
+        </div>
+        <div className="row">
+            <Footer />
         </div>
     </div>
 );
