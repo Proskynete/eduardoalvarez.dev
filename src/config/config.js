@@ -5,6 +5,10 @@ export default {
         icon: "fab fa-linkedin-in",
         link: "https://www.linkedin.com/in/eduardoalvarezc/"
     }, {
+        name: "Twitter",
+        icon: "fab fa-twitter",
+        link: "https://twitter.com/proskynete"
+    }, {
         name: "Github",
         icon: "fab fa-github",
         link: "https://github.com/Proskynete/"

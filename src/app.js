@@ -13,10 +13,10 @@ const App = () => (
         <Nav />
 
         <Route path="/" exact component={Home} />
-        <Route path="/quien-soy/" component={WhoIAm} />
-        <Route path="/now/" component={Now} />
-        <Route path="/blog/" component={Blog} />
-        <Route path="/hablemos/" component={LetsTalk} />
+        <Route path="/quien-soy" component={WhoIAm} />
+        <Route path="/now" component={Now} />
+        <Route path="/blog" component={Blog} />
+        <Route path="/hablemos" component={LetsTalk} />
     </BrowserRouter>
 );
 
