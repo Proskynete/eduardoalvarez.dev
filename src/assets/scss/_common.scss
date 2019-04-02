@@ -2,10 +2,11 @@
 
 .container {
     color: $darkblue_color;
+    font-family: 'Ubuntu', sans-serif;
     margin-bottom: 40px;
 
     &__title {
-        font-family: 'Raleway', sans-serif;
+        font-family: 'Raleway', sans-serif !important;
         font-size: 1.3em;
         margin-bottom: 15px;
         text-transform: uppercase;
