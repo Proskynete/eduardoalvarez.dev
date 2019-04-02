@@ -4,20 +4,20 @@ import './index.scss';
 
 const Nav = () => (
     <nav className="nav">
-        <li>
-            <Link to="/">Home</Link>
+        <li className="nav__item">
+            <Link className="nav__item__link" to="/">Home</Link>
         </li>
-        <li>
-            <Link to="/quien-soy/">Quien soy</Link>
+        <li className="nav__item">
+            <Link className="nav__item__link" to="/quien-soy/">Quien soy</Link>
         </li>
-        <li>
-            <Link to="/now/">Now</Link>
+        <li className="nav__item">
+            <Link className="nav__item__link" to="/now/">Now</Link>
         </li>
-        <li>
-            <Link to="/blog/">Blog</Link>
+        <li className="nav__item">
+            <Link className="nav__item__link" to="/blog/">Blog</Link>
         </li>
-        <li>
-            <Link to="/hablemos/">Hablemos</Link>
+        <li className="nav__item">
+            <Link className="nav__item__link" to="/hablemos/">Hablemos</Link>
         </li>
     </nav>
 );
