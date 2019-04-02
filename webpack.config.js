@@ -11,6 +11,7 @@ const config = {
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js',
+    publicPath: '/',
   },
   resolve: {
       extensions: ['.jsx', '.js']
@@ -20,6 +21,7 @@ const config = {
     port: 8080,
     compress: true,
     inline: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [
