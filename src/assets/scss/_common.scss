@@ -2,6 +2,7 @@
 
 .container {
     color: $darkblue_color;
+    margin-bottom: 40px;
 
     &__title {
         font-family: 'Raleway', sans-serif;
@@ -17,16 +18,15 @@
         &__link {
             font-size: .9em;
             font-weight: 600;
-            color: $darkblue_color;
+            color: $blue_color;
 
             &:active,
             &:link,
             &:visited {
-                color: $darkblue_color;
+                color: $blue_color;
             }
 
             &:hover {
-                color: $blue_color;
                 text-decoration: none;
             }
         }
