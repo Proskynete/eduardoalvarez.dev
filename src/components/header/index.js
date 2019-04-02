@@ -18,7 +18,9 @@ const Header = () => (
                     <Logo />
                 </div>
                 <div className="header__inner__container__slogan">
+                    <i className="header__inner__container__slogan__icon fas fa-quote-left" />
                     { randomText(config.philosophies) }
+                    <i className="header__inner__container__slogan__icon fas fa-quote-right" />
                 </div>
                 <div className="header__inner__container__socials">
                     { handleShowIconSocials(config.socials) }

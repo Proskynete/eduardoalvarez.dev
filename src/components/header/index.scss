@@ -14,13 +14,25 @@
     width: 100%;
 
     &__inner {
-        width: 50%;
-
         &__container {
             text-align: center;
 
             &__slogan {
                 margin-top: 17px;
+
+                &__icon {
+                    font-size: .5em;
+                    position: relative;
+                    top: -5px;
+
+                    &:first-child {
+                        margin-right: 3px;
+                    }
+
+                    &:last-child {
+                        margin-left: 3px;
+                    }
+                }
             }
 
             &__socials {
