@@ -19,8 +19,8 @@ const Home = () => (
                     <p className="container__content">
                         Soy estudiante de ingeniería en computación e informática en
                         la <LinkWeb link="https://www.unab.cl/" title="UNAB" />, desarrollador web (Web UI) en
-                        la empresa <LinkWeb link="http://www.globant.com" title="Globant" /> .
-                        Apasionado por las tecnologías web. Me creé este sitio porque busco poder compartir el conocimiento que he
+                        la empresa <LinkWeb link="http://www.globant.com" title="Globant" />. Apasionado por
+                        las tecnologías web. Me creé este sitio porque busco poder compartir el conocimiento que he
                         adquirido a lo largo de todo este tiempo.
                     </p>
                 </div>
