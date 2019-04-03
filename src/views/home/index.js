@@ -1,12 +1,9 @@
 import React from 'react';
 import Header from '../../components/header/';
+import Coffee from '../../components/coffee/';
 import Footer from '../../components/footer/';
 import { Link } from "react-router-dom";
 import './index.scss';
-
-const handleShowSocialsNetwork = () => {
-
-}
 
 const Home = () => (
     <div className="container-fluid">
@@ -46,6 +43,11 @@ const Home = () => (
                         mail <a className="container__content__link" href="mailto:eduardo.a1993@gmail.com">eduardo.a1993@gmail.com</a>
                     </p>
                 </div>
+            </div>
+        </div>
+        <div className="row justify-content-md-center">
+            <div className="col-12">
+                <Coffee />
             </div>
         </div>
         <div className="row">
