@@ -11,6 +11,13 @@
     position: relative;
     width: 100%;
 
+    @media (min-width: 1200px) {
+        font-size: 1em;
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     &__inner {
         background-color: $lightgrey_color;
         border-radius: .7em;

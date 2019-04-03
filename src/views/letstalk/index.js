@@ -8,7 +8,7 @@ const LetsTalk = () => (
             <div className="col-12">
                 <Header />
             </div>
-            <div className="col col-md-8">
+            <div className="col col-md-7">
                 <h1>Let`s Talk</h1>
             </div>
         </div>

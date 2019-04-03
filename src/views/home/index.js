@@ -11,7 +11,7 @@ const Home = () => (
             <div className="col-12">
                 <Header />
             </div>
-            <div className="col col-md-8">
+            <div className="col col-md-7">
                 <div className="container">
                     <h1 className="container__title">Quien soy en 15 segundos</h1>
                     <p className="container__content">

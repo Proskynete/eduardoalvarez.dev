@@ -10,11 +10,19 @@
         font-size: 1.3em;
         margin-bottom: 15px;
         text-transform: uppercase;
+
+        @media (min-width: 1200px) {
+            font-size: 1.5em;
+        }
     }
 
     &__content {
         font-size: .9em;
         font-weight: 300;
+
+        @media (min-width: 1200px) {
+            font-size: 1em;
+        }
 
         &__link {
             font-size: .9em;
