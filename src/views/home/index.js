@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../../components/header/';
 import Coffee from '../../components/coffee/';
 import Footer from '../../components/footer/';
+import Line from '../../components/line/';
 import { Link } from "react-router-dom";
 import './index.scss';
 
@@ -22,12 +23,14 @@ const Home = () => (
                         adquirido a lo largo de todo este tiempo.
                     </p>
                 </div>
+                <Line />
                 <div className="container">
                     <h1 className="container__title">Quien soy en 10 minutos</h1>
                     <p className="container__content">
                         Puedes leer más en la página: <Link className="container__content__link" to="/quien-soy">Quien soy</Link>
                     </p>
                 </div>
+                <Line />
                 <div className="container">
                     <h1 className="container__title">En que estoy ahora?</h1>
                     <p className="container__content">
@@ -35,6 +38,7 @@ const Home = () => (
                         en lo que estoy metido.
                     </p>
                 </div>
+                <Line />
                 <div className="container">
                     <h1 className="container__title">Quieres que hablemos?</h1>
                     <p className="container__content">
@@ -43,6 +47,7 @@ const Home = () => (
                         mail <a className="container__content__link" href="mailto:eduardo.a1993@gmail.com">eduardo.a1993@gmail.com</a>
                     </p>
                 </div>
+                <Line />
             </div>
         </div>
         <div className="row justify-content-md-center">
