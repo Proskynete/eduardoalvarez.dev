@@ -8,16 +8,13 @@ const Nav = () => (
             <Link className="nav__item__link" to="/">Home</Link>
         </li>
         <li className="nav__item">
-            <Link className="nav__item__link" to="/quien-soy/">Quien soy</Link>
+            <Link className="nav__item__link" to="/quien-soy">Quien soy</Link>
         </li>
         <li className="nav__item">
-            <Link className="nav__item__link" to="/now/">Now</Link>
+            <Link className="nav__item__link" to="/now">Now</Link>
         </li>
         <li className="nav__item">
-            <Link className="nav__item__link" to="/blog/">Blog</Link>
-        </li>
-        <li className="nav__item">
-            <Link className="nav__item__link" to="/hablemos/">Hablemos</Link>
+            <Link className="nav__item__link" to="/blog">Blog</Link>
         </li>
     </nav>
 );
