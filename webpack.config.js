@@ -14,7 +14,14 @@ const config = {
     publicPath: '/',
   },
   resolve: {
-      extensions: ['.jsx', '.js']
+      extensions: ['.jsx', '.js'],
+      alias: {
+          Components: path.resolve(__dirname, 'src/components/'),
+          Views: path.resolve(__dirname, 'src/views/'),
+          Helpers: path.resolve(__dirname, 'src/helpers/'),
+          Config: path.resolve(__dirname, 'src/config/'),
+          Sass: path.resolve(__dirname, 'src/assets/scss/')
+      }
   },
   devServer: {
     contentBase: './',

@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from '../../components/header/';
-import Coffee from '../../components/coffee/';
-import Footer from '../../components/footer/';
-import Line from '../../components/line/';
-import LinkWeb from '../../components/linkweb/';
+import Header from 'Components/header/';
+import Coffee from 'Components/coffee/';
+import Footer from 'Components/footer/';
+import Line from 'Components/line/';
+import LinkWeb from 'Components/linkweb/';
 import { Link } from "react-router-dom";
 import './index.scss';
 

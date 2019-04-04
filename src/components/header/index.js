@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../logo/';
-import config from '../../config/config';
-import randomText from '../../helpers/random-text';
+import config from 'Config/config';
+import randomText from 'Helpers/random-text';
 import './index.scss';
 
 const handleShowIconSocials = socials => (

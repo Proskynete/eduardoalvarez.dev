@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from '../../components/header/';
-import Coffee from '../../components/coffee/';
-import Footer from '../../components/footer/';
-import Line from '../../components/line/';
+import Header from 'Components/header/';
+import Coffee from 'Components/coffee/';
+import Footer from 'Components/footer/';
+import Line from 'Components/line/';
 import './index.scss';
 
 const Blog = () => (
