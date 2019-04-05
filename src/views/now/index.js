@@ -14,7 +14,17 @@ const Now = () => (
             </div>
             <div className="col col-md-7">
                 <div className="container">
-                    <h1 className="container__title">Now</h1>
+                    <h1 className="container__title">Por qué now?</h1>
+                    <p className="container__content">
+                        Una día estaba revisando el sitio web de <LinkWeb link="https://carlosazaustre.es/" title="Carlos Azaustre" /> y me dí cuenta
+                        que tenía una sección en donde publica todo lo que esta haciendo y de manera actualizada y que a su vez, mencionaba
+                        a <span className="container__content__destaked">Derek Sivers</span> y la
+                        iniciativa <LinkWeb link="https://nownownow.com/about" title="Now" /> que está llevando a cabo.
+                    </p>
+                </div>
+                <Line />
+                <div className="container">
+                    <h1 className="container__title">Now!</h1>
                     <p className="container__content">
                         <span className="container__content__question">Donde vivo?</span>
                         Santiago de Chile. Santiago centro.
