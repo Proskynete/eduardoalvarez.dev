@@ -24,6 +24,12 @@
             font-size: 1em;
         }
 
+        &__question {
+            display: block;
+            font-weight: 500;
+            margin-top: 28px;
+        }
+
         &__destaked {
             color: $darkgrey_color;
             font-style: italic;
