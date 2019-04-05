@@ -15,7 +15,7 @@ const Home = () => (
             </div>
             <div className="col col-md-7">
                 <div className="container">
-                    <h1 className="container__title">Quien soy en 15 segundos</h1>
+                    <h1 className="container__title">Quien soy en 20 segundos <span className="container__title__subtitle">(o menos)</span></h1>
                     <p className="container__content">
                         Soy estudiante de ingeniería en computación e informática en
                         la <LinkWeb link="https://www.unab.cl/" title="UNAB" />, desarrollador web (Web UI) en
