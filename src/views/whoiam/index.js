@@ -14,7 +14,12 @@ const WhoIAm = () => (
             <div className="col col-md-7">
                 <div className="container">
                     <h1 className="container__title">Quien soy</h1>
-                    <p className="container__content" />
+                    <p className="container__content">
+                        Hola!!! Mi nombre es <span className="container__content__destaked">Eduardo Álvarez</span> y soy nivel 25 en este juego
+                        llamado vida. Nacido y criado en Santiago de Chile (lugar donde sigo viviendo). Hijo
+                        mayor de <span className="container__content__destaked">Eduardo Álvarez Dubles</span> (super original mi
+                        papá) y <span className="container__content__destaked">Janett Castañeda González</span>.
+                    </p>
                 </div>
                 <Line />
             </div>
