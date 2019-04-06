@@ -3,13 +3,14 @@
 .nav {
     border-bottom: 1px solid $lightgrey_color;
     height: 60px;
+    display: flex;
     justify-content: space-around;
     width: 100%;
 
     &__content {
         align-items: center;
-        display: flex;
         height: 100%;
+        display: flex;
         justify-content: space-around;
         width: 100%;
 
