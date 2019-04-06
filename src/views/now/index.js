@@ -18,7 +18,7 @@ const Now = () => (
                     <p className="container__content">
                         Una día estaba revisando el sitio web de <LinkWeb link="https://carlosazaustre.es/" title="Carlos Azaustre" /> y me dí cuenta
                         que tenía una sección en donde publica todo lo que esta haciendo y de manera actualizada y que, a su vez, mencionaba
-                        a <span className="container__content__destaked">Derek Sivers</span> y la
+                        a <span className="container__content__highlighted">Derek Sivers</span> y la
                         iniciativa <LinkWeb link="https://nownownow.com/about" title="Now" /> que está llevando a cabo. Ésto fue lo que llamo mi atención.
                     </p>
                 </div>
@@ -45,11 +45,11 @@ const Now = () => (
                     <p className="container__content">
                         <span className="container__content__question">Que juego estoy jugando?</span>
                         Silver III en el juego <LinkWeb link="http://www.leagueoflegends.com" title="League of legends" />, servidor de LAS. Nombre
-                        de invocador <span className="container__content__destaked">Proskynete</span>.
+                        de invocador <span className="container__content__highlighted">Proskynete</span>.
                     </p>
                     <p className="container__content">
                         <span className="container__content__question">Algo que haya realizado hace poco y que me llene de felicidad</span>
-                        Dicté mi primera charla sobre las tecnologías <span className="container__content__destaked">React/Redux</span> para las chicas
+                        Dicté mi primera charla sobre las tecnologías <span className="container__content__highlighted">React/Redux</span> para las chicas
                         de <LinkWeb link="http://www.laboratoria.com" title="Laboratoria Chile" />.
                     </p>
                     <p className="container__content">
@@ -58,12 +58,12 @@ const Now = () => (
                     </p>
                     <p className="container__content">
                         <span className="container__content__question">Que estoy leyendo?</span>
-                        Estoy leyendo <span className="container__content__destaked">HTML 5 - Notes for professionals</span>.
+                        Estoy leyendo <span className="container__content__highlighted">HTML 5 - Notes for professionals</span>.
                     </p>
                     <p className="container__content">
                         <span className="container__content__question">Que es lo que estoy desarrollando?</span>
                         Actualmente me encuentro generando contenido para la
-                        sección <span className="container__content__destaked">Blog</span> de mi sitio web.
+                        sección <span className="container__content__highlighted">Blog</span> de mi sitio web.
                     </p>
                 </div>
                 <Line />
