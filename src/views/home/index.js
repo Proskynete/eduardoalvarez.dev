@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+
 import Header from 'Components/header/';
 import Coffee from 'Components/coffee/';
 import Footer from 'Components/footer/';
 import Line from 'Components/line/';
 import LinkWeb from 'Components/linkweb/';
-import { Link } from "react-router-dom";
 import './index.scss';
 
 const Home = () => (
