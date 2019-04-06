@@ -28,7 +28,8 @@ const Home = () => (
                 <div className="container">
                     <h1 className="container__title">Quien soy en 10 minutos</h1>
                     <p className="container__content">
-                        Puedes leer más en la página: <Link className="container__content__link" to="/quien-soy">Quien soy</Link>
+                        Puedes leer más en la página: <Link className="container__content__link" to="/quien-soy">Quien soy</Link>. También
+                        puedes revisar mi <LinkWeb link="http://curriculum.eduardoalvarez.cl/" title="Curriculum" />.
                     </p>
                 </div>
                 <Line />
