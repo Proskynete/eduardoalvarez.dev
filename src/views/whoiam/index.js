@@ -36,6 +36,28 @@ const WhoIAm = () => (
                         visita <Link className="container__content__link" to="/now">éste link</Link>.
                     </p>
                 </div>
+                <div className="container">
+                    <h1 className="container__title">Como inicié?</h1>
+                    <p className="container__content">
+                        Desde que tengo memoria, recuerdo que siempre me llamó la atención la computación y desde pequeño quise aprender
+                        como es que funcionaba por dentro.
+                    </p>
+                    <p className="container__content">
+                        Cuando estaba entrando a la enseñanza media me hice amigo
+                        de <LinkWeb link="https://twitter.com/m_mrk2" title="Marcelo Mercado" /> quien estaba entrando a primer año de Ing. en
+                        informática. En ese tiempo fue cuando él empezo a hacer trabajos de desarrollo de sitios web
+                        con <LinkWeb link="https://www.joomla.org/" title="Joomla" /> mientras que por mi parte estaba
+                        estudiando <span className="container__content__highlighted">HTML5</span> y <span className="container__content__highlighted">CSS3</span> con <LinkWeb link="https://codigofacilito.com/" title="CódigoFacilito" />.
+                    </p>
+                </div>
+                <div className="container">
+                    <h1 className="container__title">Solo programación?</h1>
+                    <p className="container__content">
+                        A pesar de que disfruto el programar y aprender de nuevas tecnologías, también me gustan otras cosas como por ejemplo:
+                        Jugar videojuegos, tocar instrumentos de cuerda (tengo un teclado, una guitarra eléctrica y dos guitarras electroacústicas),
+                        ver anime y dibujos animados infantiles.
+                    </p>
+                </div>
                 <Line />
             </div>
         </div>
