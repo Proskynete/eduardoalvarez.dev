@@ -1,8 +1,11 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+
 import Header from 'Components/header/';
 import Coffee from 'Components/coffee/';
 import Footer from 'Components/footer/';
 import LinkWeb from 'Components/linkweb/';
+import Highlighted from 'Components/highlighted/'
 import Line from 'Components/line/';
 import './index.scss';
 
@@ -18,8 +21,8 @@ const Now = () => (
                     <p className="container__content">
                         Una día estaba revisando el sitio web de <LinkWeb link="https://carlosazaustre.es/" title="Carlos Azaustre" /> y me dí cuenta
                         que tenía una sección en donde publica todo lo que esta haciendo y de manera actualizada y que, a su vez, mencionaba
-                        a <span className="container__content__highlighted">Derek Sivers</span> y la
-                        iniciativa <LinkWeb link="https://nownownow.com/about" title="Now" /> que está llevando a cabo. Ésto fue lo que llamo mi atención.
+                        a <Highlighted content="Derek Sivers" /> y la iniciativa <LinkWeb link="https://nownownow.com/about" title="Now" /> que
+                        está llevando a cabo. Ésto fue lo que llamo mi atención.
                     </p>
                 </div>
                 <Line />
@@ -40,30 +43,30 @@ const Now = () => (
                     </p>
                     <p className="container__content">
                         <span className="container__content__question">Donde trabajo?</span>
-                        Soy Web UI SSr en la empresa <LinkWeb link="http://www.globant.com" title="Globant" />.
+                        Soy <Highlighted content="Web UI SSr" /> en la empresa <LinkWeb link="http://www.globant.com" title="Globant" />.
                     </p>
                     <p className="container__content">
                         <span className="container__content__question">Que juego estoy jugando?</span>
                         Silver III en el juego <LinkWeb link="http://www.leagueoflegends.com" title="League of legends" />, servidor de LAS. Nombre
-                        de invocador <span className="container__content__highlighted">Proskynete</span>.
+                        de invocador <Highlighted content="Proskynete" />.
                     </p>
                     <p className="container__content">
                         <span className="container__content__question">Algo que haya realizado hace poco y que me llene de felicidad</span>
-                        Dicté mi primera charla sobre las tecnologías <span className="container__content__highlighted">React/Redux</span> para las chicas
+                        Dicté mi primera charla sobre las tecnologías <Highlighted content="React/Redux" /> para las chicas
                         de <LinkWeb link="http://www.laboratoria.com" title="Laboratoria Chile" />.
                     </p>
                     <p className="container__content">
                         <span className="container__content__question">Alguna nueva tecnología?</span>
-                        Estoy estudiando React-Native.
+                        Estoy estudiando <Highlighted content="React-Native" />.
                     </p>
                     <p className="container__content">
                         <span className="container__content__question">Que estoy leyendo?</span>
-                        Estoy leyendo <span className="container__content__highlighted">HTML 5 - Notes for professionals</span>.
+                        Estoy leyendo <Highlighted content="HTML 5 - Notes for professionals" />.
                     </p>
                     <p className="container__content">
                         <span className="container__content__question">Que es lo que estoy desarrollando?</span>
                         Actualmente me encuentro generando contenido para la
-                        sección <span className="container__content__highlighted">Blog</span> de mi sitio web.
+                        sección <Link className="container__content__link" to="/blog">Blog</Link> de mi sitio web.
                     </p>
                 </div>
                 <Line />
