@@ -43,11 +43,16 @@ const WhoIAm = () => (
                         como es que funcionaba por dentro.
                     </p>
                     <p className="container__content">
-                        Cuando estaba entrando a la enseñanza media me hice amigo
+                        Cuando estaba entrando a la enseñanza media <span className="container__content__highlighted">(2007)</span> me hice amigo
                         de <LinkWeb link="https://twitter.com/m_mrk2" title="Marcelo Mercado" /> quien estaba entrando a primer año de Ing. en
                         informática. En ese tiempo fue cuando él empezo a hacer trabajos de desarrollo de sitios web
                         con <LinkWeb link="https://www.joomla.org/" title="Joomla" /> mientras que por mi parte estaba
-                        estudiando <span className="container__content__highlighted">HTML5</span> y <span className="container__content__highlighted">CSS3</span> con <LinkWeb link="https://codigofacilito.com/" title="CódigoFacilito" />.
+                        estudiando <span className="container__content__highlighted">HTML5</span>, <span className="container__content__highlighted">CSS3</span> y <span className="container__content__highlighted">JS</span> con <LinkWeb link="https://codigofacilito.com/" title="CódigoFacilito" />.
+                    </p>
+                    <p className="container__content">
+                        En el <span className="container__content__highlighted">2012</span> entré a la universidad Iberoamericana de Ciencias
+                        y Tecnología para estudiar <span className="container__content__highlighted">Ingeniería Civil en Computación e Informática</span> la cual no pude terminar gracias a que dicha
+                        universidad cerró. En esos mismos años, ya estaba haciendo trabajos como freelance los cuales mantengo hasta el día de hoy.
                     </p>
                 </div>
                 <div className="container">
