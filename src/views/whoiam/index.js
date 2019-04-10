@@ -17,7 +17,7 @@ const WhoIAm = () => (
             </div>
             <div className="col col-md-7">
                 <div className="container">
-                    <h1 className="container__title">Quien soy</h1>
+                    <h1 className="container__title">Quien soy <span className="container__title__subtitle">A human, not machine</span></h1>
                     <p className="container__content">
                         Hola!!! Mi nombre es <Highlighted content="Eduardo Esteban Álvarez Castañeda" /> y soy
                         nivel 25 en este juego llamado vida. Nacido y criado en Santiago de Chile (lugar donde sigo viviendo). Hijo
@@ -37,7 +37,7 @@ const WhoIAm = () => (
                     </p>
                 </div>
                 <div className="container">
-                    <h1 className="container__title">Como inicié?</h1>
+                    <h1 className="container__title">Como inicié? <span className="container__title__subtitle">Mi segundo Hola Mundo</span></h1>
                     <p className="container__content">
                         Desde que tengo memoria, recuerdo que siempre me llamó la atención la computación y desde pequeño quise aprender
                         como es que funcionaba por dentro.
@@ -51,13 +51,21 @@ const WhoIAm = () => (
                     </p>
                     <p className="container__content">
                         En el <Highlighted content="2012" /> entré a la universidad Iberoamericana de Ciencias
-                        y Tecnología para estudiar <Highlighted content="Ingeniería Civil en Computación e Informática" /> la
+                        y Tecnología para estudiar Ingeniería Civil en Computación e Informática <Highlighted content="(UIBERO)" /> la
                         cual no pude terminar gracias a que dicha universidad cerró. En esos mismos años, ya estaba haciendo trabajos como
                         freelance los cuales mantengo hasta el día de hoy.
                     </p>
                 </div>
                 <div className="container">
-                    <h1 className="container__title">Solo programación?</h1>
+                    <h1 className="container__title">Primer trabajo <span className="container__title__subtitle">Como desarrollador</span></h1>
+                    <p className="container__content">
+                        Una vez que salí de la UIBERO me puse a trabajar como electricista mientras seguía estudiando tecnologías web, pero esta vez
+                        no solamente con <Highlighted content="Código Facilito" /> si no que también
+                        con <LinkWeb link="https://platzi.com/" title="Platzi" />
+                    </p>
+                </div>
+                <div className="container">
+                    <h1 className="container__title">Solo programación? <span className="container__title__subtitle">... la verdad es que no</span></h1>
                     <p className="container__content">
                         A pesar de que disfruto el programar y aprender de nuevas tecnologías, también me gustan otras cosas como por ejemplo:
                         Jugar videojuegos, tocar instrumentos de cuerda (tengo un teclado, una guitarra eléctrica y dos guitarras electroacústicas),
