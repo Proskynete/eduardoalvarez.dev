@@ -21,6 +21,16 @@ export default {
         icon: "fas fa-file",
         link: "http://curriculum.eduardoalvarez.cl"
     }],
+    createdWith: [
+        "fab fa-html5",
+        "fab fa-css3-alt",
+        "fab fa-js-square",
+        "fab fa-node-js",
+        "fab fa-linode",
+        "fab fa-react",
+        "fab fa-sass",
+        "fab fa-bootstrap",
+    ],
     philosophies: [
         { text: 'Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo' },
         { text: 'No permitas que las cosas tomen más del tiempo que deben tomar' },
