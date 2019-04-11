@@ -3,6 +3,8 @@ bower_components/
 coverage/
 .nyc_output/
 
+public/
+
 yarn-error.log
 yarn.lock
 
