@@ -16,7 +16,7 @@ const Home = () => (
             </div>
             <div className="col col-md-7">
                 <div className="container">
-                    <h1 className="container__title">Quien soy en 20 segundos <span className="container__title__subtitle">(o menos)</span></h1>
+                    <h1 className="container__title">Quien soy en 20 segundos <span className="container__title__subtitle">... tal vez un poco menos</span></h1>
                     <p className="container__content">
                         Soy estudiante de ingeniería en computación e informática en
                         la <LinkWeb link="https://www.unab.cl/" title="UNAB" />, desarrollador web (Web UI) en
@@ -27,7 +27,7 @@ const Home = () => (
                 </div>
                 <Line />
                 <div className="container">
-                    <h1 className="container__title">Quien soy en 10 minutos</h1>
+                    <h1 className="container__title">Quien soy en 5 minutos <span className="container__title__subtitle">... tal vez un poco más</span></h1>
                     <p className="container__content">
                         Puedes leer más en la página: <Link className="container__content__link" to="/quien-soy">Quien soy</Link>. También
                         puedes revisar mi <LinkWeb link="http://curriculum.eduardoalvarez.cl/" title="Curriculum" />.
@@ -35,7 +35,7 @@ const Home = () => (
                 </div>
                 <Line />
                 <div className="container">
-                    <h1 className="container__title">En que estoy ahora?</h1>
+                    <h1 className="container__title">En que estoy ahora? <span className="container__title__subtitle">Lo mas actualizado</span></h1>
                     <p className="container__content">
                         Te recomiendo que visites <Link className="container__content__link" to="/now">Now</Link> para que sepas más a detalle que es
                         en lo que estoy metido.
@@ -43,7 +43,7 @@ const Home = () => (
                 </div>
                 <Line />
                 <div className="container">
-                    <h1 className="container__title">Quieres que hablemos?</h1>
+                    <h1 className="container__title">Quieres que hablemos? <span className="container__title__subtitle">Aprendamos juntos!</span></h1>
                     <p className="container__content">
                         Puedes contactarme <LinkWeb link="https://mobile.twitter.com/proskynete" title="Twitter" /> y
                         te prometo que trataré de responderte lo más rápido posible o, si gustas, también puedes mandarme un correo al
