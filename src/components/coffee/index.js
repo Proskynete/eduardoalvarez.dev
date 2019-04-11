@@ -1,4 +1,6 @@
 import React from 'react';
+
+import Author from 'Components/author';
 import './index.scss';
 
 const handleShowButtonBMAC = () => (
@@ -8,9 +10,16 @@ const handleShowButtonBMAC = () => (
     </a>
 )
 
-const Coffee = () => (
+const Coffee = ({ children }) => (
     <section className="coffee">
         <div className="coffee__inner">
+            {
+                (children) ?
+                    <div className="coffee__inner__container">
+                        <Author />
+                    </div>
+                : ""
+            }
             <div className="coffee__inner__container">
                 <h1 className="coffee__inner__container__title">Te sirvió en algo este sitio?</h1>
                 <p className="coffee__inner__container__content">
