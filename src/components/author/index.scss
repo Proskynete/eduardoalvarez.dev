@@ -7,6 +7,10 @@
         border-radius: 50%;
         border: 2px solid $darkblue_color;
         width: 40%;
+
+        @media (min-width: 768px) {
+            width: 20%;
+        }
     }
 
     &__description {
