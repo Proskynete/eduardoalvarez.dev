@@ -35,6 +35,7 @@ export default {
         { text: 'Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo' },
         { text: 'No permitas que las cosas tomen más del tiempo que deben tomar' },
         { text: 'Si no lo puedes explicar de forma sencilla, es que no lo has entendido bien' },
+        { text: 'No todo lo que puede ser contado cuenta, y no todo lo que cuenta puede ser contado' }
     ],
     description: {
         logoName: 'EDUARDOALVAREZ',
