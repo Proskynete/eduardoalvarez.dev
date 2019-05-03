@@ -7,8 +7,8 @@ const prettyFormat = datetime => moment(datetime).locale('es').format('LL');
 
 
 export {
-    onlyDate,
-    onlyTime,
-    agoFormat,
-    prettyFormat,
+  onlyDate,
+  onlyTime,
+  agoFormat,
+  prettyFormat,
 };

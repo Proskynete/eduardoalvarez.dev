@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --colors",
-    "lint": "eslint ./src --ignore-path .gitignore",
+    "lint": "eslint ./src --ignore-path .gitignore --fix",
     "production": "webpack -p",
     "serve": "webpack-dev-server",
     "start": "concurrently \"yarn stubby\" \"yarn serve\"",
