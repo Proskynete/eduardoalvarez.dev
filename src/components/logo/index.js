@@ -2,9 +2,9 @@ import React from 'react';
 import './index.scss';
 
 const Logo = () => (
-    <span className="logo">
+  <span className="logo">
         EDUARDOALVAREZ
-    </span>
+  </span>
 );
 
 export default Logo;
