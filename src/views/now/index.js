@@ -27,7 +27,7 @@ const Now = () => (
                 </div>
                 <Line />
                 <div className="container">
-                    <h1 className="container__title">Now! <span className="container__title__subtitle">Última actualización: 5 de Abril, 2019</span></h1>
+                    <h1 className="container__title">Now! <span className="container__title__subtitle">Última actualización: 19 de Abril, 2019</span></h1>
                     <p className="container__content">
                         <span className="container__content__question">Donde vivo?</span>
                         Santiago de Chile. Santiago centro.
@@ -67,6 +67,11 @@ const Now = () => (
                         <span className="container__content__question">Que es lo que estoy desarrollando?</span>
                         Actualmente me encuentro generando contenido para la
                         sección <Link className="container__content__link" to="/blog">Blog</Link> de mi sitio web.
+                    </p>
+                    <p className="container__content">
+                        <span className="container__content__question">Algúna librería?</span>
+                        Acabo de desarrollar la 
+                        libreria <LinkWeb link="https://www.npmjs.com/package/vertical-timeline-component-react" title="vertical-timeline-component-react" />
                     </p>
                 </div>
                 <Line />
