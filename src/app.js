@@ -10,7 +10,7 @@ import Blog from './views/blog';
 const App = () => (
   <BrowserRouter>
     <Nav />
-
+  
     <Route path="/" exact component={Home} />
     <Route path="/quien-soy" component={WhoIAm} />
     <Route path="/now" component={Now} />

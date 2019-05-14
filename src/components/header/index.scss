@@ -7,11 +7,24 @@
     display: flex;
     font-size: .9em;
     font-family: 'Ubuntu', sans-serif;
-    height: 300px;
+    height: 350px;
     justify-content: center;
     margin-bottom: 60px;
     position: relative;
     width: 100%;
+
+    &:after {
+        background: url("../../../assets/bg.jpg") center / cover no-repeat, rgba(144, 144, 144, .2);
+        background-blend-mode: lighten;
+        bottom: 0;
+        content: "";
+        left: 0;
+        opacity: .1;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: -1; 
+    }
 
     @media (min-width: 768px) {
         font-size: 1em;
@@ -22,7 +35,7 @@
             text-align: center;
 
             &__slogan {
-                font-weight: 300;
+                font-weight: 400;
                 margin-top: 17px;
 
                 &__icon {
