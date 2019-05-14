@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const APP_DIR = path.resolve(__dirname, 'src/');
 const BUILD_DIR = path.resolve(__dirname, './public/');
-const IMAGES = path.resolve(__dirname, 'src/assets/img/');
+const IMAGES = path.resolve(__dirname, './assets/');
 
 const config = {
   entry: path.resolve(__dirname, 'src', 'main.js'),
@@ -20,7 +20,8 @@ const config = {
           Views: path.resolve(__dirname, 'src/views/'),
           Helpers: path.resolve(__dirname, 'src/helpers/'),
           Config: path.resolve(__dirname, 'src/config/'),
-          Sass: path.resolve(__dirname, 'src/assets/scss/')
+          Sass: path.resolve(__dirname, 'src/assets/scss/'),
+          Assets: path.resolve(__dirname, 'assets/')
       }
   },
   devServer: {
