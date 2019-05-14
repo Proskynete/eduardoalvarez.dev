@@ -14,7 +14,7 @@ const WhoIAm = () => (
     <Header />
     <div className="container-fluid">
       <div className="row justify-content-md-center">
-        <div className="col col-md-7">
+        <div className="col col-md-5">
           <div className="container">
             <h1 className="container__title">
               Quien soy
