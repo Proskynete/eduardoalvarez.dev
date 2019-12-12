@@ -38,6 +38,10 @@
                     color: $blue_color;
                     text-decoration: none;
                 }
+
+                &.current {
+                    color: $blue_color;
+                }
             }
         }
     }

@@ -1,19 +1,20 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react';
+import content from '@Contents/author';
 import './index.scss';
 
 const Author = () => (
-  <section className="author">
-    <img
-      className="author__image"
-      src="http://curriculum.eduardoalvarez.cl/assets/images/me.jpg"
-      alt="Eduardo Alvarez"
-    />
-    <article className="author__description">
-      Hola!! Mi nombre es Eduardo Alvarez y soy un apacionado por las tecnologías web. JS Lover
-      {' '}
-      <i className="far fa-heart" />
-    </article>
-  </section>
+	<section className="author">
+		<img
+			className="author__image"
+			src={content.img.src}
+			alt={content.img.alt}
+		/>
+		<article className="author__description">
+			{`${content.body.text} `}
+			<i className={content.body.icon.class} />
+		</article>
+	</section>
 );
 
 export default Author;

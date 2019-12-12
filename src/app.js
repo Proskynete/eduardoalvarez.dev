@@ -1,21 +1,22 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Nav from './components/nav';
 
-import Home from './views/home';
-import WhoIAm from './views/whoiam';
-import Now from './views/now';
-import Blog from './views/blog';
+import Home from '@Views/home';
+import WhoIAm from '@Views/whoiam';
+import Now from '@Views/now';
+import Blog from '@Views/blog';
+
+import Nav from '@Components/nav';
 
 const App = () => (
-  <BrowserRouter>
-    <Nav />
-  
-    <Route path="/" exact component={Home} />
-    <Route path="/quien-soy" component={WhoIAm} />
-    <Route path="/now" component={Now} />
-    <Route path="/blog" component={Blog} />
-  </BrowserRouter>
+	<BrowserRouter>
+		<Nav />
+		<Route path="/" exact component={Home} />
+		<Route path="/quien-soy" exact component={WhoIAm} />
+		<Route path="/now" exact component={Now} />
+		<Route path="/blog" exact component={Blog} />
+	</BrowserRouter>
 );
 
 export default App;

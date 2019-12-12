@@ -8,7 +8,12 @@ const LinkWeb = (props) => {
   } = props;
 
   return (
-    <a className="container__content__link" target="_blank" rel="noopener noreferrer" href={link}>
+    <a
+      className="container__content__link"
+      target="_blank"
+      rel="noopener noreferrer"
+      href={link}
+    >
       { title }
     </a>
   );
