@@ -3,11 +3,9 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { createMarkup } from '@Helpers/print-html.helper';
-import Header from '@Components/header/';
-import Coffee from '@Components/coffee/';
-import Footer from '@Components/footer/';
-import Line from '@Components/line/';
+import { Header, Coffee, Footer, Line, Loader } from '@Components';
 import './index.scss';
 
 const handlePrintContent = data => {
@@ -35,13 +33,22 @@ const handlePrintContent = data => {
 
 const Home = () => {
 	const [data, setData] = useState([]);
+	const [loader, setLoader] = useState(false);
 
 	useEffect(() => {
-		fetch('http://localhost:3000/node/api/home')
-			.then(res => res.json())
-			.then(response => {
-				setData(response.content);
-			});
+		const fetchGetData = async () => {
+			try {
+				setLoader(true);
+				const response = await axios('http://localhost:3000/node/api/home');
+				setData(response.data.content);
+				setLoader(false);
+			} catch (err) {
+				setLoader(false);
+				console.log(err);
+			}
+		};
+
+		fetchGetData();
 	}, []);
 
 	return (
@@ -49,7 +56,9 @@ const Home = () => {
 			<Header />
 			<div className="container-fluid">
 				<div className="row justify-content-md-center">
-					<div className="col col-md-5">{handlePrintContent(data)}</div>
+					<div className="col col-md-5">
+						{loader ? <Loader /> : handlePrintContent(data)}
+					</div>
 				</div>
 				<div className="row justify-content-md-center">
 					<div className="col-12">
