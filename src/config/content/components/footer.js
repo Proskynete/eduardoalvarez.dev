@@ -1,5 +1,5 @@
 export default {
-  body: {
-    text: '© 2017 - 2019 | eduardoalvarez.cl',
-  },
+	body: {
+		text: '© 2017 - 2020 | eduardoalvarez.cl',
+	},
 };
