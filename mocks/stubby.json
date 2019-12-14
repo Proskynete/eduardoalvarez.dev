@@ -1,0 +1,16 @@
+[
+	{
+		"request": {
+			"url": "^/node/api/home/$",
+			"status": 200,
+			"method": "GET"
+		},
+		"response": {
+			"status": 200,
+			"headers": {
+				"Content-Type": "application/json"
+			},
+			"file": "./home-response.json"
+		}
+	}
+]

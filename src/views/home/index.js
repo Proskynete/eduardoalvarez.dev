@@ -1,109 +1,67 @@
+/* eslint-disable react/no-danger */
+/* eslint-disable no-undef */
+/* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
-import React from 'react';
-import { Link } from 'react-router-dom';
-
+import React, { useState, useEffect } from 'react';
+import { createMarkup } from '@Helpers/print-html.helper';
 import Header from '@Components/header/';
 import Coffee from '@Components/coffee/';
 import Footer from '@Components/footer/';
 import Line from '@Components/line/';
-import LinkWeb from '@Components/linkweb/';
 import './index.scss';
 
-const Home = () => (
-	<>
-		<Header />
-		<div className="container-fluid">
-			<div className="row justify-content-md-center">
-				<div className="col col-md-5">
-					<div className="container">
-						<h1 className="container__title">
-							Quien soy en 20 segundos
-							<span className="container__title__subtitle">
-								... tal vez un poco menos
-							</span>
-						</h1>
-						<p className="container__content">
-							Soy estudiante de ingeniería en computación e informática en la{' '}
-							<LinkWeb link="https://www.unab.cl/" title="UNAB" />,
-							desarrollador web (Web UI) en la empresa{' '}
-							<LinkWeb link="http://www.globant.com" title="Globant" />.
-							Apasionado por las tecnologías web. Me creé este sitio porque
-							busco poder compartir el conocimiento que he adquirido a lo largo
-							de todo este tiempo.
-						</p>
+const handlePrintContent = data => {
+	return data.map((info, i) => {
+		return (
+			<div key={info._id} className="container">
+				<section className="container__inner">
+					<h1 className="container__inner__title">
+						{info.title}
+						<span className="container__inner__title__subtitle">
+							{info.subtitle}
+						</span>
+					</h1>
+					<p
+						className="container__inner__content"
+						dangerouslySetInnerHTML={createMarkup(JSON.parse(info.content))}
+					/>
+				</section>
+
+				{i + 1 < data.length ? <Line /> : ''}
+			</div>
+		);
+	});
+};
+
+const Home = () => {
+	const [data, setData] = useState([]);
+
+	useEffect(() => {
+		fetch('http://localhost:3000/node/api/home')
+			.then(res => res.json())
+			.then(response => {
+				setData(response.content);
+			});
+	}, []);
+
+	return (
+		<>
+			<Header />
+			<div className="container-fluid">
+				<div className="row justify-content-md-center">
+					<div className="col col-md-5">{handlePrintContent(data)}</div>
+				</div>
+				<div className="row justify-content-md-center">
+					<div className="col-12">
+						<Coffee />
 					</div>
-					<Line />
-					<div className="container">
-						<h1 className="container__title">
-							Quien soy en 5 minutos
-							<span className="container__title__subtitle">
-								... tal vez un poco más
-							</span>
-						</h1>
-						<p className="container__content">
-							Puedes leer más en la página:{' '}
-							<Link className="container__content__link" to="/quien-soy">
-								Quien soy
-							</Link>
-							. También puedes revisar mi{' '}
-							<LinkWeb
-								link="http://curriculum.eduardoalvarez.cl/"
-								title="Curriculum"
-							/>
-							.
-						</p>
-					</div>
-					<Line />
-					<div className="container">
-						<h1 className="container__title">
-							En que estoy ahora?
-							<span className="container__title__subtitle">
-								Lo mas actualizado
-							</span>
-						</h1>
-						<p className="container__content">
-							Te recomiendo que visites{' '}
-							<Link className="container__content__link" to="/now">
-								Now
-							</Link>{' '}
-							para que sepas más a detalle que es en lo que estoy metido.
-						</p>
-					</div>
-					<Line />
-					<div className="container">
-						<h1 className="container__title">
-							Quieres que hablemos?
-							<span className="container__title__subtitle">
-								Aprendamos juntos!
-							</span>
-						</h1>
-						<p className="container__content">
-							Puedes contactarme{' '}
-							<LinkWeb
-								link="https://mobile.twitter.com/proskynete"
-								title="Twitter"
-							/>{' '}
-							y te prometo que trataré de responderte lo más rápido posible o,
-							si gustas, también puedes mandarme un correo al mail{' '}
-							<LinkWeb
-								link="mailto:eduardo.a1993@gmail.com"
-								title="eduardo.a1993@gmail.com"
-							/>
-						</p>
-					</div>
-					<Line />
+				</div>
+				<div className="row">
+					<Footer />
 				</div>
 			</div>
-			<div className="row justify-content-md-center">
-				<div className="col-12">
-					<Coffee />
-				</div>
-			</div>
-			<div className="row">
-				<Footer />
-			</div>
-		</div>
-	</>
-);
+		</>
+	);
+};
 
 export default Home;
