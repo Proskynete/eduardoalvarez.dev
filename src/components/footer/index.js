@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
-import config from '@Config/config';
+import config from '@Config/config-content';
 import content from '@Contents/footer';
 import './index.scss';
 

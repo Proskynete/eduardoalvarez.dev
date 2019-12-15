@@ -1,7 +1,7 @@
 [
 	{
 		"request": {
-			"url": "^/node/api/home/$",
+			"url": "^/node/api/home",
 			"status": 200,
 			"method": "GET"
 		},

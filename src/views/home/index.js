@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { createMarkup } from '@Helpers/print-html.helper';
+import handleGetEntryPointApi from '@Config/config';
 import { Header, Coffee, Footer, Line, Loader } from '@Components';
 import './index.scss';
 
@@ -39,7 +40,7 @@ const Home = () => {
 		const fetchGetData = async () => {
 			try {
 				setLoader(true);
-				const response = await axios('http://localhost:3000/node/api/home');
+				const response = await axios(handleGetEntryPointApi('home'));
 				setData(response.data.content);
 				setLoader(false);
 			} catch (err) {

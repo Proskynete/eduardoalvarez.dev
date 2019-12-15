@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
-import config from '@Config/config';
+import config from '@Config/config-content';
 import randomText from '@Helpers/random-text';
 import Logo from '../logo';
 import './index.scss';
