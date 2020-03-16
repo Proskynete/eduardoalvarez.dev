@@ -10,7 +10,21 @@
 			"headers": {
 				"Content-Type": "application/json"
 			},
-			"file": "./home-response.json"
+			"file": "./home.response.json"
+		}
+	},
+	{
+		"request": {
+			"url": "^/node/api/whoiam",
+			"status": 200,
+			"method": "GET"
+		},
+		"response": {
+			"status": 200,
+			"headers": {
+				"Content-Type": "application/json"
+			},
+			"file": "./who-i-am.response.json"
 		}
 	}
 ]
