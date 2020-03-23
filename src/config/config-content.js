@@ -48,6 +48,17 @@ export default {
 				'Si no lo puedes explicar de forma sencilla, es que no lo has entendido bien',
 		},
 	],
+	loaderText: [
+		{
+			text: 'El servidor esta un poco lento...',
+		},
+		{
+			text: 'Estoy haciendo todo lo "humanamente" posible',
+		},
+		{
+			text: 'No eres tu, son nuestros servidores...',
+		},
+	],
 	description: {
 		logoName: 'EDUARDOALVAREZ',
 		name: 'Eduardo Álvarez Castañeda',
