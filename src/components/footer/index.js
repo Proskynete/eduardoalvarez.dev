@@ -1,17 +1,38 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
-import config from '@Config/config-content';
-import content from '@Contents/footer';
+import LOGO from '@Images/full-logo-negative.png';
 import './index.scss';
+
+const scrollToTop = () => {
+	const current = document.documentElement.scrollTop || document.body.scrollTop;
+	if (current > 0) {
+		window.requestAnimationFrame(scrollToTop);
+		window.scrollTo(0, current - current / 20);
+	}
+};
+
+const handleGoToTheTop = () => {
+	scrollToTop();
+};
 
 const Footer = () => (
 	<footer className="footer">
-		<p className="footer__block">{content.body.text}</p>
-		<p className="footer__block">
-			{config.createdWith.map(icon => (
-				<i key={icon} className={icon} />
-			))}
-		</p>
+		<div className="footer__inner">
+			<div className="footer__inner__logo">
+				<img src={LOGO} alt="Eduardo Alvarez. Formación en tecnología" />
+			</div>
+			<div className="footer__inner__description">
+				<p className="footer__inner__description__copy">
+					Copirights © 2017 - 2020
+				</p>
+				<p
+					className="footer__inner__description__to_top"
+					onClick={handleGoToTheTop}
+				>
+					Volver arriba
+				</p>
+			</div>
+		</div>
 	</footer>
 );
 

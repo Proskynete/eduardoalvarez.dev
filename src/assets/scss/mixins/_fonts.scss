@@ -30,3 +30,13 @@
 	@include roboto-font;
 	@include set-font(14, 300, $black-color, 16);
 }
+
+@mixin fonts-footer {
+	@include roboto-font;
+	@include set-font(14, 300, $white-color, 16);
+}
+
+@mixin fonts-footer-button {
+	@include poppins-font;
+	@include set-font(22, 300, $white-color, 33);
+}
