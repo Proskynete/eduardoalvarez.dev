@@ -8,10 +8,10 @@
 	width: 100%;
 
 	&__container {
-		padding: 14px 20px;
+		align-items: center;
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		padding: 14px 20px;
 
 		&__logo {
 			&__link {
@@ -37,10 +37,11 @@
 
 		&__content {
 			list-style: none;
+			margin: 0;
 			padding-left: 20px;
 			padding-right: 20px;
 			padding-bottom: 10px;
-			margin: 0;
+			text-transform: lowercase;
 			width: 100%;
 
 			&__item {
@@ -48,14 +49,14 @@
 
 				&__link {
 					color: $blue-color;
-					text-decoration: none;
 					font-size: 22px;
-					padding-top: 8px;
 					padding-bottom: 8px;
+					padding-top: 8px;
+					text-decoration: none;
 
 					&:hover {
-						text-decoration: none;
 						color: $orange-color;
+						text-decoration: none;
 					}
 
 					&.current {
