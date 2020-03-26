@@ -47,11 +47,15 @@
 			&__item {
 				width: 100%;
 
+				&:not(:first-child) {
+					padding-top: 10px;
+				}
+
 				&__link {
+					display: block;
 					color: $blue-color;
 					font-size: 22px;
 					padding-bottom: 8px;
-					padding-top: 8px;
 					text-decoration: none;
 
 					&:hover {
