@@ -1,15 +1,8 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 import LOGO from '@Images/full-logo-negative.png';
+import scrollToTop from '@Helpers/scroll';
 import './index.scss';
-
-const scrollToTop = () => {
-	const current = document.documentElement.scrollTop || document.body.scrollTop;
-	if (current > 0) {
-		window.requestAnimationFrame(scrollToTop);
-		window.scrollTo(0, current - current / 20);
-	}
-};
 
 const handleGoToTheTop = () => {
 	scrollToTop();
