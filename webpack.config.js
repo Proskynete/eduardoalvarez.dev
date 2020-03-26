@@ -31,6 +31,7 @@ module.exports = env => {
 				),
 				'@Config': path.resolve(__dirname, 'src', 'config'),
 				'@Sass': path.resolve(__dirname, 'src', 'assets', 'scss'),
+				'@Images': path.resolve(__dirname, 'src', 'assets', 'images'),
 				'@Views': path.resolve(__dirname, 'src', 'views'),
 			},
 		},
@@ -54,10 +55,12 @@ module.exports = env => {
 					],
 				},
 				{
-					test: /\.(jpe?g|png|gif|mp3|icon)$/i,
-					include: path.resolve(__dirname, 'assets', 'images'),
-					exclude: /(node_modules|bower_components)/,
-					loader: 'file-loader',
+					test: /\.(png|jpe?g|gif)$/i,
+					use: [
+						{
+							loader: 'file-loader',
+						},
+					],
 				},
 				{
 					test: /\.html$/,

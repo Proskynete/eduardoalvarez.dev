@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import LOGO from '@Images/logo.png';
 import './index.scss';
 
 const Nav = () => {
@@ -12,7 +13,11 @@ const Nav = () => {
 			<section className="nav__container">
 				<div className="nav__container__logo">
 					<Link className="nav__container__logo__link" to="/">
-						LOGO DEL SITIO
+						<img
+							src={LOGO}
+							alt="logo"
+							className="nav__container__logo__link__img"
+						/>
 					</Link>
 				</div>
 
