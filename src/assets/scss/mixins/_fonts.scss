@@ -25,3 +25,8 @@
 	@include poppins-font;
 	@include set-font(22, 300, $black-color, 33);
 }
+
+@mixin fonts-body-text {
+	@include roboto-font;
+	@include set-font(14, 300, $black-color, 16);
+}

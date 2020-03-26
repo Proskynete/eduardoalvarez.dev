@@ -1,1 +1,28 @@
-@import '../../assets/scss/common.scss';
+@import '../../assets/scss/colors';
+@import '../../assets/scss/mixins/fonts';
+
+.home {
+	background-color: transparent;
+	width: 100%;
+	padding-bottom: 50px;
+
+	&__inner {
+		margin-left: auto;
+		margin-right: auto;
+		width: calc(100% - 40px);
+
+		&__description {
+			@include fonts-body-text;
+
+			&__text {
+				&__bold {
+					font-weight: 500;
+				}
+
+				&__link {
+					color: $orange-color;
+				}
+			}
+		}
+	}
+}

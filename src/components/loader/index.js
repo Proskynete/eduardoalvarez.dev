@@ -5,7 +5,6 @@ import randomText from '@Helpers/random-text';
 import './index.scss';
 
 const Loader = () => {
-	console.log(config);
 	return (
 		<div className="loader">
 			<div className="loader__inner">
