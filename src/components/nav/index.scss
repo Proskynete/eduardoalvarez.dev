@@ -1,4 +1,60 @@
 @import '../../assets/scss/colors.scss';
 
 .nav {
+	background-color: $white-color;
+	color: $blue-color;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	&__container {
+		padding: 14px 20px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		&__icon {
+			&__container {
+				font-size: 30px;
+			}
+		}
+	}
+
+	&__menu {
+		display: none;
+
+		&.active {
+			display: flex;
+		}
+
+		&__content {
+			list-style: none;
+			padding-left: 20px;
+			padding-right: 20px;
+			padding-bottom: 10px;
+			margin: 0;
+			width: 100%;
+
+			&__item {
+				width: 100%;
+
+				&__link {
+					color: $blue-color;
+					text-decoration: none;
+					font-size: 22px;
+					padding-top: 8px;
+					padding-bottom: 8px;
+
+					&:hover {
+						text-decoration: none;
+						color: $orange-color;
+					}
+
+					&.current {
+						color: $orange-color;
+					}
+				}
+			}
+		}
+	}
 }

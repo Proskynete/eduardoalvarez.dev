@@ -12,7 +12,7 @@ const App = () => (
 	<BrowserRouter>
 		<Nav />
 		<Route path="/" exact component={Home} />
-		<Route path="/quien-soy" exact component={WhoIAm} />
+		<Route path="/about" exact component={WhoIAm} />
 		<Route path="/blog" exact component={Blog} />
 	</BrowserRouter>
 );
