@@ -1,39 +1,39 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 import config from '@Config/config-content';
-import randomText from '@Helpers/random-text';
-import Logo from '../logo';
+import ME from '@Images/me.jpg';
 import './index.scss';
 
-const handleShowIconSocials = socials =>
-	socials.map(social => (
+const handleShowIconSocials = () =>
+	config.socials.map(social => (
 		<a
 			key={social.name}
-			className="header__inner__container__socials__link"
+			className="header__inner__socials__link"
 			href={social.link}
+			rel="noopener noreferrer"
+			target="_blank"
 		>
 			<i className={social.icon} title={social.name} />
 		</a>
 	));
 
 const Header = () => (
-	<div className="header">
-		<div className="header__inner">
-			<div className="header__inner__container">
-				<div className="header__inner__container__logo">
-					<Logo />
-				</div>
-				<div className="header__inner__container__slogan">
-					<i className="header__inner__container__slogan__icon fas fa-quote-left" />
-					{randomText(config.philosophies)}
-					<i className="header__inner__container__slogan__icon fas fa-quote-right" />
-				</div>
-				<div className="header__inner__container__socials">
-					{handleShowIconSocials(config.socials)}
-				</div>
+	<>
+		<div className="header">
+			<div className="header__inner">
+				<p className="header__inner__title">
+					Hola! Mi nombre es Eduardo Alvarez
+				</p>
+				<p className="header__inner__subtitle">
+					soy desarrollador web y éste es mi sitio web. Bienvenidx!!
+				</p>
+				<div className="header__inner__socials">{handleShowIconSocials()}</div>
 			</div>
 		</div>
-	</div>
+		<div className="header__me">
+			<img src={ME} alt="Eduardo Esteban Álvarez Castañeda" />
+		</div>
+	</>
 );
 
 export default Header;

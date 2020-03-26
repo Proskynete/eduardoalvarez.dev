@@ -1,0 +1,27 @@
+@import '../colors';
+
+@mixin poppins-font {
+	font-family: 'Poppins', sans-serif;
+}
+
+@mixin roboto-font {
+	font-family: 'Roboto', sans-serif;
+}
+
+@mixin set-font($size, $bold, $color, $line_height) {
+	color: $color;
+	font-size: $size#{'px'};
+	font-style: normal;
+	font-weight: $bold;
+	line-height: $line_height#{'px'};
+}
+
+@mixin fonts-header-title {
+	@include poppins-font;
+	@include set-font(34, bold, $blue-color, 50);
+}
+
+@mixin fonts-header-subtitle {
+	@include poppins-font;
+	@include set-font(22, 300, $black-color, 33);
+}

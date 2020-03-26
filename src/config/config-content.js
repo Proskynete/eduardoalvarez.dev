@@ -7,24 +7,19 @@ export default {
 			link: 'https://www.linkedin.com/in/eduardoalvarezc/',
 		},
 		{
-			name: 'Twitter',
-			icon: 'fab fa-twitter',
-			link: 'https://twitter.com/proskynete',
-		},
-		{
 			name: 'Github',
 			icon: 'fab fa-github',
 			link: 'https://github.com/Proskynete/',
 		},
 		{
-			name: 'Correo',
-			icon: 'far fa-envelope',
-			link: 'mailto:eduardo.a1993@gmail.com',
+			name: 'Twitter',
+			icon: 'fab fa-twitter',
+			link: 'https://twitter.com/proskynete',
 		},
 		{
-			name: 'Curriculum',
-			icon: 'fas fa-file',
-			link: 'http://curriculum.eduardoalvarez.cl',
+			name: 'YouTube',
+			icon: 'fab fa-youtube',
+			link: 'https://www.youtube.com/channel/UCVrAjdQkLTKOdG0TUFFJomw',
 		},
 	],
 	createdWith: [
