@@ -22,7 +22,7 @@
 			width: 100%;
 
 			img {
-				max-width: 90%;
+				width: 320px;
 			}
 		}
 
@@ -33,11 +33,11 @@
 			justify-content: space-evenly;
 
 			&__copy {
-				@include fonts-footer;
+				@include fonts-footer(0.875);
 			}
 
 			&__to_top {
-				@include fonts-footer-button;
+				@include fonts-footer-button(1.375);
 			}
 		}
 	}

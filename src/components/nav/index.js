@@ -10,53 +10,55 @@ const Nav = () => {
 
 	return (
 		<nav className="nav">
-			<section className="nav__container">
-				<div className="nav__container__logo">
-					<Link
-						className="nav__container__logo__link"
-						to="/"
-						onClick={() => setShowMenu(false)}
-					>
-						<img
-							src={LOGO}
-							alt="logo"
-							className="nav__container__logo__link__img"
-						/>
-					</Link>
-				</div>
-
-				<div className="nav__container__icon">
-					<div
-						className="nav__container__icon__container"
-						onClick={() => setShowMenu(!showMenu)}
-					>
-						<i className={`fas ${showMenu ? closeIcon : barIcon}`} />
+			<div className="nav__inner">
+				<section className="nav__inner__container">
+					<div className="nav__inner__container__logo">
+						<Link
+							className="nav__inner__container__logo__link"
+							to="/"
+							onClick={() => setShowMenu(false)}
+						>
+							<img
+								src={LOGO}
+								alt="logo"
+								className="nav__inner__container__logo__link__img"
+							/>
+						</Link>
 					</div>
-				</div>
-			</section>
 
-			<section className={`nav__menu ${showMenu ? 'active' : ''}`}>
-				<ul className="nav__menu__content">
-					<li className="nav__menu__content__item">
-						<Link
-							className="nav__menu__content__item__link"
-							to="/blog"
-							onClick={() => setShowMenu(false)}
+					<div className="nav__inner__container__icon">
+						<div
+							className="nav__inner__container__icon__container"
+							onClick={() => setShowMenu(!showMenu)}
 						>
-							Blog
-						</Link>
-					</li>
-					<li className="nav__menu__content__item">
-						<Link
-							className="nav__menu__content__item__link"
-							to="/about"
-							onClick={() => setShowMenu(false)}
-						>
-							Sobre mi
-						</Link>
-					</li>
-				</ul>
-			</section>
+							<i className={`fas ${showMenu ? closeIcon : barIcon}`} />
+						</div>
+					</div>
+				</section>
+
+				<section className={`nav__inner__menu ${showMenu ? 'active' : ''}`}>
+					<ul className="nav__inner__menu__content">
+						<li className="nav__inner__menu__content__item">
+							<Link
+								className="nav__inner__menu__content__item__link"
+								to="/blog"
+								onClick={() => setShowMenu(false)}
+							>
+								Blog
+							</Link>
+						</li>
+						<li className="nav__inner__menu__content__item">
+							<Link
+								className="nav__inner__menu__content__item__link"
+								to="/about"
+								onClick={() => setShowMenu(false)}
+							>
+								Sobre mi
+							</Link>
+						</li>
+					</ul>
+				</section>
+			</div>
 		</nav>
 	);
 };

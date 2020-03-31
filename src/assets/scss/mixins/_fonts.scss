@@ -10,33 +10,33 @@
 
 @mixin set-font($size, $bold, $color, $line_height) {
 	color: $color;
-	font-size: $size#{'px'};
+	font-size: $size#{'rem'};
 	font-style: normal;
 	font-weight: $bold;
 	line-height: $line_height#{'px'};
 }
 
-@mixin fonts-header-title {
+@mixin fonts-header-title($fs) {
 	@include poppins-font;
-	@include set-font(34, bold, $blue-color, 50);
+	@include set-font($fs, bold, $blue-color, 50);
 }
 
-@mixin fonts-header-subtitle {
+@mixin fonts-header-subtitle($fs) {
 	@include poppins-font;
-	@include set-font(22, 300, $black-color, 33);
+	@include set-font($fs, 300, $black-color, 33);
 }
 
-@mixin fonts-body-text {
+@mixin fonts-body-text($fs) {
 	@include roboto-font;
-	@include set-font(14, 300, $black-color, 16);
+	@include set-font($fs, 300, $black-color, 16);
 }
 
-@mixin fonts-footer {
+@mixin fonts-footer($fs) {
 	@include roboto-font;
-	@include set-font(14, 300, $white-color, 16);
+	@include set-font($fs, 300, $white-color, 16);
 }
 
-@mixin fonts-footer-button {
+@mixin fonts-footer-button($fs) {
 	@include poppins-font;
-	@include set-font(22, 300, $white-color, 33);
+	@include set-font($fs, 300, $white-color, 33);
 }

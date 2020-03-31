@@ -9,18 +9,38 @@
 	&__inner {
 		margin-left: auto;
 		margin-right: auto;
-		width: calc(100% - 40px);
+		padding-left: 20px;
+		padding-right: 20px;
+		width: 100%;
+
+		@media (min-width: 992px) {
+			width: 70%;
+		}
+
+		@media (min-width: 1200px) {
+			width: 40%;
+		}
 
 		&__description {
-			@include fonts-body-text;
+			@include fonts-body-text(0.875);
 
 			&__text {
+				@media (min-width: 1200px) {
+					font-size: 1rem;
+				}
 				&__bold {
 					font-weight: 500;
 				}
 
 				&__link {
+					font-weight: 400;
+					text-decoration: none;
 					color: $orange-color;
+
+					&:hover {
+						text-decoration: none;
+						color: $orange-color;
+					}
 				}
 			}
 		}
