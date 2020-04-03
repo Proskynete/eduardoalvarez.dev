@@ -19,6 +19,7 @@ module.exports = env => {
 		resolve: {
 			extensions: ['.jsx', '.js'],
 			alias: {
+				'@Actions': path.resolve(__dirname, 'src', 'actions'),
 				'@Assets': path.resolve(__dirname, 'assets'),
 				'@Helpers': path.resolve(__dirname, 'src', 'helpers'),
 				'@Components': path.resolve(__dirname, 'src', 'components'),
@@ -32,6 +33,7 @@ module.exports = env => {
 				'@Config': path.resolve(__dirname, 'src', 'config'),
 				'@Sass': path.resolve(__dirname, 'src', 'assets', 'scss'),
 				'@Images': path.resolve(__dirname, 'src', 'assets', 'images'),
+				'@Reducers': path.resolve(__dirname, 'src', 'reducers'),
 				'@Views': path.resolve(__dirname, 'src', 'views'),
 			},
 		},
