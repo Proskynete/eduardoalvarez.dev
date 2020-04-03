@@ -1,18 +1,35 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { createMarkup } from '@Helpers/print-html.helper';
-import { Header, Footer } from '@Components';
-import { getHomeDataAction } from '@Actions/';
+import { Article, Header, Footer } from '@Components';
+import { getHomeDataAction, getBlogDataAction } from '@Actions/';
 import './index.scss';
 
-const handlePrintContent = data => data.map(ele => JSON.parse(ele.content));
+const handlePrintHomeContent = data => data.map(ele => JSON.parse(ele.content));
+
+const handlePrintBlogContent = data =>
+	data.length < 1 ? (
+		<div className="no-articles">
+			<p>Aún no hay articulos publicados.</p>
+			<p>Próximamente habrá contenido de tu interés!</p>
+		</div>
+	) : (
+		data.map(content => <Article data={content} />)
+	);
 
 const Home = props => {
-	const { content, getHomeDataMethod } = props;
+	const {
+		homeContent,
+		blogContent,
+		getBlogDataMethod,
+		getHomeDataMethod,
+	} = props;
 
 	useEffect(() => {
 		getHomeDataMethod();
+		getBlogDataMethod();
 	}, []);
 
 	return (
@@ -24,9 +41,23 @@ const Home = props => {
 						<p
 							className="home__inner__description__text"
 							dangerouslySetInnerHTML={createMarkup(
-								handlePrintContent(content),
+								handlePrintHomeContent(homeContent),
 							)}
 						></p>
+					</div>
+
+					<div className="home__inner__blog">
+						<div className="home__inner__blog__header">
+							<h3 className="home__inner__blog__header__title">
+								Últimos posts
+							</h3>
+							<Link className="home__inner__blog__header__subtitle" to="/blog">
+								Leer todos
+							</Link>
+						</div>
+						<div className="home__inner__blog__content">
+							{handlePrintBlogContent(blogContent)}
+						</div>
 					</div>
 				</div>
 			</section>
@@ -36,15 +67,19 @@ const Home = props => {
 };
 
 Home.propTypes = {
-	content: PropTypes.array.isRequired,
+	homeContent: PropTypes.array.isRequired,
+	blogContent: PropTypes.array.isRequired,
+	getBlogDataMethod: PropTypes.func.isRequired,
 	getHomeDataMethod: PropTypes.func.isRequired,
 };
 
 export default connect(
 	state => ({
-		content: state.homeData.homeContent,
+		homeContent: state.homeData.homeContent,
+		blogContent: state.blogData.blogContent,
 	}),
 	dispatch => ({
 		getHomeDataMethod: getHomeDataAction(dispatch),
+		getBlogDataMethod: getBlogDataAction(dispatch),
 	}),
 )(Home);

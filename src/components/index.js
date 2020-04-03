@@ -1,4 +1,5 @@
 export { default as Author } from './author';
+export { default as Article } from './article';
 export { default as Coffee } from './coffee';
 export { default as Footer } from './footer';
 export { default as Header } from './header';

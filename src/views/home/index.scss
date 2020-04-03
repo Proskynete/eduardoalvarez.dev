@@ -44,5 +44,42 @@
 				}
 			}
 		}
+
+		&__blog {
+			margin-top: 50px;
+
+			&__header {
+				&__title {
+					@include poppins-font;
+					@include set-font(1.25, bold, $black-color, 25);
+
+					margin: 0;
+				}
+
+				&__subtitle {
+					@include poppins-font;
+					@include set-font(0.875, 400, $orange-color, 21);
+
+					position: absolute;
+					margin: -10px 0 0 0;
+
+					&:hover {
+						text-decoration: none;
+						color: $orange-color;
+					}
+				}
+			}
+
+			.no-articles {
+				padding: 40px 20px 10px;
+				text-align: center;
+				width: 100%;
+				color: $green-color;
+
+				p {
+					margin: 0;
+				}
+			}
+		}
 	}
 }

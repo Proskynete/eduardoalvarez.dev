@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import React from 'react';
 import LOGO from '@Images/full-logo-negative.png';
 import scrollToTop from '@Helpers/scroll';
