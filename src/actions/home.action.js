@@ -3,7 +3,7 @@ import { GET_HOME_DATA } from '@Config/constants';
 import getHeaders from '@Helpers/headers.helper';
 import config from '@Config/config';
 
-export const getAllHomeDataAction = dispatch => async () => {
+export const getHomeDataAction = dispatch => async () => {
 	try {
 		const url = config.handleGetUrl();
 		const uri = `${config.handleGetEntryPointApi('home')}`;
