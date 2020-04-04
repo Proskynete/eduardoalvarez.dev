@@ -19,7 +19,7 @@ export const getBlogDataAction = dispatch => async () => {
 			type: GET_BLOG_DATA,
 			payload: {
 				status: response.data.status,
-				content: response.data.blog,
+				content: response.data.content,
 			},
 		});
 	} catch (error) {
