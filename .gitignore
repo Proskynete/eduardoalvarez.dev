@@ -5,9 +5,5 @@ coverage/
 
 public/
 
-yarn-error.log
-yarn.lock
-
-npm-debug.log
-
 package-lock.json
+npm-debug.log

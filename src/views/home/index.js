@@ -1,97 +1,88 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import Header from 'Components/header/';
-import Coffee from 'Components/coffee/';
-import Footer from 'Components/footer/';
-import Line from 'Components/line/';
-import LinkWeb from 'Components/linkweb/';
+import { createMarkup } from '@Helpers/print-html.helper';
+import { Article, Header, Footer } from '@Components';
+import { getHomeDataAction, getBlogDataAction } from '@Actions/';
 import './index.scss';
 
-const Home = () => (
-  <React.Fragment>
-    <Header />
-    <div className="container-fluid">
-      <div className="row justify-content-md-center">
-        <div className="col col-md-5">
-          <div className="container">
-            <h1 className="container__title">
-              Quien soy en 20 segundos
-              <span className="container__title__subtitle">... tal vez un poco menos</span>
-            </h1>
-            <p className="container__content">
-              Soy estudiante de ingeniería en computación e informática en la
-              {' '}
-              <LinkWeb link="https://www.unab.cl/" title="UNAB" />
-              , desarrollador web (Web UI) en la empresa
-              {' '}
-              <LinkWeb link="http://www.globant.com" title="Globant" />
-              . Apasionado por las tecnologías web. Me creé este sitio porque busco poder compartir el
-              {' '}
-              conocimiento que he adquirido a lo largo de todo este tiempo.
-            </p>
-          </div>
-          <Line />
-          <div className="container">
-            <h1 className="container__title">
-              Quien soy en 5 minutos
-              <span className="container__title__subtitle">... tal vez un poco más</span>
-            </h1>
-            <p className="container__content">
-              Puedes leer más en la página:
-              {' '}
-              <Link className="container__content__link" to="/quien-soy">Quien soy</Link>
-              . También puedes revisar mi
-              {' '}
-              <LinkWeb link="http://curriculum.eduardoalvarez.cl/" title="Curriculum" />
-              .
-            </p>
-          </div>
-          <Line />
-          <div className="container">
-            <h1 className="container__title">
-              En que estoy ahora?
-              <span className="container__title__subtitle">Lo mas actualizado</span>
-            </h1>
-            <p className="container__content">
-              Te recomiendo que visites
-              {' '}
-              <Link className="container__content__link" to="/now">Now</Link>
-              {' '}
-              para que sepas más a detalle que es en lo que estoy metido.
-            </p>
-          </div>
-          <Line />
-          <div className="container">
-            <h1 className="container__title">
-              Quieres que hablemos?
-              <span className="container__title__subtitle">Aprendamos juntos!</span>
-            </h1>
-            <p className="container__content">
-              Puedes contactarme
-              {' '}
-              <LinkWeb link="https://mobile.twitter.com/proskynete" title="Twitter" />
-              {' '}
-              y te prometo que trataré de responderte lo más rápido posible o, si gustas,
-              {' '}
-              también puedes mandarme un correo al mail
-              {' '}
-              <LinkWeb link="mailto:eduardo.a1993@gmail.com" title="eduardo.a1993@gmail.com" />
-            </p>
-          </div>
-          <Line />
-        </div>
-      </div>
-      <div className="row justify-content-md-center">
-        <div className="col-12">
-          <Coffee />
-        </div>
-      </div>
-      <div className="row">
-        <Footer />
-      </div>
-    </div>
-  </React.Fragment>
-);
+const handlePrintHomeContent = data => data.map(ele => JSON.parse(ele.content));
 
-export default Home;
+const handlePrintBlogContent = data => {
+	return data.length < 1 ? (
+		<div className="no-articles">
+			<p>Aún no hay articulos publicados.</p>
+			<p>Próximamente habrá contenido de tu interés!</p>
+		</div>
+	) : (
+		data.map(content => {
+			return <Article key={content._id} {...content} />;
+		})
+	);
+};
+
+const Home = props => {
+	const {
+		homeContent,
+		blogContent,
+		getBlogDataMethod,
+		getHomeDataMethod,
+	} = props;
+
+	useEffect(() => {
+		getHomeDataMethod();
+		getBlogDataMethod();
+	}, []);
+
+	return (
+		<>
+			<Header />
+			<section className="home">
+				<div className="home__inner">
+					<div className="home__inner__description">
+						<p
+							className="home__inner__description__text"
+							dangerouslySetInnerHTML={createMarkup(
+								handlePrintHomeContent(homeContent),
+							)}
+						></p>
+					</div>
+
+					<div className="home__inner__blog">
+						<div className="home__inner__blog__header">
+							<h3 className="home__inner__blog__header__title">
+								Últimos posts
+							</h3>
+							<Link className="home__inner__blog__header__subtitle" to="/blog">
+								Leer todos
+							</Link>
+						</div>
+						<div className="home__inner__blog__content">
+							{handlePrintBlogContent(blogContent)}
+						</div>
+					</div>
+				</div>
+			</section>
+			<Footer />
+		</>
+	);
+};
+
+Home.propTypes = {
+	homeContent: PropTypes.array.isRequired,
+	blogContent: PropTypes.array.isRequired,
+	getBlogDataMethod: PropTypes.func.isRequired,
+	getHomeDataMethod: PropTypes.func.isRequired,
+};
+
+export default connect(
+	state => ({
+		homeContent: state.homeData.homeContent,
+		blogContent: state.blogData.blogContent,
+	}),
+	dispatch => ({
+		getHomeDataMethod: getHomeDataAction(dispatch),
+		getBlogDataMethod: getBlogDataAction(dispatch),
+	}),
+)(Home);
