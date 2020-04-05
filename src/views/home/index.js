@@ -9,15 +9,18 @@ import './index.scss';
 
 const handlePrintHomeContent = data => data.map(ele => JSON.parse(ele.content));
 
-const handlePrintBlogContent = data =>
-	data.length < 1 ? (
+const handlePrintBlogContent = data => {
+	return data.length < 1 ? (
 		<div className="no-articles">
 			<p>Aún no hay articulos publicados.</p>
 			<p>Próximamente habrá contenido de tu interés!</p>
 		</div>
 	) : (
-		data.map(content => <Article data={content} />)
+		data.map(content => {
+			return <Article key={content._id} {...content} />;
+		})
 	);
+};
 
 const Home = props => {
 	const {
