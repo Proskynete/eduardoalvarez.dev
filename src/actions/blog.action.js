@@ -6,7 +6,7 @@ import config from '@Config/config';
 export const getBlogDataAction = dispatch => async () => {
 	try {
 		const url = config.handleGetUrl();
-		const uri = `${config.handleGetEntryPointApi('blog')}`;
+		const uri = `${config.handleGetEntryPointApi('blog')}?last_articles=3`;
 		const token = JSON.parse(localStorage.getItem('token'));
 
 		const response = await axios({
