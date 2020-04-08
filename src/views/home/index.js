@@ -70,8 +70,10 @@ const Home = props => {
 };
 
 Home.propTypes = {
-	homeContent: PropTypes.array.isRequired,
-	blogContent: PropTypes.array.isRequired,
+	homeContent: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+		.isRequired,
+	blogContent: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+		.isRequired,
 	getHomeDataMethod: PropTypes.func.isRequired,
 	getLastBlogDataMethod: PropTypes.func.isRequired,
 };

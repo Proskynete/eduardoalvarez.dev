@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getArticleBySlugAction } from '@Actions/';
+import './index.scss';
 
 const ArticleView = props => {
 	const { slug } = useParams();
@@ -12,13 +13,7 @@ const ArticleView = props => {
 		getArticleBySlugMethod(slug);
 	}, []);
 
-	console.log(blogContent);
-
-	return (
-		<div>
-			<h1>{slug}</h1>
-		</div>
-	);
+	return <section className="article"></section>;
 };
 
 ArticleView.propTypes = {

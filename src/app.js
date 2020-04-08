@@ -10,7 +10,7 @@ import Article from '@Views/article';
 import Nav from '@Components/nav';
 
 const App = () => (
-	<Router>
+	<Router forceRefresh={true}>
 		<Nav />
 		<Switch>
 			<Route path="/" exact component={Home} />

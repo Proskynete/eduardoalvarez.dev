@@ -4,6 +4,7 @@ import getHeaders from '@Helpers/headers.helper';
 import config from '@Config/config';
 
 export const getLastBlogDataAction = dispatch => async () => {
+	console.log('action last blog');
 	try {
 		const url = config.handleGetUrl();
 		const uri = `${config.handleGetEntryPointApi('blog')}?last_articles=3`;
@@ -38,8 +39,6 @@ export const getArticleBySlugAction = dispatch => async slug => {
 			method: 'GET',
 			headers: getHeaders(token),
 		});
-
-		console.log();
 
 		return dispatch({
 			type: GET_ARTICLE_DATA,
