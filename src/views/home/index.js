@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createMarkup } from '@Helpers/print-html.helper';
 import { Article, Header, Footer } from '@Components';
-import { getHomeDataAction, getBlogDataAction } from '@Actions/';
+import { getHomeDataAction, getLastBlogDataAction } from '@Actions/';
 import './index.scss';
 
 const handlePrintHomeContent = data => data.map(ele => JSON.parse(ele.content));
@@ -26,13 +26,13 @@ const Home = props => {
 	const {
 		homeContent,
 		blogContent,
-		getBlogDataMethod,
 		getHomeDataMethod,
+		getLastBlogDataMethod,
 	} = props;
 
 	useEffect(() => {
 		getHomeDataMethod();
-		getBlogDataMethod();
+		getLastBlogDataMethod();
 	}, []);
 
 	return (
@@ -72,8 +72,8 @@ const Home = props => {
 Home.propTypes = {
 	homeContent: PropTypes.array.isRequired,
 	blogContent: PropTypes.array.isRequired,
-	getBlogDataMethod: PropTypes.func.isRequired,
 	getHomeDataMethod: PropTypes.func.isRequired,
+	getLastBlogDataMethod: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -83,6 +83,6 @@ export default connect(
 	}),
 	dispatch => ({
 		getHomeDataMethod: getHomeDataAction(dispatch),
-		getBlogDataMethod: getBlogDataAction(dispatch),
+		getLastBlogDataMethod: getLastBlogDataAction(dispatch),
 	}),
 )(Home);
