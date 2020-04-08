@@ -3,24 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createMarkup } from '@Helpers/print-html.helper';
-import { Article, Header, Footer } from '@Components';
+import { printArticles } from '@Helpers/print-articles.helper';
+import { Header, Footer } from '@Components';
 import { getHomeDataAction, getLastBlogDataAction } from '@Actions/';
 import './index.scss';
 
 const handlePrintHomeContent = data => data.map(ele => JSON.parse(ele.content));
-
-const handlePrintBlogContent = data => {
-	return data.length < 1 ? (
-		<div className="no-articles">
-			<p>Aún no hay articulos publicados.</p>
-			<p>Próximamente habrá contenido de tu interés!</p>
-		</div>
-	) : (
-		data.map(content => {
-			return <Article key={content._id} {...content} />;
-		})
-	);
-};
 
 const Home = props => {
 	const {
@@ -59,7 +47,7 @@ const Home = props => {
 							</Link>
 						</div>
 						<div className="home__inner__blog__content">
-							{handlePrintBlogContent(blogContent)}
+							{printArticles(blogContent)}
 						</div>
 					</div>
 				</div>
@@ -70,10 +58,8 @@ const Home = props => {
 };
 
 Home.propTypes = {
-	homeContent: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-		.isRequired,
-	blogContent: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-		.isRequired,
+	homeContent: PropTypes.array.isRequired,
+	blogContent: PropTypes.array.isRequired,
 	getHomeDataMethod: PropTypes.func.isRequired,
 	getLastBlogDataMethod: PropTypes.func.isRequired,
 };
