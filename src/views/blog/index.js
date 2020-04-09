@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Footer } from '@Components';
+import { Header } from '@Components';
 import { printArticles } from '@Helpers/print-articles.helper';
 import { getBlogDataAction } from '@Actions/';
 import './index.scss';
@@ -26,9 +26,6 @@ const Blog = props => {
 							</div>
 						</div>
 					</div>
-				</div>
-				<div className="row">
-					<Footer />
 				</div>
 			</div>
 		</>

@@ -2,10 +2,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Home from '@Views/home';
-import WhoIAm from '@Views/whoiam';
-import Blog from '@Views/blog';
-import Article from '@Views/article';
+import { Footer } from '@Components';
+import { Home, WhoIAm, Blog, ArticleView } from '@Views/';
 
 import Nav from '@Components/nav';
 
@@ -16,8 +14,9 @@ const App = () => (
 			<Route path="/" exact component={Home} />
 			<Route path="/about" exact component={WhoIAm} />
 			<Route path="/blog" exact component={Blog} />
-			<Route path="/blog/:slug" component={Article} />
+			<Route path="/blog/:slug" component={ArticleView} />
 		</Switch>
+		<Footer />
 	</Router>
 );
 

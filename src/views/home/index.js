@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createMarkup } from '@Helpers/print-html.helper';
 import { printArticles } from '@Helpers/print-articles.helper';
-import { Header, Footer } from '@Components';
+import { Header } from '@Components';
 import { getHomeDataAction, getLastBlogDataAction } from '@Actions/';
 import './index.scss';
 
@@ -52,7 +52,6 @@ const Home = props => {
 					</div>
 				</div>
 			</section>
-			<Footer />
 		</>
 	);
 };

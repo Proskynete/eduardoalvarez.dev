@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getWhoIAmDataAction } from '@Actions/';
 import { createMarkup } from '@Helpers/print-html.helper';
-import Footer from '@Components/footer/';
 import './index.scss';
 
 const handlePrintContent = data =>
@@ -34,9 +33,6 @@ const WhoIAm = props => {
 		<div className="container-fluid">
 			<div className="row justify-content-md-center">
 				<div className="col col-md-5">{handlePrintContent(content)}</div>
-			</div>
-			<div className="row">
-				<Footer />
 			</div>
 		</div>
 	);
