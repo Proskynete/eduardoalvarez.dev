@@ -7,7 +7,7 @@ import { printArticles } from '@Helpers/print-articles.helper';
 import { getBlogDataAction } from '@Actions/';
 import './index.scss';
 
-const Blog = props => {
+const BlogView = props => {
 	const { blogContent, getBlogDataMethod } = props;
 
 	useEffect(() => {
@@ -32,7 +32,7 @@ const Blog = props => {
 	);
 };
 
-Blog.propTypes = {
+BlogView.propTypes = {
 	blogContent: PropTypes.array.isRequired,
 	getBlogDataMethod: PropTypes.func.isRequired,
 };
@@ -44,4 +44,4 @@ export default connect(
 	dispatch => ({
 		getBlogDataMethod: getBlogDataAction(dispatch),
 	}),
-)(Blog);
+)(BlogView);

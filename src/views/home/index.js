@@ -10,7 +10,7 @@ import './index.scss';
 
 const handlePrintHomeContent = data => data.map(ele => JSON.parse(ele.content));
 
-const Home = props => {
+const HomeView = props => {
 	const {
 		homeContent,
 		blogContent,
@@ -56,7 +56,7 @@ const Home = props => {
 	);
 };
 
-Home.propTypes = {
+HomeView.propTypes = {
 	homeContent: PropTypes.array.isRequired,
 	blogContent: PropTypes.array.isRequired,
 	getHomeDataMethod: PropTypes.func.isRequired,
@@ -72,4 +72,4 @@ export default connect(
 		getHomeDataMethod: getHomeDataAction(dispatch),
 		getLastBlogDataMethod: getLastBlogDataAction(dispatch),
 	}),
-)(Home);
+)(HomeView);

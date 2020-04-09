@@ -1,4 +1,4 @@
-import { GET_WHO_I_AM_DATA } from '@Config/constants';
+import { GET_ABOUTME_DATA } from '@Config/constants';
 
 const initialState = {
 	content: [],
@@ -7,7 +7,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case GET_WHO_I_AM_DATA:
+		case GET_ABOUTME_DATA:
 			return {
 				...state,
 				status: action.payload.status,

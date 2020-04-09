@@ -1,8 +1,7 @@
-/* eslint-disable import/no-unresolved */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getWhoIAmDataAction } from '@Actions/';
+import { getAboutMeDataAction } from '@Actions/';
 import { createMarkup } from '@Helpers/print-html.helper';
 import './index.scss';
 
@@ -22,11 +21,11 @@ const handlePrintContent = data =>
 		);
 	});
 
-const WhoIAm = props => {
-	const { content, getWhoIAmDataMethod } = props;
+const AboutMeView = props => {
+	const { content, getAboutMeDataMethod } = props;
 
 	useEffect(() => {
-		getWhoIAmDataMethod();
+		getAboutMeDataMethod();
 	}, []);
 
 	return (
@@ -38,16 +37,16 @@ const WhoIAm = props => {
 	);
 };
 
-WhoIAm.propTypes = {
+AboutMeView.propTypes = {
 	content: PropTypes.array.isRequired,
-	getWhoIAmDataMethod: PropTypes.func.isRequired,
+	getAboutMeDataMethod: PropTypes.func.isRequired,
 };
 
 export default connect(
 	state => ({
-		content: state.whoIAmData.content,
+		content: state.aboutMeData.content,
 	}),
 	dispatch => ({
-		getWhoIAmDataMethod: getWhoIAmDataAction(dispatch),
+		getAboutMeDataMethod: getAboutMeDataAction(dispatch),
 	}),
-)(WhoIAm);
+)(AboutMeView);

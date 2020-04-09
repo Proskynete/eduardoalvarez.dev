@@ -1,3 +1,3 @@
+export * from './about_me.action';
 export * from './home.action';
-export * from './who_i_am.action';
 export * from './blog.action';
