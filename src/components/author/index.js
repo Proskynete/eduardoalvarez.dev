@@ -1,20 +1,27 @@
-/* eslint-disable import/no-unresolved */
 import React from 'react';
-import content from '@Contents/author';
 import './index.scss';
 
-const Author = () => (
-	<section className="author">
-		<img
-			className="author__image"
-			src={content.img.src}
-			alt={content.img.alt}
-		/>
-		<article className="author__description">
-			{`${content.body.text} `}
-			<i className={content.body.icon.class} />
-		</article>
-	</section>
-);
+const AuthorComponent = props => {
+	const { alias, biography, avatar, name } = props;
+	return (
+		<section className="author">
+			<img
+				className="author__image"
+				src={avatar}
+				alt={`avatar de ${alias}`}
+				title={`avatar de ${alias}`}
+			/>
+			<article className="author__description">
+				<div className="author__description__header">
+					<p className="author__description__header__name">{name}</p>
+					<p className="author__description__header__alias">@{alias}</p>
+				</div>
+				<div className="author__description__body">
+					<p className="author__description__body__biography">{biography}</p>
+				</div>
+			</article>
+		</section>
+	);
+};
 
-export default Author;
+export default AuthorComponent;

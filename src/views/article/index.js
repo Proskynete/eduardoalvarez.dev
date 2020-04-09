@@ -5,6 +5,7 @@ import { prettyFormat } from '@Helpers/date-format';
 import { createMarkup } from '@Helpers/print-html.helper';
 import { connect } from 'react-redux';
 import { getArticleBySlugAction } from '@Actions/';
+import { AuthorComponent } from '@Components/';
 import './index.scss';
 
 const ArticleView = props => {
@@ -56,6 +57,11 @@ const ArticleView = props => {
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div className="row justify-content-md-center">
+				<div className="col col-md-8">
+					<AuthorComponent {...blogContent.create_by} />
 				</div>
 			</div>
 		</div>

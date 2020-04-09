@@ -1,20 +1,4 @@
 @import '../../assets/scss/colors.scss';
 
 .author {
-	padding: 5px 8px 0;
-
-	&__image {
-		border-radius: 50%;
-		border: 2px solid $darkblue_color;
-		width: 40%;
-
-		@media (min-width: 768px) {
-			width: 20%;
-		}
-	}
-
-	&__description {
-		font-size: 0.9em;
-		margin-top: 15px;
-	}
 }
