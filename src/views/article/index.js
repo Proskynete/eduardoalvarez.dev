@@ -61,7 +61,9 @@ const ArticleView = props => {
 			</div>
 			<div className="row justify-content-md-center">
 				<div className="col col-md-8">
-					<AuthorComponent {...blogContent.create_by} />
+					<div className="container">
+						<AuthorComponent {...blogContent.create_by} />
+					</div>
 				</div>
 			</div>
 		</div>
