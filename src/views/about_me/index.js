@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAboutMeDataAction } from '@Actions/';
-import { createMarkup } from '@Helpers/print-html.helper';
+import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import './index.scss';
 
 const handlePrintContent = data =>
@@ -13,10 +13,9 @@ const handlePrintContent = data =>
 					<p className="container__header__title">{ele.title}</p>
 					<p className="container__header__subtitle">{ele.subtitle}</p>
 				</div>
-				<div
-					className="container__content"
-					dangerouslySetInnerHTML={createMarkup(JSON.parse(ele.content))}
-				/>
+				<div className="container__content">
+					{transformMarkdownToHtml(ele.content)}
+				</div>
 			</div>
 		);
 	});

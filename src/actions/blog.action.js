@@ -1,18 +1,15 @@
 import axios from 'axios';
 import { GET_LAST_BLOG_DATA, GET_ARTICLE_DATA } from '@Config/constants';
-import getHeaders from '@Helpers/headers.helper';
 import config from '@Config/config';
 
 export const getLastBlogDataAction = dispatch => async () => {
 	try {
 		const url = config.handleGetUrl();
 		const uri = `${config.handleGetEntryPointApi('blog')}?last_articles=3`;
-		const token = JSON.parse(localStorage.getItem('token'));
 
 		const response = await axios({
 			url: `${url}${uri}`,
 			method: 'GET',
-			headers: getHeaders(token),
 		});
 
 		return dispatch({
@@ -31,12 +28,10 @@ export const getBlogDataAction = dispatch => async () => {
 	try {
 		const url = config.handleGetUrl();
 		const uri = `${config.handleGetEntryPointApi('blog')}`;
-		const token = JSON.parse(localStorage.getItem('token'));
 
 		const response = await axios({
 			url: `${url}${uri}`,
 			method: 'GET',
-			headers: getHeaders(token),
 		});
 
 		return dispatch({
@@ -55,12 +50,10 @@ export const getArticleBySlugAction = dispatch => async slug => {
 	try {
 		const url = config.handleGetUrl();
 		const uri = `${config.handleGetEntryPointApi('blog')}?slug=${slug}`;
-		const token = JSON.parse(localStorage.getItem('token'));
 
 		const response = await axios({
 			url: `${url}${uri}`,
 			method: 'GET',
-			headers: getHeaders(token),
 		});
 
 		return dispatch({
