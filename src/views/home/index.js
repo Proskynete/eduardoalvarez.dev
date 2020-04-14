@@ -2,13 +2,11 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { createMarkup } from '@Helpers/print-html.helper';
+import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { printArticles } from '@Helpers/print-articles.helper';
 import { Header } from '@Components';
 import { getHomeDataAction, getLastBlogDataAction } from '@Actions/';
 import './index.scss';
-
-const handlePrintHomeContent = data => data.map(ele => JSON.parse(ele.content));
 
 const HomeView = props => {
 	const {
@@ -29,12 +27,11 @@ const HomeView = props => {
 			<section className="home">
 				<div className="home__inner">
 					<div className="home__inner__description">
-						<p
-							className="home__inner__description__text"
-							dangerouslySetInnerHTML={createMarkup(
-								handlePrintHomeContent(homeContent),
-							)}
-						></p>
+						{homeContent.map(element => (
+							<div key={element._id} className="home__inner__description__text">
+								{transformMarkdownToHtml(element.content)}
+							</div>
+						))}
 					</div>
 
 					<div className="home__inner__blog">
