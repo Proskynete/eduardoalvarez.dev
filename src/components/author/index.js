@@ -17,7 +17,9 @@ const AuthorComponent = props => {
 
 				<div className="author__inner__description">
 					<div className="author__inner__description__header">
-						<p className="author__inner__description__header__name">{name}</p>
+						<p className="author__inner__description__header__name">
+							Escrito por {name}
+						</p>
 						<p className="author__inner__description__header__alias">{alias}</p>
 					</div>
 					<p className="author__inner__description__biography">{biography}</p>

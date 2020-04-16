@@ -3,8 +3,6 @@
 
 .author {
 	@include poppins-font;
-	border: 1px solid $lightgrey-color;
-	box-shadow: 5px 5px 9px 3px #aaaaaa;
 	border-radius: 20px;
 	width: 100%;
 
@@ -17,7 +15,6 @@
 	}
 
 	&__inner {
-		align-items: center;
 		display: flex;
 		flex-direction: column;
 		padding: 20px 30px;
@@ -37,7 +34,7 @@
 
 			&__img {
 				border-radius: 50%;
-				max-width: 100px;
+				max-width: 50px;
 			}
 		}
 
