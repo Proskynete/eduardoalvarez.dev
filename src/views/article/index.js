@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { prettyFormat } from '@Helpers/date-format';
-import { createMarkup } from '@Helpers/print-html.helper';
+import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { connect } from 'react-redux';
 import { getArticleBySlugAction } from '@Actions/';
-import { AuthorComponent } from '@Components/';
+import { AuthorComponent, Line } from '@Components/';
 import './index.scss';
 
 const ArticleView = props => {
@@ -48,12 +48,9 @@ const ArticleView = props => {
 										alt={blogContent.title}
 									/>
 								</div>
-								<div
-									className="blog-article__body__content"
-									dangerouslySetInnerHTML={createMarkup(
-										JSON.parse(blogContent.content || null),
-									)}
-								/>
+								<div className="blog-article__body__content">
+									{transformMarkdownToHtml(blogContent.content)}
+								</div>
 							</div>
 						</div>
 					</div>
@@ -61,6 +58,7 @@ const ArticleView = props => {
 			</div>
 			<div className="row justify-content-md-center">
 				<div className="col col-md-8">
+					<Line />
 					<div className="container">
 						<AuthorComponent {...blogContent.create_by} />
 					</div>
