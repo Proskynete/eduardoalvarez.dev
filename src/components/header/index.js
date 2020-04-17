@@ -1,7 +1,8 @@
-/* eslint-disable import/no-unresolved */
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import config from '@Config/config-content';
-import ME from '@Images/me.jpg';
+import { getUserInfoAction } from '@Actions/';
 import './index.scss';
 
 const handleShowIconSocials = () =>
@@ -17,23 +18,49 @@ const handleShowIconSocials = () =>
 		</a>
 	));
 
-const Header = () => (
-	<>
-		<div className="header">
-			<div className="header__inner">
-				<p className="header__inner__title">
-					Hola! Mi nombre es Eduardo Alvarez
-				</p>
-				<p className="header__inner__subtitle">
-					soy desarrollador web y éste es mi sitio web. Bienvenidx!!
-				</p>
-				<div className="header__inner__socials">{handleShowIconSocials()}</div>
-			</div>
-		</div>
-		<div className="header__me">
-			<img src={ME} alt="Eduardo Esteban Álvarez Castañeda" />
-		</div>
-	</>
-);
+const Header = props => {
+	const { content, getUserInfoMethod } = props;
 
-export default Header;
+	useEffect(() => {
+		getUserInfoMethod();
+	}, []);
+
+	return (
+		<>
+			<div className="header">
+				<div className="header__inner">
+					<p className="header__inner__title">
+						Hola! Mi nombre es Eduardo Alvarez
+					</p>
+					<p className="header__inner__subtitle">
+						soy desarrollador web y éste es mi sitio web. Bienvenidx!!
+					</p>
+					<div className="header__inner__socials">
+						{handleShowIconSocials()}
+					</div>
+				</div>
+			</div>
+			<div className="header__me">
+				<img src={content.avatar} alt="Eduardo Esteban Álvarez Castañeda" />
+			</div>
+		</>
+	);
+};
+
+Header.defaultProps = {
+	content: {},
+};
+
+Header.propTypes = {
+	content: PropTypes.object,
+	getUserInfoMethod: PropTypes.func.isRequired,
+};
+
+export default connect(
+	state => ({
+		content: state.userData.content,
+	}),
+	dispatch => ({
+		getUserInfoMethod: getUserInfoAction(dispatch),
+	}),
+)(Header);

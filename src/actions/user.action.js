@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { GET_ABOUTME_DATA } from '@Config/constants';
+import { GET_USER_DATA } from '@Config/constants';
 import getHeaders from '@Helpers/headers.helper';
 import config from '@Config/config';
 
-export const getAboutMeDataAction = dispatch => async () => {
+export const getUserInfoAction = dispatch => async () => {
 	try {
 		const url = config.handleGetUrl();
-		const uri = `${config.handleGetEntryPointApi('about_me')}`;
+		const uri = `${config.handleGetEntryPointApi('users')}?alias=Proskynete`;
 
 		const response = await axios({
 			url: `${url}${uri}`,
@@ -15,7 +15,7 @@ export const getAboutMeDataAction = dispatch => async () => {
 		});
 
 		return dispatch({
-			type: GET_ABOUTME_DATA,
+			type: GET_USER_DATA,
 			payload: {
 				status: response.data.status,
 				content: response.data.content,
