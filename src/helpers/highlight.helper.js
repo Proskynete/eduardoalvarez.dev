@@ -2,12 +2,25 @@ export const highlightFormat = () => {
 	setTimeout(() => {
 		document.querySelectorAll('pre').forEach(codeBlock => {
 			const code = codeBlock.querySelector('code');
+			const headerDiv = document.createElement('div');
+			const text = document.createElement('p');
+			const codeContainer = document.createElement('div');
+
+			headerDiv.classList.add('highlight__header');
+			text.classList.add('highlight__header__text');
+			codeContainer.classList.add('highlight__body');
+			text.innerHTML = 'Código de ejemplo:';
+
+			headerDiv.appendChild(text);
 			codeBlock.classList.add('highlight');
 
 			switch (code.classList.value) {
 				case 'language-js':
 				case 'language-javascript':
 					codeBlock.setAttribute('data-language', 'js');
+					break;
+				case 'language-react':
+					codeBlock.setAttribute('data-language', 'react');
 					break;
 				case 'language-node':
 				case 'language-nodejs':
@@ -31,7 +44,10 @@ export const highlightFormat = () => {
 					codeBlock.setAttribute('data-language', 'md');
 					break;
 			}
-			hljs.highlightBlock(codeBlock);
+			codeContainer.append(code);
+			hljs.highlightBlock(codeContainer);
+			codeBlock.prepend(headerDiv);
+			codeBlock.append(codeContainer);
 		});
 	}, 1);
 };

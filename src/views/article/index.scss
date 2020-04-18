@@ -100,14 +100,9 @@
 
 .highlight {
 	display: block;
-	padding-top: 15px;
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-bottom: 15px;
+
 	margin-top: 0;
 	margin-bottom: 10px;
-	margin-left: 0;
-	margin-right: 0;
 	font-size: 13px;
 	line-height: 1.42857143;
 	color: #f5f5f5;
@@ -120,6 +115,35 @@
 	margin-left: auto;
 	margin-right: auto;
 	width: 100%;
+	overflow: hidden;
+
+	&__header {
+		@include roboto-font;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 40px;
+		display: flex;
+		padding-left: 20px;
+		justify-content: flex-start;
+		align-items: center;
+		background-color: #282c34;
+		border-bottom: 1px solid rgb(107, 107, 107);
+
+		&__text {
+			position: absolute;
+		}
+	}
+
+	&__body {
+		padding-top: 50px;
+		padding-left: 20px;
+		padding-right: 20px;
+		padding-bottom: 15px;
+		width: 100%;
+		overflow: auto;
+	}
 
 	@media (min-width: 992px) {
 		width: 50%;
@@ -130,7 +154,10 @@
 		position: absolute;
 		top: 0;
 		right: 20px;
-		width: 50px;
+		min-width: 30px;
+		width: content;
+		padding-left: 10px;
+		padding-right: 10px;
 		height: 30px;
 		display: flex;
 		justify-content: center;
@@ -142,15 +169,23 @@
 	&[data-language='js'],
 	&[data-language='javascript'] {
 		&:after {
-			content: 'js';
+			content: 'JavaScript';
 			background-color: #f0db4f;
 			color: #333;
 		}
 	}
 
+	&[data-language='react'] {
+		&:after {
+			content: 'React';
+			background-color: #61dafb;
+			color: #282c34;
+		}
+	}
+
 	&[data-language='node'] {
 		&:after {
-			content: 'node';
+			content: 'Node';
 			background-color: #026e00;
 			color: #f5f5f5;
 		}
@@ -158,7 +193,7 @@
 
 	&[data-language='css'] {
 		&:after {
-			content: 'css';
+			content: 'CSS';
 			background-color: #264de4;
 			color: #f5f5f5;
 		}
@@ -166,7 +201,7 @@
 
 	&[data-language='scss'] {
 		&:after {
-			content: 'scss';
+			content: 'SCSS';
 			background-color: #bf4080;
 			color: #f5f5f5;
 		}
@@ -174,7 +209,7 @@
 
 	&[data-language='html'] {
 		&:after {
-			content: 'html';
+			content: 'HTML';
 			background-color: #e44d26;
 			color: #f5f5f5;
 		}
@@ -182,7 +217,7 @@
 
 	&[data-language='bash'] {
 		&:after {
-			content: 'bash';
+			content: 'Bash';
 			background-color: #f5f5f5;
 			color: #333;
 		}
@@ -190,7 +225,7 @@
 
 	&[data-language='md'] {
 		&:after {
-			content: 'md';
+			content: 'MarkDown';
 			background-color: #03a7dd;
 			color: #fff;
 		}
