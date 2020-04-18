@@ -97,3 +97,86 @@
 		}
 	}
 }
+
+.highlight {
+	display: block;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	margin-top: 0;
+	margin-bottom: 10px;
+	margin-left: 0;
+	margin-right: 0;
+	font-size: 13px;
+	line-height: 1.42857143;
+	color: #f5f5f5;
+	word-break: break-all;
+	word-wrap: break-word;
+	background-color: #333;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 20px;
+		width: 50px;
+		height: 30px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&[data-language='js'],
+	&[data-language='javascript'] {
+		&:before {
+			content: 'js';
+			background-color: #f0db4f;
+			color: #333;
+		}
+	}
+
+	&[data-language='node'] {
+		&:before {
+			content: 'node';
+			background-color: #026e00;
+			color: #f5f5f5;
+		}
+	}
+
+	&[data-language='css'] {
+		&:before {
+			content: 'css';
+			background-color: #264de4;
+			color: #f5f5f5;
+		}
+	}
+
+	&[data-language='scss'] {
+		&:before {
+			content: 'scss';
+			background-color: #bf4080;
+			color: #f5f5f5;
+		}
+	}
+
+	&[data-language='html'] {
+		&:before {
+			content: 'html';
+			background-color: #e44d26;
+			color: #f5f5f5;
+		}
+	}
+
+	&[data-language='bash'] {
+		&:before {
+			content: 'bash';
+			background-color: #f5f5f5;
+			color: #333;
+		}
+	}
+}

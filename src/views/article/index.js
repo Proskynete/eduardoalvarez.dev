@@ -8,6 +8,36 @@ import { getArticleBySlugAction } from '@Actions/';
 import { AuthorComponent, Line } from '@Components/';
 import './index.scss';
 
+const bla = () => {
+	setTimeout(() => {
+		document.querySelectorAll('pre').forEach(codeBlock => {
+			const code = codeBlock.querySelector('code');
+			codeBlock.classList.add('highlight');
+
+			switch (code.classList.value) {
+				case 'language-js':
+					codeBlock.setAttribute('data-language', 'js');
+					break;
+				case 'language-node':
+					codeBlock.setAttribute('data-language', 'node');
+					break;
+				case 'language-scss':
+					codeBlock.setAttribute('data-language', 'scss');
+					break;
+				case 'language-css':
+					codeBlock.setAttribute('data-language', 'css');
+					break;
+				case 'language-html':
+					codeBlock.setAttribute('data-language', 'html');
+					break;
+				case 'language-bash':
+					codeBlock.setAttribute('data-language', 'bash');
+					break;
+			}
+		});
+	}, 1);
+};
+
 const ArticleView = props => {
 	const { slug } = useParams();
 	const { blogContent, getArticleBySlugMethod } = props;
@@ -15,6 +45,10 @@ const ArticleView = props => {
 	useEffect(() => {
 		getArticleBySlugMethod(slug);
 	}, []);
+
+	if (blogContent) {
+		bla();
+	}
 
 	return (
 		<div className="container-fluid">
