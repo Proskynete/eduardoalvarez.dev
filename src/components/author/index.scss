@@ -25,6 +25,7 @@
 		}
 
 		&__image {
+			text-align: center;
 			margin-bottom: 15px;
 
 			@media (min-width: 992px) {
@@ -34,16 +35,16 @@
 
 			&__img {
 				border-radius: 50%;
-				max-width: 50px;
+				max-width: 80px;
 			}
 		}
 
 		&__description {
 			&__header {
-				text-align: center;
 				margin-bottom: 10px;
 
 				@media (min-width: 992px) {
+					text-align: center;
 					text-align: left;
 				}
 
