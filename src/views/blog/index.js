@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Header } from '@Components';
 import { printArticles } from '@Helpers/print-articles.helper';
 import { getBlogDataAction } from '@Actions/';
+import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import './index.scss';
 
 const BlogView = props => {
@@ -16,6 +17,7 @@ const BlogView = props => {
 
 	return (
 		<>
+			{changeMetadataValue({})}
 			<Header />
 			<div className="container-fluid">
 				<div className="row justify-content-md-center">

@@ -6,6 +6,7 @@ import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { printArticles } from '@Helpers/print-articles.helper';
 import { Header } from '@Components';
 import { getHomeDataAction, getLastBlogDataAction } from '@Actions/';
+import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import './index.scss';
 
 const HomeView = props => {
@@ -23,6 +24,7 @@ const HomeView = props => {
 
 	return (
 		<>
+			{changeMetadataValue({})}
 			<Header />
 			<section className="home">
 				<div className="home__inner">

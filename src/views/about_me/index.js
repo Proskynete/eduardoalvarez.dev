@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAboutMeDataAction } from '@Actions/';
 import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
+import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import './index.scss';
 
 const handlePrintContent = data =>
@@ -28,11 +29,14 @@ const AboutMeView = props => {
 	}, []);
 
 	return (
-		<div className="container-fluid">
-			<div className="row justify-content-md-center">
-				<div className="col col-md-5">{handlePrintContent(content)}</div>
+		<>
+			{changeMetadataValue({})}
+			<div className="container-fluid">
+				<div className="row justify-content-md-center">
+					<div className="col col-md-5">{handlePrintContent(content)}</div>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
