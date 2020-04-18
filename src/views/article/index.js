@@ -6,37 +6,8 @@ import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { connect } from 'react-redux';
 import { getArticleBySlugAction } from '@Actions/';
 import { AuthorComponent, Line } from '@Components/';
+import { highlightFormat } from '@Helpers/highlight.helper.js';
 import './index.scss';
-
-const bla = () => {
-	setTimeout(() => {
-		document.querySelectorAll('pre').forEach(codeBlock => {
-			const code = codeBlock.querySelector('code');
-			codeBlock.classList.add('highlight');
-
-			switch (code.classList.value) {
-				case 'language-js':
-					codeBlock.setAttribute('data-language', 'js');
-					break;
-				case 'language-node':
-					codeBlock.setAttribute('data-language', 'node');
-					break;
-				case 'language-scss':
-					codeBlock.setAttribute('data-language', 'scss');
-					break;
-				case 'language-css':
-					codeBlock.setAttribute('data-language', 'css');
-					break;
-				case 'language-html':
-					codeBlock.setAttribute('data-language', 'html');
-					break;
-				case 'language-bash':
-					codeBlock.setAttribute('data-language', 'bash');
-					break;
-			}
-		});
-	}, 1);
-};
 
 const ArticleView = props => {
 	const { slug } = useParams();
@@ -46,9 +17,7 @@ const ArticleView = props => {
 		getArticleBySlugMethod(slug);
 	}, []);
 
-	if (blogContent) {
-		bla();
-	}
+	highlightFormat();
 
 	return (
 		<div className="container-fluid">
