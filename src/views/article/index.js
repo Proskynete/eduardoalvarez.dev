@@ -8,6 +8,7 @@ import { getArticleBySlugAction } from '@Actions/';
 import { AuthorComponent, Line } from '@Components/';
 import { highlightFormat } from '@Helpers/highlight.helper.js';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
+import mapOptions from '@Helpers/options_to_render.helper';
 import './index.scss';
 
 const ArticleView = props => {
@@ -45,7 +46,7 @@ const ArticleView = props => {
 
 										<span className="blog-article__header__info__tags">
 											<i className="fas fa-tag" />
-											{blogContent.tags}
+											{mapOptions[blogContent.tags]}
 										</span>
 									</div>
 								</div>
