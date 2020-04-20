@@ -10,4 +10,11 @@ const Main = () => (
 	</Provider>
 );
 
-ReactDOM.render(<Main />, document.getElementById('app'));
+// ReactDOM.render(<Main />, document.getElementById('app'));
+
+const rootElement = document.querySelector('#app');
+if (rootElement.hasChildNodes()) {
+	ReactDOM.hidrate(<Main />, rootElement);
+} else {
+	ReactDOM.render(<Main />, rootElement);
+}
