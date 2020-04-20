@@ -81,5 +81,11 @@
 				"statements": -10
 			}
 		}
+	},
+	"reactSnap": {
+		"puppeteerArgs": [
+			"--no-sandbox",
+			"--disable-setuid-sandbox"
+		]
 	}
 }
