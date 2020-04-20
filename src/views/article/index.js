@@ -26,6 +26,7 @@ const ArticleView = props => {
 			{changeMetadataValue({
 				title: blogContent.title,
 				description: blogContent.description,
+				urlImage: blogContent.image_url,
 			})}
 			<div className="container-fluid">
 				<div className="row justify-content-md-center">
