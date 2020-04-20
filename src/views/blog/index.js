@@ -22,11 +22,7 @@ const BlogView = props => {
 			<div className="container-fluid">
 				<div className="row justify-content-md-center">
 					<div className="col col-md-5">
-						<div className="container">
-							<div className="container__blog">
-								{printArticles(blogContent)}
-							</div>
-						</div>
+						<div className="container__blog">{printArticles(blogContent)}</div>
 					</div>
 				</div>
 			</div>

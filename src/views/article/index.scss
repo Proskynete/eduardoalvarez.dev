@@ -59,7 +59,9 @@
 	}
 
 	&__body {
+		@include poppins-font;
 		width: 100%;
+
 		&__header {
 			width: 100%;
 			margin-left: auto;
@@ -87,13 +89,52 @@
 				width: 70%;
 			}
 
+			h1 {
+				@include poppins-font;
+				@include set-font(1.25, 600, $black-color, 30);
+
+				position: relative;
+				margin-bottom: 20px;
+				margin-top: 50px;
+
+				@media (min-width: 1200px) {
+					@include set-font(1.75, 600, $black-color, 30);
+				}
+			}
+
 			p {
+				@include set-font(0.875, 400, $black-color, 20);
+
+				@media (min-width: 1200px) {
+					@include set-font(1, 400, $black-color, 25);
+				}
+
+				strong {
+					font-weight: 500;
+				}
+
+				em {
+					font-style: italic;
+				}
+
+				a {
+					font-weight: 400;
+					text-decoration: none;
+					color: #a34e00;
+
+					&:hover {
+						text-decoration: none;
+					}
+				}
+
 				img {
 					max-width: 100%;
 					margin-left: auto;
 					margin-right: auto;
 					box-shadow: 5px 5px 9px 3px #aaaaaa;
 					display: block;
+					margin-top: 50px;
+					margin-bottom: 50px;
 
 					@media (min-width: 1200px) {
 						max-width: 80%;
