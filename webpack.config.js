@@ -10,6 +10,11 @@ module.exports = env => {
 			publicPath: '/',
 			filename: 'bundle.js',
 		},
+		optimization: {
+			splitChunks: {
+				chunks: 'all',
+			},
+		},
 		devServer: {
 			contentBase: './',
 			port: 8080,
