@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Footer } from '@Components';
@@ -9,7 +8,7 @@ import Nav from '@Components/nav';
 const App = () => (
 	<>
 		{changeMetadataValue({})}
-		<Router forceRefresh={true}>
+		<Router>
 			<Nav />
 			<Switch>
 				<Route path="/" exact component={HomeView} />
