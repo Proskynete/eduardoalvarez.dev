@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_LAST_BLOG_DATA, GET_ARTICLE_DATA } from '@Config/constants';
+import { GET_LAST_BLOG_DATA, GET_ALL_BLOG_DATA } from '@Config/constants';
 import config from '@Config/config';
 
 export const getLastBlogDataAction = dispatch => async () => {
@@ -35,7 +35,7 @@ export const getBlogDataAction = dispatch => async () => {
 		});
 
 		return dispatch({
-			type: GET_LAST_BLOG_DATA,
+			type: GET_ALL_BLOG_DATA,
 			payload: {
 				status: response.data.status,
 				content: response.data.content,

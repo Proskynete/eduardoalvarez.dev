@@ -1,4 +1,4 @@
-import { GET_LAST_BLOG_DATA, GET_ARTICLE_DATA } from '@Config/constants';
+import { GET_LAST_BLOG_DATA, GET_ALL_BLOG_DATA } from '@Config/constants';
 
 const initialState = {
 	status: 0,
@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
 				status: action.payload.status,
 				blogContent: action.payload.content,
 			};
-		case GET_ARTICLE_DATA:
+		case GET_ALL_BLOG_DATA:
 			return {
 				...state,
 				status: action.payload.status,
