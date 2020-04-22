@@ -8,6 +8,7 @@ import { getArticleBySlugAction } from '@Actions/';
 import { AuthorComponent, Line } from '@Components/';
 import { highlightFormat } from '@Helpers/highlight.helper.js';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
+import { startInTop } from '@Helpers/start_in_top.helper';
 import mapOptions from '@Helpers/options_to_render.helper';
 import './index.scss';
 
@@ -16,6 +17,7 @@ const ArticleView = props => {
 	const { articleData, getArticleBySlugMethod } = props;
 
 	useEffect(() => {
+		startInTop();
 		getArticleBySlugMethod(slug);
 	}, []);
 
