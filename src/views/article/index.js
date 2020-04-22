@@ -13,7 +13,7 @@ import './index.scss';
 
 const ArticleView = props => {
 	const { slug } = useParams();
-	const { blogContent, getArticleBySlugMethod } = props;
+	const { articleData, getArticleBySlugMethod } = props;
 
 	useEffect(() => {
 		getArticleBySlugMethod(slug);
@@ -24,9 +24,9 @@ const ArticleView = props => {
 	return (
 		<>
 			{changeMetadataValue({
-				title: blogContent.title,
-				description: blogContent.description,
-				urlImage: blogContent.image_url,
+				title: articleData.title,
+				description: articleData.description,
+				urlImage: articleData.image_url,
 			})}
 			<div className="container-fluid">
 				<div className="row justify-content-md-center">
@@ -34,20 +34,20 @@ const ArticleView = props => {
 						<div className="container">
 							<div className="blog-blog-article">
 								<div className="blog-article__header">
-									<h1>{blogContent.title}</h1>
+									<h1>{articleData.title}</h1>
 									<div className="blog-article__header__info">
 										<span className="blog-article__header__info__published">
 											<i className="far fa-calendar-alt" />
-											Publicado el {prettyFormat(blogContent.create_at)}
+											Publicado el {prettyFormat(articleData.create_at)}
 										</span>
 										<span className="blog-article__header__info__read">
 											<i className="far fa-clock" />
-											Lectura de {blogContent.reading_time} minutos
+											Lectura de {articleData.reading_time} minutos
 										</span>
 
 										<span className="blog-article__header__info__tags">
 											<i className="fas fa-tag" />
-											{mapOptions[blogContent.tags]}
+											{mapOptions[articleData.tags]}
 										</span>
 									</div>
 								</div>
@@ -55,12 +55,12 @@ const ArticleView = props => {
 									<div className="blog-article__body__header">
 										<img
 											className="blog-article__body__header__image"
-											src={blogContent.image_url}
-											alt={blogContent.title}
+											src={articleData.image_url}
+											alt={articleData.title}
 										/>
 									</div>
 									<div className="blog-article__body__content">
-										{transformMarkdownToHtml(blogContent.content)}
+										{transformMarkdownToHtml(articleData.content)}
 									</div>
 								</div>
 							</div>
@@ -71,7 +71,7 @@ const ArticleView = props => {
 					<div className="col col-md-8">
 						<Line />
 						<div className="container">
-							<AuthorComponent {...blogContent.create_by} />
+							<AuthorComponent {...articleData.create_by} />
 						</div>
 					</div>
 				</div>
@@ -81,14 +81,13 @@ const ArticleView = props => {
 };
 
 ArticleView.propTypes = {
-	blogContent: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-		.isRequired,
+	articleData: PropTypes.object.isRequired,
 	getArticleBySlugMethod: PropTypes.func.isRequired,
 };
 
 export default connect(
 	state => ({
-		blogContent: state.blogData.blogContent,
+		articleData: state.articleData.articleContent,
 	}),
 	dispatch => ({
 		getArticleBySlugMethod: getArticleBySlugAction(dispatch),

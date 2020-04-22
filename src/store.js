@@ -5,6 +5,7 @@ import {
 	aboutMeReducer,
 	blogReducer,
 	userReducer,
+	articleReducer,
 } from '@Reducers/';
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
 	aboutMeData: aboutMeReducer,
 	blogData: blogReducer,
 	userData: userReducer,
+	articleData: articleReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

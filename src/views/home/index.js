@@ -18,8 +18,8 @@ const HomeView = props => {
 	} = props;
 
 	useEffect(() => {
-		getHomeDataMethod();
 		getLastBlogDataMethod();
+		getHomeDataMethod();
 	}, []);
 
 	return (
