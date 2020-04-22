@@ -15,8 +15,7 @@
 		"lint": "eslint ./src --ignore-path .gitignore --fix",
 		"test": "concurrently \"npm run lint\" \"npm run test:unit\"",
 		"test:unit": "nyc mocha test/unit --compilers js:@babel/register --require ignore-styles --no-deprecation",
-		"test:unit-coverage": "nyc report --reporter=lcov coverage/lcov-report && http-server -p 3001",
-		"postbuild": "react-snap"
+		"test:unit-coverage": "nyc report --reporter=lcov coverage/lcov-report && http-server -p 3001"
 	},
 	"repository": {
 		"type": "git",
