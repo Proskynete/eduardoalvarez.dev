@@ -1,0 +1,65 @@
+@import '../../assets/scss/colors.scss';
+
+.table_of_content {
+	display: none;
+	background-color: white;
+	position: absolute;
+	width: 280px;
+	left: -180px;
+	min-height: 100px;
+	z-index: 2;
+
+	@media (min-width: 1230px) {
+		&.in {
+			display: block;
+			position: fixed;
+			top: 50px;
+			left: 2rem;
+			border: 1px solid #ccc;
+			border-radius: 10px;
+			box-shadow: 5px 5px 9px 3px #aaaaaa;
+		}
+	}
+
+	@media (min-width: 1400px) {
+		&.in {
+			left: 4rem;
+		}
+	}
+
+	&__inner {
+		padding: 20px;
+		width: 100%;
+		height: 100%;
+
+		&__container {
+			padding-top: 0;
+			padding-left: 10px;
+			padding-right: 0;
+			padding-bottom: 0;
+
+			&__item {
+				list-style: none;
+				margin-top: 0;
+				margin-left: 0;
+				margin-right: 0;
+				margin-bottom: 5px;
+
+				&__link {
+					color: $blue-color;
+					text-decoration: none;
+
+					&:hover {
+						color: $orange-color;
+						text-decoration: none;
+					}
+
+					&.current {
+						color: $orange-color;
+						font-weight: 500;
+					}
+				}
+			}
+		}
+	}
+}

@@ -5,28 +5,13 @@ import { prettyFormat } from '@Helpers/date-format';
 import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { connect } from 'react-redux';
 import { getArticleBySlugAction } from '@Actions/';
-import { AuthorComponent, Line } from '@Components/';
+import { AuthorComponent, Line, TableOfContent } from '@Components/';
 import { highlightFormat } from '@Helpers/highlight.helper.js';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
-import {
-	clearString,
-	replaceSpaceForUnderscore,
-} from '@Helpers/letters.helper';
 import { startInTop } from '@Helpers/start_in_top.helper';
 import mapOptions from '@Helpers/options_to_render.helper';
+import { getScrollingAndAddClassToElement } from '@Helpers/scroll';
 import './index.scss';
-
-const addIdAttrToTitles = () => {
-	setTimeout(() => {
-		const titles = document.querySelectorAll('.blog-article__body__content h1');
-		titles.forEach(title => {
-			title.setAttribute(
-				'id',
-				replaceSpaceForUnderscore(clearString(title.innerHTML)),
-			);
-		});
-	}, 1);
-};
 
 const ArticleView = props => {
 	const { slug } = useParams();
@@ -37,8 +22,12 @@ const ArticleView = props => {
 		getArticleBySlugMethod(slug);
 	}, []);
 
+	getScrollingAndAddClassToElement({
+		moreThan: '.blog-article__body__content',
+		elementToAddClass: '.table_of_content',
+		className: 'in',
+	});
 	highlightFormat();
-	addIdAttrToTitles();
 
 	return (
 		<>
@@ -78,7 +67,9 @@ const ArticleView = props => {
 											alt={articleData.title}
 										/>
 									</div>
+
 									<div className="blog-article__body__content">
+										<TableOfContent />
 										{transformMarkdownToHtml(articleData.content)}
 									</div>
 								</div>
