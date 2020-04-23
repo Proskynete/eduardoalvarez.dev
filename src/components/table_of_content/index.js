@@ -26,6 +26,7 @@ const handlePrintItems = items =>
 			<a
 				href={`#${item.link}`}
 				className="table_of_content__inner__container__item__link"
+				onClick={e => e.preventDefault()}
 			>
 				{item.label}
 			</a>
