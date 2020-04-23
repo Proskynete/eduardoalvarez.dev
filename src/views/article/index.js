@@ -8,9 +8,25 @@ import { getArticleBySlugAction } from '@Actions/';
 import { AuthorComponent, Line } from '@Components/';
 import { highlightFormat } from '@Helpers/highlight.helper.js';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
+import {
+	clearString,
+	replaceSpaceForUnderscore,
+} from '@Helpers/letters.helper';
 import { startInTop } from '@Helpers/start_in_top.helper';
 import mapOptions from '@Helpers/options_to_render.helper';
 import './index.scss';
+
+const addIdAttrToTitles = () => {
+	setTimeout(() => {
+		const titles = document.querySelectorAll('.blog-article__body__content h1');
+		titles.forEach(title => {
+			title.setAttribute(
+				'id',
+				replaceSpaceForUnderscore(clearString(title.innerHTML)),
+			);
+		});
+	}, 1);
+};
 
 const ArticleView = props => {
 	const { slug } = useParams();
@@ -22,6 +38,7 @@ const ArticleView = props => {
 	}, []);
 
 	highlightFormat();
+	addIdAttrToTitles();
 
 	return (
 		<>
