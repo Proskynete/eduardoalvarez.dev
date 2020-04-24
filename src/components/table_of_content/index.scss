@@ -1,34 +1,21 @@
 @import '../../assets/scss/colors.scss';
 
 .table_of_content {
-	display: none;
 	background-color: white;
-	position: absolute;
-	width: 280px;
-	left: -180px;
+	display: block;
 	min-height: 100px;
 	z-index: 2;
 
 	@media (min-width: 1230px) {
 		&.in {
-			display: block;
-			position: fixed;
-			top: 50px;
-			left: 2rem;
-			border: 1px solid #ccc;
-			border-radius: 10px;
-			box-shadow: 5px 5px 9px 3px #aaaaaa;
-		}
-	}
-
-	@media (min-width: 1400px) {
-		&.in {
-			left: 4rem;
+			position: sticky;
+			top: 20px;
 		}
 	}
 
 	&__inner {
 		padding: 20px;
+		padding-top: 0;
 		width: 100%;
 		height: 100%;
 
@@ -39,15 +26,14 @@
 			padding-bottom: 0;
 
 			&__item {
+				color: $grey-color;
 				list-style: none;
-				margin-top: 0;
-				margin-left: 0;
-				margin-right: 0;
-				margin-bottom: 5px;
+				margin: 0;
+				padding-bottom: 5px;
+				padding-top: 5px;
 
 				&__link {
-					color: $blue-color;
-					text-decoration: none;
+					color: $grey-color;
 
 					&:hover {
 						color: $orange-color;

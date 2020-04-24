@@ -15,7 +15,7 @@ export const getScrollingAndAddClassToElement = ({
 		const element = document.querySelector(`${moreThan}`);
 		window.addEventListener('scroll', function(e) {
 			const scroll = this.scrollY;
-			if (scroll > element.offsetTop + 70) {
+			if (scroll > element.offsetTop - 40) {
 				document
 					.querySelector(`${elementToAddClass}`)
 					.classList.add(`${className}`);

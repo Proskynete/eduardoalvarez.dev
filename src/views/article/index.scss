@@ -95,7 +95,10 @@
 
 				position: relative;
 				margin-bottom: 20px;
-				margin-top: 50px;
+
+				&:not(:first-child) {
+					margin-top: 50px;
+				}
 
 				@media (min-width: 1200px) {
 					@include set-font(1.75, 600, $black-color, 30);

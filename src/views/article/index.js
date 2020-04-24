@@ -67,12 +67,17 @@ const ArticleView = props => {
 											alt={articleData.title}
 										/>
 									</div>
-
-									<div className="blog-article__body__content">
-										<TableOfContent />
-										{transformMarkdownToHtml(articleData.content)}
-									</div>
 								</div>
+							</div>
+						</div>
+					</div>
+					<div className="blog-article__body__content">
+						<div className="row">
+							<div className="col-2">
+								<TableOfContent />
+							</div>
+							<div className="col-8">
+								{transformMarkdownToHtml(articleData.content)}
 							</div>
 						</div>
 					</div>
