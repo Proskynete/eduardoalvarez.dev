@@ -9,8 +9,7 @@ export const scrollToTop = () => {
 };
 
 export const scrollToNextContent = title => {
-	const id = title.getAttribute('href');
-	smoothScroll(id, 1000);
+	smoothScroll(title, 1000);
 };
 
 const smoothScroll = (id, duration) => {

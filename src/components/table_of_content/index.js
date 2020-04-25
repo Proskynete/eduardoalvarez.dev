@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	clearString,
 	replaceSpaceForUnderscore,
@@ -18,14 +18,14 @@ const addIdAttrToTitles = setItems => {
 			items.push({ link: title.getAttribute('id'), label: title.innerHTML });
 		});
 		setItems(items);
-	}, 1);
+	}, 50);
 };
 
 const handleGoTo = e => {
 	e.preventDefault();
-	const targetElement = e.target;
-
-	scrollToNextContent(targetElement);
+	const targetElement = e.target || e.srcElement;
+	const title = targetElement.getAttribute('href');
+	scrollToNextContent(title);
 };
 
 const handlePrintItems = items =>
@@ -44,7 +44,9 @@ const handlePrintItems = items =>
 const TableOfContent = () => {
 	const [items, setItems] = useState([]);
 
-	addIdAttrToTitles(setItems);
+	useEffect(() => {
+		addIdAttrToTitles(setItems);
+	}, []);
 
 	return (
 		<aside className="table_of_content">
