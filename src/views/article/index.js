@@ -72,13 +72,13 @@ const ArticleView = props => {
 							</div>
 							<div className="col-8">
 								{transformMarkdownToHtml(articleData.content)}
+								<Line />
 							</div>
 						</div>
 					</div>
 				</div>
 				<div className="row justify-content-md-center">
 					<div className="col col-md-8">
-						<Line />
 						<div className="container">
 							<AuthorComponent {...articleData.create_by} />
 						</div>
