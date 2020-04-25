@@ -3,7 +3,7 @@ import {
 	clearString,
 	replaceSpaceForUnderscore,
 } from '@Helpers/letters.helper';
-import { scrollToNextContent } from '@Helpers/scroll';
+import { scrollToNextContent, toggleClassWhenScrolling } from '@Helpers/scroll';
 import './index.scss';
 
 const addIdAttrToTitles = setItems => {
@@ -47,6 +47,8 @@ const TableOfContent = () => {
 	useEffect(() => {
 		addIdAttrToTitles(setItems);
 	}, []);
+
+	toggleClassWhenScrolling(items);
 
 	return (
 		<aside className="table_of_content">

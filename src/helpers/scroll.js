@@ -29,3 +29,31 @@ const smoothScroll = (id, duration) => {
 	};
 	requestAnimationFrame(animation);
 };
+
+export const toggleClassWhenScrolling = listOfItems => {
+	const listOfPositionItems = [];
+	listOfItems.forEach(item => {
+		const element = document.querySelector(`#${item.link}`);
+		listOfPositionItems.push(
+			element.getBoundingClientRect().top + window.scrollY - 35,
+		);
+	});
+
+	window.addEventListener('scroll', () => {
+		const currentPosition = window.pageYOffset;
+
+		for (let i = 0; i < listOfPositionItems.length; i++) {
+			const link = document.querySelector(
+				`a[href='#${listOfItems[i]['link']}']`,
+			);
+			if (
+				currentPosition >= listOfPositionItems[i] &&
+				currentPosition < listOfPositionItems[i + 1]
+			) {
+				link.classList.add('current');
+			} else {
+				link.classList.remove('current');
+			}
+		}
+	});
+};
