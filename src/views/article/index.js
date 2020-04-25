@@ -10,7 +10,6 @@ import { highlightFormat } from '@Helpers/highlight.helper.js';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import { startInTop } from '@Helpers/start_in_top.helper';
 import mapOptions from '@Helpers/options_to_render.helper';
-import { getScrollingAndAddClassToElement } from '@Helpers/scroll';
 import './index.scss';
 
 const ArticleView = props => {
@@ -22,11 +21,6 @@ const ArticleView = props => {
 		getArticleBySlugMethod(slug);
 	}, []);
 
-	getScrollingAndAddClassToElement({
-		moreThan: '.blog-article__body__content',
-		elementToAddClass: '.table_of_content',
-		className: 'in',
-	});
 	highlightFormat();
 
 	return (

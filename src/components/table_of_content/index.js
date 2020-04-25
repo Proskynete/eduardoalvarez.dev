@@ -3,6 +3,7 @@ import {
 	clearString,
 	replaceSpaceForUnderscore,
 } from '@Helpers/letters.helper';
+import { scrollToNextContent } from '@Helpers/scroll';
 import './index.scss';
 
 const addIdAttrToTitles = setItems => {
@@ -20,13 +21,20 @@ const addIdAttrToTitles = setItems => {
 	}, 1);
 };
 
+const handleGoTo = e => {
+	e.preventDefault();
+	const targetElement = e.target;
+
+	scrollToNextContent(targetElement);
+};
+
 const handlePrintItems = items =>
 	items.map(item => (
 		<li key={item.link} className="table_of_content__inner__container__item">
 			<a
 				href={`#${item.link}`}
 				className="table_of_content__inner__container__item__link"
-				onClick={e => e.preventDefault()}
+				onClick={handleGoTo}
 			>
 				{item.label}
 			</a>
