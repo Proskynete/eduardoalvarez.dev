@@ -18,7 +18,7 @@ const addIdAttrToTitles = setItems => {
 			items.push({ link: title.getAttribute('id'), label: title.innerHTML });
 		});
 		setItems(items);
-	}, 50);
+	}, 1000);
 };
 
 const handleGoTo = e => {
