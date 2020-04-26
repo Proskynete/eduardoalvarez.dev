@@ -10,6 +10,7 @@ import { highlightFormat } from '@Helpers/highlight.helper.js';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import { startInTop } from '@Helpers/start_in_top.helper';
 import mapOptions from '@Helpers/options_to_render.helper';
+import { printReadingTime } from '@Helpers/reading_time.helper';
 import './index.scss';
 
 const ArticleView = props => {
@@ -44,7 +45,7 @@ const ArticleView = props => {
 										</span>
 										<span className="blog-article__header__info__read">
 											<i className="far fa-clock" />
-											Lectura de {articleData.reading_time} minutos
+											{printReadingTime(articleData.reading_time)}
 										</span>
 
 										<span className="blog-article__header__info__tags">

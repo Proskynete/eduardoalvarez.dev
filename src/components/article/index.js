@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { prettyFormat } from '@Helpers/date-format';
 import { getFirstLetter, titleForSocialNetwork } from '@Helpers/letters.helper';
 import { copyTextToClipboard } from '@Helpers/copy-to-clipboard.helper';
+import { printReadingTime } from '@Helpers/reading_time.helper';
 import './index.scss';
 
 const Article = props => {
@@ -20,7 +21,7 @@ const Article = props => {
 				<p className="article__header__info">
 					<span className="article__header__info__read">
 						<i className="far fa-clock" />
-						Lectura de {reading_time} minutos
+						{printReadingTime(reading_time)}
 					</span>
 					<span className="article__header__info__published">
 						<i className="far fa-calendar-alt" />
