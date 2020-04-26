@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { GET_HOME_DATA } from '@Config/constants';
+import { GET_ARTICLE_DATA } from '@Config/constants';
 import config from '@Config/config';
 
-export const getHomeDataAction = dispatch => async () => {
+export const getArticleBySlugAction = dispatch => async slug => {
 	try {
 		const url = config.handleGetUrl();
-		const uri = `${config.handleGetEntryPointApi('home')}`;
+		const uri = `${config.handleGetEntryPointApi('blog')}?slug=${slug}`;
 
 		const response = await axios({
 			url: `${url}${uri}`,
@@ -13,10 +13,10 @@ export const getHomeDataAction = dispatch => async () => {
 		});
 
 		return dispatch({
-			type: GET_HOME_DATA,
+			type: GET_ARTICLE_DATA,
 			payload: {
 				status: response.data.status,
-				homeContent: response.data.content,
+				content: response.data.content,
 			},
 		});
 	} catch (error) {

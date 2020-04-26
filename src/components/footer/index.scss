@@ -38,6 +38,7 @@
 
 			&__to_top {
 				@include fonts-footer-button(1.375);
+				cursor: pointer;
 			}
 		}
 	}

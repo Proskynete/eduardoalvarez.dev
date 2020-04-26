@@ -7,12 +7,19 @@ module.exports = env => {
 		entry: ['@babel/polyfill', path.resolve(__dirname, 'src', 'main.js')],
 		output: {
 			path: path.resolve(__dirname, './build/'),
+			publicPath: '/',
 			filename: 'bundle.js',
+		},
+		optimization: {
+			splitChunks: {
+				chunks: 'all',
+			},
 		},
 		devServer: {
 			contentBase: './',
 			port: 8080,
 			compress: true,
+			hot: true,
 			inline: true,
 			historyApiFallback: true,
 		},

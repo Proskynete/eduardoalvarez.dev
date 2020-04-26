@@ -1,20 +1,72 @@
 @import '../../assets/scss/colors.scss';
+@import '../../assets/scss/mixins/fonts';
 
 .author {
-	padding: 5px 8px 0;
+	@include poppins-font;
+	border-radius: 20px;
+	width: 100%;
 
-	&__image {
-		border-radius: 50%;
-		border: 2px solid $darkblue_color;
-		width: 40%;
-
-		@media (min-width: 768px) {
-			width: 20%;
-		}
+	@media (min-width: 992px) {
+		width: 70%;
 	}
 
-	&__description {
-		font-size: 0.9em;
-		margin-top: 15px;
+	@media (min-width: 1400px) {
+		width: 50%;
+	}
+
+	&__inner {
+		display: flex;
+		flex-direction: column;
+		padding: 20px 30px;
+		width: 100%;
+
+		@media (min-width: 992px) {
+			flex-direction: row;
+		}
+
+		&__image {
+			text-align: center;
+			margin-bottom: 15px;
+
+			@media (min-width: 992px) {
+				margin-right: 30px;
+				margin-bottom: 0;
+			}
+
+			&__img {
+				border-radius: 50%;
+				max-width: 80px;
+			}
+		}
+
+		&__description {
+			&__header {
+				margin-bottom: 10px;
+
+				@media (min-width: 992px) {
+					text-align: center;
+					text-align: left;
+				}
+
+				&__name {
+					@include set-font(1, 400, $black-color, 16);
+					margin-bottom: 5px;
+					margin-left: 0;
+					margin-right: 0;
+					margin-top: 0;
+				}
+
+				&__alias {
+					@include set-font(0.8, 300, $grey-color, 16);
+					margin: 0;
+
+					&:before {
+						content: '@';
+						margin-right: 1px;
+					}
+				}
+			}
+			@include roboto-font;
+		}
 	}
 }

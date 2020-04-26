@@ -1,20 +1,24 @@
-/* eslint-disable import/no-unresolved */
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-
-import Home from '@Views/home';
-import WhoIAm from '@Views/whoiam';
-import Blog from '@Views/blog';
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Footer } from '@Components';
+import { HomeView, AboutMeView, BlogView, ArticleView } from '@Views/';
+import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import Nav from '@Components/nav';
 
 const App = () => (
-	<BrowserRouter>
-		<Nav />
-		<Route path="/" exact component={Home} />
-		<Route path="/about" exact component={WhoIAm} />
-		<Route path="/blog" exact component={Blog} />
-	</BrowserRouter>
+	<>
+		{changeMetadataValue({})}
+		<Router>
+			<Nav />
+			<Switch>
+				<Route path="/" exact component={HomeView} />
+				<Route path="/about_me" exact component={AboutMeView} />
+				<Route path="/blog/" exact component={BlogView} />
+				<Route path="/blog/:slug" component={ArticleView} />
+			</Switch>
+			<Footer />
+		</Router>
+	</>
 );
 
 export default App;

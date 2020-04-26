@@ -1,6 +1,6 @@
 import React from 'react';
 import LOGO from '@Images/full-logo-negative.png';
-import scrollToTop from '@Helpers/scroll';
+import { scrollToTop } from '@Helpers/scroll';
 import './index.scss';
 
 const handleGoToTheTop = () => {

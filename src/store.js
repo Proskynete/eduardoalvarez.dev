@@ -1,11 +1,19 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { homeReducer, whoIAmReducer, blogReducer } from '@Reducers/';
+import {
+	homeReducer,
+	aboutMeReducer,
+	blogReducer,
+	userReducer,
+	articleReducer,
+} from '@Reducers/';
 
 const rootReducer = combineReducers({
 	homeData: homeReducer,
-	whoIAmData: whoIAmReducer,
+	aboutMeData: aboutMeReducer,
 	blogData: blogReducer,
+	userData: userReducer,
+	articleData: articleReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

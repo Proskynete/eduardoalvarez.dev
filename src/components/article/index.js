@@ -7,10 +7,10 @@ import './index.scss';
 
 const Article = props => {
 	const { slug, title, description, reading_time, create_at } = props;
-	const urlToShare = `https://eduardoalvarez.cl/blog${slug}`;
+	const urlToShare = `https://eduardoalvarez.cl/blog/${slug}`;
 	return (
 		<article className="article">
-			<Link className="article__header" to={`/blog${slug}`}>
+			<Link className="article__header" to={`/blog/${slug}`}>
 				<h1 className="article__header__title">
 					<span className="article__header__title__first">
 						{getFirstLetter(title)}
@@ -30,7 +30,7 @@ const Article = props => {
 			</Link>
 			<div className="article__content">{description}</div>
 			<div className="article__bottom">
-				<Link className="article__bottom__read-more" to={`/blog${slug}`}>
+				<Link className="article__bottom__read-more" to={`/blog/${slug}`}>
 					Seguir leyendo
 				</Link>
 				<div className="article__bottom__share">

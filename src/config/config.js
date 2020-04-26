@@ -3,7 +3,7 @@ export default {
 		const url = {
 			development: 'http://localhost:8882',
 			integration: 'http://localhost:3000',
-			production: 'production_url',
+			production: 'https://api.eduardoalvarez.cl',
 		};
 		return url[this.handleGetEnvironment()];
 	},

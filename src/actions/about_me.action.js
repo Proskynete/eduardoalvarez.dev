@@ -1,22 +1,21 @@
 import axios from 'axios';
-import { GET_WHO_I_AM_DATA } from '@Config/constants';
+import { GET_ABOUTME_DATA } from '@Config/constants';
 import getHeaders from '@Helpers/headers.helper';
 import config from '@Config/config';
 
-export const getWhoIAmDataAction = dispatch => async () => {
+export const getAboutMeDataAction = dispatch => async () => {
 	try {
 		const url = config.handleGetUrl();
-		const uri = `${config.handleGetEntryPointApi('whoiam')}`;
-		const token = JSON.parse(localStorage.getItem('token'));
+		const uri = `${config.handleGetEntryPointApi('about_me')}`;
 
 		const response = await axios({
 			url: `${url}${uri}`,
 			method: 'GET',
-			headers: getHeaders(token),
+			headers: getHeaders(),
 		});
 
 		return dispatch({
-			type: GET_WHO_I_AM_DATA,
+			type: GET_ABOUTME_DATA,
 			payload: {
 				status: response.data.status,
 				content: response.data.content,

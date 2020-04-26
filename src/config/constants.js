@@ -1,3 +1,6 @@
 export const GET_HOME_DATA = 'GET_HOME_DATA';
-export const GET_WHO_I_AM_DATA = 'GET_WHO_I_AM_DATA';
-export const GET_BLOG_DATA = 'GET_BLOG_DATA';
+export const GET_ABOUTME_DATA = 'GET_ABOUTME_DATA';
+export const GET_LAST_BLOG_DATA = 'GET_LAST_BLOG_DATA';
+export const GET_ALL_BLOG_DATA = 'GET_ALL_BLOG_DATA';
+export const GET_ARTICLE_DATA = 'GET_ARTICLE_DATA';
+export const GET_USER_DATA = 'GET_USER_DATA';
