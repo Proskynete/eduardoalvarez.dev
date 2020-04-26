@@ -28,6 +28,7 @@
 			@include set-font(1.25, bold, $black-color, 20);
 
 			position: relative;
+			text-transform: capitalize;
 			margin-left: 10px;
 			margin-bottom: 5px;
 

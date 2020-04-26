@@ -18,17 +18,17 @@ const Article = props => {
 					</span>
 					{title}
 				</h1>
-				<p className="article__header__info">
-					<span className="article__header__info__read">
-						<i className="far fa-clock" />
-						{printReadingTime(reading_time)}
-					</span>
-					<span className="article__header__info__published">
-						<i className="far fa-calendar-alt" />
-						{prettyFormat(create_at)}
-					</span>
-				</p>
 			</Link>
+			<p className="article__header__info">
+				<span className="article__header__info__read">
+					<i className="far fa-clock" />
+					{printReadingTime(reading_time)}
+				</span>
+				<span className="article__header__info__published">
+					<i className="far fa-calendar-alt" />
+					{prettyFormat(create_at)}
+				</span>
+			</p>
 			<div className="article__content">{description}</div>
 			<div className="article__bottom">
 				<Link className="article__bottom__read-more" to={`/blog/${slug}`}>
