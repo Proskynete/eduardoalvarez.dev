@@ -8,3 +8,4 @@ export { default as Line } from './line';
 export { default as LinkWeb } from './linkweb';
 export { default as Loader } from './loader';
 export { default as Nav } from './nav';
+export { default as TableOfContent } from './table_of_content';

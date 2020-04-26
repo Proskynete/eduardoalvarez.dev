@@ -95,7 +95,10 @@
 
 				position: relative;
 				margin-bottom: 20px;
-				margin-top: 50px;
+
+				&:not(:first-child) {
+					margin-top: 50px;
+				}
 
 				@media (min-width: 1200px) {
 					@include set-font(1.75, 600, $black-color, 30);
@@ -148,7 +151,6 @@
 
 .highlight {
 	display: block;
-
 	margin-top: 0;
 	margin-bottom: 10px;
 	font-size: 13px;
@@ -164,6 +166,10 @@
 	margin-right: auto;
 	width: 100%;
 	overflow: hidden;
+
+	@media (min-width: 992px) {
+		width: 100%;
+	}
 
 	&__header {
 		@include roboto-font;
@@ -181,6 +187,7 @@
 
 		&__text {
 			position: absolute;
+			color: #f5f5f5 !important;
 		}
 	}
 
@@ -191,10 +198,6 @@
 		padding-bottom: 15px;
 		width: 100%;
 		overflow: auto;
-	}
-
-	@media (min-width: 992px) {
-		width: 50%;
 	}
 
 	&:after {

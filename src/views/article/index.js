@@ -5,7 +5,7 @@ import { prettyFormat } from '@Helpers/date-format';
 import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { connect } from 'react-redux';
 import { getArticleBySlugAction } from '@Actions/';
-import { AuthorComponent, Line } from '@Components/';
+import { AuthorComponent, Line, TableOfContent } from '@Components/';
 import { highlightFormat } from '@Helpers/highlight.helper.js';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import { startInTop } from '@Helpers/start_in_top.helper';
@@ -61,9 +61,19 @@ const ArticleView = props => {
 											alt={articleData.title}
 										/>
 									</div>
-									<div className="blog-article__body__content">
-										{transformMarkdownToHtml(articleData.content)}
-									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className="blog-article__body__content">
+						<div className="container-fluid">
+							<div className="row">
+								<div className="d-none d-lg-block col-lg-2">
+									<TableOfContent />
+								</div>
+								<div className="col offset-md-2 col-md-8 offset-lg-0 col-lg-8">
+									{transformMarkdownToHtml(articleData.content)}
+									<Line />
 								</div>
 							</div>
 						</div>
@@ -71,7 +81,6 @@ const ArticleView = props => {
 				</div>
 				<div className="row justify-content-md-center">
 					<div className="col col-md-8">
-						<Line />
 						<div className="container">
 							<AuthorComponent {...articleData.create_by} />
 						</div>

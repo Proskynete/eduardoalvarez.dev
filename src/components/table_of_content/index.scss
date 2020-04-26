@@ -1,0 +1,49 @@
+@import '../../assets/scss/colors.scss';
+
+.table_of_content {
+	background-color: white;
+	min-height: 100px;
+	position: sticky;
+	top: 30px;
+	z-index: 2;
+
+	@media (min-width: 1200px) {
+		display: block;
+	}
+
+	&__inner {
+		padding: 20px;
+		padding-top: 0;
+		width: 100%;
+		height: 100%;
+
+		&__container {
+			padding-top: 0;
+			padding-left: 10px;
+			padding-right: 0;
+			padding-bottom: 0;
+
+			&__item {
+				color: $grey-color;
+				list-style: none;
+				margin: 0;
+				padding-bottom: 5px;
+				padding-top: 5px;
+
+				&__link {
+					color: $grey-color;
+
+					&:hover {
+						color: $orange-color;
+						text-decoration: none;
+					}
+
+					&.current {
+						color: $orange-color;
+						font-weight: 500;
+					}
+				}
+			}
+		}
+	}
+}
