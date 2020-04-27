@@ -6,41 +6,44 @@
 	position: sticky;
 	top: 30px;
 	z-index: 2;
+	font-weight: 300;
 
 	@media (min-width: 1200px) {
 		display: block;
 	}
 
 	&__inner {
-		padding: 20px;
-		padding-top: 0;
+		padding: 0;
 		width: 100%;
-		height: 100%;
 
 		&__container {
-			padding-top: 0;
-			padding-left: 10px;
-			padding-right: 0;
-			padding-bottom: 0;
+			padding: 0;
 
 			&__item {
 				color: $grey-color;
 				list-style: none;
 				margin: 0;
-				padding-bottom: 5px;
-				padding-top: 5px;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
 
 				&__link {
+					display: block;
 					color: $grey-color;
+					padding-bottom: 5px;
+					padding-top: 5px;
+					width: 100%;
+					padding: 5px 10px;
 
 					&:hover {
-						color: $orange-color;
+						color: $green-color;
 						text-decoration: none;
 					}
 
 					&.current {
-						color: $orange-color;
-						font-weight: 500;
+						background-color: lighten($color: $green-color, $amount: 60);
+						color: $green-color;
+						font-weight: 400;
 					}
 				}
 			}
