@@ -1,4 +1,5 @@
 import moment from 'moment';
+
 moment.locale('es');
 
 const onlyDate = datetime => datetime.split('T')[0];
