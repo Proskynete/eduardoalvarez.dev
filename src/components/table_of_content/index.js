@@ -30,10 +30,13 @@ const handleGoTo = e => {
 
 const handlePrintItems = items =>
 	items.map(item => (
-		<li key={item.link} className="table_of_content__inner__container__item">
+		<li
+			key={item.link}
+			className="table_of_content__container__inner__content__item"
+		>
 			<a
 				href={`#${item.link}`}
-				className="table_of_content__inner__container__item__link"
+				className="table_of_content__container__inner__content__item__link"
 				onClick={handleGoTo}
 			>
 				{item.label}
@@ -52,10 +55,12 @@ const TableOfContent = () => {
 
 	return (
 		<aside className="table_of_content">
-			<div className="table_of_content__inner">
-				<ul className="table_of_content__inner__container">
-					{handlePrintItems(items)}
-				</ul>
+			<div className="table_of_content__container">
+				<div className="table_of_content__container__inner">
+					<ul className="table_of_content__container__inner__content">
+						{handlePrintItems(items)}
+					</ul>
+				</div>
 			</div>
 		</aside>
 	);

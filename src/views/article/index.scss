@@ -59,6 +59,7 @@
 	}
 
 	&__body {
+		background-color: white;
 		@include poppins-font;
 		width: 100%;
 
@@ -90,6 +91,7 @@
 
 					position: relative;
 					margin-bottom: 20px;
+					padding-top: 30px;
 
 					&:not(:first-child) {
 						margin-top: 50px;
@@ -97,6 +99,7 @@
 
 					@media (min-width: 1200px) {
 						@include set-font(1.75, 600, $black-color, 30);
+						padding-top: 0;
 					}
 				}
 
