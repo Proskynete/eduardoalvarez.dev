@@ -66,13 +66,14 @@ const ArticleView = props => {
 							</div>
 						</div>
 					</div>
-					<div className="blog-article__body__content">
-						<div className="container-fluid">
+
+					<div className="container-fluid">
+						<div className="blog-article__body__content">
 							<div className="row">
-								<div className="d-none d-lg-block col-lg-2">
+								<div className="col-12 col-md-2">
 									<TableOfContent />
 								</div>
-								<div className="col offset-md-2 col-md-8 offset-lg-0 col-lg-8">
+								<div className="col-12 col-md-8">
 									{transformMarkdownToHtml(articleData.content)}
 									<Line />
 								</div>
@@ -80,6 +81,7 @@ const ArticleView = props => {
 						</div>
 					</div>
 				</div>
+
 				<div className="row justify-content-md-center">
 					<div className="col col-md-8">
 						<div className="container">
