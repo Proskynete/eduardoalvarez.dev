@@ -43,6 +43,10 @@ export const highlightFormat = () => {
 				case 'language-md':
 					codeBlock.setAttribute('data-language', 'md');
 					break;
+				case 'language-yaml':
+				case 'language-yml':
+					codeBlock.setAttribute('data-language', 'yaml');
+					break;
 			}
 			codeContainer.append(code);
 			hljs.highlightBlock(codeContainer);

@@ -309,6 +309,14 @@
 		}
 	}
 
+	&[data-language='yaml'] {
+		&:after {
+			content: 'Yaml';
+			background-color: #ef901c;
+			color: #fff;
+		}
+	}
+
 	code {
 		&:before {
 			display: block;
