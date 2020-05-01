@@ -39,12 +39,18 @@ export const toggleClassWhenScrolling = listOfItems => {
 		);
 	});
 
+	listOfPositionItems.push(
+		document.getElementsByTagName('body')[0].clientHeight,
+	);
+
 	window.addEventListener('scroll', () => {
 		const currentPosition = window.pageYOffset;
-		for (let i = 0; i < listOfPositionItems.length; i++) {
+
+		for (let i = 0; i < listOfItems.length; i++) {
 			const link = document.querySelector(
 				`a[href='#${listOfItems[i]['link']}']`,
 			);
+
 			if (
 				currentPosition >= listOfPositionItems[i] &&
 				currentPosition < listOfPositionItems[i + 1]
