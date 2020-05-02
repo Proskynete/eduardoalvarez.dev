@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Footer } from '@Components';
+import { Footer, Notifications } from '@Components';
 import { HomeView, AboutMeView, BlogView, ArticleView } from '@Views/';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import Nav from '@Components/nav';
@@ -8,6 +8,7 @@ import Nav from '@Components/nav';
 const App = () => (
 	<>
 		{changeMetadataValue({})}
+		<Notifications />
 		<Router>
 			<Nav />
 			<Switch>

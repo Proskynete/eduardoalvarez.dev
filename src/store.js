@@ -6,6 +6,7 @@ import {
 	blogReducer,
 	userReducer,
 	articleReducer,
+	notificationReducer,
 } from '@Reducers/';
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
 	blogData: blogReducer,
 	userData: userReducer,
 	articleData: articleReducer,
+	notification: notificationReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

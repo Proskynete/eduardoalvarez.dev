@@ -1,14 +1,35 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { prettyFormat } from '@Helpers/date-format';
 import { getFirstLetter, titleForSocialNetwork } from '@Helpers/letters.helper';
 import { copyTextToClipboard } from '@Helpers/copy-to-clipboard.helper';
+import { notificationAction } from '@Actions/';
 import { printReadingTime } from '@Helpers/reading_time.helper';
 import './index.scss';
 
 const Article = props => {
-	const { slug, title, description, reading_time, create_at } = props;
+	const {
+		slug,
+		title,
+		description,
+		reading_time,
+		create_at,
+		notificationMethod,
+	} = props;
+
 	const urlToShare = `https://eduardoalvarez.cl/blog/${slug}`;
+
+	const handleCopyUrl = e => {
+		copyTextToClipboard(e, urlToShare);
+		notificationMethod({
+			show: true,
+			text: 'Enlace copiado',
+			type: 'success',
+		});
+	};
+
 	return (
 		<article className="article">
 			<Link className="article__header" to={`/blog/${slug}`}>
@@ -79,7 +100,7 @@ const Article = props => {
 						className="article__bottom__share__link"
 						title="Compartir copiando link"
 						href="#"
-						onClick={e => copyTextToClipboard(e, urlToShare)}
+						onClick={handleCopyUrl}
 					>
 						<i className="far fa-copy" />
 					</a>
@@ -89,4 +110,18 @@ const Article = props => {
 	);
 };
 
-export default Article;
+Article.propTypes = {
+	slug: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+	description: PropTypes.string.isRequired,
+	reading_time: PropTypes.string.isRequired,
+	create_at: PropTypes.string.isRequired,
+	notificationMethod: PropTypes.func.isRequired,
+};
+
+export default connect(
+	state => state,
+	dispatch => ({
+		notificationMethod: notificationAction(dispatch),
+	}),
+)(Article);
