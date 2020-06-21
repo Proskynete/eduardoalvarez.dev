@@ -32,6 +32,7 @@ const smoothScroll = (id, duration) => {
 
 export const toggleClassWhenScrolling = (listOfItems) => {
 	const listOfPositionItems = [];
+
 	listOfItems.forEach((item) => {
 		const element = document.querySelector(`#${item.link}`);
 		listOfPositionItems.push(
@@ -43,20 +44,22 @@ export const toggleClassWhenScrolling = (listOfItems) => {
 		document.getElementsByTagName('body')[0].clientHeight,
 	);
 
-	window.addEventListener('scroll', () => {
-		const currentPosition = window.pageYOffset;
+	return listOfPositionItems;
+};
 
-		for (let i = 0; i < listOfItems.length; i++) {
-			const link = document.querySelector(`a[href='#${listOfItems[i].link}']`);
+export const handleListenerScroll = (listOfItems, listOfPositionItems) => {
+	const currentPosition = window.pageYOffset;
 
-			if (
-				currentPosition >= listOfPositionItems[i] &&
-				currentPosition < listOfPositionItems[i + 1]
-			) {
-				link.classList.add('current');
-			} else {
-				link.classList.remove('current');
-			}
+	listOfItems.forEach((element, i) => {
+		const link = document.querySelector(`a[href='#${element.link}']`);
+
+		if (
+			currentPosition >= listOfPositionItems[i] &&
+			currentPosition < listOfPositionItems[i + 1]
+		) {
+			link.classList.add('current');
+		} else {
+			link.classList.remove('current');
 		}
 	});
 };

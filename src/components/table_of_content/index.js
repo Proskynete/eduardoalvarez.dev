@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import {
 	clearString,
 	replaceSpaceForUnderscore,
 } from '@Helpers/letters.helper';
-import { scrollToNextContent, toggleClassWhenScrolling } from '@Helpers/scroll';
+import {
+	scrollToNextContent,
+	toggleClassWhenScrolling,
+	handleListenerScroll,
+} from '@Helpers/scroll';
 import './index.scss';
 
-const addIdAttrToTitles = (setItems) => {
+const addIDAttrToTitles = (setItems, setShow) => {
 	setTimeout(() => {
 		const titles = document.querySelectorAll('.blog-article__body__content h1');
 		const items = [];
@@ -18,7 +22,8 @@ const addIdAttrToTitles = (setItems) => {
 			items.push({ link: title.getAttribute('id'), label: title.innerHTML });
 		});
 		setItems(items);
-	}, 1000);
+		setShow(true);
+	}, 250);
 };
 
 const handleGoTo = (e) => {
@@ -46,12 +51,23 @@ const handlePrintItems = (items) =>
 
 const TableOfContent = () => {
 	const [items, setItems] = useState([]);
+	const [show, setShow] = useState(false);
+
+	const listOfPositionItems = toggleClassWhenScrolling(items);
 
 	useEffect(() => {
-		addIdAttrToTitles(setItems);
-	}, []);
+		addIDAttrToTitles(setItems, setShow);
 
-	toggleClassWhenScrolling(items);
+		window.addEventListener('scroll', () => {
+			handleListenerScroll(items, listOfPositionItems);
+		});
+
+		return () => {
+			window.removeEventListener('scroll', () => {
+				handleListenerScroll;
+			});
+		};
+	}, [show]);
 
 	return (
 		<aside className='table_of_content'>
@@ -66,4 +82,4 @@ const TableOfContent = () => {
 	);
 };
 
-export default TableOfContent;
+export default memo(TableOfContent);
