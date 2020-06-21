@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = env => {
+module.exports = (env) => {
 	return {
 		entry: ['@babel/polyfill', path.resolve(__dirname, 'src', 'main.js')],
 		output: {

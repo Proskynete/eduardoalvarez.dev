@@ -47,9 +47,7 @@ export const toggleClassWhenScrolling = (listOfItems) => {
 		const currentPosition = window.pageYOffset;
 
 		for (let i = 0; i < listOfItems.length; i++) {
-			const link = document.querySelector(
-				`a[href='#${listOfItems[i].link}']`,
-			);
+			const link = document.querySelector(`a[href='#${listOfItems[i].link}']`);
 
 			if (
 				currentPosition >= listOfPositionItems[i] &&
