@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -71,4 +71,4 @@ export default connect(
 		getHomeDataMethod: getHomeDataAction(dispatch),
 		getLastBlogDataMethod: getLastBlogDataAction(dispatch),
 	}),
-)(HomeView);
+)(memo(HomeView));

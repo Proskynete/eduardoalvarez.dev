@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAboutMeDataAction } from '@Actions/';
@@ -52,4 +52,4 @@ export default connect(
 	(dispatch) => ({
 		getAboutMeDataMethod: getAboutMeDataAction(dispatch),
 	}),
-)(AboutMeView);
+)(memo(AboutMeView));

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header } from '@Components';
@@ -42,4 +42,4 @@ export default connect(
 	(dispatch) => ({
 		getBlogDataMethod: getBlogDataAction(dispatch),
 	}),
-)(BlogView);
+)(memo(BlogView));

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { prettyFormat } from '@Helpers/date-format';
@@ -111,4 +111,4 @@ export default connect(
 	(dispatch) => ({
 		getArticleBySlugMethod: getArticleBySlugAction(dispatch),
 	}),
-)(ArticleView);
+)(memo(ArticleView));

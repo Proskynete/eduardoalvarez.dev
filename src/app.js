@@ -1,25 +1,39 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Suspense, memo } from 'react';
+import {
+	BrowserRouter as Router,
+	Route,
+	Switch,
+	Redirect,
+} from 'react-router-dom';
 import { Footer, Notifications } from '@Components';
-import { HomeView, AboutMeView, BlogView, ArticleView } from '@Views/';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
+import { routes } from './routes';
 import Nav from '@Components/nav';
+
+const mainRoutes = routes.map((route) => (
+	<Route
+		key={route.name}
+		path={route.path}
+		exact={route.exact}
+		component={(props) => <route.component {...props} />}
+	/>
+));
 
 const App = () => (
 	<>
 		{changeMetadataValue({})}
 		<Notifications />
-		<Router>
+		<Router basename='/'>
 			<Nav />
-			<Switch>
-				<Route path='/' exact component={HomeView} />
-				<Route path='/about_me/' exact component={AboutMeView} />
-				<Route path='/blog/' exact component={BlogView} />
-				<Route path='/blog/:slug' component={ArticleView} />
-			</Switch>
-			<Footer />
+			<Suspense fallback='Cargando...'>
+				<Switch>
+					{mainRoutes}
+					<Redirect to='/' />
+				</Switch>
+			</Suspense>
 		</Router>
+		<Footer />
 	</>
 );
 
-export default App;
+export default memo(App);
