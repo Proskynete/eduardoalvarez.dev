@@ -6,11 +6,11 @@ import {
 import { scrollToNextContent, toggleClassWhenScrolling } from '@Helpers/scroll';
 import './index.scss';
 
-const addIdAttrToTitles = setItems => {
+const addIdAttrToTitles = (setItems) => {
 	setTimeout(() => {
 		const titles = document.querySelectorAll('.blog-article__body__content h1');
 		const items = [];
-		titles.forEach(title => {
+		titles.forEach((title) => {
 			title.setAttribute(
 				'id',
 				replaceSpaceForUnderscore(clearString(title.innerHTML)),
@@ -21,22 +21,22 @@ const addIdAttrToTitles = setItems => {
 	}, 1000);
 };
 
-const handleGoTo = e => {
+const handleGoTo = (e) => {
 	e.preventDefault();
 	const targetElement = e.target || e.srcElement;
 	const title = targetElement.getAttribute('href');
 	scrollToNextContent(title);
 };
 
-const handlePrintItems = items =>
-	items.map(item => (
+const handlePrintItems = (items) =>
+	items.map((item) => (
 		<li
 			key={item.link}
-			className="table_of_content__container__inner__content__item"
+			className='table_of_content__container__inner__content__item'
 		>
 			<a
 				href={`#${item.link}`}
-				className="table_of_content__container__inner__content__item__link"
+				className='table_of_content__container__inner__content__item__link'
 				onClick={handleGoTo}
 			>
 				{item.label}
@@ -54,10 +54,10 @@ const TableOfContent = () => {
 	toggleClassWhenScrolling(items);
 
 	return (
-		<aside className="table_of_content">
-			<div className="table_of_content__container">
-				<div className="table_of_content__container__inner">
-					<ul className="table_of_content__container__inner__content">
+		<aside className='table_of_content'>
+			<div className='table_of_content__container'>
+				<div className='table_of_content__container__inner'>
+					<ul className='table_of_content__container__inner__content'>
 						{handlePrintItems(items)}
 					</ul>
 				</div>

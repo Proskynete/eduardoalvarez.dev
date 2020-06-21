@@ -13,37 +13,37 @@ export const changeMetadataValue = ({ title, description, urlImage }) => {
 	return (
 		<Helmet>
 			<meta
-				name="description"
+				name='description'
 				content={`${title || metadataValueDefault.title}`}
 			/>
 			<meta
-				name="image"
+				name='image'
 				content={`${urlImage || metadataValueDefault.urlImage}`}
 			/>
 
 			<meta
-				property="og:description"
+				property='og:description'
 				content={`${description || metadataValueDefault.description}`}
 			/>
 			<meta
-				property="og:site_name"
+				property='og:site_name'
 				content={`${title || metadataValueDefault.title}`}
 			/>
 			<meta
-				property="og:image"
+				property='og:image'
 				content={`${urlImage || metadataValueDefault.urlImage}`}
 			/>
 
 			<meta
-				name="twitter:title"
+				name='twitter:title'
 				content={`${title || metadataValueDefault.title}`}
 			/>
 			<meta
-				name="twitter:description"
+				name='twitter:description'
 				content={`${description || metadataValueDefault.description}`}
 			/>
 			<meta
-				property="twitter:image"
+				property='twitter:image'
 				content={`${urlImage || metadataValueDefault.urlImage}`}
 			/>
 

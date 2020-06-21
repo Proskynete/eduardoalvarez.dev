@@ -13,7 +13,7 @@ import mapOptions from '@Helpers/options_to_render.helper';
 import { printReadingTime } from '@Helpers/reading_time.helper';
 import './index.scss';
 
-const ArticleView = props => {
+const ArticleView = (props) => {
 	const { slug } = useParams();
 	const { articleData, getArticleBySlugMethod } = props;
 
@@ -31,33 +31,33 @@ const ArticleView = props => {
 				description: articleData.description,
 				urlImage: articleData.image_url,
 			})}
-			<div className="container-fluid">
-				<div className="row justify-content-md-center">
-					<div className="col col-md-8">
-						<div className="container">
-							<div className="blog-blog-article">
-								<div className="blog-article__header">
+			<div className='container-fluid'>
+				<div className='row justify-content-md-center'>
+					<div className='col col-md-8'>
+						<div className='container'>
+							<div className='blog-blog-article'>
+								<div className='blog-article__header'>
 									<h1>{articleData.title}</h1>
-									<div className="blog-article__header__info">
-										<span className="blog-article__header__info__published">
-											<i className="far fa-calendar-alt" />
+									<div className='blog-article__header__info'>
+										<span className='blog-article__header__info__published'>
+											<i className='far fa-calendar-alt' />
 											Publicado el {prettyFormat(articleData.create_at)}
 										</span>
-										<span className="blog-article__header__info__read">
-											<i className="far fa-clock" />
+										<span className='blog-article__header__info__read'>
+											<i className='far fa-clock' />
 											{printReadingTime(articleData.reading_time)}
 										</span>
 
-										<span className="blog-article__header__info__tags">
-											<i className="fas fa-tag" />
+										<span className='blog-article__header__info__tags'>
+											<i className='fas fa-tag' />
 											{mapOptions[articleData.tags]}
 										</span>
 									</div>
 								</div>
-								<div className="blog-article__body">
-									<div className="blog-article__body__header">
+								<div className='blog-article__body'>
+									<div className='blog-article__body__header'>
 										<img
-											className="blog-article__body__header__image"
+											className='blog-article__body__header__image'
 											src={articleData.image_url}
 											alt={articleData.title}
 										/>
@@ -67,17 +67,17 @@ const ArticleView = props => {
 						</div>
 					</div>
 
-					<div className="container-fluid">
-						<div className="blog-article__body__content">
-							<div className="row">
+					<div className='container-fluid'>
+						<div className='blog-article__body__content'>
+							<div className='row'>
 								<div
-									className="col-12 offset-md-1 col-md-2 sticky-top"
+									className='col-12 offset-md-1 col-md-2 sticky-top'
 									style={{ padding: '0', backgroundColor: '#ffffff' }}
 								>
 									<TableOfContent />
 								</div>
-								<div className="col-12 col-md-6">
-									<div className="blog-article__body__content__article">
+								<div className='col-12 col-md-6'>
+									<div className='blog-article__body__content__article'>
 										{transformMarkdownToHtml(articleData.content)}
 									</div>
 									<Line />
@@ -87,9 +87,9 @@ const ArticleView = props => {
 					</div>
 				</div>
 
-				<div className="row justify-content-md-center">
-					<div className="col col-md-8">
-						<div className="container">
+				<div className='row justify-content-md-center'>
+					<div className='col col-md-8'>
+						<div className='container'>
 							<AuthorComponent {...articleData.create_by} />
 						</div>
 					</div>
@@ -105,10 +105,10 @@ ArticleView.propTypes = {
 };
 
 export default connect(
-	state => ({
+	(state) => ({
 		articleData: state.articleData.articleContent,
 	}),
-	dispatch => ({
+	(dispatch) => ({
 		getArticleBySlugMethod: getArticleBySlugAction(dispatch),
 	}),
 )(ArticleView);

@@ -8,7 +8,7 @@ import { getBlogDataAction } from '@Actions/';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import './index.scss';
 
-const BlogView = props => {
+const BlogView = (props) => {
 	const { blogContent, getBlogDataMethod } = props;
 
 	useEffect(() => {
@@ -19,10 +19,10 @@ const BlogView = props => {
 		<>
 			{changeMetadataValue({})}
 			<Header />
-			<div className="container-fluid">
-				<div className="row justify-content-md-center">
-					<div className="col col-md-5">
-						<div className="container__blog">{printArticles(blogContent)}</div>
+			<div className='container-fluid'>
+				<div className='row justify-content-md-center'>
+					<div className='col col-md-5'>
+						<div className='container__blog'>{printArticles(blogContent)}</div>
 					</div>
 				</div>
 			</div>
@@ -36,10 +36,10 @@ BlogView.propTypes = {
 };
 
 export default connect(
-	state => ({
+	(state) => ({
 		blogContent: state.blogData.blogContent,
 	}),
-	dispatch => ({
+	(dispatch) => ({
 		getBlogDataMethod: getBlogDataAction(dispatch),
 	}),
 )(BlogView);

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { notificationCleanAction } from '@Actions/';
 import './index.scss';
 
-const Notifications = props => {
+const Notifications = (props) => {
 	const { show, type, text, notificationCleanMethod } = props;
 
 	const [showState, setShowState] = useState('');
@@ -26,7 +26,7 @@ const Notifications = props => {
 
 	return (
 		<div
-			id="notification"
+			id='notification'
 			className={`notifications${showState ? ' show' : ''}${
 				typeState ? ` ${typeState}` : ''
 			}`}
@@ -44,12 +44,12 @@ Notifications.propTypes = {
 };
 
 export default connect(
-	state => ({
+	(state) => ({
 		show: state.notification.show,
 		type: state.notification.type,
 		text: state.notification.text,
 	}),
-	dispatch => ({
+	(dispatch) => ({
 		notificationCleanMethod: notificationCleanAction(dispatch),
 	}),
 )(Notifications);

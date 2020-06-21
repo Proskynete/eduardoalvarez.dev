@@ -9,7 +9,7 @@ import { getHomeDataAction, getLastBlogDataAction } from '@Actions/';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import './index.scss';
 
-const HomeView = props => {
+const HomeView = (props) => {
 	const {
 		homeContent,
 		blogContent,
@@ -26,26 +26,26 @@ const HomeView = props => {
 		<>
 			{changeMetadataValue({})}
 			<Header />
-			<section className="home">
-				<div className="home__inner">
-					<div className="home__inner__description">
-						{homeContent.map(element => (
-							<div key={element._id} className="home__inner__description__text">
+			<section className='home'>
+				<div className='home__inner'>
+					<div className='home__inner__description'>
+						{homeContent.map((element) => (
+							<div key={element._id} className='home__inner__description__text'>
 								{transformMarkdownToHtml(element.content)}
 							</div>
 						))}
 					</div>
 
-					<div className="home__inner__blog">
-						<div className="home__inner__blog__header">
-							<h3 className="home__inner__blog__header__title">
+					<div className='home__inner__blog'>
+						<div className='home__inner__blog__header'>
+							<h3 className='home__inner__blog__header__title'>
 								Últimos posts
 							</h3>
-							<Link className="home__inner__blog__header__subtitle" to="/blog">
+							<Link className='home__inner__blog__header__subtitle' to='/blog'>
 								Leer todos
 							</Link>
 						</div>
-						<div className="home__inner__blog__content">
+						<div className='home__inner__blog__content'>
 							{printArticles(blogContent)}
 						</div>
 					</div>
@@ -63,11 +63,11 @@ HomeView.propTypes = {
 };
 
 export default connect(
-	state => ({
+	(state) => ({
 		homeContent: state.homeData.homeContent,
 		blogContent: state.blogData.blogContent,
 	}),
-	dispatch => ({
+	(dispatch) => ({
 		getHomeDataMethod: getHomeDataAction(dispatch),
 		getLastBlogDataMethod: getLastBlogDataAction(dispatch),
 	}),

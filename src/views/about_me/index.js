@@ -6,22 +6,22 @@ import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import './index.scss';
 
-const handlePrintContent = data =>
-	data.map(ele => {
+const handlePrintContent = (data) =>
+	data.map((ele) => {
 		return (
-			<div key={ele._id} className="container">
-				<div className="container__header">
-					<p className="container__header__title">{ele.title}</p>
-					<p className="container__header__subtitle">{ele.subtitle}</p>
+			<div key={ele._id} className='container'>
+				<div className='container__header'>
+					<p className='container__header__title'>{ele.title}</p>
+					<p className='container__header__subtitle'>{ele.subtitle}</p>
 				</div>
-				<div className="container__content">
+				<div className='container__content'>
 					{transformMarkdownToHtml(ele.content)}
 				</div>
 			</div>
 		);
 	});
 
-const AboutMeView = props => {
+const AboutMeView = (props) => {
 	const { content, getAboutMeDataMethod } = props;
 
 	useEffect(() => {
@@ -31,9 +31,9 @@ const AboutMeView = props => {
 	return (
 		<>
 			{changeMetadataValue({})}
-			<div className="container-fluid">
-				<div className="row justify-content-md-center">
-					<div className="col col-md-5">{handlePrintContent(content)}</div>
+			<div className='container-fluid'>
+				<div className='row justify-content-md-center'>
+					<div className='col col-md-5'>{handlePrintContent(content)}</div>
 				</div>
 			</div>
 		</>
@@ -46,10 +46,10 @@ AboutMeView.propTypes = {
 };
 
 export default connect(
-	state => ({
+	(state) => ({
 		content: state.aboutMeData.content,
 	}),
-	dispatch => ({
+	(dispatch) => ({
 		getAboutMeDataMethod: getAboutMeDataAction(dispatch),
 	}),
 )(AboutMeView);

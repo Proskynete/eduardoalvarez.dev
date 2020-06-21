@@ -6,12 +6,12 @@ import './index.scss';
 
 const Loader = () => {
 	return (
-		<div className="loader">
-			<div className="loader__inner">
-				<div className="loader__inner__spinner">
-					<i className="fab fa-react fa-spin" />
+		<div className='loader'>
+			<div className='loader__inner'>
+				<div className='loader__inner__spinner'>
+					<i className='fab fa-react fa-spin' />
 				</div>
-				<p className="loader__inner__text">{randomText(config.loaderText)}</p>
+				<p className='loader__inner__text'>{randomText(config.loaderText)}</p>
 			</div>
 		</div>
 	);

@@ -1,6 +1,6 @@
 export const highlightFormat = () => {
 	setTimeout(() => {
-		document.querySelectorAll('pre').forEach(codeBlock => {
+		document.querySelectorAll('pre').forEach((codeBlock) => {
 			const code = codeBlock.querySelector('code');
 			const headerDiv = document.createElement('div');
 			const text = document.createElement('p');

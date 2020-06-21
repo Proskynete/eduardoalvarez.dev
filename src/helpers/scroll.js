@@ -8,7 +8,7 @@ export const scrollToTop = () => {
 	}
 };
 
-export const scrollToNextContent = title => {
+export const scrollToNextContent = (title) => {
 	smoothScroll(title, 1000);
 };
 
@@ -20,7 +20,7 @@ const smoothScroll = (id, duration) => {
 	const distance = targetPosition - startPosition;
 	let startTime = null;
 
-	const animation = currentTime => {
+	const animation = (currentTime) => {
 		if (startTime === null) startTime = currentTime;
 		const timeElapsed = currentTime - startTime;
 		const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
@@ -30,9 +30,9 @@ const smoothScroll = (id, duration) => {
 	requestAnimationFrame(animation);
 };
 
-export const toggleClassWhenScrolling = listOfItems => {
+export const toggleClassWhenScrolling = (listOfItems) => {
 	const listOfPositionItems = [];
-	listOfItems.forEach(item => {
+	listOfItems.forEach((item) => {
 		const element = document.querySelector(`#${item.link}`);
 		listOfPositionItems.push(
 			element.getBoundingClientRect().top + window.scrollY - 35,
@@ -48,7 +48,7 @@ export const toggleClassWhenScrolling = listOfItems => {
 
 		for (let i = 0; i < listOfItems.length; i++) {
 			const link = document.querySelector(
-				`a[href='#${listOfItems[i]['link']}']`,
+				`a[href='#${listOfItems[i].link}']`,
 			);
 
 			if (

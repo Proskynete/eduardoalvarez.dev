@@ -3,7 +3,7 @@ import { GET_ABOUTME_DATA } from '@Config/constants';
 import getHeaders from '@Helpers/headers.helper';
 import config from '@Config/config';
 
-export const getAboutMeDataAction = dispatch => async () => {
+export const getAboutMeDataAction = (dispatch) => async () => {
 	try {
 		const url = config.handleGetUrl();
 		const uri = `${config.handleGetEntryPointApi('about_me')}`;

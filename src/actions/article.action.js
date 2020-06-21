@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GET_ARTICLE_DATA } from '@Config/constants';
 import config from '@Config/config';
 
-export const getArticleBySlugAction = dispatch => async slug => {
+export const getArticleBySlugAction = (dispatch) => async (slug) => {
 	try {
 		const url = config.handleGetUrl();
 		const uri = `${config.handleGetEntryPointApi('blog')}?slug=${slug}`;

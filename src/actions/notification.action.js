@@ -1,6 +1,6 @@
 import { SHOW_NOTIFICATION, CLEAN_NOTIFICATION } from '@Config/constants';
 
-export const notificationAction = dispatch => data => {
+export const notificationAction = (dispatch) => (data) => {
 	return dispatch({
 		type: SHOW_NOTIFICATION,
 		payload: {
@@ -9,7 +9,7 @@ export const notificationAction = dispatch => data => {
 	});
 };
 
-export const notificationCleanAction = dispatch => () => {
+export const notificationCleanAction = (dispatch) => () => {
 	return dispatch({
 		type: CLEAN_NOTIFICATION,
 		payload: {
