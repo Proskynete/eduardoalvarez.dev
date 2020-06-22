@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { onlyDate, prettyFormat } from '@Helpers/date-format';
@@ -11,13 +11,19 @@ import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import { startInTop } from '@Helpers/start_in_top.helper';
 import mapOptions from '@Helpers/options_to_render.helper';
 import { printReadingTime } from '@Helpers/reading_time.helper';
+import { addIDAttrToTitles, handleListenerScroll } from '@Helpers/scroll';
 import './index.scss';
 
 const ArticleView = (props) => {
 	const { slug } = useParams();
 	const { articleData, getArticleBySlugMethod } = props;
+	const [items, setItems] = useState([]);
 
 	useEffect(() => {
+		addIDAttrToTitles().then((res) => {
+			setItems(res);
+		});
+
 		startInTop();
 		getArticleBySlugMethod(slug);
 	}, []);
@@ -77,7 +83,7 @@ const ArticleView = (props) => {
 									className='col-12 offset-md-1 col-md-2 sticky-top'
 									style={{ padding: '0', backgroundColor: '#ffffff' }}
 								>
-									<TableOfContent />
+									<TableOfContent items={items} />
 								</div>
 								<div className='col-12 col-md-6'>
 									<div className='blog-article__body__content__article'>

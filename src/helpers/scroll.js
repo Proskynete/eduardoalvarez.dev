@@ -1,4 +1,8 @@
 import { easeInOutCubic } from '@Helpers/animations.helper';
+import {
+	clearString,
+	replaceSpaceForUnderscore,
+} from '@Helpers/letters.helper';
 
 export const scrollToTop = () => {
 	const current = document.documentElement.scrollTop || document.body.scrollTop;
@@ -30,6 +34,29 @@ const smoothScroll = (id, duration) => {
 	requestAnimationFrame(animation);
 };
 
+// ------------------------------------
+// ------------------------------------
+// ------------------------------------
+
+export const addIDAttrToTitles = () => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			const items = [];
+			const titles = document.querySelectorAll(
+				'.blog-article__body__content h1',
+			);
+			titles.forEach((title) => {
+				title.setAttribute(
+					'id',
+					replaceSpaceForUnderscore(clearString(title.innerHTML)),
+				);
+				items.push({ link: title.getAttribute('id'), label: title.innerHTML });
+			});
+			return resolve(items);
+		}, 250);
+	});
+};
+
 export const toggleClassWhenScrolling = (listOfItems) => {
 	const listOfPositionItems = [];
 
@@ -47,19 +74,24 @@ export const toggleClassWhenScrolling = (listOfItems) => {
 	return listOfPositionItems;
 };
 
-export const handleListenerScroll = (listOfItems, listOfPositionItems) => {
-	const currentPosition = window.pageYOffset;
+export const handleListenerScroll = () => {
+	addIDAttrToTitles().then((res) => {
+		const listOfItems = res;
 
-	listOfItems.forEach((element, i) => {
-		const link = document.querySelector(`a[href='#${element.link}']`);
+		const listOfPositionItems = toggleClassWhenScrolling(listOfItems);
+		const currentPosition = window.pageYOffset;
 
-		if (
-			currentPosition >= listOfPositionItems[i] &&
-			currentPosition < listOfPositionItems[i + 1]
-		) {
-			link.classList.add('current');
-		} else {
-			link.classList.remove('current');
-		}
+		listOfItems.forEach((element, i) => {
+			const link = document.querySelector(`a[href='#${element.link}']`);
+
+			if (
+				currentPosition >= listOfPositionItems[i] &&
+				currentPosition < listOfPositionItems[i + 1]
+			) {
+				link.classList.add('current');
+			} else {
+				link.classList.remove('current');
+			}
+		});
 	});
 };
