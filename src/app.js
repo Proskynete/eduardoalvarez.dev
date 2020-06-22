@@ -25,7 +25,7 @@ const App = () => (
 		<Notifications />
 		<Router basename='/'>
 			<Nav />
-			<Suspense fallback='Cargando...'>
+			<Suspense fallback={''}>
 				<Switch>
 					{mainRoutes}
 					<Redirect to='/' />

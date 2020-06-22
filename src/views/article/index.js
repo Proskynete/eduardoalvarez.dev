@@ -1,7 +1,7 @@
 import React, { useEffect, memo } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { prettyFormat } from '@Helpers/date-format';
+import { onlyDate, prettyFormat } from '@Helpers/date-format';
 import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { connect } from 'react-redux';
 import { getArticleBySlugAction } from '@Actions/';
@@ -24,24 +24,27 @@ const ArticleView = (props) => {
 
 	highlightFormat();
 
-	return (
+	return articleData && Object.keys(articleData).length > 0 ? (
 		<>
 			{changeMetadataValue({
 				title: articleData.title,
 				description: articleData.description,
 				urlImage: articleData.image_url,
 			})}
-			<div className='container-fluid'>
+			<article className='container-fluid'>
 				<div className='row justify-content-md-center'>
 					<div className='col col-md-8'>
 						<div className='container'>
 							<div className='blog-blog-article'>
-								<div className='blog-article__header'>
+								<header className='blog-article__header'>
 									<h1>{articleData.title}</h1>
 									<div className='blog-article__header__info'>
 										<span className='blog-article__header__info__published'>
 											<i className='far fa-calendar-alt' />
-											Publicado el {prettyFormat(articleData.create_at)}
+											Publicado el{' '}
+											<time dateTime={onlyDate(articleData.create_at)}>
+												{prettyFormat(articleData.create_at)}
+											</time>
 										</span>
 										<span className='blog-article__header__info__read'>
 											<i className='far fa-clock' />
@@ -53,7 +56,7 @@ const ArticleView = (props) => {
 											{mapOptions[articleData.tags]}
 										</span>
 									</div>
-								</div>
+								</header>
 								<div className='blog-article__body'>
 									<div className='blog-article__body__header'>
 										<img
@@ -94,9 +97,9 @@ const ArticleView = (props) => {
 						</div>
 					</div>
 				</div>
-			</div>
+			</article>
 		</>
-	);
+	) : null;
 };
 
 ArticleView.propTypes = {
