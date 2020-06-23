@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { prettyFormat } from '@Helpers/date-format';
+import { onlyDate, prettyFormat } from '@Helpers/date-format';
 import { getFirstLetter, titleForSocialNetwork } from '@Helpers/letters.helper';
 import { copyTextToClipboard } from '@Helpers/copy-to-clipboard.helper';
 import { notificationAction } from '@Actions/';
@@ -47,7 +47,7 @@ const Article = (props) => {
 				</span>
 				<span className='article__header__info__published'>
 					<i className='far fa-calendar-alt' />
-					{prettyFormat(create_at)}
+					<time dateTime={onlyDate(create_at)}>{prettyFormat(create_at)}</time>
 				</span>
 			</p>
 			<div className='article__content'>{description}</div>
@@ -68,38 +68,38 @@ const Article = (props) => {
 					<a
 						className='article__bottom__share__link'
 						title='Compartir en twitter'
-						rel='noopener noreferrer'
 						target='_blank'
 						href={`https://twitter.com/intent/tweet?text=${titleForSocialNetwork(
 							title,
-						)}&amp;url=${urlToShare}`}
+						)}&url=${urlToShare}`}
+						rel='noopener noreferrer'
 					>
 						<i className='fab fa-twitter' />
 					</a>
 					<a
 						className='article__bottom__share__link'
 						title='Compartir en linkedin'
-						rel='noopener noreferrer'
 						target='_blank'
 						href={`https://www.linkedin.com/sharing/share-offsite/?url=${urlToShare}`}
+						rel='noopener noreferrer'
 					>
 						<i className='fab fa-linkedin-in' />
 					</a>
 					<a
 						className='article__bottom__share__link'
 						title='Compartir por whatsapp'
-						rel='noopener noreferrer'
 						target='_blank'
 						href={`https://api.whatsapp.com/send?text=${titleForSocialNetwork(
 							title,
 						)}${urlToShare}`}
+						rel='noopener noreferrer'
 					>
 						<i className='fab fa-whatsapp' />
 					</a>
 					<a
+						role='button'
 						className='article__bottom__share__link'
 						title='Compartir copiando link'
-						href='#'
 						onClick={handleCopyUrl}
 					>
 						<i className='far fa-copy' />
