@@ -6,14 +6,11 @@ module.exports = (env) => {
 	return {
 		entry: ['@babel/polyfill', path.resolve(__dirname, 'src', 'main.js')],
 		output: {
-			path: path.resolve(__dirname, './build/'),
-			publicPath: '/',
+			path: path.resolve(__dirname, 'build'),
 			filename: 'bundle.js',
 		},
 		optimization: {
-			splitChunks: {
-				chunks: 'all',
-			},
+			minimize: false,
 		},
 		devServer: {
 			contentBase: './',
