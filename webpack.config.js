@@ -8,10 +8,8 @@ module.exports = (env) => {
 		entry: ['@babel/polyfill', path.resolve(__dirname, 'src', 'main.js')],
 		output: {
 			path: path.resolve(__dirname, 'build'),
+			publicPath: '/',
 			filename: 'bundle.js',
-		},
-		optimization: {
-			minimize: false,
 		},
 		devServer: {
 			contentBase: './',
