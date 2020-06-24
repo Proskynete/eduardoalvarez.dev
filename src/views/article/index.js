@@ -36,6 +36,7 @@ const ArticleView = (props) => {
 				title: articleData.title,
 				description: articleData.description,
 				urlImage: articleData.image_url,
+				url: `https://eduardoalvarez.cl/blog/${slug}`,
 			})}
 			<article className='container-fluid'>
 				<div className='row justify-content-md-center'>

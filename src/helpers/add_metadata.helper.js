@@ -7,20 +7,29 @@ const metadataValueDefault = {
 		'Blog de formación y desarrollo web con JavaScript utilizando diversas tecnologías como: React, Node.js, MongoDB, Html, Css, Sass',
 	urlImage:
 		'https://res.cloudinary.com/soy-eduardoalvarez/image/upload/v1587245039/user_view/eduardo_alvarez.jpg',
+	url: 'https://eduardoalvarez.cl',
 };
 
-export const changeMetadataValue = ({ title, description, urlImage }) => {
+export const changeMetadataValue = (props) => {
+	const { title, description, urlImage, url } = props;
+
 	return (
 		<Helmet>
+			{/** Common metatags */}
 			<meta
 				name='description'
-				content={`${title || metadataValueDefault.title}`}
+				content={`${description || metadataValueDefault.description}`}
 			/>
 			<meta
 				name='image'
 				content={`${urlImage || metadataValueDefault.urlImage}`}
 			/>
 
+			{/** Facebook metatags */}
+			<meta
+				property='og:title'
+				content={`${title || metadataValueDefault.title}`}
+			/>
 			<meta
 				property='og:description'
 				content={`${description || metadataValueDefault.description}`}
@@ -33,7 +42,9 @@ export const changeMetadataValue = ({ title, description, urlImage }) => {
 				property='og:image'
 				content={`${urlImage || metadataValueDefault.urlImage}`}
 			/>
+			<meta property='og:url' content={`${url || metadataValueDefault.url}`} />
 
+			{/** Twitter metatags */}
 			<meta
 				name='twitter:title'
 				content={`${title || metadataValueDefault.title}`}
@@ -46,6 +57,7 @@ export const changeMetadataValue = ({ title, description, urlImage }) => {
 				property='twitter:image'
 				content={`${urlImage || metadataValueDefault.urlImage}`}
 			/>
+			<meta name='twitter:url' content={`${url || metadataValueDefault.url}`} />
 
 			<title>{`${title || metadataValueDefault.title}`}</title>
 		</Helmet>
