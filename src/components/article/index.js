@@ -119,9 +119,6 @@ Article.propTypes = {
 	notificationMethod: PropTypes.func.isRequired,
 };
 
-export default connect(
-	(state) => state,
-	(dispatch) => ({
-		notificationMethod: notificationAction(dispatch),
-	}),
-)(Article);
+export default connect(null, (dispatch) => ({
+	notificationMethod: notificationAction(dispatch),
+}))(Article);
