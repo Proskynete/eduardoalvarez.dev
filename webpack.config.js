@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env) => {
 	return {
@@ -87,6 +88,9 @@ module.exports = (env) => {
 			new HtmlWebpackPlugin({
 				template: './src/index.html',
 				hash: true,
+			}),
+			new MiniCssExtractPlugin({
+				filename: 'styles.css',
 			}),
 			new webpack.DefinePlugin({
 				ENVIRONMENT: JSON.stringify(env.NODE_ENV),
