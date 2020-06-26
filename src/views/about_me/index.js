@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getAboutMeDataAction } from '@Actions/';
 import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
+import { Loader } from '@Components';
 import './index.scss';
 
 const handlePrintContent = (data) =>
@@ -28,15 +29,22 @@ const AboutMeView = (props) => {
 		getAboutMeDataMethod();
 	}, []);
 
-	return (
+	return content.length > 0 ? (
 		<>
-			{changeMetadataValue({})}
+			{changeMetadataValue({
+				title: 'Sobre mi | eduardoalvarez.cl',
+				description:
+					'En esta vista te cuento sobre quién soy, a que me dedico, cuales son mis hobbies... en general quien es Eduardo Álvarez.',
+				url: 'https://eduardoalvarez.cl/about_me',
+			})}
 			<div className='container-fluid'>
 				<div className='row justify-content-md-center'>
 					<div className='col col-md-5'>{handlePrintContent(content)}</div>
 				</div>
 			</div>
 		</>
+	) : (
+		<Loader url='https://eduardoalvarez.cl/about_me' />
 	);
 };
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { printArticles } from '@Helpers/print-articles.helper';
-import { Header } from '@Components';
+import { Header, Loader } from '@Components';
 import { getHomeDataAction, getLastBlogDataAction } from '@Actions/';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import './index.scss';
@@ -22,9 +22,15 @@ const HomeView = (props) => {
 		getHomeDataMethod();
 	}, []);
 
-	return (
+	return homeContent.length > 0 && blogContent.length > 0 ? (
 		<>
-			{changeMetadataValue({})}
+			{changeMetadataValue({
+				title:
+					'Eduardo Álvarez | Blog de formación y desarrollo web con JavaScript',
+				description:
+					'Bienvenidxs a mi sitio web!. Acá encontrarás artículos y video tutoriales sobre programación web utilizando html, css y javascript. También podrás encontrar Artículos sobre React, Node y Flutter.',
+				url: 'https://eduardoalvarez.cl/',
+			})}
 			<Header />
 			<section className='home'>
 				<div className='home__inner'>
@@ -52,6 +58,8 @@ const HomeView = (props) => {
 				</div>
 			</section>
 		</>
+	) : (
+		<Loader url='https://eduardoalvarez.cl/' />
 	);
 };
 
