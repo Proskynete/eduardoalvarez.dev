@@ -25,7 +25,11 @@ const HomeView = (props) => {
 	return homeContent.length > 0 && blogContent.length > 0 ? (
 		<>
 			{changeMetadataValue({
-				title: 'Bienvenido(a) a mi sitio web! | eduardoalvarez.cl',
+				title:
+					'Eduardo Álvarez | Blog de formación y desarrollo web con JavaScript',
+				description:
+					'Bienvenidxs a mi sitio web!. Acá encontrarás artículos y video tutoriales sobre programación web utilizando html, css y javascript. También podrás encontrar Artículos sobre React, Node y Flutter.',
+				url: 'https://eduardoalvarez.cl/',
 			})}
 			<Header />
 			<section className='home'>
@@ -55,7 +59,7 @@ const HomeView = (props) => {
 			</section>
 		</>
 	) : (
-		<Loader />
+		<Loader url='https://eduardoalvarez.cl/' />
 	);
 };
 

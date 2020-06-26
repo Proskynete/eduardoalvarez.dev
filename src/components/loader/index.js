@@ -6,10 +6,15 @@ import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 
 import './index.scss';
 
-const Loader = () => {
+const Loader = (props) => {
+	const { url } = props;
 	return (
 		<>
-			{changeMetadataValue({ title: 'Cargando...' })}
+			{changeMetadataValue({
+				title: 'Cargando...',
+				description: 'Sitio web cargando contenido.',
+				url,
+			})}
 			<div className='loader'>
 				<div className='loader__inner'>
 					<div className='loader__inner__spinner'>

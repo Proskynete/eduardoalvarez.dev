@@ -19,6 +19,9 @@ const BlogView = (props) => {
 		<>
 			{changeMetadataValue({
 				title: 'Mis artículos publicados | eduardoalvarez.cl',
+				description:
+					'Vista donde se muestran todos los artículos publicados sobre programación web y buenas prácticas de desarrollo.',
+				url: 'https://eduardoalvarez.cl/blog',
 			})}
 			<Header />
 			<div className='container-fluid'>
@@ -30,7 +33,7 @@ const BlogView = (props) => {
 			</div>
 		</>
 	) : (
-		<Loader />
+		<Loader url='https://eduardoalvarez.cl/blog' />
 	);
 };
 

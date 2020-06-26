@@ -31,7 +31,12 @@ const AboutMeView = (props) => {
 
 	return content.length > 0 ? (
 		<>
-			{changeMetadataValue({ title: 'Sobre mi | eduardoalvarez.cl' })}
+			{changeMetadataValue({
+				title: 'Sobre mi | eduardoalvarez.cl',
+				description:
+					'En esta vista te cuento sobre quién soy, a que me dedico, cuales son mis hobbies... en general quien es Eduardo Álvarez.',
+				url: 'https://eduardoalvarez.cl/about_me',
+			})}
 			<div className='container-fluid'>
 				<div className='row justify-content-md-center'>
 					<div className='col col-md-5'>{handlePrintContent(content)}</div>
@@ -39,7 +44,7 @@ const AboutMeView = (props) => {
 			</div>
 		</>
 	) : (
-		<Loader />
+		<Loader url='https://eduardoalvarez.cl/about_me' />
 	);
 };
 

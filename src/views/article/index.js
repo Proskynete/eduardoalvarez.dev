@@ -11,7 +11,8 @@ import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import { startInTop } from '@Helpers/start_in_top.helper';
 import mapOptions from '@Helpers/options_to_render.helper';
 import { printReadingTime } from '@Helpers/reading_time.helper';
-import { addIDAttrToTitles, handleListenerScroll } from '@Helpers/scroll';
+import { Loader } from '@Components';
+import { addIDAttrToTitles } from '@Helpers/scroll';
 import './index.scss';
 
 const ArticleView = (props) => {
@@ -35,7 +36,7 @@ const ArticleView = (props) => {
 			{changeMetadataValue({
 				title: articleData.title,
 				description: articleData.description,
-				urlImage: articleData.image_url,
+				image: articleData.image_url,
 				url: `https://eduardoalvarez.cl/blog/${slug}`,
 			})}
 			<article className='container-fluid'>
@@ -106,7 +107,9 @@ const ArticleView = (props) => {
 				</div>
 			</article>
 		</>
-	) : null;
+	) : (
+		<Loader url={`https://eduardoalvarez.cl/blog/${slug}`} />
+	);
 };
 
 ArticleView.propTypes = {
