@@ -1,6 +1,5 @@
 export { default as AuthorComponent } from './author';
 export { default as Article } from './article';
-export { default as Coffee } from './coffee';
 export { default as Footer } from './footer';
 export { default as Header } from './header';
 export { default as Highlighted } from './highlighted';
@@ -9,3 +8,4 @@ export { default as LinkWeb } from './linkweb';
 export { default as Loader } from './loader';
 export { default as Nav } from './nav';
 export { default as TableOfContent } from './table_of_content';
+export { default as Notifications } from './notifications';

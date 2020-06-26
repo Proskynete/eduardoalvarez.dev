@@ -8,17 +8,17 @@ const handleGoToTheTop = () => {
 };
 
 const Footer = () => (
-	<footer className="footer">
-		<div className="footer__inner">
-			<div className="footer__inner__logo">
-				<img src={LOGO} alt="Eduardo Alvarez. Formación en tecnología" />
+	<footer className='footer'>
+		<div className='footer__inner'>
+			<div className='footer__inner__logo'>
+				<img src={LOGO} alt='Eduardo Alvarez. Formación en tecnología' />
 			</div>
-			<div className="footer__inner__description">
-				<p className="footer__inner__description__copy">
+			<div className='footer__inner__description'>
+				<p className='footer__inner__description__copy'>
 					Copirights © 2017 - 2020
 				</p>
 				<p
-					className="footer__inner__description__to_top"
+					className='footer__inner__description__to_top'
 					onClick={handleGoToTheTop}
 				>
 					Volver arriba

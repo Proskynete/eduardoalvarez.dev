@@ -1,32 +1,39 @@
 /* eslint-disable import/no-unresolved */
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header } from '@Components';
+import { Header, Loader } from '@Components';
 import { printArticles } from '@Helpers/print-articles.helper';
 import { getBlogDataAction } from '@Actions/';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import './index.scss';
 
-const BlogView = props => {
+const BlogView = (props) => {
 	const { blogContent, getBlogDataMethod } = props;
 
 	useEffect(() => {
 		getBlogDataMethod();
 	}, []);
 
-	return (
+	return blogContent.length > 0 ? (
 		<>
-			{changeMetadataValue({})}
+			{changeMetadataValue({
+				title: 'Mis artículos publicados | eduardoalvarez.cl',
+				description:
+					'Vista donde se muestran todos los artículos publicados sobre programación web y buenas prácticas de desarrollo.',
+				url: 'https://eduardoalvarez.cl/blog',
+			})}
 			<Header />
-			<div className="container-fluid">
-				<div className="row justify-content-md-center">
-					<div className="col col-md-5">
-						<div className="container__blog">{printArticles(blogContent)}</div>
+			<div className='container-fluid'>
+				<div className='row justify-content-md-center'>
+					<div className='col col-md-5'>
+						<div className='container__blog'>{printArticles(blogContent)}</div>
 					</div>
 				</div>
 			</div>
 		</>
+	) : (
+		<Loader url='https://eduardoalvarez.cl/blog' />
 	);
 };
 
@@ -36,10 +43,10 @@ BlogView.propTypes = {
 };
 
 export default connect(
-	state => ({
+	(state) => ({
 		blogContent: state.blogData.blogContent,
 	}),
-	dispatch => ({
+	(dispatch) => ({
 		getBlogDataMethod: getBlogDataAction(dispatch),
 	}),
-)(BlogView);
+)(memo(BlogView));

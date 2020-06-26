@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GET_HOME_DATA } from '@Config/constants';
 import config from '@Config/config';
 
-export const getHomeDataAction = dispatch => async () => {
+export const getHomeDataAction = (dispatch) => async () => {
 	try {
 		const url = config.handleGetUrl();
 		const uri = `${config.handleGetEntryPointApi('home')}`;

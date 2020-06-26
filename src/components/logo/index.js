@@ -3,6 +3,6 @@ import React from 'react';
 import config from '@Contents/logo';
 import './index.scss';
 
-const Logo = () => <span className="logo">{config.logo.text}</span>;
+const Logo = () => <span className='logo'>{config.logo.text}</span>;
 
 export default Logo;

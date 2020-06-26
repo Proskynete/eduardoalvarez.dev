@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GET_LAST_BLOG_DATA, GET_ALL_BLOG_DATA } from '@Config/constants';
 import config from '@Config/config';
 
-export const getLastBlogDataAction = dispatch => async () => {
+export const getLastBlogDataAction = (dispatch) => async () => {
 	try {
 		const url = config.handleGetUrl();
 		const uri = `${config.handleGetEntryPointApi('blog')}?last_articles=3`;
@@ -24,7 +24,7 @@ export const getLastBlogDataAction = dispatch => async () => {
 	}
 };
 
-export const getBlogDataAction = dispatch => async () => {
+export const getBlogDataAction = (dispatch) => async () => {
 	try {
 		const url = config.handleGetUrl();
 		const uri = `${config.handleGetEntryPointApi('blog')}`;

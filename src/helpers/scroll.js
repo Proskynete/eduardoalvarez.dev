@@ -1,4 +1,8 @@
 import { easeInOutCubic } from '@Helpers/animations.helper';
+import {
+	clearString,
+	replaceSpaceForUnderscore,
+} from '@Helpers/letters.helper';
 
 export const scrollToTop = () => {
 	const current = document.documentElement.scrollTop || document.body.scrollTop;
@@ -8,7 +12,7 @@ export const scrollToTop = () => {
 	}
 };
 
-export const scrollToNextContent = title => {
+export const scrollToNextContent = (title) => {
 	smoothScroll(title, 1000);
 };
 
@@ -20,7 +24,7 @@ const smoothScroll = (id, duration) => {
 	const distance = targetPosition - startPosition;
 	let startTime = null;
 
-	const animation = currentTime => {
+	const animation = (currentTime) => {
 		if (startTime === null) startTime = currentTime;
 		const timeElapsed = currentTime - startTime;
 		const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
@@ -30,22 +34,56 @@ const smoothScroll = (id, duration) => {
 	requestAnimationFrame(animation);
 };
 
-export const toggleClassWhenScrolling = listOfItems => {
+// ------------------------------------
+// ------------------------------------
+// ------------------------------------
+
+export const addIDAttrToTitles = () => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			const items = [];
+			const titles = document.querySelectorAll(
+				'.blog-article__body__content h1',
+			);
+			titles.forEach((title) => {
+				title.setAttribute(
+					'id',
+					replaceSpaceForUnderscore(clearString(title.innerHTML)),
+				);
+				items.push({ link: title.getAttribute('id'), label: title.innerHTML });
+			});
+			return resolve(items);
+		}, 250);
+	});
+};
+
+export const toggleClassWhenScrolling = (listOfItems) => {
 	const listOfPositionItems = [];
-	listOfItems.forEach(item => {
+
+	listOfItems.forEach((item) => {
 		const element = document.querySelector(`#${item.link}`);
 		listOfPositionItems.push(
 			element.getBoundingClientRect().top + window.scrollY - 35,
 		);
 	});
 
-	window.addEventListener('scroll', () => {
+	listOfPositionItems.push(
+		document.getElementsByTagName('body')[0].clientHeight,
+	);
+
+	return listOfPositionItems;
+};
+
+export const handleListenerScroll = () => {
+	addIDAttrToTitles().then((res) => {
+		const listOfItems = res;
+
+		const listOfPositionItems = toggleClassWhenScrolling(listOfItems);
 		const currentPosition = window.pageYOffset;
 
-		for (let i = 0; i < listOfPositionItems.length; i++) {
-			const link = document.querySelector(
-				`a[href='#${listOfItems[i]['link']}']`,
-			);
+		listOfItems.forEach((element, i) => {
+			const link = document.querySelector(`a[href='#${element.link}']`);
+
 			if (
 				currentPosition >= listOfPositionItems[i] &&
 				currentPosition < listOfPositionItems[i + 1]
@@ -54,6 +92,6 @@ export const toggleClassWhenScrolling = listOfItems => {
 			} else {
 				link.classList.remove('current');
 			}
-		}
+		});
 	});
 };

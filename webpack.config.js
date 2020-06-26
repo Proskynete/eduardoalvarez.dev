@@ -1,19 +1,15 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = env => {
+module.exports = (env) => {
 	return {
 		entry: ['@babel/polyfill', path.resolve(__dirname, 'src', 'main.js')],
 		output: {
-			path: path.resolve(__dirname, './build/'),
+			path: path.resolve(__dirname, 'build'),
 			publicPath: '/',
 			filename: 'bundle.js',
-		},
-		optimization: {
-			splitChunks: {
-				chunks: 'all',
-			},
 		},
 		devServer: {
 			contentBase: './',
@@ -87,6 +83,9 @@ module.exports = env => {
 			new HtmlWebpackPlugin({
 				template: './src/index.html',
 				hash: true,
+			}),
+			new MiniCssExtractPlugin({
+				filename: 'styles.css',
 			}),
 			new webpack.DefinePlugin({
 				ENVIRONMENT: JSON.stringify(env.NODE_ENV),

@@ -1,42 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAboutMeDataAction } from '@Actions/';
 import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
+import { Loader } from '@Components';
 import './index.scss';
 
-const handlePrintContent = data =>
-	data.map(ele => {
+const handlePrintContent = (data) =>
+	data.map((ele) => {
 		return (
-			<div key={ele._id} className="container">
-				<div className="container__header">
-					<p className="container__header__title">{ele.title}</p>
-					<p className="container__header__subtitle">{ele.subtitle}</p>
+			<div key={ele._id} className='container'>
+				<div className='container__header'>
+					<p className='container__header__title'>{ele.title}</p>
+					<p className='container__header__subtitle'>{ele.subtitle}</p>
 				</div>
-				<div className="container__content">
+				<div className='container__content'>
 					{transformMarkdownToHtml(ele.content)}
 				</div>
 			</div>
 		);
 	});
 
-const AboutMeView = props => {
+const AboutMeView = (props) => {
 	const { content, getAboutMeDataMethod } = props;
 
 	useEffect(() => {
 		getAboutMeDataMethod();
 	}, []);
 
-	return (
+	return content.length > 0 ? (
 		<>
-			{changeMetadataValue({})}
-			<div className="container-fluid">
-				<div className="row justify-content-md-center">
-					<div className="col col-md-5">{handlePrintContent(content)}</div>
+			{changeMetadataValue({
+				title: 'Sobre mi | eduardoalvarez.cl',
+				description:
+					'En esta vista te cuento sobre quién soy, a que me dedico, cuales son mis hobbies... en general quien es Eduardo Álvarez.',
+				url: 'https://eduardoalvarez.cl/about_me',
+			})}
+			<div className='container-fluid'>
+				<div className='row justify-content-md-center'>
+					<div className='col col-md-5'>{handlePrintContent(content)}</div>
 				</div>
 			</div>
 		</>
+	) : (
+		<Loader url='https://eduardoalvarez.cl/about_me' />
 	);
 };
 
@@ -46,10 +54,10 @@ AboutMeView.propTypes = {
 };
 
 export default connect(
-	state => ({
+	(state) => ({
 		content: state.aboutMeData.content,
 	}),
-	dispatch => ({
+	(dispatch) => ({
 		getAboutMeDataMethod: getAboutMeDataAction(dispatch),
 	}),
-)(AboutMeView);
+)(memo(AboutMeView));

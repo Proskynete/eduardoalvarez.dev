@@ -3,7 +3,7 @@ import { GET_USER_DATA } from '@Config/constants';
 import getHeaders from '@Helpers/headers.helper';
 import config from '@Config/config';
 
-export const getUserInfoAction = dispatch => async () => {
+export const getUserInfoAction = (dispatch) => async () => {
 	try {
 		const url = config.handleGetUrl();
 		const uri = `${config.handleGetEntryPointApi('users')}?alias=Proskynete`;
