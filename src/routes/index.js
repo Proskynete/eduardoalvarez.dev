@@ -13,7 +13,7 @@ export const routes = [
 		component: HomeView,
 	},
 	{
-		path: '/about_me',
+		path: '/sobre_mi',
 		name: 'Sobre mi',
 		exact: true,
 		component: AboutMeView,

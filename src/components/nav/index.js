@@ -50,7 +50,7 @@ const Nav = () => {
 						<li className='nav__inner__menu__content__item'>
 							<Link
 								className='nav__inner__menu__content__item__link'
-								to='/about_me'
+								to='/sobre_mi'
 								onClick={() => setShowMenu(false)}
 							>
 								Sobre mi
