@@ -2,7 +2,7 @@
 import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header } from '@Components';
+import { Header, Loader } from '@Components';
 import { printArticles } from '@Helpers/print-articles.helper';
 import { getBlogDataAction } from '@Actions/';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
@@ -15,9 +15,11 @@ const BlogView = (props) => {
 		getBlogDataMethod();
 	}, []);
 
-	return (
+	return blogContent.length > 0 ? (
 		<>
-			{changeMetadataValue({})}
+			{changeMetadataValue({
+				title: 'Mis artículos publicados | eduardoalvarez.cl',
+			})}
 			<Header />
 			<div className='container-fluid'>
 				<div className='row justify-content-md-center'>
@@ -27,6 +29,8 @@ const BlogView = (props) => {
 				</div>
 			</div>
 		</>
+	) : (
+		<Loader />
 	);
 };
 

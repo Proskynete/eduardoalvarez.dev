@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getAboutMeDataAction } from '@Actions/';
 import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
+import { Loader } from '@Components';
 import './index.scss';
 
 const handlePrintContent = (data) =>
@@ -28,15 +29,17 @@ const AboutMeView = (props) => {
 		getAboutMeDataMethod();
 	}, []);
 
-	return (
+	return content.length > 0 ? (
 		<>
-			{changeMetadataValue({})}
+			{changeMetadataValue({ title: 'Sobre mi | eduardoalvarez.cl' })}
 			<div className='container-fluid'>
 				<div className='row justify-content-md-center'>
 					<div className='col col-md-5'>{handlePrintContent(content)}</div>
 				</div>
 			</div>
 		</>
+	) : (
+		<Loader />
 	);
 };
 

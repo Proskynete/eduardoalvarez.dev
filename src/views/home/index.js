@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { transformMarkdownToHtml } from '@Helpers/print-html.helper';
 import { printArticles } from '@Helpers/print-articles.helper';
-import { Header } from '@Components';
+import { Header, Loader } from '@Components';
 import { getHomeDataAction, getLastBlogDataAction } from '@Actions/';
 import { changeMetadataValue } from '@Helpers/add_metadata.helper';
 import './index.scss';
@@ -22,9 +22,11 @@ const HomeView = (props) => {
 		getHomeDataMethod();
 	}, []);
 
-	return (
+	return homeContent.length > 0 && blogContent.length > 0 ? (
 		<>
-			{changeMetadataValue({})}
+			{changeMetadataValue({
+				title: 'Bienvenido(a) a mi sitio web! | eduardoalvarez.cl',
+			})}
 			<Header />
 			<section className='home'>
 				<div className='home__inner'>
@@ -52,6 +54,8 @@ const HomeView = (props) => {
 				</div>
 			</section>
 		</>
+	) : (
+		<Loader />
 	);
 };
 
