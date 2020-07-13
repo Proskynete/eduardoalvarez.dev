@@ -1,4 +1,4 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import {
 	homeReducer,
@@ -9,6 +9,8 @@ import {
 	notificationReducer,
 } from '@Reducers/';
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const rootReducer = combineReducers({
 	homeData: homeReducer,
 	aboutMeData: aboutMeReducer,
@@ -18,5 +20,8 @@ const rootReducer = combineReducers({
 	notification: notificationReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(
+	rootReducer,
+	composeEnhancers(applyMiddleware(thunk)),
+);
 export default store;
