@@ -1,0 +1,38 @@
+/*
+* Font - Hero
+*/
+
+@font-face {
+  font-family: 'Hero';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/Hero/Hero-Regular.ttf),
+    url(/fonts/Hero/Hero-Regular.otf);
+}
+
+@font-face {
+  font-family: 'Hero';
+  font-style: normal;
+  font-weight: 500;
+  src: url(/fonts/Hero/Hero-Bold.ttf),
+    url(/fonts/Hero/Hero-Bold.otf);
+}
+
+@font-face {
+  font-family: 'Hero';
+  font-style: normal;
+  font-weight: 300;
+  src: url(/fonts/Hero/Hero-Light.ttf),
+    url(/fonts/Hero/Hero-Light.otf);
+}
+
+/*
+* Font - Night Machine
+*/
+
+@font-face {
+  font-family: 'Night Machine';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/Night-machine/Night-Machine.otf);
+}
