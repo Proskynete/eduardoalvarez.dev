@@ -3,7 +3,7 @@ import Head from "next/head";
 
 const Home: FC = () => {
   return (
-    <div>
+    <>
       <Head>
         <title>
           eduardoalvarez.dev - Un desarrollador ayudando a futurxs
@@ -15,7 +15,7 @@ const Home: FC = () => {
       <main>
         <h1>Welcome</h1>
       </main>
-    </div>
+    </>
   );
 };
 
