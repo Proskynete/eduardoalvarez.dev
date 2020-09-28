@@ -1,16 +1,18 @@
 import { FC } from "react";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 
 const Home: FC = () => {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>
+          eduardoalvarez.dev - Un desarrollador ayudando a futurxs
+          desarrolladores web
+        </title>
         <link rel="icon" href="/favicon/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main>
         <h1>Welcome</h1>
       </main>
     </div>
