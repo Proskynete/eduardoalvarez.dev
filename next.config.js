@@ -4,7 +4,13 @@ module.exports = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.node = {
+        fs: "empty",
+      };
+    }
+
     config.module.rules.push({
       test: /\.md$/,
       use: "raw-loader",

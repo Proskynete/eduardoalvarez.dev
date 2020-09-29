@@ -1,4 +1,4 @@
 export interface PropsInterface {
   customTitle: string;
-  description: string;
+  description?: string;
 }
