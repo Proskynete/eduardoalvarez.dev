@@ -1,7 +1,9 @@
 ---
 title: "Welcome"
-author: Eduardo Álvarez
+description: "Lorem ipsum"
 date: "2020-09-28"
+read_time: 3
+hero_image: ""
 ---
 
 ## Title

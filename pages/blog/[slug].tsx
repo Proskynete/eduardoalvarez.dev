@@ -22,7 +22,7 @@ const BlogTemplate = (props: PropsInterface) => {
   return (
     <Layout customTitle={siteTitle}>
       <article>
-        <figure>{/* <img src={frontmatter.top_image} /> */}</figure>
+        <figure>{/* <img src={frontmatter.hero_image} /> */}</figure>
         <header>
           <h1>{frontmatter.title}</h1>
           <h3>{reformatDate(frontmatter.date)}</h3>

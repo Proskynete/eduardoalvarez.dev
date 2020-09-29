@@ -1,7 +1,9 @@
 export interface FrontMatterInterface {
   title: string;
+  description: string;
   date: string;
-  author: string;
+  read_time: number;
+  hero_image: string;
 }
 
 export interface PropsInterface {
