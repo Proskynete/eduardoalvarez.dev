@@ -1,3 +1,4 @@
+import { FC } from "react";
 import matter from "gray-matter";
 import ReactMarkdown from "react-markdown";
 import {
@@ -9,7 +10,7 @@ import {
 import Layout from "../../components/Layout";
 const glob = require("glob");
 
-const BlogTemplate = (props: PropsInterface) => {
+const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, siteTitle } = props;
 
   const reformatDate = (fullDate: string) => {

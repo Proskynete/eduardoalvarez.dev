@@ -1,7 +1,8 @@
+import { FC } from "react";
 import Layout from "../components/Layout";
 import { PropsInterface, ReturnInterface } from "../models/index.model";
 
-const Index = (props: PropsInterface) => {
+const Index: FC<PropsInterface> = (props) => {
   const { title, description } = props;
 
   return (
