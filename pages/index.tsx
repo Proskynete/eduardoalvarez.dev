@@ -1,4 +1,6 @@
-const Index = (props) => {
+import { PropsInterface, ReturnInterface } from "../models/index.model";
+
+const Index = (props: PropsInterface) => {
   return (
     <Layout
       pathname="/"
@@ -14,7 +16,7 @@ const Index = (props) => {
 
 export default Index;
 
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<ReturnInterface> {
   const configData = await import("../data/config.json");
 
   return {
