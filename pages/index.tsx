@@ -1,3 +1,4 @@
+import Layout from "../components/Layout";
 import { PropsInterface, ReturnInterface } from "../models/index.model";
 
 const Index = (props: PropsInterface) => {
