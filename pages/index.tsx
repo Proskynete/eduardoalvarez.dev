@@ -1,37 +1,26 @@
-import { FC } from "react";
-import Head from "next/head";
-import useSWR from "swr";
-
-const fetcher = async (url: string): Promise<string> => {
-  const res = await fetch(url);
-  const data = await res.json();
-
-  if (res.status !== 200) throw new Error(data.message);
-
-  return data;
-};
-
-const Home: FC = (props) => {
-  const { data, error } = useSWR("/api/hello", fetcher);
-
-  if (error) return <p>Error in server</p>;
-  if (!data) return <p>Cargando...</p>;
-
+const Index = (props) => {
   return (
-    <>
-      <Head>
-        <title>
-          eduardoalvarez.dev - Un desarrollador ayudando a futurxs
-          desarrolladores web
-        </title>
-        <link rel="icon" href="/favicon/favicon.ico" />
-      </Head>
-
+    <Layout
+      pathname="/"
+      siteTitle={props.title}
+      siteDescription={props.description}
+    >
       <main>
-        <h1>Welcome</h1>
+        <h1>BlogList</h1>
       </main>
-    </>
+    </Layout>
   );
 };
 
-export default Home;
+export default Index;
+
+export async function getStaticProps() {
+  const configData = await import("../data/config.json");
+
+  return {
+    props: {
+      title: configData.title,
+      description: configData.description,
+    },
+  };
+}
