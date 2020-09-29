@@ -2,12 +2,10 @@ import Layout from "../components/Layout";
 import { PropsInterface, ReturnInterface } from "../models/index.model";
 
 const Index = (props: PropsInterface) => {
+  const { title, description } = props;
+
   return (
-    <Layout
-      pathname="/"
-      siteTitle={props.title}
-      siteDescription={props.description}
-    >
+    <Layout customTitle={title} description={description}>
       <main>
         <h1>BlogList</h1>
       </main>
