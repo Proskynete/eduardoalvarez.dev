@@ -7,7 +7,7 @@ const Index = (props: PropsInterface) => {
   return (
     <Layout customTitle={title} description={description}>
       <main>
-        <h1>BlogList</h1>
+        <h1>Welcome</h1>
       </main>
     </Layout>
   );
