@@ -4,6 +4,7 @@ export interface FrontMatterInterface {
   date: string;
   read_time: number;
   hero_image: string;
+  sections: Array<string>;
 }
 
 export interface PropsInterface {
