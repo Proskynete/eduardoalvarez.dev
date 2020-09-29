@@ -13,3 +13,8 @@ export interface PropsInterface {
 export interface ReturnInterface {
   props: PropsInterface;
 }
+
+export interface PathsResponseInterface {
+  paths: Array<string> | string;
+  fallback: boolean;
+}

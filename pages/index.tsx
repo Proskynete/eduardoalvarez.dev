@@ -15,7 +15,7 @@ const Index = (props: PropsInterface) => {
 
 export default Index;
 
-export async function getStaticProps(): Promise<ReturnInterface> {
+export const getStaticProps = async (): Promise<ReturnInterface> => {
   const configData = await import("../data/config.json");
 
   return {
@@ -24,4 +24,4 @@ export async function getStaticProps(): Promise<ReturnInterface> {
       description: configData.description,
     },
   };
-}
+};
