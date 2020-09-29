@@ -1,6 +1,6 @@
 import { FC } from "react";
 import matter from "gray-matter";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from "react-markdown/with-html";
 import {
   FrontMatterInterface,
   PropsInterface,
@@ -29,7 +29,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
           <h3>{reformatDate(frontmatter.date)}</h3>
         </header>
         <div>
-          <ReactMarkdown source={markdownBody} />
+          <ReactMarkdown source={markdownBody} escapeHtml={false} />
         </div>
       </article>
     </Layout>
