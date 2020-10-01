@@ -11,6 +11,7 @@ import {
 } from "models/blogtemplate.model";
 import Layout from "components/Layout";
 import { prettyFormat } from "helpers/date.helper";
+import { prettyReadingTime } from "helpers/reading-time.helper";
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, siteTitle } = props;
@@ -24,8 +25,8 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
         </figure>
         <header>
           <h1>{title}</h1>
-          <time dateTime={date}>{prettyFormat(date)}</time>
-          <p>{read_time}</p>
+          <time dateTime={date}>Publicado el {prettyFormat(date)}</time>
+          <p>{prettyReadingTime(read_time)}</p>
         </header>
         <aside>
           {sections.map((section: SectionsInterface) => (
