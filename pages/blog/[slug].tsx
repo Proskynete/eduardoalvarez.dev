@@ -12,6 +12,8 @@ import {
 import Layout from "components/Layout";
 import { prettyFormat } from "helpers/date.helper";
 import { prettyReadingTime } from "helpers/reading-time.helper";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar, faClock } from "@fortawesome/free-regular-svg-icons";
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, siteTitle } = props;
@@ -32,8 +34,12 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
         </figure>
         <header>
           <h1>{title}</h1>
+          <FontAwesomeIcon icon={faCalendar} />
           <time dateTime={date}>Publicado el {prettyFormat(date)}</time>
-          <p>{prettyReadingTime(read_time)}</p>
+          <p>
+            <FontAwesomeIcon icon={faClock} />
+            {prettyReadingTime(read_time)}
+          </p>
         </header>
         <aside>
           {sections.map((section: SectionsInterface) => (
