@@ -1,4 +1,5 @@
 import { FC } from "react";
+import glob from "glob";
 import matter from "gray-matter";
 import ReactMarkdown from "react-markdown/with-html";
 import {
@@ -8,7 +9,6 @@ import {
   PathsResponseInterface,
 } from "../../models/blogtemplate.model";
 import Layout from "../../components/Layout";
-const glob = require("glob");
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, siteTitle } = props;
