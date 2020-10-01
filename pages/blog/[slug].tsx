@@ -15,10 +15,17 @@ import { prettyReadingTime } from "helpers/reading-time.helper";
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, siteTitle } = props;
-  const { title, date, hero_image, read_time, sections } = frontmatter;
+  const {
+    date,
+    description,
+    hero_image,
+    read_time,
+    sections,
+    title,
+  } = frontmatter;
 
   return (
-    <Layout customTitle={siteTitle}>
+    <Layout customTitle={siteTitle} description={description}>
       <article>
         <figure>
           <img src={hero_image} />
