@@ -1,10 +1,15 @@
+export interface SectionsInterface {
+  title: string;
+  anchor: string;
+}
+
 export interface FrontMatterInterface {
   title: string;
   description: string;
   date: string;
   read_time: number;
   hero_image: string;
-  sections: Array<string>;
+  sections: Array<SectionsInterface>;
 }
 
 export interface PropsInterface {
