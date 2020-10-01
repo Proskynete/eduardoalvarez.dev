@@ -13,7 +13,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ./components/** ./pages/** -c .eslintrc.yml --ext js,jsx"
+    "lint": "eslint ./components/** ./pages/** ./helpers/** -c .eslintrc.yml --ext js,jsx"
   },
   "dependencies": {
     "@types/glob": "^7.1.3",
