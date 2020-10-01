@@ -3,6 +3,7 @@ import glob from "glob";
 import matter from "gray-matter";
 import ReactMarkdown from "react-markdown/with-html";
 import {
+  SectionsInterface,
   FrontMatterInterface,
   PropsInterface,
   ReturnInterface,
@@ -12,22 +13,26 @@ import Layout from "components/Layout";
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, siteTitle } = props;
-
-  const reformatDate = (fullDate: string) => {
-    const date = new Date(fullDate);
-    return date.toDateString().slice(4);
-  };
-
-  if (!frontmatter) return <></>;
+  const { title, date, hero_image, read_time, sections } = frontmatter;
 
   return (
     <Layout customTitle={siteTitle}>
       <article>
-        <figure>{/* <img src={frontmatter.hero_image} /> */}</figure>
+        <figure>
+          <img src={hero_image} />
+        </figure>
         <header>
-          <h1>{frontmatter.title}</h1>
-          <h3>{reformatDate(frontmatter.date)}</h3>
+          <h1>{title}</h1>
+          <time dateTime={date}>{date}</time>
+          <p>{read_time}</p>
         </header>
+        <aside>
+          {sections.map((section: SectionsInterface) => (
+            <a href={section.anchor} key={section.anchor}>
+              {section.title}
+            </a>
+          ))}
+        </aside>
         <div>
           <ReactMarkdown source={markdownBody} escapeHtml={false} />
         </div>
