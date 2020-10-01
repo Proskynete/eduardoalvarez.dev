@@ -5,9 +5,6 @@ interface ResponseInterface {
   name: string;
 }
 
-export default (
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseInterface>
-) => {
+export default (_: NextApiRequest, res: NextApiResponse<ResponseInterface>) => {
   res.status(200).json({ name: "Eduardo Álvarez" });
 };
