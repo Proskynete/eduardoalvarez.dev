@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC, memo, SyntheticEvent } from "react";
 import glob from "glob";
 import matter from "gray-matter";
 import ReactMarkdown from "react-markdown/with-html";
@@ -14,6 +14,14 @@ import { prettyFormat } from "helpers/date.helper";
 import { prettyReadingTime } from "helpers/reading-time.helper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faClock } from "@fortawesome/free-regular-svg-icons";
+import { scrollToNextContent } from "helpers/scroll.helper";
+
+const handleGoTo = (event: SyntheticEvent<EventTarget>): void => {
+  event.preventDefault();
+  const targetElement = event.target as HTMLInputElement;
+  const title = targetElement.getAttribute("href");
+  scrollToNextContent(title);
+};
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, siteTitle } = props;
@@ -43,7 +51,11 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
         </header>
         <aside>
           {sections.map((section: SectionsInterface) => (
-            <a href={section.anchor} key={section.anchor}>
+            <a
+              href={section.anchor}
+              key={section.anchor}
+              onClick={(e) => handleGoTo(e)}
+            >
               {section.title}
             </a>
           ))}

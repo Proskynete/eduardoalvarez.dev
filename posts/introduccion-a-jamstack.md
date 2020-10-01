@@ -16,19 +16,19 @@ sections:
   ]
 ---
 
-<h1 id="introduccion">Introducción</h1>
+<h2 id="introduccion">Introducción</h2>
 
 Antes de empezar a hablar de jamstack, es muy necesario desglosar un poco la palabra en dos palabras: **JAM** y **Stack** y explicarlas por separado.
 
 ![jamstack](/images/introduccion-a-jamstack/jam-stack.jpg)
 
-<h1 id="que-es-un-stack">¿Qué es un Stack?</h1>
+<h2 id="que-es-un-stack">¿Qué es un Stack?</h2>
 
 Un stack en programación a una colección de tecnologías configuradas para trabajar entre si. Creo y sin miedo a equivocarme que el stack más conocido es el de **LAMP**-Stack (Por sus siglas de **L**inux, **A**pache, **M**ySQL y **P**hp). Otro stack muy conocido es el **MEAN**-Stack que viene de las tecnologías **M**ongoDB, **E**xpress, **A**ngular y **N**odejs. Posteriormente, con la aparición de **React**, se crea un nuevo stack ques es básicamente el mismo que el anterior, pero esta vez, cambiamos Angular por React. quedando como **MERN**-Stack. Con la aparición de Vuejs, este último stack sufrió un último cambio, cambiando a React por Vue, y por un momento el stack se llamó **MEVN** hasta que la comunidad re-ordenó las siglas quedando con el nombre de **VEN**o**M**.
 
 ![stacks](/images/introduccion-a-jamstack/stacks.png)
 
-<h1 id="que-es-jam">¿Qué es JAM?</h1>
+<h2 id="que-es-jam">¿Qué es JAM?</h2>
 
 JAM es una palabra que está compuesta por tres palabras. La **J** viene de _JavaScript_, la **A** viene de _API_ y la **M** viene de _Markup compilado_.
 
@@ -40,7 +40,7 @@ Cuando hablamos de **Markup compilado**, nos referimos a las vistas compiladas o
 
 ![jamstack - siglas](/images/introduccion-a-jamstack/jam.png)
 
-<h1 id="buena-idea">Buena idea</h1>
+<h2 id="buena-idea">Buena idea</h2>
 
 Como en todas las arquitecturas de desarrollo, el JAM funcionará mejor en algunos proyectos que en otros. No por eso vamos a encasillar a que SOLO en estos tipos de proyectos JAM funcionará , pero si es una información a considerar.
 
@@ -49,15 +49,15 @@ ventas en linea, considerando que bajo esta estructura, el tiempo de respuesta a
 
 ![ejemplos](/images/introduccion-a-jamstack/paginas-de-ejemplo.png)
 
-<h1 id="no-tan-buena-idea">No tan buena idea</h1>
+<h2 id="no-tan-buena-idea">No tan buena idea</h2>
 
 A diferencia del punto anterior, este stack no está recomendado para sitio web donde tienen muchas páginas (muchas! - ejemplo **wikipedia**) o donde su información es actualizada constantemente, esto debido a que los proyectos realizados con JAM necesariamente deben pasar por un proceso de compilación lo cual puede ser un proceso que tome bastante tiempo y si son muchas, muchas, **muchas** páginas, mantenerlas puede ser un proceso muy complicado. Una consideración adicional es saber si es que la aplicación depende de variables que no se pueden compilar ya que se desconocen sus valores, ejemplo de estos son _Los datos del usuario que inició sesión_.
 
-<h1 id="consideraciones-finales">Consideraciones finales</h1>
+<h2 id="consideraciones-finales">Consideraciones finales</h2>
 
 Recuerda que las tecnologías deben de ser tomadas con prudencia y que las "normas" no están escritas en piedra. El que hoy en día algo no sea recomendado, no significa que nunca lo será, ya que las tecnologías avanzan día a día a pasos agigantados. Lo que queda es poder investigar y utilizar las arquitecturas según los requerimientos del negocio.
 
-<h1 id="para-seguir-investigando">Para seguir investigando</h1>
+<h2 id="para-seguir-investigando">Para seguir investigando</h2>
 
 Si te interesó el nuevo stack y quieres seguir investigando por tu cuenta, te recomiendo los siguientes sitios de interés:
 
