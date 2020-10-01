@@ -11,7 +11,7 @@ const fetcher = async (url: string): Promise<string> => {
   return data;
 };
 
-const Home: FC = (props) => {
+const Home: FC = () => {
   const { data, error } = useSWR("/api/hello", fetcher);
 
   if (error) return <p>Error in server</p>;
