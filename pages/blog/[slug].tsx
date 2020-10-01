@@ -7,8 +7,8 @@ import {
   PropsInterface,
   ReturnInterface,
   PathsResponseInterface,
-} from "../../models/blogtemplate.model";
-import Layout from "../../components/Layout";
+} from "models/blogtemplate.model";
+import Layout from "components/Layout";
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, siteTitle } = props;

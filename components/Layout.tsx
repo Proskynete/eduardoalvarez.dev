@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { PropsInterface } from "../models/layout.model";
+import { PropsInterface } from "models/layout.model";
 import Meta from "./Meta";
 
 const Layout: FC<PropsInterface> = (props) => {
