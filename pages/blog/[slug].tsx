@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import glob from "glob";
 import matter from "gray-matter";
 import ReactMarkdown from "react-markdown/with-html";
@@ -36,7 +36,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
   );
 };
 
-export default BlogTemplate;
+export default memo(BlogTemplate);
 
 export const getStaticProps = async ({ ...ctx }): Promise<ReturnInterface> => {
   const { slug } = ctx.params;

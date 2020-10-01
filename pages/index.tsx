@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import Layout from "components/Layout";
 import { PropsInterface, ReturnInterface } from "models/index.model";
 
@@ -14,7 +14,7 @@ const Index: FC<PropsInterface> = (props) => {
   );
 };
 
-export default Index;
+export default memo(Index);
 
 export const getStaticProps = async (): Promise<ReturnInterface> => {
   const configData = await import("../data/config.json");
