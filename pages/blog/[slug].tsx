@@ -10,6 +10,7 @@ import {
   PathsResponseInterface,
 } from "models/blogtemplate.model";
 import Layout from "components/Layout";
+import { prettyFormat } from "helpers/date.helper";
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, siteTitle } = props;
@@ -23,7 +24,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
         </figure>
         <header>
           <h1>{title}</h1>
-          <time dateTime={date}>{date}</time>
+          <time dateTime={date}>{prettyFormat(date)}</time>
           <p>{read_time}</p>
         </header>
         <aside>
@@ -52,7 +53,9 @@ export const getStaticProps = async ({ ...ctx }): Promise<ReturnInterface> => {
   return {
     props: {
       siteTitle: config.title,
-      frontmatter: data.data as FrontMatterInterface,
+      frontmatter: JSON.parse(
+        JSON.stringify(data.data)
+      ) as FrontMatterInterface,
       markdownBody: data.content,
     },
   };

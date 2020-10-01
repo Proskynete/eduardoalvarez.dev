@@ -1,7 +1,7 @@
 ---
 title: "Introducción a JAM-Stack"
 description: "El JAM-Stack es una nueva arquitectura para la creación de aplicaciones web, la cual busca poder hacer proyectos mucho mas rápidos, con alta seguridad y que puedan escalar de una manera muy sencilla. JAM son las siglas de JavaScript, APIs y Markup y su principal características es que la lógica de la aplicación se encuentra en el cliente y no en el servidor."
-date: "2020-04-26"
+date: 2020-04-26
 read_time: 3
 hero_image: "/images/introduccion-a-jamstack/introduccion_a_jamstack.png"
 sections:
