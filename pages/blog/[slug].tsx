@@ -24,7 +24,7 @@ const handleGoTo = (event: SyntheticEvent<EventTarget>): void => {
 };
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
-  const { frontmatter, markdownBody, siteTitle } = props;
+  const { frontmatter, markdownBody, siteTitle, slug } = props;
   const {
     date,
     description,
@@ -35,7 +35,12 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
   } = frontmatter;
 
   return (
-    <Layout customTitle={siteTitle} description={description}>
+    <Layout
+      customTitle={siteTitle}
+      description={description}
+      image={hero_image}
+      url={`https://eduardoalvarez.cl/${slug}`}
+    >
       <article>
         <figure>
           <img src={hero_image} />
@@ -83,6 +88,7 @@ export const getStaticProps = async ({ ...ctx }): Promise<ReturnInterface> => {
         JSON.stringify(data.data)
       ) as FrontMatterInterface,
       markdownBody: data.content,
+      slug: slug,
     },
   };
 };

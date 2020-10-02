@@ -16,6 +16,7 @@ export interface PropsInterface {
   frontmatter: FrontMatterInterface;
   markdownBody: string;
   siteTitle: string;
+  slug: string;
 }
 
 export interface ReturnInterface {
