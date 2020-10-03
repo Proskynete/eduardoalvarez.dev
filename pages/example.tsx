@@ -4,7 +4,7 @@ import { FC } from "react";
 import useSWR from "swr";
 
 const Home: FC = () => {
-  const { data, error } = useSWR("/api/hello", fetcher);
+  const { data, error } = useSWR("/api/hello", (url) => fetcher<string>(url));
 
   if (error) return <p>Error in server</p>;
   if (!data) return <p>Cargando...</p>;
