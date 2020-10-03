@@ -1,15 +1,7 @@
-import { FC } from "react";
+import { fetcher } from "helpers/fetcher.helper";
 import Head from "next/head";
+import { FC } from "react";
 import useSWR from "swr";
-
-const fetcher = async (url: string): Promise<string> => {
-  const res = await fetch(url);
-  const data = await res.json();
-
-  if (res.status !== 200) throw new Error(data.message);
-
-  return data;
-};
 
 const Home: FC = () => {
   const { data, error } = useSWR("/api/hello", fetcher);
