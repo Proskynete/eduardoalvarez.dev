@@ -4,6 +4,11 @@ description: "El JAM-Stack es una nueva arquitectura para la creación de aplica
 date: 2020-04-26T00:00:00-03:00
 read_time: 3
 hero_image: "/images/introduccion-a-jamstack/introduccion_a_jamstack.png"
+introduction:
+  {
+    title: "Introducción",
+    content: "Antes de empezar a hablar de jamstack, es muy necesario desglosar un poco la palabra en dos palabras: **JAM** y **Stack** y explicarlas por separado",
+  }
 sections:
   [
     { title: "Introducción", anchor: "#introduccion" },
@@ -15,10 +20,6 @@ sections:
     { title: "Para seguir investigando", anchor: "#para-seguir-investigando" },
   ]
 ---
-
-<h2 id="introduccion">Introducción</h2>
-
-Antes de empezar a hablar de jamstack, es muy necesario desglosar un poco la palabra en dos palabras: **JAM** y **Stack** y explicarlas por separado.
 
 ![jamstack](/images/introduccion-a-jamstack/jam-stack.jpg)
 

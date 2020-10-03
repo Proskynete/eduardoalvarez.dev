@@ -32,6 +32,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
     read_time,
     sections,
     title,
+    introduction,
   } = frontmatter;
 
   return (
@@ -42,9 +43,6 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
       url={`https://eduardoalvarez.cl/${slug}`}
     >
       <article>
-        <figure>
-          <img src={hero_image} />
-        </figure>
         <header>
           <h1>{title}</h1>
           <FontAwesomeIcon icon={faCalendar} />
@@ -54,6 +52,16 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
             {prettyReadingTime(read_time)}
           </p>
         </header>
+
+        <figure>
+          <img src={hero_image} />
+        </figure>
+
+        <div>
+          <h2>{introduction.title}</h2>
+          <ReactMarkdown source={introduction.content} />
+        </div>
+
         <aside>
           {sections.map((section: SectionsInterface) => (
             <a

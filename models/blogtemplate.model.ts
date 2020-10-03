@@ -3,12 +3,18 @@ export interface SectionsInterface {
   anchor: string;
 }
 
+interface IntroductionInterface {
+  title: string;
+  content: string;
+}
+
 export interface FrontMatterInterface {
   title: string;
   description: string;
   date: string;
   read_time: number;
   hero_image: string;
+  introduction: IntroductionInterface;
   sections: Array<SectionsInterface>;
 }
 
