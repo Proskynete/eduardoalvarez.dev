@@ -13,7 +13,7 @@ const Layout: FC<PropsInterface> = (props) => {
         image={image}
         slug={slug}
       />
-      <main>{children}</main>
+      <main className="wrapper">{children}</main>
     </>
   );
 };
