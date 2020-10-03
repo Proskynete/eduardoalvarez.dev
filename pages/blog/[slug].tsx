@@ -40,7 +40,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
       customTitle={title}
       description={description}
       image={hero_image}
-      url={`https://eduardoalvarez.cl/${slug}`}
+      slug={`blog/${slug}`}
     >
       <section>
         <header>

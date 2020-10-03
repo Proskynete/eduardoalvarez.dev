@@ -3,7 +3,7 @@ import { FC } from "react";
 import Meta from "./Meta";
 
 const Layout: FC<PropsInterface> = (props) => {
-  const { customTitle, description, image, url, children } = props;
+  const { customTitle, description, image, slug, children } = props;
 
   return (
     <>
@@ -11,7 +11,7 @@ const Layout: FC<PropsInterface> = (props) => {
         customTitle={customTitle}
         description={description}
         image={image}
-        url={url}
+        slug={slug}
       />
       <main>{children}</main>
     </>

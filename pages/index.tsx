@@ -3,15 +3,10 @@ import { PropsInterface, ReturnInterface } from "models/index.model";
 import { FC, memo } from "react";
 
 const Index: FC<PropsInterface> = (props) => {
-  const { title, description, image, url } = props;
+  const { title, description, image } = props;
 
   return (
-    <Layout
-      customTitle={title}
-      description={description}
-      image={image}
-      url={url}
-    >
+    <Layout customTitle={title} description={description} image={image}>
       <h1>Welcome</h1>
     </Layout>
   );
@@ -27,7 +22,6 @@ export const getStaticProps = async (): Promise<ReturnInterface> => {
       title: configData.title,
       description: configData.description,
       image: configData.image,
-      url: configData.url,
     },
   };
 };
