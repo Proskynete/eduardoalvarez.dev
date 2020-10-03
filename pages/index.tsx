@@ -1,6 +1,6 @@
-import { FC, memo } from "react";
 import Layout from "components/Layout";
 import { PropsInterface, ReturnInterface } from "models/index.model";
+import { FC, memo } from "react";
 
 const Index: FC<PropsInterface> = (props) => {
   const { title, description, image, url } = props;
@@ -12,9 +12,7 @@ const Index: FC<PropsInterface> = (props) => {
       image={image}
       url={url}
     >
-      <main>
-        <h1>Welcome</h1>
-      </main>
+      <h1>Welcome</h1>
     </Layout>
   );
 };

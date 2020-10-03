@@ -42,7 +42,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
       image={hero_image}
       url={`https://eduardoalvarez.cl/${slug}`}
     >
-      <article>
+      <section>
         <header>
           <h1>{title}</h1>
           <FontAwesomeIcon icon={faCalendar} />
@@ -57,26 +57,29 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
           <img src={hero_image} />
         </figure>
 
-        <div>
+        <aside>
           <h2>{introduction.title}</h2>
           <ReactMarkdown source={introduction.content} />
-        </div>
-
-        <aside>
-          {sections.map((section: SectionsInterface) => (
-            <a
-              href={section.anchor}
-              key={section.anchor}
-              onClick={(e) => handleGoTo(e)}
-            >
-              {section.title}
-            </a>
-          ))}
         </aside>
-        <div>
+
+        <nav>
+          <ul>
+            {sections.map((section: SectionsInterface) => (
+              <li key={section.anchor}>
+                <a
+                  href={section.anchor}
+                  onClick={(e: SyntheticEvent<EventTarget>) => handleGoTo(e)}
+                >
+                  {section.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <article>
           <ReactMarkdown source={markdownBody} escapeHtml={false} />
-        </div>
-      </article>
+        </article>
+      </section>
     </Layout>
   );
 };
