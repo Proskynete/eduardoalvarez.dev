@@ -1,11 +1,15 @@
-import { faCalendar, faClock } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Layout from "components/Layout";
+import { FC, memo, SyntheticEvent } from "react";
+import ReactMarkdown from "react-markdown/with-html";
 import glob from "glob";
 import matter from "gray-matter";
+import Layout from "components/Layout";
+import { faCalendar, faClock } from "@fortawesome/free-regular-svg-icons";
+import { faTag, faTags } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { prettyFormat } from "helpers/date.helper";
 import { prettyReadingTime } from "helpers/reading-time.helper";
 import { scrollToNextContent } from "helpers/scroll.helper";
+import { prettyTags } from "helpers/tags.helper";
 import {
   FrontMatterInterface,
   PathsResponseInterface,
@@ -13,8 +17,6 @@ import {
   ReturnInterface,
   SectionsInterface,
 } from "models/blogtemplate.model";
-import { FC, memo, SyntheticEvent } from "react";
-import ReactMarkdown from "react-markdown/with-html";
 
 const handleGoTo = (event: SyntheticEvent<EventTarget>): void => {
   event.preventDefault();
@@ -30,9 +32,11 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
     description,
     hero_image,
     read_time,
+    tags,
     sections,
     title,
     introduction,
+    image_introduction,
   } = frontmatter;
 
   return (
@@ -42,27 +46,41 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
       image={hero_image}
       slug={`blog/${slug}`}
     >
-      <section>
-        <header>
-          <h1>{title}</h1>
-          <FontAwesomeIcon icon={faCalendar} />
-          <time dateTime={date}>Publicado el {prettyFormat(date)}</time>
-          <p>
-            <FontAwesomeIcon icon={faClock} />
-            {prettyReadingTime(read_time)}
-          </p>
+      <section className="row">
+        <header className="col-xs-12">
+          <h1 className="hero-title">{title}</h1>
+
+          <div className="meta-information">
+            <div className="information">
+              <div className="icon-container">
+                <FontAwesomeIcon icon={faCalendar} />
+              </div>
+              <p className="content">
+                <time dateTime={date}>Publicado el {prettyFormat(date)}</time>
+              </p>
+            </div>
+            <div className="information">
+              <div className="icon-container">
+                <FontAwesomeIcon icon={faClock} />
+              </div>
+              <p className="content">{prettyReadingTime(read_time)}</p>
+            </div>
+            <div className="information">
+              <div className="icon-container">
+                <FontAwesomeIcon icon={tags.length > 1 ? faTags : faTag} />
+              </div>
+              <p className="tags-content">{prettyTags(tags)}</p>
+            </div>
+          </div>
         </header>
 
-        <figure>
-          <img src={hero_image} />
+        <figure className="col-xs-12">
+          <div className="hero-image-container">
+            <img src={hero_image} className="hero-image" />
+          </div>
         </figure>
 
-        <aside>
-          <h2>{introduction.title}</h2>
-          <ReactMarkdown source={introduction.content} />
-        </aside>
-
-        <nav>
+        <nav className="col-xs-12">
           <ul>
             {sections.map((section: SectionsInterface) => (
               <li key={section.anchor}>
@@ -76,8 +94,33 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
             ))}
           </ul>
         </nav>
-        <article>
-          <ReactMarkdown source={markdownBody} escapeHtml={false} />
+
+        <aside className="col-xs-12">
+          <div className="isotipo-container">
+            <img src="/images/isotipo/isotipo-blue.png" alt="isotipo" />
+          </div>
+
+          <div className="intro-container">
+            <p className="intro-title">{introduction.title}</p>
+            <ReactMarkdown
+              source={introduction.content}
+              className="article-content"
+            />
+          </div>
+        </aside>
+
+        <figure className="col-xs-12">
+          <div className="intro-image">
+            <img src={image_introduction} className="introduction-image" />
+          </div>
+        </figure>
+
+        <article className="col-xs-12">
+          <ReactMarkdown
+            source={markdownBody}
+            escapeHtml={false}
+            className="article-content"
+          />
         </article>
       </section>
     </Layout>

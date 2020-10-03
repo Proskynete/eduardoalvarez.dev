@@ -1,14 +1,16 @@
 ---
 title: "Introducción a JAM-Stack"
 description: "El JAM-Stack es una nueva arquitectura para la creación de aplicaciones web, la cual busca poder hacer proyectos mucho mas rápidos, con alta seguridad y que puedan escalar de una manera muy sencilla. JAM son las siglas de JavaScript, APIs y Markup y su principal características es que la lógica de la aplicación se encuentra en el cliente y no en el servidor."
-date: 2020-04-26T00:00:00-03:00
+date: 2020-04-26T03:00:00-03:00
 read_time: 3
+tags: ["web-development"]
 hero_image: "/images/introduccion-a-jamstack/introduccion_a_jamstack.png"
 introduction:
   {
     title: "Introducción",
     content: "Antes de empezar a hablar de jamstack, es muy necesario desglosar un poco la palabra en dos palabras: **JAM** y **Stack** y explicarlas por separado",
   }
+image_introduction: /images/introduccion-a-jamstack/jam-stack.jpg
 sections:
   [
     { title: "Introducción", anchor: "#introduccion" },
@@ -21,9 +23,7 @@ sections:
   ]
 ---
 
-![jamstack](/images/introduccion-a-jamstack/jam-stack.jpg)
-
-<h2 id="que-es-un-stack">¿Qué es un Stack?</h2>
+  <h2 id="que-es-un-stack">¿Qué es un Stack?</h2>
 
 Un stack en programación a una colección de tecnologías configuradas para trabajar entre si. Creo y sin miedo a equivocarme que el stack más conocido es el de **LAMP**-Stack (Por sus siglas de **L**inux, **A**pache, **M**ySQL y **P**hp). Otro stack muy conocido es el **MEAN**-Stack que viene de las tecnologías **M**ongoDB, **E**xpress, **A**ngular y **N**odejs. Posteriormente, con la aparición de **React**, se crea un nuevo stack ques es básicamente el mismo que el anterior, pero esta vez, cambiamos Angular por React. quedando como **MERN**-Stack. Con la aparición de Vuejs, este último stack sufrió un último cambio, cambiando a React por Vue, y por un momento el stack se llamó **MEVN** hasta que la comunidad re-ordenó las siglas quedando con el nombre de **VEN**o**M**.
 

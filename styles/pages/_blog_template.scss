@@ -1,0 +1,128 @@
+.hero-title {
+  font-size: 28px;
+  color: $primary;
+  font-weight: 500;
+}
+
+.meta-information {
+  margin-top: 20px;
+  margin-bottom: 25px;
+
+  .information {
+    display: flex;
+
+    &:not(:last-child) {
+      margin-bottom: 3px;
+    }
+
+    .icon-container {
+      color: $primary;
+      width: 15px;
+      margin-right: 10px;
+    }
+
+    .content {
+      font-family: Helvetica;
+    }
+  }
+}
+
+.tags-content {
+  font-family: Helvetica;
+
+  .tag {
+    &:not(:first-of-type) {
+      &:before {
+        content: "-";
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+.hero-image-container {
+  background-color: $info;
+  padding: 15px 4px 13px;
+  margin-bottom: 30px;
+}
+
+.isotipo-container {
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 100px;
+  }
+}
+
+.intro {
+  &-container {
+    margin-top: 15px;
+    margin-bottom: 40px;
+    border: 2px solid $info;
+    padding: 20px;
+  }
+
+  &-title {
+    color: $primary;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  &-image {
+    margin-bottom: 50px;
+
+    img {
+      box-shadow: 5px 5px 9px 3px grey;
+    }
+  }
+}
+
+.article-content {
+  p {
+    font-family: Helvetica;
+    line-height: 20px;
+
+  }
+
+
+  h2 {
+    font-family: "Hero";
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  img {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  ul {
+    li {
+
+      strong {
+        font-weight: 500;
+      }
+
+      em {
+        font-style: italic;
+      }
+
+      a {
+        font-weight: 400;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
