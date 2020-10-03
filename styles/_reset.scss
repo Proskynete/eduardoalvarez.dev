@@ -1,9 +1,13 @@
-/* html5reset.css - 01/11/2011 */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
 
 html,
 body,
 div,
 span,
+applet,
 object,
 iframe,
 h1,
@@ -15,8 +19,11 @@ h6,
 p,
 blockquote,
 pre,
+a,
 abbr,
+acronym,
 address,
+big,
 cite,
 code,
 del,
@@ -26,14 +33,19 @@ img,
 ins,
 kbd,
 q,
+s,
 samp,
 small,
+strike,
 strong,
 sub,
 sup,
+tt,
 var,
 b,
+u,
 i,
+center,
 dl,
 dt,
 dd,
@@ -56,13 +68,16 @@ article,
 aside,
 canvas,
 details,
-figcaption,
+embed,
 figure,
+figcaption,
 footer,
 header,
 hgroup,
 menu,
 nav,
+output,
+ruby,
 section,
 summary,
 time,
@@ -72,16 +87,12 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  outline: 0;
   font-size: 100%;
+  font: inherit;
   vertical-align: baseline;
-  background: transparent;
 }
 
-body {
-  line-height: 1;
-}
-
+/* HTML5 display-role reset for older browsers */
 article,
 aside,
 details,
@@ -96,13 +107,22 @@ section {
   display: block;
 }
 
-nav ul {
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
   list-style: none;
 }
 
 blockquote,
 q {
   quotes: none;
+}
+
+img {
+  max-width: 100%;
 }
 
 blockquote:before,
@@ -113,55 +133,7 @@ q:after {
   content: none;
 }
 
-a {
-  margin: 0;
-  padding: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent;
-}
-
-/* change colours to suit your needs */
-ins {
-  background-color: #ff9;
-  color: #000;
-  text-decoration: none;
-}
-
-/* change colours to suit your needs */
-mark {
-  background-color: #ff9;
-  color: #000;
-  font-style: italic;
-  font-weight: bold;
-}
-
-del {
-  text-decoration: line-through;
-}
-
-abbr[title],
-dfn[title] {
-  border-bottom: 1px dotted;
-  cursor: help;
-}
-
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
-
-/* change border colour to suit your needs */
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #cccccc;
-  margin: 1em 0;
-  padding: 0;
-}
-
-input,
-select {
-  vertical-align: middle;
 }
