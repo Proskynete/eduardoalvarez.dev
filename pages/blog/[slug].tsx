@@ -1,25 +1,25 @@
-import { FC, memo, SyntheticEvent } from "react";
+import { faCalendar, faClock } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Layout from "components/Layout";
 import glob from "glob";
 import matter from "gray-matter";
-import ReactMarkdown from "react-markdown/with-html";
-import {
-  SectionsInterface,
-  FrontMatterInterface,
-  PropsInterface,
-  ReturnInterface,
-  PathsResponseInterface,
-} from "models/blogtemplate.model";
-import Layout from "components/Layout";
 import { prettyFormat } from "helpers/date.helper";
 import { prettyReadingTime } from "helpers/reading-time.helper";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar, faClock } from "@fortawesome/free-regular-svg-icons";
 import { scrollToNextContent } from "helpers/scroll.helper";
+import {
+  FrontMatterInterface,
+  PathsResponseInterface,
+  PropsInterface,
+  ReturnInterface,
+  SectionsInterface,
+} from "models/blogtemplate.model";
+import { FC, memo, SyntheticEvent } from "react";
+import ReactMarkdown from "react-markdown/with-html";
 
 const handleGoTo = (event: SyntheticEvent<EventTarget>): void => {
   event.preventDefault();
-  const targetElement = event.target as HTMLInputElement;
-  const title = targetElement.getAttribute("href");
+  const targetElement: HTMLInputElement = event.target as HTMLInputElement;
+  const title: string = targetElement.getAttribute("href");
   scrollToNextContent(title);
 };
 

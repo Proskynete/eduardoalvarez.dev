@@ -1,7 +1,8 @@
 import { easeInOutCubic } from "./animation.helper";
 
-export const scrollToTop = () => {
-  const current = document.documentElement.scrollTop || document.body.scrollTop;
+export const scrollToTop = (): void => {
+  const current: number =
+    document.documentElement.scrollTop || document.body.scrollTop;
 
   if (current > 0) {
     window.requestAnimationFrame(scrollToTop);
@@ -9,23 +10,29 @@ export const scrollToTop = () => {
   }
 };
 
-export const scrollToNextContent = (title: string) => {
+export const scrollToNextContent = (title: string): void => {
   smoothScroll(title, 1000);
 };
 
-const smoothScroll = (id: string, duration: number) => {
-  const target = document.querySelector(id);
-  const targetPosition =
+const smoothScroll = (elementName: string, duration: number): void => {
+  const target: HTMLElement = document.querySelector(elementName);
+  const targetPosition: number =
     target.getBoundingClientRect().top + window.scrollY - 30;
 
-  const startPosition = window.pageYOffset;
-  const distance = targetPosition - startPosition;
-  let startTime = null;
+  const startPosition: number = window.pageYOffset;
+  const distance: number = targetPosition - startPosition;
+  let startTime: null | number = null;
 
-  const animation = (currentTime: any) => {
+  const animation = (currentTime: any): void => {
     if (startTime === null) startTime = currentTime;
-    const timeElapsed = currentTime - startTime;
-    const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+    const timeElapsed: number = currentTime - startTime;
+    const run: number = easeInOutCubic(
+      timeElapsed,
+      startPosition,
+      distance,
+      duration
+    );
+
     window.scrollTo(0, run);
 
     if (timeElapsed < duration) requestAnimationFrame(animation);
@@ -34,7 +41,9 @@ const smoothScroll = (id: string, duration: number) => {
   requestAnimationFrame(animation);
 };
 
-export const toggleClassWhenScrolling = (listOfItems: Array<any>) => {
+export const toggleClassWhenScrolling = (
+  listOfItems: Array<any>
+): Array<any> => {
   const listOfPositionItems = [];
 
   listOfItems.forEach((item) => {
@@ -51,7 +60,7 @@ export const toggleClassWhenScrolling = (listOfItems: Array<any>) => {
   return listOfPositionItems;
 };
 
-export const handleListenerScroll = (arrayOfSections: Array<any>) => {
+export const handleListenerScroll = (arrayOfSections: Array<any>): void => {
   const listOfItems = arrayOfSections;
 
   const listOfPositionItems = toggleClassWhenScrolling(listOfItems);
