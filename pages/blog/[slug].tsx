@@ -24,7 +24,7 @@ const handleGoTo = (event: SyntheticEvent<EventTarget>): void => {
 };
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
-  const { frontmatter, markdownBody, siteTitle, slug } = props;
+  const { frontmatter, markdownBody, slug } = props;
   const {
     date,
     description,
@@ -37,7 +37,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 
   return (
     <Layout
-      customTitle={siteTitle}
+      customTitle={title}
       description={description}
       image={hero_image}
       url={`https://eduardoalvarez.cl/${slug}`}
@@ -86,12 +86,10 @@ export default memo(BlogTemplate);
 export const getStaticProps = async ({ ...ctx }): Promise<ReturnInterface> => {
   const { slug } = ctx.params;
   const content = await import(`../../posts/${slug}.md`);
-  const config = await import(`../../data/config.json`);
   const data = matter(content.default);
 
   return {
     props: {
-      siteTitle: config.title,
       frontmatter: JSON.parse(
         JSON.stringify(data.data)
       ) as FrontMatterInterface,
