@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { scrollToTop } from "helpers/scroll.helper";
 import Subscribe from "./Subscribe";
+import SocialNetworks from "./SocialNetworks";
 
 const Footer: FC = () => {
   return (
@@ -8,7 +9,8 @@ const Footer: FC = () => {
       <section className="col-xs-12">
         <Subscribe />
       </section>
-      <footer className="col-xs-12">
+      <SocialNetworks />
+      <footer>
         <button onClick={() => scrollToTop()}>To top</button>
       </footer>
     </section>

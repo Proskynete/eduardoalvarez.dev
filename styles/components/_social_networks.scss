@@ -1,0 +1,66 @@
+.social-netwoks {
+  width: 100vw;
+  color: $white;
+  background-color: $primary;
+  margin-left: -25px;
+  margin-right: -25px;
+  padding: 15px 25px;
+  display: flex;
+  flex-direction: column;
+
+
+  &-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  &-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  &-icon {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    position: relative;
+    width: 64px;
+    background-color: $white;
+
+    &:before {
+      border-right: 32px solid transparent;
+      border-bottom: 20px solid white;
+      border-left: 32px solid transparent;
+      content: "";
+      height: 0;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: -20px;
+      width: 0;
+    }
+
+    &:after {
+      border-top: 20px solid $white;
+      border-right: 32px solid transparent;
+      border-left: 32px solid transparent;
+      bottom: -20px;
+      content: '';
+      height: 0;
+      left: 0;
+      position: absolute;
+      right: 0;
+      width: 0;
+    }
+  }
+
+  &-link {
+    font-size: 35px;
+    color: $primary;
+  }
+}
