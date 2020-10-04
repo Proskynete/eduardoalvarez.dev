@@ -65,5 +65,6 @@ Si te interesó el nuevo stack y quieres seguir investigando por tu cuenta, te r
 
 - [Sitio web JAMStack](https://jamstack.org/)
 - [Netlify](https://www.netlify.com/)
-- [Gatsby](https://www.gatsbyjs.org/) y [NextJS](https://nextjs.org/)
-- [Link de interés][https://www.gatsbyjs.org/showcase/] - Sitios que utilizan el JAMStack
+- [Gatsby](https://www.gatsbyjs.org/)
+- [NextJS](https://nextjs.org/)
+- Sitios que utilizan el [JAMStack](https://www.gatsbyjs.org/showcase/)

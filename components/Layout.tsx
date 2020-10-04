@@ -1,5 +1,6 @@
 import { PropsInterface } from "models/layout.model";
 import { FC } from "react";
+import Footer from "./Footer";
 import Meta from "./Meta";
 
 const Layout: FC<PropsInterface> = (props) => {
@@ -14,6 +15,7 @@ const Layout: FC<PropsInterface> = (props) => {
         slug={slug}
       />
       <main className="container-fluid">{children}</main>
+      <Footer />
     </>
   );
 };
