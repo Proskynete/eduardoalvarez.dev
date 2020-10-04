@@ -1,29 +1,21 @@
-import { FC, memo, SyntheticEvent } from "react";
+import { FC, memo } from "react";
 import ReactMarkdown from "react-markdown/with-html";
 import glob from "glob";
 import matter from "gray-matter";
-import Layout from "components/Layout";
 import { faCalendar, faClock } from "@fortawesome/free-regular-svg-icons";
 import { faTag, faTags } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Layout from "components/Layout";
+import TableOfSections from "components/TableOfSections";
 import { prettyFormat } from "helpers/date.helper";
 import { prettyReadingTime } from "helpers/reading-time.helper";
-import { scrollToNextContent } from "helpers/scroll.helper";
 import { prettyTags } from "helpers/tags.helper";
 import {
   FrontMatterInterface,
   PathsResponseInterface,
   PropsInterface,
   ReturnInterface,
-  SectionsInterface,
 } from "models/blogtemplate.model";
-
-const handleGoTo = (event: SyntheticEvent<EventTarget>): void => {
-  event.preventDefault();
-  const targetElement: HTMLInputElement = event.target as HTMLInputElement;
-  const title: string = targetElement.getAttribute("href");
-  scrollToNextContent(title);
-};
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, slug } = props;
@@ -80,20 +72,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
           </div>
         </figure>
 
-        <nav className="col-xs-12">
-          <ul>
-            {sections.map((section: SectionsInterface) => (
-              <li key={section.anchor}>
-                <a
-                  href={section.anchor}
-                  onClick={(e: SyntheticEvent<EventTarget>) => handleGoTo(e)}
-                >
-                  {section.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <TableOfSections sections={sections} />
 
         <aside className="col-xs-12">
           <div className="isotipo-container">

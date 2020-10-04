@@ -1,7 +1,4 @@
-export interface SectionsInterface {
-  title: string;
-  anchor: string;
-}
+import { SectionsInterface } from "./sections.model";
 
 interface IntroductionInterface {
   title: string;
