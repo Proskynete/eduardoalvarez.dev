@@ -14,8 +14,10 @@ const Layout: FC<PropsInterface> = (props) => {
         image={image}
         slug={slug}
       />
-      <main className="container-fluid">{children}</main>
-      <Footer />
+      <main className="container-fluid">
+        {children}
+        <Footer />
+      </main>
     </>
   );
 };
