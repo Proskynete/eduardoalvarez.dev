@@ -155,8 +155,23 @@
     padding-top: 20px;
 
     li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding-left: 15px;
+
       &:not(:first-child) {
         margin-top: 5px;
+      }
+
+      &:before {
+        position: absolute;
+        content: '\f111';
+        width: 5px;
+        height: 5px;
+        left: 0;
+        border-radius: 50%;
+        background-color: $primary;
       }
 
       strong {
