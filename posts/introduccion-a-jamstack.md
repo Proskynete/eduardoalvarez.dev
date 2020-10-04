@@ -62,7 +62,7 @@ Recuerda que las tecnologías deben de ser tomadas con prudencia y que las "norm
 
 Si te interesó el nuevo stack y quieres seguir investigando por tu cuenta, te recomiendo los siguientes sitios de interés:
 
-- [Sitio web de jamstack](https://jamstack.org/)
-- [Sitio web de Netlify](https://www.netlify.com/)
-- [Gatsby](https://www.gatsbyjs.org/) (framework de React para trabajar con jamstack)
-- [Link][https://www.gatsbyjs.org/showcase/] - Sitios utilizando el stack de jam
+- [Sitio web JAMStack](https://jamstack.org/)
+- [Netlify](https://www.netlify.com/)
+- [Gatsby](https://www.gatsbyjs.org/) y [NextJS](https://nextjs.org/)
+- [Link de interés][https://www.gatsbyjs.org/showcase/] - Sitios que utilizan el JAMStack
