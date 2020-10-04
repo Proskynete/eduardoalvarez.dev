@@ -2,6 +2,7 @@
 @import './pages/blog_template';
 @import './components/subscribe';
 @import './components/social_networks';
+@import './components/footer';
 
 body {
   font-family: "Hero";
@@ -39,12 +40,21 @@ input[type="email"] {
   font-family: "Hero";
   font-size: 20px;
   width: 100%;
-  max-width: 300px;
+  max-width: 350px;
   padding: 10px 0;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &.secondary {
     background-color: $secondary;
+    color: $white;
+  }
+
+  &.outline {
+    border: 2px solid $white;
+    background-color: transparent;
     color: $white;
   }
 }

@@ -13,7 +13,13 @@ const SocialNetworks: FC = () => {
       <div className="social-netwoks-container">
         {config.social_network.map((sn: SocialNetworkInterface) => (
           <span key={sn.name} className="social-netwoks-icon">
-            <a href={sn.link} title={sn.name} className="social-netwoks-link">
+            <a
+              href={sn.link}
+              title={sn.name}
+              className="social-netwoks-link"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               <FontAwesomeIcon icon={socialNetworkMap.get(sn.name)} />
             </a>
           </span>
