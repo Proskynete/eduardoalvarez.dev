@@ -8,18 +8,19 @@ hero_image: "/images/introduccion-a-jamstack/introduccion_a_jamstack.png"
 introduction:
   {
     title: "Introducción",
+    anchor: "introduccion",
     content: "Antes de empezar a hablar de jamstack, es muy necesario desglosar un poco la palabra en dos palabras: **JAM** y **Stack** y explicarlas por separado",
   }
 image_introduction: /images/introduccion-a-jamstack/jam-stack.jpg
 sections:
   [
-    { title: "Introducción", anchor: "#introduccion" },
-    { title: "¿Qué es un Stack?", anchor: "#que-es-un-stack" },
-    { title: "¿Qué es JAM?", anchor: "#que-es-jam" },
-    { title: "Buena idea", anchor: "#buena-idea" },
-    { title: "No tan buena idea", anchor: "#no-tan-buena-idea" },
-    { title: "Consideraciones finales", anchor: "#consideraciones-finales" },
-    { title: "Para seguir investigando", anchor: "#para-seguir-investigando" },
+    { title: "Introducción", anchor: "introduccion" },
+    { title: "¿Qué es un Stack?", anchor: "que-es-un-stack" },
+    { title: "¿Qué es JAM?", anchor: "que-es-jam" },
+    { title: "Buena idea", anchor: "buena-idea" },
+    { title: "No tan buena idea", anchor: "no-tan-buena-idea" },
+    { title: "Consideraciones finales", anchor: "consideraciones-finales" },
+    { title: "Para seguir investigando", anchor: "para-seguir-investigando" },
   ]
 ---
 

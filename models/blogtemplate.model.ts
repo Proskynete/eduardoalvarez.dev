@@ -3,6 +3,7 @@ import { SectionsInterface } from "./sections.model";
 interface IntroductionInterface {
   title: string;
   content: string;
+  anchor: string;
 }
 
 export type TagsEnum =

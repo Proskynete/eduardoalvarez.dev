@@ -1,3 +1,4 @@
+import { SectionsInterface } from "models/sections.model";
 import { easeInOutCubic } from "./animation.helper";
 
 export const scrollToTop = (): void => {
@@ -10,12 +11,12 @@ export const scrollToTop = (): void => {
   }
 };
 
-export const scrollToNextContent = (title: string): void => {
-  smoothScroll(title, 1000);
+export const scrollToNextContent = (anchor: string): void => {
+  smoothScroll(anchor, 1000);
 };
 
-const smoothScroll = (elementName: string, duration: number): void => {
-  const target: HTMLElement = document.querySelector(elementName);
+const smoothScroll = (anchor: string, duration: number): void => {
+  const target: HTMLElement = document.querySelector(`${anchor}`);
   const targetPosition: number =
     target.getBoundingClientRect().top + window.scrollY - 30;
 
@@ -42,14 +43,14 @@ const smoothScroll = (elementName: string, duration: number): void => {
 };
 
 export const toggleClassWhenScrolling = (
-  listOfItems: Array<any>
-): Array<any> => {
+  listOfItems: Array<SectionsInterface>
+) => {
   const listOfPositionItems = [];
 
   listOfItems.forEach((item) => {
-    const element = document.querySelector(`#${item.link}`);
+    const element = document.querySelector(`#${item.anchor}`);
     listOfPositionItems.push(
-      element.getBoundingClientRect().top + window.scrollY - 35
+      element.getBoundingClientRect().top + window.scrollY - 30
     );
   });
 
@@ -60,14 +61,16 @@ export const toggleClassWhenScrolling = (
   return listOfPositionItems;
 };
 
-export const handleListenerScroll = (arrayOfSections: Array<any>): void => {
-  const listOfItems = arrayOfSections;
-
-  const listOfPositionItems = toggleClassWhenScrolling(listOfItems);
+export const handleListenerScroll = (
+  arrayOfSections: Array<SectionsInterface>
+) => {
+  const listOfPositionItems = toggleClassWhenScrolling(arrayOfSections);
   const currentPosition = window.pageYOffset;
 
-  listOfItems.forEach((element, i) => {
-    const link = document.querySelector(`a[href='#${element.link}']`);
+  arrayOfSections.forEach((element, i) => {
+    const link = document.querySelector(
+      `#section-navegation a[href='#${element.anchor}']`
+    );
 
     if (
       currentPosition >= listOfPositionItems[i] &&
@@ -75,7 +78,7 @@ export const handleListenerScroll = (arrayOfSections: Array<any>): void => {
     ) {
       link.classList.add("current");
     } else {
-      link.classList.remove("current");
+      link.removeAttribute("class");
     }
   });
 };

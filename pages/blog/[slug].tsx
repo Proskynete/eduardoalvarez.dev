@@ -74,7 +74,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 
         <TableOfSections sections={sections} />
 
-        <aside className="col-xs-12">
+        <aside id={introduction.anchor} className="col-xs-12 intro">
           <div className="isotipo-container">
             <img src="/images/isotipo/isotipo-blue.png" alt="isotipo" />
           </div>

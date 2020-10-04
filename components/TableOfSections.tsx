@@ -1,5 +1,8 @@
-import React, { FC, memo, SyntheticEvent } from "react";
-import { scrollToNextContent } from "helpers/scroll.helper";
+import React, { FC, memo, SyntheticEvent, useEffect } from "react";
+import {
+  handleListenerScroll,
+  scrollToNextContent,
+} from "helpers/scroll.helper";
 import {
   SectionsInterface,
   TableOfSectionsPropsInterface,
@@ -14,13 +17,30 @@ const handleGoTo = (event: SyntheticEvent<EventTarget>): void => {
 
 const TableOfSections: FC<TableOfSectionsPropsInterface> = (props) => {
   const { sections } = props;
+
+  useEffect(() => {
+    window.addEventListener(
+      "scroll",
+      () => handleListenerScroll(sections),
+      true
+    );
+
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        () => handleListenerScroll(sections),
+        true
+      );
+    };
+  }, []);
+
   return (
-    <nav className="col-xs-12">
+    <nav id="section-navegation" className="col-xs-12">
       <ul>
         {sections.map((section: SectionsInterface) => (
-          <li key={section.anchor}>
+          <li key={section.title}>
             <a
-              href={section.anchor}
+              href={`#${section.anchor}`}
               onClick={(e: SyntheticEvent<EventTarget>) => handleGoTo(e)}
             >
               {section.title}
