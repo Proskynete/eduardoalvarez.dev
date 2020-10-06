@@ -1,0 +1,68 @@
+@import './flexgrid/flex';
+@import './pages/blog_template';
+@import './components/subscribe';
+@import './components/social_networks';
+@import './components/footer';
+
+body {
+  font-family: "Hero";
+}
+
+.title {
+  font-size: 28px;
+}
+
+input[type="email"],
+input[type="text"] {
+  font-family: "Hero";
+  width: 100%;
+  max-width: 350px;
+  border: 1px solid $primary;
+  margin: 8px 0;
+  outline: none;
+  padding: 8px;
+  font-size: 20px;
+  padding: 10px 0;
+
+  &.with-icon {
+    padding-left: 40px;
+  }
+
+  &::placeholder {
+    color: $grey;
+  }
+
+  &:focus {
+    border-color: $info;
+  }
+}
+
+
+.button {
+  color: transparent;
+  border: none;
+  outline: none;
+  color: $black;
+  font-family: "Hero";
+  font-size: 20px;
+  width: 100%;
+  max-width: 350px;
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+
+  &.secondary {
+    background-color: $secondary;
+    color: $white;
+  }
+
+  &.outline {
+    border: 2px solid $white;
+    background-color: transparent;
+    color: $white;
+  }
+}
