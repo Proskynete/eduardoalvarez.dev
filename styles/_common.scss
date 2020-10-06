@@ -12,16 +12,21 @@ body {
   font-size: 28px;
 }
 
-input[type="email"] {
+input[type="email"],
+input[type="text"] {
   font-family: "Hero";
   width: 100%;
-  max-width: 300px;
+  max-width: 350px;
   border: 1px solid $primary;
   margin: 8px 0;
   outline: none;
   padding: 8px;
   font-size: 20px;
   padding: 10px 0;
+
+  &.with-icon {
+    padding-left: 40px;
+  }
 
   &::placeholder {
     color: $grey;
@@ -31,6 +36,7 @@ input[type="email"] {
     border-color: $info;
   }
 }
+
 
 .button {
   color: transparent;
@@ -44,8 +50,10 @@ input[type="email"] {
   padding: 10px 0;
   cursor: pointer;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
 
   &.secondary {
     background-color: $secondary;

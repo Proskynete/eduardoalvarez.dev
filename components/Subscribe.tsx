@@ -1,5 +1,5 @@
 import React, { FC, SyntheticEvent } from "react";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const handleSubscribe = async (e: SyntheticEvent) => {
@@ -12,12 +12,30 @@ const Subscribe: FC = () => {
       <div className="container">
         <p className="subscribe-title">Suscríbete</p>
         <p className="subscribe-subtitle">Para novedades, cursos y ofertas</p>
-        <label className="subscribe-input">
-          <div className="icon">
-            <FontAwesomeIcon icon={faEnvelope} />
-          </div>
-          <input type="email" placeholder="Tu mail" required />
-        </label>
+        <div className="subscribe-input-container">
+          <label className="subscribe-input">
+            <div className="icon">
+              <FontAwesomeIcon icon={faUser} />
+            </div>
+            <input
+              className="with-icon"
+              type="text"
+              placeholder="Tu nombre"
+              required
+            />
+          </label>
+          <label className="subscribe-input">
+            <div className="icon">
+              <FontAwesomeIcon icon={faEnvelope} />
+            </div>
+            <input
+              className="with-icon"
+              type="email"
+              placeholder="Tu mail"
+              required
+            />
+          </label>
+        </div>
         <div className="subscribe-button">
           <input
             type="submit"
