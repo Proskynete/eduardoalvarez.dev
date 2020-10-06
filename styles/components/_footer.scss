@@ -1,0 +1,33 @@
+.footer {
+  width: 100vw;
+  color: $white;
+  background-color: $secondary;
+  margin-left: -25px;
+  margin-right: -25px;
+  padding: 0 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 500px;
+  text-align: center;
+
+  &-button {
+    &-text {
+      margin-left: 15px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+  }
+
+  &-mail {
+    &-title {
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    &-link {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+}
