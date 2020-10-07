@@ -13,7 +13,7 @@ const Subscribe: FC = () => {
         <p className="subscribe-title">Suscríbete</p>
         <p className="subscribe-subtitle">Para novedades, cursos y ofertas</p>
         <div className="subscribe-input-container">
-          <div className="suscribe-label">
+          <div className="subscribe-label">
             <label className="subscribe-input">
               <div className="icon">
                 <FontAwesomeIcon icon={faUser} />
