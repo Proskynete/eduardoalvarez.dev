@@ -9,7 +9,7 @@ const handleSubscribe = async (e: SyntheticEvent) => {
 const Subscribe: FC = () => {
   return (
     <form className="subscribe" onSubmit={(e) => handleSubscribe(e)}>
-      <div className="container">
+      <div className="subscribe-container">
         <p className="subscribe-title">Suscríbete</p>
         <p className="subscribe-subtitle">Para novedades, cursos y ofertas</p>
         <div className="subscribe-input-container">
