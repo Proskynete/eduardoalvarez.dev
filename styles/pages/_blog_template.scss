@@ -80,12 +80,11 @@
 
   &-container {
     margin-bottom: 40px;
-    border: 2px solid $info;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 20px;
     position: relative;
-    background-color: $white;
+    background-color: $info;
     z-index: 5;
 
     @media screen and (min-width: 720px) {
@@ -97,8 +96,7 @@
     &:after {
       content: '';
       position: absolute;
-      background-color: $white;
-      border: 2px solid $info;
+      background-color: $info;
       top: -15px;
       left: 41.5%;
       width: 50px;
@@ -114,7 +112,7 @@
 
     .article-content {
       @media screen and (min-width: 720px) {
-        background-color: $white;
+        background-color: $info;
         padding-left: 20px;
         padding-right: 20px;
       }
@@ -122,8 +120,8 @@
   }
 
   &-title {
-    color: $primary;
-    background-color: $white;
+    color: $white;
+    background-color: $info;
     font-size: 24px;
     text-align: center;
     padding-top: 20px;
