@@ -9,7 +9,7 @@ introduction:
   {
     title: "Introducción",
     anchor: "introduccion",
-    content: "Antes de empezar a hablar de jamstack, es muy necesario desglosar un poco la palabra en dos palabras: **JAM** y **Stack** y explicarlas por separado",
+    content: "Antes de empezar a hablar de _JAMStack_, es muy necesario desglosar un poco la palabra en dos: **JAM** y **Stack** y así explicarlas por separado",
   }
 image_introduction: /images/introduccion-a-jamstack/jam-stack.jpg
 sections:
@@ -67,4 +67,5 @@ Si te interesó el nuevo stack y quieres seguir investigando por tu cuenta, te r
 - [Netlify](https://www.netlify.com/)
 - [Gatsby](https://www.gatsbyjs.org/)
 - [NextJS](https://nextjs.org/)
-- Sitios que utilizan el [JAMStack](https://www.gatsbyjs.org/showcase/)
+- [Versel](https://vercel.com/)
+- Sitios que utilizan [JAMStack](https://www.gatsbyjs.org/showcase/)

@@ -9,7 +9,7 @@ import {
 const SocialNetworks: FC = () => {
   return (
     <div className="social-netwoks">
-      <h1 className="social-netwoks-title">Hablemos por redes sociales</h1>
+      <h1 className="social-netwoks-title">Síguenos en redes sociales</h1>
       <div className="social-netwoks-container">
         {config.social_network.map((sn: SocialNetworkInterface) => (
           <span key={sn.name} className="social-netwoks-icon">
