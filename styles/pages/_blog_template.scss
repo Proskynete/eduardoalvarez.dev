@@ -58,9 +58,11 @@
 
   img {
     width: 100px;
+    height: 130px;
 
     @media screen and (min-width: 768px) {
       width: 130px;
+      height: 170px;
     }
   }
 }
