@@ -24,7 +24,7 @@ sections:
   ]
 ---
 
-  <h2 id="que-es-un-stack">¿Qué es un Stack?</h2>
+<h2 id="que-es-un-stack">¿Qué es un Stack?</h2>
 
 Un stack en programación a una colección de tecnologías configuradas para trabajar entre si. Creo y sin miedo a equivocarme que el stack más conocido es el de **LAMP**-Stack (Por sus siglas de **L**inux, **A**pache, **M**ySQL y **P**hp). Otro stack muy conocido es el **MEAN**-Stack que viene de las tecnologías **M**ongoDB, **E**xpress, **A**ngular y **N**odejs. Posteriormente, con la aparición de **React**, se crea un nuevo stack ques es básicamente el mismo que el anterior, pero esta vez, cambiamos Angular por React. quedando como **MERN**-Stack. Con la aparición de Vuejs, este último stack sufrió un último cambio, cambiando a React por Vue, y por un momento el stack se llamó **MEVN** hasta que la comunidad re-ordenó las siglas quedando con el nombre de **VEN**o**M**.
 
