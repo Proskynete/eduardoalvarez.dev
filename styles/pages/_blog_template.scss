@@ -24,13 +24,13 @@
     }
 
     .content {
-      font-family: Helvetica;
+      font-family: "Roboto";
     }
   }
 }
 
 .tags-content {
-  font-family: Helvetica;
+  font-family: "Roboto";
 
   .tag {
     &:not(:first-of-type) {
@@ -157,16 +157,16 @@
 
   &.intro {
     p {
-      font-family: Helvetica;
+      font-family: "Roboto";
     }
   }
 
   p {
-    font-family: Helvetica;
+    font-family: "Roboto";
     line-height: 20px;
 
     strong {
-      font-weight: 600;
+      font-weight: 500;
     }
 
     em {
