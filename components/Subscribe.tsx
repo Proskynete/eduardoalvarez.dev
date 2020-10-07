@@ -41,11 +41,9 @@ const Subscribe: FC = () => {
           </div>
         </div>
         <div className="subscribe-button">
-          <input
-            type="submit"
-            className="button secondary"
-            value="Suscribirse"
-          />
+          <button type="submit" className="button secondary">
+            Suscribirse
+          </button>
         </div>
       </div>
     </form>
