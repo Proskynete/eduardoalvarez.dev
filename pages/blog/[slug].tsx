@@ -39,7 +39,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
       slug={`blog/${slug}`}
     >
       <section className="row">
-        <header className="col-xs-12">
+        <header className="col-xs-12 col-md-10 offset-md-1">
           <h1 className="hero-title">{title}</h1>
 
           <div className="meta-information">
@@ -66,7 +66,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
           </div>
         </header>
 
-        <figure className="col-xs-12">
+        <figure className="col-xs-12 col-md-10 offset-md-1">
           <div className="hero-image-container">
             <img src={hero_image} className="hero-image" />
           </div>
@@ -74,7 +74,10 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 
         <TableOfSections sections={sections} />
 
-        <aside id={introduction.anchor} className="col-xs-12 intro">
+        <aside
+          id={introduction.anchor}
+          className="intro col-xs-12 col-lg-8 offset-lg-2"
+        >
           <div className="isotipo-container">
             <img src="/images/isotipo/isotipo-blue.png" alt="isotipo" />
           </div>
@@ -88,13 +91,13 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
           </div>
         </aside>
 
-        <figure className="col-xs-12">
+        <figure className="col-xs-12 col-lg-8 offset-lg-2">
           <div className="intro-image">
             <img src={image_introduction} className="introduction-image" />
           </div>
         </figure>
 
-        <article className="col-xs-12">
+        <article className="col-xs-12 col-lg-8 offset-lg-3">
           <ReactMarkdown
             source={markdownBody}
             escapeHtml={false}

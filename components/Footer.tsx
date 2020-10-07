@@ -11,7 +11,7 @@ const Footer: FC = () => {
 
   return (
     <section className="row">
-      <section className="col-xs-12">
+      <section className="col-12">
         <Subscribe />
       </section>
       <SocialNetworks />
