@@ -68,4 +68,4 @@ Si te interesó el nuevo stack y quieres seguir investigando por tu cuenta, te r
 - [Gatsby](https://www.gatsbyjs.org/)
 - [NextJS](https://nextjs.org/)
 - [Versel](https://vercel.com/)
-- Sitios que utilizan [JAMStack](https://www.gatsbyjs.org/showcase/)
+- [Sitios que utilizan JAMStack](https://www.gatsbyjs.org/showcase/)
