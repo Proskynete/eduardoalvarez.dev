@@ -14,26 +14,30 @@ const Subscribe: FC = () => {
         <p className="subscribe-subtitle">Para novedades, cursos y ofertas</p>
         <div className="subscribe-input-container">
           <div className="subscribe-label">
-            <label className="subscribe-input">
+            <label htmlFor="name-subscribe" className="subscribe-input">
               <div className="icon">
                 <FontAwesomeIcon icon={faUser} />
               </div>
               <input
-                className="with-icon"
+                id="name-subscribe"
+                name="name-subscribe"
                 type="text"
+                className="with-icon"
                 placeholder="Tu nombre"
                 required
               />
             </label>
           </div>
           <div className="subscribe-label">
-            <label className="subscribe-input">
+            <label htmlFor="email-subscribe" className="subscribe-input">
               <div className="icon">
                 <FontAwesomeIcon icon={faEnvelope} />
               </div>
               <input
-                className="with-icon"
+                id="email-subscribe"
+                name="email-subscribe"
                 type="email"
+                className="with-icon"
                 placeholder="Tu mail"
                 required
               />
