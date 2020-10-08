@@ -1,9 +1,7 @@
 .footer {
-  width: 100vw;
+  width: 100%;
   color: $white;
   background-color: $secondary;
-  margin-left: -25px;
-  margin-right: -25px;
   padding: 0 25px;
   display: flex;
   flex-direction: column;
@@ -11,23 +9,96 @@
   height: 500px;
   text-align: center;
 
+  @media screen and (min-width: 720px) {
+    flex-direction: row-reverse;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    justify-content: space-between;
+    height: max-content;
+  }
+
   &-button {
+    @media screen and (min-width: 720px) {
+      button {
+        width: 200px;
+      }
+    }
+
     &-text {
       margin-left: 15px;
-      text-transform: uppercase;
       font-weight: 500;
     }
   }
 
+  &-legals {
+    display: none;
+    text-align: left;
+
+    @media screen and (min-width: 720px) {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+
+    .legal {
+      text-decoration: underline;
+
+      &:not(:first-child) {
+        margin-left: 10px;
+      }
+    }
+
+    .made-by {
+      margin-top: 10px;
+    }
+  }
+
+  &-info {
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+
+
+  }
+
   &-mail {
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: 720px) {
+      flex-direction: row;
+    }
+
     &-title {
       font-size: 25px;
       margin-bottom: 5px;
+
+      @media screen and (min-width: 720px) {
+        font-size: 18px;
+
+        &:after {
+          content: ":";
+          margin-right: 10px;
+        }
+      }
     }
 
     &-link {
       color: $white;
       text-decoration: none;
+
+      @media screen and (min-width: 720px) {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .copyright {
+    margin-top: 40px;
+
+    @media screen and (min-width: 720px) {
+      width: 200px;
+      margin-top: 10px;
     }
   }
 }

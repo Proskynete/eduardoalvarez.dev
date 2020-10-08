@@ -1,4 +1,3 @@
-@import './flexgrid/flex';
 @import './pages/blog_template';
 @import './components/subscribe';
 @import './components/social_networks';
@@ -36,7 +35,6 @@ input[type="text"] {
     border-color: $info;
   }
 }
-
 
 .button {
   color: transparent;

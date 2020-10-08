@@ -3,13 +3,15 @@ import { scrollToTop } from "helpers/scroll.helper";
 import Subscribe from "./Subscribe";
 import SocialNetworks from "./SocialNetworks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { faAngleUp, faHeart } from "@fortawesome/free-solid-svg-icons";
 import config from "data/config.json";
 
 const Footer: FC = () => {
+  const currentYear: number = new Date().getFullYear();
+
   return (
     <section className="row">
-      <section className="col-xs-12">
+      <section className="col-12">
         <Subscribe />
       </section>
       <SocialNetworks />
@@ -19,22 +21,33 @@ const Footer: FC = () => {
             <FontAwesomeIcon icon={faAngleUp} />
             <p className="footer-button-text">Subir</p>
           </button>
+          <div className="footer-legals">
+            <div className="footer-legals-links">
+              <span className="legal">Términos</span>
+              <span className="legal">Políticas</span>
+            </div>
+            <p className="made-by">
+              Creado con <FontAwesomeIcon icon={faHeart} />
+            </p>
+          </div>
         </div>
-        <div className="footer-mail">
-          <p className="footer-mail-title">Contacto</p>
-          <a
-            href={`mailto:${config.email}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer-mail-link"
-          >
-            {config.email}
-          </a>
-        </div>
+        <div className="footer-info">
+          <div className="footer-mail">
+            <p className="footer-mail-title">Contacto</p>
+            <a
+              href={`mailto:${config.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-mail-link"
+            >
+              {config.email}
+            </a>
+          </div>
 
-        <div className="copyright">
-          <img src="/images/logo/white.png" alt="logotipo" />
-          <p>Copyright &copy; 2017 - 2020</p>
+          <div className="copyright">
+            <img src="/images/logo/white.png" alt="logotipo" />
+            <p>Copyright &copy; 2017 - {currentYear}</p>
+          </div>
         </div>
       </footer>
     </section>

@@ -6,13 +6,9 @@ const tagsMap = new Map<TagsEnum, PrettyTagsEnum>([
 ]);
 
 export const prettyTags = (tags: Array<TagsEnum>) => {
-  return (
-    <>
-      {tags.map((tag) => (
-        <span key={tag} className="tag" data-type={tag}>
-          {tagsMap.get(tag)}
-        </span>
-      ))}
-    </>
-  );
+  return tags.map((tag) => (
+    <span key={tag} className="tag" data-type={tag}>
+      {tagsMap.get(tag)}
+    </span>
+  ));
 };

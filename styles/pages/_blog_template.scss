@@ -24,13 +24,13 @@
     }
 
     .content {
-      font-family: Helvetica;
+      font-family: "Roboto";
     }
   }
 }
 
 .tags-content {
-  font-family: Helvetica;
+  font-family: "Roboto";
 
   .tag {
     &:not(:first-of-type) {
@@ -51,46 +51,89 @@
 
 .isotipo-container {
   display: flex;
-  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 40px;
+  justify-content: center;
+  width: 100px;
+  height: 140px;
+
+  @media screen and (min-width: 720px) {
+    width: 130px;
+    height: 180px;
+  }
 
   img {
-    width: 100px;
+    width: 100%;
   }
 }
 
 .intro {
+  padding-top: 30px;
+
+  @media screen and (min-width: 720px) {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
   &-container {
     margin-bottom: 40px;
-    border: 2px solid $info;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 20px;
     position: relative;
-    background-color: $white;
+    background-color: $info;
     z-index: 5;
+
+    @media screen and (min-width: 720px) {
+      width: 50%;
+      padding-left: 0;
+      padding-right: 0;
+    }
 
     &:after {
       content: '';
       position: absolute;
-      background-color: $white;
-      border: 2px solid $info;
+      background-color: $info;
       top: -15px;
-      left: 41.5%;
+      left: 43%;
       width: 50px;
       height: 50px;
       transform: rotate(45deg);
       z-index: -1;
+
+      @media screen and (min-width: 720px) {
+        top: 30%;
+        left: -15px;
+      }
+    }
+
+    .article-content {
+      @media screen and (min-width: 720px) {
+        background-color: $info;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
     }
   }
 
   &-title {
-    color: $primary;
-    background-color: $white;
+    color: $white;
+    background-color: $info;
     font-size: 24px;
     text-align: center;
     padding-top: 20px;
     padding-bottom: 15px;
+
+    @media screen and (min-width: 720px) {
+      text-align: left;
+      padding-left: 20px;
+    }
   }
 
   &-image {
@@ -108,20 +151,21 @@
     font-weight: 500;
     font-size: 20px;
     margin-bottom: 20px;
+    padding-top: 20px;
 
     &:not(:first-child) {
-      margin-top: 50px;
+      margin-top: 30px;
     }
   }
 
   &.intro {
     p {
-      font-family: Helvetica;
+      font-family: "Roboto";
     }
   }
 
   p {
-    font-family: Helvetica;
+    font-family: "Roboto";
     line-height: 20px;
 
     strong {
