@@ -45,7 +45,16 @@ const Footer: FC = () => {
           </div>
 
           <div className="copyright">
-            <img src="/images/logo/white.png" alt="logotipo" />
+            <img
+              src="/images/logo/white.png"
+              alt="logotipo"
+              className="small"
+            />
+            <img
+              src="/images/logo/white2.png"
+              alt="logotipo"
+              className="medium"
+            />
             <p>Copyright &copy; 2017 - {currentYear}</p>
           </div>
         </div>
