@@ -8,6 +8,10 @@ const Meta: FC<PropsInterface> = (props) => {
 
   return (
     <Head>
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="robots" content="noindex" />
+
       <meta name="image" content={image} />
       <link rel="canonical" href={`${data.url}/${slug}`} />
 
@@ -23,8 +27,6 @@ const Meta: FC<PropsInterface> = (props) => {
       <meta name="twitter:url" content={`${data.url}${slug}`} />
 
       <link rel="icon" href="/favicon/favicon.ico" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta charSet="utf-8" />
       <meta name="description" content={description}></meta>
       <title>{customTitle}</title>
     </Head>
