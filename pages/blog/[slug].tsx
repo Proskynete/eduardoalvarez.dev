@@ -71,7 +71,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
               </div>
               <p className="tags-content">
                 <DisqusCount path={`blog/${slug}`} title={title} id={`blog/${slug}`} />
-               </p>
+              </p>
             </div>
           </div>
         </header>
