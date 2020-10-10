@@ -16,6 +16,7 @@ import {
 	PropsInterface,
 	ReturnInterface,
 } from 'models/blogtemplate.model';
+import { GetStaticPropsContext } from 'next';
 import { FC, memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
@@ -82,7 +83,11 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 
 				<figure className='col-xs-12 col-md-10 offset-md-1'>
 					<div className='hero-image-container'>
-						<img src={hero_image} className='hero-image' />
+						<img
+							src={hero_image}
+							className='hero-image'
+							alt={`Imagen principal - ${title}`}
+						/>
 					</div>
 				</figure>
 
@@ -107,7 +112,11 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 
 				<figure className='col-xs-12 col-lg-8 offset-lg-2'>
 					<div className='intro-image'>
-						<img src={image_introduction} className='introduction-image' />
+						<img
+							src={image_introduction}
+							className='introduction-image'
+							alt={`Imagen de introducción - ${title}`}
+						/>
 					</div>
 				</figure>
 
@@ -132,7 +141,9 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 
 export default memo(BlogTemplate);
 
-export const getStaticProps = async ({ ...ctx }): Promise<ReturnInterface> => {
+export const getStaticProps = async (
+	ctx: GetStaticPropsContext,
+): Promise<ReturnInterface> => {
 	const { slug } = ctx.params;
 	const content = await import(`../../posts/${slug}.md`);
 	const data = matter(content.default);
@@ -151,7 +162,7 @@ export const getStaticProps = async ({ ...ctx }): Promise<ReturnInterface> => {
 export const getStaticPaths = async (): Promise<PathsResponseInterface> => {
 	const blogs = glob.sync('posts/**/*.md');
 
-	const blogSlugs = blogs.map((file: any) =>
+	const blogSlugs = blogs.map((file: string) =>
 		file.split('/')[1].replace(/ /g, '-').slice(0, -3).trim(),
 	);
 

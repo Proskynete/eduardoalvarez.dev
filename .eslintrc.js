@@ -32,7 +32,6 @@ module.exports = {
 		'prettier/prettier': ['error', {}, { usePrettierrc: true }],
 		'react/react-in-jsx-scope': 'off',
 		'react/prop-types': 'off',
-		'@typescript-eslint/explicit-function-return-type': 'off',
 		'simple-import-sort/sort': 'error',
 		'jsx-a11y/anchor-is-valid': [
 			'error',
@@ -42,5 +41,8 @@ module.exports = {
 				aspects: ['invalidHref', 'preferButton'],
 			},
 		],
+		'@typescript-eslint/no-var-requires': 0,
+		'@typescript-eslint/explicit-function-return-type': 'off',
+		'@typescript-eslint/explicit-module-boundary-types': 'off',
 	},
 };

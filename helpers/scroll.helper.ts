@@ -25,7 +25,7 @@ const smoothScroll = (anchor: string, duration: number): void => {
 	const distance: number = targetPosition - startPosition;
 	let startTime: null | number = null;
 
-	const animation = (currentTime: any): void => {
+	const animation = (currentTime: number): void => {
 		if (startTime === null) startTime = currentTime;
 		const timeElapsed: number = currentTime - startTime;
 		const run: number = easeInOutCubic(
