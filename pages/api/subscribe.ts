@@ -1,3 +1,4 @@
+import { ErrorResponseInterface, SuccessResponseInterface } from "models/subscribe";
 import { NextApiRequest, NextApiResponse } from "next";
 const client = require("@mailchimp/mailchimp_marketing");
 
@@ -5,14 +6,6 @@ client.setConfig({
   apiKey: process.env.MAILCHIMP_API_KEY,
   server: process.env.MAILCHIMP_API_KEY.split("-")[1],
 });
-
-interface ErrorResponseInterface {
-  error: string;
-}
-
-interface SuccessResponseInterface {
-  message: string;
-}
 
 export default async (req: NextApiRequest, res: NextApiResponse<SuccessResponseInterface | ErrorResponseInterface>) => {
   const { email } = req.body;
