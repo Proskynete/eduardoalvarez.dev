@@ -20,13 +20,12 @@ export default async (req: NextApiRequest, res: NextApiResponse<SuccessResponseI
   if (!email) return res.status(409).json({ error: "El email es requerido" });
 
   try {
-    const response = await client.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
+    await client.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
       email_address: email,
       status: "subscribed",
     });
 
-    console.log(response);
-
+    return res.status(201).json({ message: "Gracias por tu subscripción! <3" });
 
   } catch (error) {
     return res.status(500).json({ error: error.message || error.toString() }); 
