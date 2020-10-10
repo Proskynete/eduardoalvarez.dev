@@ -1,6 +1,6 @@
-import { fetcher } from "helpers/fetcher.helper";
 import Head from "next/head";
 import { FC } from "react";
+import { fetcher } from "helpers/fetcher.helper";
 import useSWR from "swr";
 
 const Home: FC = () => {
