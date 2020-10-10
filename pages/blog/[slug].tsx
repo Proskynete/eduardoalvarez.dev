@@ -3,10 +3,12 @@ import ReactMarkdown from "react-markdown/with-html";
 import glob from "glob";
 import matter from "gray-matter";
 import { faCalendar, faClock } from "@fortawesome/free-regular-svg-icons";
-import { faTag, faTags } from "@fortawesome/free-solid-svg-icons";
+import { faTag, faTags, faComments } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Layout from "components/Layout";
 import TableOfSections from "components/TableOfSections";
+import DisqusComponent from "components/DisqusComponent";
+import DisqusCount from "components/DisqusCount";
 import { prettyFormat } from "helpers/date.helper";
 import { prettyReadingTime } from "helpers/reading-time.helper";
 import { prettyTags } from "helpers/tags.helper";
@@ -16,7 +18,6 @@ import {
   PropsInterface,
   ReturnInterface,
 } from "models/blogtemplate.model";
-import DisqusComponent from "components/Disqus";
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, slug } = props;
@@ -63,6 +64,14 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
                 <FontAwesomeIcon icon={tags.length > 1 ? faTags : faTag} />
               </div>
               <p className="tags-content">{prettyTags(tags)}</p>
+            </div>
+            <div className="information">
+              <div className="icon-container">
+                <FontAwesomeIcon icon={faComments} />
+              </div>
+              <p className="tags-content">
+                <DisqusCount path={`blog/${slug}`} title={title} id={`blog/${slug}`} />
+               </p>
             </div>
           </div>
         </header>
