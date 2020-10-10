@@ -19,7 +19,13 @@ const DisqusComponent = (props: DiscusInterface) => {
 		title: title,
 	};
 
-	return <DiscussionEmbed shortname={disqusShortName} config={configDisqus} />;
+	return (
+		<section className='disqus'>
+			<article className='disqus-inner'>
+				<DiscussionEmbed shortname={disqusShortName} config={configDisqus} />
+			</article>
+		</section>
+	);
 };
 
 export default DisqusComponent;

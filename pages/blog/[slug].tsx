@@ -42,7 +42,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 			slug={`blog/${slug}`}
 		>
 			<section className='row'>
-				<header className='col-xs-12 col-md-10 offset-md-1'>
+				<header className='col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
 					<h1 className='hero-title'>{title}</h1>
 
 					<div className='meta-information'>
@@ -81,7 +81,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 					</div>
 				</header>
 
-				<figure className='col-xs-12 col-md-10 offset-md-1'>
+				<figure className='col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
 					<div className='hero-image-container'>
 						<img
 							src={hero_image}
@@ -95,7 +95,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 
 				<aside
 					id={introduction.anchor}
-					className='intro col-xs-12 col-lg-8 offset-lg-2'
+					className='intro col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'
 				>
 					<div className='isotipo-container'>
 						<img src='/images/isotipo/isotipo-blue.png' alt='isotipo' />
@@ -110,7 +110,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 					</div>
 				</aside>
 
-				<figure className='col-xs-12 col-lg-8 offset-lg-2'>
+				<figure className='col-xs-12 col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
 					<div className='intro-image'>
 						<img
 							src={image_introduction}
@@ -120,7 +120,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 					</div>
 				</figure>
 
-				<article className='col-xs-12 col-lg-8 offset-lg-3'>
+				<article className='col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
 					<ReactMarkdown
 						source={markdownBody}
 						escapeHtml={false}
@@ -128,12 +128,14 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 					/>
 				</article>
 			</section>
-			<section>
-				<DisqusComponent
-					path={`blog/${slug}`}
-					title={title}
-					id={`blog/${slug}`}
-				/>
+			<section className='row'>
+				<article className='col-xs-12 col-md-10 offset-md-1'>
+					<DisqusComponent
+						path={`blog/${slug}`}
+						title={title}
+						id={`blog/${slug}`}
+					/>
+				</article>
 			</section>
 		</Layout>
 	);
