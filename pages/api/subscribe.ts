@@ -1,4 +1,4 @@
-import { ErrorResponseInterface, SuccessResponseInterface } from "models/subscribe";
+import { ErrorResponseInterface, SuccessResponseInterface } from "models/subscribe.model";
 import { NextApiRequest, NextApiResponse } from "next";
 const client = require("@mailchimp/mailchimp_marketing");
 

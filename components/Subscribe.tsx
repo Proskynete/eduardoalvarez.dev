@@ -1,21 +1,12 @@
 import React, { FC, SyntheticEvent, useState } from "react";
 import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-interface InputsInterface {
-  name: string;
-  email: string;
-}
+import { InputsInterface, TargetElementInterface } from '../models/subscribe.model';
 
 const defaultValues: InputsInterface = {
   name: '',
   email: '',
 }
-
-interface TargetElementInterface {
-  target: HTMLInputElement;
-}
-
 
 const Subscribe: FC = () => {
   const [values, setValues] = useState<InputsInterface>(defaultValues);
