@@ -8,14 +8,17 @@ client.setConfig({
 });
 
 export default async (req: NextApiRequest, res: NextApiResponse<SuccessResponseInterface | ErrorResponseInterface>) => {
-  const { email } = req.body;
+  const { email, name } = req.body;
 
-  if (!email) return res.status(409).json({ error: "El email es requerido" });
+  if (!email || !name) return res.status(409).json({ error: "El nombre y el correo son requeridos." });
 
   try {
     await client.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
       email_address: email,
       status: "subscribed",
+      merge_fields: {
+        FNAME: name,
+      }
     });
 
     return res.status(201).json({ message: "Gracias por tu subscripción! <3" });

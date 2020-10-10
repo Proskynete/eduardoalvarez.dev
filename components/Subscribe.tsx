@@ -43,6 +43,7 @@ const Subscribe: FC = () => {
     });
 
     const { error, message } = await res.json();
+    console.log(error, message);
 
     if (error) setMessageResponse(error);
 
