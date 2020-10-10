@@ -100,5 +100,23 @@
       width: 200px;
       margin-top: 10px;
     }
+
+    img {
+      &.small {
+        display: block;
+
+        @media screen and (min-width: 720px) {
+          display: none;
+        }
+      }
+
+      &.medium {
+        display: none;
+
+        @media screen and (min-width: 720px) {
+          display: block;
+        }
+      }
+    }
   }
 }
