@@ -1,42 +1,28 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { ErrorResponseInterface, SuccessResponseInterface } from "models/subscribe.model";
 import { NextApiRequest, NextApiResponse } from "next";
+const client = require("@mailchimp/mailchimp_marketing");
 
-interface ErrorResponseInterface {
-  error: string;
-}
-
-interface SuccessResponseInterface {
-  message: string;
-}
+client.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY,
+  server: process.env.MAILCHIMP_API_KEY.split("-")[1],
+});
 
 export default async (req: NextApiRequest, res: NextApiResponse<SuccessResponseInterface | ErrorResponseInterface>) => {
   const { email, name } = req.body;
-  const url = ({ _datacenter, _listid }) => `https://${_datacenter}.api.mailchimp.com/3.0/lists/${_listid}/members`;
 
-  if (!email || !name) return res.status(409).json({ error: "Los datos son requeridos" });
+  if (!email || !name) return res.status(409).json({ error: "El nombre y el correo son requeridos." });
 
   try {
-    const LIST_ID = process.env.MAILCHIMP_LIST_ID;
-    const API_KEY = process.env.MAILCHIMP_API_KEY;
-    const DATACENTER = API_KEY.split("-")[1];
-
-    const data = {
-      email_addres: email,
-      first_name: name,
-      status: "subscribed"
-    }
-
-    const response = await fetch(url({ _datacenter: DATACENTER, _listid: LIST_ID }), {
-      body: JSON.stringify(data),
-      headers: {
-        Authorization: `apikey ${API_KEY}`,
-        'Content-Type': "application/json"
-      }, method: "POST"
+    await client.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
+      email_address: email,
+      status: "subscribed",
+      merge_fields: {
+        FNAME: name,
+      }
     });
 
-    if (response.status >= 400) return res.status(410).json({ error: "Hubo un error al intentar registrar el correo, no obstante puedes mandarme un correo a [soy@eduardoalvarez.cl] y así te agrego manualmente." });
+    return res.status(201).json({ message: "Gracias por tu subscripción! <3" });
 
-    return res.status(201).json({ message: "Hemos registrado tu correo exitosamente! :D" });
   } catch (error) {
     return res.status(500).json({ error: error.message || error.toString() }); 
   }

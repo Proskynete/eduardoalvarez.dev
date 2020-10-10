@@ -16,6 +16,7 @@ import {
   PropsInterface,
   ReturnInterface,
 } from "models/blogtemplate.model";
+import DisqusComponent from "components/Disqus";
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
   const { frontmatter, markdownBody, slug } = props;
@@ -104,6 +105,9 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
             className="article-content"
           />
         </article>
+      </section>
+      <section>
+        <DisqusComponent path={`blog/${slug}`} title={title} id={`blog/${slug}`} />
       </section>
     </Layout>
   );
