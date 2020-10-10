@@ -10,31 +10,38 @@ const defaultValues: InputsInterface = {
 
 const Subscribe: FC = () => {
   const [values, setValues] = useState<InputsInterface>(defaultValues);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [messageResponse, setMessageResponse] = useState('');
 
-  const handleChangeInput = (e: TargetElementInterface) => {
+  const handleChangeInput = (e: TargetElementInterface): void => {
     setValues({
       ...values,
       [e.target.id]: e.target.value
-    })
+    });
+
+    if ((values.name !== '' && values.name.length >= 3) && values.email !== '') {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+
   };
 
   const handleSubscribe = async (e: SyntheticEvent) => {
     e.preventDefault();
-
+    
     const res = await fetch('/api/subscribe', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         email: values.email,
         name: values.name
       }),
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
     });
 
     const { error, message } = await res.json();
-    console.log(error, message);
 
     if (error) setMessageResponse(error);
 
@@ -82,7 +89,7 @@ const Subscribe: FC = () => {
           </div>
         </div>
         <div className="subscribe-button">
-          <button type="submit" className="button secondary">
+          <button type="submit" className="button secondary" disabled={buttonDisabled}>
             Suscribirse
           </button>
         </div>

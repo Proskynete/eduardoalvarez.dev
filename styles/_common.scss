@@ -63,4 +63,14 @@ input[type="text"] {
     background-color: transparent;
     color: $white;
   }
+
+  &:disabled,
+  &:focus,
+  &:active,
+  &:visited {
+    color: $white;
+    background-color: $grey;
+    border-color: $grey;
+    opacity: .65;
+  }
 }
