@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-const client = require("mailchimp-marketing");
+const client = require("@mailchimp/mailchimp_marketing");
 
 client.setConfig({
   apiKey: process.env.MAILCHIMP_API_KEY,
