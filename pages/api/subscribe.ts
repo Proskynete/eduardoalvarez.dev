@@ -10,12 +10,12 @@ interface SuccessResponseInterface {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<SuccessResponseInterface | ErrorResponseInterface>) => {
-  const { email, name } = req.body;
-  console.log('req.body', email, name);
+  const { email } = req.body;
+  console.log('req.body', email);
 
   const url = ({ _datacenter, _listid }) => `https://${_datacenter}.api.mailchimp.com/3.0/lists/${_listid}/members`;
 
-  if (!email || !name) return res.status(409).json({ error: "Los datos son requeridos" });
+  if (!email) return res.status(409).json({ error: "Los datos son requeridos" });
 
   try {
     const LIST_ID = process.env.MAILCHIMP_LIST_ID;
@@ -27,7 +27,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<SuccessResponseI
 
     const data = {
       email_addres: email,
-      first_name: name,
       status: 'subscribed'
     }
 
