@@ -1,12 +1,55 @@
-import React, { FC, SyntheticEvent } from "react";
+import React, { FC, SyntheticEvent, useState } from "react";
 import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const handleSubscribe = async (e: SyntheticEvent) => {
-  e.preventDefault();
-};
+interface InputsInterface {
+  name: string;
+  email: string;
+}
+
+const defaultValues: InputsInterface = {
+  name: '',
+  email: '',
+}
+
+interface TargetElementInterface {
+  target: HTMLInputElement;
+}
+
 
 const Subscribe: FC = () => {
+  const [values, setValues] = useState<InputsInterface>(defaultValues);
+  const [messageResponse, setMessageResponse] = useState('');
+
+  const handleChangeInput = (e: TargetElementInterface) => {
+    setValues({
+      ...values,
+      [e.target.id]: e.target.value
+    })
+  };
+
+  const handleSubscribe = async (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    const res = await fetch('/api/subscribe', {
+      body: JSON.stringify({
+        email: values.email,
+        name: values.name
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    });
+
+    const { error, message } = await res.json();
+
+    if (error) setMessageResponse(error);
+
+    setMessageResponse(message);
+  };
+
+
   return (
     <form className="subscribe" onSubmit={(e) => handleSubscribe(e)}>
       <div className="subscribe-container">
@@ -14,31 +57,33 @@ const Subscribe: FC = () => {
         <p className="subscribe-subtitle">Para novedades, cursos y ofertas</p>
         <div className="subscribe-input-container">
           <div className="subscribe-label">
-            <label htmlFor="name-subscribe" className="subscribe-input">
+            <label htmlFor="name" className="subscribe-input">
               <div className="icon">
                 <FontAwesomeIcon icon={faUser} />
               </div>
               <input
-                id="name-subscribe"
-                name="name-subscribe"
+                id="name"
                 type="text"
                 className="with-icon"
                 placeholder="Tu nombre"
+                value={values.name}
+                onChange={(e) => handleChangeInput(e)}
                 required
               />
             </label>
           </div>
           <div className="subscribe-label">
-            <label htmlFor="email-subscribe" className="subscribe-input">
+            <label htmlFor="email" className="subscribe-input">
               <div className="icon">
                 <FontAwesomeIcon icon={faEnvelope} />
               </div>
               <input
-                id="email-subscribe"
-                name="email-subscribe"
+                id="email"
                 type="email"
                 className="with-icon"
-                placeholder="Tu mail"
+                placeholder="Tu correo"
+                value={values.email}
+                onChange={(e) => handleChangeInput(e)}
                 required
               />
             </label>
@@ -49,6 +94,7 @@ const Subscribe: FC = () => {
             Suscribirse
           </button>
         </div>
+        <div>{messageResponse}</div>
       </div>
     </form>
   );
