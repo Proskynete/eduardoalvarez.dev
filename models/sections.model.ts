@@ -1,8 +1,8 @@
 export interface SectionsInterface {
-  title: string;
-  anchor: string;
+	title: string;
+	anchor: string;
 }
 
 export interface TableOfSectionsPropsInterface {
-  sections: Array<SectionsInterface>;
+	sections: Array<SectionsInterface>;
 }
