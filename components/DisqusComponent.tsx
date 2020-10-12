@@ -12,11 +12,16 @@ const DisqusComponent = (props: DiscusInterface) => {
 
 	const disqusShortName = process.env.DISQUS_SHORT_NAME;
 
+	console.log('process.env: ', process.env);
+	console.log('shortname: ', disqusShortName);
+
 	const configDisqus = {
 		url: `https://eduardoalvarez/${path}`,
 		identifier: id,
 		title: title,
 	};
+
+	console.log('configDisqus: ', configDisqus);
 
 	return (
 		<section className='disqus'>
