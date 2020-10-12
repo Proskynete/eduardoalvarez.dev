@@ -10,8 +10,7 @@ interface DiscusInterface {
 const DisqusComponent = (props: DiscusInterface) => {
 	const { path, id, title } = props;
 
-	const disqusShortName =
-		process.env.DISQUS_SHORT_NAME || process.env.NEXT_PUBLIC_DISQUS_SHORT_NAME;
+	const disqusShortName = process.env.DISQUS_SHORT_NAME;
 
 	const configDisqus = {
 		url: `https://eduardoalvarez/${path}`,
