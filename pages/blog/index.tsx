@@ -1,5 +1,7 @@
 import Layout from 'components/Layout';
+import fs from 'fs';
 import matter from 'gray-matter';
+import { generateRss } from 'helpers/rss.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import { FrontMatterInterface } from 'models/blogtemplate.model';
 import { memo } from 'react';
@@ -65,6 +67,10 @@ export async function getStaticProps() {
 		});
 		return data;
 	})(require['context']('../../posts', true, /\.md$/));
+
+	const rrs = generateRss(posts);
+
+	fs.writeFileSync('public/rss.xml', rrs);
 
 	return {
 		props: {
