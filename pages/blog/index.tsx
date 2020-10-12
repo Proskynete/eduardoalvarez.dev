@@ -1,5 +1,6 @@
 import Layout from 'components/Layout';
 import matter from 'gray-matter';
+import { dataSerialized } from 'helpers/serializer.helper';
 import { FrontMatterInterface } from 'models/blogtemplate.model';
 import { memo } from 'react';
 
@@ -57,7 +58,7 @@ export async function getStaticProps() {
 			const document = matter(content.default);
 
 			return {
-				frontmatter: JSON.parse(JSON.stringify(document.data)),
+				frontmatter: dataSerialized(document.data as FrontMatterInterface),
 				markdownBody: document.content,
 				slug,
 			};
