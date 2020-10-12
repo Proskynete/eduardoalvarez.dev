@@ -25,6 +25,10 @@ const Meta: FC<PropsInterface> = (props) => {
 			<meta name='twitter:title' content={customTitle} />
 			<meta property='twitter:image' content={image} />
 			<meta name='twitter:url' content={`${data.url}${slug}`} />
+			<meta
+				httpEquiv='Content-Security-Policy'
+				content="script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'self'; style-src 'self' 'unsafe-inline'; media-src *"
+			/>
 
 			<link rel='icon' href='/favicon/favicon.ico' />
 			<meta name='description' content={description}></meta>
