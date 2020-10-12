@@ -9,6 +9,7 @@ import glob from 'glob';
 import matter from 'gray-matter';
 import { prettyFormat } from 'helpers/date.helper';
 import { prettyReadingTime } from 'helpers/reading-time.helper';
+import { dataSerialized } from 'helpers/serializer.helper';
 import { prettyTags } from 'helpers/tags.helper';
 import {
 	FrontMatterInterface,
@@ -152,9 +153,7 @@ export const getStaticProps = async (
 
 	return {
 		props: {
-			frontmatter: JSON.parse(
-				JSON.stringify(data.data),
-			) as FrontMatterInterface,
+			frontmatter: dataSerialized(data.data as FrontMatterInterface),
 			markdownBody: data.content,
 			slug: slug,
 		},
