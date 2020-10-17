@@ -58,7 +58,6 @@
       background-color: $black;
       cursor: pointer;
       position: relative;
-      margin-bottom: 30px;
 
       /*&__image {
         opacity: .3;
@@ -67,46 +66,100 @@
   }
 
   &__body {
-    &__header {
-      &__image {
-        max-width: 100%;
-        width: 100%;
-        box-shadow: $box-shadow;
-        margin-bottom: $margin-xxlg;
+    padding-top: 30px;
+    
+    &__image {
+      margin-top: 30px;
+      max-width: 100%;
+      width: 100%;
+      box-shadow: $box-shadow;
+      margin-bottom: $margin-xxlg;
 
-        @media (min-width: 1200px) {
-          max-width: 80%;
-          width: 80%;
-        }
+      @media (min-width: 1200px) {
+        max-width: 80%;
+        width: 80%;
       }
     }
 
     &__content {
       font-family: "Roboto";
-      
-      &__article {
-        h2 {
-          font-family: "Hero";
-          color: $black;
-          position: relative;
-          margin-bottom: $margin-lg;
-          padding-top: $margin-xxlg;
+      color: $black;
 
-          @media (min-width: 1200px) {
-            color: $black;
-            padding-top: 0;
+      h2 {
+        font-size: $size-xxlg;
+        font-family: "Hero";
+        position: relative;
+        margin-bottom: $margin-xxlg;
+        padding-top: 70px;
+
+        @media (min-width: 1200px) {
+          padding-top: $margin-xxlg;
+        }
+      }
+
+      p {
+        font-weight: 300;
+        margin-bottom: $margin-xxlg;
+        line-height: 1.8;
+
+        strong {
+          font-weight: 400;
+        }
+
+        em {
+          font-style: italic;
+        }
+
+        a {
+          text-decoration: none;
+          color: $secondary;
+
+          &:hover {
+            text-decoration: none;
           }
         }
 
-        p {
-          color: $black;
+        img {
+          max-width: 100%;
+          margin-left: auto;
+          margin-right: auto;
+          box-shadow: $box-shadow;
+          display: block;
+          margin-top: $margin-hero;
 
           @media (min-width: 1200px) {
-            color: $black;
+            max-width: 80%;
+            width: 80%;
+          }
+        }
+      }
+
+      ul {
+        font-weight: 300;
+        margin-top: 20px;
+        
+        li {
+          position: relative;
+          display: flex;
+          align-items: center;
+          padding-left: 15px;
+
+          &:not(:first-child) {
+            margin-top: 5px;
           }
 
+          &:before {
+            position: absolute;
+            content: '\f111';
+            width: 5px;
+            height: 5px;
+            left: 0;
+            border-radius: 50%;
+            background-color: $primary;
+          }
+            
           strong {
-            font-weight: 500;
+            font-weight: 400;
           }
 
           em {
@@ -114,73 +167,11 @@
           }
 
           a {
-            font-weight: 400;
-            text-decoration: none;
             color: $secondary;
+            text-decoration: none;
 
             &:hover {
               text-decoration: none;
-            }
-          }
-
-          img {
-            max-width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: $box-shadow;
-            display: block;
-            margin-top: $margin-hero;
-            margin-bottom: $margin-hero;
-
-            @media (min-width: 1200px) {
-              max-width: 80%;
-              width: 80%;
-            }
-          }
-        }
-
-        ul {
-          li {
-            position: relative;
-            display: flex;
-            align-items: center;
-            padding-left: 15px;
-
-            &:not(:first-child) {
-              margin-top: 5px;
-            }
-
-            &:before {
-              position: absolute;
-              content: '\f111';
-              width: 5px;
-              height: 5px;
-              left: 0;
-              border-radius: 50%;
-              background-color: $primary;
-            }
-            
-
-            @media (min-width: 1200px) {
-              color: $black;
-            }
-
-            strong {
-              font-weight: 500;
-            }
-
-            em {
-              font-style: italic;
-            }
-
-            a {
-              font-weight: 400;
-              text-decoration: none;
-              color: $secondary;
-
-              &:hover {
-                text-decoration: none;
-              }
             }
           }
         }

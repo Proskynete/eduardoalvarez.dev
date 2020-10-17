@@ -113,15 +113,14 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 									content={introduction.content}
 								/>
 
-								<figure className='intro-image'>
+								<figure className='article__body__image'>
 									<img
 										src={image_introduction}
-										className='introduction-image'
-										alt={`Imagen de introducción - ${title}`}
+										alt={`Imagen de introducción a ${title}`}
 									/>
 								</figure>
 
-								<div className='article__body__content__article'>
+								<div className='article__body__content'>
 									<ReactMarkdown source={markdownBody} escapeHtml={false} />
 								</div>
 							</div>
