@@ -1,8 +1,6 @@
 import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
-import { faComments, faTag, faTags } from '@fortawesome/free-solid-svg-icons';
+import { faTag, faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DisqusComponent from 'components/DisqusComponent';
-import DisqusCount from 'components/DisqusCount';
 import Layout from 'components/Layout';
 import TableOfSections from 'components/TableOfSections';
 import glob from 'glob';
@@ -42,102 +40,81 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 			image={hero_image}
 			slug={`blog/${slug}`}
 		>
-			<section className='row'>
-				<header className='col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
-					<h1 className='hero-title'>{title}</h1>
+			<article className='container-fluid'>
+				<div className='row justify-content-md-center'>
+					<div className='col col-md-8'>
+						<div className='container'>
+							<div className='blog-blog-article'>
+								<header className='blog-article__header'>
+									<h1>{title}</h1>
+									<div className='blog-article__header__info'>
+										<span className='blog-article__header__info__published'>
+											<FontAwesomeIcon icon={faCalendar} />
+											Publicado el{' '}
+											<time dateTime={prettyFormat(date)}>
+												{prettyFormat(date)}
+											</time>
+										</span>
+										<span className='blog-article__header__info__read'>
+											<FontAwesomeIcon icon={faClock} />
+											{prettyReadingTime(read_time)}
+										</span>
 
-					<div className='meta-information'>
-						<div className='information'>
-							<div className='icon-container'>
-								<FontAwesomeIcon icon={faCalendar} />
+										<span className='blog-article__header__info__tags'>
+											<FontAwesomeIcon
+												icon={tags.length > 1 ? faTags : faTag}
+											/>
+											{prettyTags(tags)}
+										</span>
+									</div>
+								</header>
+								<div className='blog-article__body'>
+									<div className='blog-article__body__header'>
+										<img
+											className='blog-article__body__header__image'
+											src={hero_image}
+											alt='Imagen representativa del artículo'
+										/>
+									</div>
+								</div>
 							</div>
-							<p className='content'>
-								<time dateTime={date}>Publicado el {prettyFormat(date)}</time>
-							</p>
 						</div>
-						<div className='information'>
-							<div className='icon-container'>
-								<FontAwesomeIcon icon={faClock} />
+					</div>
+
+					<div className='container-fluid'>
+						<div className='blog-article__body__content'>
+							<div className='row'>
+								<div
+									className='col-12 offset-md-1 col-md-2 sticky-top'
+									style={{ padding: '0', backgroundColor: '#ffffff' }}
+								>
+									<TableOfSections sections={sections} />
+								</div>
+
+								<aside id={introduction.anchor} className='intro'>
+									<div className='isotipo-container'>
+										<img src='/images/isotipo/isotipo-blue.png' alt='isotipo' />
+									</div>
+
+									<div className='intro-container'>
+										<p className='intro-title'>{introduction.title}</p>
+										<ReactMarkdown
+											source={introduction.content}
+											className='article-content'
+										/>
+									</div>
+								</aside>
+
+								<div className='col-12 col-md-6'>
+									<div className='blog-article__body__content__article'>
+										<ReactMarkdown source={markdownBody} escapeHtml={false} />
+									</div>
+								</div>
 							</div>
-							<p className='content'>{prettyReadingTime(read_time)}</p>
-						</div>
-						<div className='information'>
-							<div className='icon-container'>
-								<FontAwesomeIcon icon={tags.length > 1 ? faTags : faTag} />
-							</div>
-							<p className='tags-content'>{prettyTags(tags)}</p>
-						</div>
-						<div className='information'>
-							<div className='icon-container'>
-								<FontAwesomeIcon icon={faComments} />
-							</div>
-							<p className='tags-content'>
-								<DisqusCount
-									path={`blog/${slug}`}
-									title={title}
-									id={`blog/${slug}`}
-								/>
-							</p>
 						</div>
 					</div>
-				</header>
-
-				<figure className='col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
-					<div className='hero-image-container'>
-						<img
-							src={hero_image}
-							className='hero-image'
-							alt={`Imagen principal - ${title}`}
-						/>
-					</div>
-				</figure>
-
-				<TableOfSections sections={sections} />
-
-				<aside
-					id={introduction.anchor}
-					className='intro col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'
-				>
-					<div className='isotipo-container'>
-						<img src='/images/isotipo/isotipo-blue.png' alt='isotipo' />
-					</div>
-
-					<div className='intro-container'>
-						<p className='intro-title'>{introduction.title}</p>
-						<ReactMarkdown
-							source={introduction.content}
-							className='article-content'
-						/>
-					</div>
-				</aside>
-
-				<figure className='col-xs-12 col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
-					<div className='intro-image'>
-						<img
-							src={image_introduction}
-							className='introduction-image'
-							alt={`Imagen de introducción - ${title}`}
-						/>
-					</div>
-				</figure>
-
-				<article className='col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
-					<ReactMarkdown
-						source={markdownBody}
-						escapeHtml={false}
-						className='article-content'
-					/>
-				</article>
-			</section>
-			<section className='row'>
-				<article className='col-xs-12 col-md-10 offset-md-1'>
-					<DisqusComponent
-						path={`blog/${slug}`}
-						title={title}
-						id={`blog/${slug}`}
-					/>
-				</article>
-			</section>
+				</div>
+			</article>
 		</Layout>
 	);
 };
