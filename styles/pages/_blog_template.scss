@@ -2,6 +2,7 @@
   &__header {
     display: flex;
     flex-direction: column;
+    margin-bottom: 30px;
 
     &__title {
       color: $primary;
@@ -20,18 +21,30 @@
       &__content {
         color: $black;
         position: relative;
+        display: flex;
 
         &:not(:first-child) {
           margin-top: $margin-xxs;
         }
-
+      
+        &__icon {
+          color: $primary;
+          width: 15px;
+          margin-right: 10px;
+        }
+        
         &__time {
           margin-left: $margin-xxs;
         }
 
-        &__icon {
-          color: $primary;
-          margin-right: $margin-xs;
+        .tag {
+          &:not(:first-of-type) {
+            &:before {
+              content: "-";
+              margin-left: $margin-xxs;
+              margin-right: $margin-xxs;
+            }
+          }
         }
       }
     }
@@ -43,8 +56,9 @@
       border-bottom: $margin-md solid $info;
       border-right: $margin-xxs solid $info;
       background-color: $black;
-      // cursor: pointer;
+      cursor: pointer;
       position: relative;
+      margin-bottom: 30px;
 
       /*&__image {
         opacity: .3;

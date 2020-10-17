@@ -47,11 +47,13 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 							<h1 className='article__header__title'>{title}</h1>
 
 							<div className='article__header__info'>
-								<span className='article__header__info__content'>
-									<FontAwesomeIcon
-										icon={faCalendar}
-										className='article__header__info__content__icon'
-									/>
+								<div className='article__header__info__content'>
+									<div className='article__header__info__content__icon'>
+										<FontAwesomeIcon
+											icon={faCalendar}
+											className='article__header__info__content__icon__svg'
+										/>
+									</div>
 									Publicado el
 									<time
 										dateTime={onlyDate(date)}
@@ -59,22 +61,26 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 									>
 										{prettyFormat(date)}
 									</time>
-								</span>
-								<span className='article__header__info__content'>
-									<FontAwesomeIcon
-										icon={faClock}
-										className='article__header__info__content__icon'
-									/>
+								</div>
+								<div className='article__header__info__content'>
+									<div className='article__header__info__content__icon'>
+										<FontAwesomeIcon
+											icon={faClock}
+											className='article__header__info__content__icon__svg'
+										/>
+									</div>
 									{prettyReadingTime(read_time)}
-								</span>
+								</div>
 
-								<span className='article__header__info__content'>
-									<FontAwesomeIcon
-										icon={tags.length > 1 ? faTags : faTag}
-										className='article__header__info__content__icon'
-									/>
+								<div className='article__header__info__content'>
+									<div className='article__header__info__content__icon'>
+										<FontAwesomeIcon
+											icon={tags.length > 1 ? faTags : faTag}
+											className='article__header__info__content__icon__svg'
+										/>
+									</div>
 									{prettyTags(tags)}
-								</span>
+								</div>
 							</div>
 
 							<div className='article__header__hero'>
