@@ -2,6 +2,7 @@ import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
 import { faTag, faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Layout from 'components/Layout';
+import Say from 'components/Say';
 import TableOfSections from 'components/TableOfSections';
 import glob from 'glob';
 import matter from 'gray-matter';
@@ -105,19 +106,11 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 							</div>
 
 							<div className='col-12 col-md-10 col-lg-7'>
-								<aside id={introduction.anchor} className='intro'>
-									<div className='isotipo-container'>
-										<img src='/images/isotipo/isotipo-blue.png' alt='isotipo' />
-									</div>
-
-									<div className='intro-container'>
-										<p className='intro-title'>{introduction.title}</p>
-										<ReactMarkdown
-											source={introduction.content}
-											className='article-content'
-										/>
-									</div>
-								</aside>
+								<Say
+									anchor={introduction.anchor}
+									title={introduction.title}
+									content={introduction.content}
+								/>
 
 								<figure className='intro-image'>
 									<img
