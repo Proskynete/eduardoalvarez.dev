@@ -1,11 +1,13 @@
-.blog-article {
+.article {
   &__header {
-    color: $black;
-    font-family: "Hero";
     display: flex;
     flex-direction: column;
 
-    @media (min-width: 992px) {
+    &__title {
+      color: $primary;
+      font-family: "Hero";
+      font-size: 40px;
+      font-weight: 500;
       margin-bottom: 20px;
     }
 
@@ -14,58 +16,44 @@
       display: flex;
       flex-direction: column;
       margin-bottom: 20px;
-
-      @media (min-width: 992px) {
-        flex-direction: row;
-      }
-
-      &__read,
-      &__published,
-      &__tags {
-        color: $primary;
-        margin-top: 3px;
+      
+      &__content {
+        color: $black;
         position: relative;
 
-        @media (min-width: 992px) {
-          margin-right: 25px;
-
-          &:not(:first-child) {
-            &:before {
-              content: '';
-              width: 4px;
-              height: 4px;
-              border-radius: 50%;
-              position: absolute;
-              background-color: $primary;
-              left: -15px;
-              top: 8px;
-            }
-          }
+        &:not(:first-child) {
+          margin-top: 5px;
         }
 
-        i {
-          margin-right: 5px;
+        &__time {
+          margin-left: 5px;
+        }
 
-          @media (min-width: 992px) {
-            margin-right: 10px;
-          }
+        &__icon {
+          color: $primary;
+          margin-right: 10px;
         }
       }
+    }
+
+    &__hero {
+      width: 100%;
+      border-top: 15px solid $info;
+      border-left: 5px solid $info;
+      border-bottom: 15px solid $info;
+      border-right: 5px solid $info;
+      background-color: $black;
+      // cursor: pointer;
+      position: relative;
+
+      /*&__image {
+        opacity: .3;
+      }*/
     }
   }
 
   &__body {
-    background-color: $white;
-    font-family: "Roboto";
-    width: 100%;
-
     &__header {
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-      margin-bottom: 60px;
-
       &__image {
         max-width: 100%;
         width: 100%;

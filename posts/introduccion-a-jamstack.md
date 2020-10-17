@@ -1,26 +1,26 @@
 ---
-title: "Introducción a JAM-Stack"
-description: "El JAM-Stack es una nueva arquitectura para la creación de aplicaciones web, la cual busca poder hacer proyectos mucho mas rápidos, con alta seguridad y que puedan escalar de una manera muy sencilla. JAM son las siglas de JavaScript, APIs y Markup y su principal características es que la lógica de la aplicación se encuentra en el cliente y no en el servidor."
+title: 'Introducción a JAM-Stack'
+description: 'El JAM-Stack es una nueva arquitectura para la creación de aplicaciones web, la cual busca poder hacer proyectos mucho mas rápidos, con alta seguridad y que puedan escalar de una manera muy sencilla. JAM son las siglas de JavaScript, APIs y Markup y su principal características es que la lógica de la aplicación se encuentra en el cliente y no en el servidor.'
 date: 2020-04-26T03:00:00-03:00
 read_time: 3
-tags: ["web-development"]
-hero_image: "/images/introduccion-a-jamstack/introduccion_a_jamstack.png"
+tags: ['web-development']
+hero_image: '/images/introduccion-a-jamstack/introduccion_a_jamstack.png'
 introduction:
   {
-    title: "Introducción",
-    anchor: "introduccion",
-    content: "Antes de empezar a hablar de _JAMStack_, es muy necesario desglosar un poco la palabra en dos: **JAM** y **Stack** y así explicarlas por separado",
+    title: 'Introducción',
+    anchor: 'introduccion',
+    content: 'Antes de empezar a hablar de _JAMStack_, es muy necesario desglosar un poco la palabra en dos: **JAM** y **Stack** y así explicarlas por separado',
   }
 image_introduction: /images/introduccion-a-jamstack/jam-stack.jpg
 sections:
   [
-    { title: "Introducción", anchor: "introduccion" },
-    { title: "¿Qué es un Stack?", anchor: "que-es-un-stack" },
-    { title: "¿Qué es JAM?", anchor: "que-es-jam" },
-    { title: "Buena idea", anchor: "buena-idea" },
-    { title: "No tan buena idea", anchor: "no-tan-buena-idea" },
-    { title: "Consideraciones finales", anchor: "consideraciones-finales" },
-    { title: "Para seguir investigando", anchor: "para-seguir-investigando" },
+    { title: 'Introducción', anchor: 'introduccion' },
+    { title: '¿Qué es un Stack?', anchor: 'que-es-un-stack' },
+    { title: '¿Qué es JAM?', anchor: 'que-es-jam' },
+    { title: 'Buena idea', anchor: 'buena-idea' },
+    { title: 'No tan buena idea', anchor: 'no-tan-buena-idea' },
+    { title: 'Consideraciones finales', anchor: 'consideraciones-finales' },
+    { title: 'Para seguir investigando', anchor: 'para-seguir-investigando' },
   ]
 ---
 

@@ -5,7 +5,7 @@ import Layout from 'components/Layout';
 import TableOfSections from 'components/TableOfSections';
 import glob from 'glob';
 import matter from 'gray-matter';
-import { prettyFormat } from 'helpers/date.helper';
+import { onlyDate, prettyFormat } from 'helpers/date.helper';
 import { prettyReadingTime } from 'helpers/reading-time.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import { prettyTags } from 'helpers/tags.helper';
@@ -40,57 +40,65 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 			image={hero_image}
 			slug={`blog/${slug}`}
 		>
-			<article className='container-fluid'>
-				<div className='row justify-content-md-center'>
-					<div className='col col-md-8'>
-						<div className='container'>
-							<div className='blog-blog-article'>
-								<header className='blog-article__header'>
-									<h1>{title}</h1>
-									<div className='blog-article__header__info'>
-										<span className='blog-article__header__info__published'>
-											<FontAwesomeIcon icon={faCalendar} />
-											Publicado el{' '}
-											<time dateTime={prettyFormat(date)}>
-												{prettyFormat(date)}
-											</time>
-										</span>
-										<span className='blog-article__header__info__read'>
-											<FontAwesomeIcon icon={faClock} />
-											{prettyReadingTime(read_time)}
-										</span>
+			<article className='row justify-content-md-center'>
+				<div className='col-12 col-md-8'>
+					<div className='article'>
+						<header className='article__header'>
+							<h1 className='article__header__title'>{title}</h1>
 
-										<span className='blog-article__header__info__tags'>
-											<FontAwesomeIcon
-												icon={tags.length > 1 ? faTags : faTag}
-											/>
-											{prettyTags(tags)}
-										</span>
-									</div>
-								</header>
-								<div className='blog-article__body'>
-									<div className='blog-article__body__header'>
-										<img
-											className='blog-article__body__header__image'
-											src={hero_image}
-											alt='Imagen representativa del artículo'
-										/>
-									</div>
-								</div>
+							<div className='article__header__info'>
+								<span className='article__header__info__content'>
+									<FontAwesomeIcon
+										icon={faCalendar}
+										className='article__header__info__content__icon'
+									/>
+									Publicado el
+									<time
+										dateTime={onlyDate(date)}
+										className='article__header__info__content__time'
+									>
+										{prettyFormat(date)}
+									</time>
+								</span>
+								<span className='article__header__info__content'>
+									<FontAwesomeIcon
+										icon={faClock}
+										className='article__header__info__content__icon'
+									/>
+									{prettyReadingTime(read_time)}
+								</span>
+
+								<span className='article__header__info__content'>
+									<FontAwesomeIcon
+										icon={tags.length > 1 ? faTags : faTag}
+										className='article__header__info__content__icon'
+									/>
+									{prettyTags(tags)}
+								</span>
 							</div>
-						</div>
+
+							<div className='article__header__hero'>
+								<img
+									src={hero_image}
+									className='article__header__hero__image'
+									alt={`${title} - imagen`}
+								/>
+							</div>
+						</header>
 					</div>
+				</div>
 
-					<div className='container-fluid'>
-						<div className='blog-article__body__content'>
-							<div className='row'>
-								<div
-									className='col-12 offset-md-1 col-md-2 sticky-top'
-									style={{ padding: '0', backgroundColor: '#ffffff' }}
-								>
-									<TableOfSections sections={sections} />
-								</div>
+				<div className='col-12'>
+					<div className='article__body'>
+						<div className='row'>
+							<div
+								className='col-12 col-lg-2 offset-lg-1 sticky-top'
+								style={{ padding: '0', backgroundColor: '#ffffff' }}
+							>
+								<TableOfSections sections={sections} />
+							</div>
 
+							<div className='col-12 col-lg-8'>
 								<aside id={introduction.anchor} className='intro'>
 									<div className='isotipo-container'>
 										<img src='/images/isotipo/isotipo-blue.png' alt='isotipo' />
@@ -105,8 +113,18 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 									</div>
 								</aside>
 
+								<figure className='col-12'>
+									<div className='intro-image'>
+										<img
+											src={image_introduction}
+											className='introduction-image'
+											alt={`Imagen de introducción - ${title}`}
+										/>
+									</div>
+								</figure>
+
 								<div className='col-12 col-md-6'>
-									<div className='blog-article__body__content__article'>
+									<div className='article__body__content__article'>
 										<ReactMarkdown source={markdownBody} escapeHtml={false} />
 									</div>
 								</div>
