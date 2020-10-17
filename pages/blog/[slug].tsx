@@ -41,7 +41,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 			slug={`blog/${slug}`}
 		>
 			<article className='row justify-content-md-center'>
-				<div className='col-12 col-md-8'>
+				<div className='col-12 col-md-10 col-lg-8'>
 					<div className='article'>
 						<header className='article__header'>
 							<h1 className='article__header__title'>{title}</h1>
@@ -90,15 +90,15 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 
 				<div className='col-12'>
 					<div className='article__body'>
-						<div className='row'>
+						<div className='row justify-content-center justify-content-lg-start'>
 							<div
 								className='col-12 col-lg-2 offset-lg-1 sticky-top'
-								style={{ padding: '0', backgroundColor: '#ffffff' }}
+								style={{ padding: '0', backgroundColor: '#fff' }}
 							>
 								<TableOfSections sections={sections} />
 							</div>
 
-							<div className='col-12 col-lg-8'>
+							<div className='col-12 col-md-10 col-lg-7'>
 								<aside id={introduction.anchor} className='intro'>
 									<div className='isotipo-container'>
 										<img src='/images/isotipo/isotipo-blue.png' alt='isotipo' />
@@ -113,20 +113,16 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 									</div>
 								</aside>
 
-								<figure className='col-12'>
-									<div className='intro-image'>
-										<img
-											src={image_introduction}
-											className='introduction-image'
-											alt={`Imagen de introducción - ${title}`}
-										/>
-									</div>
+								<figure className='intro-image'>
+									<img
+										src={image_introduction}
+										className='introduction-image'
+										alt={`Imagen de introducción - ${title}`}
+									/>
 								</figure>
 
-								<div className='col-12 col-md-6'>
-									<div className='article__body__content__article'>
-										<ReactMarkdown source={markdownBody} escapeHtml={false} />
-									</div>
+								<div className='article__body__content__article'>
+									<ReactMarkdown source={markdownBody} escapeHtml={false} />
 								</div>
 							</div>
 						</div>

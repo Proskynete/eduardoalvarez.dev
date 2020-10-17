@@ -6,42 +6,42 @@
     &__title {
       color: $primary;
       font-family: "Hero";
-      font-size: 40px;
+      font-size: $size-xxlg;
       font-weight: 500;
-      margin-bottom: 20px;
+      margin-bottom: $margin-lg;
     }
 
     &__info {
       font-family: "Roboto";
       display: flex;
       flex-direction: column;
-      margin-bottom: 20px;
+      margin-bottom: $margin-lg;
       
       &__content {
         color: $black;
         position: relative;
 
         &:not(:first-child) {
-          margin-top: 5px;
+          margin-top: $margin-xxs;
         }
 
         &__time {
-          margin-left: 5px;
+          margin-left: $margin-xxs;
         }
 
         &__icon {
           color: $primary;
-          margin-right: 10px;
+          margin-right: $margin-xs;
         }
       }
     }
 
     &__hero {
       width: 100%;
-      border-top: 15px solid $info;
-      border-left: 5px solid $info;
-      border-bottom: 15px solid $info;
-      border-right: 5px solid $info;
+      border-top: $margin-md solid $info;
+      border-left: $margin-xxs solid $info;
+      border-bottom: $margin-md solid $info;
+      border-right: $margin-xxs solid $info;
       background-color: $black;
       // cursor: pointer;
       position: relative;
@@ -57,8 +57,8 @@
       &__image {
         max-width: 100%;
         width: 100%;
-        box-shadow: 5px 5px 9px 3px #aaaaaa;
-        margin-bottom: 30px;
+        box-shadow: $box-shadow;
+        margin-bottom: $margin-xxlg;
 
         @media (min-width: 1200px) {
           max-width: 80%;
@@ -69,17 +69,14 @@
 
     &__content {
       font-family: "Roboto";
+      
       &__article {
-        h1 {
+        h2 {
           font-family: "Hero";
           color: $black;
           position: relative;
-          margin-bottom: 20px;
-          padding-top: 30px;
-
-          &:not(:first-child) {
-            margin-top: 50px;
-          }
+          margin-bottom: $margin-lg;
+          padding-top: $margin-xxlg;
 
           @media (min-width: 1200px) {
             color: $black;
@@ -105,7 +102,7 @@
           a {
             font-weight: 400;
             text-decoration: none;
-            color: #a34e00;
+            color: $secondary;
 
             &:hover {
               text-decoration: none;
@@ -116,10 +113,10 @@
             max-width: 100%;
             margin-left: auto;
             margin-right: auto;
-            box-shadow: 5px 5px 9px 3px #aaaaaa;
+            box-shadow: $box-shadow;
             display: block;
-            margin-top: 50px;
-            margin-bottom: 50px;
+            margin-top: $margin-hero;
+            margin-bottom: $margin-hero;
 
             @media (min-width: 1200px) {
               max-width: 80%;
@@ -130,7 +127,25 @@
 
         ul {
           li {
-            color: $black;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+
+            &:not(:first-child) {
+              margin-top: 5px;
+            }
+
+            &:before {
+              position: absolute;
+              content: '\f111';
+              width: 5px;
+              height: 5px;
+              left: 0;
+              border-radius: 50%;
+              background-color: $primary;
+            }
+            
 
             @media (min-width: 1200px) {
               color: $black;
@@ -147,7 +162,7 @@
             a {
               font-weight: 400;
               text-decoration: none;
-              color: #a34e00;
+              color: $secondary;
 
               &:hover {
                 text-decoration: none;

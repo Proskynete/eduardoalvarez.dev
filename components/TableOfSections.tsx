@@ -35,18 +35,18 @@ const TableOfSections: FC<TableOfSectionsPropsInterface> = (props) => {
 	}, []);
 
 	return (
-		<aside id='section-navegation' className='table_of_content'>
-			<div className='table_of_content__container'>
-				<div className='table_of_content__container__inner'>
-					<ul className='table_of_content__container__inner__content'>
+		<aside id='section-navegation' className='table-of-content'>
+			<div className='table-of-content__container'>
+				<div className='table-of-content__container__inner'>
+					<ul className='table-of-content__container__inner__content'>
 						{sections.map((section: SectionsInterface) => (
 							<li
 								key={section.title}
-								className='table_of_content__container__inner__content__item'
+								className='table-of-content__container__inner__content__item'
 							>
 								<a
 									href={`#${section.anchor}`}
-									className='table_of_content__container__inner__content__item__link'
+									className='table-of-content__container__inner__content__item__link'
 									onClick={(e: SyntheticEvent<EventTarget>) => handleGoTo(e)}
 								>
 									{section.title}

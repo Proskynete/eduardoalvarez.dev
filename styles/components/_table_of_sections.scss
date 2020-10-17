@@ -1,21 +1,25 @@
-.table_of_content {
+.table-of-content {
+  font-family: "Roboto";
   position: sticky;
   display: block;
-  top: 30px;
+  top: 0;
   z-index: 1024;
   width: 100%;
-  padding-left: 15px;
-  padding-right: 15px;
+
+  @media (min-width: 1200px) {
+    top: 30px;
+  }
 
   &__container {
     color: $grey;
     padding-top: 10px;
     padding-bottom: 10px;
     width: 100%;
-    background-color: #ffffff;
     display: flex;
     align-content: center;
-    border-bottom: 1px solid #efefef;
+    border-bottom: 1px solid $wild-sand;
+    padding-left: 15px;
+    padding-right: 15px;
 
     @media (min-width: 1200px) {
       min-height: 100px;
@@ -50,7 +54,7 @@
 
           &__link {
             display: block;
-            color: $grey;
+            color: $info;
             padding-bottom: 5px;
             padding-top: 5px;
             padding: 5px 10px;
@@ -59,13 +63,12 @@
             text-overflow: ellipsis;
 
             &:hover {
-              color: $primary;
+              color: $secondary;
               text-decoration: none;
             }
 
             &.current {
-              background-color: lighten($primary, 65);
-              color: $primary;
+              color: $secondary;
               font-weight: 400;
             }
           }
