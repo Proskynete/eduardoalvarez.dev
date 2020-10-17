@@ -4,7 +4,7 @@
   @media screen and (min-width: 720px) {
     width: 100%;
     display: flex;
-    justify-content: sta;
+    justify-content: start;
     align-items: center;
     justify-content: space-evenly;
   }
@@ -33,7 +33,6 @@
     padding-right: 20px;
     padding-bottom: 25px;
     position: relative;
-    background-color: $info;
     z-index: 5;
     max-width: max-content;
     width: 80%;
@@ -42,7 +41,6 @@
     &:after {
       content: '';
       position: absolute;
-      background-color: $info;
       top: -15px;
       left: 42%;
       width: 50px;
@@ -57,12 +55,20 @@
     }
 
     &__title {
-      color: $white;
-      background-color: $info;
       font-size: 24px;
       text-align: center;
       padding-top: 20px;
       padding-bottom: 15px;
+
+      &[data-type="primary"] {
+        color: $white;
+        background-color: $info;
+      }
+
+      &[data-type="secondary"] {
+        color: $white;
+        background-color: $secondary;
+      }
 
       @media screen and (min-width: 720px) {
         text-align: left;
@@ -72,10 +78,33 @@
 
     &__content {
       @media screen and (min-width: 720px) {
-        background-color: $info;
         padding-left: 20px;
         padding-right: 20px;
+
+        &[data-type="primary"] {
+          background-color: $info;
+        }
+
+        &[data-type="secondary"] {
+          background-color: $secondary;
+        }
       }
+    }
+
+    &[data-type="primary"] {
+      background-color: $info;
+
+      &:after {
+        background-color: $info;
+      }
+    }
+
+    &[data-type="secondary"] {
+        background-color: $secondary;
+
+        &:after {
+          background-color: $secondary;
+        }
     }
   }
 }

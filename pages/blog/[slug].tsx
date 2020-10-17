@@ -107,6 +107,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 
 							<div className='col-12 col-md-10 col-lg-7'>
 								<Say
+									variant='primary'
 									anchor={introduction.anchor}
 									title={introduction.title}
 									content={introduction.content}
