@@ -9,6 +9,11 @@
   height: 500px;
   text-align: center;
 
+  @media screen and (min-width: 1200px) {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
   @media screen and (min-width: 720px) {
     flex-direction: row-reverse;
     padding-top: 40px;
