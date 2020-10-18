@@ -179,3 +179,13 @@
     }
   }
 }
+
+.errata {
+  text-align: center;
+  margin-top: 50px;
+
+  a {
+    color: $secondary;
+    text-decoration: underline;
+  }
+}

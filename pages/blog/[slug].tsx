@@ -21,7 +21,7 @@ import { FC, memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
-	const { frontmatter, markdownBody, slug } = props;
+	const { frontmatter, markdownBody, slug, github_post_url } = props;
 	const {
 		date,
 		description,
@@ -127,6 +127,15 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 						</div>
 					</div>
 				</div>
+
+				<div className='col-12'>
+					<div className='errata'>
+						¿Encontraste alguna errata? Ayudame a mejorar haciendo un{' '}
+						<a href={github_post_url} target='_blank' rel='noreferrer noopener'>
+							Pull Request.
+						</a>
+					</div>
+				</div>
 			</article>
 		</Layout>
 	);
@@ -143,6 +152,7 @@ export const getStaticProps = async (
 
 	return {
 		props: {
+			github_post_url: `https://github.com/Proskynete/blog/blob/master/posts/${slug}.md`,
 			frontmatter: dataSerialized(data.data as FrontMatterInterface),
 			markdownBody: data.content,
 			slug: slug,

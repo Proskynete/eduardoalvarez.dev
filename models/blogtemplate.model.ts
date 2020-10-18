@@ -46,6 +46,7 @@ export interface PropsInterface {
 	frontmatter: FrontMatterInterface;
 	markdownBody: string;
 	slug: string | Array<string>;
+	github_post_url: string;
 }
 
 export interface ReturnInterface {
