@@ -6,7 +6,7 @@ import {
 	SectionsInterface,
 	TableOfSectionsPropsInterface,
 } from 'models/sections.model';
-import React, { FC, memo, SyntheticEvent, useEffect } from 'react';
+import React, { FC, memo, SyntheticEvent, useCallback, useEffect } from 'react';
 
 const handleGoTo = (event: SyntheticEvent<EventTarget>): void => {
 	event.preventDefault();
@@ -18,19 +18,15 @@ const handleGoTo = (event: SyntheticEvent<EventTarget>): void => {
 const TableOfSections: FC<TableOfSectionsPropsInterface> = (props) => {
 	const { sections } = props;
 
+	const handleListenerScrollFunction = useCallback(() => {
+		handleListenerScroll(sections);
+	}, []);
+
 	useEffect(() => {
-		window.addEventListener(
-			'scroll',
-			() => handleListenerScroll(sections),
-			true,
-		);
+		window.addEventListener('scroll', handleListenerScrollFunction, true);
 
 		return () => {
-			window.removeEventListener(
-				'scroll',
-				() => handleListenerScroll(sections),
-				true,
-			);
+			window.removeEventListener('scroll', handleListenerScrollFunction, true);
 		};
 	}, []);
 
