@@ -7,6 +7,12 @@ import type { AppProps } from 'next/app';
 
 config.autoAddCss = false;
 
+declare global {
+	interface Window {
+		GA_INITIALIZED: any;
+	}
+}
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	return <Component {...pageProps} />;
 };
