@@ -11,6 +11,11 @@
     align-items: center;
   }
 
+  @media screen and (min-width: 1200px) {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
   &-title {
     text-align: center;
     font-size: 20px;
@@ -36,13 +41,13 @@
   }
 
   &-icon {
-    height: 40px;
+    height: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 40px 0;
     position: relative;
-    width: 64px;
+    width: 50px;
     background-color: $white;
 
     @media screen and (min-width: 720px) {
@@ -50,23 +55,23 @@
     }
 
     &:before {
-      border-right: 32px solid transparent;
-      border-bottom: 20px solid white;
-      border-left: 32px solid transparent;
+      border-right: 25px solid transparent;
+      border-bottom: 15px solid $white;
+      border-left: 25px solid transparent;
       content: "";
       height: 0;
       left: 0;
       position: absolute;
       right: 0;
-      top: -20px;
+      top: -15px;
       width: 0;
     }
 
     &:after {
-      border-top: 20px solid $white;
-      border-right: 32px solid transparent;
-      border-left: 32px solid transparent;
-      bottom: -20px;
+      border-top: 15px solid $white;
+      border-right: 25px solid transparent;
+      border-left: 25px solid transparent;
+      bottom: -15px;
       content: '';
       height: 0;
       left: 0;
@@ -77,7 +82,13 @@
   }
 
   &-link {
-    font-size: 35px;
+    font-size: 25px;
     color: $primary;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $primary;
+    }
   }
 }

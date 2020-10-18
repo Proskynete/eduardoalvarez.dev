@@ -2,6 +2,8 @@
 @import './components/subscribe';
 @import './components/social_networks';
 @import './components/footer';
+@import './components/table_of_sections';
+@import './components/say.component';
 @import './components/disqus_component';
 
 body {
@@ -18,7 +20,6 @@ input[type="text"] {
   width: 100%;
   max-width: 350px;
   border: 1px solid $primary;
-  margin: 8px 0;
   outline: none;
   padding: 8px;
   font-size: 20px;

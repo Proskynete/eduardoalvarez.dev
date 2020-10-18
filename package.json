@@ -1,12 +1,12 @@
 {
   "name": "blog",
   "version": "0.1.0",
-  "description": "Personal Web site / Blog",
+  "description": "My personal Web site / Blog",
   "license": "MIT",
   "author": {
     "name": "Eduardo Álvarez",
     "email": "soy@eduardoalvarez.cl",
-    "url": "https://eduardoalvarez.cl"
+    "url": "https://eduardoalvarez.dev"
   },
   "private": true,
   "scripts": {

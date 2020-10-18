@@ -8,7 +8,7 @@ const Meta: FC<PropsInterface> = (props) => {
 
 	return (
 		<Head>
-			<meta charSet='UTF-8' />
+			<meta charSet='utf-8' />
 			<meta name='viewport' content='width=device-width, initial-scale=1' />
 			<meta name='robots' content='noindex' />
 
@@ -21,13 +21,14 @@ const Meta: FC<PropsInterface> = (props) => {
 			<meta property='og:image' content={image} />
 			<meta property='og:url' content={`${data.url}${slug}`} />
 
+			<meta name='twitter:card' content='summary' />
 			<meta name='twitter:description' content={description} />
 			<meta name='twitter:title' content={customTitle} />
 			<meta property='twitter:image' content={image} />
-			<meta name='twitter:url' content={`${data.url}${slug}`} />
+			<meta name='twitter:url' content={`${data.url}/${slug}`} />
 
 			<link rel='icon' href='/favicon/favicon.ico' />
-			<meta name='description' content={description}></meta>
+			<meta name='description' content={description} />
 			<title>{customTitle}</title>
 		</Head>
 	);

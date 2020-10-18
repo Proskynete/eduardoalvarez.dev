@@ -21,3 +21,5 @@ export const prettyFormat = (datetime: string): string => {
 
 	return dateFormated(datetime);
 };
+
+export const onlyDate = (datetime: string): string => datetime.split('T')[0];

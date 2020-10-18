@@ -1,13 +1,12 @@
 import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
-import { faComments, faTag, faTags } from '@fortawesome/free-solid-svg-icons';
+import { faTag, faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DisqusComponent from 'components/DisqusComponent';
-import DisqusCount from 'components/DisqusCount';
 import Layout from 'components/Layout';
+import Say from 'components/Say';
 import TableOfSections from 'components/TableOfSections';
 import glob from 'glob';
 import matter from 'gray-matter';
-import { prettyFormat } from 'helpers/date.helper';
+import { onlyDate, prettyFormat } from 'helpers/date.helper';
 import { prettyReadingTime } from 'helpers/reading-time.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import { prettyTags } from 'helpers/tags.helper';
@@ -22,7 +21,7 @@ import { FC, memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
 const BlogTemplate: FC<PropsInterface> = (props) => {
-	const { frontmatter, markdownBody, slug } = props;
+	const { frontmatter, markdownBody, slug, github_post_url } = props;
 	const {
 		date,
 		description,
@@ -42,102 +41,102 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 			image={hero_image}
 			slug={`blog/${slug}`}
 		>
-			<section className='row'>
-				<header className='col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
-					<h1 className='hero-title'>{title}</h1>
+			<article className='row justify-content-md-center'>
+				<div className='col-12 col-md-10 col-lg-8'>
+					<div className='article'>
+						<header className='article__header'>
+							<h1 className='article__header__title'>{title}</h1>
 
-					<div className='meta-information'>
-						<div className='information'>
-							<div className='icon-container'>
-								<FontAwesomeIcon icon={faCalendar} />
+							<div className='article__header__info'>
+								<div className='article__header__info__content'>
+									<div className='article__header__info__content__icon'>
+										<FontAwesomeIcon
+											icon={faCalendar}
+											className='article__header__info__content__icon__svg'
+										/>
+									</div>
+									Publicado el
+									<time
+										dateTime={onlyDate(date)}
+										className='article__header__info__content__time'
+									>
+										{prettyFormat(date)}
+									</time>
+								</div>
+								<div className='article__header__info__content'>
+									<div className='article__header__info__content__icon'>
+										<FontAwesomeIcon
+											icon={faClock}
+											className='article__header__info__content__icon__svg'
+										/>
+									</div>
+									{prettyReadingTime(read_time)}
+								</div>
+
+								<div className='article__header__info__content'>
+									<div className='article__header__info__content__icon'>
+										<FontAwesomeIcon
+											icon={tags.length > 1 ? faTags : faTag}
+											className='article__header__info__content__icon__svg'
+										/>
+									</div>
+									{prettyTags(tags)}
+								</div>
 							</div>
-							<p className='content'>
-								<time dateTime={date}>Publicado el {prettyFormat(date)}</time>
-							</p>
-						</div>
-						<div className='information'>
-							<div className='icon-container'>
-								<FontAwesomeIcon icon={faClock} />
-							</div>
-							<p className='content'>{prettyReadingTime(read_time)}</p>
-						</div>
-						<div className='information'>
-							<div className='icon-container'>
-								<FontAwesomeIcon icon={tags.length > 1 ? faTags : faTag} />
-							</div>
-							<p className='tags-content'>{prettyTags(tags)}</p>
-						</div>
-						<div className='information'>
-							<div className='icon-container'>
-								<FontAwesomeIcon icon={faComments} />
-							</div>
-							<p className='tags-content'>
-								<DisqusCount
-									path={`blog/${slug}`}
-									title={title}
-									id={`blog/${slug}`}
+
+							<div className='article__header__hero'>
+								<img
+									src={hero_image}
+									className='article__header__hero__image'
+									alt={`${title} - imagen`}
 								/>
-							</p>
+							</div>
+						</header>
+					</div>
+				</div>
+
+				<div className='col-12'>
+					<div className='article__body'>
+						<div className='row justify-content-center justify-content-lg-start'>
+							<div
+								className='col-12 col-lg-2 offset-lg-1 sticky-top'
+								style={{ padding: '0', backgroundColor: '#fff' }}
+							>
+								<TableOfSections sections={sections} />
+							</div>
+
+							<div className='col-12 col-md-10 col-lg-7'>
+								<Say
+									variant='primary'
+									anchor={introduction.anchor}
+									title={introduction.title}
+									content={introduction.content}
+								/>
+
+								<figure className='article__body__image'>
+									<img
+										src={image_introduction}
+										alt={`Imagen de introducción a ${title}`}
+									/>
+								</figure>
+
+								<div className='article__body__content'>
+									<ReactMarkdown source={markdownBody} escapeHtml={false} />
+								</div>
+							</div>
 						</div>
 					</div>
-				</header>
+				</div>
 
-				<figure className='col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
-					<div className='hero-image-container'>
-						<img
-							src={hero_image}
-							className='hero-image'
-							alt={`Imagen principal - ${title}`}
-						/>
+				<div className='col-12'>
+					<div className='errata'>
+						¿Encontraste alguna errata? Ayudame a mejorar haciendo un{' '}
+						<a href={github_post_url} target='_blank' rel='noreferrer noopener'>
+							Pull Request.
+						</a>
 					</div>
-				</figure>
-
-				<TableOfSections sections={sections} />
-
-				<aside
-					id={introduction.anchor}
-					className='intro col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'
-				>
-					<div className='isotipo-container'>
-						<img src='/images/isotipo/isotipo-blue.png' alt='isotipo' />
-					</div>
-
-					<div className='intro-container'>
-						<p className='intro-title'>{introduction.title}</p>
-						<ReactMarkdown
-							source={introduction.content}
-							className='article-content'
-						/>
-					</div>
-				</aside>
-
-				<figure className='col-xs-12 col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
-					<div className='intro-image'>
-						<img
-							src={image_introduction}
-							className='introduction-image'
-							alt={`Imagen de introducción - ${title}`}
-						/>
-					</div>
-				</figure>
-
-				<article className='col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2'>
-					<ReactMarkdown
-						source={markdownBody}
-						escapeHtml={false}
-						className='article-content'
-					/>
-				</article>
-			</section>
-			<section className='row'>
-				<article className='col-xs-12 col-md-10 offset-md-1'>
-					<DisqusComponent
-						path={`blog/${slug}`}
-						title={title}
-						id={`blog/${slug}`}
-					/>
-				</article>
-			</section>
+				</div>
+			</article>
 		</Layout>
 	);
 };
@@ -153,6 +152,7 @@ export const getStaticProps = async (
 
 	return {
 		props: {
+			github_post_url: `https://github.com/Proskynete/blog/blob/master/posts/${slug}.md`,
 			frontmatter: dataSerialized(data.data as FrontMatterInterface),
 			markdownBody: data.content,
 			slug: slug,

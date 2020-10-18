@@ -1,0 +1,113 @@
+.say {
+  padding-top: 70px;
+  
+  @media screen and (min-width: 720px) {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  @media screen and (min-width: 1200px) {
+    padding-top: 30px;
+  }
+
+  &__image {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 30px;
+    justify-content: center;
+
+    @media screen and (min-width: 720px) {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  &__container {
+    margin-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 25px;
+    position: relative;
+    z-index: 5;
+    max-width: max-content;
+    width: 80%;
+    margin-left: 50px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: 42%;
+      width: 50px;
+      height: 50px;
+      transform: rotate(45deg);
+      z-index: -1;
+
+      @media screen and (min-width: 720px) {
+        top: 30%;
+        left: -15px;
+      }
+    }
+
+    &__title {
+      font-size: 24px;
+      text-align: center;
+      padding-top: 20px;
+      padding-bottom: 15px;
+
+      &[data-type="primary"] {
+        color: $white;
+        background-color: $info;
+      }
+
+      &[data-type="secondary"] {
+        color: $white;
+        background-color: $secondary;
+      }
+
+      @media screen and (min-width: 720px) {
+        text-align: left;
+        padding-left: 20px;
+      }
+    }
+
+    &__content {
+      @media screen and (min-width: 720px) {
+        padding-left: 20px;
+        padding-right: 20px;
+
+        &[data-type="primary"] {
+          background-color: $info;
+        }
+
+        &[data-type="secondary"] {
+          background-color: $secondary;
+        }
+      }
+    }
+
+    &[data-type="primary"] {
+      background-color: $info;
+
+      &:after {
+        background-color: $info;
+      }
+    }
+
+    &[data-type="secondary"] {
+        background-color: $secondary;
+
+        &:after {
+          background-color: $secondary;
+        }
+    }
+  }
+}

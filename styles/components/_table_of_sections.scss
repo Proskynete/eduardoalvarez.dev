@@ -1,63 +1,95 @@
-.section-navegation {
-  box-sizing: content-box;
-  height: 55px;
-  position: sticky;
-  top: 0;
-  width: 100%;
+.table-of-content {
   font-family: "Roboto";
-  z-index: 20;
+  position: sticky;
+  display: block;
+  height: 55px;
+  font-weight: 300;
+  top: 0;
+  z-index: 1024;
+  width: 100%;
+  border-bottom: 1px solid $wild-sand;
 
-  .inner {
-    align-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    border-bottom: 1px solid $wild-sand;
-    display: flex;
-    flex-wrap: nowrap;
-    height: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 10px;
+  @media (min-width: 1200px) {
+    top: 30px;
+    border-bottom: none;
+    margin-top: 30px;
+  }
+
+  &__container {
+    color: $grey;
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 100%;
 
-    .item {
-      align-content: center;
-      display: flex;
-      justify-content: center;
-      min-width: max-content;
-      text-decoration: none;
+    @media (min-width: 1200px) {
+      min-height: 100px;
+      height: max-content;
+      width: 80%;
+      margin-left: auto;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-right: auto;
+    }
 
-      &:not(:first-of-type) {
-        margin-left: 5px;
-      }
+    &__inner {
+      overflow: auto;
+      padding: 0;
+      width: 100%;
 
-      &:hover,
-      &:active,
-      &:visited,
-      &:focus {
-        border: 0;
-        outline: none;
-        text-decoration: none;
-      }
+      &__content {
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        margin-bottom: 0;
 
-      .link {
-        color: $info;
-        list-style: none;
-        padding: 8px 10px;
-        text-decoration: none;
-
-        &:hover,
-        &:active,
-        &:visited,
-        &:focus {
-          border: 0;
-          outline: none;
-          text-decoration: none;
+        @media (min-width: 1200px) {
+          flex-direction: column;
         }
 
-        &.current {
-          background-color: lighten($info, 30);
-          font-weight: 500;
+        &__item {
+          color: $grey;
+          list-style: none;
+          margin: 0;
+
+          &__link {
+            display: block;
+            color: $info;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            padding: 5px 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            list-style: none;
+            text-decoration: none;
+            
+            &:hover,
+            &:active,
+            &:visited,
+            &:focus {
+              color: $info;
+              border: 0;
+              outline: none;
+              text-decoration: none;
+              list-style: none;
+            }
+
+            @media (min-width: 1200px) {
+              &:hover {
+                color: $secondary;
+              }
+            }
+
+            &.current {
+              color: $secondary;
+            }
+          }
         }
       }
     }
