@@ -75,9 +75,17 @@ export const getStaticProps = async (): Promise<
 
 	fs.writeFileSync('public/rss.xml', rrs);
 
+	const postsSortered = posts.sort((a, b) =>
+		new Date(a.frontmatter.date) > new Date(b.frontmatter.date)
+			? -1
+			: new Date(a.frontmatter.date) < new Date(b.frontmatter.date)
+			? 1
+			: 0,
+	);
+
 	return {
 		props: {
-			articles: posts,
+			articles: postsSortered,
 			title: siteConfig.title,
 			description: siteConfig.description,
 			image: siteConfig.image,
