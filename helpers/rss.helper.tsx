@@ -1,13 +1,13 @@
-import data from 'data/config.json';
+import config from 'data/config.json';
 import { BlogTemplatePropsInterface } from 'models/blogtemplate.model';
 
 export const generateRssItem = (post: BlogTemplatePropsInterface): string => `
   <item>
-    <guid>https://eduardoalvarez.dev/blog/${post.slug}</guid>
     <title>${post.frontmatter.title}</title>
     <link>https://eduardoalvarez.dev/blog/${post.slug}</link>
-    <description>${post.frontmatter.description}</description>
     <pubDate>${new Date(post.frontmatter.date).toUTCString()}</pubDate>
+    <guid>https://eduardoalvarez.dev/blog/${post.slug}</guid>
+    <description>${post.frontmatter.description}</description>
   </item>
 `;
 
@@ -16,10 +16,10 @@ export const generateRss = (
 ): string => `
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>${data.title}</title>
-      <link>https://eduardoalvarez.dev/blog</link>
-      <description>${data.description}</description>
-      <language>es</language>
+      <title>${config.title}</title>
+      <link>${config.url}</link>
+      <description>${config.description}</description>
+      <language>${config.languaje}</language>
       <lastBuildDate>${new Date(
 				posts[0].frontmatter.date,
 			).toUTCString()}</lastBuildDate>

@@ -1,8 +1,9 @@
 {
-  "title": "eduardoalvarez.dev",
-  "description": "De un desarollador para futuros desarrolladores",
+  "title": "eduardoalvarez.dev - De un desarollador para futuros desarrolladores",
+  "description": "Formación en tecnologías web para futuros desarrolladores usando | React and Node Lover!",
   "image": "https://res.cloudinary.com/soy-eduardoalvarez/image/upload/v1587245039/user_view/eduardo_alvarez.jpg",
   "url": "https://eduardoalvarez.dev",
+  "languaje": "es-ES",
   "email": "soy@eduardoalvarez.cl",
   "social_network": [{
       "name": "instagram",
