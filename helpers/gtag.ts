@@ -11,6 +11,7 @@ interface LogExeptionInterface {
 }
 
 export const initGA = (): void => {
+	console.log(process.env.GA_TRACKING_ID);
 	ReactGA.initialize(`${process.env.GA_TRACKING_ID}`);
 };
 
