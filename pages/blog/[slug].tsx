@@ -7,16 +7,16 @@ import glob from 'glob';
 import matter from 'gray-matter';
 import { dataSerialized } from 'helpers/serializer.helper';
 import {
+	BlogTemplatePropsInterface,
 	FrontMatterInterface,
-	PathsResponseInterface,
-	PropsInterface,
-	ReturnInterface,
+	GetStaticPathsResponseInterface,
+	GetStaticPropsReturnInterface,
 } from 'models/blogtemplate.model';
 import { GetStaticPropsContext } from 'next';
 import { memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
-const BlogTemplate = (props: PropsInterface) => {
+const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 	const { frontmatter, markdownBody, slug, github_post_url } = props;
 	const {
 		date,
@@ -109,7 +109,7 @@ export default memo(BlogTemplate);
 
 export const getStaticProps = async (
 	ctx: GetStaticPropsContext,
-): Promise<ReturnInterface> => {
+): Promise<GetStaticPropsReturnInterface> => {
 	const { slug } = ctx.params;
 	const content = await import(`../../posts/${slug}.md`);
 	const data = matter(content.default);
@@ -124,7 +124,9 @@ export const getStaticProps = async (
 	};
 };
 
-export const getStaticPaths = async (): Promise<PathsResponseInterface> => {
+export const getStaticPaths = async (): Promise<
+	GetStaticPathsResponseInterface
+> => {
 	const blogs = glob.sync('posts/**/*.md');
 
 	const blogSlugs = blogs.map((file: string) =>
