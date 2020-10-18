@@ -6,6 +6,8 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { copyTextToClipboard } from 'helpers/copy-to-clipboard.helper';
+import { titleForSocialNetwork } from 'helpers/letters.helper';
 import { ArticleContentInterface } from 'models/index.model';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -58,6 +60,7 @@ const Article: FC<ArticleContentInterface> = (props) => {
 									href={`https://www.facebook.com/sharer/sharer.php?u=${urlToShare}`}
 									title='Compartir en facebook'
 									target='_blank'
+									className='article__inner__section__footer__section__share__link'
 									rel='noreferrer noopener'
 								>
 									<FontAwesomeIcon icon={faFacebookF} />
@@ -70,6 +73,7 @@ const Article: FC<ArticleContentInterface> = (props) => {
 									)}&url=${urlToShare}`}
 									title='Compartir en twitter'
 									target='_blank'
+									className='article__inner__section__footer__section__share__link'
 									rel='noreferrer noopener'
 								>
 									<FontAwesomeIcon icon={faTwitter} />
@@ -80,6 +84,7 @@ const Article: FC<ArticleContentInterface> = (props) => {
 									href={`https://www.linkedin.com/sharing/share-offsite/?url=${urlToShare}`}
 									title='Compartir en linkedin'
 									target='_blank'
+									className='article__inner__section__footer__section__share__link'
 									rel='noreferrer noopener'
 								>
 									<FontAwesomeIcon icon={faLinkedinIn} />
@@ -91,6 +96,7 @@ const Article: FC<ArticleContentInterface> = (props) => {
 										title,
 									)}${urlToShare}`}
 									title='Compartir por whatsapp'
+									className='article__inner__section__footer__section__share__link'
 									target='_blank'
 									rel='noreferrer noopener'
 								>
@@ -98,14 +104,16 @@ const Article: FC<ArticleContentInterface> = (props) => {
 								</a>
 							</span>
 							<span className='article__inner__section__footer__section__share'>
-								<a
+								<div
 									role='button'
-									className='article__bottom__share__link'
+									tabIndex={0}
+									className='article__inner__section__footer__section__share__link'
+									aria-hidden='true'
 									title='Compartir copiando link'
-									onClick={handleCopyUrl}
+									onClick={(e) => handleCopyUrl(e)}
 								>
 									<FontAwesomeIcon icon={faCopy} />
-								</a>
+								</div>
 							</span>
 						</div>
 					</div>

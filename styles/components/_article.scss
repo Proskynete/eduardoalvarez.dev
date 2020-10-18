@@ -44,6 +44,39 @@
 
         &__section {
           display: flex;
+          width: 50%;
+
+          &__link {
+            color: $info;
+
+            &:hover {
+              color: $secondary;
+              text-decoration: none;
+            }
+          }
+
+          &:last-child {
+            display: flex;
+            justify-content: flex-end;
+          }
+
+          &__share {
+            font-size: 1rem;
+            cursor: pointer;
+            
+            &:not(:first-child) {
+              margin-left: 10px;
+            }
+            
+            &__link {
+              color: $info;
+
+              &:hover {
+                color: $secondary;
+                text-decoration: none;
+              }
+            }
+          }
         }
       }
     }
