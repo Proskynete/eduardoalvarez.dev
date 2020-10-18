@@ -30,20 +30,26 @@ const Article = (props: ArticleContentInterface) => {
 		<article className='article'>
 			<div className='article__inner'>
 				<div className='article__inner__section'>
-					<img
-						src={image_introduction}
-						alt={`Imagen del artículo ${title}`}
-						className='article__inner__section__hero'
-					/>
+					<div className='article__inner__section__image'>
+						<img
+							src={image_introduction}
+							alt={`Imagen del artículo ${title}`}
+							className='article__inner__section__image__hero'
+						/>
+					</div>
 				</div>
 
 				<div className='article__inner__section'>
-					<header className='article__inner__section__header'>
-						<h1 className='article__inner__section__header__title'>{title}</h1>
-						<InfoArticle date={date} readTime={read_time} horizontal={true} />
-					</header>
+					<div>
+						<header className='article__inner__section__header'>
+							<h1 className='article__inner__section__header__title'>
+								{title}
+							</h1>
+							<InfoArticle date={date} readTime={read_time} horizontal={true} />
+						</header>
 
-					<div className='article__inner__section__body'>{description}</div>
+						<div className='article__inner__section__body'>{description}</div>
+					</div>
 
 					<div className='article__inner__section__footer'>
 						<div className='article__inner__section__footer__section'>
