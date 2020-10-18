@@ -1,5 +1,4 @@
 import { DiscussionEmbed } from 'disqus-react';
-import React from 'react';
 
 interface DiscusInterface {
 	path: string;

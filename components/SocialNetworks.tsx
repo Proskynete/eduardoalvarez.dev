@@ -4,9 +4,8 @@ import {
 	SocialNetworkInterface,
 	socialNetworkMap,
 } from 'models/social-network.model';
-import React, { FC } from 'react';
 
-const SocialNetworks: FC = () => {
+const SocialNetworks = () => {
 	return (
 		<div className='social-netwoks'>
 			<h1 className='social-netwoks-title'>Síguenos en redes sociales</h1>

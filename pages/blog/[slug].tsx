@@ -13,10 +13,10 @@ import {
 	ReturnInterface,
 } from 'models/blogtemplate.model';
 import { GetStaticPropsContext } from 'next';
-import { FC, memo } from 'react';
+import { memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
-const BlogTemplate: FC<PropsInterface> = (props) => {
+const BlogTemplate = (props: PropsInterface) => {
 	const { frontmatter, markdownBody, slug, github_post_url } = props;
 	const {
 		date,

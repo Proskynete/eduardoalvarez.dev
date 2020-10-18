@@ -1,4 +1,6 @@
-export const copyTextToClipboard = (e: Event, text: string): void => {
+import { SyntheticEvent } from 'react';
+
+export const copyTextToClipboard = (e: SyntheticEvent, text: string): void => {
 	e.preventDefault();
 
 	const textarea = document.createElement('textarea');

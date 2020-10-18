@@ -10,11 +10,11 @@ import { copyTextToClipboard } from 'helpers/copy-to-clipboard.helper';
 import { titleForSocialNetwork } from 'helpers/letters.helper';
 import { ArticleContentInterface } from 'models/index.model';
 import Link from 'next/link';
-import { FC } from 'react';
+import { memo, SyntheticEvent } from 'react';
 
 import InfoArticle from './InfoArticle';
 
-const Article: FC<ArticleContentInterface> = (props) => {
+const Article = (props: ArticleContentInterface) => {
 	const {
 		frontmatter: { title, image_introduction, date, read_time, description },
 		slug,
@@ -22,8 +22,8 @@ const Article: FC<ArticleContentInterface> = (props) => {
 
 	const urlToShare = `https://eduardoalvarez.dev/blog/${slug}`;
 
-	const handleCopyUrl = (e) => {
-		copyTextToClipboard(e, urlToShare);
+	const handleCopyUrl = (event: SyntheticEvent) => {
+		copyTextToClipboard(event, urlToShare);
 	};
 
 	return (
@@ -123,4 +123,4 @@ const Article: FC<ArticleContentInterface> = (props) => {
 	);
 };
 
-export default Article;
+export default memo(Article);

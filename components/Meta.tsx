@@ -1,9 +1,8 @@
 import data from 'data/config.json';
 import { PropsInterface } from 'models/meta.model';
 import Head from 'next/head';
-import { FC } from 'react';
 
-const Meta: FC<PropsInterface> = (props) => {
+const Meta = (props: PropsInterface) => {
 	const { customTitle, description, image, slug = '' } = props;
 
 	return (

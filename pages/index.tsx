@@ -10,9 +10,9 @@ import {
 	PropsInterface,
 	ReturnInterface,
 } from 'models/index.model';
-import { FC, memo } from 'react';
+import { memo } from 'react';
 
-const Index: FC<PropsInterface> = (props) => {
+const Index = (props: PropsInterface) => {
 	const { title, description, image, articles } = props;
 
 	return (
