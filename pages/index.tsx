@@ -7,12 +7,12 @@ import { dataSerialized } from 'helpers/serializer.helper';
 import { FrontMatterInterface } from 'models/blogtemplate.model';
 import {
 	ArticleContentInterface,
-	PropsInterface,
-	ReturnInterface,
+	GetStaticPropsReturnInterface,
+	HomePropsInterface,
 } from 'models/index.model';
 import { memo } from 'react';
 
-const Index = (props: PropsInterface) => {
+const Index = (props: HomePropsInterface) => {
 	const { title, description, image, articles } = props;
 
 	return (
@@ -40,7 +40,9 @@ const Index = (props: PropsInterface) => {
 
 export default memo(Index);
 
-export const getStaticProps = async (): Promise<ReturnInterface> => {
+export const getStaticProps = async (): Promise<
+	GetStaticPropsReturnInterface
+> => {
 	const siteConfig = await import(`data/config.json`);
 
 	const posts = ((context) => {

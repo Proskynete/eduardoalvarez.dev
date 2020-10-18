@@ -6,13 +6,13 @@ export interface ArticleContentInterface {
 	slug: string;
 }
 
-export interface PropsInterface {
+export interface HomePropsInterface {
 	title: string;
 	description: string;
 	image: string;
 	articles: Array<ArticleContentInterface>;
 }
 
-export interface ReturnInterface {
-	props: PropsInterface;
+export interface GetStaticPropsReturnInterface {
+	props: HomePropsInterface;
 }
