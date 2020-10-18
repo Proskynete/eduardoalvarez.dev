@@ -18,10 +18,12 @@ const InfoArticle = (props: InfoArticleIntereface) => {
 						className='info__content__icon__svg'
 					/>
 				</div>
-				Publicado el
-				<time dateTime={onlyDate(date)} className='info__content__time'>
-					{prettyFormat(date)}
-				</time>
+				<span>
+					Publicado el
+					<time dateTime={onlyDate(date)} className='info__content__time'>
+						{prettyFormat(date)}
+					</time>
+				</span>
 			</div>
 
 			{readTime && (

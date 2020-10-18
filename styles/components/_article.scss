@@ -63,11 +63,15 @@
 
       &__header {
         margin-top: $margin-xs;
-
+        
         &__title {
-          font-size: $size-xxlg;
+          font-size: $size-lg;
           color: $primary;
           margin-bottom: $margin-xs;
+          
+          @media screen and (min-width: 1200px) {
+            font-size: $size-xxlg;
+          }
         }
       }
 
@@ -101,7 +105,7 @@
             font-size: $size-xs;
             
             @media screen and (min-width: 720px) {
-              font-size: $size-lg;
+              font-size: $size-md;
             }
 
             &:hover {
