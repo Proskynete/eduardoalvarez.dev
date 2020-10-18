@@ -18,6 +18,12 @@ const Article: FC<ArticleContentInterface> = (props) => {
 		slug,
 	} = props;
 
+	const urlToShare = `https://eduardoalvarez.dev/blog/${slug}`;
+
+	const handleCopyUrl = (e) => {
+		copyTextToClipboard(e, urlToShare);
+	};
+
 	return (
 		<article className='article'>
 			<div className='article__inner'>
@@ -48,27 +54,56 @@ const Article: FC<ArticleContentInterface> = (props) => {
 
 						<div className='article__inner__section__footer__section'>
 							<span className='article__inner__section__footer__section__share'>
-								<a href='!#' target='_blank' rel='noreferrer noopener'>
+								<a
+									href={`https://www.facebook.com/sharer/sharer.php?u=${urlToShare}`}
+									title='Compartir en facebook'
+									target='_blank'
+									rel='noreferrer noopener'
+								>
 									<FontAwesomeIcon icon={faFacebookF} />
 								</a>
 							</span>
 							<span className='article__inner__section__footer__section__share'>
-								<a href='!#' target='_blank' rel='noreferrer noopener'>
+								<a
+									href={`https://twitter.com/intent/tweet?text=${titleForSocialNetwork(
+										title,
+									)}&url=${urlToShare}`}
+									title='Compartir en twitter'
+									target='_blank'
+									rel='noreferrer noopener'
+								>
 									<FontAwesomeIcon icon={faTwitter} />
 								</a>
 							</span>
 							<span className='article__inner__section__footer__section__share'>
-								<a href='!#' target='_blank' rel='noreferrer noopener'>
+								<a
+									href={`https://www.linkedin.com/sharing/share-offsite/?url=${urlToShare}`}
+									title='Compartir en linkedin'
+									target='_blank'
+									rel='noreferrer noopener'
+								>
 									<FontAwesomeIcon icon={faLinkedinIn} />
 								</a>
 							</span>
 							<span className='article__inner__section__footer__section__share'>
-								<a href='!#' target='_blank' rel='noreferrer noopener'>
+								<a
+									href={`https://api.whatsapp.com/send?text=${titleForSocialNetwork(
+										title,
+									)}${urlToShare}`}
+									title='Compartir por whatsapp'
+									target='_blank'
+									rel='noreferrer noopener'
+								>
 									<FontAwesomeIcon icon={faWhatsapp} />
 								</a>
 							</span>
 							<span className='article__inner__section__footer__section__share'>
-								<a href='!#' target='_blank' rel='noreferrer noopener'>
+								<a
+									role='button'
+									className='article__bottom__share__link'
+									title='Compartir copiando link'
+									onClick={handleCopyUrl}
+								>
 									<FontAwesomeIcon icon={faCopy} />
 								</a>
 							</span>
