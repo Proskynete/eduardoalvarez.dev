@@ -1,6 +1,7 @@
 import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
 import { faTag, faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import DisqusComponent from 'components/DisqusComponent';
 import Layout from 'components/Layout';
 import Say from 'components/Say';
 import TableOfSections from 'components/TableOfSections';
@@ -135,6 +136,10 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 							Pull Request.
 						</a>
 					</div>
+				</div>
+
+				<div className='col-12'>
+					<DisqusComponent path={`blog/${slug}`} id={title} title={title} />
 				</div>
 			</article>
 		</Layout>
