@@ -36,4 +36,4 @@ yarn.lock*
 .env*
 !.env.template
 
-public/rss.xml
+/public/rss.xml

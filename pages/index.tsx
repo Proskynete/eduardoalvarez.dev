@@ -71,10 +71,6 @@ export const getStaticProps = async (): Promise<
 		return data;
 	})(require['context']('../posts', true, /\.md$/));
 
-	const rrs = generateRss(posts);
-
-	fs.writeFileSync('public/rss.xml', rrs);
-
 	const postsSortered = posts.sort((a, b) => {
 		const _a = new Date(a.frontmatter.date);
 		const _b = new Date(b.frontmatter.date);
@@ -82,7 +78,10 @@ export const getStaticProps = async (): Promise<
 		return _a > _b ? -1 : _a < _b ? 1 : 0;
 	});
 
+	const rrs = generateRss(postsSortered);
 	const postsSliced = postsSortered.slice(0, 3);
+
+	fs.writeFileSync('public/rss.xml', rrs);
 
 	return {
 		props: {
