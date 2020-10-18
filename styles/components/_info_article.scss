@@ -5,7 +5,7 @@
   margin-bottom: $margin-lg;
 
   &.horizontal {
-    @media screen and (min-width: 720px) {
+    @media screen and (min-width: 1200px) {
       flex-direction: row;
       align-items: center;
       margin-bottom: $margin-md;
@@ -24,7 +24,7 @@
     }
 
     .info.horizontal & {
-      @media screen and (min-width: 720px) {
+      @media screen and (min-width: 1200px) {
         align-items: center;
         min-height: 20px;
 
