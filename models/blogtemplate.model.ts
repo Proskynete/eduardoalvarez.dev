@@ -8,23 +8,27 @@ interface IntroductionInterface {
 
 export type TagsEnum =
 	| 'web-development'
+	| 'introduction'
 	| 'personal'
 	| 'traveling'
 	| 'css'
 	| 'html'
 	| 'javascript'
 	| 'react'
-	| 'node';
+	| 'node'
+	| 'mongo';
 
 export type PrettyTagsEnum =
 	| 'Desarrollo web'
+	| 'Introducción'
 	| 'Personal'
 	| 'Viajes'
 	| 'CSS'
 	| 'HTML'
-	| 'JavaScript'
+	| 'Javascript'
 	| 'React'
-	| 'Node';
+	| 'Node'
+	| 'MongoDB';
 
 export interface FrontMatterInterface {
 	title: string;
@@ -42,6 +46,7 @@ export interface PropsInterface {
 	frontmatter: FrontMatterInterface;
 	markdownBody: string;
 	slug: string | Array<string>;
+	github_post_url: string;
 }
 
 export interface ReturnInterface {

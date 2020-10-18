@@ -32,6 +32,7 @@ const Footer: FC = () => {
 						</p>
 					</div>
 				</div>
+
 				<div className='footer-info'>
 					<div className='footer-mail'>
 						<p className='footer-mail-title'>Contacto</p>

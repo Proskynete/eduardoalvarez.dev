@@ -19,7 +19,7 @@ export const scrollToNextContent = (anchor: string): void => {
 const smoothScroll = (anchor: string, duration: number): void => {
 	const target: HTMLElement = document.querySelector(`${anchor}`);
 	const targetPosition: number =
-		target.getBoundingClientRect().top + window.scrollY - 55;
+		target.getBoundingClientRect().top + window.scrollY;
 
 	const startPosition: number = window.pageYOffset;
 	const distance: number = targetPosition - startPosition;
@@ -51,7 +51,7 @@ export const toggleClassWhenScrolling = (
 	listOfItems.forEach((item) => {
 		const element = document.querySelector(`#${item.anchor}`);
 		listOfPositionItems.push(
-			element.getBoundingClientRect().top + window.scrollY - 56,
+			element.getBoundingClientRect().top + window.scrollY - 30,
 		);
 	});
 

@@ -48,6 +48,7 @@ const Subscribe: FC = () => {
 
 		if (error) setMessageResponse(error);
 
+		setValues(defaultValues);
 		setMessageResponse(message);
 	};
 
