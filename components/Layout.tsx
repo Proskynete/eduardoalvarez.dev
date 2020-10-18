@@ -1,11 +1,20 @@
+import { initGA, LogPageView } from 'helpers/gtag';
 import { PropsInterface } from 'models/layout.model';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import Footer from './Footer';
 import Meta from './Meta';
 
 const Layout: FC<PropsInterface> = (props) => {
 	const { customTitle, description, image, slug, children } = props;
+
+	useEffect(() => {
+		if (!window.GA_INITIALIZED) {
+			initGA();
+			window.GA_INITIALIZED = true;
+		}
+		LogPageView();
+	}, []);
 
 	return (
 		<>
