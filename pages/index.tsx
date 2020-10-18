@@ -17,12 +17,23 @@ const Index = (props: PropsInterface) => {
 
 	return (
 		<Layout customTitle={title} description={description} image={image}>
-			<h1>Welcome</h1>
-			<section className='articles'>
-				{articles.map((article: ArticleContentInterface) => {
-					return <Article key={article.slug} {...article} />;
-				})}
-			</section>
+			<div className='home'>
+				<div className='row'>
+					<div className='col-12'>
+						<h1>Welcome</h1>
+
+						<div className='row justify-content-md-center'>
+							<div className='col-12 col-lg-6'>
+								<section className='articles'>
+									{articles.map((article: ArticleContentInterface) => {
+										return <Article key={article.slug} {...article} />;
+									})}
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</Layout>
 	);
 };
