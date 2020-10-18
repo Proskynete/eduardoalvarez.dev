@@ -4,7 +4,10 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { generateRss } from 'helpers/rss.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
-import { FrontMatterInterface } from 'models/blogtemplate.model';
+import {
+	BlogTemplatePropsInterface,
+	FrontMatterInterface,
+} from 'models/blogtemplate.model';
 import {
 	ArticleContentInterface,
 	GetStaticPropsReturnInterface,
@@ -45,7 +48,7 @@ export const getStaticProps = async (): Promise<
 > => {
 	const siteConfig = await import(`data/config.json`);
 
-	const posts = ((context) => {
+	const posts: Array<BlogTemplatePropsInterface> = ((context) => {
 		const nameFiles = context.keys();
 		const contentFile = nameFiles.map(context);
 

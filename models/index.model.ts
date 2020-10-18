@@ -1,4 +1,7 @@
-import { FrontMatterInterface } from 'models/blogtemplate.model';
+import {
+	BlogTemplatePropsInterface,
+	FrontMatterInterface,
+} from 'models/blogtemplate.model';
 
 export interface ArticleContentInterface {
 	markdownBody: string;
@@ -10,7 +13,7 @@ export interface HomePropsInterface {
 	title: string;
 	description: string;
 	image: string;
-	articles: Array<ArticleContentInterface>;
+	articles: Array<ArticleContentInterface | BlogTemplatePropsInterface>;
 }
 
 export interface GetStaticPropsReturnInterface {
