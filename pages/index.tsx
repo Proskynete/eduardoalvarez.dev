@@ -75,17 +75,18 @@ export const getStaticProps = async (): Promise<
 
 	fs.writeFileSync('public/rss.xml', rrs);
 
-	const postsSortered = posts.sort((a, b) =>
-		new Date(a.frontmatter.date) > new Date(b.frontmatter.date)
-			? -1
-			: new Date(a.frontmatter.date) < new Date(b.frontmatter.date)
-			? 1
-			: 0,
-	);
+	const postsSortered = posts.sort((a, b) => {
+		const _a = new Date(a.frontmatter.date);
+		const _b = new Date(b.frontmatter.date);
+
+		return _a > _b ? -1 : _a < _b ? 1 : 0;
+	});
+
+	const postsSliced = postsSortered.slice(0, 3);
 
 	return {
 		props: {
-			articles: postsSortered,
+			articles: postsSliced,
 			title: siteConfig.title,
 			description: siteConfig.description,
 			image: siteConfig.image,
