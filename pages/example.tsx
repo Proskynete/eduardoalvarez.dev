@@ -1,9 +1,8 @@
 import { fetcher } from 'helpers/fetcher.helper';
 import Head from 'next/head';
-import { FC } from 'react';
 import useSWR from 'swr';
 
-const Home: FC = () => {
+const Home = () => {
 	const { data, error } = useSWR('/api/hello', (url) => fetcher<string>(url));
 
 	if (error) return <p>Error in server</p>;

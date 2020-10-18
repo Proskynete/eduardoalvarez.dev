@@ -2,12 +2,11 @@ import { faAngleUp, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import config from 'data/config.json';
 import { scrollToTop } from 'helpers/scroll.helper';
-import React, { FC } from 'react';
 
 import SocialNetworks from './SocialNetworks';
 import Subscribe from './Subscribe';
 
-const Footer: FC = () => {
+const Footer = () => {
 	const currentYear: number = new Date().getFullYear();
 
 	return (

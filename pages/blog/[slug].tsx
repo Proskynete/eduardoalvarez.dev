@@ -1,27 +1,22 @@
-import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
-import { faTag, faTags } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DisqusComponent from 'components/DisqusComponent';
+import InfoArticle from 'components/InfoArticle';
 import Layout from 'components/Layout';
 import Say from 'components/Say';
 import TableOfSections from 'components/TableOfSections';
 import glob from 'glob';
 import matter from 'gray-matter';
-import { onlyDate, prettyFormat } from 'helpers/date.helper';
-import { prettyReadingTime } from 'helpers/reading-time.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
-import { prettyTags } from 'helpers/tags.helper';
 import {
+	BlogTemplatePropsInterface,
 	FrontMatterInterface,
-	PathsResponseInterface,
-	PropsInterface,
-	ReturnInterface,
+	GetStaticPathsResponseInterface,
+	GetStaticPropsReturnInterface,
 } from 'models/blogtemplate.model';
 import { GetStaticPropsContext } from 'next';
-import { FC, memo } from 'react';
+import { memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
-const BlogTemplate: FC<PropsInterface> = (props) => {
+const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 	const { frontmatter, markdownBody, slug, github_post_url } = props;
 	const {
 		date,
@@ -47,43 +42,7 @@ const BlogTemplate: FC<PropsInterface> = (props) => {
 					<div className='article'>
 						<header className='article__header'>
 							<h1 className='article__header__title'>{title}</h1>
-
-							<div className='article__header__info'>
-								<div className='article__header__info__content'>
-									<div className='article__header__info__content__icon'>
-										<FontAwesomeIcon
-											icon={faCalendar}
-											className='article__header__info__content__icon__svg'
-										/>
-									</div>
-									Publicado el
-									<time
-										dateTime={onlyDate(date)}
-										className='article__header__info__content__time'
-									>
-										{prettyFormat(date)}
-									</time>
-								</div>
-								<div className='article__header__info__content'>
-									<div className='article__header__info__content__icon'>
-										<FontAwesomeIcon
-											icon={faClock}
-											className='article__header__info__content__icon__svg'
-										/>
-									</div>
-									{prettyReadingTime(read_time)}
-								</div>
-
-								<div className='article__header__info__content'>
-									<div className='article__header__info__content__icon'>
-										<FontAwesomeIcon
-											icon={tags.length > 1 ? faTags : faTag}
-											className='article__header__info__content__icon__svg'
-										/>
-									</div>
-									{prettyTags(tags)}
-								</div>
-							</div>
+							<InfoArticle date={date} readTime={read_time} tags={tags} />
 
 							<div className='article__header__hero'>
 								<img
@@ -150,7 +109,7 @@ export default memo(BlogTemplate);
 
 export const getStaticProps = async (
 	ctx: GetStaticPropsContext,
-): Promise<ReturnInterface> => {
+): Promise<GetStaticPropsReturnInterface> => {
 	const { slug } = ctx.params;
 	const content = await import(`../../posts/${slug}.md`);
 	const data = matter(content.default);
@@ -165,7 +124,9 @@ export const getStaticProps = async (
 	};
 };
 
-export const getStaticPaths = async (): Promise<PathsResponseInterface> => {
+export const getStaticPaths = async (): Promise<
+	GetStaticPathsResponseInterface
+> => {
 	const blogs = glob.sync('posts/**/*.md');
 
 	const blogSlugs = blogs.map((file: string) =>

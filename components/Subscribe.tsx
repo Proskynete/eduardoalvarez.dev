@@ -1,6 +1,6 @@
 import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { FC, SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 
 import {
 	InputsInterface,
@@ -12,7 +12,7 @@ const defaultValues: InputsInterface = {
 	email: '',
 };
 
-const Subscribe: FC = () => {
+const Subscribe = () => {
 	const [values, setValues] = useState<InputsInterface>(defaultValues);
 	const [buttonDisabled, setButtonDisabled] = useState(true);
 	const [messageResponse, setMessageResponse] = useState('');

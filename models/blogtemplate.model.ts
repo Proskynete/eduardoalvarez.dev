@@ -1,10 +1,5 @@
+import { SayInterface } from './say.model';
 import { SectionsInterface } from './sections.model';
-
-interface IntroductionInterface {
-	title: string;
-	content: string;
-	anchor: string;
-}
 
 export type TagsEnum =
 	| 'web-development'
@@ -37,23 +32,24 @@ export interface FrontMatterInterface {
 	tags: Array<TagsEnum>;
 	read_time: number;
 	hero_image: string;
-	introduction: IntroductionInterface;
+	introduction: SayInterface;
 	image_introduction: string;
 	sections: Array<SectionsInterface>;
+	slug?: string;
 }
 
-export interface PropsInterface {
+export interface BlogTemplatePropsInterface {
 	frontmatter: FrontMatterInterface;
 	markdownBody: string;
 	slug: string | Array<string>;
 	github_post_url: string;
 }
 
-export interface ReturnInterface {
-	props: PropsInterface;
+export interface GetStaticPropsReturnInterface {
+	props: BlogTemplatePropsInterface;
 }
 
-export interface PathsResponseInterface {
+export interface GetStaticPathsResponseInterface {
 	paths: Array<string> | string;
 	fallback: boolean;
 }

@@ -41,6 +41,20 @@ module.exports = {
 				aspects: ['invalidHref', 'preferButton'],
 			},
 		],
+		'jsx-a11y/interactive-supports-focus': [
+			'error',
+			{
+				tabbable: [
+					'button',
+					'checkbox',
+					'link',
+					'searchbox',
+					'spinbutton',
+					'switch',
+					'textbox',
+				],
+			},
+		],
 		'@typescript-eslint/no-var-requires': 0,
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off',

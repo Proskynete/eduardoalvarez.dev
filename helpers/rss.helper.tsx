@@ -1,7 +1,7 @@
 import data from 'data/config.json';
-import { PropsInterface } from 'models/blogtemplate.model';
+import { BlogTemplatePropsInterface } from 'models/blogtemplate.model';
 
-export const generateRssItem = (post: PropsInterface): string => `
+export const generateRssItem = (post: BlogTemplatePropsInterface): string => `
   <item>
     <guid>https://eduardoalvarez.dev/blog/${post.slug}</guid>
     <title>${post.frontmatter.title}</title>
@@ -11,7 +11,9 @@ export const generateRssItem = (post: PropsInterface): string => `
   </item>
 `;
 
-export const generateRss = (posts: Array<PropsInterface>): string => `
+export const generateRss = (
+	posts: Array<BlogTemplatePropsInterface>,
+): string => `
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
       <title>${data.title}</title>

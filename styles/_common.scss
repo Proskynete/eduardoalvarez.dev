@@ -1,10 +1,13 @@
-@import './pages/blog_template';
 @import './components/subscribe';
 @import './components/social_networks';
 @import './components/footer';
 @import './components/table_of_sections';
 @import './components/say.component';
+@import './components/info_article';
+@import './components/article';
 @import './components/disqus_component';
+@import './pages/blog_template';
+@import './pages/home';
 
 body {
   font-family: "Hero";
