@@ -43,6 +43,7 @@ export interface BlogTemplatePropsInterface {
 	markdownBody: string;
 	slug: string | Array<string>;
 	github_post_url: string;
+	disqusShortName: string;
 }
 
 export interface GetStaticPropsReturnInterface {
