@@ -6,14 +6,7 @@ import InfoArticle from './InfoArticle';
 
 const Article: FC<ArticleContentInterface> = (props) => {
 	const {
-		frontmatter: {
-			title,
-			image_introduction,
-			date,
-			read_time,
-			tags,
-			description,
-		},
+		frontmatter: { title, image_introduction, date, read_time, description },
 		slug,
 	} = props;
 
@@ -37,7 +30,7 @@ const Article: FC<ArticleContentInterface> = (props) => {
 					<div className='article__inner__section__body'>{description}</div>
 
 					<div className='article__inner__section__footer'>
-						<Link href={`/blog/${slug}`}>
+						<Link href={`/blog/${encodeURIComponent(slug)}`} scroll={true}>
 							<a>Leer más</a>
 						</Link>
 					</div>
