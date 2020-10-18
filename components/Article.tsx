@@ -1,12 +1,8 @@
-import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
-import { faTag, faTags } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { onlyDate, prettyFormat } from 'helpers/date.helper';
-import { prettyReadingTime } from 'helpers/reading-time.helper';
-import { prettyTags } from 'helpers/tags.helper';
 import { ArticleContentInterface } from 'models/index.model';
 import Link from 'next/link';
 import { FC } from 'react';
+
+import InfoArticle from './InfoArticle';
 
 const Article: FC<ArticleContentInterface> = (props) => {
 	const {
@@ -35,27 +31,7 @@ const Article: FC<ArticleContentInterface> = (props) => {
 				<div className='article__inner__section'>
 					<header className='article__inner__section__header'>
 						<h1 className='article__inner__section__header__title'>{title}</h1>
-						<div className='article__inner__section__header__info'>
-							<div className='article__inner__section__header__info__content'>
-								<FontAwesomeIcon icon={faCalendar} />
-								<time
-									dateTime={onlyDate(date)}
-									className='article__header__info__content__time'
-								>
-									{prettyFormat(date)}
-								</time>
-							</div>
-
-							<div className='article__inner__section__header__info__content'>
-								<FontAwesomeIcon icon={faClock} />
-								{prettyReadingTime(read_time)}
-							</div>
-
-							<div className='article__inner__section__header__info__content'>
-								<FontAwesomeIcon icon={tags.length > 1 ? faTags : faTag} />
-								{prettyTags(tags)}
-							</div>
-						</div>
+						<InfoArticle date={date} readTime={read_time} horizontal={true} />
 					</header>
 
 					<div className='article__inner__section__body'>{description}</div>

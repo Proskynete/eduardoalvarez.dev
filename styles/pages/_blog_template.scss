@@ -9,44 +9,6 @@
       font-family: "Hero";
       font-size: $size-xxlg;
       font-weight: 500;
-      margin-bottom: $margin-lg;
-    }
-
-    &__info {
-      font-family: "Roboto";
-      display: flex;
-      flex-direction: column;
-      margin-bottom: $margin-lg;
-      
-      &__content {
-        color: $black;
-        position: relative;
-        display: flex;
-
-        &:not(:first-child) {
-          margin-top: $margin-xxs;
-        }
-      
-        &__icon {
-          color: $primary;
-          width: 15px;
-          margin-right: 10px;
-        }
-        
-        &__time {
-          margin-left: $margin-xxs;
-        }
-
-        .tag {
-          &:not(:first-of-type) {
-            &:before {
-              content: "-";
-              margin-left: $margin-xxs;
-              margin-right: $margin-xxs;
-            }
-          }
-        }
-      }
     }
 
     &__hero {
