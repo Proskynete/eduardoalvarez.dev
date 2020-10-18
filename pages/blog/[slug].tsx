@@ -17,7 +17,13 @@ import { memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
 const BlogTemplate = (props: BlogTemplatePropsInterface) => {
-	const { frontmatter, markdownBody, slug, github_post_url } = props;
+	const {
+		frontmatter,
+		markdownBody,
+		slug,
+		github_post_url,
+		disqusShortName,
+	} = props;
 	const {
 		date,
 		description,
@@ -42,7 +48,17 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 					<div className='article'>
 						<header className='article__header'>
 							<h1 className='article__header__title'>{title}</h1>
-							<InfoArticle date={date} readTime={read_time} tags={tags} />
+							<InfoArticle
+								date={date}
+								readTime={read_time}
+								tags={tags}
+								disqus={{
+									path: `blog/${slug}`,
+									title: title,
+									id: title,
+									disqusShortName: disqusShortName,
+								}}
+							/>
 
 							<div className='article__header__hero'>
 								<img
@@ -97,8 +113,13 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 					</div>
 				</div>
 
-				<div className='col-12'>
-					<DisqusComponent path={`blog/${slug}`} id={title} title={title} />
+				<div className='col-12 col-md-10 col-lg-7'>
+					<DisqusComponent
+						path={`blog/${slug}`}
+						id={title}
+						title={title}
+						disqusShortName={disqusShortName}
+					/>
 				</div>
 			</article>
 		</Layout>
@@ -113,12 +134,14 @@ export const getStaticProps = async (
 	const { slug } = ctx.params;
 	const content = await import(`../../posts/${slug}.md`);
 	const data = matter(content.default);
+	const disqusShortName = process.env.DISQUS_SHORT_NAME;
 
 	return {
 		props: {
 			github_post_url: `https://github.com/Proskynete/blog/blob/master/posts/${slug}.md`,
 			frontmatter: dataSerialized(data.data as FrontMatterInterface),
 			markdownBody: data.content,
+			disqusShortName,
 			slug: slug,
 		},
 	};

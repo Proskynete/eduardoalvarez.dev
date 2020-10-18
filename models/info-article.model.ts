@@ -1,3 +1,5 @@
+import { DiscusInterface } from 'components/DisqusComponent';
+
 import { TagsEnum } from './blogtemplate.model';
 
 export interface InfoArticleIntereface {
@@ -5,4 +7,5 @@ export interface InfoArticleIntereface {
 	readTime?: number;
 	tags?: Array<TagsEnum>;
 	horizontal?: boolean;
+	disqus?: DiscusInterface;
 }

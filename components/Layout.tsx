@@ -1,20 +1,11 @@
-import { initGA, LogPageView } from 'helpers/gtag';
 import { PropsInterface } from 'models/layout.model';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 import Footer from './Footer';
 import Meta from './Meta';
 
 const Layout: FC<PropsInterface> = (props) => {
 	const { customTitle, description, image, slug, children } = props;
-
-	useEffect(() => {
-		if (!window.GA_INITIALIZED) {
-			initGA();
-			window.GA_INITIALIZED = true;
-		}
-		LogPageView();
-	}, []);
 
 	return (
 		<>
@@ -33,3 +24,14 @@ const Layout: FC<PropsInterface> = (props) => {
 };
 
 export default Layout;
+
+export const getStaticProps = async () => {
+	const gaID = process.env.GA_TRACKING_ID;
+
+	console.log(gaID);
+	console.log('<sdcv<sd');
+
+	return {
+		props: { gaID },
+	};
+};
