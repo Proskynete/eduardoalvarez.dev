@@ -5,5 +5,11 @@
     @media screen and (min-width: 720px) {
       padding: 50px;
     }
+
+    > .article {
+      &:not(:last-child){
+        border-bottom: 1px solid $secondary;
+      }
+    }
   }
 }
