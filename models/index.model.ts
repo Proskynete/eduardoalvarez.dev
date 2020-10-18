@@ -1,6 +1,6 @@
 import { FrontMatterInterface } from 'models/blogtemplate.model';
 
-interface ArticleContentInterface {
+export interface ArticleContentInterface {
 	markdownBody: string;
 	frontmatter: FrontMatterInterface;
 	slug: string;

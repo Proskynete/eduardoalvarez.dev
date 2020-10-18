@@ -1,20 +1,28 @@
+import Article from 'components/Article';
 import Layout from 'components/Layout';
 import fs from 'fs';
 import matter from 'gray-matter';
 import { generateRss } from 'helpers/rss.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import { FrontMatterInterface } from 'models/blogtemplate.model';
-import { PropsInterface, ReturnInterface } from 'models/index.model';
+import {
+	ArticleContentInterface,
+	PropsInterface,
+	ReturnInterface,
+} from 'models/index.model';
 import { FC, memo } from 'react';
 
 const Index: FC<PropsInterface> = (props) => {
 	const { title, description, image, articles } = props;
 
-	console.log(articles);
-
 	return (
 		<Layout customTitle={title} description={description} image={image}>
 			<h1>Welcome</h1>
+			<section className='articles'>
+				{articles.map((article: ArticleContentInterface) => {
+					return <Article key={article.slug} {...article} />;
+				})}
+			</section>
 		</Layout>
 	);
 };

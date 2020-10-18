@@ -40,6 +40,7 @@ export interface FrontMatterInterface {
 	introduction: IntroductionInterface;
 	image_introduction: string;
 	sections: Array<SectionsInterface>;
+	slug?: string;
 }
 
 export interface PropsInterface {
