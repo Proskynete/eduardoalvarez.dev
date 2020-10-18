@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   margin-bottom: $margin-lg;
-  margin-top: $margin-lg;
 
   &.horizontal {
     @media screen and (min-width: 720px) {

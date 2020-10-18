@@ -1,3 +1,11 @@
+import {
+	faFacebookF,
+	faLinkedinIn,
+	faTwitter,
+	faWhatsapp,
+} from '@fortawesome/free-brands-svg-icons';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ArticleContentInterface } from 'models/index.model';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -30,9 +38,41 @@ const Article: FC<ArticleContentInterface> = (props) => {
 					<div className='article__inner__section__body'>{description}</div>
 
 					<div className='article__inner__section__footer'>
-						<Link href={`/blog/${encodeURIComponent(slug)}`} scroll={true}>
-							<a>Leer más</a>
-						</Link>
+						<div className='article__inner__section__footer__section'>
+							<Link href={`/blog/${encodeURIComponent(slug)}`}>
+								<a className='article__inner__section__footer__section__link'>
+									Seguir leyendo
+								</a>
+							</Link>
+						</div>
+
+						<div className='article__inner__section__footer__section'>
+							<span className='article__inner__section__footer__section__share'>
+								<a href='!#' target='_blank' rel='noreferrer noopener'>
+									<FontAwesomeIcon icon={faFacebookF} />
+								</a>
+							</span>
+							<span className='article__inner__section__footer__section__share'>
+								<a href='!#' target='_blank' rel='noreferrer noopener'>
+									<FontAwesomeIcon icon={faTwitter} />
+								</a>
+							</span>
+							<span className='article__inner__section__footer__section__share'>
+								<a href='!#' target='_blank' rel='noreferrer noopener'>
+									<FontAwesomeIcon icon={faLinkedinIn} />
+								</a>
+							</span>
+							<span className='article__inner__section__footer__section__share'>
+								<a href='!#' target='_blank' rel='noreferrer noopener'>
+									<FontAwesomeIcon icon={faWhatsapp} />
+								</a>
+							</span>
+							<span className='article__inner__section__footer__section__share'>
+								<a href='!#' target='_blank' rel='noreferrer noopener'>
+									<FontAwesomeIcon icon={faCopy} />
+								</a>
+							</span>
+						</div>
 					</div>
 				</div>
 			</div>

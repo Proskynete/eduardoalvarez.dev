@@ -1,0 +1,51 @@
+.article {
+  width: 100%;
+  height: max-content;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+
+    &__section {
+      &__hero {
+        width: 100%;
+        border: 1px solid $primary;
+      }
+
+      &__header {
+        margin-top: $margin-xs;
+
+        &__title {
+          font-size: $size-xxlg;
+          color: $primary;
+          margin-bottom: $margin-xs;
+        }
+      }
+
+      &__body {
+        font-family: "Roboto";
+        line-height: 1.2;
+        font-weight: 400;
+        display: -webkit-box;
+        width: 100%;
+        height: max-content;
+        margin-left: auto;
+        margin-right: auto;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: $margin-lg;
+      }
+
+      &__footer {
+        display: flex;
+        justify-content: space-between;
+
+        &__section {
+          display: flex;
+        }
+      }
+    }
+  }
+}
