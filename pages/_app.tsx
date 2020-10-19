@@ -4,6 +4,7 @@ import 'styles/globals.scss';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import * as gtag from 'lib/gtag';
+import { GTMPageView } from 'lib/gtm';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -22,6 +23,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 	useEffect(() => {
 		const handleRouteChange = (url: string) => {
 			gtag.pageview(url);
+			GTMPageView(url);
 		};
 		router.events.on('routeChangeComplete', handleRouteChange);
 
