@@ -9,8 +9,7 @@
       font-family: "Hero";
       font-size: $size-xxlg;
       font-weight: 500;
-      margin-bottom: $margin-md;
-
+      margin-bottom: $margin-xlg;
     }
 
     &__hero {
@@ -22,6 +21,7 @@
       background-color: $black;
       cursor: pointer;
       position: relative;
+      margin-top: $margin-lg;
 
       /*&__image {
         opacity: .3;
