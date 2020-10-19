@@ -10,8 +10,6 @@ export interface DiscusInterface {
 const DisqusComponent = (props: DiscusInterface) => {
 	const { path, id, title, disqusShortName } = props;
 
-	console.log('DisqusComponent', disqusShortName);
-
 	const configDisqus = {
 		url: `https://eduardoalvarez/${path}`,
 		identifier: id,
