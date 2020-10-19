@@ -23,6 +23,7 @@
     @media screen and (min-width: 720px) {
       margin-left: 0;
       margin-right: 0;
+      width: 130px;
     }
 
     img {
@@ -62,7 +63,7 @@
     }
 
     &__title {
-      font-size: 24px;
+      font-size: $size-md;
       text-align: center;
       padding-top: 20px;
       padding-bottom: 15px;
@@ -76,15 +77,21 @@
         color: $white;
         background-color: $secondary;
       }
-
+      
       @media screen and (min-width: 720px) {
+        font-size: $size-xxlg;
         text-align: left;
         padding-left: 20px;
+      }
+      
+      @media screen and (min-width: 1200px) {
+        padding-top: 30px;
       }
     }
 
     &__content {
       @media screen and (min-width: 720px) {
+        font-size: $size-xs;
         padding-left: 20px;
         padding-right: 20px;
 
@@ -95,6 +102,10 @@
         &[data-type="secondary"] {
           background-color: $secondary;
         }
+      }
+
+      @media screen and (min-width: 1200px) {
+        padding-bottom: 30px;
       }
     }
 
