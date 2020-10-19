@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
-import { GA_TRACKING_ID, GTM_TRACKING_ID } from 'lib/gtag';
+import { GA_TRACKING_ID } from 'lib/gtag';
+import { GTM_TRACKING_ID } from 'lib/gtm';
 import Document, {
 	DocumentContext,
 	Head,
