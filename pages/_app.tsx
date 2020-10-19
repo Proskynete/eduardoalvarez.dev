@@ -11,12 +11,6 @@ import { useEffect } from 'react';
 
 config.autoAddCss = false;
 
-declare global {
-	interface Window {
-		gtag: any;
-	}
-}
-
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const router = useRouter();
 
