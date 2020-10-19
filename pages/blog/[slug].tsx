@@ -134,7 +134,7 @@ export const getStaticProps = async (
 	const { slug } = ctx.params;
 	const content = await import(`../../posts/${slug}.md`);
 	const data = matter(content.default);
-	const disqusShortName = process.env.DISQUS_SHORT_NAME;
+	const disqusShortName = dataSerialized(process.env.DISQUS_SHORT_NAME);
 
 	return {
 		props: {
