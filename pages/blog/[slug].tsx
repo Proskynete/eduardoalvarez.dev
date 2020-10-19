@@ -134,14 +134,15 @@ export const getStaticProps = async (
 	const { slug } = ctx.params;
 	const content = await import(`../../posts/${slug}.md`);
 	const data = matter(content.default);
-	const disqusShortName = JSON.stringify(process.env.DISQUS_SHORT_NAME);
 
 	return {
 		props: {
 			github_post_url: `https://github.com/Proskynete/blog/blob/master/posts/${slug}.md`,
 			frontmatter: dataSerialized(data.data as FrontMatterInterface),
 			markdownBody: data.content,
-			disqusShortName,
+			disqusShortName: JSON.parse(
+				JSON.stringify(process.env.DISQUS_SHORT_NAME),
+			),
 			slug: slug,
 		},
 	};
