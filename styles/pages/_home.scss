@@ -1,6 +1,31 @@
 .home {
+  
   .articles {
     background-color: $white;
+    padding: 30px 20px;
+    
+    &__header {
+      display: flex;
+      flex-direction: column;
+
+      &__title {
+        color: $black-grey;
+        font-size: $size-md;        
+      }
+      
+      &__subtitle {
+        padding-bottom: 30px;
+        font-size: $size-xs;
+        color: $secondary;
+        width: max-content;
+
+        &:hover,
+        &:active {
+          color: $secondary;
+          text-decoration: none;
+        }
+      }
+    }
     
     @media screen and (min-width: 1200px) {
       padding: 50px;

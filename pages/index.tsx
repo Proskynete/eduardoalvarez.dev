@@ -13,6 +13,7 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
+import Link from 'next/link';
 import { memo } from 'react';
 
 const Index = (props: HomePropsInterface) => {
@@ -28,6 +29,12 @@ const Index = (props: HomePropsInterface) => {
 						<div className='row justify-content-md-center'>
 							<div className='col-12 col-lg-6'>
 								<section className='articles'>
+									<div className='articles__header'>
+										<p className='articles__header__title'>Últimos Artículos</p>
+										<Link href={`/blog`}>
+											<a className='articles__header__subtitle'>Ver todos</a>
+										</Link>
+									</div>
 									{articles.map((article: ArticleContentInterface) => {
 										return <Article key={article.slug} {...article} />;
 									})}
