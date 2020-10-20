@@ -13,10 +13,17 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 const Index = (props: HomePropsInterface) => {
 	const { title, description, image, articles } = props;
+	const [currentArticles, setCurrentArticles] = useState<
+		Array<ArticleContentInterface | BlogTemplatePropsInterface>
+	>();
+
+	useEffect(() => {
+		setCurrentArticles(articles);
+	}, []);
 
 	return (
 		<Layout customTitle={title} description={description} image={image}>
@@ -31,9 +38,10 @@ const Index = (props: HomePropsInterface) => {
 									<div className='articles__header'>
 										<p className='articles__header__title'>Últimos Artículos</p>
 									</div>
-									{articles.map((article: ArticleContentInterface) => {
-										return <Article key={article.slug} {...article} />;
-									})}
+									{currentArticles &&
+										currentArticles.map((article: ArticleContentInterface) => {
+											return <Article key={article.slug} {...article} />;
+										})}
 								</section>
 							</div>
 						</div>
