@@ -11,19 +11,7 @@
       &__title {
         color: $black-grey;
         font-size: $size-md;        
-      }
-      
-      &__subtitle {
         padding-bottom: 30px;
-        font-size: $size-xs;
-        color: $secondary;
-        width: max-content;
-
-        &:hover,
-        &:active {
-          color: $secondary;
-          text-decoration: none;
-        }
       }
     }
     

@@ -31,9 +31,6 @@ const Index = (props: HomePropsInterface) => {
 								<section className='articles'>
 									<div className='articles__header'>
 										<p className='articles__header__title'>Últimos Artículos</p>
-										<Link href={`/blog`}>
-											<a className='articles__header__subtitle'>Ver todos</a>
-										</Link>
 									</div>
 									{articles.map((article: ArticleContentInterface) => {
 										return <Article key={article.slug} {...article} />;
