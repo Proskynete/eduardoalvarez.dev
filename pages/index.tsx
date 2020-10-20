@@ -2,6 +2,7 @@ import Article from 'components/Article';
 import Layout from 'components/Layout';
 import fs from 'fs';
 import matter from 'gray-matter';
+import { customPaginated } from 'helpers/pagination.helper';
 import { generateRss } from 'helpers/rss.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import {
@@ -17,12 +18,18 @@ import { memo, useEffect, useState } from 'react';
 
 const Index = (props: HomePropsInterface) => {
 	const { title, description, image, articles } = props;
-	const [currentArticles, setCurrentArticles] = useState<
+	const [articlesFiltered, setArticlesFiltered] = useState<
 		Array<ArticleContentInterface | BlogTemplatePropsInterface>
 	>();
 
 	useEffect(() => {
-		setCurrentArticles(articles);
+		const { results } = customPaginated({
+			elements: articles,
+			limit: 3,
+			page: 1,
+		});
+
+		setArticlesFiltered(results);
 	}, []);
 
 	return (
@@ -38,10 +45,14 @@ const Index = (props: HomePropsInterface) => {
 									<div className='articles__header'>
 										<p className='articles__header__title'>Últimos Artículos</p>
 									</div>
-									{currentArticles &&
-										currentArticles.map((article: ArticleContentInterface) => {
+									{articlesFiltered &&
+										articlesFiltered.map((article: ArticleContentInterface) => {
 											return <Article key={article.slug} {...article} />;
 										})}
+									<div className='articles__footer'>
+										<p>Artículos mas recientes</p>
+										<p>Artículos anteriores</p>
+									</div>
 								</section>
 							</div>
 						</div>

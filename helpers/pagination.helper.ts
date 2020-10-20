@@ -16,22 +16,21 @@ interface CustomPaginatedResponseInterface<T> {
 	paginate: PaginateResponseInterface;
 }
 
-export const customPaginated = <T>({
+export const customPaginated = <P>({
 	page,
 	limit,
 	elements,
-}: CustomPaginatedInterface<T>): CustomPaginatedResponseInterface<T> => {
+}: CustomPaginatedInterface<P>): CustomPaginatedResponseInterface<P> => {
 	const startIndex = (page - 1) * limit;
 	const endIndex = page * limit;
-
-	const response: CustomPaginatedResponseInterface<T> = {
-		results: [],
+	const response: CustomPaginatedResponseInterface<P> = {
 		paginate: {
+			limit,
 			next: 0,
 			previous: 0,
 			total: 0,
-			limit,
 		},
+		results: [],
 	};
 
 	if (endIndex < elements.length) response.paginate.next = page + 1;
