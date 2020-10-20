@@ -33,7 +33,7 @@
 
     > .article {
       &:not(:last-child){
-        border-bottom: 1px solid $secondary;
+        border-bottom: 1px solid $grey;
       }
     }
   }
