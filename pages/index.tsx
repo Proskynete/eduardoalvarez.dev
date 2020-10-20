@@ -13,7 +13,6 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
-import Link from 'next/link';
 import { memo } from 'react';
 
 const Index = (props: HomePropsInterface) => {
@@ -83,13 +82,12 @@ export const getStaticProps = async (): Promise<
 	});
 
 	const rrs = generateRss(postsSortered);
-	const postsSliced = postsSortered.slice(0, 3);
 
 	fs.writeFileSync('public/rss.xml', rrs);
 
 	return {
 		props: {
-			articles: postsSliced,
+			articles: postsSortered,
 			title: siteConfig.title,
 			description: siteConfig.description,
 			image: siteConfig.image,
