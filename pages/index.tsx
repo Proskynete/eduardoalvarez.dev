@@ -1,3 +1,8 @@
+import {
+	faChevronLeft,
+	faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Article from 'components/Article';
 import Layout from 'components/Layout';
 import fs from 'fs';
@@ -50,8 +55,24 @@ const Index = (props: HomePropsInterface) => {
 											return <Article key={article.slug} {...article} />;
 										})}
 									<div className='articles__footer'>
-										<p>Artículos mas recientes</p>
-										<p>Artículos anteriores</p>
+										<p className='articles__footer__navigation'>
+											<FontAwesomeIcon
+												icon={faChevronLeft}
+												className='articles__footer__navigation__arrow'
+											/>
+											<span className='articles__footer__navigation__text'>
+												<span>Artículos</span>Más Recientes
+											</span>
+										</p>
+										<p className='articles__footer__navigation'>
+											<span className='articles__footer__navigation__text'>
+												<span>Artículos</span>Anteriores
+											</span>
+											<FontAwesomeIcon
+												icon={faChevronRight}
+												className='articles__footer__navigation__arrow'
+											/>
+										</p>
 									</div>
 								</section>
 							</div>
