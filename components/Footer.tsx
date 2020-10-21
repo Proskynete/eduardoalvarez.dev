@@ -2,9 +2,21 @@ import { faAngleUp, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import config from 'data/config.json';
 import { scrollToTop } from 'helpers/scroll.helper';
+import { event } from 'lib/gtag';
 
 import SocialNetworks from './SocialNetworks';
 import Subscribe from './Subscribe';
+
+const handleScrollToTop = () => {
+	scrollToTop();
+	event({
+		action: 'SCROLL_TO_TOP',
+		category: 'BUTTON_CLICKED',
+		label: 'Track button - scroll to top',
+		value:
+			'Función que permite hacer un scroll animado hasta el top de la vista',
+	});
+};
 
 const Footer = () => {
 	const currentYear: number = new Date().getFullYear();
@@ -17,7 +29,10 @@ const Footer = () => {
 			<SocialNetworks />
 			<footer className='footer'>
 				<div className='footer-button'>
-					<button className='button outline' onClick={() => scrollToTop()}>
+					<button
+						className='button outline'
+						onClick={() => handleScrollToTop()}
+					>
 						<FontAwesomeIcon icon={faAngleUp} />
 						<p className='footer-button-text'>Subir</p>
 					</button>

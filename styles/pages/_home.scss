@@ -1,6 +1,19 @@
 .home {
+  
   .articles {
     background-color: $white;
+    padding: 30px 20px;
+    
+    &__header {
+      display: flex;
+      flex-direction: column;
+
+      &__title {
+        color: $black-grey;
+        font-size: $size-md;        
+        padding-bottom: 30px;
+      }
+    }
     
     @media screen and (min-width: 1200px) {
       padding: 50px;
@@ -8,7 +21,7 @@
 
     > .article {
       &:not(:last-child){
-        border-bottom: 1px solid $secondary;
+        border-bottom: 1px solid $grey;
       }
     }
   }

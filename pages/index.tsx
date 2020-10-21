@@ -28,6 +28,9 @@ const Index = (props: HomePropsInterface) => {
 						<div className='row justify-content-md-center'>
 							<div className='col-12 col-lg-6'>
 								<section className='articles'>
+									<div className='articles__header'>
+										<p className='articles__header__title'>Últimos Artículos</p>
+									</div>
 									{articles.map((article: ArticleContentInterface) => {
 										return <Article key={article.slug} {...article} />;
 									})}
@@ -79,13 +82,12 @@ export const getStaticProps = async (): Promise<
 	});
 
 	const rrs = generateRss(postsSortered);
-	const postsSliced = postsSortered.slice(0, 3);
 
 	fs.writeFileSync('public/rss.xml', rrs);
 
 	return {
 		props: {
-			articles: postsSliced,
+			articles: postsSortered,
 			title: siteConfig.title,
 			description: siteConfig.description,
 			image: siteConfig.image,
