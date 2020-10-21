@@ -19,23 +19,10 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
-import { memo, useEffect, useState } from 'react';
+import { memo } from 'react';
 
 const Index = (props: HomePropsInterface) => {
-	const { title, description, image, articles } = props;
-	const [articlesFiltered, setArticlesFiltered] = useState<
-		Array<ArticleContentInterface | BlogTemplatePropsInterface>
-	>();
-
-	useEffect(() => {
-		const { results } = customPaginated({
-			elements: articles,
-			limit: 3,
-			page: 1,
-		});
-
-		setArticlesFiltered(results);
-	}, []);
+	const { title, description, image, articles, paginate } = props;
 
 	return (
 		<Layout customTitle={title} description={description} image={image}>
@@ -50,29 +37,32 @@ const Index = (props: HomePropsInterface) => {
 									<div className='articles__header'>
 										<p className='articles__header__title'>Últimos Artículos</p>
 									</div>
-									{articlesFiltered &&
-										articlesFiltered.map((article: ArticleContentInterface) => {
-											return <Article key={article.slug} {...article} />;
-										})}
+									{articles.map((article: ArticleContentInterface) => {
+										return <Article key={article.slug} {...article} />;
+									})}
 									<div className='articles__footer'>
-										<p className='articles__footer__navigation'>
-											<FontAwesomeIcon
-												icon={faChevronLeft}
-												className='articles__footer__navigation__arrow'
-											/>
-											<span className='articles__footer__navigation__text'>
-												<span>Artículos</span>Más Recientes
-											</span>
-										</p>
-										<p className='articles__footer__navigation'>
-											<span className='articles__footer__navigation__text'>
-												<span>Artículos</span>Anteriores
-											</span>
-											<FontAwesomeIcon
-												icon={faChevronRight}
-												className='articles__footer__navigation__arrow'
-											/>
-										</p>
+										{paginate.previous && (
+											<p className='articles__footer__navigation'>
+												<FontAwesomeIcon
+													icon={faChevronLeft}
+													className='articles__footer__navigation__arrow'
+												/>
+												<span className='articles__footer__navigation__text'>
+													<span>Artículos</span>Más Recientes
+												</span>
+											</p>
+										)}
+										{paginate.next && (
+											<p className='articles__footer__navigation'>
+												<span className='articles__footer__navigation__text'>
+													<span>Artículos</span>Anteriores
+												</span>
+												<FontAwesomeIcon
+													icon={faChevronRight}
+													className='articles__footer__navigation__arrow'
+												/>
+											</p>
+										)}
 									</div>
 								</section>
 							</div>
@@ -111,6 +101,7 @@ export const getStaticProps = async (): Promise<
 				slug,
 			};
 		});
+
 		return data;
 	})(require['context']('../posts', true, /\.md$/));
 
@@ -125,12 +116,19 @@ export const getStaticProps = async (): Promise<
 
 	fs.writeFileSync('public/rss.xml', rrs);
 
+	const { results, paginate } = customPaginated({
+		elements: postsSortered,
+		limit: 3,
+		page: 1,
+	});
+
 	return {
 		props: {
-			articles: postsSortered,
+			articles: results,
 			title: siteConfig.title,
 			description: siteConfig.description,
 			image: siteConfig.image,
+			paginate,
 		},
 	};
 };

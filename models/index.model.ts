@@ -1,3 +1,4 @@
+import { PaginateResponseInterface } from 'helpers/pagination.helper';
 import {
 	BlogTemplatePropsInterface,
 	FrontMatterInterface,
@@ -14,6 +15,7 @@ export interface HomePropsInterface {
 	description: string;
 	image: string;
 	articles: Array<ArticleContentInterface | BlogTemplatePropsInterface>;
+	paginate: PaginateResponseInterface;
 }
 
 export interface GetStaticPropsReturnInterface {

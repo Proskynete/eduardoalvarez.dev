@@ -4,9 +4,9 @@ interface CustomPaginatedInterface<T> {
 	elements: T[];
 }
 
-interface PaginateResponseInterface {
-	next: number;
-	previous: number;
+export interface PaginateResponseInterface {
+	next?: number;
+	previous?: number;
 	limit: number;
 	total: number;
 }
@@ -26,8 +26,6 @@ export const customPaginated = <P>({
 	const response: CustomPaginatedResponseInterface<P> = {
 		paginate: {
 			limit,
-			next: 0,
-			previous: 0,
 			total: 0,
 		},
 		results: [],
