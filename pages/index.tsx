@@ -7,7 +7,10 @@ import Article from 'components/Article';
 import Layout from 'components/Layout';
 import fs from 'fs';
 import matter from 'gray-matter';
-import { customPaginated } from 'helpers/pagination.helper';
+import {
+	customPaginated,
+	PaginateResponseInterface,
+} from 'helpers/pagination.helper';
 import { generateRss } from 'helpers/rss.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import {
@@ -19,10 +22,30 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
-import { memo } from 'react';
+import { memo, SyntheticEvent, useEffect, useState } from 'react';
 
 const Index = (props: HomePropsInterface) => {
-	const { title, description, image, articles, paginate } = props;
+	const { title, description, image, articles } = props;
+	const [articlesFiltered, setArticlesFiltered] = useState<
+		Array<ArticleContentInterface | BlogTemplatePropsInterface>
+	>();
+	const [pagination, setPagination] = useState<PaginateResponseInterface>();
+
+	useEffect(() => {
+		const { paginate, results } = customPaginated({
+			page: 1,
+			limit: 3,
+			elements: articles,
+		});
+
+		setPagination({ ...pagination, ...paginate });
+		setArticlesFiltered(results);
+	}, []);
+
+	const handlePagination = (e: SyntheticEvent<HTMLParagraphElement>) => {
+		const { type } = e.currentTarget.dataset;
+		console.log(type);
+	};
 
 	return (
 		<Layout customTitle={title} description={description} image={image}>
@@ -37,12 +60,18 @@ const Index = (props: HomePropsInterface) => {
 									<div className='articles__header'>
 										<p className='articles__header__title'>Últimos Artículos</p>
 									</div>
-									{articles.map((article: ArticleContentInterface) => {
-										return <Article key={article.slug} {...article} />;
-									})}
+									{articlesFiltered &&
+										articlesFiltered.map((article: ArticleContentInterface) => {
+											return <Article key={article.slug} {...article} />;
+										})}
 									<div className='articles__footer'>
-										{paginate.previous && (
-											<p className='articles__footer__navigation'>
+										{pagination?.previous && (
+											<p
+												className='articles__footer__navigation'
+												data-type='previous'
+												role='presentation'
+												onClick={handlePagination}
+											>
 												<FontAwesomeIcon
 													icon={faChevronLeft}
 													className='articles__footer__navigation__arrow'
@@ -52,8 +81,13 @@ const Index = (props: HomePropsInterface) => {
 												</span>
 											</p>
 										)}
-										{paginate.next && (
-											<p className='articles__footer__navigation'>
+										{pagination?.next && (
+											<p
+												className='articles__footer__navigation'
+												data-type='next'
+												role='presentation'
+												onClick={handlePagination}
+											>
 												<span className='articles__footer__navigation__text'>
 													<span>Artículos</span>Anteriores
 												</span>
@@ -116,19 +150,12 @@ export const getStaticProps = async (): Promise<
 
 	fs.writeFileSync('public/rss.xml', rrs);
 
-	const { results, paginate } = customPaginated({
-		elements: postsSortered,
-		limit: 3,
-		page: 1,
-	});
-
 	return {
 		props: {
-			articles: results,
+			articles: postsSortered,
 			title: siteConfig.title,
 			description: siteConfig.description,
 			image: siteConfig.image,
-			paginate,
 		},
 	};
 };
