@@ -13,6 +13,7 @@ import {
 } from 'helpers/pagination.helper';
 import { generateRss } from 'helpers/rss.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
+import { nextPagination, previousPagination } from 'lib/pagination';
 import {
 	BlogTemplatePropsInterface,
 	FrontMatterInterface,
@@ -49,21 +50,14 @@ const Index = (props: HomePropsInterface) => {
 		const { type } = e.currentTarget.dataset;
 
 		if (type === 'next') {
-			Router.push({
-				pathname: '',
-				query: { page: pagination.next },
-			});
+			nextPagination({ path: '', page: pagination.next, query: 'page' });
 		} else if (type === 'previous') {
-			if (+router.query.page !== 2) {
-				Router.push({
-					pathname: '',
-					query: { page: pagination.previous },
-				});
-			} else {
-				Router.push({
-					pathname: '',
-				});
-			}
+			previousPagination({
+				router,
+				path: '',
+				query: 'page',
+				previous: pagination.previous,
+			});
 		}
 	};
 
