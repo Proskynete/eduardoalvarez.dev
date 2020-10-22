@@ -5,8 +5,8 @@ interface CustomPaginatedInterface<T> {
 }
 
 export interface PaginateResponseInterface {
-	next?: number;
-	previous?: number;
+	next: number;
+	previous: number;
 	limit: number;
 	total: number;
 }
@@ -25,6 +25,8 @@ export const customPaginated = <P>({
 	const endIndex = page * limit;
 	const response: CustomPaginatedResponseInterface<P> = {
 		paginate: {
+			next: 0,
+			previous: 0,
 			limit,
 			total: 0,
 		},

@@ -34,13 +34,13 @@ const Index = (props: HomePropsInterface) => {
 	const router = useRouter();
 	const { page } = router.query;
 
-	useEffect(() => {
-		const { paginate, results } = customPaginated({
-			page: +page || 1,
-			limit: 3,
-			elements: articles,
-		});
+	const { paginate, results } = customPaginated({
+		page: +page || 1,
+		limit: 3,
+		elements: articles,
+	});
 
+	useEffect(() => {
 		setPagination({ ...pagination, ...paginate });
 		setArticlesFiltered(results);
 	}, [router.query]);
@@ -85,7 +85,7 @@ const Index = (props: HomePropsInterface) => {
 											return <Article key={article.slug} {...article} />;
 										})}
 									<div className='articles__footer'>
-										{pagination?.previous && (
+										{pagination?.previous !== 0 && (
 											<p
 												className='articles__footer__navigation'
 												data-type='previous'
@@ -101,7 +101,7 @@ const Index = (props: HomePropsInterface) => {
 												</span>
 											</p>
 										)}
-										{pagination?.next && (
+										{pagination?.next !== 0 && (
 											<p
 												className='articles__footer__navigation'
 												data-type='next'
