@@ -5,37 +5,13 @@
       <link>https://eduardoalvarez.dev</link>
       <description>Artículos, Videos, Podcasts, Tutoriales y Recursos sobre Desarrollo Web, Frontend, HTML, CSS, Javascript, Typescript, React, Node y MongoDB</description>
       <language>es-ES</language>
-      <lastBuildDate>Sun, 26 Jul 2020 06:00:00 GMT</lastBuildDate>
+      <lastBuildDate>Sun, 26 Apr 2020 06:00:00 GMT</lastBuildDate>
       <atom:link href="https://eduardoalvarez.dev/rss.xml" rel="self" type="application/rss+xml"/>
       
   <item>
-    <title>prueba 3</title>
-    <link>https://eduardoalvarez.dev/blog/prueba-3</link>
-    <pubDate>Sun, 26 Jul 2020 06:00:00 GMT</pubDate>
-    <guid>https://eduardoalvarez.dev/blog/prueba-3</guid>
-    <description>prueba 3</description>
-  </item>
-
-  <item>
-    <title>prueba 2</title>
-    <link>https://eduardoalvarez.dev/blog/prueba-2</link>
-    <pubDate>Fri, 26 Jun 2020 06:00:00 GMT</pubDate>
-    <guid>https://eduardoalvarez.dev/blog/prueba-2</guid>
-    <description>prueba 2</description>
-  </item>
-
-  <item>
-    <title>prueba 1</title>
-    <link>https://eduardoalvarez.dev/blog/prueba-1</link>
-    <pubDate>Tue, 26 May 2020 06:00:00 GMT</pubDate>
-    <guid>https://eduardoalvarez.dev/blog/prueba-1</guid>
-    <description>prueba 1</description>
-  </item>
-
-  <item>
     <title>Introducción a JAMStack</title>
     <link>https://eduardoalvarez.dev/blog/introduccion-a-jamstack</link>
-    <pubDate>Sun, 26 Apr 2020 06:00:00 GMT</pubDate>
+    <pubDate>Sun Apr 26 2020 06:00:00 GMT+0000</pubDate>
     <guid>https://eduardoalvarez.dev/blog/introduccion-a-jamstack</guid>
     <description>El JAM-Stack es una nueva arquitectura para la creación de aplicaciones web, la cual busca poder hacer proyectos mucho mas rápidos, con alta seguridad y que puedan escalar de una manera muy sencilla. JAM son las siglas de JavaScript, APIs y Markup y su principal características es que la lógica de la aplicación se encuentra en el cliente y no en el servidor.</description>
   </item>
