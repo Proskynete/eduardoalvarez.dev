@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/public/rss.xml
 
 # testing
 /coverage
@@ -35,5 +36,3 @@ yarn.lock*
 .vercel
 .env*
 !.env.template
-
-/public/rss.xml
