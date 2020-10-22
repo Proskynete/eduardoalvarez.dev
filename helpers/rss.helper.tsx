@@ -1,11 +1,12 @@
 import config from 'data/config.json';
 import { BlogTemplatePropsInterface } from 'models/blogtemplate.model';
+import moment from 'moment';
 
 export const generateRssItem = (post: BlogTemplatePropsInterface): string => `
   <item>
     <title>${post.frontmatter.title}</title>
     <link>https://eduardoalvarez.dev/blog/${post.slug}</link>
-    <pubDate>${new Date(post.frontmatter.date).toUTCString()}</pubDate>
+    <pubDate>${moment.utc(post.frontmatter.date)}</pubDate>
     <guid>https://eduardoalvarez.dev/blog/${post.slug}</guid>
     <description>${post.frontmatter.description}</description>
   </item>

@@ -1,9 +1,9 @@
 
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>eduardoalvarez.dev - De un desarollador para futuros desarrolladores</title>
+      <title>eduardoalvarez.dev | Frontend, HTML, CSS, Javascript, Typescript, React, Node, MongoDB</title>
       <link>https://eduardoalvarez.dev</link>
-      <description>Formación en tecnologías web para futuros desarrolladores usando | React and Node Lover!</description>
+      <description>Artículos, Videos, Podcasts, Tutoriales y Recursos sobre Desarrollo Web, Frontend, HTML, CSS, Javascript, Typescript, React, Node y MongoDB</description>
       <language>es-ES</language>
       <lastBuildDate>Sun, 26 Apr 2020 06:00:00 GMT</lastBuildDate>
       <atom:link href="https://eduardoalvarez.dev/rss.xml" rel="self" type="application/rss+xml"/>
@@ -11,7 +11,7 @@
   <item>
     <title>Introducción a JAMStack</title>
     <link>https://eduardoalvarez.dev/blog/introduccion-a-jamstack</link>
-    <pubDate>Sun, 26 Apr 2020 06:00:00 GMT</pubDate>
+    <pubDate>Sun Apr 26 2020 06:00:00 GMT+0000</pubDate>
     <guid>https://eduardoalvarez.dev/blog/introduccion-a-jamstack</guid>
     <description>El JAM-Stack es una nueva arquitectura para la creación de aplicaciones web, la cual busca poder hacer proyectos mucho mas rápidos, con alta seguridad y que puedan escalar de una manera muy sencilla. JAM son las siglas de JavaScript, APIs y Markup y su principal características es que la lógica de la aplicación se encuentra en el cliente y no en el servidor.</description>
   </item>

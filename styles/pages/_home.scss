@@ -20,8 +20,48 @@
     }
 
     > .article {
-      &:not(:last-child){
+      &:not(:last-of-type){
         border-bottom: 1px solid $grey;
+      }
+    }
+
+    &__footer {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 50px;
+      width: 100%;
+
+      &__navigation {
+        color: $secondary;
+        cursor: pointer;
+
+        &__text {
+          > span {
+            display: none;
+
+            @media screen and (min-width: 720px) {
+              display: inline;
+
+              &:first-of-type {
+                margin-right: 5px;
+              }
+
+              &:last-of-type {
+                margin-left: 5px;
+              }
+            }
+          }
+        }
+        
+        &__arrow {
+          &:first-of-type {
+            margin-right: 10px;
+          }
+
+          &:last-of-type {
+            margin-left: 10px;
+          }
+        }
       }
     }
   }
