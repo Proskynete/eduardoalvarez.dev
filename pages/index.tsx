@@ -23,7 +23,7 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { memo, SyntheticEvent, useEffect, useState } from 'react';
 
 const Index = (props: HomePropsInterface) => {
