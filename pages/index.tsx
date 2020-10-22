@@ -22,29 +22,49 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
+import Router, { useRouter } from 'next/router';
 import { memo, SyntheticEvent, useEffect, useState } from 'react';
 
 const Index = (props: HomePropsInterface) => {
 	const { title, description, image, articles } = props;
+	const [pagination, setPagination] = useState<PaginateResponseInterface>();
 	const [articlesFiltered, setArticlesFiltered] = useState<
 		Array<ArticleContentInterface | BlogTemplatePropsInterface>
 	>();
-	const [pagination, setPagination] = useState<PaginateResponseInterface>();
+	const router = useRouter();
+	const { page } = router.query;
 
 	useEffect(() => {
 		const { paginate, results } = customPaginated({
-			page: 1,
+			page: +page || 1,
 			limit: 3,
 			elements: articles,
 		});
 
 		setPagination({ ...pagination, ...paginate });
 		setArticlesFiltered(results);
-	}, []);
+	}, [router.query]);
 
 	const handlePagination = (e: SyntheticEvent<HTMLParagraphElement>) => {
 		const { type } = e.currentTarget.dataset;
-		console.log(type);
+
+		if (type === 'next') {
+			Router.push({
+				pathname: '',
+				query: { page: pagination.next },
+			});
+		} else if (type === 'previous') {
+			if (+router.query.page !== 2) {
+				Router.push({
+					pathname: '',
+					query: { page: pagination.previous },
+				});
+			} else {
+				Router.push({
+					pathname: '',
+				});
+			}
+		}
 	};
 
 	return (
@@ -55,7 +75,7 @@ const Index = (props: HomePropsInterface) => {
 						<h1>Welcome</h1>
 
 						<div className='row justify-content-md-center'>
-							<div className='col-12 col-lg-6'>
+							<div className='col-12 col-lg-7 col-xl-6'>
 								<section className='articles'>
 									<div className='articles__header'>
 										<p className='articles__header__title'>Últimos Artículos</p>

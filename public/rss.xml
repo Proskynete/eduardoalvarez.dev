@@ -1,9 +1,9 @@
 
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>eduardoalvarez.dev - De un desarollador para futuros desarrolladores</title>
+      <title>eduardoalvarez.dev | Frontend, HTML, CSS, Javascript, Typescript, React, Node, MongoDB</title>
       <link>https://eduardoalvarez.dev</link>
-      <description>Formación en tecnologías web para futuros desarrolladores usando | React and Node Lover!</description>
+      <description>Artículos, Videos, Podcasts, Tutoriales y Recursos sobre Desarrollo Web, Frontend, HTML, CSS, Javascript, Typescript, React, Node y MongoDB</description>
       <language>es-ES</language>
       <lastBuildDate>Sun, 26 Jul 2020 06:00:00 GMT</lastBuildDate>
       <atom:link href="https://eduardoalvarez.dev/rss.xml" rel="self" type="application/rss+xml"/>
