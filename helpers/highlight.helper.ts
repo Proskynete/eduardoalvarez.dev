@@ -31,6 +31,11 @@ export const highlightFormat = () => {
 			case 'language-nodejs':
 				codeBlock.setAttribute('data-language', 'node');
 				break;
+			case 'language-mongo':
+			case 'language-mongoDB':
+			case 'language-mongodb':
+				codeBlock.setAttribute('data-language', 'mongodb');
+				break;
 			case 'language-scss':
 				codeBlock.setAttribute('data-language', 'scss');
 				break;
