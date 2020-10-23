@@ -23,6 +23,10 @@ export const highlightFormat = () => {
 			case 'language-react':
 				codeBlock.setAttribute('data-language', 'react');
 				break;
+			case 'language-ts':
+			case 'language-typescript':
+				codeBlock.setAttribute('data-language', 'typescript');
+				break;
 			case 'language-node':
 			case 'language-nodejs':
 				codeBlock.setAttribute('data-language', 'node');

@@ -86,6 +86,14 @@
     }
   }
 
+  &[data-language='typescript'] {
+    &:after {
+      content: 'TypeScript';
+      background-color: #007acc;
+      color: #fff;
+    }
+  }
+
   &[data-language='node'] {
     &:after {
       content: 'Node';
