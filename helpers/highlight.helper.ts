@@ -49,6 +49,7 @@ export const highlightFormat = () => {
 				codeBlock.setAttribute('data-language', 'yaml');
 				break;
 		}
+
 		codeContainer.append(code);
 		hljs.highlightBlock(codeContainer);
 		codeBlock.prepend(headerDiv);

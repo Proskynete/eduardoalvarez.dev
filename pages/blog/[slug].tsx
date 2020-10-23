@@ -5,6 +5,7 @@ import Say from 'components/Say';
 import TableOfSections from 'components/TableOfSections';
 import glob from 'glob';
 import matter from 'gray-matter';
+import { highlightFormat } from 'helpers/highlight.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import {
 	BlogTemplatePropsInterface,
@@ -13,7 +14,7 @@ import {
 	GetStaticPropsReturnInterface,
 } from 'models/blogtemplate.model';
 import { GetStaticPropsContext } from 'next';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
 const BlogTemplate = (props: BlogTemplatePropsInterface) => {
@@ -35,6 +36,10 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 		introduction,
 		image_introduction,
 	} = frontmatter;
+
+	useEffect(() => {
+		highlightFormat();
+	}, []);
 
 	return (
 		<Layout
