@@ -5,9 +5,17 @@
       <link>https://eduardoalvarez.dev</link>
       <description>Artículos, Videos, Podcasts, Tutoriales y Recursos sobre Desarrollo Web, Frontend, HTML, CSS, Javascript, Typescript, React, Node y MongoDB</description>
       <language>es-ES</language>
-      <lastBuildDate>Sun, 26 Apr 2020 06:00:00 GMT</lastBuildDate>
+      <lastBuildDate>Fri, 23 Oct 2020 18:47:00 GMT</lastBuildDate>
       <atom:link href="https://eduardoalvarez.dev/rss.xml" rel="self" type="application/rss+xml"/>
       
+  <item>
+    <title>Snippets</title>
+    <link>https://eduardoalvarez.dev/blog/snippets</link>
+    <pubDate>Fri Oct 23 2020 18:47:00 GMT+0000</pubDate>
+    <guid>https://eduardoalvarez.dev/blog/snippets</guid>
+    <description>Ejemplo de snippets y su visualización</description>
+  </item>
+
   <item>
     <title>Introducción a JAMStack</title>
     <link>https://eduardoalvarez.dev/blog/introduccion-a-jamstack</link>
