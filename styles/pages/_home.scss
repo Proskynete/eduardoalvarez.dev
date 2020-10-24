@@ -53,7 +53,7 @@
       }
 
       &__title {
-        font-size: $size-lg;
+        font-size: $size-md;
         text-align: center;
         font-weight: 500;
         margin-bottom: 20px;
@@ -61,18 +61,31 @@
         @media screen and (min-width: 720px) {
           text-align: left;
         }
+        
+        @media screen and (min-width: 1200px) {
+          font-size: $size-lg;
+        }
       }
 
       &__text {
         font-family: "Roboto";
-        font-size: $size-xs;
         margin-bottom: 20px;
+        font-weight: 400;
+        line-height: 1.2;
+
+        @media screen and (min-width: 1200px) {
+          font-size: $size-xs;
+        }
       }
 
       &__link {
         color: $info;
         font-size: $size-xs;
         width: max-content;
+
+        @media screen and (min-width: 1200px) {
+          font-size: $size-md;
+        }
 
         &:hover {
           color: $secondary;
