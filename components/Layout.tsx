@@ -24,14 +24,3 @@ const Layout: FC<PropsInterface> = (props) => {
 };
 
 export default Layout;
-
-export const getStaticProps = async () => {
-	const gaID = process.env.GA_TRACKING_ID;
-
-	console.log(gaID);
-	console.log('<sdcv<sd');
-
-	return {
-		props: { gaID },
-	};
-};
