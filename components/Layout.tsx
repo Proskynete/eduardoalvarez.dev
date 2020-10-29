@@ -3,6 +3,7 @@ import { FC } from 'react';
 
 import Footer from './Footer';
 import Meta from './Meta';
+import Nav from './Nav';
 
 const Layout: FC<PropsInterface> = (props) => {
 	const { customTitle, description, image, slug, children } = props;
@@ -15,6 +16,7 @@ const Layout: FC<PropsInterface> = (props) => {
 				image={image}
 				slug={slug}
 			/>
+			<Nav />
 			<main className='container-fluid'>
 				{children}
 				<Footer />
