@@ -7,43 +7,55 @@ import { useState } from 'react';
 const navResources: MenuLinkInterface[] = [
 	{
 		link: '/',
+		pathsAllowed: ['/'],
 		title: 'Inicio',
 		show: true,
 	},
 	{
 		link: '/articulos',
+		pathsAllowed: ['/artículos', '/blog/[slug]'],
 		title: 'Artículos',
 		show: true,
 	},
 	{
 		link: '/recursos',
+		pathsAllowed: ['/recursos'],
 		title: 'Recursos',
 		show: false,
 	},
 	{
 		link: '/autor',
+		pathsAllowed: ['/autor'],
 		title: 'Autor',
 		show: true,
 	},
 	{
 		link: '/cursos',
+		pathsAllowed: ['/cursos'],
 		title: 'Cursos',
 		show: false,
 	},
 	{
 		link: '/glosario',
+		pathsAllowed: ['/glosario'],
 		title: 'Glosario',
 		show: false,
 	},
 	{
 		link: '/podcats',
+		pathsAllowed: ['/podcats'],
 		title: 'Podcasts',
 		show: false,
 	},
 ];
 
-const Nav = () => {
+interface PropsInterface {
+	path: string;
+}
+
+const Nav = (props: PropsInterface) => {
 	const [state, setState] = useState(false);
+	const { path } = props;
 
 	return (
 		<header className='nav' role='navigation'>
@@ -78,7 +90,11 @@ const Nav = () => {
 											className='nav__inner__menu__content__inner__item'
 										>
 											<Link href={resource.link}>
-												<a className='nav__inner__menu__content__inner__item__link'>
+												<a
+													className={`nav__inner__menu__content__inner__item__link ${
+														resource.pathsAllowed.includes(path) && 'active'
+													}`}
+												>
 													{resource.title}
 												</a>
 											</Link>
