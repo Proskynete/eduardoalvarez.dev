@@ -55,7 +55,7 @@
       &__title {
         font-size: $size-md;
         text-align: center;
-        font-weight: 500;
+        font-weight: 400;
         margin-bottom: 20px;
 
         @media screen and (min-width: 720px) {
@@ -75,6 +75,7 @@
 
         @media screen and (min-width: 1200px) {
           font-size: $size-xs;
+          font-weight: 300;
         }
       }
 

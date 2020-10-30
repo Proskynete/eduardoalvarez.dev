@@ -76,30 +76,14 @@ const Index = (props: HomePropsInterface) => {
 								/>
 							</div>
 							<div className='home__presentation__description'>
-								<div className='d-none d-sm-block'>
-									<p className='home__presentation__description__title'>
-										Hola! Mi nombre es Eduardo Álvarez
-									</p>
-									<p className='home__presentation__description__text'>
-										Bienvenid@ a mi sitio web, aquí encontrarás artículos de
-										interes para quienes se acercan al mundo de la programación
-										, cursos, recursos y material de mi autoria.
-									</p>
-								</div>
-
-								<div className='d-block d-sm-none'>
-									<p className='home__presentation__description__title'>
-										Hola! soy Eduardo Álvarez
-									</p>
-									<p className='home__presentation__description__text'>
-										Soy desarrollador frontend apasionado por las tecnologías
-										web (JS Lover).
-									</p>
-									<p className='home__presentation__description__text'>
-										Busco compartir todo lo que he aprendido en estos años
-										mediante artículos, tutoriales y cursos.
-									</p>
-								</div>
+								<p className='home__presentation__description__title'>
+									Hola! Mi nombre es Eduardo Álvarez
+								</p>
+								<p className='home__presentation__description__text'>
+									... Y soy un apasionado por las tecnologías web (JS Lover).
+									Busco compartir todo lo que he aprendido en estos años
+									mediante artículos, tutoriales y cursos.
+								</p>
 
 								<Link href='/autor'>
 									<a className='home__presentation__description__link'>
@@ -112,7 +96,7 @@ const Index = (props: HomePropsInterface) => {
 							<div className='col-12 col-lg-7 col-xl-6'>
 								<section className='articles'>
 									<div className='articles__header'>
-										<p className='articles__header__title'>Últimos Artículos</p>
+										<p className='articles__header__title'>Últimos artículos</p>
 									</div>
 									{articlesFiltered &&
 										articlesFiltered.map((article: ArticleContentInterface) => {
