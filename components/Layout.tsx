@@ -16,8 +16,8 @@ const Layout: FC<PropsInterface> = (props) => {
 				image={image}
 				slug={slug}
 			/>
-			<Nav />
 			<main className='container-fluid'>
+				<Nav />
 				{children}
 				<Footer />
 			</main>
