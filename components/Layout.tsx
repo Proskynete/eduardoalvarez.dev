@@ -23,8 +23,8 @@ const Layout: FC<PropsInterface> = (props) => {
 				image={image}
 				slug={slug}
 			/>
+			<Nav path={path} />
 			<main className='container-fluid'>
-				<Nav path={path} />
 				{children}
 				<Footer />
 			</main>
