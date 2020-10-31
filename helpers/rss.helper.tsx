@@ -5,9 +5,9 @@ import moment from 'moment';
 export const generateRssItem = (post: BlogTemplatePropsInterface): string => `
   <item>
     <title>${post.frontmatter.title}</title>
-    <link>https://eduardoalvarez.dev/blog/${post.slug}</link>
+    <link>https://eduardoalvarez.dev/articulos/${post.slug}</link>
     <pubDate>${moment.utc(post.frontmatter.date)}</pubDate>
-    <guid>https://eduardoalvarez.dev/blog/${post.slug}</guid>
+    <guid>https://eduardoalvarez.dev/articulos/${post.slug}</guid>
     <description>${post.frontmatter.description}</description>
   </item>
 `;

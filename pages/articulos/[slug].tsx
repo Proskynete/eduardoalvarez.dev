@@ -14,6 +14,7 @@ import {
 	GetStaticPropsReturnInterface,
 } from 'models/blogtemplate.model';
 import { GetStaticPropsContext } from 'next';
+import Image from 'next/image';
 import { memo, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
@@ -66,10 +67,12 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 							/>
 
 							<div className='article__header__hero'>
-								<img
+								<Image
 									src={hero_image}
-									className='article__header__hero__image'
 									alt={`${title} - imagen`}
+									className='article__header__hero__image'
+									unsized={true}
+									loading='lazy'
 								/>
 							</div>
 						</header>
@@ -162,7 +165,7 @@ export const getStaticPaths = async (): Promise<
 		file.split('/')[1].replace(/ /g, '-').slice(0, -3).trim(),
 	);
 
-	const paths = blogSlugs.map((slug: string) => `/blog/${slug}`);
+	const paths = blogSlugs.map((slug: string) => `/articulos/${slug}`);
 
 	return {
 		paths,

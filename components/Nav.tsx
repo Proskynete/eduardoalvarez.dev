@@ -13,7 +13,7 @@ const navResources: MenuLinkInterface[] = [
 	},
 	{
 		link: '/articulos',
-		pathsAllowed: ['/artículos', '/blog/[slug]'],
+		pathsAllowed: ['/articulos', '/articulos/[slug]'],
 		title: 'Artículos',
 		show: true,
 	},
@@ -74,13 +74,13 @@ const Nav = (props: PropsInterface) => {
 
 				<section className='nav__inner__menu'>
 					<div
-						className='nav__inner__menu__bar'
+						className={`nav__inner__menu__bar ${state && 'mobile'}`}
 						role='presentation'
 						onClick={() => setState(!state)}
 					>
 						<FontAwesomeIcon icon={state ? faTimes : faBars} />
 					</div>
-					<nav className={`nav__inner__menu__content ${state && 'active'}`}>
+					<nav className={`nav__inner__menu__content ${state && 'mobile'}`}>
 						<ul className='nav__inner__menu__content__inner'>
 							{navResources.map(
 								(resource) =>
@@ -92,6 +92,8 @@ const Nav = (props: PropsInterface) => {
 											<Link href={resource.link}>
 												<a
 													className={`nav__inner__menu__content__inner__item__link ${
+														state && 'mobile'
+													} ${
 														resource.pathsAllowed.includes(path) && 'active'
 													}`}
 												>
