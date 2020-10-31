@@ -163,7 +163,7 @@ export const getStaticProps = async (): Promise<
 	return {
 		props: {
 			articles: postsSortered,
-			title: siteConfig.title,
+			title: 'Artículos publicados',
 			description: siteConfig.description,
 			image: siteConfig.image,
 		},

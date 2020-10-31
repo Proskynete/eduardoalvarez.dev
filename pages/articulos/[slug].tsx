@@ -142,7 +142,6 @@ export const getStaticProps = async (
 	const { slug } = ctx.params;
 	const content = await import(`../../content/posts/${slug}.md`);
 	const data = matter(content.default);
-
 	return {
 		props: {
 			github_post_url: `https://github.com/Proskynete/blog/blob/master/content/posts/${slug}.md`,

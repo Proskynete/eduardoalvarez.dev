@@ -26,15 +26,15 @@ export type PrettyTagsEnum =
 	| 'MongoDB';
 
 export interface FrontMatterInterface {
-	title: string;
-	description: string;
-	date: string;
-	tags: Array<TagsEnum>;
-	read_time: number;
-	hero_image: string;
-	introduction: SayInterface;
-	image_introduction: string;
-	sections: Array<SectionsInterface>;
+	title?: string;
+	description?: string;
+	date?: string;
+	tags?: Array<TagsEnum>;
+	read_time?: number;
+	hero_image?: string;
+	introduction?: SayInterface;
+	image_introduction?: string;
+	sections?: Array<SectionsInterface>;
 	slug?: string;
 }
 

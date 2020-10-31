@@ -1,17 +1,20 @@
 ---
-title: 'Introducción a JAMStack'
-description: 'El JAM-Stack es una nueva arquitectura para la creación de aplicaciones web, la cual busca poder hacer proyectos mucho mas rápidos, con alta seguridad y que puedan escalar de una manera muy sencilla. JAM son las siglas de JavaScript, APIs y Markup y su principal características es que la lógica de la aplicación se encuentra en el cliente y no en el servidor.'
-date: 2020-04-26T03:00:00-03:00
-sections: [
-  { title: '¿Quién es Eduardo?', anchor: 'quien-es-eduardo' }
-  { title: '¿Cómo inicié?', anchor: 'como-inicie' }
-  { title: 'Primer trabajo', anchor: 'primer-trabajo' }
-  { title: 'Primer despido', anchor: 'primer-despido' }
-  { title: 'Un gran salto en mi carrera!', anchor: 'un-gran-salto-en-mi-carrera' }
-  { title: 'Mi hoy', anchor: 'mi-hoy' }
-  { title: '¿Solo programación?', anchor: 'solo-programacion' }
-  { title: 'Mi filosofía de vida', anchor: 'filosofia-de-vida' }
-]
+title: 'Autor'
+description: '¿Quién es Eduardo Álvarez y que fue lo que lo motivó a querer comprar sus conocimiento con los demas?'
+sections:
+  [
+    { title: '¿Quién es Eduardo?', anchor: 'quien-es-eduardo' },
+    { title: '¿Cómo inicié?', anchor: 'como-inicie' },
+    { title: 'Primer trabajo', anchor: 'primer-trabajo' },
+    { title: 'Primer despido', anchor: 'primer-despido' },
+    {
+      title: 'Un gran salto en mi carrera!',
+      anchor: 'un-gran-salto-en-mi-carrera',
+    },
+    { title: 'Mi hoy', anchor: 'mi-hoy' },
+    { title: '¿Solo programación?', anchor: 'solo-programacion' },
+    { title: 'Mi filosofía de vida', anchor: 'filosofia-de-vida' },
+  ]
 ---
 
 <h2 id="quien-es-eduardo">¿Quién es Eduardo?</h2>
