@@ -1,0 +1,61 @@
+.author {
+  width: 100%;
+  height: 100%;
+
+  &__header {
+    width: 100%;
+    height: 550px;
+    background-color: $info;
+    padding-bottom: 40px;
+
+    &__inner {
+      width: 100%;
+      height: 100%;
+      background-image: -webkit-linear-gradient(150deg, $info 35%, $primary 35%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      @media screen and (min-width: 1200px) {
+        flex-direction: row;
+      }
+
+      &__text {
+        font-family: "Roboto";
+
+        &__title {
+          color: $white;
+          font-size: $size-xlg;
+          text-transform: uppercase;
+        }
+
+        &__subtitle {
+          color: $info;
+          font-size: $size-md;
+        }
+
+        &__image {
+          margin-top: 50px;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+
+          img {
+            width: 100px;
+          }
+        }
+      }
+
+      &__image {
+        display: none;
+
+        @media screen and (min-width: 1200px) {
+          display: block;
+
+          width: 50%;
+        }
+      }
+    }
+  }
+}
