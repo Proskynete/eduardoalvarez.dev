@@ -140,7 +140,7 @@ export const getStaticProps = async (
 	ctx: GetStaticPropsContext,
 ): Promise<GetStaticPropsReturnInterface> => {
 	const { slug } = ctx.params;
-	const content = await import(`../../posts/${slug}.md`);
+	const content = await import(`../../content/posts/${slug}.md`);
 	const data = matter(content.default);
 
 	return {
@@ -162,7 +162,7 @@ export const getStaticPaths = async (): Promise<
 	const blogs = glob.sync('content/posts/**/*.md');
 
 	const blogSlugs = blogs.map((file: string) =>
-		file.split('/')[1].replace(/ /g, '-').slice(0, -3).trim(),
+		file.split('/')[2].replace(/ /g, '-').slice(0, -3).trim(),
 	);
 
 	const paths = blogSlugs.map((slug: string) => `/articulos/${slug}`);

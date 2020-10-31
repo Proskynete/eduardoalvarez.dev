@@ -72,9 +72,9 @@ const Index = (props: HomePropsInterface) => {
 							<div className='col-12 col-lg-7 col-xl-6'>
 								<section className='articles'>
 									{articlesFiltered &&
-										articlesFiltered.map((article: ArticleContentInterface) => {
-											return <Article key={article.slug} {...article} />;
-										})}
+										articlesFiltered.map((article: ArticleContentInterface) => (
+											<Article key={article.slug} {...article} />
+										))}
 									{pagination?.previous ||
 										(pagination?.next ? (
 											<div className='articles__footer'>

@@ -126,11 +126,18 @@
               &.mobile {
                 color: $white;
                 padding: 0;
+
+                &:hover,
+                &.active {
+                  padding-bottom: 5px;
+                  color: $white;
+                }
               }
 
               &:hover,
               &.active {
                 border-bottom: 3px solid $secondary;
+                color: $primary;
               }
 
               &:hover,
