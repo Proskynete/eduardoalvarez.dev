@@ -1,4 +1,5 @@
 import Layout from 'components/Layout';
+import Say from 'components/Say';
 import matter from 'gray-matter';
 import { AuthorGSPInterface, AuthorPropsInterface } from 'models/author';
 import { memo } from 'react';
@@ -22,6 +23,12 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
 								<div className='article__body__content'>
 									<ReactMarkdown source={markdownBody} escapeHtml={false} />
 								</div>
+								<Say
+									variant='primary'
+									anchor='filosofia-de-vida'
+									title='Mi filosofía de vida'
+									content='Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo.'
+								/>
 							</div>
 						</div>
 					</div>
@@ -43,7 +50,8 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
 export default memo(BlogTemplate);
 
 export const getStaticProps = async (): Promise<AuthorGSPInterface> => {
-	const content = await import('content/author/about-me.md');
+	const fileName = 'about-me';
+	const content = await import(`content/author/${fileName}.md`);
 	const data = matter(content.default);
 
 	return {
