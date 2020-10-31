@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { copyTextToClipboard } from 'helpers/copy-to-clipboard.helper';
 import { titleForSocialNetwork } from 'helpers/letters.helper';
 import { ArticleContentInterface } from 'models/index.model';
+import Image from 'next/image';
 import Link from 'next/link';
 import { memo, SyntheticEvent } from 'react';
 
@@ -20,7 +21,7 @@ const Article = (props: ArticleContentInterface) => {
 		slug,
 	} = props;
 
-	const urlToShare = `https://eduardoalvarez.dev/blog/${slug}`;
+	const urlToShare = `https://eduardoalvarez.dev/articulos/${slug}`;
 
 	const handleCopyUrl = (event: SyntheticEvent) => {
 		copyTextToClipboard(event, urlToShare);
@@ -31,10 +32,12 @@ const Article = (props: ArticleContentInterface) => {
 			<div className='article__inner'>
 				<div className='article__inner__section'>
 					<div className='article__inner__section__image'>
-						<img
+						<Image
 							src={image_introduction}
 							alt={`Imagen del artículo ${title}`}
 							className='article__inner__section__image__hero'
+							unsized={true}
+							loading='lazy'
 						/>
 					</div>
 				</div>
@@ -53,7 +56,7 @@ const Article = (props: ArticleContentInterface) => {
 
 					<div className='article__inner__section__footer'>
 						<div className='article__inner__section__footer__section'>
-							<Link href={`/blog/${encodeURIComponent(slug)}`}>
+							<Link href={`/articulos/${encodeURIComponent(slug)}`}>
 								<a className='article__inner__section__footer__section__link'>
 									Seguir leyendo
 								</a>

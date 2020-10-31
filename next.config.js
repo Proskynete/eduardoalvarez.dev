@@ -1,23 +1,30 @@
-const path = require("path");
-const withCSS = require("@zeit/next-css");
+const path = require('path');
+const withCSS = require('@zeit/next-css');
 
 module.exports = {
-  sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
-  },
-  withCSS,
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.node = {
-        fs: "empty",
-      };
-    }
+	sassOptions: {
+		includePaths: [path.join(__dirname, 'styles')],
+	},
+	withCSS,
+	webpack: (config, { isServer }) => {
+		if (!isServer) {
+			config.node = {
+				fs: 'empty',
+			};
+		}
 
-    config.module.rules.push({
-      test: /\.md$/,
-      use: "raw-loader",
-    });
+		config.module.rules.push({
+			test: /\.md$/,
+			use: 'raw-loader',
+		});
 
-    return config;
-  },
+		return config;
+	},
+	images: {
+		deviceSizes: [320, 420, 768, 1024, 1200],
+		iconSizes: [],
+		domains: [],
+		path: '/_next/image',
+		loader: 'default',
+	},
 };

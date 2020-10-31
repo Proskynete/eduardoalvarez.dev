@@ -1,7 +1,7 @@
 .nav {
   width: 100%;
   height: 100px;
-  border-bottom: 1px solid #f4f4f4;
+  border-bottom: 1px solid $wild-sand;
   box-sizing: border-box;
 
   @media screen and (min-width: 720px) {
@@ -47,28 +47,36 @@
         color: $white;
         right: 30px;
         bottom: 30px;
-        z-index: 2096;
+        z-index: 2100;
+
+        &.mobile {
+          background-color: $white;
+          color: $primary;
+        }
 
         @media screen and (min-width: 720px) {
           display: none;
         }
       }
-      
-      &__content{
+
+      &__content {
         position: fixed;
         right: -280px;
-        background: #fff;
+        background-color: $primary;
+        color: $white;
         width: 280px;
         height: 100%;
-        box-shadow: 0 0 10px #ddd;
         z-index: 1048;
         top: 0;
-          
-        &.active {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+
+        &.mobile {
           right: 0;
-            
+
           @media screen and (orientation: portrait) {
-            transition: all 300ms ease;
+            transition: all 300ms ease-in-out;
           }
         }
 
@@ -82,30 +90,58 @@
         }
 
         &__inner {
-          display: block;
+          display: flex;
+          justify-content: space-evenly;
+          flex-direction: column;
           margin: 0;
           padding: 0;
+          width: 100%;
+          height: 200px;
 
           @media screen and (min-width: 720px) {
             display: flex;
+            flex-direction: row;
+            width: max-content;
+            height: max-content;
           }
 
           &__item {
             display: flex;
+            justify-content: center;
 
             &__link {
-              padding: 20px 20px 10px;
               text-decoration: none;
               color: $primary;
+              font-weight: 500;
+              font-size: $size-xxs;
+              padding: 5px;
+              margin-left: 10px;
+              margin-right: 10px;
               cursor: pointer;
+
+              @media screen and (min-width: 1200px) {
+                font-size: $size-xs;
+              }
+
+              &.mobile {
+                color: $white;
+                padding: 0;
+
+                &:hover,
+                &.active {
+                  padding-bottom: 5px;
+                  color: $white;
+                }
+              }
 
               &:hover,
               &.active {
-                color: $secondary;
+                border-bottom: 3px solid $secondary;
+                color: $primary;
               }
-                
+
               &:hover,
-              &:active{
+              &:active {
                 text-decoration: none;
               }
             }

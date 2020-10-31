@@ -16,7 +16,6 @@ interface DocumentInterface {
 class MyDocument extends Document<DocumentInterface> {
 	static async getInitialProps(ctx: DocumentContext) {
 		const initialProps = await Document.getInitialProps(ctx);
-
 		const isProduction = process.env.NODE_ENV === 'production';
 
 		return {

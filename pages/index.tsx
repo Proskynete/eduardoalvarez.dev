@@ -1,19 +1,9 @@
-import {
-	faChevronLeft,
-	faChevronRight,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Article from 'components/Article';
 import Layout from 'components/Layout';
 import fs from 'fs';
 import matter from 'gray-matter';
-import {
-	customPaginated,
-	PaginateResponseInterface,
-} from 'helpers/pagination.helper';
 import { generateRss } from 'helpers/rss.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
-import { nextPagination, previousPagination } from 'lib/pagination';
 import {
 	BlogTemplatePropsInterface,
 	FrontMatterInterface,
@@ -24,43 +14,10 @@ import {
 	HomePropsInterface,
 } from 'models/index.model';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { memo, SyntheticEvent, useEffect, useState } from 'react';
+import { memo } from 'react';
 
 const Index = (props: HomePropsInterface) => {
 	const { title, description, image, articles } = props;
-	const [pagination, setPagination] = useState<PaginateResponseInterface>();
-	const [articlesFiltered, setArticlesFiltered] = useState<
-		Array<ArticleContentInterface | BlogTemplatePropsInterface>
-	>();
-	const router = useRouter();
-	const { page } = router.query;
-
-	const { paginate, results } = customPaginated({
-		page: +page || 1,
-		limit: 3,
-		elements: articles,
-	});
-
-	useEffect(() => {
-		setPagination({ ...pagination, ...paginate });
-		setArticlesFiltered(results);
-	}, [router.query]);
-
-	const handlePagination = (e: SyntheticEvent<HTMLParagraphElement>) => {
-		const { type } = e.currentTarget.dataset;
-
-		if (type === 'next') {
-			nextPagination({ path: '', page: pagination.next, query: 'page' });
-		} else if (type === 'previous') {
-			previousPagination({
-				router,
-				path: '',
-				query: 'page',
-				previous: pagination.previous,
-			});
-		}
-	};
 
 	return (
 		<Layout customTitle={title} description={description} image={image}>
@@ -97,45 +54,13 @@ const Index = (props: HomePropsInterface) => {
 								<section className='articles'>
 									<div className='articles__header'>
 										<p className='articles__header__title'>Últimos artículos</p>
+										<Link href='/articulos'>
+											<a className='articles__header__subtitle'>Ver más</a>
+										</Link>
 									</div>
-									{articlesFiltered &&
-										articlesFiltered.map((article: ArticleContentInterface) => {
-											return <Article key={article.slug} {...article} />;
-										})}
-									<div className='articles__footer'>
-										{pagination?.previous !== 0 && (
-											<p
-												className='articles__footer__navigation'
-												data-type='previous'
-												role='presentation'
-												onClick={handlePagination}
-											>
-												<FontAwesomeIcon
-													icon={faChevronLeft}
-													className='articles__footer__navigation__arrow'
-												/>
-												<span className='articles__footer__navigation__text'>
-													<span>Artículos</span>Más Recientes
-												</span>
-											</p>
-										)}
-										{pagination?.next !== 0 && (
-											<p
-												className='articles__footer__navigation'
-												data-type='next'
-												role='presentation'
-												onClick={handlePagination}
-											>
-												<span className='articles__footer__navigation__text'>
-													<span>Artículos</span>Anteriores
-												</span>
-												<FontAwesomeIcon
-													icon={faChevronRight}
-													className='articles__footer__navigation__arrow'
-												/>
-											</p>
-										)}
-									</div>
+									{articles.map((article: ArticleContentInterface) => {
+										return <Article key={article.slug} {...article} />;
+									})}
 								</section>
 							</div>
 						</div>
@@ -175,7 +100,7 @@ export const getStaticProps = async (): Promise<
 		});
 
 		return data;
-	})(require['context']('../posts', true, /\.md$/));
+	})(require['context']('../content/posts', true, /\.md$/));
 
 	const postsSortered = posts.sort((a, b) => {
 		const _a = new Date(a.frontmatter.date);
@@ -185,12 +110,12 @@ export const getStaticProps = async (): Promise<
 	});
 
 	const rrs = generateRss(postsSortered);
-
 	fs.writeFileSync('public/rss.xml', rrs);
+	const articlesSliced = postsSortered.slice(0, 3);
 
 	return {
 		props: {
-			articles: postsSortered,
+			articles: articlesSliced,
 			title: siteConfig.title,
 			description: siteConfig.description,
 			image: siteConfig.image,

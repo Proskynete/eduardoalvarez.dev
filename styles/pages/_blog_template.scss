@@ -32,7 +32,7 @@
 
   &__body {
     padding-top: 30px;
-    
+
     &__image {
       margin-top: 30px;
       max-width: 100%;
@@ -60,6 +60,16 @@
         @media (min-width: 1200px) {
           padding-top: $margin-xxlg;
         }
+      }
+
+      .subtitle {
+        font-family: "Hero";
+        margin-bottom: $margin-xxlg;
+        margin-top: -$margin-xxlg;
+        font-size: $size-lg;
+        color: $info;
+        font-weight: 400;
+        line-height: 1;
       }
 
       p {
@@ -102,7 +112,7 @@
       ul {
         font-weight: 300;
         margin-top: 20px;
-        
+
         li {
           position: relative;
           display: flex;
@@ -122,7 +132,7 @@
             border-radius: 50%;
             background-color: $primary;
           }
-            
+
           strong {
             font-weight: 400;
           }
