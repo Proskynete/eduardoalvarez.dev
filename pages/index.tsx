@@ -97,6 +97,9 @@ const Index = (props: HomePropsInterface) => {
 								<section className='articles'>
 									<div className='articles__header'>
 										<p className='articles__header__title'>Últimos artículos</p>
+										<Link href='/articulos/'>
+											<a className='articles__header__subtitle'>Ver más</a>
+										</Link>
 									</div>
 									{articlesFiltered &&
 										articlesFiltered.map((article: ArticleContentInterface) => {

@@ -106,8 +106,21 @@
 
       &__title {
         color: $black-grey;
-        font-size: $size-md;        
+        font-size: $size-md;
+        margin-bottom: 5px;    
+      }
+
+      &__subtitle {
+        width: max-content;
+        color: $secondary;
+        text-decoration: none;
         padding-bottom: 30px;
+        font-size: $size-xxs;
+        
+        &:hover {
+          color: $secondary;
+          text-decoration: none;
+        }
       }
     }
     
