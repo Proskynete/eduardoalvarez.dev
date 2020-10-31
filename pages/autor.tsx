@@ -19,41 +19,64 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
 			image='/'
 			slug={title}
 		>
-			<article className='row justify-content-md-center'>
-				<div className='col-12'>
-					<div className='article__body'>
-						<div className='row justify-content-center justify-content-lg-start'>
-							<div
-								className='col-12 col-lg-2 offset-lg-1 sticky-top'
-								style={{ padding: '0', backgroundColor: '#fff' }}
-							>
-								<TableOfSections sections={sections} />
-							</div>
-
-							<div className='col-12 col-md-10 col-lg-7'>
-								<div className='article__body__content'>
-									<ReactMarkdown source={markdownBody} escapeHtml={false} />
+			<div className='author'>
+				<div className='row'>
+					<header className='author__header'>
+						<div className='author__header__inner'>
+							<div className='author__header__inner__text'>
+								<p className='author__header__inner__text__title'>
+									Quién es Eduardo?
+								</p>
+								<p className='author__header__inner__text__subtitle'>
+									A human, not a machine
+								</p>
+								<div className='author__header__inner__text__image'>
+									<img src='/images/isotipo/isotipo-white.png' alt={title} />
 								</div>
-								<Say
-									variant='primary'
-									anchor='filosofia-de-vida'
-									title='Mi filosofía de vida'
-									content='Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo.'
-								/>
+							</div>
+						</div>
+					</header>
+				</div>
+				<article className='row justify-content-md-center'>
+					<div className='col-12'>
+						<div className='article__body'>
+							<div className='row justify-content-center justify-content-lg-start'>
+								<div
+									className='col-12 col-lg-2 offset-lg-1 sticky-top'
+									style={{ padding: '0', backgroundColor: '#fff' }}
+								>
+									<TableOfSections sections={sections} />
+								</div>
+
+								<div className='col-12 col-md-10 col-lg-7'>
+									<div className='article__body__content'>
+										<ReactMarkdown source={markdownBody} escapeHtml={false} />
+									</div>
+									<Say
+										variant='primary'
+										anchor='filosofia-de-vida'
+										title='Mi filosofía de vida'
+										content='Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo.'
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div className='col-12'>
-					<div className='errata'>
-						¿Encontraste alguna errata? Ayudame a mejorar haciendo un{' '}
-						<a href={github_post_url} target='_blank' rel='noreferrer noopener'>
-							Pull Request.
-						</a>
+					<div className='col-12'>
+						<div className='errata'>
+							¿Encontraste alguna errata? Ayudame a mejorar haciendo un{' '}
+							<a
+								href={github_post_url}
+								target='_blank'
+								rel='noreferrer noopener'
+							>
+								Pull Request.
+							</a>
+						</div>
 					</div>
-				</div>
-			</article>
+				</article>
+			</div>
 		</Layout>
 	);
 };

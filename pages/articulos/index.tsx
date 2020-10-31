@@ -65,7 +65,7 @@ const Index = (props: HomePropsInterface) => {
 
 	return (
 		<Layout customTitle={title} description={description} image={image}>
-			<div className='home'>
+			<div className='articles-view'>
 				<div className='row'>
 					<div className='col-12'>
 						<div className='row justify-content-md-center'>

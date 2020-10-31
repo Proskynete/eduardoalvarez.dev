@@ -18,7 +18,7 @@ sections:
 ---
 
 <h2 id="quien-es-eduardo">¿Quién es Eduardo?</h2>
-<p class="subtitle">a human, not machine</p>
+<p class="subtitle">a human, not a machine</p>
 
 Hola!!! Mi nombre es Eduardo Esteban Álvarez Castañeda y soy nivel 26 en este juego llamado vida. Nacido y criado en Santiago de Chile (Ahora vivo en Lampa). Hijo mayor de Eduardo Álvarez Dubles (super original mi papá) y Janett Castañeda González. Un día Viernes, cuando recién partía el día 24 de Diciembre del año 1993 fue cuando dije mi primer Hola Mundo.
 
