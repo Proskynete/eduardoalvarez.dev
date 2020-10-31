@@ -100,7 +100,7 @@ export const getStaticProps = async (): Promise<
 		});
 
 		return data;
-	})(require['context']('../posts', true, /\.md$/));
+	})(require['context']('../content/posts', true, /\.md$/));
 
 	const postsSortered = posts.sort((a, b) => {
 		const _a = new Date(a.frontmatter.date);

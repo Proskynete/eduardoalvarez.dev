@@ -145,7 +145,7 @@ export const getStaticProps = async (
 
 	return {
 		props: {
-			github_post_url: `https://github.com/Proskynete/blog/blob/master/posts/${slug}.md`,
+			github_post_url: `https://github.com/Proskynete/blog/blob/master/content/posts/${slug}.md`,
 			frontmatter: dataSerialized(data.data as FrontMatterInterface),
 			markdownBody: data.content,
 			disqusShortName: JSON.parse(
@@ -159,7 +159,7 @@ export const getStaticProps = async (
 export const getStaticPaths = async (): Promise<
 	GetStaticPathsResponseInterface
 > => {
-	const blogs = glob.sync('posts/**/*.md');
+	const blogs = glob.sync('content/posts/**/*.md');
 
 	const blogSlugs = blogs.map((file: string) =>
 		file.split('/')[1].replace(/ /g, '-').slice(0, -3).trim(),
