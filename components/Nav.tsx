@@ -57,6 +57,14 @@ const Nav = (props: PropsInterface) => {
 	const [state, setState] = useState(false);
 	const { path } = props;
 
+	const handleRemoveActive = () => {
+		document
+			.querySelectorAll('.nav__inner__menu__content__inner__item__link')
+			.forEach((_link) => {
+				_link.classList.remove('active');
+			});
+	};
+
 	return (
 		<header className='nav' role='navigation'>
 			<div className='nav__inner'>
@@ -89,8 +97,10 @@ const Nav = (props: PropsInterface) => {
 											key={resource.link}
 											className='nav__inner__menu__content__inner__item'
 										>
-											<Link href={resource.link}>
-												<a
+											<Link href={resource.link} passHref>
+												<p
+													role='presentation'
+													onClick={handleRemoveActive}
 													className={`nav__inner__menu__content__inner__item__link ${
 														state && 'mobile'
 													} ${
@@ -98,7 +108,7 @@ const Nav = (props: PropsInterface) => {
 													}`}
 												>
 													{resource.title}
-												</a>
+												</p>
 											</Link>
 										</li>
 									),
