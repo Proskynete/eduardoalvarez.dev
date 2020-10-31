@@ -47,7 +47,7 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 			customTitle={title}
 			description={description}
 			image={hero_image}
-			slug={`blog/${slug}`}
+			slug={`articulos/${slug}`}
 		>
 			<article className='row justify-content-md-center'>
 				<div className='col-12 col-md-10 col-lg-8'>
