@@ -10,6 +10,7 @@ import {
 	customPaginated,
 	PaginateResponseInterface,
 } from 'helpers/pagination.helper';
+import { scrollToTop } from 'helpers/scroll.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import { nextPagination, previousPagination } from 'lib/pagination';
 import {
@@ -35,7 +36,7 @@ const Index = (props: HomePropsInterface) => {
 
 	const { paginate, results } = customPaginated({
 		page: +page || 1,
-		limit: 10,
+		limit: 3,
 		elements: articles,
 	});
 
@@ -61,6 +62,7 @@ const Index = (props: HomePropsInterface) => {
 				previous: pagination.previous,
 			});
 		}
+		scrollToTop();
 	};
 
 	return (
@@ -75,43 +77,41 @@ const Index = (props: HomePropsInterface) => {
 										articlesFiltered.map((article: ArticleContentInterface) => (
 											<Article key={article.slug} {...article} />
 										))}
-									{pagination?.previous ||
-										(pagination?.next ? (
-											<div className='articles__footer'>
-												{pagination?.previous !== 0 && (
-													<p
-														className='articles__footer__navigation'
-														data-type='previous'
-														role='presentation'
-														onClick={handlePagination}
-													>
-														<FontAwesomeIcon
-															icon={faChevronLeft}
-															className='articles__footer__navigation__arrow'
-														/>
-														<span className='articles__footer__navigation__text'>
-															<span>Artículos</span>Más Recientes
-														</span>
-													</p>
-												)}
-												{pagination?.next !== 0 && (
-													<p
-														className='articles__footer__navigation'
-														data-type='next'
-														role='presentation'
-														onClick={handlePagination}
-													>
-														<span className='articles__footer__navigation__text'>
-															<span>Artículos</span>Anteriores
-														</span>
-														<FontAwesomeIcon
-															icon={faChevronRight}
-															className='articles__footer__navigation__arrow'
-														/>
-													</p>
-												)}
-											</div>
-										) : null)}
+
+									<div className='articles__footer'>
+										{pagination?.previous !== 0 && (
+											<p
+												className='articles__footer__navigation'
+												data-type='previous'
+												role='presentation'
+												onClick={handlePagination}
+											>
+												<FontAwesomeIcon
+													icon={faChevronLeft}
+													className='articles__footer__navigation__arrow'
+												/>
+												<span className='articles__footer__navigation__text'>
+													<span>Artículos</span>Más Recientes
+												</span>
+											</p>
+										)}
+										{pagination?.next !== 0 && (
+											<p
+												className='articles__footer__navigation'
+												data-type='next'
+												role='presentation'
+												onClick={handlePagination}
+											>
+												<span className='articles__footer__navigation__text'>
+													<span>Artículos</span>Anteriores
+												</span>
+												<FontAwesomeIcon
+													icon={faChevronRight}
+													className='articles__footer__navigation__arrow'
+												/>
+											</p>
+										)}
+									</div>
 								</section>
 							</div>
 						</div>
