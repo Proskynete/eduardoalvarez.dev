@@ -115,7 +115,7 @@ const Article = (props: ArticleContentInterface) => {
 							<span className='article__inner__section__footer__section__share'>
 								<div
 									role='button'
-									tabIndex={0}
+									tabIndex={-1}
 									className='article__inner__section__footer__section__share__link'
 									aria-hidden='true'
 									title='Compartir copiando link'

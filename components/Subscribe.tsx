@@ -65,12 +65,13 @@ const Subscribe = () => {
 							</div>
 							<input
 								id='name'
+								name='name'
 								type='text'
 								className='with-icon'
 								placeholder='Tu nombre'
 								value={values.name}
 								onChange={(e) => handleChangeInput(e)}
-								required
+								required={true}
 							/>
 						</label>
 					</div>
@@ -81,12 +82,13 @@ const Subscribe = () => {
 							</div>
 							<input
 								id='email'
+								name='email'
 								type='email'
 								className='with-icon'
 								placeholder='Tu correo'
 								value={values.email}
 								onChange={(e) => handleChangeInput(e)}
-								required
+								required={true}
 							/>
 						</label>
 					</div>
