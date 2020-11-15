@@ -1,9 +1,7 @@
 import Article from 'components/Article';
 import Layout from 'components/Layout';
-import fs from 'fs';
 import matter from 'gray-matter';
 import { calculateReadingTime } from 'helpers/calculate-reading-time.helper';
-import { generateRss } from 'helpers/rss.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import {
 	BlogTemplatePropsInterface,
@@ -111,8 +109,6 @@ export const getStaticProps = async (): Promise<
 		return _a > _b ? -1 : _a < _b ? 1 : 0;
 	});
 
-	const rrs = generateRss(postsSortered);
-	fs.writeFileSync('public/rss.xml', rrs);
 	const articlesSliced = postsSortered.slice(0, 3);
 
 	return {
