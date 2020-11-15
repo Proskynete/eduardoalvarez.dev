@@ -57,7 +57,7 @@ const prettier = require('prettier');
 
 		const formatted = prettier.format(rss, {
 			...prettierConfig,
-			parser: 'html',
+			parser: 'babel',
 		});
 
 		fs.writeFileSync('public/rss.xml', formatted);
