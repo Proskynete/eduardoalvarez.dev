@@ -2,6 +2,7 @@ import Article from 'components/Article';
 import Layout from 'components/Layout';
 import fs from 'fs';
 import matter from 'gray-matter';
+import { calculateReadingTime } from 'helpers/calculate-reading-time.helper';
 import { generateRss } from 'helpers/rss.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import {
@@ -91,6 +92,7 @@ export const getStaticProps = async (): Promise<
 
 			const content = contentFile[index];
 			const document = matter(content.default);
+			document.data['read_time'] = calculateReadingTime(document.content);
 
 			return {
 				frontmatter: dataSerialized(document.data as FrontMatterInterface),

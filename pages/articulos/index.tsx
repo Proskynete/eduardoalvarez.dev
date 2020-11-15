@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Article from 'components/Article';
 import Layout from 'components/Layout';
 import matter from 'gray-matter';
+import { calculateReadingTime } from 'helpers/calculate-reading-time.helper';
 import {
 	customPaginated,
 	PaginateResponseInterface,
@@ -142,6 +143,7 @@ export const getStaticProps = async (): Promise<
 
 			const content = contentFile[index];
 			const document = matter(content.default);
+			document.data['read_time'] = calculateReadingTime(document.content);
 
 			return {
 				frontmatter: dataSerialized(document.data as FrontMatterInterface),
