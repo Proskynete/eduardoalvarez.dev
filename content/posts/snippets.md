@@ -2,7 +2,6 @@
 title: 'Snippets'
 description: 'Ejemplo de snippets y su visualización'
 date: 2020-10-23T15:47:00-03:00
-read_time: 3
 tags: ['web-development']
 hero_image: '/images/introduccion-a-jamstack/introduccion_a_jamstack.png'
 introduction:
