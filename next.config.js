@@ -7,13 +7,15 @@ module.exports = {
 	},
 	withCSS,
 	webpack: (config, { isServer }) => {
+		if (config.mode === 'production') {
+			require('./scripts/generate-sitemap');
+		}
+
 		if (!isServer) {
 			config.node = {
 				fs: 'empty',
 			};
 		}
-
-		require('./scripts/generate-sitemap');
 
 		config.module.rules.push({
 			test: /\.md$/,
