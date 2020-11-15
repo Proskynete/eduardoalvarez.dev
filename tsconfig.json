@@ -15,6 +15,11 @@
 		"jsx": "preserve",
 		"baseUrl": "."
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"scripts/generate-sitemap.js"
+	],
 	"exclude": ["node_modules"]
 }

@@ -13,6 +13,8 @@ module.exports = {
 			};
 		}
 
+		require('./scripts/generate-sitemap');
+
 		config.module.rules.push({
 			test: /\.md$/,
 			use: 'raw-loader',
