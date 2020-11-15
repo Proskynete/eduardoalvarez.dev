@@ -5,6 +5,7 @@ import Say from 'components/Say';
 import TableOfSections from 'components/TableOfSections';
 import glob from 'glob';
 import matter from 'gray-matter';
+import { calculateReadingTime } from 'helpers/calculate-reading-time.helper';
 import { highlightFormat } from 'helpers/highlight.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import {
@@ -142,6 +143,8 @@ export const getStaticProps = async (
 	const { slug } = ctx.params;
 	const content = await import(`../../content/posts/${slug}.md`);
 	const data = matter(content.default);
+	data.data['read_time'] = calculateReadingTime(data.content);
+
 	return {
 		props: {
 			github_post_url: `https://github.com/Proskynete/blog/blob/master/content/posts/${slug}.md`,
