@@ -6,12 +6,36 @@ const prettier = require('prettier');
 	const getDate = new Date().toISOString();
 	const prettierConfig = await prettier.resolveConfig('./.prettierrc');
 
-	const pages = await globby([
+	const _pages = await globby([
 		'pages/**/*.tsx',
 		'pages/*.tsx',
 		'!pages/_*.tsx',
 		'!pages/api',
 	]);
+
+	const _articlesName = await globby(['content/posts/*.md']);
+
+	const _getRoutePages = _pages.map((page) => {
+		const path = page
+			.replace('pages/', '')
+			.replace('.tsx', '')
+			.replace(/\/index/g, '');
+
+		if (!path.includes('[slug]')) {
+			return path === 'index' ? '' : path;
+		}
+	});
+
+	const _getRouteArticles = _articlesName.map((article) => {
+		return `articulos/${article
+			.replace('content/posts/', '')
+			.replace('.md', '')}`;
+	});
+
+	const getRoutePages = _getRoutePages.filter((r) => r !== undefined);
+	const getRouteArticles = _getRouteArticles.filter((r) => r !== undefined);
+
+	const routes = [...getRoutePages, ...getRouteArticles];
 
 	const sitemap = `
     <?xml version="1.0" encoding="UTF-8"?>
@@ -19,32 +43,17 @@ const prettier = require('prettier');
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
-    >
-    ${pages
-			.map((page) => {
-				let route;
-				const path = page
-					.replace('pages/', '')
-					.replace('.tsx', '')
-					.replace(/\/index/g, '');
-
-				if (!path.includes('[slug]')) {
-					route = path === 'index' ? '' : path;
-				} else {
-					if (path.split('/')[1] === '[slug]') {
-						// route = ...
-					}
-				}
-
-				return `
-          <url>
-            <loc>https://eduardoalvarez.dev/${route}</loc>
-            <lastmod>${getDate}</lastmod>
-          </url>
-        `;
-			})
-			.join('')}
-    </urlset>
+		>
+			${routes
+				.map(
+					(route) =>
+						`<url>
+						<loc>https://eduardoalvarez.dev/${route}</loc>
+						<lastmod>${getDate}</lastmod>
+					</url>`,
+				)
+				.join('')}
+		</urlset>
   `;
 
 	const formatted = prettier.format(sitemap, {
