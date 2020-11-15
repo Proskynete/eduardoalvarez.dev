@@ -3,9 +3,11 @@ const globby = require('globby');
 const matter = require('gray-matter');
 const moment = require('moment');
 const config = require('../data/config.json');
+const prettier = require('prettier');
 
 (async () => {
 	const nameFiles = await globby(['content/posts/*.md']);
+	const prettierConfig = await prettier.resolveConfig('../.pretierrc');
 
 	try {
 		const data = nameFiles.map((nameFile, index) => {
@@ -26,11 +28,10 @@ const config = require('../data/config.json');
 		});
 
 		const rss = `
-			<?xml version="1.0" encoding="UTF-8" ?>
 			<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 				<channel>
 					<title>${config.title}</title>
-					<link>${config.url}</link>
+					<link>https://eduardoalvarez.dev</link>
 					<description>${config.description}</description>
 					<language>${config.languaje}</language>
 					<lastBuildDate>${new Date(
@@ -54,8 +55,13 @@ const config = require('../data/config.json');
 			</rss>
 		`;
 
-		fs.writeFileSync('public/rss.xml', rss);
+		const formatted = prettier.format(rss, {
+			...prettierConfig,
+			parser: 'html',
+		});
+
+		fs.writeFileSync('public/rss.xml', formatted);
 	} catch (e) {
-		console.error(e);
+		console.error('Error');
 	}
 })();

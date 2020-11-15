@@ -4,7 +4,7 @@ const prettier = require('prettier');
 
 (async () => {
 	const getDate = new Date().toISOString();
-	const prettierConfig = await prettier.resolveConfig('./.prettierrc');
+	const prettierConfig = await prettier.resolveConfig('../.pretierrc');
 
 	const _pages = await globby([
 		'pages/**/*.tsx',
