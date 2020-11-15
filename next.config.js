@@ -9,6 +9,7 @@ module.exports = {
 	webpack: (config, { isServer }) => {
 		if (config.mode === 'production') {
 			require('./scripts/generate-sitemap');
+			require('./scripts/generate-rss');
 		}
 
 		if (!isServer) {
