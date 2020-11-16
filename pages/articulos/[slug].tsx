@@ -1,3 +1,5 @@
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DisqusComponent from 'components/DisqusComponent';
 import InfoArticle from 'components/InfoArticle';
 import Layout from 'components/Layout';
@@ -117,7 +119,11 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 					<div className='errata'>
 						¿Encontraste alguna errata? Ayudame a mejorar haciendo un{' '}
 						<a href={github_post_url} target='_blank' rel='noreferrer noopener'>
-							Pull Request.
+							Pull Request.{' '}
+							<FontAwesomeIcon
+								icon={faGithub}
+								className='info__content__icon__svg'
+							/>
 						</a>
 					</div>
 				</div>
