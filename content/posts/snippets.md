@@ -24,6 +24,7 @@ sections:
     { title: 'Terminal', anchor: 'terminal' },
     { title: 'Markdown', anchor: 'markdown' },
     { title: 'Yaml', anchor: 'yaml' },
+    { title: 'Aviso', anchor: 'aviso' },
   ]
 ---
 
@@ -155,3 +156,7 @@ homeassistant:
   customize_glob: !include customize_glob.yaml
   packages: !include_dir_named packages
 ```
+
+<h2 id="aviso">Aviso</h2>
+
+> Aviso importante: Blockquotes are very handy in email to emulate reply text. This line is part of the same quote.

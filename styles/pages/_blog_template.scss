@@ -109,6 +109,20 @@
         }
       }
 
+      blockquote {
+        background: #f0db4f;
+        border-radius: 6px;
+        padding: 16px;
+        color: #2c3435;
+        margin-top: 48px;
+        margin-bottom: 32px;
+        box-shadow: 5px 5px 9px 3px #aaaaaa;
+
+        p {
+          margin: 0;
+        }
+      }
+
       ul {
         font-weight: 300;
         margin-top: 20px;
