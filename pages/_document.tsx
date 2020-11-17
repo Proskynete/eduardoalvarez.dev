@@ -30,6 +30,7 @@ class MyDocument extends Document<DocumentInterface> {
 		return (
 			<Html lang='es'>
 				<Head>
+					<meta name='robots' content='noindex, follow' />
 					{isProduction && (
 						<>
 							{/* Global Site Tag (gtag.js) - Google Analytics */}
