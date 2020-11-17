@@ -38,6 +38,6 @@ export const ProgressBarScrolling = (props: ProgressBarScrollingInterface) => {
 	});
 
 	return (
-		<div className={`reading-progress-bar`} style={{ width: `${state}%` }} />
+		<div className='progress-bar-scrolling' style={{ width: `${state}%` }} />
 	);
 };
