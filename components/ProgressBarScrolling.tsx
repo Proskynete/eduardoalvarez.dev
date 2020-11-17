@@ -15,7 +15,7 @@ export const ProgressBarScrolling = (props: ProgressBarScrollingInterface) => {
 
 		const ele = target.current;
 		const totalHeight: number =
-			ele.clientHeight - ele.offsetTop - window.innerHeight;
+			ele.clientHeight - ele.offsetTop - window.innerHeight + ele.offsetTop * 2;
 
 		const windowScrollTop: number =
 			window.pageYOffset ||
@@ -27,7 +27,7 @@ export const ProgressBarScrolling = (props: ProgressBarScrollingInterface) => {
 			return setState(0);
 		}
 
-		if (windowScrollTop > totalHeight) {
+		if (windowScrollTop >= totalHeight) {
 			return setState(100);
 		}
 
