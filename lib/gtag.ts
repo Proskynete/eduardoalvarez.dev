@@ -1,4 +1,4 @@
-export const GA_TRACKING_ID = '250807320';
+export const GA_TRACKING_ID = 'G-08YEB7MNX2';
 
 export const pageview = (url: string) => {
 	window.gtag &&

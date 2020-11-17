@@ -59,7 +59,7 @@ const Subscribe = () => {
 				<p className='subscribe-subtitle'>Para novedades, cursos y ofertas</p>
 				<div className='subscribe-input-container'>
 					<div className='subscribe-label'>
-						<label htmlFor='name' className='subscribe-input'>
+						<label className='subscribe-input'>
 							<div className='icon'>
 								<FontAwesomeIcon icon={faUser} />
 							</div>
@@ -70,13 +70,13 @@ const Subscribe = () => {
 								className='with-icon'
 								placeholder='Tu nombre'
 								value={values.name}
-								onChange={(e) => handleChangeInput(e)}
-								required={true}
+								onChange={handleChangeInput}
+								required
 							/>
 						</label>
 					</div>
 					<div className='subscribe-label'>
-						<label htmlFor='email' className='subscribe-input'>
+						<label className='subscribe-input'>
 							<div className='icon'>
 								<FontAwesomeIcon icon={faEnvelope} />
 							</div>
@@ -87,8 +87,8 @@ const Subscribe = () => {
 								className='with-icon'
 								placeholder='Tu correo'
 								value={values.email}
-								onChange={(e) => handleChangeInput(e)}
-								required={true}
+								onChange={handleChangeInput}
+								required
 							/>
 						</label>
 					</div>
