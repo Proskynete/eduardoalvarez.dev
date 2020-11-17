@@ -7,10 +7,6 @@ const Meta = (props: PropsInterface) => {
 
 	return (
 		<Head>
-			<meta charSet='utf-8' />
-			<meta name='viewport' content='width=device-width, initial-scale=1' />
-			<meta name='robots' content='noindex' />
-
 			<meta name='image' content={image} />
 			<link rel='canonical' href={`${data.url}/${slug}`} />
 

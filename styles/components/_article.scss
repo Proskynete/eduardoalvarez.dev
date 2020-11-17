@@ -1,7 +1,7 @@
 .article {
   width: 100%;
   height: max-content;
-  
+
   &:not(:first-of-type) {
     padding-top: 50px;
   }
@@ -69,12 +69,12 @@
 
       &__header {
         margin-top: $margin-xs;
-        
+
         &__title {
           font-size: $size-lg;
           color: $primary;
           margin-bottom: $margin-xs;
-          
+
           @media screen and (min-width: 1200px) {
             font-size: $size-xxlg;
           }
@@ -109,7 +109,7 @@
           &__link {
             color: $info;
             font-size: $size-xs;
-            
+
             @media screen and (min-width: 1200px) {
               font-size: $size-md;
             }
@@ -127,16 +127,16 @@
 
           &__share {
             cursor: pointer;
-            font-size: $size-xxs;
-            
+            font-size: 17px;
+
             @media screen and (min-width: 1200px) {
               font-size: $size-xs;
             }
 
             &:not(:first-child) {
-              margin-left: 10px;
+              margin-left: 13px;
             }
-            
+
             &__link {
               color: $info;
 
