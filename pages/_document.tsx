@@ -66,6 +66,7 @@ class MyDocument extends Document<DocumentInterface> {
 				</Head>
 				<body>
 					{isProduction && (
+						<>
 							{/* Google Tag Manager (noscript) */}
 							<noscript>
 								<iframe
@@ -75,6 +76,7 @@ class MyDocument extends Document<DocumentInterface> {
 									style={{ display: 'none', visibility: 'hidden' }}
 								></iframe>
 							</noscript>
+						</>
 					)}
 					<Main />
 					<NextScript />
