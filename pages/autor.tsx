@@ -1,3 +1,5 @@
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Layout from 'components/Layout';
 import Say from 'components/Say';
 import TableOfSections from 'components/TableOfSections';
@@ -71,7 +73,11 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
 								target='_blank'
 								rel='noreferrer noopener'
 							>
-								Pull Request.
+								Pull Request.{' '}
+								<FontAwesomeIcon
+									icon={faGithub}
+									className='info__content__icon__svg'
+								/>
 							</a>
 						</div>
 					</div>
