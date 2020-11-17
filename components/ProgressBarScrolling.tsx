@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react';
 
 interface ProgressBarScrollingInterface {
-	target: any;
+	target: {
+		current?: HTMLElement;
+	};
 }
 
 export const ProgressBarScrolling = (props: ProgressBarScrollingInterface) => {
 	const { target } = props;
-	const [state, setState] = useState(0);
+	const [state, setState] = useState<number>(0);
 
 	const scrollListener = () => {
 		if (!target.current) return;
 
 		const ele = target.current;
-		const totalHeight = ele.clientHeight - ele.offsetTop - window.innerHeight;
+		const totalHeight: number =
+			ele.clientHeight - ele.offsetTop - window.innerHeight;
 
-		const windowScrollTop =
+		const windowScrollTop: number =
 			window.pageYOffset ||
 			document.documentElement.scrollTop ||
 			document.body.scrollTop ||
