@@ -30,7 +30,15 @@ class MyDocument extends Document<DocumentInterface> {
 		return (
 			<Html lang='es'>
 				<Head>
-					<meta name='robots' content='noindex, follow' />
+					<meta charSet='utf-8' />
+					<meta name='viewport' content='width=device-width, initial-scale=1' />
+					<meta name='robots' content='index, follow' />
+					<meta
+						name='keywords'
+						content='frontend, front-end, react, reactjs, mongo, mongodb, ts, typescript, js, javascript, nosql, express, node, nodejs, html, css'
+					/>
+					<meta name='author' content='Eduardo Álvarez Castañeda' />
+					<meta name='copyright' content='Eduardo Álvarez Castañeda' />
 					{isProduction && (
 						<>
 							{/* Global Site Tag (gtag.js) - Google Analytics */}
