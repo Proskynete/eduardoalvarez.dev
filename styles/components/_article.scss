@@ -98,17 +98,37 @@
       }
 
       &__footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        @media screen and (min-width: 720px) {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
 
         &__section {
           display: flex;
-          width: 50%;
+          justify-content: center;
+
+          @media screen and (min-width: 720px) {
+            width: 50%;
+            justify-content: flex-start;
+          }
+
+          &:first-child {
+            border: 1px solid $info;
+            padding: 5px;
+            margin-bottom: 20px;
+
+            @media screen and (min-width: 720px) {
+              border: none;
+              margin-bottom: 0;
+              padding: 0;
+            }
+          }
 
           &__link {
             color: $info;
             font-size: $size-xs;
+            text-align: center;
 
             @media screen and (min-width: 1200px) {
               font-size: $size-md;
@@ -122,19 +142,31 @@
 
           &:last-child {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-around;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+
+            @media screen and (min-width: 720px) {
+              width: 50%;
+              justify-content: flex-end;
+              margin-left: 0;
+              margin-right: 0;
+            }
           }
 
           &__share {
             cursor: pointer;
-            font-size: 17px;
+            font-size: 20px;
+
+            @media screen and (min-width: 720px) {
+              &:not(:first-child) {
+                margin-left: 20px;
+              }
+            }
 
             @media screen and (min-width: 1200px) {
               font-size: $size-xs;
-            }
-
-            &:not(:first-child) {
-              margin-left: 13px;
             }
 
             &__link {
