@@ -1,3 +1,2 @@
 User-agent: *
 Sitemap: https://eduardoalvarez.dev/sitemap.xml
-X-Robots-Tag: index
