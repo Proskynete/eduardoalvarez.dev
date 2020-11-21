@@ -1,3 +1,5 @@
+import Article from 'components/Article';
+import Layout from 'components/Layout';
 import matter from 'gray-matter';
 import { calculateReadingTime } from 'helpers/calculate-reading-time.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
@@ -10,13 +12,9 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { memo } from 'react';
-
-const Article = dynamic(() => import('components/Article'));
-const Layout = dynamic(() => import('components/Layout'));
 
 const Index = (props: HomePropsInterface) => {
 	const { title, description, image, articles } = props;
@@ -32,9 +30,7 @@ const Index = (props: HomePropsInterface) => {
 									src='/images/me/eduardo_alvarez.jpg'
 									alt='Imagen de Eduardo Álvarez'
 									className='home__presentation__image__img'
-									width={200}
-									height={200}
-									loading='lazy'
+									unsized={true}
 								/>
 							</div>
 							<div className='home__presentation__description'>
