@@ -72,12 +72,18 @@ const Nav = (props: PropsInterface) => {
 				<section className='nav__inner__logo'>
 					<Link href='/'>
 						<a>
-							<Image
+							{/*<Image
 								src='/images/logo/logo.png'
 								alt='logo'
 								className='nav__inner__logo__img'
-								unsized={true}
+								height={87}
+								width={180}
 								loading='lazy'
+							/>*/}
+							<img
+								src='/images/logo/logo.png'
+								alt='logo'
+								className='nav__inner__logo__img'
 							/>
 						</a>
 					</Link>
