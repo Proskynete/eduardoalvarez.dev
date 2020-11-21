@@ -3,8 +3,6 @@ import {
 	faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Article from 'components/Article';
-import Layout from 'components/Layout';
 import matter from 'gray-matter';
 import { calculateReadingTime } from 'helpers/calculate-reading-time.helper';
 import {
@@ -23,8 +21,12 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { memo, SyntheticEvent, useEffect, useState } from 'react';
+
+const Article = dynamic(() => import('components/Article'));
+const Layout = dynamic(() => import('components/Layout'));
 
 const Index = (props: HomePropsInterface) => {
 	const { title, description, image, articles } = props;
