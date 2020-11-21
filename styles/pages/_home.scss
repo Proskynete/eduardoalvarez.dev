@@ -11,9 +11,9 @@
       margin-left: auto;
       margin-right: auto;
       align-items: center;
-      height: max-content; 
+      height: max-content;
     }
-    
+
     @media screen and (min-width: 1200px) {
       width: 50%;
     }
@@ -29,7 +29,7 @@
 
       &__img {
         width: 200px;
-        
+
         @media screen and (min-width: 720px) {
           width: 300px;
         }
@@ -47,7 +47,7 @@
         padding-left: 30px;
         width: 100%;
       }
-      
+
       @media screen and (min-width: 1200px) {
         padding-left: 40px;
       }
@@ -61,7 +61,7 @@
         @media screen and (min-width: 720px) {
           text-align: left;
         }
-        
+
         @media screen and (min-width: 1200px) {
           font-size: $size-lg;
         }
@@ -95,11 +95,11 @@
       }
     }
   }
-  
+
   .articles {
     background-color: $white;
     padding: 30px 20px;
-    
+
     &__header {
       display: flex;
       flex-direction: column;
@@ -107,7 +107,7 @@
       &__title {
         color: $black-grey;
         font-size: $size-md;
-        margin-bottom: 5px;    
+        margin-bottom: 5px;
       }
 
       &__subtitle {
@@ -115,21 +115,21 @@
         color: $secondary;
         text-decoration: none;
         padding-bottom: 30px;
-        font-size: $size-xxs;
-        
+        font-size: $size-xs;
+
         &:hover {
           color: $secondary;
           text-decoration: none;
         }
       }
     }
-    
+
     @media screen and (min-width: 1200px) {
       padding: 50px;
     }
 
-    > .article {
-      &:not(:last-of-type){
+    >.article {
+      &:not(:last-of-type) {
         border-bottom: 1px solid $grey;
       }
     }
@@ -145,7 +145,7 @@
         cursor: pointer;
 
         &__text {
-          > span {
+          >span {
             display: none;
 
             @media screen and (min-width: 720px) {
@@ -161,7 +161,7 @@
             }
           }
         }
-        
+
         &__arrow {
           &:first-of-type {
             margin-right: 10px;
