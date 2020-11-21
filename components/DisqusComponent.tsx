@@ -1,4 +1,5 @@
 import { DiscussionEmbed } from 'disqus-react';
+import { memo } from 'react';
 
 export interface DiscusInterface {
 	path: string;
@@ -25,4 +26,4 @@ const DisqusComponent = (props: DiscusInterface) => {
 	);
 };
 
-export default DisqusComponent;
+export default memo(DisqusComponent);

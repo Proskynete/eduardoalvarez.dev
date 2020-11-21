@@ -1,6 +1,7 @@
 import data from 'data/config.json';
 import { PropsInterface } from 'models/meta.model';
 import Head from 'next/head';
+import { memo } from 'react';
 
 const Meta = (props: PropsInterface) => {
 	const { customTitle, description, image, slug = '' } = props;
@@ -9,6 +10,7 @@ const Meta = (props: PropsInterface) => {
 		<Head>
 			<meta name='image' content={image} />
 			<link rel='canonical' href={`${data.url}/${slug}`} />
+			<meta name='viewport' content='width=device-width, initial-scale=1' />
 
 			<meta property='og:description' content={description} />
 			<meta property='og:site_name' content={customTitle} />
@@ -29,4 +31,4 @@ const Meta = (props: PropsInterface) => {
 	);
 };
 
-export default Meta;
+export default memo(Meta);

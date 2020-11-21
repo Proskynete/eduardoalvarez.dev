@@ -2,7 +2,7 @@ import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MenuLinkInterface } from 'models/menu';
 import Link from 'next/link';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 const navResources: MenuLinkInterface[] = [
 	{
@@ -121,4 +121,4 @@ const Nav = (props: PropsInterface) => {
 	);
 };
 
-export default Nav;
+export default memo(Nav);
