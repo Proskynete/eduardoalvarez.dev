@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 interface ProgressBarScrollingInterface {
 	target: {
@@ -6,7 +6,7 @@ interface ProgressBarScrollingInterface {
 	};
 }
 
-export const ProgressBarScrolling = (props: ProgressBarScrollingInterface) => {
+const ProgressBarScrolling = (props: ProgressBarScrollingInterface) => {
 	const { target } = props;
 	const [state, setState] = useState<number>(0);
 
@@ -44,3 +44,5 @@ export const ProgressBarScrolling = (props: ProgressBarScrollingInterface) => {
 		<div className='progress-bar-scrolling' style={{ width: `${state}%` }} />
 	);
 };
+
+export default memo(ProgressBarScrolling);

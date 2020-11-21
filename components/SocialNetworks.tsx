@@ -4,6 +4,7 @@ import {
 	SocialNetworkInterface,
 	socialNetworkMap,
 } from 'models/social-network.model';
+import { memo } from 'react';
 
 const SocialNetworks = () => {
 	return (
@@ -27,5 +28,4 @@ const SocialNetworks = () => {
 		</div>
 	);
 };
-
-export default SocialNetworks;
+export default memo(SocialNetworks);

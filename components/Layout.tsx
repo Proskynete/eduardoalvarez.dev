@@ -5,7 +5,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import Footer from './Footer';
 import Meta from './Meta';
 import Nav from './Nav';
-import { ProgressBarScrolling } from './ProgressBarScrolling';
+import ProgressBarScrolling from './ProgressBarScrolling';
 
 const Layout: FC<PropsInterface> = (props) => {
 	const { customTitle, description, image, slug, children } = props;

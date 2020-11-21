@@ -1,6 +1,7 @@
 import data from 'data/config.json';
 import { PropsInterface } from 'models/meta.model';
 import Head from 'next/head';
+import { memo } from 'react';
 
 const Meta = (props: PropsInterface) => {
 	const { customTitle, description, image, slug = '' } = props;
@@ -30,4 +31,4 @@ const Meta = (props: PropsInterface) => {
 	);
 };
 
-export default Meta;
+export default memo(Meta);

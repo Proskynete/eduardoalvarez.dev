@@ -1,4 +1,5 @@
 import { CommentCount } from 'disqus-react';
+import { memo } from 'react';
 
 interface DiscusInterface {
 	path: string;
@@ -23,4 +24,4 @@ const DisqusCount = (props: DiscusInterface) => {
 	);
 };
 
-export default DisqusCount;
+export default memo(DisqusCount);

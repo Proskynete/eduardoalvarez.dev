@@ -5,6 +5,7 @@ import { onlyDate, prettyFormat } from 'helpers/date.helper';
 import { prettyReadingTime } from 'helpers/reading-time.helper';
 import { prettyTags } from 'helpers/tags.helper';
 import { InfoArticleIntereface } from 'models/info-article.model';
+import { memo } from 'react';
 
 import DisqusCount from './DisqusCount';
 
@@ -72,4 +73,4 @@ const InfoArticle = (props: InfoArticleIntereface) => {
 	);
 };
 
-export default InfoArticle;
+export default memo(InfoArticle);

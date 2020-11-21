@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import config from 'data/config.json';
 import { scrollToTop } from 'helpers/scroll.helper';
 import { event } from 'lib/gtag';
+import { memo } from 'react';
 
 import SocialNetworks from './SocialNetworks';
 import Subscribe from './Subscribe';
@@ -79,4 +80,4 @@ const Footer = () => {
 	);
 };
 
-export default Footer;
+export default memo(Footer);

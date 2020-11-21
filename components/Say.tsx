@@ -1,5 +1,6 @@
 import { SayInterface } from 'models/say.model';
 import Image from 'next/image';
+import { memo } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 const Say = (props: SayInterface) => {
@@ -26,4 +27,4 @@ const Say = (props: SayInterface) => {
 	);
 };
 
-export default Say;
+export default memo(Say);

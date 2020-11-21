@@ -1,6 +1,6 @@
 import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SyntheticEvent, useState } from 'react';
+import { memo, SyntheticEvent, useState } from 'react';
 
 import {
 	InputsInterface,
@@ -108,4 +108,4 @@ const Subscribe = () => {
 	);
 };
 
-export default Subscribe;
+export default memo(Subscribe);
