@@ -37,6 +37,7 @@ const Article = (props: ArticleContentInterface) => {
 							alt={`Imagen del artículo ${title}`}
 							className='article__inner__section__image__hero'
 							unsized={true}
+							loading='lazy'
 						/>
 					</div>
 				</div>
