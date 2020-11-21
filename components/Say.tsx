@@ -13,7 +13,6 @@ const Say = (props: SayInterface) => {
 					src='/images/isotipo/isotipo-blue.png'
 					alt='isotipo'
 					unsized={true}
-					loading='lazy'
 				/>
 			</div>
 
