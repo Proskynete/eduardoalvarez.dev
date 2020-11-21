@@ -8,7 +8,6 @@ import Document, {
 	Main,
 	NextScript,
 } from 'next/document';
-import Link from 'next/link';
 
 interface DocumentInterface {
 	isProduction: boolean;
@@ -39,73 +38,41 @@ class MyDocument extends Document<DocumentInterface> {
 					/>
 					<meta name='author' content='Eduardo Álvarez Castañeda' />
 					<meta name='copyright' content='Eduardo Álvarez Castañeda' />
-					<link rel='preload' href='/fonts/Hero/Hero-Bold.ttf' as='font' />
-					<link rel='preload' href='/fonts/Hero/Hero-Light.ttf' as='font' />
-					<link rel='preload' href='/fonts/Hero/Hero-Regular.ttf' as='font' />
-					<link rel='preload' href='/fonts/Roboto/Roboto-Black.ttf' as='font' />
+					<link rel='preload' as='font' href='/fonts/Hero/bold.ttf' />
+					<link rel='preload' as='font' href='/fonts/Hero/light.ttf' />
+					<link rel='preload' as='font' href='/fonts/Hero/regular.ttf' />
+					<link rel='preload' as='font' href='/fonts/Roboto/black.ttf' />
+					<link rel='preload' as='font' href='/fonts/Roboto/black-italic.ttf' />
+					<link rel='preload' as='font' href='/fonts/Roboto/bold.ttf' />
 					<link
 						rel='preload'
-						href='/fonts/Roboto/Roboto-BlackItalic.ttf'
 						as='font'
-					/>
-					<link rel='preload' href='/fonts/Roboto/Roboto-Bold.ttf' as='font' />
-					<link
-						rel='preload'
-						href='/fonts/Roboto/Roboto-BoldCondensed.ttf'
-						as='font'
+						href='/fonts/Roboto/bold-condensed.ttf'
 					/>
 					<link
 						rel='preload'
-						href='/fonts/Roboto/Roboto-CondensedItalic.ttf'
 						as='font'
+						href='/fonts/Roboto/condensed-italic.ttf'
 					/>
+					<link rel='preload' as='font' href='/fonts/Roboto/bold-italic.ttf' />
+					<link rel='preload' as='font' href='/fonts/Roboto/condensed.ttf' />
 					<link
 						rel='preload'
-						href='/fonts/Roboto/Roboto-BoldItalic.ttf'
 						as='font'
+						href='/fonts/Roboto/condensed-italic.ttf'
 					/>
+					<link rel='preload' as='font' href='/fonts/Roboto/italic.ttf' />
+					<link rel='preload' as='font' href='/fonts/Roboto/light.ttf' />
+					<link rel='preload' as='font' href='/fonts/Roboto/light-italic.ttf' />
+					<link rel='preload' as='font' href='/fonts/Roboto/medium.ttf' />
 					<link
 						rel='preload'
-						href='/fonts/Roboto/Roboto-Condensed.ttf'
 						as='font'
+						href='/fonts/Roboto/medium-italic.ttf'
 					/>
-					<link
-						rel='preload'
-						href='/fonts/Roboto/Roboto-CondensedItalic.ttf'
-						as='font'
-					/>
-					<link
-						rel='preload'
-						href='/fonts/Roboto/Roboto-Italic.ttf'
-						as='font'
-					/>
-					<link rel='preload' href='/fonts/Roboto/Roboto-Light.ttf' as='font' />
-					<link
-						rel='preload'
-						href='/fonts/Roboto/Roboto-LightItalic.ttf'
-						as='font'
-					/>
-					<link
-						rel='preload'
-						href='/fonts/Roboto/Roboto-Medium.ttf'
-						as='font'
-					/>
-					<link
-						rel='preload'
-						href='/fonts/Roboto/Roboto-MediumItalic.ttf'
-						as='font'
-					/>
-					<link
-						rel='preload'
-						href='/fonts/Roboto/Roboto-Regular.ttf'
-						as='font'
-					/>
-					<link rel='preload' href='/fonts/Roboto/Roboto-Thin.ttf' as='font' />
-					<link
-						rel='preload'
-						href='/fonts/Roboto/Roboto-ThinItalic.ttf'
-						as='font'
-					/>
+					<link rel='preload' as='font' href='/fonts/Roboto/regular.ttf' />
+					<link rel='preload' as='font' href='/fonts/Roboto/thin.ttf' />
+					<link rel='preload' as='font' href='/fonts/Roboto/thin-italic.ttf' />
 
 					{isProduction && (
 						<>
