@@ -20,7 +20,7 @@ const Subscribe = () => {
 	const handleChangeInput = (e: TargetElementInterface): void => {
 		setValues({
 			...values,
-			[e.target.id]: e.target.value,
+			[e.target.name]: e.target.value,
 		});
 
 		if (values.name !== '' && values.name.length >= 3 && values.email !== '') {
@@ -59,7 +59,7 @@ const Subscribe = () => {
 				<p className='subscribe-subtitle'>Para novedades, cursos y ofertas</p>
 				<div className='subscribe-input-container'>
 					<div className='subscribe-label'>
-						<label className='subscribe-input'>
+						<label htmlFor='name' className='subscribe-input'>
 							<div className='icon'>
 								<FontAwesomeIcon icon={faUser} />
 							</div>
@@ -76,7 +76,7 @@ const Subscribe = () => {
 						</label>
 					</div>
 					<div className='subscribe-label'>
-						<label className='subscribe-input'>
+						<label htmlFor='email' className='subscribe-input'>
 							<div className='icon'>
 								<FontAwesomeIcon icon={faEnvelope} />
 							</div>
