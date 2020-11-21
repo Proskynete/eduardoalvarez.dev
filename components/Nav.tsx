@@ -77,6 +77,7 @@ const Nav = (props: PropsInterface) => {
 								alt='logo'
 								className='nav__inner__logo__img'
 								unsized={true}
+								loading='lazy'
 							/>
 						</a>
 					</Link>

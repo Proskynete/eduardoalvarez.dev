@@ -31,6 +31,7 @@ const Index = (props: HomePropsInterface) => {
 									alt='Imagen de Eduardo Álvarez'
 									className='home__presentation__image__img'
 									unsized={true}
+									loading='lazy'
 								/>
 							</div>
 							<div className='home__presentation__description'>

@@ -75,6 +75,7 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 									alt={`${title} - imagen`}
 									className='article__header__hero__image'
 									unsized={true}
+									loading='lazy'
 								/>
 							</div>
 						</header>
