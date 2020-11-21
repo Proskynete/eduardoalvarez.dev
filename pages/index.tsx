@@ -12,6 +12,7 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
+import Image from 'next/image';
 import Link from 'next/link';
 import { memo } from 'react';
 
@@ -25,10 +26,12 @@ const Index = (props: HomePropsInterface) => {
 					<div className='col-12'>
 						<div className='home__presentation'>
 							<div className='home__presentation__image'>
-								<img
-									src='https://res.cloudinary.com/soy-eduardoalvarez/image/upload/v1587245039/user_view/eduardo_alvarez.jpg'
+								<Image
+									src='/images/logo/logo.png'
 									alt='Imagen de Eduardo Álvarez'
 									className='home__presentation__image__img'
+									unsized={true}
+									loading='lazy'
 								/>
 							</div>
 							<div className='home__presentation__description'>
