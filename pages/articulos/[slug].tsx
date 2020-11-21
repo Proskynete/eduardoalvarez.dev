@@ -1,10 +1,5 @@
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DisqusComponent from 'components/DisqusComponent';
-import InfoArticle from 'components/InfoArticle';
-import Layout from 'components/Layout';
-import Say from 'components/Say';
-import TableOfSections from 'components/TableOfSections';
 import glob from 'glob';
 import matter from 'gray-matter';
 import { calculateReadingTime } from 'helpers/calculate-reading-time.helper';
@@ -17,9 +12,16 @@ import {
 	GetStaticPropsReturnInterface,
 } from 'models/blogtemplate.model';
 import { GetStaticPropsContext } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { memo, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
+
+const Layout = dynamic(() => import('components/Layout'));
+const DisqusComponent = dynamic(() => import('components/DisqusComponent'));
+const InfoArticle = dynamic(() => import('components/InfoArticle'));
+const Say = dynamic(() => import('components/Say'));
+const TableOfSections = dynamic(() => import('components/TableOfSections'));
 
 const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 	const {
