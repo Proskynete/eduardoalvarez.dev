@@ -1,6 +1,7 @@
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MenuLinkInterface } from 'models/menu';
+import Image from 'next/image';
 import Link from 'next/link';
 import { memo, useState } from 'react';
 
@@ -71,10 +72,13 @@ const Nav = (props: PropsInterface) => {
 				<section className='nav__inner__logo'>
 					<Link href='/'>
 						<a>
-							<img
+							<Image
 								src='/images/logo/logo.png'
 								alt='logo'
 								className='nav__inner__logo__img'
+								width={180}
+								height={87}
+								loading='lazy'
 							/>
 						</a>
 					</Link>
