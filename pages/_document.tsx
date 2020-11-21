@@ -8,6 +8,7 @@ import Document, {
 	Main,
 	NextScript,
 } from 'next/document';
+import Link from 'next/link';
 
 interface DocumentInterface {
 	isProduction: boolean;
@@ -38,6 +39,121 @@ class MyDocument extends Document<DocumentInterface> {
 					/>
 					<meta name='author' content='Eduardo Álvarez Castañeda' />
 					<meta name='copyright' content='Eduardo Álvarez Castañeda' />
+					<link
+						rel='preload'
+						href='/fonts/Hero/Hero-Bold.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Hero/Hero-Light.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Hero/Hero-Regular.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-Black.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-BlackItalic.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-Bold.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-BoldCondensed.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-CondensedItalic.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-BoldItalic.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-Condensed.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-CondensedItalic.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-Italic.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-Light.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-LightItalic.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-Medium.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-MediumItalic.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-Regular.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-Thin.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+					<link
+						rel='preload'
+						href='/fonts/Roboto/Roboto-ThinItalic.ttf'
+						as='font'
+						crossOrigin=''
+					/>
+
 					{isProduction && (
 						<>
 							{/* Global Site Tag (gtag.js) - Google Analytics */}
