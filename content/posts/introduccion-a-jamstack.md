@@ -4,6 +4,7 @@ description: 'El JAM-Stack es una nueva arquitectura para la creación de aplica
 date: 2020-04-26T03:00:00-03:00
 tags: ['web-development']
 hero_image: '/images/articles/introduccion-a-jamstack/introduccion-a-jamstack.png'
+thumbnail_image: '/images/articles/introduccion-a-jamstack/thumbnail.png'
 introduction:
   {
     title: 'Introducción',
