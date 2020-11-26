@@ -4,13 +4,12 @@ import matter from 'gray-matter';
 import { dataSerialized } from 'helpers/serializer.helper';
 import { AuthorGSPInterface, AuthorPropsInterface } from 'models/author';
 import { FrontMatterInterface } from 'models/blogtemplate.model';
-import dynamic from 'next/dynamic';
-import { memo } from 'react';
+import { lazy, memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
-const Layout = dynamic(() => import('components/Layout'));
-const Say = dynamic(() => import('components/Say'));
-const TableOfSections = dynamic(() => import('components/TableOfSections'));
+const Layout = lazy(() => import('components/Layout'));
+const Say = lazy(() => import('components/Say'));
+const TableOfSections = lazy(() => import('components/TableOfSections'));
 
 const BlogTemplate = (props: AuthorPropsInterface) => {
 	const { markdownBody, github_post_url, frontmatter } = props;
