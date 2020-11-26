@@ -38,7 +38,6 @@ class MyDocument extends Document<DocumentInterface> {
 					/>
 					<meta name='author' content='Eduardo Álvarez Castañeda' />
 					<meta name='copyright' content='Eduardo Álvarez Castañeda' />
-
 					<meta name='application-name' content='Blog de Eduardo Álvarez' />
 					<meta name='apple-mobile-web-app-capable' content='yes' />
 					<meta
@@ -47,16 +46,15 @@ class MyDocument extends Document<DocumentInterface> {
 					/>
 					<meta
 						name='apple-mobile-web-app-title'
-						content='Blog de Eduardo Álvarez'
+						content='eduardoalvarez.dev | Frontend, HTML, CSS, Javascript, Typescript, React, Node, MongoDB'
 					/>
 					<meta name='format-detection' content='telephone=no' />
 					<meta name='mobile-web-app-capable' content='yes' />
 					<meta name='theme-color' content='#0A3F66' />
-
 					<link
 						rel='apple-touch-icon'
 						sizes='192x192'
-						href='/images/manifest/192.png'
+						href='/images/manifest/192x192.png'
 					/>
 					<link rel='manifest' href='/manifest.json' />
 
