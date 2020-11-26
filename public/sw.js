@@ -40,7 +40,6 @@ const assets = [
 self.addEventListener('install', (e) => {
 	e.waitUntil(
 		caches.open(dynamicCacheName).then((cache) => {
-			console.log('caching shell assets');
 			cache.addAll(assets);
 		}),
 	);
