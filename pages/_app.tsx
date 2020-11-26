@@ -13,6 +13,7 @@ config.autoAddCss = false;
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const router = useRouter();
+	const isProduction = process.env.NODE_ENV === 'production';
 
 	useEffect(() => {
 		const handleRouteChange = (url: string) => {
@@ -20,6 +21,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 			GTMPageView(url);
 		};
 		router.events.on('routeChangeComplete', handleRouteChange);
+
+		if (isProduction) {
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker
+					.register('/sw.js')
+					.then(() => console.log('service worker registered'))
+					.catch((err) => console.log('service worker not registered', err));
+			}
+		}
 
 		return () => {
 			router.events.off('routeChangeComplete', handleRouteChange);
