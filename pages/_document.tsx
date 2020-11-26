@@ -45,7 +45,7 @@ class MyDocument extends Document<DocumentInterface> {
 						href='/images/isotipo/isotipo-blue.png'
 					/>
 					<meta name='apple-mobile-web-app-status-bar' content='#FFFFFF' />
-					<meta name='theme-color' content='#0a3f66' />
+					<meta name='theme-color' content='#0A3F66' />
 
 					{isProduction && (
 						<>
