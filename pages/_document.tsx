@@ -39,13 +39,27 @@ class MyDocument extends Document<DocumentInterface> {
 					<meta name='author' content='Eduardo Álvarez Castañeda' />
 					<meta name='copyright' content='Eduardo Álvarez Castañeda' />
 
-					<link rel='manifest' href='/manifest.json' />
+					<meta name='application-name' content='Blog de Eduardo Álvarez' />
+					<meta name='apple-mobile-web-app-capable' content='yes' />
+					<meta
+						name='apple-mobile-web-app-status-bar-style'
+						content='default'
+					/>
+					<meta
+						name='apple-mobile-web-app-title'
+						content='Blog de Eduardo Álvarez'
+					/>
+					<meta name='description' content='' />
+					<meta name='format-detection' content='telephone=no' />
+					<meta name='mobile-web-app-capable' content='yes' />
+					<meta name='theme-color' content='#0A3F66' />
+
 					<link
 						rel='apple-touch-icon'
-						href='/images/isotipo/isotipo-blue.png'
+						sizes='192x192'
+						href='/images/manifest/192.png'
 					/>
-					<meta name='apple-mobile-web-app-status-bar' content='#FFFFFF' />
-					<meta name='theme-color' content='#0A3F66' />
+					<link rel='manifest' href='/manifest.json' />
 
 					{isProduction && (
 						<>
