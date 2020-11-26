@@ -21,11 +21,12 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { lazy, memo, SyntheticEvent, useEffect, useState } from 'react';
+import { memo, SyntheticEvent, useEffect, useState } from 'react';
 
-const Article = lazy(() => import('components/Article'));
-const Layout = lazy(() => import('components/Layout'));
+const Article = dynamic(() => import('components/Article'));
+const Layout = dynamic(() => import('components/Layout'));
 
 const Index = (props: HomePropsInterface) => {
 	const { title, description, image, articles } = props;

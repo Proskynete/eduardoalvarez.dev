@@ -1,11 +1,12 @@
 import { PropsInterface } from 'models/layout.model';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { FC, lazy, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
-const Footer = lazy(() => import('./Footer'));
-const Meta = lazy(() => import('./Meta'));
-const Nav = lazy(() => import('./Nav'));
-const ProgressBarScrolling = lazy(() => import('./ProgressBarScrolling'));
+const Footer = dynamic(() => import('./Footer'));
+const Meta = dynamic(() => import('./Meta'));
+const Nav = dynamic(() => import('./Nav'));
+const ProgressBarScrolling = dynamic(() => import('./ProgressBarScrolling'));
 
 const Layout: FC<PropsInterface> = (props) => {
 	const { customTitle, description, image, slug, children } = props;
