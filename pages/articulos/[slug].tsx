@@ -152,6 +152,8 @@ export const getStaticProps = async (
 	const content = await import(`../../content/posts/${slug}.md`);
 	const data = matter(content.default);
 	data.data['read_time'] = calculateReadingTime(data.content);
+	data.data.hero_image = `/images/articles/${slug}/${data.data.hero_image}`;
+	data.data.image_introduction = `/images/articles/${slug}/${data.data.image_introduction}`;
 
 	return {
 		props: {

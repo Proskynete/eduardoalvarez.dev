@@ -146,6 +146,8 @@ export const getStaticProps = async (): Promise<
 			const content = contentFile[index];
 			const document = matter(content.default);
 			document.data['read_time'] = calculateReadingTime(document.content);
+			document.data.hero_image = `/images/articles/${slug}/${document.data.hero_image}`;
+			document.data.image_introduction = `/images/articles/${slug}/${document.data.image_introduction}`;
 
 			return {
 				frontmatter: dataSerialized(document.data as FrontMatterInterface),
