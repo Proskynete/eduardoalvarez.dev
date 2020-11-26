@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { copyTextToClipboard } from 'helpers/copy-to-clipboard.helper';
 import { titleForSocialNetwork } from 'helpers/letters.helper';
 import { ArticleContentInterface } from 'models/index.model';
-import Image from 'next/image';
 import Link from 'next/link';
 import { memo, SyntheticEvent } from 'react';
 
@@ -17,7 +16,7 @@ import InfoArticle from './InfoArticle';
 
 const Article = (props: ArticleContentInterface) => {
 	const {
-		frontmatter: { title, image_introduction, date, read_time, description },
+		frontmatter: { title, thumbnail_image, date, read_time, description },
 		slug,
 	} = props;
 
@@ -32,11 +31,10 @@ const Article = (props: ArticleContentInterface) => {
 			<div className='article__inner'>
 				<div className='article__inner__section'>
 					<div className='article__inner__section__image'>
-						<Image
-							src={image_introduction}
+						<img
+							src={thumbnail_image}
 							alt={`Imagen del artículo ${title}`}
 							className='article__inner__section__image__hero'
-							unsized={true}
 						/>
 					</div>
 				</div>
