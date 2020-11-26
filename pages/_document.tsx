@@ -49,7 +49,6 @@ class MyDocument extends Document<DocumentInterface> {
 						name='apple-mobile-web-app-title'
 						content='Blog de Eduardo Álvarez'
 					/>
-					<meta name='description' content='' />
 					<meta name='format-detection' content='telephone=no' />
 					<meta name='mobile-web-app-capable' content='yes' />
 					<meta name='theme-color' content='#0A3F66' />
