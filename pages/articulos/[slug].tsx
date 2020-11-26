@@ -12,16 +12,15 @@ import {
 	GetStaticPropsReturnInterface,
 } from 'models/blogtemplate.model';
 import { GetStaticPropsContext } from 'next';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { memo, useEffect } from 'react';
+import { lazy, memo, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
-const Layout = dynamic(() => import('components/Layout'));
-const DisqusComponent = dynamic(() => import('components/DisqusComponent'));
-const InfoArticle = dynamic(() => import('components/InfoArticle'));
-const Say = dynamic(() => import('components/Say'));
-const TableOfSections = dynamic(() => import('components/TableOfSections'));
+const Layout = lazy(() => import('components/Layout'));
+const DisqusComponent = lazy(() => import('components/DisqusComponent'));
+const InfoArticle = lazy(() => import('components/InfoArticle'));
+const Say = lazy(() => import('components/Say'));
+const TableOfSections = lazy(() => import('components/TableOfSections'));
 
 const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 	const {
