@@ -1,4 +1,3 @@
-const staticCacheName = 'site-static-v1';
 const dynamicCacheName = 'site-dynamic-v1';
 
 const assets = [
@@ -40,7 +39,7 @@ const assets = [
 // install event
 self.addEventListener('install', (e) => {
 	e.waitUntil(
-		caches.open(staticCacheName).then((cache) => {
+		caches.open(dynamicCacheName).then((cache) => {
 			console.log('caching shell assets');
 			cache.addAll(assets);
 		}),
