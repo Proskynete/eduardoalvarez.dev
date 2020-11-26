@@ -39,6 +39,14 @@ class MyDocument extends Document<DocumentInterface> {
 					<meta name='author' content='Eduardo Álvarez Castañeda' />
 					<meta name='copyright' content='Eduardo Álvarez Castañeda' />
 
+					<link rel='manifest' href='/manifest.json' />
+					<link
+						rel='apple-touch-icon'
+						href='/images/isotipo/isotipo-blue.png'
+					/>
+					<meta name='apple-mobile-web-app-status-bar' content='#FFFFFF' />
+					<meta name='theme-color' content='#0a3f66' />
+
 					{isProduction && (
 						<>
 							{/* Global Site Tag (gtag.js) - Google Analytics */}
