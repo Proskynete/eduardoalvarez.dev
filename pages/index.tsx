@@ -34,7 +34,6 @@ const Index = (props: HomePropsInterface) => {
 									className='home__presentation__image__img'
 									height={200}
 									width={200}
-									loading='lazy'
 								/>
 							</div>
 							<div className='home__presentation__description'>

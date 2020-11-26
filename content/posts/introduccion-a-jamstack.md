@@ -3,14 +3,14 @@ title: 'Introducción a JAMStack'
 description: 'El JAM-Stack es una nueva arquitectura para la creación de aplicaciones web, la cual busca poder hacer proyectos mucho mas rápidos, con alta seguridad y que puedan escalar de una manera muy sencilla. JAM son las siglas de JavaScript, APIs y Markup y su principal características es que la lógica de la aplicación se encuentra en el cliente y no en el servidor.'
 date: 2020-04-26T03:00:00-03:00
 tags: ['web-development']
-hero_image: '/images/introduccion-a-jamstack/introduccion_a_jamstack.png'
+hero_image: '/images/articles/introduccion-a-jamstack/introduccion-a-jamstack.png'
 introduction:
   {
     title: 'Introducción',
     anchor: 'introduccion',
     content: 'Antes de empezar a hablar de _JAMStack_, es muy necesario desglosar un poco la palabra en dos: **JAM** y **Stack** y así explicarlas por separado',
   }
-image_introduction: /images/introduccion-a-jamstack/jam-stack.jpg
+image_introduction: '/images/articles/introduccion-a-jamstack/jam-stack.jpg'
 sections:
   [
     { title: 'Introducción', anchor: 'introduccion' },
@@ -27,7 +27,7 @@ sections:
 
 Un stack en programación a una colección de tecnologías configuradas para trabajar entre si. Creo y sin miedo a equivocarme que el stack más conocido es el de **LAMP**-Stack (Por sus siglas de **L**inux, **A**pache, **M**ySQL y **P**hp). Otro stack muy conocido es el **MEAN**-Stack que viene de las tecnologías **M**ongoDB, **E**xpress, **A**ngular y **N**odejs. Posteriormente, con la aparición de **React**, se crea un nuevo stack ques es básicamente el mismo que el anterior, pero esta vez, cambiamos Angular por React. quedando como **MERN**-Stack. Con la aparición de Vuejs, este último stack sufrió un último cambio, cambiando a React por Vue, y por un momento el stack se llamó **MEVN** hasta que la comunidad re-ordenó las siglas quedando con el nombre de **VEN**o**M**.
 
-![stacks](/images/introduccion-a-jamstack/stacks.png)
+![stacks](/images/articles/introduccion-a-jamstack/stacks.png)
 
 <h2 id="que-es-jam">¿Qué es JAM?</h2>
 
@@ -39,7 +39,7 @@ Las **APIs** se refieren a la o a las fuentes de datos que se utilizarán para l
 
 Cuando hablamos de **Markup compilado**, nos referimos a las vistas compiladas o generadas una sola vez, en vez de hacerlo con cada respuesta al momento de hacer la consulta al servidor (como tradicionalmente se hace).
 
-![jamstack - siglas](/images/introduccion-a-jamstack/jam.png)
+![jamstack - siglas](/images/articles/introduccion-a-jamstack/jam.png)
 
 <h2 id="buena-idea">Buena idea</h2>
 
@@ -48,7 +48,7 @@ Como en todas las arquitecturas de desarrollo, el JAM funcionará mejor en algun
 Creo que el escenario más popular para implementar este stack son los **Blog**s o las **páginas web personales de presentación** ya que esta arquitectura va muy bien con aplicaciones que no se actualizan constantemente o páginas donde la actualización de la información corresponde a una nueva vista. También funciona bastante bien con aplicaciones de
 ventas en linea, considerando que bajo esta estructura, el tiempo de respuesta al mostrar una vista en el navegador es mucho más rápida (ya que la vista está compilada/creada y el servidor solo tiene que encontrar el archivo y devolverlo al navegador). Otros escenarios donde el stack de JAM puede servir son las **landing pages** y los **sitios de documentación**
 
-![ejemplos](/images/introduccion-a-jamstack/paginas-de-ejemplo.png)
+![ejemplos](/images/articles/introduccion-a-jamstack/paginas-de-ejemplo.png)
 
 <h2 id="no-tan-buena-idea">No tan buena idea</h2>
 

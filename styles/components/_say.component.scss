@@ -1,6 +1,6 @@
 .say {
   padding-top: 70px;
-  
+
   @media screen and (min-width: 720px) {
     width: 100%;
     display: flex;
@@ -40,7 +40,7 @@
     z-index: 5;
     max-width: max-content;
     width: 100%;
-    
+
     @media screen and (min-width: 720px) {
       width: 80%;
       margin-left: 50px;
@@ -77,13 +77,13 @@
         color: $white;
         background-color: $secondary;
       }
-      
+
       @media screen and (min-width: 720px) {
         font-size: $size-xxlg;
         text-align: left;
         padding-left: 20px;
       }
-      
+
       @media screen and (min-width: 1200px) {
         padding-top: 30px;
       }
@@ -94,14 +94,6 @@
         font-size: $size-xs;
         padding-left: 20px;
         padding-right: 20px;
-
-        &[data-type="primary"] {
-          background-color: $info;
-        }
-
-        &[data-type="secondary"] {
-          background-color: $secondary;
-        }
       }
 
       @media screen and (min-width: 1200px) {
@@ -118,11 +110,11 @@
     }
 
     &[data-type="secondary"] {
-        background-color: $secondary;
+      background-color: $secondary;
 
-        &:after {
-          background-color: $secondary;
-        }
+      &:after {
+        background-color: $secondary;
+      }
     }
   }
 }
