@@ -1,7 +1,7 @@
 {
-  "name": "eduardoalvarez.dev | Frontend, HTML, CSS, Javascript, Typescript, React, Node, MongoDB",
+  "name": "eduardoalvarez.dev",
   "short_name": "eduardoalvarez.dev",
-  "description": "Artículos, Videos, Podcasts, Tutoriales y Recursos sobre Desarrollo Web, Frontend, HTML, CSS, Javascript, Typescript, React, Node y MongoDB",
+  "description": "Contenido sobre desarrollo de software",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
