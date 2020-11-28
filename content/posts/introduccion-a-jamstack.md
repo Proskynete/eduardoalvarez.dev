@@ -5,13 +5,14 @@ date: 2020-04-26T03:00:00-03:00
 tags: ['web-development']
 hero_image: '/images/articles/introduccion-a-jamstack/introduccion-a-jamstack.png'
 thumbnail_image: '/images/articles/introduccion-a-jamstack/thumbnail.png'
+with_introduction: true
+image_introduction: '/images/articles/introduccion-a-jamstack/jam-stack.jpg'
 introduction:
   {
     title: 'Introducción',
     anchor: 'introduccion',
     content: 'Antes de empezar a hablar de _JAMStack_, es muy necesario desglosar un poco la palabra en dos: **JAM** y **Stack** y así explicarlas por separado',
   }
-image_introduction: '/images/articles/introduccion-a-jamstack/jam-stack.jpg'
 sections:
   [
     { title: 'Introducción', anchor: 'introduccion' },
