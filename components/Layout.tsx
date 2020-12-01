@@ -3,12 +3,12 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useRef, useState } from 'react';
 
-const Footer = dynamic(() => import('./Footer'), { ssr: false });
-const Meta = dynamic(() => import('./Meta'), { ssr: false });
-const Nav = dynamic(() => import('./Nav'), { ssr: false });
-const ProgressBarScrolling = dynamic(() => import('./ProgressBarScrolling'), {
-	ssr: false,
-});
+const Footer = dynamic(() => import('components/Footer'));
+const Meta = dynamic(() => import('components/Meta'));
+const Nav = dynamic(() => import('components/Nav'));
+const ProgressBarScrolling = dynamic(
+	() => import('components/ProgressBarScrolling'),
+);
 
 const Layout: FC<PropsInterface> = (props) => {
 	const { customTitle, description, image, slug, children } = props;

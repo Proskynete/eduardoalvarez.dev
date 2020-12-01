@@ -14,11 +14,7 @@ const dateFormated = (datetime: string): string =>
 
 export const prettyFormat = (datetime: string): string => {
 	const _diff = getDiffDates(datetime);
-
-	if (_diff <= 7) {
-		return dateFromNow(datetime);
-	}
-
+	if (_diff <= 7) return dateFromNow(datetime);
 	return dateFormated(datetime);
 };
 
