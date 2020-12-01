@@ -6,7 +6,7 @@ tags: ['web-development']
 hero_image: '/images/articles/introduccion-a-jamstack/introduccion-a-jamstack.png'
 thumbnail_image: '/images/articles/introduccion-a-jamstack/thumbnail.png'
 with_introduction: true
-image_introduction: '/images/articles/introduccion-a-jamstack/jam-stack.jpg'
+image_introduction: '/images/articles/introduccion-a-jamstack/jam-stack.png'
 introduction:
   {
     title: 'Introducción',
