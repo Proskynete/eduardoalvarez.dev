@@ -8,11 +8,9 @@ import dynamic from 'next/dynamic';
 import { memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
-const Layout = dynamic(() => import('components/Layout'), { ssr: false });
-const Say = dynamic(() => import('components/Say'), { ssr: false });
-const TableOfSections = dynamic(() => import('components/TableOfSections'), {
-	ssr: false,
-});
+const Layout = dynamic(() => import('components/Layout'));
+const Say = dynamic(() => import('components/Say'));
+const TableOfSections = dynamic(() => import('components/TableOfSections'));
 
 const BlogTemplate = (props: AuthorPropsInterface) => {
 	const { markdownBody, github_post_url, frontmatter } = props;

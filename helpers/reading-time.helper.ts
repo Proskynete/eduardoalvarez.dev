@@ -4,9 +4,9 @@ export const prettyReadingTime = (reading_time: number): string => {
 	if (reading_time < 1) {
 		textResponse = 'Menos de un minuto';
 	} else if (reading_time === 1) {
-		textResponse = 'Lectura de 1 minuto';
+		textResponse = 'Lectura de ~1 minuto';
 	} else {
-		textResponse = `Lectura de ${reading_time} minutos`;
+		textResponse = `Lectura de ~${reading_time} minutos`;
 	}
 
 	return textResponse;

@@ -17,17 +17,13 @@ import Image from 'next/image';
 import { memo, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 
-const Layout = dynamic(() => import('components/Layout'), { ssr: false });
+const Layout = dynamic(() => import('components/Layout'));
 const DisqusComponent = dynamic(() => import('components/DisqusComponent'), {
 	ssr: false,
 });
-const InfoArticle = dynamic(() => import('components/InfoArticle'), {
-	ssr: false,
-});
-const Say = dynamic(() => import('components/Say'), { ssr: false });
-const TableOfSections = dynamic(() => import('components/TableOfSections'), {
-	ssr: false,
-});
+const InfoArticle = dynamic(() => import('components/InfoArticle'));
+const Say = dynamic(() => import('components/Say'));
+const TableOfSections = dynamic(() => import('components/TableOfSections'));
 
 const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 	const {

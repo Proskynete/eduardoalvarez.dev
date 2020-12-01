@@ -1,11 +1,10 @@
 import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { memo, SyntheticEvent, useState } from 'react';
-
 import {
 	InputsInterface,
 	TargetElementInterface,
-} from '../models/subscribe.model';
+} from 'models/subscribe.model';
+import { memo, SyntheticEvent, useState } from 'react';
 
 const defaultValues: InputsInterface = {
 	name: '',

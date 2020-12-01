@@ -5,9 +5,10 @@ import { onlyDate, prettyFormat } from 'helpers/date.helper';
 import { prettyReadingTime } from 'helpers/reading-time.helper';
 import { prettyTags } from 'helpers/tags.helper';
 import { InfoArticleIntereface } from 'models/info-article.model';
+import dynamic from 'next/dynamic';
 import { memo } from 'react';
 
-import DisqusCount from './DisqusCount';
+const DisqusCount = dynamic(() => import('components/DisqusCount'));
 
 const InfoArticle = (props: InfoArticleIntereface) => {
 	const { date, readTime, tags, horizontal, disqus } = props;

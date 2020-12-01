@@ -25,8 +25,8 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { memo, SyntheticEvent, useEffect, useState } from 'react';
 
-const Article = dynamic(() => import('components/Article'), { ssr: false });
-const Layout = dynamic(() => import('components/Layout'), { ssr: false });
+const Article = dynamic(() => import('components/Article'));
+const Layout = dynamic(() => import('components/Layout'));
 
 const Index = (props: HomePropsInterface) => {
 	const { title, description, image, articles } = props;
