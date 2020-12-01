@@ -6,8 +6,7 @@
   font-family: 'Hero';
   font-style: normal;
   font-weight: 400;
-  src: url(/fonts/Hero/regular.ttf),
-    url(/fonts/Hero/regular.otf);
+  src: url(/fonts/Hero/regular.ttf);
   font-display: swap;
 }
 
@@ -15,8 +14,7 @@
   font-family: 'Hero';
   font-style: normal;
   font-weight: 500;
-  src: url(/fonts/Hero/bold.ttf),
-    url(/fonts/Hero/bold.otf);
+  src: url(/fonts/Hero/bold.ttf);
   font-display: swap;
 }
 
@@ -24,30 +22,13 @@
   font-family: 'Hero';
   font-style: normal;
   font-weight: 300;
-  src: url(/fonts/Hero/light.ttf),
-    url(/fonts/Hero/light.otf);
+  src: url(/fonts/Hero/light.ttf);
   font-display: swap;
 }
 
 /*
 * Font - Roboto
 */
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 100;
-  src: url(/fonts/Roboto/thin.ttf);
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: italic;
-  font-weight: 100;
-  src: url(/fonts/Roboto/thin-italic.ttf);
-  font-display: swap;
-}
 
 @font-face {
   font-family: 'Roboto';
@@ -78,53 +59,5 @@
   font-style: italic;
   font-weight: 400;
   src: url(/fonts/Roboto/italic.ttf);
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 500;
-  src: url(/fonts/Roboto/medium.ttf);
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: italic;
-  font-weight: 500;
-  src: url(/fonts/Roboto/medium-italic.ttf);
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  src: url(/fonts/Roboto/bold.ttf);
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: italic;
-  font-weight: 700;
-  src: url(/fonts/Roboto/bold-italic.ttf);
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 800;
-  src: url(/fonts/Roboto/black.ttf);
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: italic;
-  font-weight: 800;
-  src: url(/fonts/Roboto/black-italic.ttf);
   font-display: swap;
 }
