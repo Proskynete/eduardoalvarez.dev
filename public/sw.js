@@ -1,4 +1,4 @@
-const staticCacheName = 'eduardo-alvarez-static-v1';
+const staticCacheName = 'site-static-v1';
 
 const assets = [
 	'/',
@@ -23,15 +23,16 @@ const assets = [
 ];
 
 // install event
-self.addEventListener('install', (event) => {
-	event.waitUntil(
-		caches.open(staticCacheName).then((cache) => cache.addAll(assets)),
+self.addEventListener('install', (evt) => {
+	evt.waitUntil(
+		caches.open(staticCacheName).then((cache) => {
+			cache.addAll(assets);
+		}),
 	);
 });
-
 // activate event
-self.addEventListener('activate', (event) => {
-	event.waitUntil(
+self.addEventListener('activate', (evt) => {
+	evt.waitUntil(
 		caches
 			.keys()
 			.then((keys) =>
@@ -43,12 +44,11 @@ self.addEventListener('activate', (event) => {
 			),
 	);
 });
-
 // fetch event
-self.addEventListener('fetch', (event) => {
-	event.respondWith(
+self.addEventListener('fetch', (evt) => {
+	evt.respondWith(
 		caches
-			.match(event.request)
-			.then((cacheRes) => cacheRes || fetch(event.request)),
+			.match(evt.request)
+			.then((cacheRes) => cacheRes || fetch(evt.request)),
 	);
 });
