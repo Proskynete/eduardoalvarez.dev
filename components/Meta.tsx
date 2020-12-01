@@ -27,6 +27,15 @@ const Meta = (props: PropsInterface) => {
 
 			<link rel='icon' href='/favicon/favicon.ico' />
 			<meta name='description' content={description} />
+
+			<link rel='preload' href='/fonts/Hero/regular.ttf' as='font' />
+			<link rel='preload' href='/fonts/Hero/bold.ttf' as='font' />
+			<link rel='preload' href='/fonts/Hero/light.ttf' as='font' />
+			<link rel='preload' href='/fonts/Roboto/italic.ttf' as='font' />
+			<link rel='preload' href='/fonts/Roboto/light-italic.ttf' as='font' />
+			<link rel='preload' href='/fonts/Roboto/light.ttf' as='font' />
+			<link rel='preload' href='/fonts/Roboto/regular.ttf' as='font' />
+
 			<title>{customTitle}</title>
 		</Head>
 	);

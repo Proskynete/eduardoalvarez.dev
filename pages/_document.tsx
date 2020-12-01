@@ -56,6 +56,7 @@ class MyDocument extends Document<DocumentInterface> {
 						sizes='192x192'
 						href='/images/manifest/192x192.png'
 					/>
+
 					<link rel='manifest' href='/manifest.json' />
 
 					{isProduction && (
