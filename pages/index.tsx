@@ -11,7 +11,6 @@ import {
 	HomePropsInterface,
 } from 'models/index.model';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import Link from 'next/link';
 import { memo } from 'react';
 
@@ -28,12 +27,10 @@ const Index = (props: HomePropsInterface) => {
 					<div className='col-12'>
 						<div className='home__presentation'>
 							<div className='home__presentation__image'>
-								<Image
+								<img
 									src='/images/me/eduardo_alvarez.jpg'
 									alt='Imagen de Eduardo Álvarez'
 									className='home__presentation__image__img'
-									height={200}
-									width={200}
 								/>
 							</div>
 							<div className='home__presentation__description'>
