@@ -64,7 +64,7 @@ const Footer = () => {
 
 					<div className='copyright'>
 						<img
-							src='/images/logo/white.png'
+							src='/images/logo/black.png'
 							alt='logotipo'
 							className='small'
 						/>
