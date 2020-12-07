@@ -169,6 +169,19 @@
           }
         }
       }
+
+      .custom-content {
+        width: 100%;
+
+        img {
+          display: flex;
+          margin-bottom: 30px;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 50px;
+          max-width: 100%;
+        }
+      }
     }
   }
 }

@@ -14,6 +14,7 @@ const assets = [
 	'/images/articles/',
 	'/images/author/sin-fondo.gif',
 	'/images/author/sin-fondo.png',
+	'/images/author/super-pixel.png',
 	'/images/isotipo/isotipo-blue.png',
 	'/images/isotipo/isotipo-white.png',
 	'/images/logo/logo.png',

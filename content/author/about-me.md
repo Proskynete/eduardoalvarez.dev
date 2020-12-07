@@ -29,7 +29,7 @@ Actualmente me encuentro trabajando para Penta financiero como Software Develope
 
 Desde que tengo memoria, recuerdo que siempre me llamó la atención la computación y desde muy pequeño quise aprender como es que funcionaba por dentro.
 
-Cuando estaba entrando a la enseñanza media (2007) conocí a [Marcelo Mercado](https://twitter.com/m_mrk2) quien estaba entrando a primer año de Ing. en informática. En ese tiempo fue cuando él empezó a hacer trabajos de desarrollo de sitios web con [Joomla](https://www.joomla.org/) mientras que por mi parte estaba estudiando **HTML5**, **CSS3 **y **JS** con [CódigoFacilito](https://codigofacilito.com/).
+Cuando estaba entrando a la enseñanza media (2007) conocí a [Marcelo Mercado](https://twitter.com/m_mrk2) quien estaba entrando a primer año de Ing. en informática. En ese tiempo fue cuando él empezó a hacer trabajos de desarrollo de sitios web con [Joomla](https://www.joomla.org/) mientras que por mi parte estaba estudiando **HTML5**, **CSS3**y **JS** con [CódigoFacilito](https://codigofacilito.com/).
 
 En el **2012** entré a la universidad Iberoamericana de Ciencias y Tecnología para estudiar _Ingeniería Civil en Computación e Informática_ (**UIBERO** para los amigos) la cual no pude terminar gracias a que dicha universidad cerró. En esos mismos años, ya estaba haciendo trabajos como **_freelance_**.
 
@@ -44,6 +44,10 @@ Una vez que salí de la IBERO me puse a trabajar como electricista mientras segu
 Un día viernes, fin de mes (Octubre 2016), luego de terminar de hacer lo que me había propuesto para ese día, se acerca el jefe del área de desarrollo y me informa que estoy desvinculado de la empresa, ni más ni menos. Llevaba 11 meses trabajando cuando me hacen firmar la desvinculación. La manera en la que sucedieron las cosas, fueron un tanto _"singular"_ ya que a pesar de que sentía que podía suceder (no nos estaba yendo muy bien), nunca pensé que fuese tan abrupto y repentino.
 
 Y ahí estaba yo, buscando trabajo nuevamente como desarrollador. Luego de dos semanas logré entrar en [Cardumen](https://www.cardumen.cl/) trabajando para el cliente [Ripley](https://simple.ripley.cl/) pero ya no como ayudante, si no como **_Desarrollador FullStack_**.
+
+<div class="custom-content">
+  <img src="/images/author/super-pixel.png" alt="Super pixel-art eduardoalvarez" class="custom-image" />
+</div>
 
 <h2 id="un-gran-salto-en-mi-carrera">Un gran salto en mi carrera!</h2>
 <p class="subtitle">bendito linkedin</p>
