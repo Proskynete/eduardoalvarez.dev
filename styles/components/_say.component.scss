@@ -32,14 +32,33 @@
   }
 
   &__container {
+    color: $primary;
     margin-bottom: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
     padding-bottom: 25px;
     position: relative;
     z-index: 5;
     max-width: max-content;
     width: 100%;
+    background-color: $white;
+
+    &[data-type="primary"] {
+      border: 1px solid $primary;
+      background-color: $white;
+
+      .say__container__title {
+        background-color: $white;
+      }
+    }
+
+    &[data-type="secondary"] {
+
+      border: 1px solid $secondary;
+      background-color: $white;
+
+      .say__container__title {
+        background-color: $white;
+      }
+    }
 
     @media screen and (min-width: 720px) {
       width: 80%;
@@ -66,22 +85,14 @@
       font-size: $size-md;
       text-align: center;
       padding-top: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
       padding-bottom: 15px;
-
-      &[data-type="primary"] {
-        color: $white;
-        background-color: $info;
-      }
-
-      &[data-type="secondary"] {
-        color: $white;
-        background-color: $secondary;
-      }
 
       @media screen and (min-width: 720px) {
         font-size: $size-xxlg;
         text-align: left;
-        padding-left: 20px;
+        padding-left: 40px;
       }
 
       @media screen and (min-width: 1200px) {
@@ -90,30 +101,33 @@
     }
 
     &__content {
-      @media screen and (min-width: 720px) {
-        font-size: $size-xs;
+      p {
+        background-color: $white;
         padding-left: 20px;
         padding-right: 20px;
-      }
 
-      @media screen and (min-width: 1200px) {
-        padding-bottom: 30px;
+        @media screen and (min-width: 720px) {
+          font-size: $size-xs;
+          padding-left: 40px;
+        }
+
+        @media screen and (min-width: 1200px) {
+          padding-bottom: 30px;
+        }
       }
     }
 
     &[data-type="primary"] {
-      background-color: $info;
-
       &:after {
-        background-color: $info;
+        border: 1px solid $primary;
+        background-color: $white;
       }
     }
 
     &[data-type="secondary"] {
-      background-color: $secondary;
-
       &:after {
-        background-color: $secondary;
+        border: 1px solid $secondary;
+        background-color: $white;
       }
     }
   }

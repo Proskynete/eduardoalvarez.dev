@@ -55,7 +55,7 @@ const Subscribe = () => {
 		<form className='subscribe' onSubmit={(e) => handleSubscribe(e)}>
 			<div className='subscribe-container'>
 				<p className='subscribe-title'>Suscríbete</p>
-				<p className='subscribe-subtitle'>Para novedades, cursos y ofertas</p>
+				<p className='subscribe-subtitle'>Para novedades, cursos y ofertas.</p>
 				<div className='subscribe-input-container'>
 					<div className='subscribe-label'>
 						<div className='subscribe-input'>
