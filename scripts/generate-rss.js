@@ -28,24 +28,24 @@ const prettier = require('prettier');
 		});
 
 		const rss = `
-			<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+			<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
 				<channel>
 					<title>${config.title}</title>
-					<link>https://eduardoalvarez.dev</link>
+					<link>${config.url}</link>
 					<description>${config.description}</description>
 					<language>${config.languaje}</language>
-					<lastBuildDate>${new Date(
-						data[0].frontmatter.date,
-					).toUTCString()}</lastBuildDate>
-						<atom:link href="https://eduardoalvarez.dev/rss.xml" rel="self" type="application/rss+xml"/>
+					<lastBuildDate>
+						${new Date(data[0].frontmatter.date).toUTCString()}
+					</lastBuildDate>
+					<atom:link href="${config.url}/rss.xml" rel="self" type="application/rss+xml"/>
 						${data
 							.map(
 								(post) => `
 									<item>
 										<title>${post.frontmatter.title}</title>
-										<link>https://eduardoalvarez.dev/articulos/${post.slug}</link>
+										<link>${config.url}/articulos/${post.slug}</link>
 										<pubDate>${moment.utc(post.frontmatter.date)}</pubDate>
-										<guid>https://eduardoalvarez.dev/articulos/${post.slug}</guid>
+										<guid>${config.url}/articulos/${post.slug}</guid>
 										<description>${post.frontmatter.description}</description>
 									</item>
 								`,
@@ -57,7 +57,6 @@ const prettier = require('prettier');
 
 		const formatted = prettier.format(rss, {
 			...prettierConfig,
-			parser: 'babel',
 		});
 
 		fs.writeFileSync('public/rss.xml', formatted);
