@@ -14,5 +14,7 @@
   "trailingComma": "all",
   "useTabs": true,
   "vueIndentScriptAndStyle": false,
-  "printWidth": 80
+  "printWidth": 80,
+  "xmlSelfClosingSpace": true,
+  "xmlWhitespaceSensitivity": "strict"
 }
