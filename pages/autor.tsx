@@ -57,7 +57,7 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
 										<ReactMarkdown source={markdownBody} escapeHtml={false} />
 									</div>
 									<Say
-										variant='secondary'
+										variant='primary'
 										anchor='filosofia-de-vida'
 										title='Mi filosofía de vida'
 										content='Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo.'

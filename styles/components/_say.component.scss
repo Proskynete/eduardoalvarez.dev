@@ -34,8 +34,6 @@
   &__container {
     color: $primary;
     margin-bottom: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
     padding-bottom: 25px;
     position: relative;
     z-index: 5;
@@ -44,7 +42,7 @@
     background-color: $white;
 
     &[data-type="primary"] {
-      border: 1px solid $info;
+      border: 1px solid $primary;
       background-color: $white;
 
       .say__container__title {
@@ -87,12 +85,14 @@
       font-size: $size-md;
       text-align: center;
       padding-top: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
       padding-bottom: 15px;
 
       @media screen and (min-width: 720px) {
         font-size: $size-xxlg;
         text-align: left;
-        padding-left: 20px;
+        padding-left: 40px;
       }
 
       @media screen and (min-width: 1200px) {
@@ -101,20 +101,25 @@
     }
 
     &__content {
-      @media screen and (min-width: 720px) {
-        font-size: $size-xs;
+      p {
+        background-color: $white;
         padding-left: 20px;
         padding-right: 20px;
-      }
 
-      @media screen and (min-width: 1200px) {
-        padding-bottom: 30px;
+        @media screen and (min-width: 720px) {
+          font-size: $size-xs;
+          padding-left: 40px;
+        }
+
+        @media screen and (min-width: 1200px) {
+          padding-bottom: 30px;
+        }
       }
     }
 
     &[data-type="primary"] {
       &:after {
-        border: 1px solid $info;
+        border: 1px solid $primary;
         background-color: $white;
       }
     }
