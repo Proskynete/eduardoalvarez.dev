@@ -41,6 +41,24 @@
     max-width: max-content;
     width: 100%;
 
+    &[data-type="primary"] {
+
+      .say__container__title,
+      .say__container__content {
+        color: $white;
+        background-color: $info;
+      }
+    }
+
+    &[data-type="secondary"] {
+
+      .say__container__title,
+      .say__container__content {
+        color: $white;
+        background-color: $secondary;
+      }
+    }
+
     @media screen and (min-width: 720px) {
       width: 80%;
       margin-left: 50px;
@@ -67,16 +85,6 @@
       text-align: center;
       padding-top: 20px;
       padding-bottom: 15px;
-
-      &[data-type="primary"] {
-        color: $white;
-        background-color: $info;
-      }
-
-      &[data-type="secondary"] {
-        color: $white;
-        background-color: $secondary;
-      }
 
       @media screen and (min-width: 720px) {
         font-size: $size-xxlg;
