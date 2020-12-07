@@ -32,7 +32,6 @@ class MyDocument extends Document<DocumentInterface> {
 				<Head>
 					<meta charSet='utf-8' />
 					<meta name='robots' content='index, follow' />
-					<link rel='canonical' href='https://eduardoalvarez.dev' />
 					<meta
 						name='keywords'
 						content='frontend, front-end, react, reactjs, mongo, mongodb, ts, typescript, js, javascript, nosql, express, node, nodejs, html, css'
