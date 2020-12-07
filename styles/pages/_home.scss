@@ -112,13 +112,13 @@
 
       &__subtitle {
         width: max-content;
-        color: $secondary;
+        color: $info;
         text-decoration: none;
         padding-bottom: 30px;
         font-size: $size-xs;
 
         &:hover {
-          color: $secondary;
+          color: $info;
           text-decoration: none;
         }
       }
