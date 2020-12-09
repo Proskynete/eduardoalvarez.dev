@@ -27,3 +27,4 @@
 - [ ] Improve styles on medium and higher devices
 - [ ] Implement lazysizes
 - [ ] Add dark mode
+- [ ] Add new section - Podcasts
