@@ -1,14 +1,21 @@
 {
-  "name": "blog",
+  "name": "eduardoalvarez.dev",
   "version": "3.0.0",
   "description": "My personal Web site / Blog",
-  "license": "MIT",
-  "author": {
-    "name": "Eduardo Álvarez",
-    "email": "soy@eduardoalvarez.cl",
-    "url": "https://eduardoalvarez.dev"
+  "keywords": [],
+  "engines": {
+    "node": "12.x"
   },
-  "private": false,
+  "license": "ISC",
+  "author": "Eduardo Esteban Álvarez Castañeda",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Proskynete/eduardoalvarez.dev"
+  },
+  "bugs": {
+    "url": "https://github.com/Proskynete/eduardoalvarez.dev/issues"
+  },
+  "homepage": "https://github.com/Proskynete/eduardoalvarez.dev#readme",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
