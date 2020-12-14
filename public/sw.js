@@ -17,6 +17,8 @@ const assets = [
 	'/images/author/super-pixel.png',
 	'/images/isotipo/isotipo-blue.png',
 	'/images/isotipo/isotipo-white.png',
+	'/images/logo/black.png',
+	'/images/logo/black2.png',
 	'/images/logo/logo.png',
 	'/images/logo/white.png',
 	'/images/logo/white2.png',
