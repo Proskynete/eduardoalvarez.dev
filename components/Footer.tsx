@@ -69,7 +69,7 @@ const Footer = () => {
 							className='small'
 						/>
 						<img
-							src='/images/logo/white2.png'
+							src='/images/logo/black2.png'
 							alt='logotipo'
 							className='medium'
 						/>
