@@ -39,10 +39,11 @@
       width: 100%;
       box-shadow: $box-shadow;
       margin-bottom: $margin-xxlg;
+      margin-left: auto;
+      margin-right: auto;
 
       @media (min-width: 1200px) {
-        max-width: 80%;
-        width: 80%;
+        width: max-content;
       }
     }
 
