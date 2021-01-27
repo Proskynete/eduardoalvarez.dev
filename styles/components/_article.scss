@@ -75,6 +75,11 @@
           color: $primary;
           margin-bottom: $margin-xs;
 
+          &:hover {
+            text-decoration: none;
+            color: $primary;
+          }
+
           @media screen and (min-width: 1200px) {
             font-size: $size-xxlg;
           }

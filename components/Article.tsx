@@ -42,9 +42,11 @@ const Article = (props: ArticleContentInterface) => {
 				<div className='article__inner__section'>
 					<div>
 						<header className='article__inner__section__header'>
-							<h1 className='article__inner__section__header__title'>
-								{title}
-							</h1>
+							<Link href={`/articulos/${encodeURIComponent(slug)}`}>
+								<a className='article__inner__section__header__title'>
+									{title}
+								</a>
+							</Link>
 							<InfoArticle date={date} readTime={read_time} horizontal={true} />
 						</header>
 
