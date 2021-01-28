@@ -25,6 +25,12 @@ const InfoArticle = dynamic(() => import('components/InfoArticle'));
 const Say = dynamic(() => import('components/Say'));
 const TableOfSections = dynamic(() => import('components/TableOfSections'));
 
+interface bla {
+	src: string;
+	width: string;
+	quality: string;
+}
+
 const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 	const {
 		frontmatter,
@@ -75,10 +81,13 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 
 							<div className='article__header__hero'>
 								<Image
+									loading='lazy'
 									src={hero_image}
 									alt={`${title} - imagen`}
+									height='673'
+									width='1200'
 									className='article__header__hero__image'
-									unsized={true}
+									layout='responsive'
 								/>
 							</div>
 						</header>
@@ -104,9 +113,12 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 								/>
 
 								<figure className='article__body__image'>
-									<img
+									<Image
 										src={image_introduction}
 										alt={`Imagen de introducción a ${title}`}
+										height='322'
+										width='615'
+										className='article__header__hero__image'
 									/>
 								</figure>
 
@@ -167,9 +179,7 @@ export const getStaticProps = async (
 	};
 };
 
-export const getStaticPaths = async (): Promise<
-	GetStaticPathsResponseInterface
-> => {
+export const getStaticPaths = async (): Promise<GetStaticPathsResponseInterface> => {
 	const blogs = glob.sync('content/posts/**/*.md');
 
 	const blogSlugs = blogs.map((file: string) =>

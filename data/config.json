@@ -1,25 +1,26 @@
 {
-  "title": "eduardoalvarez.dev | Frontend, HTML, CSS, Javascript, Typescript, React, Node, MongoDB",
-  "description": "Artículos, Videos, Podcasts, Tutoriales y Recursos sobre Desarrollo Web, Frontend, HTML, CSS, Javascript, Typescript, React, Node y MongoDB",
-  "image": "/images/isotipo/isotipo-blue.png",
-  "url": "https://eduardoalvarez.dev",
-  "languaje": "es-ES",
-  "email": "soy@eduardoalvarez.cl",
-  "social_network": [{
-      "name": "instagram",
-      "link": "https://www.instagram.com/proskynete"
-    },
-    {
-      "name": "github",
-      "link": "https://github.com/Proskynete"
-    },
-    {
-      "name": "linkedin",
-      "link": "www.linkedin.com/in/eduardoalvarezc"
-    },
-    {
-      "name": "youtube",
-      "link": "https://youtube.com/channel/UCVrAjdQkLTKOdG0TUFFJomw"
-    }
-  ]
+	"title": "eduardoalvarez.dev | Frontend, HTML, CSS, Javascript, Typescript, React, Node, MongoDB",
+	"description": "Artículos, Videos, Podcasts, Tutoriales y Recursos sobre Desarrollo Web, Frontend, HTML, CSS, Javascript, Typescript, React, Node y MongoDB",
+	"image": "/images/isotipo/isotipo-blue.png",
+	"url": "https://eduardoalvarez.dev",
+	"languaje": "es-ES",
+	"email": "soy@eduardoalvarez.cl",
+	"social_network": [
+		{
+			"name": "instagram",
+			"link": "https://www.instagram.com/proskynete"
+		},
+		{
+			"name": "github",
+			"link": "https://github.com/Proskynete"
+		},
+		{
+			"name": "linkedin",
+			"link": "https://www.linkedin.com/in/eduardoalvarezc/"
+		},
+		{
+			"name": "youtube",
+			"link": "https://youtube.com/channel/UCVrAjdQkLTKOdG0TUFFJomw"
+		}
+	]
 }

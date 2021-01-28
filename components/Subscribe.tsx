@@ -1,10 +1,11 @@
 import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AlertContext } from 'context/alertContext';
 import {
 	InputsInterface,
 	TargetElementInterface,
 } from 'models/subscribe.model';
-import { memo, SyntheticEvent, useState } from 'react';
+import { memo, SyntheticEvent, useContext, useState } from 'react';
 
 const defaultValues: InputsInterface = {
 	name: '',
@@ -14,7 +15,7 @@ const defaultValues: InputsInterface = {
 const Subscribe = () => {
 	const [values, setValues] = useState<InputsInterface>(defaultValues);
 	const [buttonDisabled, setButtonDisabled] = useState(true);
-	const [messageResponse, setMessageResponse] = useState('');
+	const { setAlert } = useContext(AlertContext);
 
 	const handleChangeInput = (e: TargetElementInterface): void => {
 		setValues({
@@ -32,23 +33,32 @@ const Subscribe = () => {
 	const handleSubscribe = async (e: SyntheticEvent) => {
 		e.preventDefault();
 
-		const res = await fetch('/api/subscribe', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				email: values.email,
-				name: values.name,
-			}),
-		});
+		try {
+			const res = await fetch('/api/subscribe', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					email: values.email,
+					name: values.name,
+				}),
+			});
 
-		const { error, message } = await res.json();
-
-		if (error) setMessageResponse(error);
-
-		setValues(defaultValues);
-		setMessageResponse(message);
+			const { error, message } = await res.json();
+			if (error) {
+				setAlert({ show: true, variant: 'error', title: error });
+			} else {
+				setAlert({ show: true, variant: 'success', title: message });
+			}
+			setValues(defaultValues);
+		} catch (_) {
+			setAlert({
+				show: true,
+				variant: 'error',
+				title: 'Hubo un error, intente nuevamente',
+			});
+		}
 	};
 
 	return (
@@ -107,7 +117,6 @@ const Subscribe = () => {
 						Suscribirse
 					</button>
 				</div>
-				<div>{messageResponse}</div>
 			</div>
 		</form>
 	);
