@@ -6,15 +6,18 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AlertContext } from 'context/alertContext';
 import { copyTextToClipboard } from 'helpers/copy-to-clipboard.helper';
 import { titleForSocialNetwork } from 'helpers/letters.helper';
 import { ArticleContentInterface } from 'models/index.model';
 import Link from 'next/link';
 import { memo, SyntheticEvent } from 'react';
+import { useContext } from 'react';
 
 import InfoArticle from './InfoArticle';
 
 const Article = (props: ArticleContentInterface) => {
+	const { setAlert } = useContext(AlertContext);
 	const {
 		frontmatter: { title, thumbnail_image, date, read_time, description },
 		slug,
@@ -24,6 +27,7 @@ const Article = (props: ArticleContentInterface) => {
 
 	const handleCopyUrl = (event: SyntheticEvent) => {
 		copyTextToClipboard(event, urlToShare);
+		setAlert({ show: true, title: 'Link copiado', variant: 'success' });
 	};
 
 	return (

@@ -1,7 +1,10 @@
+import { AlertContextProvider } from 'context/alertContext';
 import { PropsInterface } from 'models/layout.model';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useRef, useState } from 'react';
+
+import Alert from './Alert';
 
 const Footer = dynamic(() => import('components/Footer'));
 const Meta = dynamic(() => import('components/Meta'));
@@ -21,7 +24,7 @@ const Layout: FC<PropsInterface> = (props) => {
 	}, [router.pathname]);
 
 	return (
-		<>
+		<AlertContextProvider>
 			<Meta
 				customTitle={customTitle}
 				description={description}
@@ -31,10 +34,11 @@ const Layout: FC<PropsInterface> = (props) => {
 			<ProgressBarScrolling target={target} />
 			<Nav path={path} />
 			<main className='container-fluid' ref={target}>
+				<Alert />
 				{children}
 				<Footer />
 			</main>
-		</>
+		</AlertContextProvider>
 	);
 };
 
