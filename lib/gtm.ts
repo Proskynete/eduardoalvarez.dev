@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-export const GTM_TRACKING_ID = 'GTM-WSK62BX';
+export const GTM_TRACKING_ID = 'GTM-MHQBDWK';
 
 export const GTMPageView = (url: string) => {
 	interface PageEventProps {
