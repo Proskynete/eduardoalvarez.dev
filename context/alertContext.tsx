@@ -1,4 +1,10 @@
-import { createContext, Dispatch, SetStateAction, useState } from 'react';
+import {
+	createContext,
+	Dispatch,
+	SetStateAction,
+	useEffect,
+	useState,
+} from 'react';
 
 type VariantTypes = 'success' | 'error' | 'warning';
 
@@ -26,6 +32,12 @@ export const AlertContext = createContext<contextInterface>({
 
 export const AlertContextProvider = ({ children }) => {
 	const [state, setState] = useState<UseAlertInterface>(defaultAlert);
+
+	useEffect(() => {
+		if (state.show) {
+			setTimeout(() => closeAlert(), 3500);
+		}
+	}, [state]);
 
 	const handleModifyState = ({ title, show, variant }: UseAlertInterface) => {
 		setState({ ...state, title, show, variant });
