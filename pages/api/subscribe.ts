@@ -30,7 +30,7 @@ export default async (
 			},
 		});
 
-		return res.status(201).json({ message: 'Gracias por tu subscripción! <3' });
+		return res.status(201).json({ message: 'Gracias por tu subscripción! ❤' });
 	} catch (error) {
 		return res.status(500).json({ error: error.message || error.toString() });
 	}
