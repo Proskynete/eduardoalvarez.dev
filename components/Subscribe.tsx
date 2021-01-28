@@ -47,7 +47,11 @@ const Subscribe = () => {
 
 			const { error, message } = await res.json();
 			if (error) {
-				setAlert({ show: true, variant: 'error', title: error });
+				setAlert({
+					show: true,
+					variant: 'error',
+					title: 'Hubo un error, intente nuevamente',
+				});
 			} else {
 				setAlert({ show: true, variant: 'success', title: message });
 			}
