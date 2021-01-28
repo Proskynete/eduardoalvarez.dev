@@ -18,4 +18,5 @@ export const socialNetworkMap = new Map<socialNetworkEnum, IconDefinition>([
 export interface SocialNetworkInterface {
 	name: socialNetworkEnum;
 	link: string;
+	show: boolean;
 }
