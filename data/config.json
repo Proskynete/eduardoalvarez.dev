@@ -4,23 +4,27 @@
 	"image": "/images/isotipo/isotipo-blue.png",
 	"url": "https://eduardoalvarez.dev",
 	"languaje": "es-ES",
-	"email": "soy@eduardoalvarez.cl",
+	"email": "soy@eduardoalvarez.dev",
 	"social_network": [
 		{
 			"name": "instagram",
-			"link": "https://www.instagram.com/proskynete"
+			"link": "https://www.instagram.com/proskynete",
+			"show": true
 		},
 		{
 			"name": "github",
-			"link": "https://github.com/Proskynete"
+			"link": "https://github.com/Proskynete",
+			"show": true
 		},
 		{
 			"name": "linkedin",
-			"link": "https://www.linkedin.com/in/eduardoalvarezc/"
+			"link": "https://www.linkedin.com/in/eduardoalvarezc/",
+			"show": true
 		},
 		{
 			"name": "youtube",
-			"link": "https://youtube.com/channel/UCVrAjdQkLTKOdG0TUFFJomw"
+			"link": "https://youtube.com/channel/UCVrAjdQkLTKOdG0TUFFJomw",
+			"show": false
 		}
 	]
 }
