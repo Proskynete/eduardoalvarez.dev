@@ -17,6 +17,7 @@ interface contextInterface {
 export const defaultAlert: UseAlertInterface = {
 	title: '',
 	show: false,
+	variant: null,
 };
 
 export const AlertContext = createContext<contextInterface>({
