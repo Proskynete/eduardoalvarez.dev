@@ -48,19 +48,14 @@ const Subscribe = () => {
 				}),
 			});
 
-			const { error, message } = await res.json();
+			const { code, error, message } = await res.json();
 
-			if (error) {
-				_name.current.classList.add('error');
-				setAlert({
-					show: true,
-					variant: 'error',
-					title: message,
-				});
-			} else {
-				setAlert({ show: true, variant: 'success', title: message });
-				setValues(defaultValues);
-			}
+			setAlert({
+				show: true,
+				variant: code !== 200 ? 'error' : 'success',
+				title: code !== 200 ? error : message,
+			});
+			if (code === 200) setValues(defaultValues);
 		} catch (_) {
 			setAlert({
 				show: true,
