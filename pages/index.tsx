@@ -74,9 +74,7 @@ const Index = (props: HomePropsInterface) => {
 
 export default memo(Index);
 
-export const getStaticProps = async (): Promise<
-	GetStaticPropsReturnInterface
-> => {
+export const getStaticProps = async (): Promise<GetStaticPropsReturnInterface> => {
 	const siteConfig = await import(`data/config.json`);
 
 	const posts: Array<BlogTemplatePropsInterface> = ((context) => {

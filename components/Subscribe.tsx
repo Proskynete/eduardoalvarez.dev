@@ -49,17 +49,18 @@ const Subscribe = () => {
 			});
 
 			const { error, message } = await res.json();
+
 			if (error) {
 				_name.current.classList.add('error');
 				setAlert({
 					show: true,
 					variant: 'error',
-					title: 'Hubo un error, intente nuevamente por favor.',
+					title: message,
 				});
 			} else {
 				setAlert({ show: true, variant: 'success', title: message });
+				setValues(defaultValues);
 			}
-			setValues(defaultValues);
 		} catch (_) {
 			setAlert({
 				show: true,
