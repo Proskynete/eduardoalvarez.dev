@@ -1,8 +1,14 @@
+export type StatusCodeErrorAllowed = 419 | 420 | 500;
+export type StatusCodeSuccessAllowed = 200 | 201;
+
 export interface ErrorResponseInterface {
+	code: StatusCodeErrorAllowed;
 	error: string;
+	message?: string;
 }
 
 export interface SuccessResponseInterface {
+	code: StatusCodeSuccessAllowed;
 	message: string;
 }
 

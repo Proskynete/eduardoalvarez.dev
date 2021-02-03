@@ -5,7 +5,7 @@ import {
 	InputsInterface,
 	TargetElementInterface,
 } from 'models/subscribe.model';
-import { memo, SyntheticEvent, useContext, useState } from 'react';
+import { memo, SyntheticEvent, useContext, useRef, useState } from 'react';
 
 const defaultValues: InputsInterface = {
 	name: '',
@@ -16,6 +16,9 @@ const Subscribe = () => {
 	const [values, setValues] = useState<InputsInterface>(defaultValues);
 	const [buttonDisabled, setButtonDisabled] = useState(true);
 	const { setAlert } = useContext(AlertContext);
+
+	const _name = useRef(null);
+	const _email = useRef(null);
 
 	const handleChangeInput = (e: TargetElementInterface): void => {
 		setValues({
@@ -47,10 +50,11 @@ const Subscribe = () => {
 
 			const { error, message } = await res.json();
 			if (error) {
+				_name.current.classList.add('error');
 				setAlert({
 					show: true,
 					variant: 'error',
-					title: 'Hubo un error, intente nuevamente',
+					title: 'Hubo un error, intente nuevamente por favor.',
 				});
 			} else {
 				setAlert({ show: true, variant: 'success', title: message });
@@ -60,7 +64,8 @@ const Subscribe = () => {
 			setAlert({
 				show: true,
 				variant: 'error',
-				title: 'Hubo un error, intente nuevamente',
+				title:
+					'Error de comunicación. Revisa tu internet e intenta nuevamente.',
 			});
 		}
 	};
@@ -83,6 +88,7 @@ const Subscribe = () => {
 								id='name'
 								name='name'
 								type='text'
+								ref={_name}
 								className='with-icon'
 								placeholder='Tu nombre'
 								value={values.name}
@@ -103,6 +109,7 @@ const Subscribe = () => {
 								id='email'
 								name='email'
 								type='email'
+								ref={_email}
 								className='with-icon'
 								placeholder='Tu correo'
 								value={values.email}
