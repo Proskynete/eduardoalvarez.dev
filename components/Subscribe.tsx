@@ -1,4 +1,5 @@
 import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AlertContext } from 'context/alertContext';
 import {
@@ -14,7 +15,10 @@ const defaultValues: InputsInterface = {
 
 const Subscribe = () => {
 	const [values, setValues] = useState<InputsInterface>(defaultValues);
-	const [buttonDisabled, setButtonDisabled] = useState(true);
+	const [buttonState, setButtonState] = useState({
+		disabled: true,
+		loading: false,
+	});
 	const { setAlert } = useContext(AlertContext);
 
 	const _name = useRef(null);
@@ -27,14 +31,15 @@ const Subscribe = () => {
 		});
 
 		if (values.name !== '' && values.name.length >= 3 && values.email !== '') {
-			setButtonDisabled(false);
+			setButtonState({ ...buttonState, disabled: false });
 		} else {
-			setButtonDisabled(true);
+			setButtonState({ ...buttonState, disabled: true });
 		}
 	};
 
 	const handleSubscribe = async (e: SyntheticEvent) => {
 		e.preventDefault();
+		setButtonState({ ...buttonState, loading: true });
 
 		try {
 			const res = await fetch('/api/subscribe', {
@@ -56,6 +61,8 @@ const Subscribe = () => {
 				title: code !== 200 ? error : message,
 			});
 			if (code === 200) setValues(defaultValues);
+
+			setButtonState({ ...buttonState, loading: false });
 		} catch (_) {
 			setAlert({
 				show: true,
@@ -63,6 +70,7 @@ const Subscribe = () => {
 				title:
 					'Error de comunicación. Revisa tu internet e intenta nuevamente.',
 			});
+			setButtonState({ ...buttonState, loading: false });
 		}
 	};
 
@@ -119,9 +127,13 @@ const Subscribe = () => {
 					<button
 						type='submit'
 						className='button secondary'
-						disabled={buttonDisabled}
+						disabled={buttonState.disabled}
 					>
-						Suscribirse
+						{buttonState.loading ? (
+							<FontAwesomeIcon icon={faSpinner} spin />
+						) : (
+							'Suscribirse'
+						)}
 					</button>
 				</div>
 			</div>
