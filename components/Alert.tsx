@@ -6,15 +6,15 @@ const Alert = () => {
 
 	return (
 		<div
-			className={`alert${alert.show ? ' show' : ''}${
+			className={`custom-alert${alert.show ? ' show' : ''}${
 				alert.variant ? ` ${alert.variant}` : ''
 			}`}
 		>
-			<div className='alert__inner'>
-				<p className='alert__inner__title'>{alert.title}</p>
+			<div className='custom-alert__inner'>
+				<p className='custom-alert__inner__title'>{alert.title}</p>
 				<div
 					role='presentation'
-					className='alert__inner__button'
+					className='custom-alert__inner__button'
 					onClick={() => close()}
 				>
 					X
