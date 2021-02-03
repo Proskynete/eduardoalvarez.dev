@@ -6,7 +6,7 @@ import {
 	useState,
 } from 'react';
 
-type VariantTypes = 'success' | 'error' | 'warning';
+type VariantTypes = 'success' | 'error';
 
 interface UseAlertInterface {
 	title?: string;
