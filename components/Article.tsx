@@ -10,6 +10,7 @@ import { AlertContext } from 'context/alertContext';
 import { copyTextToClipboard } from 'helpers/copy-to-clipboard.helper';
 import { titleForSocialNetwork } from 'helpers/letters.helper';
 import { ArticleContentInterface } from 'models/index.model';
+import Image from 'next/image';
 import Link from 'next/link';
 import { memo, SyntheticEvent } from 'react';
 import { useContext } from 'react';
@@ -35,9 +36,11 @@ const Article = (props: ArticleContentInterface) => {
 			<div className='article__inner'>
 				<div className='article__inner__section'>
 					<div className='article__inner__section__image'>
-						<img
+						<Image
 							src={thumbnail_image}
 							alt={`Imagen del artículo ${title}`}
+							height='160'
+							width='305'
 							className='article__inner__section__image__hero'
 						/>
 					</div>
