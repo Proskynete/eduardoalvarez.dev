@@ -30,15 +30,9 @@
     border-color: darken($color: #28a754, $amount: 10%);
   }
 
-  &.warning {
-    color: #ffc107;
-    background-color: lighten($color: #ffc107, $amount: 50%);
-    border-color: darken($color: #ffc107, $amount: 10%);
-  }
-
   &.error {
     color: #dc3545;
-    background-color: lighten($color: #dc3545, $amount: 50%);
+    background-color: lighten($color: #dc3545, $amount: 40%);
     border-color: darken($color: #dc3545, $amount: 10%);
   }
 
@@ -47,6 +41,11 @@
     justify-content: space-between;
     height: 100%;
     padding: 7px 10px 10px;
+
+    &__title {
+      display: flex;
+      align-items: center;
+    }
 
     &__button {
       cursor: pointer;
