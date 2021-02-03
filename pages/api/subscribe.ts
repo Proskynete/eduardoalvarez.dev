@@ -5,6 +5,11 @@ import {
 import { NextApiRequest, NextApiResponse } from 'next';
 const client = require('@mailchimp/mailchimp_marketing');
 
+const TAGS = {
+	SEND_POST_MAIL: 'SendPostMail',
+	FROM_WEB_PAGE: 'FromWebPage',
+};
+
 client.setConfig({
 	apiKey: process.env.MAILCHIMP_API_KEY,
 	server: process.env.MAILCHIMP_API_KEY.split('-')[1],
@@ -25,12 +30,13 @@ export default async (
 		await client.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
 			email_address: email,
 			status: 'subscribed',
+			tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
 			merge_fields: {
 				FNAME: name,
 			},
 		});
 
-		return res.status(201).json({ message: 'Gracias por tu subscripción! ❤' });
+		return res.status(200).json({ message: 'Gracias por tu subscripción! ❤' });
 	} catch (error) {
 		return res.status(500).json({ error: error.message || error.toString() });
 	}
