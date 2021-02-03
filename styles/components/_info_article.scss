@@ -2,6 +2,7 @@
   font-family: "Hero";
   display: flex;
   flex-direction: column;
+  margin-top: $margin-xs;
   margin-bottom: $margin-lg;
 
   &.horizontal {
