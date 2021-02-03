@@ -20,3 +20,7 @@ export interface InputsInterface {
 export interface TargetElementInterface {
 	target: HTMLInputElement;
 }
+
+export interface MemberInterface {
+	email_address: string;
+}

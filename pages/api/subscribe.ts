@@ -1,5 +1,6 @@
 import {
 	ErrorResponseInterface,
+	MemberInterface,
 	StatusCodeErrorAllowed,
 	StatusCodeSuccessAllowed,
 	SuccessResponseInterface,
@@ -23,7 +24,7 @@ const StatusCodeMap = new Map<
 >([
 	[419, 'Los campos son requeridos.'],
 	[420, 'El correo ya fue registrado.'],
-	[500, 'Error en el servidor, intenete nuevamente más tarde.'],
+	[500, 'Error de comunicación, intenete nuevamente más tarde.'],
 	[200, 'Registro realizado con exito! ❤'],
 ]);
 
@@ -41,16 +42,48 @@ export default async (
 	}
 
 	try {
-		await client.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
-			email_address: email,
-			status: 'subscribed',
-			tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
-			merge_fields: {
-				FNAME: name,
-			},
-		});
+		const usersList = await client.lists.getListMembersInfo(
+			process.env.MAILCHIMP_LIST_ID,
+		);
 
-		return res.status(200).json({ code: 200, message: StatusCodeMap.get(200) });
+		if (usersList.members && usersList.members !== []) {
+			if (
+				usersList.members.some(
+					(member: MemberInterface) => member.email_address === email,
+				)
+			) {
+				return res.status(420).json({
+					code: 420,
+					error: StatusCodeMap.get(420),
+				});
+			} else {
+				await client.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
+					email_address: email,
+					status: 'subscribed',
+					tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
+					merge_fields: {
+						FNAME: name,
+					},
+				});
+
+				return res
+					.status(200)
+					.json({ code: 200, message: StatusCodeMap.get(200) });
+			}
+		} else {
+			await client.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
+				email_address: email,
+				status: 'subscribed',
+				tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
+				merge_fields: {
+					FNAME: name,
+				},
+			});
+
+			return res
+				.status(200)
+				.json({ code: 200, message: StatusCodeMap.get(200) });
+		}
 	} catch (error) {
 		return res.status(500).json({
 			code: 500,
