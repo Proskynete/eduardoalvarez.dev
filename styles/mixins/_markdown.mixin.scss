@@ -1,0 +1,137 @@
+@mixin markdown-styles {
+  font-family: "Roboto";
+  color: $black;
+
+  h2 {
+    font-size: $size-xxlg;
+    font-family: "Hero";
+    position: relative;
+    margin-bottom: $margin-xxlg;
+    padding-top: 70px;
+
+    @media (min-width: 1200px) {
+      padding-top: $margin-xxlg;
+    }
+  }
+
+  .subtitle {
+    font-family: "Hero";
+    margin-bottom: $margin-xxlg;
+    margin-top: -$margin-xxlg;
+    font-size: $size-lg;
+    color: $info;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  p {
+    font-weight: 300;
+    margin-bottom: $margin-xxlg;
+    line-height: 1.8;
+
+    strong {
+      font-weight: 400;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      text-decoration: none;
+      color: $secondary;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: $box-shadow;
+      display: block;
+      margin-top: $margin-hero;
+
+      @media (min-width: 1200px) {
+        max-width: 80%;
+        width: 80%;
+      }
+    }
+  }
+
+  blockquote {
+    background: #f0db4f;
+    border-radius: 6px;
+    padding: 16px;
+    color: #2c3435;
+    margin-top: 48px;
+    margin-bottom: 32px;
+    box-shadow: 5px 5px 9px 3px #aaaaaa;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  ul {
+    font-weight: 300;
+    margin-top: 20px;
+
+    li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding-left: 15px;
+
+      &:not(:first-child) {
+        margin-top: 15px;
+
+        @media (min-width: 720px) {
+          margin-top: 10px;
+        }
+      }
+
+      &:before {
+        position: absolute;
+        content: '\f111';
+        width: 5px;
+        height: 5px;
+        left: 0;
+        border-radius: 50%;
+        background-color: $primary;
+      }
+
+      strong {
+        font-weight: 400;
+      }
+
+      em {
+        font-style: italic;
+      }
+
+      a {
+        color: $secondary;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .custom-content {
+    width: 100%;
+
+    img {
+      display: flex;
+      margin-bottom: 30px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 50px;
+      max-width: 100%;
+    }
+  }
+}
