@@ -105,15 +105,18 @@
 
       strong {
         font-weight: 400;
+        display: contents;
       }
 
       em {
         font-style: italic;
+        display: contents;
       }
 
       a {
         color: $secondary;
         text-decoration: none;
+        display: contents;
 
         &:hover {
           text-decoration: none;
