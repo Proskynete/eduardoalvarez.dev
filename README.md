@@ -28,3 +28,4 @@
 - [ ] Implement lazysizes
 - [ ] Add dark mode
 - [ ] Add new section - Podcasts
+- [ ] Add i18n (desirable)
