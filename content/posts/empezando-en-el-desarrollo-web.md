@@ -4,7 +4,7 @@ description: 'Si estás leyendo esto es por que te interesa o quieres aprender s
 entre otros.'
 date: 2021-01-28T20:00:00-03:00
 tags: ['introduction', 'web-development']
-hero_image: '/images/articles/introduccion-a-jamstack/introduccion-a-jamstack.png'
+hero_image: '/images/articles/empezando-en-el-desarrollo-web/empezando-en-el-desarrollo-web.png'
 thumbnail_image: '/images/articles/empezando-en-el-desarrollo-web/thumbnail.png'
 with_introduction: true
 introduction:
