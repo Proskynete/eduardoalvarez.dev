@@ -25,33 +25,35 @@ const assets = [
 	'/images/me/eduardo_alvarez.png',
 ];
 
-// install event
-self.addEventListener('install', (evt) => {
-	evt.waitUntil(
-		caches.open(staticCacheName).then((cache) => {
-			cache.addAll(assets);
-		}),
+self.addEventListener('install', (event) => {
+	event.waitUntil(
+		caches.open(staticCacheName).then((cache) => cache.addAll(assets)),
 	);
 });
-// activate event
-self.addEventListener('activate', (evt) => {
-	evt.waitUntil(
-		caches
-			.keys()
-			.then((keys) =>
-				Promise.all(
-					keys
-						.filter((key) => key !== staticCacheName)
-						.map((key) => caches.delete(key)),
-				),
+
+self.addEventListener('activate', (event) => {
+	const cacheAllowlist = ['pages-cache-v1', 'blog-posts-cache-v1'];
+
+	event.waitUntil(
+		caches.keys().then((cacheNames) =>
+			Promise.all(
+				cacheNames.map((cacheName) => {
+					if (cacheAllowlist.indexOf(cacheName) === -1) {
+						return caches.delete(cacheName);
+					}
+				}),
 			),
+		),
 	);
 });
-// fetch event
-self.addEventListener('fetch', (evt) => {
-	evt.respondWith(
-		caches
-			.match(evt.request)
-			.then((cacheRes) => cacheRes || fetch(evt.request)),
+
+self.addEventListener('fetch', (event) => {
+	event.respondWith(
+		caches.match(event.request).then((response) => {
+			if (response) {
+				return response;
+			}
+			return fetch(event.request);
+		}),
 	);
 });
