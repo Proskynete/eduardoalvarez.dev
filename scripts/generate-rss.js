@@ -47,9 +47,6 @@ const prettier = require('prettier');
 										<pubDate>${moment.utc(post.frontmatter.date)}</pubDate>
 										<guid>${config.url}/articulos/${post.slug}</guid>
 										<description>${post.frontmatter.description}</description>
-										<media:content url="${config.url}/images/articles/${
-									post.slug
-								}/thumbnail.png" medium="image" />
 									</item>
 								`,
 							)
