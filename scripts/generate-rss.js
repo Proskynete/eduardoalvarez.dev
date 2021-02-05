@@ -49,7 +49,7 @@ const prettier = require('prettier');
 										<description>${post.frontmatter.description}</description>
 										<media:content url="${config.url}/images/articles/${
 									post.slug
-								}/thumbnail.png" medium="image">
+								}/thumbnail.png" medium="image" />
 									</item>
 								`,
 							)
