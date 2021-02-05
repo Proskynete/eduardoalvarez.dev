@@ -6,10 +6,10 @@ const config = require('../data/config.json');
 const prettier = require('prettier');
 
 (async () => {
-	const nameFiles = await globby(['content/posts/*.md']);
-	const prettierConfig = await prettier.resolveConfig('../.pretierrc');
-
 	try {
+		const nameFiles = await globby(['content/posts/*.md']);
+		const prettierConfig = await prettier.resolveConfig('../.pretierrc');
+
 		const data = nameFiles.map((nameFile, index) => {
 			const slug = nameFile
 				.replace(/^.*[\\/]/, '')
@@ -61,7 +61,8 @@ const prettier = require('prettier');
 		});
 
 		fs.writeFileSync('public/rss.xml', formatted);
-	} catch (e) {
-		console.error('Error');
+	} catch (error) {
+		console.log('Error al crear el RSS');
+		console.error(error);
 	}
 })();
