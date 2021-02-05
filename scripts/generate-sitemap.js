@@ -4,6 +4,8 @@ const prettier = require('prettier');
 
 (async () => {
 	try {
+		console.time('Sitmap creado en');
+		console.log('Creando Sitemap...');
 		const getDate = new Date().toISOString();
 		const prettierConfig = await prettier.resolveConfig('../.pretierrc');
 
@@ -63,6 +65,7 @@ const prettier = require('prettier');
 		});
 
 		fs.writeFileSync('public/sitemap.xml', formatted);
+		console.timeEnd('Sitmap creado en');
 	} catch (error) {
 		console.log('Error al crear el SiteMap');
 		console.error(error);
