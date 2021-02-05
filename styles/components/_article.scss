@@ -21,7 +21,7 @@
 
     &__section {
       &__image {
-        &__hero {
+        &__thumbnail {
           border: 1px solid $primary;
           width: 100%;
         }
@@ -46,7 +46,7 @@
           .article__inner__section__image {
             overflow: hidden;
 
-            &__hero {
+            &__thumbnail {
               width: 100%;
               border: none;
             }

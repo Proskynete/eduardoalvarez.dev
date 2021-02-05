@@ -1,7 +1,7 @@
 import moment from 'moment';
 moment.locale('es');
 
-const getDiffDates = (datetime: string): number => {
+export const getDiffDates = (datetime: string): number => {
 	const today = moment(new Date());
 	const date = moment(datetime);
 	return today.diff(date, 'days');
