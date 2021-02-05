@@ -39,9 +39,9 @@ const Article = (props: ArticleContentInterface) => {
 						<Image
 							src={thumbnail_image}
 							alt={`Imagen del artículo ${title}`}
-							height='160'
+							height='305'
 							width='305'
-							className='article__inner__section__image__hero'
+							className='article__inner__section__image__thumbnail'
 						/>
 					</div>
 				</div>

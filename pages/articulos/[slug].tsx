@@ -112,15 +112,17 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 									content={introduction.content}
 								/>
 
-								<figure className='article__body__image'>
-									<Image
-										src={image_introduction}
-										alt={`Imagen de introducción a ${title}`}
-										height='322'
-										width='615'
-										className='article__header__hero__image'
-									/>
-								</figure>
+								{image_introduction ? (
+									<figure className='article__body__image'>
+										<Image
+											src={image_introduction}
+											alt={`Imagen de introducción a ${title}`}
+											height='322'
+											width='615'
+											className='article__header__hero__image'
+										/>
+									</figure>
+								) : null}
 
 								<div className='article__body__content'>
 									<ReactMarkdown source={markdownBody} escapeHtml={false} />
