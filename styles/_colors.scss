@@ -7,6 +7,16 @@ $black-grey: rgb(113, 109, 116);
 $black: rgb(0, 0, 0);
 $white: rgb(255, 255, 255);
 
+$fiord-darkmode: rgb(153, 198, 230);
+$glacier-darkmode: rgb(35, 126, 133);
+$mandy-darkmode: rgb(230, 153, 178);
+$wild-sand-darkmode: rgb(36, 36, 36);
+$white-darkmode: rgb(28, 28, 33);
+
 $primary: $fiord;
 $secondary: $mandy;
 $info: $glacier;
+
+$primary-darkmode: $fiord-darkmode;
+$secondary-darkmode: $mandy-darkmode;
+$info-darkmode: $glacier-darkmode;
