@@ -15,7 +15,6 @@ import { GetStaticPropsContext } from 'next';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { memo, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown/with-html';
 
 const Layout = dynamic(() => import('components/Layout'));
 const DisqusComponent = dynamic(() => import('components/DisqusComponent'), {
@@ -24,12 +23,7 @@ const DisqusComponent = dynamic(() => import('components/DisqusComponent'), {
 const InfoArticle = dynamic(() => import('components/InfoArticle'));
 const Say = dynamic(() => import('components/Say'));
 const TableOfSections = dynamic(() => import('components/TableOfSections'));
-
-interface bla {
-	src: string;
-	width: string;
-	quality: string;
-}
+const ReactMarkdown = dynamic(() => import('react-markdown/with-html'));
 
 const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 	const {
