@@ -3,8 +3,8 @@ title: 'El Javascript necesario para React - Parte 1'
 description: 'React es una librería desarrollada por Facebook el cual fue creado utilizando el lenguaje de programación Javascript, por este motivo, mientras más aprendamos del lenguaje, más cosas podremos hacer en React, es por eso que hoy vamos a repasar algunos conceptos y funciones que, según mi experiencia, creo que son fundamentales para ser un buen desarrollador de React.'
 date: 2021-02-13T22:59:24-03:00
 tags: ['javascript', 'introduction', 'react']
-hero_image: '/images/articles/[name]/[name].png'
-thumbnail_image: '/images/articles/[name]/thumbnail.png'
+hero_image: '/images/articles/el-javascript-necesario-para-react/el-javascript-necesario-para-react.png'
+thumbnail_image: '/images/articles/el-javascript-necesario-para-react/thumbnail.png'
 with_introduction: true
 introduction:
   {
@@ -22,7 +22,7 @@ sections:
   ]
 ---
 
-<h2 id="que-es-react">¿Qué es React?<h2>
+<h2 id="que-es-react">¿Qué es React?</h2>
 
 **React** (o también conocido como **Reactjs**) es una <a href="https://es.wikipedia.org/wiki/Biblioteca_(inform%C3%A1tica)#:~:text=En%20inform%C3%A1tica%2C%20una%20biblioteca%20o,la%20funcionalidad%20que%20se%20invoca" target="_blank" rel="noopener noreferrer">librería</a> de código abierto (_open source_) desarrollada por un equipo dentro de **Facebook** para crear interfaces de usuario de forma rápida y con buen rendimiento ya que para ese entonces era presisamente el problema que estaban teniendo, dicho de otra manera, estaba leento. Es por eso que se le pidió a un equipo interno que mejorara este problema y por lo visto lo pudieron hacer 😁.
 
@@ -40,7 +40,7 @@ En simples palabras, **ECMAScript** o **ECMA** solamente, es el encargado de dar
 
 El 2015 fué una fecha muy importante para el estandar de JavaScript ya que desde **1999** que no se hacía una nueva revisión a su sintaxis (acá cabe mencionar que en estricto rigor si hubieron revisiones del lenguaje ya que en _2009_ sale **ECMAScript 5** y posteriormente, en _2011_, se le agregan pequeños cambios) dando así el nacimiento de **ECMAScrip 6** o **ES6**. Pero ¿Porqué fue tán importante esta nueva versión del lenguaje? Es por que se agregaron una serie de mejoras a su sintaxis, haciendo que fuese mucho mas simple programar en JavaScript. Desde entonces hasta la fecha, han salido mejoras al estandar anualmente. A continuación veremos las que, según mi experiencia, debemos conocer como mínimo para no tener problemas al momento de hacer un proyecto.
 
-![Imagen de ECMAScript y JavaScript]()
+![ECMAScript y JavaScript](/images/articles/el-javascript-necesario-para-react/es-js.png)
 
 <h2 id="variables">Variables</h2>
 
