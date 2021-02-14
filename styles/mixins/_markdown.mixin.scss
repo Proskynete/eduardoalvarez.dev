@@ -14,6 +14,18 @@
     }
   }
 
+  h3 {
+    font-size: $size-xlg;
+    font-family: "Hero";
+    position: relative;
+    margin-bottom: $margin-xxlg;
+    padding-top: 50px;
+
+    @media (min-width: 1200px) {
+      padding-top: $margin-xlg;
+    }
+  }
+
   .subtitle {
     font-family: "Hero";
     margin-bottom: $margin-xxlg;
@@ -72,6 +84,11 @@
 
     p {
       margin: 0;
+
+      a {
+        color: $secondary;
+        font-weight: bolder;
+      }
     }
   }
 
