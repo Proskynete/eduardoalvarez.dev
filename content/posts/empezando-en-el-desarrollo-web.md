@@ -2,7 +2,6 @@
 title: 'Empezando en el desarrollo web'
 description: 'Si estás leyendo esto es por que te interesa o quieres aprender sobre desarrollo web. Este artículo te ayudará a clarificar todas tus dudas (espero), mostrando lo básico necesario que debes manejar, dando un recorrido por los tecnisismos, lenguajes/tecnologías necesarias,
 entre otros.'
-#date: 2021-01-28T20:00:00-03:00
 date: 2021-02-04T20:00:00-03:00
 tags: ['introduction', 'web-development']
 hero_image: '/images/articles/empezando-en-el-desarrollo-web/empezando-en-el-desarrollo-web.png'

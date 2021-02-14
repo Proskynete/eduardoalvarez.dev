@@ -17,7 +17,7 @@
   overflow: hidden;
 
   &__header {
-    font-family: "Hero" !important;
+    font-family: "Hero";
     position: absolute;
     top: 0;
     left: 0;
@@ -39,12 +39,19 @@
   }
 
   &__body {
+    font-family: "Menlo",
+      "Monaco",
+      "Courier New",
+      "Courier",
+      "monospace";
+
     padding-top: 50px;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 15px;
     width: 100%;
     overflow: auto;
+    tab-size: 2;
   }
 
   &:after {
@@ -53,7 +60,7 @@
     top: 0;
     right: 20px;
     min-width: 30px;
-    width: content;
+    width: max-content;
     padding-left: 10px;
     padding-right: 10px;
     height: 30px;
