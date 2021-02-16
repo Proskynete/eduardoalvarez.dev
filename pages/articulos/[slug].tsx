@@ -50,6 +50,7 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 			setTimeout(() => {
 				highlightFormat();
 			}, 1);
+			console.log('a');
 		}
 	}, []);
 
