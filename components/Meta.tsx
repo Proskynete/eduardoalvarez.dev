@@ -71,7 +71,7 @@ const Meta = (props: PropsInterface) => {
 				crossOrigin=''
 			/>
 
-			<title>{customTitle}</title>
+			<title>{customTitle} | eduardoalvarez.dev </title>
 		</Head>
 	);
 };
