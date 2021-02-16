@@ -1,6 +1,6 @@
 ---
 title: 'El Javascript necesario para React - Parte 1'
-description: 'React es una librería desarrollada por Facebook el cual fue creado utilizando el lenguaje de programación Javascript, por este motivo, mientras más aprendamos del lenguaje, más cosas podremos hacer en React, es por eso que hoy vamos a repasar algunos conceptos y funciones que, según mi experiencia, creo que son fundamentales para ser un buen desarrollador de React.'
+description: 'React es una librería desarrollada por Facebook el cual fue creado utilizando el lenguaje de programación JavaScript, por este motivo, mientras más aprendamos del lenguaje, más cosas podremos hacer en React, es por eso que hoy vamos a repasar algunos conceptos y funciones que, según mi experiencia, creo que son fundamentales para ser un buen desarrollador de React.'
 date: 2021-02-14T01:01:47-03:00
 tags: ['javascript', 'introduction', 'react']
 hero_image: '/images/articles/el-javascript-necesario-para-react/el-javascript-necesario-para-react.png'
@@ -44,7 +44,7 @@ El 2015 fue una fecha muy importante para el estándar de JavaScript, ya que des
 
 <h2 id="variables">Variables</h2>
 
-Antes de ES6, nosotros teníamos una única forma de crear variables y era utilizando la palabra recebada `var` pero con la nueva estandarización del lenguaje, hoy aparte de utilizar el ya mencionado, podemos utilizar dos más: `let` y `const`.
+Antes de ES6, nosotros teníamos una única forma de crear variables y era utilizando la palabra reservada `var` pero con la nueva estandarización del lenguaje, hoy aparte de utilizar el ya mencionado, podemos utilizar dos más: `let` y `const`.
 
 ```javascript
 // Antes de ES6
