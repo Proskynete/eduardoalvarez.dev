@@ -69,14 +69,14 @@ Ahora viendo esto, nos damos cuando que a simple vista, solo han Agregado dos nu
 ```javascript
 function explicandoVar() {
 	var a = 5;
-	console.log(a); // output 5
+	console.log(a); // Output: 5
 
 	if (true) {
 		var a = 10;
-		console.log(a); // output 10
+		console.log(a); // Output: 10
 	}
 
-	console.log(a); // output 10
+	console.log(a); // Output: 10
 }
 ```
 
@@ -86,10 +86,10 @@ Espera... ¿Qué fue lo que pasó?. Nos dimos cuenta de que la variable `a` la c
 var numero = 100;
 (function explicandoVar() {
 	for (var numero = 0; numero < 5; numero++) {
-		console.log(numero); // output 0, 1, 2, 3, 4
+		console.log(numero); // Output: 0, 1, 2, 3, 4
 	}
 })();
-console.log('Despues del for: ', numero); // output 100
+console.log('Despues del for: ', numero); // Output: 100
 ```
 
 Pero espera... me habías dicho que una variable declarada con var se puede modificar su valor si se vuelve a declarar, pero acá no sucede eso. La diferencia es que ahora la función _explicandoVar_ está dentro de un **IIFE** (Immediately Invoked Function Expression), lo cual hace que exista otro scope dentro de la función distinta a la de la variable con valor 100, por lo cual, la variable declarada dentro del _for_ que a su vez está dentro de nuestro IIFE vivirá solo dentro de este scope, pero os falta ver un ejemplo más 😁...
@@ -98,10 +98,10 @@ Pero espera... me habías dicho que una variable declarada con var se puede modi
 var numero = 100;
 (function explicandoVar() {
 	for (numero = 0; numero < 5; numero++) {
-		console.log(numero); // output 0, 1, 2, 3, 4
+		console.log(numero); // Output: 0, 1, 2, 3, 4
 	}
 })();
-console.log('Despues del for: ', numero); // output 5
+console.log('Despues del for: ', numero); // Output: 5
 ```
 
 ¿En serio? Volvemos a tener ese comportamiento raro... pero si lo único que hicimos fue no declarar la variable dentro del for... ¿Qué es lo que pasa entonces?
@@ -119,15 +119,15 @@ Por lo tanto nuestro código queda de la siguiente manera:
 
 ```javascript
 var numero;
-numero = 100; // output 100
+numero = 100; // Output: 100
 
 (function () {
 	for (numero = 0; numero < 5; numero++) {
-		console.log(numero); // output 0, 1, 2, 3, 4
+		console.log(numero); // Output: 0, 1, 2, 3, 4
 	}
 })();
 
-console.log(numero); //output 5
+console.log(numero); // Output: 5
 ```
 
 <h3>let</h3>
@@ -138,10 +138,10 @@ Ok, ya sabemos cuál es el error que podíamos tener con _var_, pero ¿Cómo fun
 var numero = 100;
 (function explicandoVarPeroAhoraConLet() {
 	for (let numero = 0; numero < 5; numero++) {
-		console.log(numero); // output 0, 1, 2, 3, 4
+		console.log(numero); // Output: 0, 1, 2, 3, 4
 	}
 })();
-console.log(numero); // output 100
+console.log(numero); // Output: 100
 ```
 
 Yeeeey!! Esta vez si funciona como esperábamos!! 😍 y todo esto es gracias al **Block Scope** (_ámbito de bloque_), ya que las variables declaradas con _let_ solo podrán ser accesible dentro del scope donde se declaró, en este caso, dentro del for. Ahora veamos otro ejemplo y comparémoslo con los ejemplos anteriores con var:
@@ -183,7 +183,7 @@ function explicandoConst() {
 		nombre: 'Eduardo',
 		edad: 'todos',
 	};
-	console.log(usuario); /* Output: {ombre: 'Eduardo', edad: 'todos'} */
+	console.log(usuario); /* Output: {nombre: 'Eduardo', edad: 'todos'} */
 	usuario.edad = 27;
 	console.log(usuario); /* Output: {nombre: 'Eduardo', edad: 27} */
 }
@@ -195,13 +195,13 @@ Cuando asignamos un valor **primitivo** ([string](https://developer.mozilla.org/
 
 ```javascript
 function explicandoValorYReferencia() {
-	let a = 'Se javascript';
+	let a = 'Se JavaScript';
 	const b = a;
 
 	a = '¡' + a + '!';
 
-	console.log(a); // Output: "¡Se javascript!"
-	console.log(b); // Output: "Se javascript"
+	console.log(a); // Output: "¡Se JavaScript!"
+	console.log(b); // Output: "Se JavaScript"
 }
 ```
 
