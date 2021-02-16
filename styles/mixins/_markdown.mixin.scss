@@ -1,13 +1,13 @@
 @mixin markdown-styles {
-  font-family: "Roboto";
   color: $black;
+  font-family: "Roboto";
 
   h2 {
-    font-size: $size-xxlg;
     font-family: "Hero";
-    position: relative;
+    font-size: $size-xxlg;
     margin-bottom: $margin-xxlg;
     padding-top: 70px;
+    position: relative;
 
     @media (min-width: 1200px) {
       padding-top: $margin-xxlg;
@@ -17,9 +17,9 @@
   h3 {
     font-size: $size-xlg;
     font-family: "Hero";
-    position: relative;
     margin-bottom: $margin-xxlg;
     padding-top: 50px;
+    position: relative;
 
     @media (min-width: 1200px) {
       padding-top: $margin-xlg;
@@ -27,19 +27,19 @@
   }
 
   .subtitle {
-    font-family: "Hero";
-    margin-bottom: $margin-xxlg;
-    margin-top: -$margin-xxlg;
-    font-size: $size-lg;
     color: $info;
+    font-family: "Hero";
+    font-size: $size-lg;
     font-weight: 400;
     line-height: 1;
+    margin-bottom: $margin-xxlg;
+    margin-top: -$margin-xxlg;
   }
 
   p {
     font-weight: 300;
-    margin-bottom: $margin-xxlg;
     line-height: 1.8;
+    margin-bottom: $margin-xxlg;
 
     strong {
       font-weight: 400;
@@ -50,8 +50,8 @@
     }
 
     a {
-      text-decoration: none;
       color: $secondary;
+      text-decoration: none;
 
       &:hover {
         text-decoration: none;
@@ -59,12 +59,12 @@
     }
 
     img {
-      max-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
       box-shadow: $box-shadow;
       display: block;
+      margin-left: auto;
+      margin-right: auto;
       margin-top: $margin-hero;
+      max-width: 100%;
 
       @media (min-width: 1200px) {
         max-width: 80%;
@@ -76,11 +76,11 @@
   blockquote {
     background: #f0db4f;
     border-radius: 6px;
-    padding: 16px;
-    color: #2c3435;
-    margin-top: 48px;
-    margin-bottom: 32px;
     box-shadow: 5px 5px 9px 3px #aaaaaa;
+    color: #2c3435;
+    margin-bottom: 32px;
+    margin-top: 48px;
+    padding: 16px;
 
     p {
       margin: 0;
@@ -97,10 +97,10 @@
     margin-top: 20px;
 
     li {
-      position: relative;
-      display: flex;
       align-items: center;
+      display: flex;
       padding-left: 15px;
+      position: relative;
 
       &:not(:first-child) {
         margin-top: 15px;
@@ -110,30 +110,30 @@
         }
       }
 
-      &:before {
-        position: absolute;
+      &::before {
+        background-color: $primary;
+        border-radius: 50%;
         content: '\f111';
-        width: 5px;
         height: 5px;
         left: 0;
-        border-radius: 50%;
-        background-color: $primary;
+        position: absolute;
+        width: 5px;
       }
 
       strong {
-        font-weight: 400;
         display: contents;
+        font-weight: 400;
       }
 
       em {
-        font-style: italic;
         display: contents;
+        font-style: italic;
       }
 
       a {
         color: $secondary;
-        text-decoration: none;
         display: contents;
+        text-decoration: none;
 
         &:hover {
           text-decoration: none;

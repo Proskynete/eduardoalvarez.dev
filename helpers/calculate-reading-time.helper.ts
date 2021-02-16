@@ -1,5 +1,5 @@
 export const calculateReadingTime = (text: string): number => {
-	const _wordsPerMinute = 200;
+	const _wordsPerMinute = 240;
 
 	const _textLength: number = text.split(' ').length;
 

@@ -1,13 +1,13 @@
 .footer {
-  width: 100%;
-  color: $black;
   background-color: $secondary;
-  padding: 0 25px;
+  color: $black;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   height: 500px;
+  padding: 0 25px;
   text-align: center;
+  width: 100%;
 
   @media screen and (min-width: 1200px) {
     padding-left: 100px;
@@ -16,10 +16,10 @@
 
   @media screen and (min-width: 720px) {
     flex-direction: row-reverse;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    justify-content: space-between;
     height: max-content;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    padding-top: 40px;
   }
 
   &-button {
@@ -30,8 +30,8 @@
     }
 
     &-text {
-      margin-left: 15px;
       font-weight: 400;
+      margin-left: 15px;
     }
   }
 
@@ -76,7 +76,7 @@
       margin-bottom: 5px;
 
       @media screen and (min-width: 720px) {
-        &:after {
+        &::after {
           content: ":";
           margin-right: 10px;
         }
@@ -97,8 +97,8 @@
     margin-top: 40px;
 
     @media screen and (min-width: 720px) {
-      width: 200px;
       margin-top: 10px;
+      width: 200px;
     }
 
     img {

@@ -1,14 +1,14 @@
 .social-netwoks {
-  width: 100%;
-  color: $white;
   background-color: $primary;
-  padding: 15px 25px;
+  color: $white;
   display: flex;
   flex-direction: column;
+  padding: 15px 25px;
+  width: 100%;
 
   @media screen and (min-width: 720px) {
-    flex-direction: row;
     align-items: center;
+    flex-direction: row;
   }
 
   @media screen and (min-width: 1200px) {
@@ -17,14 +17,14 @@
   }
 
   &-title {
-    text-align: center;
     font-size: 20px;
     margin-bottom: 10px;
+    text-align: center;
 
     @media screen and (min-width: 720px) {
-      text-align: left;
       min-width: max-content;
       padding-right: 25px;
+      text-align: left;
     }
   }
 
@@ -41,23 +41,23 @@
   }
 
   &-icon {
-    height: 35px;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    background-color: $white;
+    display: flex;
+    height: 35px;
+    justify-content: center;
     margin: 40px 0;
     position: relative;
     width: 50px;
-    background-color: $white;
 
     @media screen and (min-width: 720px) {
       margin-right: 20px;
     }
 
-    &:before {
-      border-right: 25px solid transparent;
+    &::before {
       border-bottom: 15px solid $white;
       border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
       content: "";
       height: 0;
       left: 0;
@@ -67,10 +67,10 @@
       width: 0;
     }
 
-    &:after {
-      border-top: 15px solid $white;
-      border-right: 25px solid transparent;
+    &::after {
       border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+      border-top: 15px solid $white;
       bottom: -15px;
       content: '';
       height: 0;
@@ -82,8 +82,8 @@
   }
 
   &-link {
-    font-size: 25px;
     color: $primary;
+    font-size: 25px;
 
     &:hover,
     &:active,

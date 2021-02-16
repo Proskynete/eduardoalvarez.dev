@@ -2,11 +2,8 @@
   padding-top: 70px;
 
   @media screen and (min-width: 720px) {
-    width: 100%;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    justify-content: space-evenly;
+    width: 100%;
   }
 
   @media screen and (min-width: 1200px) {
@@ -14,11 +11,11 @@
   }
 
   &__image {
-    width: 100px;
+    justify-content: center;
     margin-left: auto;
     margin-right: auto;
     padding-bottom: 30px;
-    justify-content: center;
+    width: 100px;
 
     @media screen and (min-width: 720px) {
       margin-left: 0;
@@ -32,18 +29,18 @@
   }
 
   &__container {
+    background-color: $white;
     color: $primary;
     margin-bottom: 40px;
+    max-width: max-content;
     padding-bottom: 25px;
     position: relative;
-    z-index: 5;
-    max-width: max-content;
     width: 100%;
-    background-color: $white;
+    z-index: 5;
 
     &[data-type="primary"] {
-      border: 1px solid $primary;
       background-color: $white;
+      border: 1px solid $primary;
 
       .say__container__title {
         background-color: $white;
@@ -51,9 +48,8 @@
     }
 
     &[data-type="secondary"] {
-
-      border: 1px solid $secondary;
       background-color: $white;
+      border: 1px solid $secondary;
 
       .say__container__title {
         background-color: $white;
@@ -61,38 +57,38 @@
     }
 
     @media screen and (min-width: 720px) {
-      width: 80%;
       margin-left: 50px;
+      width: 80%;
     }
 
-    &:after {
+    &::after {
       content: '';
+      height: 50px;
+      left: 42%;
       position: absolute;
       top: -15px;
-      left: 42%;
-      width: 50px;
-      height: 50px;
       transform: rotate(45deg);
+      width: 50px;
       z-index: -1;
 
       @media screen and (min-width: 720px) {
-        top: 30%;
         left: -15px;
+        top: 30%;
       }
     }
 
     &__title {
       font-size: $size-md;
-      text-align: center;
-      padding-top: 20px;
+      padding-bottom: 15px;
       padding-left: 20px;
       padding-right: 20px;
-      padding-bottom: 15px;
+      padding-top: 20px;
+      text-align: center;
 
       @media screen and (min-width: 720px) {
         font-size: $size-xxlg;
-        text-align: left;
         padding-left: 40px;
+        text-align: left;
       }
 
       @media screen and (min-width: 1200px) {
@@ -115,8 +111,8 @@
         }
 
         a {
-          text-decoration: none;
           color: $secondary;
+          text-decoration: none;
 
           &:hover {
             text-decoration: none;
@@ -137,16 +133,16 @@
     }
 
     &[data-type="primary"] {
-      &:after {
-        border: 1px solid $primary;
+      &::after {
         background-color: $white;
+        border: 1px solid $primary;
       }
     }
 
     &[data-type="secondary"] {
-      &:after {
-        border: 1px solid $secondary;
+      &::after {
         background-color: $white;
+        border: 1px solid $secondary;
       }
     }
   }
