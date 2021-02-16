@@ -1,6 +1,6 @@
 .article {
-  width: 100%;
   height: max-content;
+  width: 100%;
 
   &:not(:first-of-type) {
     padding-top: 50px;
@@ -31,24 +31,24 @@
         display: flex;
 
         @media screen and (min-width: 720px) {
-          flex-flow: column wrap;
-          justify-content: center;
           align-items: center;
           background: transparent;
-          min-width: 250px;
-          max-width: 250px;
-          min-height: 250px;
-          max-height: 250px;
           border: 1px solid $primary;
+          flex-flow: column wrap;
+          justify-content: center;
           margin-left: auto;
           margin-right: auto;
+          max-height: 250px;
+          max-width: 250px;
+          min-height: 250px;
+          min-width: 250px;
 
           .article__inner__section__image {
             overflow: hidden;
 
             &__thumbnail {
-              width: 100%;
               border: none;
+              width: 100%;
             }
           }
         }
@@ -56,14 +56,14 @@
 
       &:last-child {
         @media screen and (min-width: 720px) {
-          padding-left: 25px;
-          padding-right: 25px;
-          padding-bottom: 10px;
-          height: 250px;
-          width: 100%;
           display: flex;
           flex-direction: column;
+          height: 250px;
           justify-content: space-between;
+          padding-bottom: 10px;
+          padding-left: 25px;
+          padding-right: 25px;
+          width: 100%;
         }
       }
 
@@ -71,13 +71,13 @@
         margin-top: $margin-xs;
 
         &__title {
-          font-size: $size-lg;
           color: $primary;
+          font-size: $size-lg;
           margin-bottom: $margin-xs;
 
           &:hover {
-            text-decoration: none;
             color: $primary;
+            text-decoration: none;
           }
 
           @media screen and (min-width: 1200px) {
@@ -87,26 +87,27 @@
       }
 
       &__body {
-        font-family: "Roboto";
-        line-height: 1.2;
-        font-weight: 400;
         display: -webkit-box;
-        width: 100%;
+        font-family: "Roboto";
+        font-weight: 400;
         height: max-content;
+        line-height: 1.2;
+        margin-bottom: $margin-lg;
         margin-left: auto;
         margin-right: auto;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
-        margin-bottom: $margin-lg;
+        width: 100%;
+
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
       }
 
       &__footer {
         @media screen and (min-width: 720px) {
+          align-items: center;
           display: flex;
           justify-content: space-between;
-          align-items: center;
         }
 
         &__section {
@@ -114,14 +115,14 @@
           justify-content: center;
 
           @media screen and (min-width: 720px) {
-            width: 50%;
             justify-content: flex-start;
+            width: 50%;
           }
 
           &:first-child {
             border: 1px solid $info;
-            padding: 5px;
             margin-bottom: 20px;
+            padding: 5px;
 
             @media screen and (min-width: 720px) {
               border: none;
@@ -148,15 +149,15 @@
           &:last-child {
             display: flex;
             justify-content: space-around;
-            width: 80%;
             margin-left: auto;
             margin-right: auto;
+            width: 80%;
 
             @media screen and (min-width: 720px) {
-              width: 50%;
               justify-content: flex-end;
               margin-left: 0;
               margin-right: 0;
+              width: 50%;
             }
           }
 

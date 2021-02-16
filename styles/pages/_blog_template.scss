@@ -14,19 +14,14 @@
     }
 
     &__hero {
-      width: 100%;
-      border-top: $margin-md solid $info;
-      border-left: $margin-xxs solid $info;
-      border-bottom: $margin-md solid $info;
-      border-right: $margin-xxs solid $info;
       background-color: $black;
-      cursor: pointer;
-      position: relative;
+      border-bottom: $margin-md solid $info;
+      border-left: $margin-xxs solid $info;
+      border-right: $margin-xxs solid $info;
+      border-top: $margin-md solid $info;
       margin-top: $margin-lg;
-
-      /*&__image {
-        opacity: .3;
-      }*/
+      position: relative;
+      width: 100%;
     }
   }
 
@@ -34,13 +29,13 @@
     padding-top: 30px;
 
     &__image {
-      margin-top: 30px;
-      max-width: 100%;
-      width: 100%;
       box-shadow: $box-shadow;
       margin-bottom: $margin-xxlg;
       margin-left: auto;
       margin-right: auto;
+      margin-top: 30px;
+      max-width: 100%;
+      width: 100%;
 
       @media (min-width: 1200px) {
         width: max-content;
@@ -54,8 +49,8 @@
 }
 
 .errata {
-  text-align: center;
   margin-top: 50px;
+  text-align: center;
 
   a {
     color: $secondary;

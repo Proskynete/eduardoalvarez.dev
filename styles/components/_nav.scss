@@ -1,8 +1,8 @@
 .nav {
-  width: 100%;
-  height: 100px;
   border-bottom: 1px solid $wild-sand;
   box-sizing: border-box;
+  height: 100px;
+  width: 100%;
 
   @media screen and (min-width: 720px) {
     padding-left: 25px;
@@ -15,11 +15,11 @@
   }
 
   &__inner {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
     align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
 
     @media screen and (min-width: 720px) {
       justify-content: space-between;
@@ -35,18 +35,18 @@
 
     &__menu {
       &__bar {
-        position: fixed;
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
         align-items: center;
         background-color: $primary;
-        color: $white;
-        right: 30px;
+        border-radius: 50%;
         bottom: 30px;
+        color: $white;
+        display: flex;
+        font-size: 20px;
+        height: 50px;
+        justify-content: center;
+        position: fixed;
+        right: 30px;
+        width: 50px;
         z-index: 2100;
 
         &.mobile {
@@ -60,17 +60,17 @@
       }
 
       &__content {
-        position: fixed;
-        right: -280px;
+        align-items: center;
         background-color: $primary;
         color: $white;
-        width: 280px;
-        height: 100%;
-        z-index: 1048;
-        top: 0;
-        justify-content: center;
-        align-items: center;
         display: flex;
+        height: 100%;
+        justify-content: center;
+        position: fixed;
+        right: -280px;
+        top: 0;
+        width: 280px;
+        z-index: 1048;
 
         &.mobile {
           right: 0;
@@ -81,28 +81,28 @@
         }
 
         @media screen and (min-width: 720px) {
-          position: relative;
           background: transparent;
-          width: max-content;
-          height: 100%;
           box-shadow: none;
+          height: 100%;
+          position: relative;
           right: 0;
+          width: max-content;
         }
 
         &__inner {
           display: flex;
-          justify-content: space-evenly;
           flex-direction: column;
+          height: 200px;
+          justify-content: space-evenly;
           margin: 0;
           padding: 0;
           width: 100%;
-          height: 200px;
 
           @media screen and (min-width: 720px) {
             display: flex;
             flex-direction: row;
-            width: max-content;
             height: max-content;
+            width: max-content;
           }
 
           &__item {
@@ -110,14 +110,14 @@
             justify-content: center;
 
             &__link {
-              text-decoration: none;
               color: $primary;
-              font-weight: 500;
+              cursor: pointer;
               font-size: $size-xxs;
-              padding: 5px;
+              font-weight: 500;
               margin-left: 10px;
               margin-right: 10px;
-              cursor: pointer;
+              padding: 5px;
+              text-decoration: none;
 
               @media screen and (min-width: 1200px) {
                 font-size: $size-xs;
@@ -129,8 +129,8 @@
 
                 &:hover,
                 &.active {
-                  padding-bottom: 5px;
                   color: $white;
+                  padding-bottom: 5px;
                 }
               }
 

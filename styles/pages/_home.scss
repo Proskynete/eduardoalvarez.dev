@@ -1,17 +1,17 @@
 .home {
   &__presentation {
-    padding-top: 50px;
     display: flex;
     flex-direction: column;
     padding-bottom: 50px;
+    padding-top: 50px;
 
     @media screen and (min-width: 720px) {
+      align-items: center;
       flex-direction: row;
-      width: 90%;
+      height: max-content;
       margin-left: auto;
       margin-right: auto;
-      align-items: center;
-      height: max-content;
+      width: 90%;
     }
 
     @media screen and (min-width: 1200px) {
@@ -39,9 +39,9 @@
     &__description {
       display: flex;
       flex-direction: column;
-      width: 80%;
       margin-left: auto;
       margin-right: auto;
+      width: 80%;
 
       @media screen and (min-width: 720px) {
         padding-left: 30px;
@@ -54,9 +54,9 @@
 
       &__title {
         font-size: $size-md;
-        text-align: center;
         font-weight: 400;
         margin-bottom: 20px;
+        text-align: center;
 
         @media screen and (min-width: 720px) {
           text-align: left;
@@ -69,9 +69,9 @@
 
       &__text {
         font-family: "Roboto";
-        margin-bottom: 20px;
         font-weight: 400;
         line-height: 1.2;
+        margin-bottom: 20px;
 
         @media screen and (min-width: 1200px) {
           font-size: $size-xs;
@@ -111,11 +111,11 @@
       }
 
       &__subtitle {
-        width: max-content;
         color: $info;
-        text-decoration: none;
-        padding-bottom: 30px;
         font-size: $size-xs;
+        padding-bottom: 30px;
+        text-decoration: none;
+        width: max-content;
 
         &:hover {
           color: $info;
