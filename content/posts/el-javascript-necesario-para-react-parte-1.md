@@ -1,6 +1,6 @@
 ---
 title: 'El Javascript necesario para React - Parte 1'
-description: 'React es una librería desarrollada por Facebook el cual fue creado utilizando el lenguaje de programación Javascript, por este motivo, mientras más aprendamos del lenguaje, más cosas podremos hacer en React, es por eso que hoy vamos a repasar algunos conceptos y funciones que, según mi experiencia, creo que son fundamentales para ser un buen desarrollador de React.'
+description: 'React es una librería desarrollada por Facebook el cual fue creado utilizando el lenguaje de programación JavaScript, por este motivo, mientras más aprendamos del lenguaje, más cosas podremos hacer en React. Es por eso que hoy vamos a revisar algunos conceptos y funciones que, según mi experiencia, son fundamentales para ser un buen desarrollador de React.'
 date: 2021-02-14T01:01:47-03:00
 tags: ['javascript', 'introduction', 'react']
 hero_image: '/images/articles/el-javascript-necesario-para-react/el-javascript-necesario-para-react.png'
@@ -10,7 +10,7 @@ introduction:
   {
     title: 'Introducción',
     anchor: 'introduccion',
-    content: 'Aprendamos el mínimo que debemos saber de **JavaScript** para empezar a crear nuestros primeros proyectos con **React** sin ningún problema. Pero primero... **¿Qué es React?**',
+    content: 'Hoy aprenderemos lo mínimo de **JavaScript** que necesitamos saber para desarrollar aplicaciones en **React** sin problemas. Aprenderemos que es **ECMAScript** y cuales son esas características (_Variables_, _Funciones_, _Destructuring_, _Promesas_, _Operaciones con arrays_, entre otros) que, según mi experiencia, nos ayudarán en este viaje. Pero antes... **¿Qué es React?**',
   }
 sections:
   [
