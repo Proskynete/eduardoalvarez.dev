@@ -3,8 +3,8 @@ title: 'El Javascript necesario para React - Parte 1'
 description: 'React es una librería desarrollada por Facebook el cual fue creado utilizando el lenguaje de programación JavaScript, por este motivo, mientras más aprendamos del lenguaje, más cosas podremos hacer en React. Es por eso que hoy vamos a revisar algunos conceptos y funciones que, según mi experiencia, son fundamentales para ser un buen desarrollador de React.'
 date: 2021-02-14T01:01:47-03:00
 tags: ['javascript', 'introduction', 'react']
-hero_image: '/images/articles/el-javascript-necesario-para-react/el-javascript-necesario-para-react.png'
-thumbnail_image: '/images/articles/el-javascript-necesario-para-react/thumbnail.png'
+hero_image: '/images/articles/el-javascript-necesario-para-react/parte-1/el-javascript-necesario-para-react.png'
+thumbnail_image: '/images/articles/el-javascript-necesario-para-react/parte-1/thumbnail.png'
 with_introduction: true
 introduction:
   {
@@ -40,7 +40,7 @@ En simples palabras, **ECMAScript** o **ECMA** solamente, es el encargado de dar
 
 El 2015 fue una fecha muy importante para el estándar de JavaScript, ya que desde **1999** que no se hacía una nueva revisión a su sintaxis (acá cabe mencionar que en estricto rigor si hubo revisiones del lenguaje, ya que en *2009* sale **ECMAScript 5** y posteriormente, en *2011*, se le agregan pequeños cambios) dando así el nacimiento de **ECMAScrip 6** o **ES6** (para los amigos). Pero ¿Por qué fue tan importante esta nueva versión del lenguaje? Es porque se agregaron una serie de mejoras a su sintaxis, haciendo que fuese mucho más simple programar en JavaScript. Desde entonces hasta la fecha, han salido mejoras al estándar anualmente. A continuación veremos las que, según mi experiencia, debemos conocer como mínimo para no tener problemas al momento de hacer un proyecto.
 
-![ECMAScript y JavaScript](/images/articles/el-javascript-necesario-para-react/es-js.png)
+![ECMAScript y JavaScript](/images/articles/el-javascript-necesario-para-react/parte-1/es-js.png)
 
 <h2 id="variables">Variables</h2>
 
