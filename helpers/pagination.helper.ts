@@ -1,20 +1,7 @@
-interface CustomPaginatedInterface<T> {
-	page: number;
-	limit: number;
-	elements: T[];
-}
-
-export interface PaginateResponseInterface {
-	next: number;
-	previous: number;
-	limit: number;
-	total: number;
-}
-
-interface CustomPaginatedResponseInterface<T> {
-	results: T[];
-	paginate: PaginateResponseInterface;
-}
+import {
+	CustomPaginatedInterface,
+	CustomPaginatedResponseInterface,
+} from 'models/pagination.model';
 
 export const customPaginated = <P>({
 	page,
