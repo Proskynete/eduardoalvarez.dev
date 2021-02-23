@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AlertContext } from 'context/alertContext';
 import { copyTextToClipboard } from 'helpers/copy-to-clipboard.helper';
 import { titleForSocialNetwork } from 'helpers/letters.helper';
+import { CONSTANTS, event } from 'lib/gtag';
 import { ArticleContentInterface } from 'models/index.model';
 import Link from 'next/link';
 import { memo, SyntheticEvent } from 'react';
@@ -27,7 +28,19 @@ const Article = (props: ArticleContentInterface) => {
 
 	const handleCopyUrl = (event: SyntheticEvent) => {
 		copyTextToClipboard(event, urlToShare);
+		handleShareIconsButton(event, 'custom-link');
 		setAlert({ show: true, title: 'Link copiado', variant: 'success' });
+	};
+
+	const handleShareIconsButton = (e: SyntheticEvent, socialMedia: string) => {
+		e.preventDefault();
+
+		event({
+			action: 'SHARE_ARTICLE_LINK',
+			category: CONSTANTS.BUTTON_ACTION.CATEGORY,
+			label: `Track article share button - ${socialMedia}`,
+			value: `Artículo compartido por: ${socialMedia}`,
+		});
 	};
 
 	return (
@@ -74,6 +87,7 @@ const Article = (props: ArticleContentInterface) => {
 									target='_blank'
 									className='article__inner__section__footer__section__share__link'
 									rel='noreferrer noopener'
+									onClick={(e) => handleShareIconsButton(e, 'facebook')}
 								>
 									<FontAwesomeIcon icon={faFacebookF} />
 								</a>
@@ -87,6 +101,7 @@ const Article = (props: ArticleContentInterface) => {
 									target='_blank'
 									className='article__inner__section__footer__section__share__link'
 									rel='noreferrer noopener'
+									onClick={(e) => handleShareIconsButton(e, 'twitter')}
 								>
 									<FontAwesomeIcon icon={faTwitter} />
 								</a>
@@ -98,6 +113,7 @@ const Article = (props: ArticleContentInterface) => {
 									target='_blank'
 									className='article__inner__section__footer__section__share__link'
 									rel='noreferrer noopener'
+									onClick={(e) => handleShareIconsButton(e, 'linkedin')}
 								>
 									<FontAwesomeIcon icon={faLinkedinIn} />
 								</a>
@@ -111,6 +127,7 @@ const Article = (props: ArticleContentInterface) => {
 									className='article__inner__section__footer__section__share__link'
 									target='_blank'
 									rel='noreferrer noopener'
+									onClick={(e) => handleShareIconsButton(e, 'whatsapp')}
 								>
 									<FontAwesomeIcon icon={faWhatsapp} />
 								</a>
