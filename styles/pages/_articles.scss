@@ -13,14 +13,14 @@
       }
 
       &__subtitle {
-        color: $black;
-        font-size: $size-xxs;
-        padding-bottom: 30px;
+        color: $info;
+        font-size: $size-xs;
+        margin-bottom: 30px;
         text-decoration: none;
         width: max-content;
 
         &:hover {
-          color: $black;
+          color: $secondary;
           text-decoration: none;
         }
       }

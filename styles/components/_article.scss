@@ -71,12 +71,12 @@
         margin-top: $margin-xs;
 
         &__title {
-          color: $primary;
+          color: $info;
           font-size: $size-lg;
           margin-bottom: $margin-xs;
 
           &:hover {
-            color: $primary;
+            color: $secondary;
             text-decoration: none;
           }
 
