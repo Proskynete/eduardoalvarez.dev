@@ -2,7 +2,7 @@ import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AlertContext } from 'context/alertContext';
-import { event } from 'lib/gtag';
+import { CONSTANTS, event } from 'lib/gtag';
 import {
 	InputsInterface,
 	TargetElementInterface,
@@ -56,7 +56,7 @@ const Subscribe = () => {
 
 			event({
 				action: 'SUBSCRIBE_ACTION',
-				category: 'ACTION_CALLED',
+				category: CONSTANTS.EVENT_ACTION.CATEGORY,
 				label: 'Track action - subscribe action',
 				value: `Llamar a la función para suscribirse`,
 			});
@@ -86,7 +86,7 @@ const Subscribe = () => {
 		e.preventDefault();
 		event({
 			action: 'CLICK_SUBSCRIBE_BUTTON',
-			category: 'BUTTON_CLICKED',
+			category: CONSTANTS.BUTTON_ACTION.CATEGORY,
 			label: 'Track button - click in the subscribe button',
 			value: `Botón clickeado con el estado desabilitado en ${buttonState.disabled}`,
 		});

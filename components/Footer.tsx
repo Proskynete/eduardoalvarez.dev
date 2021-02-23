@@ -2,7 +2,7 @@ import { faAngleUp, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import config from 'data/config.json';
 import { scrollToTop } from 'helpers/scroll.helper';
-import { event } from 'lib/gtag';
+import { CONSTANTS, event } from 'lib/gtag';
 import dynamic from 'next/dynamic';
 import { memo } from 'react';
 
@@ -13,7 +13,7 @@ const handleScrollToTop = () => {
 	scrollToTop();
 	event({
 		action: 'SCROLL_TO_TOP',
-		category: 'BUTTON_CLICKED',
+		category: CONSTANTS.BUTTON_ACTION.CATEGORY,
 		label: 'Track button - scroll to top',
 		value:
 			'Función que permite hacer un scroll animado hasta el top de la vista',
