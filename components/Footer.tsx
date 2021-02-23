@@ -40,8 +40,8 @@ const Footer = () => {
 					</button>
 					<div className='footer-legals'>
 						<div className='footer-legals-links'>
-							<span className='legal'>Términos</span>
-							<span className='legal'>Políticas</span>
+							{/*<span className='legal'>Términos</span>
+							<span className='legal'>Políticas</span>*/}
 						</div>
 						<p className='made-by'>
 							Creado con <FontAwesomeIcon icon={faHeart} />
