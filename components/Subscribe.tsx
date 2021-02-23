@@ -2,6 +2,7 @@ import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AlertContext } from 'context/alertContext';
+import { event } from 'lib/gtag';
 import {
 	InputsInterface,
 	TargetElementInterface,
@@ -53,6 +54,13 @@ const Subscribe = () => {
 				}),
 			});
 
+			event({
+				action: 'SUBSCRIBE_ACTION',
+				category: 'ACTION_CALLED',
+				label: 'Track action - subscribe action',
+				value: `Llamar a la función para suscribirse`,
+			});
+
 			const { code, error, message } = await res.json();
 
 			setAlert({
@@ -72,6 +80,16 @@ const Subscribe = () => {
 			});
 			setButtonState({ ...buttonState, loading: false });
 		}
+	};
+
+	const handleClickSubmitButton = (e: SyntheticEvent) => {
+		e.preventDefault();
+		event({
+			action: 'CLICK_SUBSCRIBE_BUTTON',
+			category: 'BUTTON_CLICKED',
+			label: 'Track button - click in the subscribe button',
+			value: `Botón clickeado con el estado desabilitado en ${buttonState.disabled}`,
+		});
 	};
 
 	return (
@@ -128,6 +146,7 @@ const Subscribe = () => {
 						type='submit'
 						className='button secondary'
 						disabled={buttonState.disabled}
+						onClick={handleClickSubmitButton}
 					>
 						{buttonState.loading ? (
 							<FontAwesomeIcon icon={faSpinner} spin />
