@@ -68,6 +68,7 @@ const Subscribe = () => {
 				variant: code !== 200 ? 'error' : 'success',
 				title: code !== 200 ? error : message,
 			});
+
 			if (code === 200) setValues(defaultValues);
 
 			setButtonState({ ...buttonState, loading: false });
@@ -82,18 +83,8 @@ const Subscribe = () => {
 		}
 	};
 
-	const handleClickSubmitButton = (e: SyntheticEvent) => {
-		e.preventDefault();
-		event({
-			action: 'CLICK_SUBSCRIBE_BUTTON',
-			category: CONSTANTS.BUTTON_ACTION.CATEGORY,
-			label: 'Track button - click in the subscribe button',
-			value: `Botón clickeado con el estado desabilitado en ${buttonState.disabled}`,
-		});
-	};
-
 	return (
-		<form className='subscribe' onSubmit={(e) => handleSubscribe(e)}>
+		<form className='subscribe' onSubmit={handleSubscribe}>
 			<div className='subscribe-container'>
 				<p className='subscribe-title'>Suscríbete</p>
 				<p className='subscribe-subtitle'>Para novedades, cursos y ofertas.</p>
@@ -146,7 +137,6 @@ const Subscribe = () => {
 						type='submit'
 						className='button secondary'
 						disabled={buttonState.disabled}
-						onClick={handleClickSubmitButton}
 					>
 						{buttonState.loading ? (
 							<FontAwesomeIcon icon={faSpinner} spin />

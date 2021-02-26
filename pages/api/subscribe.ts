@@ -42,9 +42,7 @@ export default async (
 	}
 
 	try {
-		const usersList = await client.lists.getListMembersInfo(
-			process.env.MAILCHIMP_LIST_ID,
-		);
+		const usersList = await client.lists.getListMembersInfo('62e64a93a5');
 
 		if (usersList.members && usersList.members !== []) {
 			if (
@@ -57,7 +55,7 @@ export default async (
 					error: StatusCodeMap.get(420),
 				});
 			} else {
-				await client.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
+				await client.lists.addListMember('62e64a93a5', {
 					email_address: email,
 					status: 'subscribed',
 					tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
@@ -71,7 +69,7 @@ export default async (
 					.json({ code: 200, message: StatusCodeMap.get(200) });
 			}
 		} else {
-			await client.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
+			await client.lists.addListMember('62e64a93a5', {
 				email_address: email,
 				status: 'subscribed',
 				tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
