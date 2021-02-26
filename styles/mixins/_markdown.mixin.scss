@@ -26,6 +26,18 @@
     }
   }
 
+  h4 {
+    font-size: $size-lg;
+    font-family: "Hero";
+    margin-bottom: $margin-xxlg;
+    padding-top: 50px;
+    position: relative;
+
+    @media (min-width: 1200px) {
+      padding-top: $margin-lg;
+    }
+  }
+
   .subtitle {
     color: $info;
     font-family: "Hero";
