@@ -15,8 +15,8 @@
   }
 
   h3 {
-    font-size: $size-xlg;
     font-family: "Hero";
+    font-size: $size-xlg;
     margin-bottom: $margin-xxlg;
     padding-top: 50px;
     position: relative;
@@ -27,8 +27,8 @@
   }
 
   h4 {
-    font-size: $size-lg;
     font-family: "Hero";
+    font-size: $size-lg;
     margin-bottom: $margin-xxlg;
     padding-top: 50px;
     position: relative;
@@ -86,12 +86,12 @@
 
     code {
       background-color: $wild-sand;
-      padding-left: 5px;
-      padding-right: 5px;
       border-radius: 3px;
       color: $primary;
-      font-weight: bolder;
       font-style: italic;
+      font-weight: bolder;
+      padding-left: 5px;
+      padding-right: 5px;
     }
   }
 
@@ -115,13 +115,13 @@
 
       code {
         background-color: $blockquote-code;
-        padding-left: 3px;
-        padding-right: 3px;
         border-radius: 3px;
         color: $primary;
-        font-weight: bolder;
-        font-style: italic;
         display: contents;
+        font-style: italic;
+        font-weight: bolder;
+        padding-left: 3px;
+        padding-right: 3px;
       }
     }
 
@@ -135,7 +135,9 @@
           }
         }
 
-
+        &:last-child {
+          margin-bottom: 0px;
+        }
 
         &::before {
           background-color: $primary;
@@ -144,25 +146,25 @@
           height: 5px;
           left: 0;
           position: absolute;
-          width: 5px;
           top: 5px;
+          width: 5px;
         }
       }
     }
   }
 
   ul {
-    font-weight: 300;
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
+    font-weight: 300;
     height: max-content;
+    margin-top: 20px;
 
     li {
       display: block;
+      line-height: 1.8;
       padding-left: 15px;
       position: relative;
-      line-height: 1.8;
 
       &:last-child {
         margin-bottom: 30px;
@@ -175,8 +177,8 @@
         height: 5px;
         left: 0;
         position: absolute;
-        width: 5px;
         top: 10px;
+        width: 5px;
       }
 
       strong {
@@ -201,12 +203,12 @@
 
       code {
         background-color: $wild-sand;
-        padding-left: 5px;
-        padding-right: 5px;
         border-radius: 3px;
         color: $primary;
-        font-weight: bolder;
         font-style: italic;
+        font-weight: bolder;
+        padding-left: 5px;
+        padding-right: 5px;
       }
     }
   }
