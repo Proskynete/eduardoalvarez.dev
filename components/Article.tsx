@@ -48,11 +48,15 @@ const Article = (props: ArticleContentInterface) => {
 			<div className='article__inner'>
 				<div className='article__inner__section'>
 					<div className='article__inner__section__image'>
-						<img
-							src={thumbnail_image}
-							alt={`Imagen del artículo ${title}`}
-							className='article__inner__section__image__thumbnail'
-						/>
+						<Link href={`/articulos/${encodeURIComponent(slug)}`}>
+							<a>
+								<img
+									src={thumbnail_image}
+									alt={`Imagen del artículo ${title}`}
+									className='article__inner__section__image__thumbnail'
+								/>
+							</a>
+						</Link>
 					</div>
 				</div>
 

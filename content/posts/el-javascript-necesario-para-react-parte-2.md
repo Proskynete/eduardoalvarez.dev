@@ -3,7 +3,7 @@ title: 'El Javascript necesario para React - Parte 2'
 description: 'Hoy continuaremos revisando esas características de JavaScript que no ayudarán al momento de estar desarrollando en 
 React. Revisaremos Funciones, Default Parameters, Rest Parameters y Destructuring. Aprendamos juntos lo que JavaScript tiene 
 para enseñarnos.'
-date: 2021-02-22T20:34:16-03:00
+date: 2021-03-01T13:36:33-03:00
 tags: ['introduction', 'javascript', 'react']
 hero_image: '/images/articles/el-javascript-necesario-para-react/parte-2/el-javascript-necesario-para-react-parte-2.png'
 thumbnail_image: '/images/articles/el-javascript-necesario-para-react/parte-2/thumbnail.png'
