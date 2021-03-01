@@ -15,14 +15,26 @@
   }
 
   h3 {
-    font-size: $size-xlg;
     font-family: "Hero";
+    font-size: $size-xlg;
     margin-bottom: $margin-xxlg;
     padding-top: 50px;
     position: relative;
 
     @media (min-width: 1200px) {
       padding-top: $margin-xlg;
+    }
+  }
+
+  h4 {
+    font-family: "Hero";
+    font-size: $size-lg;
+    margin-bottom: $margin-xxlg;
+    padding-top: 50px;
+    position: relative;
+
+    @media (min-width: 1200px) {
+      padding-top: $margin-lg;
     }
   }
 
@@ -71,16 +83,26 @@
         width: 80%;
       }
     }
+
+    code {
+      background-color: $wild-sand;
+      border-radius: 3px;
+      color: $primary;
+      font-style: italic;
+      font-weight: bolder;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
   }
 
   blockquote {
-    background: #f0db4f;
+    background: $blockquote-color;
     border-radius: 6px;
-    box-shadow: 5px 5px 9px 3px #aaaaaa;
-    color: #2c3435;
+    box-shadow: 5px 5px 9px 3px $grey;
+    color: $blockquote-text;
     margin-bottom: 32px;
     margin-top: 48px;
-    padding: 16px;
+    padding: 16px 16px 25px 16px;
 
     p {
       line-height: 1.2;
@@ -90,25 +112,62 @@
         color: $secondary;
         font-weight: bolder;
       }
+
+      code {
+        background-color: $blockquote-code;
+        border-radius: 3px;
+        color: $primary;
+        display: contents;
+        font-style: italic;
+        font-weight: bolder;
+        padding-left: 3px;
+        padding-right: 3px;
+      }
+    }
+
+    ul {
+      li {
+        line-height: 16px;
+
+        &:not(:first-child) {
+          @media (min-width: 720px) {
+            margin-top: 10px;
+          }
+        }
+
+        &:last-child {
+          margin-bottom: 0px;
+        }
+
+        &::before {
+          background-color: $primary;
+          border-radius: 50%;
+          content: '\f111';
+          height: 5px;
+          left: 0;
+          position: absolute;
+          top: 5px;
+          width: 5px;
+        }
+      }
     }
   }
 
   ul {
+    display: flex;
+    flex-direction: column;
     font-weight: 300;
+    height: max-content;
     margin-top: 20px;
 
     li {
-      align-items: center;
-      display: flex;
+      display: block;
+      line-height: 1.8;
       padding-left: 15px;
       position: relative;
 
-      &:not(:first-child) {
-        margin-top: 15px;
-
-        @media (min-width: 720px) {
-          margin-top: 10px;
-        }
+      &:last-child {
+        margin-bottom: 30px;
       }
 
       &::before {
@@ -118,6 +177,7 @@
         height: 5px;
         left: 0;
         position: absolute;
+        top: 10px;
         width: 5px;
       }
 
@@ -139,6 +199,16 @@
         &:hover {
           text-decoration: none;
         }
+      }
+
+      code {
+        background-color: $wild-sand;
+        border-radius: 3px;
+        color: $primary;
+        font-style: italic;
+        font-weight: bolder;
+        padding-left: 5px;
+        padding-right: 5px;
       }
     }
   }

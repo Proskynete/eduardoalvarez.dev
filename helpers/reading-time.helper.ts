@@ -1,12 +1,12 @@
-export const prettyReadingTime = (reading_time: number): string => {
+export const prettyReadingTime = (readingTime: number): string => {
 	let textResponse: string;
 
-	if (reading_time < 1) {
+	if (readingTime < 1) {
 		textResponse = 'Menos de un minuto';
-	} else if (reading_time === 1) {
-		textResponse = 'Lectura de ~1 minuto';
+	} else if (readingTime === 1) {
+		textResponse = 'Lectura de 1 minuto';
 	} else {
-		textResponse = `Lectura de ~${reading_time} minutos`;
+		textResponse = `Lectura de ${readingTime} minutos`;
 	}
 
 	return textResponse;

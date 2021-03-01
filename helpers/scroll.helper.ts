@@ -5,10 +5,12 @@ import { easeInOutCubic } from './animation.helper';
 export const scrollToTop = (): void => {
 	const current: number =
 		document.documentElement.scrollTop || document.body.scrollTop;
+	const x = 0;
+	const y = current - current / 20;
 
 	if (current > 0) {
 		window.requestAnimationFrame(scrollToTop);
-		window.scrollTo(0, current - current / 20);
+		window.scrollTo(x, y);
 	}
 };
 
@@ -44,11 +46,11 @@ const smoothScroll = (anchor: string, duration: number): void => {
 };
 
 export const toggleClassWhenScrolling = (
-	listOfItems: Array<SectionsInterface>,
+	itemsList: Array<SectionsInterface>,
 ) => {
 	const listOfPositionItems = [];
 
-	listOfItems.forEach((item) => {
+	itemsList.forEach((item) => {
 		const element = document.querySelector(`#${item.anchor}`);
 		listOfPositionItems.push(
 			element.getBoundingClientRect().top + window.scrollY - 30,
@@ -63,14 +65,14 @@ export const toggleClassWhenScrolling = (
 };
 
 export const handleListenerScroll = (
-	arrayOfSections: Array<SectionsInterface>,
+	sectionArray: Array<SectionsInterface>,
 ) => {
-	const listOfPositionItems = toggleClassWhenScrolling(arrayOfSections);
+	const listOfPositionItems = toggleClassWhenScrolling(sectionArray);
 	const currentPosition = window.pageYOffset;
 
-	arrayOfSections.forEach((element, i) => {
+	sectionArray.forEach((ele, i) => {
 		const link = document.querySelector(
-			`#section-navegation a[href='#${element.anchor}']`,
+			`#section-navegation a[href='#${ele.anchor}']`,
 		);
 
 		if (

@@ -5,10 +5,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import matter from 'gray-matter';
 import { calculateReadingTime } from 'helpers/calculate-reading-time.helper';
-import {
-	customPaginated,
-	PaginateResponseInterface,
-} from 'helpers/pagination.helper';
+import { customPaginated } from 'helpers/pagination.helper';
 import { scrollToTop } from 'helpers/scroll.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
 import { nextPagination, previousPagination } from 'lib/pagination';
@@ -21,6 +18,7 @@ import {
 	GetStaticPropsReturnInterface,
 	HomePropsInterface,
 } from 'models/index.model';
+import { PaginateResponseInterface } from 'models/pagination.model';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { memo, SyntheticEvent, useEffect, useState } from 'react';
@@ -39,7 +37,7 @@ const Index = (props: HomePropsInterface) => {
 
 	const { paginate, results } = customPaginated({
 		page: +page || 1,
-		limit: 3,
+		limit: 8,
 		elements: articles,
 	});
 
@@ -132,9 +130,7 @@ const Index = (props: HomePropsInterface) => {
 
 export default memo(Index);
 
-export const getStaticProps = async (): Promise<
-	GetStaticPropsReturnInterface
-> => {
+export const getStaticProps = async (): Promise<GetStaticPropsReturnInterface> => {
 	const siteConfig = await import(`data/config.json`);
 
 	const posts: Array<BlogTemplatePropsInterface> = ((context) => {

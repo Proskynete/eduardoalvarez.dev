@@ -1,21 +1,19 @@
 import moment from 'moment';
 moment.locale('es');
 
-export const getDiffDates = (datetime: string): number => {
+const dateFromNow = (date: string): string => moment(date).fromNow();
+const dateFormated = (date: string): string => moment(date).format('LL');
+
+export const onlyDate = (date: string): string => date.split('T')[0];
+
+export const getDiffDates = (date: string): number => {
 	const today = moment(new Date());
-	const date = moment(datetime);
-	return today.diff(date, 'days');
+	const _date = moment(date);
+	return today.diff(_date, 'days');
 };
 
-const dateFromNow = (datetime: string): string => moment(datetime).fromNow();
-
-const dateFormated = (datetime: string): string =>
-	moment(datetime).format('LL');
-
-export const prettyFormat = (datetime: string): string => {
-	const _diff = getDiffDates(datetime);
-	if (_diff <= 7) return dateFromNow(datetime);
-	return dateFormated(datetime);
+export const prettyFormat = (date: string): string => {
+	const _diff = getDiffDates(date);
+	if (_diff <= 7) return dateFromNow(date);
+	return dateFormated(date);
 };
-
-export const onlyDate = (datetime: string): string => datetime.split('T')[0];

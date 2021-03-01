@@ -2,6 +2,7 @@ import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AlertContext } from 'context/alertContext';
+import { CONSTANTS, event } from 'lib/gtag';
 import {
 	InputsInterface,
 	TargetElementInterface,
@@ -53,6 +54,13 @@ const Subscribe = () => {
 				}),
 			});
 
+			event({
+				action: 'SUBSCRIBE_ACTION',
+				category: CONSTANTS.EVENT_ACTION.CATEGORY,
+				label: 'Track action - subscribe action',
+				value: `Llamar a la función para suscribirse`,
+			});
+
 			const { code, error, message } = await res.json();
 
 			setAlert({
@@ -60,6 +68,7 @@ const Subscribe = () => {
 				variant: code !== 200 ? 'error' : 'success',
 				title: code !== 200 ? error : message,
 			});
+
 			if (code === 200) setValues(defaultValues);
 
 			setButtonState({ ...buttonState, loading: false });
@@ -75,7 +84,7 @@ const Subscribe = () => {
 	};
 
 	return (
-		<form className='subscribe' onSubmit={(e) => handleSubscribe(e)}>
+		<form className='subscribe' onSubmit={handleSubscribe}>
 			<div className='subscribe-container'>
 				<p className='subscribe-title'>Suscríbete</p>
 				<p className='subscribe-subtitle'>Para novedades, cursos y ofertas.</p>
