@@ -1,11 +1,6 @@
-import matter from 'gray-matter';
-import { calculateReadingTime } from 'helpers/calculate-reading-time.helper';
-import { dataSerialized } from 'helpers/serializer.helper';
+import { getPosts } from 'helpers/posts.helper';
 import { postsSortered } from 'helpers/sorter.helper';
-import {
-	BlogTemplatePropsInterface,
-	FrontMatterInterface,
-} from 'models/blogtemplate.model';
+import { BlogTemplatePropsInterface } from 'models/blogtemplate.model';
 import {
 	ArticleContentInterface,
 	GetStaticPropsReturnInterface,
@@ -78,31 +73,9 @@ export default memo(Index);
 export const getStaticProps = async (): Promise<GetStaticPropsReturnInterface> => {
 	const siteConfig = await import(`data/config.json`);
 
-	const posts: BlogTemplatePropsInterface[] = ((context) => {
-		const nameFiles = context.keys();
-		const contentFile = nameFiles.map(context);
-
-		const data = nameFiles.map((nameFile: string, index: number) => {
-			const slug = nameFile
-				.replace(/^.*[\\/]/, '')
-				.split('.')
-				.slice(0, -1)
-				.join('.');
-
-			const content = contentFile[index];
-			const document = matter(content.default);
-			document.data['read_time'] = calculateReadingTime(document.content);
-
-			return {
-				frontmatter: dataSerialized(document.data as FrontMatterInterface),
-				markdownBody: document.content,
-				slug,
-			};
-		});
-
-		return data;
-	})(require['context']('../content/posts', true, /\.md$/));
-
+	const posts: BlogTemplatePropsInterface[] = ((context) => getPosts(context))(
+		require['context']('../../content/posts', true, /\.md$/),
+	);
 	const sortered = postsSortered<BlogTemplatePropsInterface>(posts);
 	const articlesSliced = sortered.slice(0, 3);
 
