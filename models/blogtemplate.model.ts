@@ -39,10 +39,13 @@ export interface FrontMatterInterface {
 	slug?: string;
 }
 
-export interface BlogTemplatePropsInterface {
+export interface BaseBlogInterface {
 	frontmatter: FrontMatterInterface;
 	markdownBody: string;
 	slug: string | Array<string>;
+}
+
+export interface BlogTemplatePropsInterface extends BaseBlogInterface {
 	github_post_url: string;
 	disqusShortName: string;
 }

@@ -3,16 +3,12 @@ import {
 	faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import matter from 'gray-matter';
-import { calculateReadingTime } from 'helpers/calculate-reading-time.helper';
 import { customPaginated } from 'helpers/pagination.helper';
+import { getPosts } from 'helpers/posts.helper';
 import { scrollToTop } from 'helpers/scroll.helper';
-import { dataSerialized } from 'helpers/serializer.helper';
+import { postsSortered } from 'helpers/sorter.helper';
 import { nextPagination, previousPagination } from 'lib/pagination';
-import {
-	BlogTemplatePropsInterface,
-	FrontMatterInterface,
-} from 'models/blogtemplate.model';
+import { BlogTemplatePropsInterface } from 'models/blogtemplate.model';
 import {
 	ArticleContentInterface,
 	GetStaticPropsReturnInterface,
@@ -133,41 +129,14 @@ export default memo(Index);
 export const getStaticProps = async (): Promise<GetStaticPropsReturnInterface> => {
 	const siteConfig = await import(`data/config.json`);
 
-	const posts: Array<BlogTemplatePropsInterface> = ((context) => {
-		const nameFiles = context.keys();
-		const contentFile = nameFiles.map(context);
-
-		const data = nameFiles.map((nameFile: string, index: number) => {
-			const slug = nameFile
-				.replace(/^.*[\\/]/, '')
-				.split('.')
-				.slice(0, -1)
-				.join('.');
-
-			const content = contentFile[index];
-			const document = matter(content.default);
-			document.data['read_time'] = calculateReadingTime(document.content);
-
-			return {
-				frontmatter: dataSerialized(document.data as FrontMatterInterface),
-				markdownBody: document.content,
-				slug,
-			};
-		});
-
-		return data;
-	})(require['context']('../../content/posts', true, /\.md$/));
-
-	const postsSortered = posts.sort((a, b) => {
-		const _a = new Date(a.frontmatter.date);
-		const _b = new Date(b.frontmatter.date);
-
-		return _a > _b ? -1 : _a < _b ? 1 : 0;
-	});
+	const posts: BlogTemplatePropsInterface[] = ((context) => getPosts(context))(
+		require['context']('../../content/posts', true, /\.md$/),
+	);
+	const sortered = postsSortered<BlogTemplatePropsInterface>(posts);
 
 	return {
 		props: {
-			articles: postsSortered,
+			articles: sortered,
 			title: 'Artículos publicados',
 			description: siteConfig.description,
 			image: siteConfig.image,
