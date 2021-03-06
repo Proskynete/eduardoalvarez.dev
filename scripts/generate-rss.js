@@ -28,8 +28,15 @@ const prettier = require('prettier');
 			};
 		});
 
+		const dataSortered = data.sort((a, b) => {
+			const _a = new Date(a.frontmatter.date);
+			const _b = new Date(b.frontmatter.date);
+
+			return _a > _b ? -1 : _a < _b ? 1 : 0;
+		});
+
 		const handlePrintItems = () =>
-			data
+			dataSortered
 				.map(
 					(post) => `
 			<item>

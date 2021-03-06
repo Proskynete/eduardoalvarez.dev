@@ -8,6 +8,7 @@ import { calculateReadingTime } from 'helpers/calculate-reading-time.helper';
 import { customPaginated } from 'helpers/pagination.helper';
 import { scrollToTop } from 'helpers/scroll.helper';
 import { dataSerialized } from 'helpers/serializer.helper';
+import { postsSortered } from 'helpers/sorter.helper';
 import { nextPagination, previousPagination } from 'lib/pagination';
 import {
 	BlogTemplatePropsInterface,
@@ -133,7 +134,7 @@ export default memo(Index);
 export const getStaticProps = async (): Promise<GetStaticPropsReturnInterface> => {
 	const siteConfig = await import(`data/config.json`);
 
-	const posts: Array<BlogTemplatePropsInterface> = ((context) => {
+	const posts: BlogTemplatePropsInterface[] = ((context) => {
 		const nameFiles = context.keys();
 		const contentFile = nameFiles.map(context);
 
@@ -158,16 +159,11 @@ export const getStaticProps = async (): Promise<GetStaticPropsReturnInterface> =
 		return data;
 	})(require['context']('../../content/posts', true, /\.md$/));
 
-	const postsSortered = posts.sort((a, b) => {
-		const _a = new Date(a.frontmatter.date);
-		const _b = new Date(b.frontmatter.date);
-
-		return _a > _b ? -1 : _a < _b ? 1 : 0;
-	});
+	const sortered = postsSortered<BlogTemplatePropsInterface>(posts);
 
 	return {
 		props: {
-			articles: postsSortered,
+			articles: sortered,
 			title: 'Artículos publicados',
 			description: siteConfig.description,
 			image: siteConfig.image,
