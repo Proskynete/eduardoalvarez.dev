@@ -74,7 +74,7 @@ export const getStaticProps = async (): Promise<GetStaticPropsReturnInterface> =
 	const siteConfig = await import(`data/config.json`);
 
 	const posts: BlogTemplatePropsInterface[] = ((context) => getPosts(context))(
-		require['context']('../../content/posts', true, /\.md$/),
+		require['context']('../content/posts', true, /\.md$/),
 	);
 	const sortered = postsSortered<BlogTemplatePropsInterface>(posts);
 	const articlesSliced = sortered.slice(0, 3);
