@@ -108,6 +108,11 @@
           &__item {
             display: flex;
             justify-content: center;
+            box-sizing: border-box;
+
+            @media screen and (min-width: 720px) {
+              height: 31px;
+            }
 
             &__link {
               color: $primary;
