@@ -2,11 +2,22 @@
   height: 80vh;
   width: 100%;
 
+  @media screen and (min-width: 1200px) {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+  }
+
   &__inner {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     height: 100%;
+    justify-content: space-evenly;
+    width: 100%;
+
+    @media screen and (min-width: 720px) {
+      flex-direction: row;
+    }
 
     &__container {
       align-content: center;
@@ -14,9 +25,13 @@
       justify-content: center;
       width: 100%;
 
+      @media screen and (min-width: 720px) {
+        align-items: center;
+      }
+
       &__text {
-        text-align: center;
         font-size: $size-xs;
+        text-align: center;
 
         @media screen and (min-width: 1200px) {
           font-size: $size-md;
@@ -42,9 +57,9 @@
           }
 
           &__link {
-            text-transform: uppercase;
             color: $info;
             text-align: center;
+            text-transform: uppercase;
 
             &:hover {
               color: $secondary;
@@ -58,6 +73,14 @@
 
       &__image {
         max-width: 80%;
+
+        @media screen and (min-width: 720px) {
+          max-width: 70%;
+        }
+
+        @media screen and (min-width: 1200px) {
+          max-width: 90%;
+        }
       }
     }
   }
