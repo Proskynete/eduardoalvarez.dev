@@ -82,36 +82,35 @@ const Nav = (props: PropsInterface) => {
 
 				<section className='nav__inner__menu'>
 					<div
-						className={`nav__inner__menu__bar ${state && 'mobile'}`}
+						className={`nav__inner__menu__bar ${state ? 'mobile' : ''}`}
 						role='presentation'
 						onClick={() => setState(!state)}
 					>
 						<FontAwesomeIcon icon={state ? faTimes : faBars} />
 					</div>
-					<nav className={`nav__inner__menu__content ${state && 'mobile'}`}>
+					<nav className={`nav__inner__menu__content ${state ? 'mobile' : ''}`}>
 						<ul className='nav__inner__menu__content__inner'>
-							{navResources.map(
-								(resource) =>
-									resource.show && (
-										<li
-											key={resource.link}
-											className='nav__inner__menu__content__inner__item'
-										>
-											<Link href={resource.link} passHref>
-												<p
-													role='presentation'
-													onClick={handleRemoveActive}
-													className={`nav__inner__menu__content__inner__item__link ${
-														state && 'mobile'
-													} ${
-														resource.pathsAllowed.includes(path) && 'active'
-													}`}
-												>
-													{resource.title}
-												</p>
-											</Link>
-										</li>
-									),
+							{navResources.map((resource) =>
+								resource.show ? (
+									<li
+										key={resource.link}
+										className='nav__inner__menu__content__inner__item'
+									>
+										<Link href={resource.link} passHref>
+											<p
+												role='presentation'
+												onClick={handleRemoveActive}
+												className={`nav__inner__menu__content__inner__item__link ${
+													state ? 'mobile' : ''
+												} ${
+													resource.pathsAllowed.includes(path) ? 'active' : ''
+												}`}
+											>
+												{resource.title}
+											</p>
+										</Link>
+									</li>
+								) : null,
 							)}
 						</ul>
 					</nav>

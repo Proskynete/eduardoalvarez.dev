@@ -14,7 +14,14 @@ const ProgressBarScrolling = dynamic(
 );
 
 const Layout: FC<PropsInterface> = (props) => {
-	const { customTitle, description, image, slug, children } = props;
+	const {
+		customTitle,
+		description,
+		image,
+		slug,
+		children,
+		footer = true,
+	} = props;
 	const [path, setPath] = useState('');
 	const target = useRef(null);
 	const router = useRouter();
@@ -36,7 +43,7 @@ const Layout: FC<PropsInterface> = (props) => {
 			<main className='container-fluid' ref={target}>
 				<Alert />
 				{children}
-				<Footer />
+				{footer ? <Footer /> : null}
 			</main>
 		</AlertContextProvider>
 	);
