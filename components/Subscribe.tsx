@@ -107,6 +107,7 @@ const Subscribe = () => {
 								value={values.name}
 								onChange={handleChangeInput}
 								required
+								autoComplete='off'
 							/>
 						</div>
 					</div>
@@ -128,6 +129,7 @@ const Subscribe = () => {
 								value={values.email}
 								onChange={handleChangeInput}
 								required
+								autoComplete='off'
 							/>
 						</div>
 					</div>
