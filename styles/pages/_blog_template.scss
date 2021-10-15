@@ -1,59 +1,63 @@
 .article {
-  &__header {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 30px;
-    padding-top: 25px;
+	&__header {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 30px;
+		padding-top: 25px;
 
-    &__title {
-      color: $primary;
-      font-family: "Hero";
-      font-size: $size-xxlg;
-      font-weight: 500;
-      margin-bottom: $margin-xlg;
-    }
+		&__title {
+			color: $primary;
+			font-family: 'Hero';
+			font-size: $size-xxlg;
+			font-weight: 500;
+			margin-bottom: $margin-xlg;
+		}
 
-    &__hero {
-      background-color: $black;
-      border-bottom: $margin-md solid $info;
-      border-left: $margin-xxs solid $info;
-      border-right: $margin-xxs solid $info;
-      border-top: $margin-md solid $info;
-      margin-top: $margin-lg;
-      position: relative;
-      width: 100%;
-    }
-  }
+		&__hero {
+			background-color: $black;
+			border-bottom: $margin-md solid $info;
+			border-left: $margin-xxs solid $info;
+			border-right: $margin-xxs solid $info;
+			border-top: $margin-md solid $info;
+			margin-top: $margin-lg;
+			position: relative;
+			width: 100%;
+		}
+	}
 
-  &__body {
-    padding-top: 30px;
+	&__body {
+		padding-top: 30px;
 
-    &__image {
-      box-shadow: $box-shadow;
-      margin-bottom: $margin-xxlg;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 30px;
-      max-width: 100%;
-      width: 100%;
+		&__image {
+			box-shadow: $box-shadow;
+			margin-bottom: $margin-xxlg;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 30px;
+			max-width: 100%;
+			width: 100%;
 
-      @media (min-width: 1200px) {
-        width: max-content;
-      }
-    }
+			@media (min-width: 1200px) {
+				width: max-content;
+			}
+		}
 
-    &__content {
-      @include markdown-styles;
-    }
-  }
+		&__content {
+			@include markdown-styles;
+		}
+	}
 }
 
 .errata {
-  margin-top: 50px;
-  text-align: center;
+	margin-top: 50px;
+	text-align: center;
 
-  a {
-    color: $secondary;
-    text-decoration: underline;
-  }
+	a {
+		color: $info;
+		text-decoration: underline;
+
+		&:hover {
+			color: $secondary;
+		}
+	}
 }
