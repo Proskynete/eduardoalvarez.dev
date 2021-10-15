@@ -3,9 +3,6 @@
 	"version": "3.1.0",
 	"description": "My personal Web site / Blog",
 	"keywords": [],
-	"engines": {
-		"node": "12.x"
-	},
 	"license": "ISC",
 	"author": "Eduardo Esteban Álvarez Castañeda",
 	"repository": {
@@ -62,7 +59,7 @@
 		"husky": "^4.3.5",
 		"lint-staged": "^10.5.3",
 		"prettier": "^2.2.1",
-		"typescript": "^4.1.2"
+		"typescript": "^4.4.4"
 	},
 	"husky": {
 		"hooks": {
