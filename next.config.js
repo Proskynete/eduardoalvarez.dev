@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+	webpack5: false,
 	sassOptions: {
 		includePaths: [path.join(__dirname, 'styles')],
 	},
@@ -29,5 +30,11 @@ module.exports = {
 		domains: [],
 		path: '/_next/image',
 		loader: 'default',
+	},
+	resolve: {
+		alias: {
+			'react/jsx-dev-runtime': 'react/jsx-dev-runtime.js',
+			'react/jsx-runtime': 'react/jsx-runtime.js',
+		},
 	},
 };
