@@ -6,7 +6,7 @@ import { AuthorGSPInterface, AuthorPropsInterface } from 'models/author';
 import { FrontMatterInterface } from 'models/blogtemplate.model';
 import dynamic from 'next/dynamic';
 import { memo } from 'react';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 
 const Layout = dynamic(() => import('components/Layout'));
 const Say = dynamic(() => import('components/Say'));
@@ -54,7 +54,7 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
 
 								<div className='col-12 col-md-10 col-lg-7'>
 									<div className='article__body__content'>
-										<ReactMarkdown source={markdownBody} escapeHtml={false} />
+										<ReactMarkdown skipHtml>{markdownBody}</ReactMarkdown>
 									</div>
 									<Say
 										variant='primary'

@@ -15,7 +15,7 @@ import { GetStaticPropsContext } from 'next';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { memo, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 
 const Layout = dynamic(() => import('components/Layout'));
 const DisqusComponent = dynamic(() => import('components/DisqusComponent'), {
@@ -123,7 +123,7 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 								) : null}
 
 								<div className='article__body__content'>
-									<ReactMarkdown source={markdownBody} escapeHtml={false} />
+									<ReactMarkdown skipHtml>{markdownBody}</ReactMarkdown>
 								</div>
 							</div>
 						</div>
