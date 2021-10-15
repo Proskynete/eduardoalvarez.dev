@@ -1,228 +1,234 @@
 @mixin markdown-styles {
-  color: $black;
-  font-family: "Roboto";
+	color: $black;
+	font-family: 'Roboto';
 
-  h2 {
-    font-family: "Hero";
-    font-size: $size-xxlg;
-    margin-bottom: $margin-xxlg;
-    padding-top: 70px;
-    position: relative;
+	h2 {
+		font-family: 'Hero';
+		font-size: $size-xxlg;
+		margin-bottom: $margin-xxlg;
+		padding-top: 70px;
+		position: relative;
 
-    @media (min-width: 1200px) {
-      padding-top: $margin-xxlg;
-    }
-  }
+		@media (min-width: 1200px) {
+			padding-top: $margin-xxlg;
+		}
+	}
 
-  h3 {
-    font-family: "Hero";
-    font-size: $size-xlg;
-    margin-bottom: $margin-xxlg;
-    padding-top: 50px;
-    position: relative;
+	h3 {
+		font-family: 'Hero';
+		font-size: $size-xlg;
+		margin-bottom: $margin-xxlg;
+		padding-top: 50px;
+		position: relative;
 
-    @media (min-width: 1200px) {
-      padding-top: $margin-xlg;
-    }
-  }
+		@media (min-width: 1200px) {
+			padding-top: $margin-xlg;
+		}
+	}
 
-  h4 {
-    font-family: "Hero";
-    font-size: $size-lg;
-    margin-bottom: $margin-xxlg;
-    padding-top: 50px;
-    position: relative;
+	h4 {
+		font-family: 'Hero';
+		font-size: $size-lg;
+		margin-bottom: $margin-xxlg;
+		padding-top: 50px;
+		position: relative;
 
-    @media (min-width: 1200px) {
-      padding-top: $margin-lg;
-    }
-  }
+		@media (min-width: 1200px) {
+			padding-top: $margin-lg;
+		}
+	}
 
-  .subtitle {
-    color: $info;
-    font-family: "Hero";
-    font-size: $size-lg;
-    font-weight: 400;
-    line-height: 1;
-    margin-bottom: $margin-xxlg;
-    margin-top: -$margin-xxlg;
-  }
+	.subtitle {
+		color: $info;
+		font-family: 'Hero';
+		font-size: $size-lg;
+		font-weight: 400;
+		line-height: 1;
+		margin-bottom: $margin-xxlg;
+		margin-top: -$margin-xxlg;
+	}
 
-  p {
-    font-weight: 300;
-    line-height: 1.8;
-    margin-bottom: $margin-xxlg;
+	p {
+		font-weight: 300;
+		line-height: 1.8;
+		margin-bottom: $margin-xxlg;
 
-    strong {
-      font-weight: 400;
-    }
+		strong {
+			font-weight: 400;
+		}
 
-    em {
-      font-style: italic;
-    }
+		em {
+			font-style: italic;
+		}
 
-    a {
-      color: $secondary;
-      text-decoration: none;
+		a {
+			color: $info;
+			text-decoration: none;
 
-      &:hover {
-        text-decoration: none;
-      }
-    }
+			&:hover {
+				text-decoration: none;
+				color: $secondary;
+			}
+		}
 
-    img {
-      box-shadow: $box-shadow;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: $margin-hero;
-      max-width: 100%;
+		img {
+			box-shadow: $box-shadow;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: $margin-hero;
+			max-width: 100%;
 
-      @media (min-width: 1200px) {
-        max-width: 80%;
-        width: 80%;
-      }
-    }
+			@media (min-width: 1200px) {
+				max-width: 80%;
+				width: 80%;
+			}
+		}
 
-    code {
-      background-color: $wild-sand;
-      border-radius: 3px;
-      color: $primary;
-      font-style: italic;
-      font-weight: bolder;
-      padding-left: 5px;
-      padding-right: 5px;
-    }
-  }
+		code {
+			background-color: $wild-sand;
+			border-radius: 3px;
+			color: $primary;
+			font-style: italic;
+			font-weight: bolder;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+	}
 
-  blockquote {
-    background: $blockquote-color;
-    border-radius: 6px;
-    box-shadow: 5px 5px 9px 3px $grey;
-    color: $blockquote-text;
-    margin-bottom: 32px;
-    margin-top: 48px;
-    padding: 16px 16px 25px 16px;
+	blockquote {
+		background: $blockquote-color;
+		border-radius: 6px;
+		box-shadow: 5px 5px 9px 3px $grey;
+		color: $blockquote-text;
+		margin-bottom: 32px;
+		margin-top: 48px;
+		padding: 16px 16px 25px 16px;
 
-    p {
-      line-height: 1.2;
-      margin: 0;
+		p {
+			line-height: 1.2;
+			margin: 0;
 
-      a {
-        color: $secondary;
-        font-weight: bolder;
-      }
+			a {
+				color: $info;
+				font-weight: bolder;
 
-      code {
-        background-color: $blockquote-code;
-        border-radius: 3px;
-        color: $primary;
-        display: contents;
-        font-style: italic;
-        font-weight: bolder;
-        padding-left: 3px;
-        padding-right: 3px;
-      }
-    }
+				&:hover {
+					color: $secondary;
+				}
+			}
 
-    ul {
-      li {
-        line-height: 16px;
+			code {
+				background-color: $blockquote-code;
+				border-radius: 3px;
+				color: $primary;
+				display: contents;
+				font-style: italic;
+				font-weight: bolder;
+				padding-left: 3px;
+				padding-right: 3px;
+			}
+		}
 
-        &:not(:first-child) {
-          @media (min-width: 720px) {
-            margin-top: 10px;
-          }
-        }
+		ul {
+			li {
+				line-height: 16px;
 
-        &:last-child {
-          margin-bottom: 0px;
-        }
+				&:not(:first-child) {
+					@media (min-width: 720px) {
+						margin-top: 10px;
+					}
+				}
 
-        &::before {
-          background-color: $primary;
-          border-radius: 50%;
-          content: '\f111';
-          height: 5px;
-          left: 0;
-          position: absolute;
-          top: 5px;
-          width: 5px;
-        }
-      }
-    }
-  }
+				&:last-child {
+					margin-bottom: 0px;
+				}
 
-  ul {
-    display: flex;
-    flex-direction: column;
-    font-weight: 300;
-    height: max-content;
-    margin-top: 20px;
+				&::before {
+					background-color: $primary;
+					border-radius: 50%;
+					content: '\f111';
+					height: 5px;
+					left: 0;
+					position: absolute;
+					top: 5px;
+					width: 5px;
+				}
+			}
+		}
+	}
 
-    li {
-      display: block;
-      line-height: 1.8;
-      padding-left: 15px;
-      position: relative;
+	ul {
+		display: flex;
+		flex-direction: column;
+		font-weight: 300;
+		height: max-content;
+		margin-top: 20px;
 
-      &:last-child {
-        margin-bottom: 30px;
-      }
+		li {
+			display: block;
+			line-height: 1.8;
+			padding-left: 15px;
+			position: relative;
 
-      &::before {
-        background-color: $primary;
-        border-radius: 50%;
-        content: '\f111';
-        height: 5px;
-        left: 0;
-        position: absolute;
-        top: 10px;
-        width: 5px;
-      }
+			&:last-child {
+				margin-bottom: 30px;
+			}
 
-      strong {
-        display: contents;
-        font-weight: 400;
-      }
+			&::before {
+				background-color: $primary;
+				border-radius: 50%;
+				content: '\f111';
+				height: 5px;
+				left: 0;
+				position: absolute;
+				top: 10px;
+				width: 5px;
+			}
 
-      em {
-        display: contents;
-        font-style: italic;
-      }
+			strong {
+				display: contents;
+				font-weight: 400;
+			}
 
-      a {
-        color: $secondary;
-        display: contents;
-        text-decoration: none;
+			em {
+				display: contents;
+				font-style: italic;
+			}
 
-        &:hover {
-          text-decoration: none;
-        }
-      }
+			a {
+				color: $info;
+				display: contents;
+				text-decoration: none;
 
-      code {
-        background-color: $wild-sand;
-        border-radius: 3px;
-        color: $primary;
-        font-style: italic;
-        font-weight: bolder;
-        padding-left: 5px;
-        padding-right: 5px;
-      }
-    }
-  }
+				&:hover {
+					color: $secondary;
+					text-decoration: none;
+				}
+			}
 
-  .custom-content {
-    width: 100%;
+			code {
+				background-color: $wild-sand;
+				border-radius: 3px;
+				color: $primary;
+				font-style: italic;
+				font-weight: bolder;
+				padding-left: 5px;
+				padding-right: 5px;
+			}
+		}
+	}
 
-    img {
-      display: flex;
-      margin-bottom: 30px;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 50px;
-      max-width: 100%;
-    }
-  }
+	.custom-content {
+		width: 100%;
+
+		img {
+			display: flex;
+			margin-bottom: 30px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 50px;
+			max-width: 100%;
+		}
+	}
 }

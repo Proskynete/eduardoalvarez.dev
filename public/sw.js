@@ -29,9 +29,7 @@ self.addEventListener('install', (event) => {
 	event.waitUntil(
 		caches
 			.open(staticCacheName)
-			.then((cache) => {
-				return cache.addAll(assets);
-			})
+			.then((cache) => cache.addAll(assets))
 			.catch((error) => {
 				console.log(error);
 			}),
@@ -56,11 +54,8 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
 	event.respondWith(
-		caches.match(event.request).then((response) => {
-			if (response) {
-				return response;
-			}
-			return fetch(event.request);
-		}),
+		caches
+			.match(event.request)
+			.then((response) => (response ? response : fetch(event.request))),
 	);
 });
