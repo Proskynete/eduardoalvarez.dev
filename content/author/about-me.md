@@ -1,19 +1,19 @@
 ---
-title: 'Autor'
-description: '¿Quién es Eduardo Álvarez y que fue lo que lo motivó a querer compartir sus conocimientos con los demás?'
+title: "Autor"
+description: "¿Quién es Eduardo Álvarez y que fue lo que lo motivó a querer compartir sus conocimientos con los demás?"
 sections:
   [
-    { title: '¿Quién es Eduardo?', anchor: 'quien-es-eduardo' },
-    { title: '¿Cómo inicié?', anchor: 'como-inicie' },
-    { title: 'Primer trabajo', anchor: 'primer-trabajo' },
-    { title: 'Primer despido', anchor: 'primer-despido' },
+    { title: "¿Quién es Eduardo?", anchor: "quien-es-eduardo" },
+    { title: "¿Cómo inicié?", anchor: "como-inicie" },
+    { title: "Primer trabajo", anchor: "primer-trabajo" },
+    { title: "Primer despido", anchor: "primer-despido" },
     {
-      title: 'Un gran salto en mi carrera!',
-      anchor: 'un-gran-salto-en-mi-carrera',
+      title: "Un gran salto en mi carrera!",
+      anchor: "un-gran-salto-en-mi-carrera",
     },
-    { title: 'Mi hoy', anchor: 'mi-hoy' },
-    { title: '¿Solo programación?', anchor: 'solo-programacion' },
-    { title: 'Mi filosofía de vida', anchor: 'filosofia-de-vida' },
+    { title: "Mi hoy", anchor: "mi-hoy" },
+    { title: "¿Solo programación?", anchor: "solo-programacion" },
+    { title: "Mi filosofía de vida", anchor: "filosofia-de-vida" },
   ]
 ---
 
@@ -36,7 +36,7 @@ En el **2012** entré a la universidad Iberoamericana de Ciencias y Tecnología 
 <h2 id="primer-trabajo">Primer trabajo</h2>
 <p class="subtitle">Mi tercer "Hola Mundo"</p>
 
-Una vez que salí de la IBERO me puse a trabajar como electricista mientras seguía estudiando tecnologías web, pero esta vez no solamente con **_CódigoFacilito_** si no que también con <a href="https://platzi.com/" target="_blank" rel="noopener noreferrer">Platzi</a> (en ese entonces, aún se llamaban **mejorandolaweb**), hasta que llegó el día en que recibí la triste noticia... sería despedido dentro de 30 días más. Fué en ese momento cuando tomé la decisión de que no quería seguir trabajando en nada que no fuese programación, pero no tenía ni título ni portafolio donde mostrar mis conocimientos y así fue como rendí unos exámenes en **_Platzi_** los cuales fueron: **Programación Básica**, **JavaScript y jQuery**, **Responsive Design**, **Git y Github** y **HTML5 y CSS3**. Con esos certificados en mano me puse a buscar trabajo como desarrollador y para mi fortuna, en menos de los 30 días ya había encontrado un trabajo como **_Ayudante desarrollador web_** en una startup llamada <a href="https://quierosushi.cl/" target="_blank" rel="noopener noreferrer">Quierosushi</a> trabajando con tecnologías como **PHP** (_Codeigniter_), **jQuery** y **Bootstrap v3.3.7**.
+Una vez que salí de la IBERO me puse a trabajar como electricista mientras seguía estudiando tecnologías web, pero esta vez no solamente con **_CódigoFacilito_** si no que también con <a href="https://platzi.com" target="_blank" rel="noopener noreferrer">Platzi</a> (en ese entonces, aún se llamaban **mejorandolaweb**), hasta que llegó el día en que recibí la triste noticia... sería despedido dentro de 30 días más. Fué en ese momento cuando tomé la decisión de que no quería seguir trabajando en nada que no fuese programación, pero no tenía ni título ni portafolio donde mostrar mis conocimientos y así fue como rendí unos exámenes en **_Platzi_** los cuales fueron: **Programación Básica**, **JavaScript y jQuery**, **Responsive Design**, **Git y Github** y **HTML5 y CSS3**. Con esos certificados en mano me puse a buscar trabajo como desarrollador y para mi fortuna, en menos de los 30 días ya había encontrado un trabajo como **_Ayudante desarrollador web_** en una startup llamada <a href="https://quierosushi.cl/" target="_blank" rel="noopener noreferrer">Quierosushi</a> trabajando con tecnologías como **PHP** (_Codeigniter_), **jQuery** y **Bootstrap v3.3.7**.
 
 <h2 id="primer-despido">Primer despido</h2>
 <p class="subtitle">... aunque no todo es tan malo</p>

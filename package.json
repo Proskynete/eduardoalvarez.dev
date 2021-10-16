@@ -37,8 +37,10 @@
     "@mailchimp/mailchimp_marketing": "^3.0.25",
     "bootstrap": "^4.5.3",
     "disqus-react": "^1.0.10",
+    "glob": "^7.2.0",
     "gray-matter": "^4.0.2",
     "highlight.js": "^10.4.1",
+    "lazysizes": "^5.3.2",
     "moment": "^2.29.1",
     "next": "^11.1.2",
     "raw-loader": "^4.0.2",
@@ -46,7 +48,8 @@
     "react-dom": "^17.0.2",
     "react-markdown": "^4.3.1",
     "sass": "^1.30.0",
-    "swr": "^0.3.9"
+    "swr": "^0.3.9",
+    "xml2json": "^0.12.0"
   },
   "devDependencies": {
     "@prettier/plugin-xml": "^0.12.0",
@@ -54,6 +57,7 @@
     "@types/gtag.js": "0.0.3",
     "@types/node": "^14.14.11",
     "@types/react": "^16.14.2",
+    "@types/xml2json": "^0.11.4",
     "@zeit/next-css": "^1.0.1",
     "globby": "^11.0.1",
     "typescript": "^4.4.4"
