@@ -15,7 +15,11 @@ const Say = (props: SayInterface) => {
 				<p className='say__container__title' data-type={variant || 'primary'}>
 					{title}
 				</p>
-				<ReactMarkdown source={content} className='say__container__content' />
+				<ReactMarkdown
+					escapeHtml={false}
+					source={content}
+					className='say__container__content'
+				/>
 			</div>
 		</aside>
 	);

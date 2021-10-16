@@ -2,7 +2,7 @@ import Layout from 'components/Layout';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const Custom404 = () => {
+const Custom404 = (): JSX.Element => {
 	const { asPath } = useRouter();
 
 	return (
