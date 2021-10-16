@@ -54,7 +54,7 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
 
 								<div className='col-12 col-md-10 col-lg-7'>
 									<div className='article__body__content'>
-										<ReactMarkdown skipHtml>{markdownBody}</ReactMarkdown>
+										<ReactMarkdown escapeHtml={false} source={markdownBody} />
 									</div>
 									<Say
 										variant='primary'

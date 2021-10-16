@@ -26,13 +26,8 @@ const Say = dynamic(() => import('components/Say'));
 const TableOfSections = dynamic(() => import('components/TableOfSections'));
 
 const BlogTemplate = (props: BlogTemplatePropsInterface) => {
-	const {
-		frontmatter,
-		markdownBody,
-		slug,
-		github_post_url,
-		disqusShortName,
-	} = props;
+	const { frontmatter, markdownBody, slug, github_post_url, disqusShortName } =
+		props;
 	const {
 		date,
 		description,
@@ -123,7 +118,7 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
 								) : null}
 
 								<div className='article__body__content'>
-									<ReactMarkdown skipHtml>{markdownBody}</ReactMarkdown>
+									<ReactMarkdown escapeHtml={false} source={markdownBody} />
 								</div>
 							</div>
 						</div>
@@ -179,17 +174,18 @@ export const getStaticProps = async (
 	};
 };
 
-export const getStaticPaths = async (): Promise<GetStaticPathsResponseInterface> => {
-	const blogs = glob.sync('content/posts/**/*.md');
+export const getStaticPaths =
+	async (): Promise<GetStaticPathsResponseInterface> => {
+		const blogs = glob.sync('content/posts/**/*.md');
 
-	const blogSlugs = blogs.map((file: string) =>
-		file.split('/')[2].replace(/ /g, '-').slice(0, -3).trim(),
-	);
+		const blogSlugs = blogs.map((file: string) =>
+			file.split('/')[2].replace(/ /g, '-').slice(0, -3).trim(),
+		);
 
-	const paths = blogSlugs.map((slug: string) => `/articulos/${slug}`);
+		const paths = blogSlugs.map((slug: string) => `/articulos/${slug}`);
 
-	return {
-		paths,
-		fallback: false,
+		return {
+			paths,
+			fallback: false,
+		};
 	};
-};

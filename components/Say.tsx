@@ -15,9 +15,7 @@ const Say = (props: SayInterface) => {
 				<p className='say__container__title' data-type={variant || 'primary'}>
 					{title}
 				</p>
-				<ReactMarkdown skipHtml className='say__container__content'>
-					{content}
-				</ReactMarkdown>
+				<ReactMarkdown escapeHtml={false} source={content} />
 			</div>
 		</aside>
 	);
