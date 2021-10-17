@@ -30,6 +30,7 @@ const Custom404 = (): JSX.Element => {
                 data-sizes="auto"
                 data-src="/images/404/error.png"
                 alt="Error"
+                loading="lazy"
                 className="lazyload"
               />
             </div>

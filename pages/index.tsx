@@ -32,6 +32,7 @@ const Index = (props: HomePropsInterface) => {
                   data-sizes="auto"
                   data-src="/images/me/eduardo_alvarez.png"
                   alt="Imagen de Eduardo Álvarez"
+                  loading="lazy"
                   className="home__presentation__image__img lazyload"
                 />
               </div>

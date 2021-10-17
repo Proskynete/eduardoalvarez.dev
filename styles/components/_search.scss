@@ -1,3 +1,11 @@
+.container__search {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
 .search {
   position: relative;
 

@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
 
-    @media screen and (min-width: 720px) {
+    @media screen and (min-width: 768px) {
       flex-direction: row;
       justify-content: space-evenly;
     }
@@ -30,7 +30,7 @@
       &:first-child {
         display: flex;
 
-        @media screen and (min-width: 720px) {
+        @media screen and (min-width: 768px) {
           align-items: center;
           background: transparent;
           border: 1px solid $primary;
@@ -55,7 +55,7 @@
       }
 
       &:last-child {
-        @media screen and (min-width: 720px) {
+        @media screen and (min-width: 768px) {
           display: flex;
           flex-direction: column;
           height: 250px;
@@ -104,7 +104,7 @@
       }
 
       &__footer {
-        @media screen and (min-width: 720px) {
+        @media screen and (min-width: 768px) {
           align-items: center;
           display: flex;
           justify-content: space-between;
@@ -114,7 +114,7 @@
           display: flex;
           justify-content: center;
 
-          @media screen and (min-width: 720px) {
+          @media screen and (min-width: 768px) {
             justify-content: flex-start;
             width: 50%;
           }
@@ -124,7 +124,7 @@
             margin-bottom: 20px;
             padding: 5px;
 
-            @media screen and (min-width: 720px) {
+            @media screen and (min-width: 768px) {
               border: none;
               margin-bottom: 0;
               padding: 0;
@@ -153,7 +153,7 @@
             margin-right: auto;
             width: 80%;
 
-            @media screen and (min-width: 720px) {
+            @media screen and (min-width: 768px) {
               justify-content: flex-end;
               margin-left: 0;
               margin-right: 0;
@@ -165,7 +165,7 @@
             cursor: pointer;
             font-size: 20px;
 
-            @media screen and (min-width: 720px) {
+            @media screen and (min-width: 768px) {
               &:not(:first-child) {
                 margin-left: 20px;
               }
