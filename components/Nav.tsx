@@ -1,53 +1,11 @@
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MenuLinkInterface } from "models/menu";
-import Link from "next/link";
+import { InstantSearch } from "react-instantsearch-dom";
 import { memo, useState } from "react";
-
-const navResources: MenuLinkInterface[] = [
-  {
-    link: "/",
-    pathsAllowed: ["/"],
-    title: "Inicio",
-    show: true,
-  },
-  {
-    link: "/articulos",
-    pathsAllowed: ["/articulos", "/articulos/[slug]"],
-    title: "Artículos",
-    show: true,
-  },
-  {
-    link: "/recursos",
-    pathsAllowed: ["/recursos"],
-    title: "Recursos",
-    show: false,
-  },
-  {
-    link: "/autor",
-    pathsAllowed: ["/autor"],
-    title: "Autor",
-    show: true,
-  },
-  {
-    link: "/cursos",
-    pathsAllowed: ["/cursos"],
-    title: "Cursos",
-    show: false,
-  },
-  {
-    link: "/glosario",
-    pathsAllowed: ["/glosario"],
-    title: "Glosario",
-    show: false,
-  },
-  {
-    link: "/podcats",
-    pathsAllowed: ["/podcats"],
-    title: "Podcasts",
-    show: false,
-  },
-];
+import { navResources } from "data/routes";
+import { SearchComponentConnected } from "./SearchComponent";
+import algoliasearch from "algoliasearch";
+import Link from "next/link";
 
 interface PropsInterface {
   path: string;
@@ -56,6 +14,11 @@ interface PropsInterface {
 const Nav = (props: PropsInterface) => {
   const [state, setState] = useState(false);
   const { path } = props;
+
+  const client = algoliasearch(
+    process.env.ALGOLIA_APPICATION_ID,
+    process.env.ALGOLIA_ADMIN_API_KEY
+  );
 
   const handleRemoveActive = () => {
     document
@@ -91,6 +54,15 @@ const Nav = (props: PropsInterface) => {
           </div>
           <nav className={`nav__inner__menu__content ${state ? "mobile" : ""}`}>
             <ul className="nav__inner__menu__content__inner">
+              <div>
+                <InstantSearch
+                  indexName={process.env.ALGOLIA_INDEX_NAME}
+                  searchClient={client}
+                >
+                  <SearchComponentConnected />
+                </InstantSearch>
+              </div>
+
               {navResources.map((resource) =>
                 resource.show ? (
                   <li

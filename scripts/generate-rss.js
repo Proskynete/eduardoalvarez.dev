@@ -6,7 +6,7 @@ const prettier = require("prettier");
 
 (async () => {
   try {
-    console.time("Archivo RSS creado en");
+    console.time("RSS");
     console.log("Creando archivo RSS...");
     const nameFiles = await globby(["content/posts/*.md"]);
     const prettierConfig = await prettier.resolveConfig("../.pretierrc");
@@ -72,7 +72,7 @@ const prettier = require("prettier");
     });
 
     fs.writeFileSync("public/rss.xml", formatted);
-    console.timeEnd("Archivo RSS creado en");
+    console.timeEnd("RSS");
   } catch (error) {
     console.log("Error al crear el RSS");
     console.error(error);
