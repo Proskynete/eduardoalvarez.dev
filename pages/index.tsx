@@ -14,10 +14,15 @@ const Article = dynamic(() => import("components/Article"));
 const Layout = dynamic(() => import("components/Layout"));
 
 const Index = (props: HomePropsInterface) => {
-  const { title, description, image, articles } = props;
+  const { title, description, image, articles, algolia } = props;
 
   return (
-    <Layout customTitle={title} description={description} image={image}>
+    <Layout
+      customTitle={title}
+      description={description}
+      image={image}
+      algolia={algolia}
+    >
       <div className="home">
         <div className="row">
           <div className="col-12">
@@ -86,6 +91,11 @@ export const getStaticProps =
         title: siteConfig.title,
         description: siteConfig.description,
         image: siteConfig.image,
+        algolia: {
+          app_id: process.env.ALGOLIA_APPICATION_ID,
+          api_key: process.env.ALGOLIA_ADMIN_API_KEY,
+          index_name: process.env.ALGOLIA_INDEX_NAME,
+        },
       },
     };
   };
