@@ -6,19 +6,20 @@ import { navResources } from "data/routes";
 import { SearchComponentConnected } from "./SearchComponent";
 import algoliasearch from "algoliasearch";
 import Link from "next/link";
+import { IAlgolia } from "models/index.model";
 
 interface PropsInterface {
   path: string;
+  algolia?: IAlgolia;
 }
 
 const Nav = (props: PropsInterface) => {
   const [state, setState] = useState(false);
-  const { path } = props;
+  const { path, algolia } = props;
 
-  const client = algoliasearch(
-    process.env.ALGOLIA_APPICATION_ID,
-    process.env.ALGOLIA_ADMIN_API_KEY
-  );
+  const client = algolia
+    ? algoliasearch(algolia.app_id, algolia.api_key)
+    : undefined;
 
   const handleRemoveActive = () => {
     document
@@ -54,14 +55,16 @@ const Nav = (props: PropsInterface) => {
           </div>
           <nav className={`nav__inner__menu__content ${state ? "mobile" : ""}`}>
             <ul className="nav__inner__menu__content__inner">
-              <div>
-                <InstantSearch
-                  indexName={process.env.ALGOLIA_INDEX_NAME}
-                  searchClient={client}
-                >
-                  <SearchComponentConnected />
-                </InstantSearch>
-              </div>
+              {algolia && client && (
+                <div>
+                  <InstantSearch
+                    indexName={algolia.index_name}
+                    searchClient={client}
+                  >
+                    <SearchComponentConnected />
+                  </InstantSearch>
+                </div>
+              )}
 
               {navResources.map((resource) =>
                 resource.show ? (

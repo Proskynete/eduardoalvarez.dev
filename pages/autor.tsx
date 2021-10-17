@@ -13,7 +13,7 @@ const Say = dynamic(() => import("components/Say"));
 const TableOfSections = dynamic(() => import("components/TableOfSections"));
 
 const BlogTemplate = (props: AuthorPropsInterface) => {
-  const { markdownBody, github_post_url, frontmatter } = props;
+  const { markdownBody, github_post_url, frontmatter, algolia } = props;
   const { title, description, sections } = frontmatter;
 
   return (
@@ -22,6 +22,7 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
       description={description}
       image="/"
       slug={title.toLocaleLowerCase()}
+      algolia={algolia}
     >
       <div className="author">
         <div className="row">
@@ -106,6 +107,11 @@ export const getStaticProps = async (): Promise<AuthorGSPInterface> => {
       github_post_url: `https://github.com/Proskynete/blog/blob/master/content/author/about-me.md`,
       frontmatter: dataSerialized(data.data as FrontMatterInterface),
       markdownBody: data.content,
+      algolia: {
+        app_id: process.env.ALGOLIA_APPICATION_ID,
+        api_key: process.env.ALGOLIA_ADMIN_API_KEY,
+        index_name: process.env.ALGOLIA_INDEX_NAME,
+      },
     },
   };
 };
