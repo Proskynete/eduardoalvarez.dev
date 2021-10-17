@@ -1,26 +1,27 @@
-@import './mixins/markdown.mixin';
+@import "./mixins/markdown.mixin";
 
-@import './components/alert';
-@import './components/article';
-@import './components/disqus_component';
-@import './components/footer';
-@import './components/info_article';
-@import './components/label';
-@import './components/nav';
-@import './components/progress_bar_scrolling';
-@import './components/say.component';
-@import './components/social_networks';
-@import './components/subscribe';
-@import './components/table_of_sections';
+@import "./components/alert";
+@import "./components/article";
+@import "./components/disqus_component";
+@import "./components/footer";
+@import "./components/info_article";
+@import "./components/label";
+@import "./components/nav";
+@import "./components/progress_bar_scrolling";
+@import "./components/say.component";
+@import "./components/search";
+@import "./components/social_networks";
+@import "./components/subscribe";
+@import "./components/table_of_sections";
 
-@import './pages/articles';
-@import './pages/articles_index';
-@import './pages/author';
-@import './pages/blog_template';
-@import './pages/home';
-@import './pages/404';
+@import "./pages/404";
+@import "./pages/articles_index";
+@import "./pages/articles";
+@import "./pages/author";
+@import "./pages/blog_template";
+@import "./pages/home";
 
-@import './highlight';
+@import "./highlight";
 
 body {
   font-family: "Hero";
@@ -99,6 +100,6 @@ input[type="text"] {
     background-color: $grey;
     border-color: $grey;
     color: $black;
-    opacity: .65;
+    opacity: 0.65;
   }
 }

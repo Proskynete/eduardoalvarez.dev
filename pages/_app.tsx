@@ -1,15 +1,15 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "styles/globals.scss";
 import "lazysizes";
 import "lazysizes/plugins/parent-fit/ls.parent-fit";
+import "styles/globals.scss";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
-import * as gtag from "lib/gtag";
 import { GTMPageView } from "lib/gtm";
-import type { AppProps } from "next/app";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
+import * as gtag from "lib/gtag";
+import type { AppProps } from "next/app";
 
 config.autoAddCss = false;
 
