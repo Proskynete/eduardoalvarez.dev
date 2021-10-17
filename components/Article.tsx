@@ -54,6 +54,7 @@ const Article = (props: ArticleContentInterface) => {
                   data-sizes="auto"
                   data-src={thumbnail_image}
                   alt={`Imagen del artículo ${title}`}
+                  loading="lazy"
                   className="article__inner__section__image__thumbnail lazyload"
                 />
               </a>

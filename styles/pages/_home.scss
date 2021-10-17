@@ -5,7 +5,7 @@
     padding-bottom: 50px;
     padding-top: 50px;
 
-    @media screen and (min-width: 720px) {
+    @media screen and (min-width: 768px) {
       align-items: center;
       flex-direction: row;
       height: max-content;
@@ -23,14 +23,14 @@
       margin-right: auto;
       padding-bottom: 20px;
 
-      @media screen and (min-width: 720px) {
+      @media screen and (min-width: 768px) {
         padding-bottom: 0;
       }
 
       &__img {
         width: 200px;
 
-        @media screen and (min-width: 720px) {
+        @media screen and (min-width: 768px) {
           width: 300px;
         }
       }
@@ -43,7 +43,7 @@
       margin-right: auto;
       width: 80%;
 
-      @media screen and (min-width: 720px) {
+      @media screen and (min-width: 768px) {
         padding-left: 30px;
         width: 100%;
       }
@@ -58,7 +58,7 @@
         margin-bottom: 20px;
         text-align: center;
 
-        @media screen and (min-width: 720px) {
+        @media screen and (min-width: 768px) {
           text-align: left;
         }
 

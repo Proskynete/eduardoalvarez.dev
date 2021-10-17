@@ -12,6 +12,7 @@ const Say = (props: SayInterface) => {
           data-sizes="auto"
           data-src="/images/isotipo/isotipo-blue.png"
           alt="isotipo"
+          loading="lazy"
           className="lazyload"
         />
       </div>

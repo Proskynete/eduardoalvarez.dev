@@ -67,12 +67,14 @@ const Footer = () => {
               data-sizes="auto"
               data-src="/images/logo/black.png"
               alt="logotipo"
+              loading="lazy"
               className="small lazyload"
             />
             <img
               data-sizes="auto"
               data-src="/images/logo/black2.png"
               alt="logotipo"
+              loading="lazy"
               className="medium lazyload"
             />
             <p>Copyright &copy; 2017 - {currentYear}</p>

@@ -1,7 +1,7 @@
 .say {
   padding-top: 70px;
 
-  @media screen and (min-width: 720px) {
+  @media screen and (min-width: 768px) {
     display: flex;
     width: 100%;
   }
@@ -17,7 +17,7 @@
     padding-bottom: 30px;
     width: 100px;
 
-    @media screen and (min-width: 720px) {
+    @media screen and (min-width: 768px) {
       margin-left: 0;
       margin-right: 0;
       width: 130px;
@@ -56,13 +56,13 @@
       }
     }
 
-    @media screen and (min-width: 720px) {
+    @media screen and (min-width: 768px) {
       margin-left: 50px;
       width: 80%;
     }
 
     &::after {
-      content: '';
+      content: "";
       height: 50px;
       left: 42%;
       position: absolute;
@@ -71,7 +71,7 @@
       width: 50px;
       z-index: -1;
 
-      @media screen and (min-width: 720px) {
+      @media screen and (min-width: 768px) {
         left: -15px;
         top: 30%;
       }
@@ -85,7 +85,7 @@
       padding-top: 20px;
       text-align: center;
 
-      @media screen and (min-width: 720px) {
+      @media screen and (min-width: 768px) {
         font-size: $size-xxlg;
         padding-left: 40px;
         text-align: left;
@@ -119,7 +119,7 @@
           }
         }
 
-        @media screen and (min-width: 720px) {
+        @media screen and (min-width: 768px) {
           font-size: $size-xs;
           padding-left: 40px;
         }
@@ -127,8 +127,6 @@
         @media screen and (min-width: 1200px) {
           padding-bottom: 30px;
         }
-
-
       }
     }
 

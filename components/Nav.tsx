@@ -39,6 +39,7 @@ const Nav = (props: PropsInterface) => {
                 data-sizes="auto"
                 data-src="/images/logo/logo.png"
                 alt="logo"
+                loading="lazy"
                 className="nav__inner__logo__img lazyload"
               />
             </a>
@@ -56,7 +57,7 @@ const Nav = (props: PropsInterface) => {
           <nav className={`nav__inner__menu__content ${state ? "mobile" : ""}`}>
             <ul className="nav__inner__menu__content__inner">
               {algolia && client && (
-                <div>
+                <div className="container__search">
                   <InstantSearch
                     indexName={algolia.index_name}
                     searchClient={client}

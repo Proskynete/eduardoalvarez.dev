@@ -40,6 +40,7 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
                     data-sizes="auto"
                     data-src="/images/isotipo/isotipo-white.png"
                     alt={title}
+                    loading="lazy"
                     className="lazyload"
                   />
                 </div>
