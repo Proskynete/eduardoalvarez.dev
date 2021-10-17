@@ -2,7 +2,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Autocomplete from "downshift";
 import { useRouter } from "next/router";
-import { connectAutoComplete } from "react-instantsearch-dom";
+import { connectAutoComplete, Highlight } from "react-instantsearch-dom";
 
 const SearchComponent = ({ refine, hits }) => {
   const router = useRouter();
@@ -47,10 +47,19 @@ const SearchComponent = ({ refine, hits }) => {
                     index,
                   })}
                 >
-                  <h3 className="search__hits__item__title">{item.title}</h3>
-                  <p className="search__hits__item__description">
-                    {item.description}
-                  </p>
+                  <Highlight
+                    attribute="title"
+                    hit={item}
+                    tagName="mark"
+                    className="search__hits__item__title"
+                  />
+
+                  <Highlight
+                    attribute="description"
+                    hit={item}
+                    tagName="mark"
+                    className="search__hits__item__description"
+                  />
                 </div>
               ))}
             </div>

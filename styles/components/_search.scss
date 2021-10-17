@@ -21,11 +21,11 @@
 
     &__input {
       border: 1px solid $grey !important;
-      padding-left: 35px !important;
-      padding-right: 10px !important;
       color: $grey !important;
       font-size: 16px;
       font-weight: 300;
+      padding-left: 35px !important;
+      padding-right: 10px !important;
 
       &:focus {
         border-color: $glacier !important;
@@ -44,32 +44,44 @@
     border-top: 0;
 
     &__item {
-      padding: 10px;
-      color: $fiord;
-      cursor: pointer;
       border-radius: 5px;
       border: 1px solid transparent;
+      color: $fiord;
+      cursor: pointer;
+      padding: 10px;
 
       &--hover {
-        border-color: $mandy;
+        border-color: $fiord;
       }
 
       &__title {
-        margin-bottom: 8px;
         font-size: 14px;
         font-weight: 400;
+
+        mark {
+          background-color: $wild-sand;
+          border-radius: 3px;
+          color: $mandy;
+        }
       }
 
       &__description {
-        font-size: 14px;
+        display: -webkit-box;
         font-family: "Roboto";
+        font-size: 14px;
         font-weight: 300;
-
+        margin-top: 8px;
         overflow: hidden;
         text-overflow: ellipsis;
-        display: -webkit-box;
+
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 3;
+
+        mark {
+          background-color: $wild-sand;
+          border-radius: 3px;
+          color: $mandy;
+        }
       }
     }
   }
