@@ -29,7 +29,7 @@ export type PrettyTagsEnum =
 export interface FrontMatterInterface {
   title?: string;
   description?: string;
-  date?: string;
+  date?: Date;
   tags?: Array<TagsEnum>;
   read_time?: number;
   hero_image?: string;

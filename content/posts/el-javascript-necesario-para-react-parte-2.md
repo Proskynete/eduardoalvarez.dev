@@ -51,8 +51,8 @@ ya que escribiremos nuestra función una única vez y la llamaremos cada vez que
 
 ```javascript
 function pitagoras(a, b) {
- const catetos = Math.pow(a, 2) + Math.pow(b, 2);
- return Math.sqrt(catetos);
+  const catetos = Math.pow(a, 2) + Math.pow(b, 2);
+  return Math.sqrt(catetos);
 }
 
 console.log(pitagoras(3, 4)); // Output: 5
@@ -60,8 +60,8 @@ console.log(pitagoras(3, 4)); // Output: 5
 
 ```javascript
 const pitagoras = function (a, b) {
- const catetos = Math.pow(a, 2) + Math.pow(b, 2);
- return Math.sqrt(catetos);
+  const catetos = Math.pow(a, 2) + Math.pow(b, 2);
+  return Math.sqrt(catetos);
 };
 
 console.log(pitagoras(3, 4)); // Output: 5
@@ -84,8 +84,8 @@ ahora escrita con flecha.
 
 ```javascript
 (a, b) => {
- const catetos = Math.pow(a, 2) + Math.pow(b, 2);
- return Math.sqrt(catetos);
+  const catetos = Math.pow(a, 2) + Math.pow(b, 2);
+  return Math.sqrt(catetos);
 };
 ```
 
@@ -94,8 +94,8 @@ solo tenemos una opción:
 
 ```javascript
 const pitagoras = (a, b) => {
- const catetos = Math.pow(a, 2) + Math.pow(b, 2);
- return Math.sqrt(catetos);
+  const catetos = Math.pow(a, 2) + Math.pow(b, 2);
+  return Math.sqrt(catetos);
 };
 
 console.log(pitagoras(3, 4)); // Output: 5
@@ -111,21 +111,21 @@ Esta característica es una de las que más me gusta, ya que si el resultado dep
 y sin las llaves.
 
 ```javascript
-const saludo = (nombre) => 'Hola 👋 mi nombre es: ' + nombre;
+const saludo = (nombre) => "Hola 👋 mi nombre es: " + nombre;
 
-console.log(saludo('Logan')); // Output: Hola 👋 mi nombre es: Logan
+console.log(saludo("Logan")); // Output: Hola 👋 mi nombre es: Logan
 ```
 
 <h4>Fuera paréntesis 😮</h4>
 
 Cuando tengamos una función que recibe solo un parámetro, podemos escribir la función flecha sin los paréntesis, dejando solo el
 parámetro y la flecha. (👀 esto solo aplica si la función recibe únicamente un parámetro, fuera de eso, ya es obligación colocar
-los paréntesis  como siempre lo hemos hecho).
+los paréntesis como siempre lo hemos hecho).
 
 ```javascript
-const saludo = nombre => `Hola 👋 mi nombre es ${nombre}`;
+const saludo = (nombre) => `Hola 👋 mi nombre es ${nombre}`;
 
-console.log(saludo('Logan')); // Output: Hola 👋 mi nombre es Logan
+console.log(saludo("Logan")); // Output: Hola 👋 mi nombre es Logan
 ```
 
 Para que quede un poco más claro, vamos a revisar un ejemplo donde iremos trasnformando una función tradicional a una escrita con
@@ -135,18 +135,18 @@ Arrow function.
 // funcion tradicional
 const sumarCien = function (numero) {
   return numero + 100;
-}
+};
 
-// funcion flecha 
+// funcion flecha
 const sumarCien = (numero) => {
   return numero + 100;
-}
+};
 
 // eliminamos la palabra return y con esto, las llaves
 const sumarCien = (numero) => numero + 100;
 
-// eliminamos los parentesis 
-const sumarCien = numero => numero + 100;
+// eliminamos los parentesis
+const sumarCien = (numero) => numero + 100;
 ```
 
 > **Nunca olvidar** 👀
@@ -157,9 +157,8 @@ const sumarCien = numero => numero + 100;
 > - Si nuestra función requiere únicamente de un argumento, no necesitamos los paréntesis.
 > - Si nuestra función requiere dos o más argumentos, estos se deben encontrar dentro de los paréntesis.
 > - Si nuestra función requiere devolver inmediatamente lo que debe retornar, sin agregar más lógica,
-> se puede eliminar el **return** y **las llaves**.
+>   se puede eliminar el **return** y **las llaves**.
 > - Si nuestra función requiere más lógica para su funcionamiento, debemos agregar el **return** y **las llaves**.
->
 
 Como ya hemos aprendido, la diferencia que existe entre _**Funciones Tradicionales**_ y _**Funciones Flechas**_, en su sintaxis por lo menos,
 es muy notable, pero... ¿Esa es toda la diferencia? Y la verdad es que no 😐, ya que ambas manejan de manera distinta la palabra reservada `this`.
@@ -171,20 +170,22 @@ const celular = {
   marca: "Peraphone",
   modelo: "Galactico 20",
   encender: function () {
-    console.log("Encendiendo el mejor celular.. el " + this.marca + " - " + this.modelo);
+    console.log(
+      "Encendiendo el mejor celular.. el " + this.marca + " - " + this.modelo
+    );
   },
   apagar: () => {
     console.log("El " + this.modelo + " se irá a dormir");
   },
-}
+};
 ```
 
 - En la función **encender()**, el `this` hace referencia al contexto/scope/ámbito en el cual se definió la función, dicho de otra manera,
-el `this` puede obtener toda la información que existe dentro del objeto que declaró la función.
+  el `this` puede obtener toda la información que existe dentro del objeto que declaró la función.
 - Por otra parte, la función **apagar()** no hace referencia al objeto `celular`, sino que hace referencia al contexto/scope/ámbito donde
-está definido el objeto `celular`, es decir, el contexto padre del objeto, que para efectos de este ejemplo, es el contexto `Window`. (Si
-quieres saber más sobre this, te recomiendo leer el siguiente artículo de
-<a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/this" target="_blank" rel="noopener noreferrer">Mozilla.org</a>)
+  está definido el objeto `celular`, es decir, el contexto padre del objeto, que para efectos de este ejemplo, es el contexto `Window`. (Si
+  quieres saber más sobre this, te recomiendo leer el siguiente artículo de
+  <a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/this" target="_blank" rel="noopener noreferrer">Mozilla.org</a>)
 
 ¿Y ahora que? ¿Cuándo es una buena opción utilizar la flechita o la tradicional? Y la respuesta que te puedo recomendar es que para
 la mayoría de las funciones utilices `arrow functions` y para los casos donde tenemos que leer propiedades dentro de un mismo objeto, usar
@@ -198,7 +199,8 @@ Los `default parameters` o `Parámetros predeterminados` son una nueva caracter�
 una función que en caso de que su valor sea `undefined`, se inicie con el valor que le designemos.
 
 ```javascript
-const saludar = (nombre, origen = "por ahí") => "Mi nombre es: " + nombre + " y vengo de " + origen;
+const saludar = (nombre, origen = "por ahí") =>
+  "Mi nombre es: " + nombre + " y vengo de " + origen;
 
 console.log(saludar("Morty", "C132")); // Output: Mi nombre es Morty y vengo de C137
 console.log(saludar("Evil Morty")); // Output: Mi nombre es Evil Morty y vengo de por ahí
@@ -238,7 +240,7 @@ const [a, b] = [1, 2];
 console.log(a, b); // Output: 1 2
 
 // Evitamos valores
-const [a, , c] = [1, 2, 3]; 
+const [a, , c] = [1, 2, 3];
 console.log(a, c); // Output 1 3
 
 // Asigando un arreglo a una variable
@@ -251,12 +253,12 @@ console.log(a, b); // Output: 1 [2, 3]
 ```javascript
 const superheroe = {
   nombre: "Ironman",
-  poder: "Ser cool"
-}
+  poder: "Ser cool",
+};
 
-const {poder, nombre} = superheroe;
+const { poder, nombre } = superheroe;
 console.log(poder); // Output: Ser cool
-console.log(nombre);  // Output: Ironman
+console.log(nombre); // Output: Ironman
 ```
 
 ```javascript
@@ -265,13 +267,16 @@ const superheroe = {
   poder: "Ser cool",
   usuario: {
     nombre_real: "Anthony",
-    apellido_real: "Stark"
-  }
-}
+    apellido_real: "Stark",
+  },
+};
 
-const {nombre, usuario: { nombre_real }} = superheroe;
+const {
+  nombre,
+  usuario: { nombre_real },
+} = superheroe;
 console.log(nombre); // Output: Ironman
-console.log(nombre_real);  // Output: Anthony 
+console.log(nombre_real); // Output: Anthony
 ```
 
 ![Tony Stark](https://media.giphy.com/media/YWjZrW9z2z4VW/giphy.gif)
