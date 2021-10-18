@@ -1,19 +1,21 @@
-import moment from 'moment';
-moment.locale('es');
+import { formatDistanceToNow, format, differenceInDays } from "date-fns";
+import es from "date-fns/locale/es";
 
-const dateFromNow = (date: string): string => moment(date).fromNow();
-const dateFormated = (date: string): string => moment(date).format('LL');
+const dateFromNow = (date: Date): string =>
+  formatDistanceToNow(date, { locale: es, addSuffix: true });
 
-export const onlyDate = (date: string): string => date.split('T')[0];
+const dateFormated = (date: Date): string =>
+  format(date, "PPP", { locale: es });
 
-export const getDiffDates = (date: string): number => {
-	const today = moment(new Date());
-	const _date = moment(date);
-	return today.diff(_date, 'days');
-};
+export const onlyDate = (date: string): string => date.split("T")[0];
 
-export const prettyFormat = (date: string): string => {
-	const _diff = getDiffDates(date);
-	if (_diff <= 7) return dateFromNow(date);
-	return dateFormated(date);
+export const getDiffDates = (date: Date): number =>
+  differenceInDays(new Date(), date);
+
+export const prettyFormat = (d: Date): string => {
+  const date = new Date(d);
+
+  return getDiffDates(date) <= 7
+    ? dateFromNow(date)
+    : `el ${dateFormated(date)}`;
 };

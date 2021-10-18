@@ -1,11 +1,11 @@
-import { DiscusInterface } from 'components/DisqusComponent';
+import { DiscusInterface } from "components/DisqusComponent";
 
-import { TagsEnum } from './blogtemplate.model';
+import { TagsEnum } from "./blogtemplate.model";
 
 export interface InfoArticleIntereface {
-	date: string;
-	readTime?: number;
-	tags?: Array<TagsEnum>;
-	horizontal?: boolean;
-	disqus?: DiscusInterface;
+  date: Date;
+  readTime?: number;
+  tags?: Array<TagsEnum>;
+  horizontal?: boolean;
+  disqus?: DiscusInterface;
 }
