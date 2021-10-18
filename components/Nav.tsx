@@ -36,6 +36,7 @@ const Nav = (props: PropsInterface) => {
           <Link href="/">
             <a>
               <img
+                decoding="async"
                 data-sizes="auto"
                 data-src="/images/logo/logo.png"
                 alt="logo"
