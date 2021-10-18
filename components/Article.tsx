@@ -51,6 +51,7 @@ const Article = (props: ArticleContentInterface) => {
             <Link href={`/articulos/${encodeURIComponent(slug)}`}>
               <a>
                 <img
+                  decoding="async"
                   data-sizes="auto"
                   data-src={thumbnail_image}
                   alt={`Imagen del artículo ${title}`}

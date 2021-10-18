@@ -9,6 +9,7 @@ const Say = (props: SayInterface) => {
     <aside id={anchor || ""} className="say col-12">
       <div className="say__image">
         <img
+          decoding="async"
           data-sizes="auto"
           data-src="/images/isotipo/isotipo-blue.png"
           alt="isotipo"

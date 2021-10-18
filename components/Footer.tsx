@@ -64,6 +64,7 @@ const Footer = () => {
 
           <div className="copyright">
             <img
+              decoding="async"
               data-sizes="auto"
               data-src="/images/logo/black.png"
               alt="logotipo"
@@ -71,6 +72,7 @@ const Footer = () => {
               className="small lazyload"
             />
             <img
+              decoding="async"
               data-sizes="auto"
               data-src="/images/logo/black2.png"
               alt="logotipo"

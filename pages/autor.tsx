@@ -37,6 +37,7 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
                 </p>
                 <div className="author__header__inner__text__image">
                   <img
+                    decoding="async"
                     data-sizes="auto"
                     data-src="/images/isotipo/isotipo-white.png"
                     alt={title}

@@ -29,6 +29,7 @@ const Index = (props: HomePropsInterface) => {
             <div className="home__presentation">
               <div className="home__presentation__image">
                 <img
+                  decoding="async"
                   data-sizes="auto"
                   data-src="/images/me/eduardo_alvarez.png"
                   alt="Imagen de Eduardo Álvarez"

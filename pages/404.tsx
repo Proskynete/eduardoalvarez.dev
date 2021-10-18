@@ -27,6 +27,7 @@ const Custom404 = (): JSX.Element => {
           <div className="not-found__inner__container">
             <div className="not-found__inner__container__image">
               <img
+                decoding="async"
                 data-sizes="auto"
                 data-src="/images/404/error.png"
                 alt="Error"
