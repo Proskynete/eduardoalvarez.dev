@@ -55,7 +55,7 @@ const Index = (props: HomePropsInterface) => {
               </div>
             </div>
             <div className="row justify-content-md-center">
-              <div className="col-12 col-md-9 col-lg-7">
+              <div className="col-12 col-md-9 col-xl-8">
                 <section className="articles">
                   <div className="articles__header">
                     <p className="articles__header__title">Últimos artículos</p>

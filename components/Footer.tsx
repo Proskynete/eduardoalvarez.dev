@@ -79,7 +79,7 @@ const Footer = () => {
               loading="lazy"
               className="medium lazyload"
             />
-            <p>Copyright &copy; 2017 - {currentYear}</p>
+            <p>Copyright &copy; {currentYear}</p>
           </div>
         </div>
       </footer>

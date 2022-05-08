@@ -1,7 +1,7 @@
 import { faCalendar, faClock } from "@fortawesome/free-regular-svg-icons";
 import { faComment, faTag, faTags } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getDiffDates, onlyDate, prettyFormat } from "helpers/date.helper";
+import { onlyDate, prettyFormat } from "helpers/date.helper";
 import { prettyReadingTime } from "helpers/reading-time.helper";
 import { prettyTags } from "helpers/tags.helper";
 import { InfoArticleIntereface } from "models/info-article.model";
