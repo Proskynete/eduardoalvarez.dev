@@ -31,7 +31,7 @@ const Index = (props: HomePropsInterface) => {
                 <img
                   decoding="async"
                   data-sizes="auto"
-                  data-src="/images/me/eduardo_alvarez.png"
+                  data-src="/images/me/eduardo_alvarez.gif"
                   alt="Imagen de Eduardo Álvarez"
                   loading="lazy"
                   className="home__presentation__image__img lazyload"
