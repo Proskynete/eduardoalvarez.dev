@@ -180,7 +180,7 @@ export const getStaticProps = async (
       disqusShortName: JSON.parse(
         JSON.stringify(process.env.DISQUS_SHORT_NAME)
       ),
-      slug: slug,
+      slug: slug as string,
       algolia: {
         app_id: process.env.ALGOLIA_APPICATION_ID,
         api_key: process.env.ALGOLIA_ADMIN_API_KEY,
