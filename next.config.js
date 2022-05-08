@@ -1,7 +1,6 @@
 const path = require("path");
 
 module.exports = {
-  webpack5: false,
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
@@ -12,11 +11,7 @@ module.exports = {
       require("./scripts/algolia");
     }
 
-    if (!isServer) {
-      config.node = {
-        fs: "empty",
-      };
-    }
+    if (!isServer) config.resolve.fallback.fs = false;
 
     config.module.rules.push({
       test: /\.md$/,

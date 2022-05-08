@@ -7,6 +7,7 @@ import { FrontMatterInterface } from "models/blogtemplate.model";
 import dynamic from "next/dynamic";
 import { memo } from "react";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 const Layout = dynamic(() => import("components/Layout"));
 const Say = dynamic(() => import("components/Say"));
@@ -62,7 +63,10 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
 
                 <div className="col-12 col-md-10 col-lg-7">
                   <div className="article__body__content">
-                    <ReactMarkdown escapeHtml={false} source={markdownBody} />
+                    <ReactMarkdown
+                      rehypePlugins={[rehypeRaw]}
+                      children={markdownBody}
+                    />
                   </div>
                   <Say
                     variant="primary"

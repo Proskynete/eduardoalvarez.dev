@@ -5,6 +5,7 @@ import matter from "gray-matter";
 import { calculateReadingTime } from "helpers/calculate-reading-time.helper";
 import { highlightFormat } from "helpers/highlight.helper";
 import { dataSerialized } from "helpers/serializer.helper";
+import rehypeRaw from "rehype-raw";
 import {
   BlogTemplatePropsInterface,
   FrontMatterInterface,
@@ -125,7 +126,10 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
                 ) : null}
 
                 <div className="article__body__content">
-                  <ReactMarkdown escapeHtml={false} source={markdownBody} />
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeRaw]}
+                    children={markdownBody}
+                  />
                 </div>
               </div>
             </div>
