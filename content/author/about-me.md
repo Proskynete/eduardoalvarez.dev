@@ -59,7 +59,7 @@ Luego de 3 años y después de haber pasado por algunos clientes como **Latam Ai
 <h2 id="mi-hoy">Mi hoy</h2>
 <p class="subtitle">que es lo que estoy haciendo</p>
 
-Hoy en día me encuentro trabajando para penta financiero como _Software Developer_, donde se me ha dado oportunidad de poder liderar el desarrollo front. Todo este proceso no ha sido fácil, pero si ha sido muy satisfactorio en todos los aspectos posibles. Es por eso que quero poder compartir todo lo que pueda en este blog, porque si yo pude, sé que cualquier persona puede lograrlo.
+Hoy en día me encuentro trabajando para <a href="https://www.deuna.com" target="_blank" rel="noopener noreferrer">DEUNA</a> como _Tech lead frontend_, donde he podido desarrollar mis habilidades blandas. Todo este proceso no ha sido fácil, pero si ha sido muy satisfactorio en todos los aspectos posibles. Es por eso que quero poder compartir todo lo que pueda en este blog, porque si yo pude, sé que cualquier persona puede lograrlo.
 
 También me encuentro manteniendo dos librerías desarrolladas por mí, publicadas en NPM para uso público. Si quieres revisarlos puedes visitarlos en los links que a continuación te dejo. (Si quieres ayudarme a mantenerlos o te gustaría poder agregar nuevas características, solo haz un Pull Request y lo revisamos):
 

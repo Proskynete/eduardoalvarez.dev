@@ -5,6 +5,7 @@ import matter from "gray-matter";
 import { calculateReadingTime } from "helpers/calculate-reading-time.helper";
 import { highlightFormat } from "helpers/highlight.helper";
 import { dataSerialized } from "helpers/serializer.helper";
+import rehypeRaw from "rehype-raw";
 import {
   BlogTemplatePropsInterface,
   FrontMatterInterface,
@@ -125,7 +126,10 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
                 ) : null}
 
                 <div className="article__body__content">
-                  <ReactMarkdown escapeHtml={false} source={markdownBody} />
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeRaw]}
+                    children={markdownBody}
+                  />
                 </div>
               </div>
             </div>
@@ -176,7 +180,7 @@ export const getStaticProps = async (
       disqusShortName: JSON.parse(
         JSON.stringify(process.env.DISQUS_SHORT_NAME)
       ),
-      slug: slug,
+      slug: slug as string,
       algolia: {
         app_id: process.env.ALGOLIA_APPICATION_ID,
         api_key: process.env.ALGOLIA_ADMIN_API_KEY,

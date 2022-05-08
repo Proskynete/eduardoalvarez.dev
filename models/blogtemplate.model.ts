@@ -43,7 +43,7 @@ export interface FrontMatterInterface {
 export interface BaseBlogInterface {
   frontmatter: FrontMatterInterface;
   markdownBody: string;
-  slug: string | Array<string>;
+  slug: string;
 }
 
 export interface BlogTemplatePropsInterface extends BaseBlogInterface {

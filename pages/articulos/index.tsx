@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { customPaginated } from "helpers/pagination.helper";
 import { getPosts } from "helpers/posts.helper";
 import { scrollToTop } from "helpers/scroll.helper";
-import { postsSortered } from "helpers/sorter.helper";
+import { postsSortied } from "helpers/sorter.helper";
 import { nextPagination, previousPagination } from "lib/pagination";
 import { BlogTemplatePropsInterface } from "models/blogtemplate.model";
 import {
@@ -32,7 +32,7 @@ const Index = (props: HomePropsInterface) => {
 
   const { paginate, results } = customPaginated({
     page: +page || 1,
-    limit: 8,
+    limit: 5,
     elements: articles,
   });
 
@@ -73,7 +73,7 @@ const Index = (props: HomePropsInterface) => {
         <div className="row">
           <div className="col-12">
             <div className="row justify-content-md-center">
-              <div className="col-12 col-lg-7 col-xl-6">
+              <div className="col-12 col-md-9 col-lg-8">
                 <section className="articles">
                   {articlesFiltered &&
                     articlesFiltered.map((article: ArticleContentInterface) => (
@@ -134,11 +134,11 @@ export const getStaticProps =
       getPosts(context))(
       require["context"]("../../content/posts", true, /\.md$/)
     );
-    const sortered = postsSortered<BlogTemplatePropsInterface>(posts);
+    const sortied = postsSortied<BlogTemplatePropsInterface>(posts, "slug");
 
     return {
       props: {
-        articles: sortered,
+        articles: sortied,
         title: "Artículos publicados",
         description: siteConfig.description,
         image: siteConfig.image,

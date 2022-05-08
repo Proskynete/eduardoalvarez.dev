@@ -29,6 +29,7 @@
 
       &:first-child {
         display: flex;
+        justify-content: center;
 
         @media screen and (min-width: 768px) {
           align-items: center;
@@ -80,7 +81,7 @@
             text-decoration: none;
           }
 
-          @media screen and (min-width: 1200px) {
+          @media screen and (min-width: 1440px) {
             font-size: $size-xxlg;
           }
         }
@@ -105,9 +106,9 @@
 
       &__footer {
         @media screen and (min-width: 768px) {
-          align-items: center;
           display: flex;
           justify-content: space-between;
+          align-items: center;
         }
 
         &__section {
@@ -136,7 +137,7 @@
             font-size: $size-xs;
             text-align: center;
 
-            @media screen and (min-width: 1200px) {
+            @media screen and (min-width: 1440px) {
               font-size: $size-md;
             }
 
@@ -171,7 +172,7 @@
               }
             }
 
-            @media screen and (min-width: 1200px) {
+            @media screen and (min-width: 1440px) {
               font-size: $size-xs;
             }
 

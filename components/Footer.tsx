@@ -10,6 +10,7 @@ const SocialNetworks = dynamic(() => import("components/SocialNetworks"));
 const Subscribe = dynamic(() => import("components/Subscribe"));
 
 const handleScrollToTop = () => {
+  console.log("aa");
   scrollToTop();
   event({
     action: "SCROLL_TO_TOP",
@@ -31,10 +32,7 @@ const Footer = () => {
       <SocialNetworks />
       <footer className="footer">
         <div className="footer-button">
-          <button
-            className="button outline"
-            onClick={() => handleScrollToTop()}
-          >
+          <button className="button outline" onClick={handleScrollToTop}>
             <FontAwesomeIcon icon={faAngleUp} />
             <p className="footer-button-text">Subir</p>
           </button>
@@ -79,7 +77,7 @@ const Footer = () => {
               loading="lazy"
               className="medium lazyload"
             />
-            <p>Copyright &copy; 2017 - {currentYear}</p>
+            <p>Copyright &copy; {currentYear}</p>
           </div>
         </div>
       </footer>
