@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "lazysizes";
 import "lazysizes/plugins/parent-fit/ls.parent-fit";
 import "styles/globals.scss";
-
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { GTMPageView } from "lib/gtm";
 import { useEffect } from "react";

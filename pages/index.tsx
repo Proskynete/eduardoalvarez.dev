@@ -1,5 +1,5 @@
 import { getPosts } from "helpers/posts.helper";
-import { postsSortered } from "helpers/sorter.helper";
+import { postsSortied } from "helpers/sorter.helper";
 import { BlogTemplatePropsInterface } from "models/blogtemplate.model";
 import {
   ArticleContentInterface,
@@ -55,7 +55,7 @@ const Index = (props: HomePropsInterface) => {
               </div>
             </div>
             <div className="row justify-content-md-center">
-              <div className="col-12 col-lg-7 col-xl-6">
+              <div className="col-12 col-md-9 col-lg-7">
                 <section className="articles">
                   <div className="articles__header">
                     <p className="articles__header__title">Últimos artículos</p>
@@ -83,9 +83,11 @@ export const getStaticProps =
     const siteConfig = await import(`data/config.json`);
 
     const posts: BlogTemplatePropsInterface[] = ((context) =>
-      getPosts(context))(require["context"]("../content/posts", true, /\.md$/));
-    const sortered = postsSortered<BlogTemplatePropsInterface>(posts);
-    const articlesSliced = sortered.slice(0, 3);
+      getPosts(context))(
+      require["context"]("../content/posts", false, /\.md$/)
+    );
+    const sortied = postsSortied<BlogTemplatePropsInterface>(posts, "slug");
+    const articlesSliced = sortied.slice(0, 3);
 
     return {
       props: {
