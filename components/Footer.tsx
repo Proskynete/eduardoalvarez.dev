@@ -10,7 +10,6 @@ const SocialNetworks = dynamic(() => import("components/SocialNetworks"));
 const Subscribe = dynamic(() => import("components/Subscribe"));
 
 const handleScrollToTop = () => {
-  console.log("aa");
   scrollToTop();
   event({
     action: "SCROLL_TO_TOP",
@@ -77,7 +76,7 @@ const Footer = () => {
               loading="lazy"
               className="medium lazyload"
             />
-            <p>Copyright &copy; {currentYear}</p>
+            <p>Copyright &copy; 2021 - {currentYear}</p>
           </div>
         </div>
       </footer>

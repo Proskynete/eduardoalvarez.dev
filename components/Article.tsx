@@ -33,8 +33,6 @@ const Article = (props: ArticleContentInterface) => {
   };
 
   const handleShareIconsButton = (e: SyntheticEvent, socialMedia: string) => {
-    e.preventDefault();
-
     event({
       action: "SHARE_ARTICLE_LINK",
       category: CONSTANTS.BUTTON_ACTION.CATEGORY,

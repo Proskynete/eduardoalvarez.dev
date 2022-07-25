@@ -85,20 +85,21 @@ const Meta = (props: PropsInterface) => {
         href="/images/manifest/192x192.png"
       />
 
-      <meta name="image" content={image} />
+      <meta name="image" content={`${data.url}${image}`} />
       <link rel="canonical" href={`${data.url}/${slug}`} />
 
-      <meta property="og:description" content={description} />
-      <meta property="og:site_name" content={customTitle} />
       <meta property="og:title" content={customTitle} />
-      <meta property="og:image" content={image} />
+      <meta property="og:type" content="blog" />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={`${data.url}${image}`} />
       <meta property="og:url" content={`${data.url}${slug}`} />
+      <meta property="og:site_name" content={customTitle} />
 
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:title" content={customTitle} />
-      <meta property="twitter:image" content={image} />
       <meta name="twitter:url" content={`${data.url}/${slug}`} />
+      <meta name="twitter:title" content={customTitle} />
+      <meta name="twitter:image" content={`${data.url}${image}`} />
+      <meta name="twitter:description" content={description} />
     </Head>
   );
 };
