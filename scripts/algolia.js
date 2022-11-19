@@ -1,6 +1,5 @@
 const fs = require("fs").promises;
 const path = require("path");
-const parser = require("xml2json");
 const algoliasearch = require("algoliasearch");
 
 (async function () {
@@ -13,7 +12,7 @@ const algoliasearch = require("algoliasearch");
       "utf8"
     );
 
-    const json = parser.toJson(rss, { object: true });
+    // const json = parser.toJson(rss, { object: true });
 
     const client = algoliasearch(
       process.env.ALGOLIA_APPICATION_ID,
