@@ -6,15 +6,8 @@ tags: ["web-development"]
 hero_image: "/images/articles/introduccion-a-jamstack/introduccion-a-jamstack.png"
 with_introduction: true
 image_introduction: "/images/articles/introduccion-a-jamstack/jam-stack.png"
-introduction:
-  {
-    title: "Introducción",
-    anchor: "introduccion",
-    content: "Antes de empezar a hablar de _JAMStack_, es muy necesario desglosar un poco la palabra en dos: **JAM** y **Stack** y así explicarlas por separado",
-  }
 sections:
   [
-    { title: "Introducción", anchor: "introduccion" },
     { title: "¿Qué es un Stack?", anchor: "que-es-un-stack" },
     { title: "¿Qué es JAM?", anchor: "que-es-jam" },
     { title: "Buena idea", anchor: "buena-idea" },

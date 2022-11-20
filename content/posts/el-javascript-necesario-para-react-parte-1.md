@@ -7,18 +7,8 @@ date: 2021-02-14T01:01:47-03:00
 tags: ['introduction', 'javascript', 'react']
 hero_image: '/images/articles/el-javascript-necesario-para-react/parte-1/el-javascript-necesario-para-react.png'
 with_introduction: true
-introduction:
-  {
-    title: 'Introducción',
-    anchor: 'introduccion',
-    content: 'Hoy aprenderemos lo mínimo de **JavaScript** que necesitamos saber para desarrollar aplicaciones en **React** 
-    sin problemas. Aprenderemos que es **ECMAScript** y cuáles son esas características (_Variables_, _Funciones_, _Destructuring_, 
-    _Promesas_, _Operaciones con arrays_, entre otros) que, según mi experiencia, nos ayudarán en este viaje. 
-    Pero antes... **¿Qué es React?**',
-  }
 sections:
   [
-    { title: 'Introducción', anchor: 'introduccion' },
 		{ title: '¿Qué es React?', anchor: 'que-es-react' },
     { title: 'ECMAScript', anchor: 'ecmascript' },
     { title: 'Variables', anchor: 'variables' },
@@ -76,17 +66,17 @@ estandarización del lenguaje, hoy aparte de utilizar el ya mencionado, podemos 
 
 ```javascript
 // Antes de ES6
-var texto = 'Soy un texto';
+var texto = "Soy un texto";
 var numero = 1999;
 var funcion = function () {
- console.log('Holi');
+  console.log("Holi");
 };
 
 // A partir de ES6
-let otroTexto = 'Soy otro texto';
+let otroTexto = "Soy otro texto";
 const otroNumero = 2015;
 const otraFuncion = function () {
- console.log('Otro Holi');
+  console.log("Otro Holi");
 };
 ```
 
@@ -99,15 +89,15 @@ siguiente ejemplo:
 
 ```javascript
 function explicandoVar() {
- var a = 5;
- console.log(a); // Output: 5
+  var a = 5;
+  console.log(a); // Output: 5
 
- if (true) {
-  var a = 10;
+  if (true) {
+    var a = 10;
+    console.log(a); // Output: 10
+  }
+
   console.log(a); // Output: 10
- }
-
- console.log(a); // Output: 10
 }
 ```
 
@@ -120,11 +110,11 @@ ejemplo:
 ```javascript
 var numero = 100;
 (function explicandoVar() {
- for (var numero = 0; numero < 5; numero++) {
-  console.log(numero); // Output: 0, 1, 2, 3, 4
- }
+  for (var numero = 0; numero < 5; numero++) {
+    console.log(numero); // Output: 0, 1, 2, 3, 4
+  }
 })();
-console.log('Despues del for: ', numero); // Output: 100
+console.log("Despues del for: ", numero); // Output: 100
 ```
 
 Pero espera... me habías dicho que una variable declarada con var se puede modificar su valor si se vuelve a declarar, pero acá
@@ -136,11 +126,11 @@ más 😁...
 ```javascript
 var numero = 100;
 (function explicandoVar() {
- for (numero = 0; numero < 5; numero++) {
-  console.log(numero); // Output: 0, 1, 2, 3, 4
- }
+  for (numero = 0; numero < 5; numero++) {
+    console.log(numero); // Output: 0, 1, 2, 3, 4
+  }
 })();
-console.log('Despues del for: ', numero); // Output: 5
+console.log("Despues del for: ", numero); // Output: 5
 ```
 
 ¿En serio? Volvemos a tener ese comportamiento raro... pero si lo único que hicimos fue no declarar la variable dentro del for...
@@ -156,7 +146,7 @@ vuelve a declarar una variable con el mismo nombre, JavaScript reemplaza el valo
 >
 > - Las funciones **siempre se mueven arriba del scope**. Por lo tanto, podemos elegir donde declararlas y usarlas.
 > - La declaración de las variables se mueven arriba del scope, pero solo la **declaración**. Antes de usar una variable,
-> habrá que crearla y asignarla.
+>   habrá que crearla y asignarla.
 
 Por lo tanto nuestro código queda de la siguiente manera:
 
@@ -165,9 +155,9 @@ var numero;
 numero = 100; // Output: 100
 
 (function () {
- for (numero = 0; numero < 5; numero++) {
-  console.log(numero); // Output: 0, 1, 2, 3, 4
- }
+  for (numero = 0; numero < 5; numero++) {
+    console.log(numero); // Output: 0, 1, 2, 3, 4
+  }
 })();
 
 console.log(numero); // Output: 5
@@ -180,9 +170,9 @@ Ok, ya sabemos cuál es el error que podíamos tener con _var_, pero ¿Cómo fun
 ```javascript
 var numero = 100;
 (function explicandoVarPeroAhoraConLet() {
- for (let numero = 0; numero < 5; numero++) {
-  console.log(numero); // Output: 0, 1, 2, 3, 4
- }
+  for (let numero = 0; numero < 5; numero++) {
+    console.log(numero); // Output: 0, 1, 2, 3, 4
+  }
 })();
 console.log(numero); // Output: 100
 ```
@@ -193,9 +183,9 @@ Ahora veamos otro ejemplo y comparémoslo con los ejemplos anteriores con var:
 
 ```javascript
 function explicandoLet() {
- let numero = 10;
- let numero = 20;
- console.log(a); // Uncaught SyntaxError: Identifier 'numero' has already been declared
+  let numero = 10;
+  let numero = 20;
+  console.log(a); // Uncaught SyntaxError: Identifier 'numero' has already been declared
 }
 ```
 
@@ -207,10 +197,10 @@ de otra variable ya declarada, si podemos cambiar el valor de la misma.
 
 ```javascript
 function explicandoLet() {
- let numero = 10;
- console.log(numero); // Output: 10
- numero = 20;
- console.log(a); // Output: 20
+  let numero = 10;
+  console.log(numero); // Output: 10
+  numero = 20;
+  console.log(a); // Output: 20
 }
 ```
 
@@ -222,21 +212,21 @@ para ~~Gryffindor~~ **const**). Veamos esto con unos ejemplos:
 
 ```javascript
 function explicandoConst() {
- const numero = 10;
- console.log(numero); // Output: 10
- numero = 20; // Uncaught TypeError: Assignment to constant variable
+  const numero = 10;
+  console.log(numero); // Output: 10
+  numero = 20; // Uncaught TypeError: Assignment to constant variable
 }
 ```
 
 ```javascript
 function explicandoConst() {
- const usuario = {
-  nombre: 'Eduardo',
-  edad: 'todos',
- };
- console.log(usuario); /* Output: {nombre: 'Eduardo', edad: 'todos'} */
- usuario.edad = 27;
- console.log(usuario); /* Output: {nombre: 'Eduardo', edad: 27} */
+  const usuario = {
+    nombre: "Eduardo",
+    edad: "todos",
+  };
+  console.log(usuario); /* Output: {nombre: 'Eduardo', edad: 'todos'} */
+  usuario.edad = 27;
+  console.log(usuario); /* Output: {nombre: 'Eduardo', edad: 27} */
 }
 ```
 
@@ -258,13 +248,13 @@ ejemplos:
 
 ```javascript
 function explicandoValorYReferencia() {
- let a = 'Se JavaScript';
- const b = a;
+  let a = "Se JavaScript";
+  const b = a;
 
- a = '¡' + a + '!';
+  a = "¡" + a + "!";
 
- console.log(a); // Output: "¡Se JavaScript!"
- console.log(b); // Output: "Se JavaScript"
+  console.log(a); // Output: "¡Se JavaScript!"
+  console.log(b); // Output: "Se JavaScript"
 }
 ```
 
@@ -274,18 +264,18 @@ cada variable guarda su propio valor.
 
 ```javascript
 function explicandoValorYReferencia() {
- const usuario = {
-  nombre: 'Pedro',
-  pais: 'Chile',
- };
+  const usuario = {
+    nombre: "Pedro",
+    pais: "Chile",
+  };
 
- const otroUsuario = usuario;
+  const otroUsuario = usuario;
 
- usuario.nombre = 'Peter';
- otroUsuario.nombre = 'Australia';
+  usuario.nombre = "Peter";
+  otroUsuario.nombre = "Australia";
 
- console.log(usuario); /* Output: {nombre: 'Peter', pais: 'Australia'} */
- console.log(otroUsuario); /* Output: {nombre: 'Peter', pais: 'Australia'} */
+  console.log(usuario); /* Output: {nombre: 'Peter', pais: 'Australia'} */
+  console.log(otroUsuario); /* Output: {nombre: 'Peter', pais: 'Australia'} */
 }
 ```
 

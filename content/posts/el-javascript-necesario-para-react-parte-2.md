@@ -7,17 +7,8 @@ date: 2021-03-01T13:36:33-03:00
 tags: ['introduction', 'javascript', 'react']
 hero_image: '/images/articles/el-javascript-necesario-para-react/parte-2/el-javascript-necesario-para-react-parte-2.png'
 with_introduction: true
-introduction:
-  {
-    title: 'Introducción',
-    anchor: 'introduccion',
-    content: 'Porque no hay deuda que no se cumpla, acá llega la segunda parte del JavaScript necesario para React. Hoy nos 
-    enfocaremos en todo lo que JS tiene para ofrecernos en **funciones**, viendo como podemos declararlas, sus argumentos y 
-    como trabajar con estos últimos. _¡Ya cada vez falta menos!_',
-  }
 sections:
   [
-    { title: 'Introducción', anchor: 'introduccion' },
     { title: 'Funciones', anchor: 'funciones' },
     { title: 'Default Parameters', anchor: 'default-parameters' },
     { title: 'Rest Parameters', anchor: 'rest-parameters' },
@@ -103,7 +94,7 @@ console.log(pitagoras(3, 4)); // Output: 5
 Es en este punto donde la cosa se vuelve interesante 🤩, ya que veremos distintas maneras de escribir una arrow function
 dependiendo de que es lo que se necesite hacer con la misma.
 
-<h4>Return implicito 😎</h4>
+<h3>Return implicito 😎</h3>
 
 Esta característica es una de las que más me gusta, ya que si el resultado depende solo del atributo que se le pasa a la función
 (sin que tengamos que hacer más cosas dentro del cuerpo), este se puede escribir sin que tengamos que anteponer la palabra reservada `return`
@@ -115,7 +106,7 @@ const saludo = (nombre) => "Hola 👋 mi nombre es: " + nombre;
 console.log(saludo("Logan")); // Output: Hola 👋 mi nombre es: Logan
 ```
 
-<h4>Fuera paréntesis 😮</h4>
+<h3>Fuera paréntesis 😮</h3>
 
 Cuando tengamos una función que recibe solo un parámetro, podemos escribir la función flecha sin los paréntesis, dejando solo el
 parámetro y la flecha. (👀 esto solo aplica si la función recibe únicamente un parámetro, fuera de eso, ya es obligación colocar

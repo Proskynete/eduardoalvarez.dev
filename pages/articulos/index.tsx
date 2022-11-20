@@ -73,7 +73,14 @@ const Index = (props: HomePropsInterface) => {
         <div className="row">
           <div className="col-12">
             <div className="row justify-content-md-center">
-              <div className="col-12 col-md-9 col-lg-8">
+              <div className="col-12 col-md-8 col-xl-6">
+                <header className="articles-view__header">
+                  <h1 className="articles-view__header__title">Artículos</h1>
+                  <h2 className="articles-view__header__subtitle">
+                    De programación, tecnología y más.
+                  </h2>
+                </header>
+
                 <section className="articles">
                   {articlesFiltered &&
                     articlesFiltered.map((article: ArticleContentInterface) => (

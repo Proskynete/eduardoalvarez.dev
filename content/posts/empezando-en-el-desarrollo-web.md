@@ -6,15 +6,8 @@ date: 2021-02-04T20:00:00-03:00
 tags: ['introduction', 'web-development']
 hero_image: '/images/articles/empezando-en-el-desarrollo-web/empezando-en-el-desarrollo-web.png'
 with_introduction: true
-introduction:
-  {
-    title: 'Introducción',
-    anchor: 'introduccion',
-    content: 'A continuación aprenderemos los conociminetos mínimos necesarios para iniciarnos en el mundo del desarrollo web, pero no podemos comenzar sin antes conocer algunos términos que veremos a lo largo de todo nuestro crecimiento profesional. **_¡¡Comencemos!!_**',
-  }
 sections:
   [
-    { title: 'Introducción', anchor: 'introduccion' },
     { title: 'Términos utilizados', anchor: 'terminos-utilizados' },
     { title: 'HTML', anchor: 'html' },
     { title: 'CSS', anchor: 'css' },
@@ -56,14 +49,14 @@ A continuación veremos el mínimo código que necesitamos para tener una págin
 ```html
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Nuevo documento</title>
-	</head>
-	<body>
-		<p>Acá va todo el contenido de una página web</p>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuevo documento</title>
+  </head>
+  <body>
+    <p>Acá va todo el contenido de una página web</p>
+  </body>
 </html>
 ```
 
@@ -73,11 +66,11 @@ A continuación veremos el mínimo código que necesitamos para tener una págin
 
 ```css
 .soy-una-clase {
-	font-size: 16px;
-	font-weight: bold;
-	text-align: center;
-	color: #0a3f66;
-	background-color: #247f86;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #0a3f66;
+  background-color: #247f86;
 }
 ```
 
@@ -86,12 +79,12 @@ A continuación veremos el mínimo código que necesitamos para tener una págin
 Javascript, o solo **JS**, es un lenguaje de programación (a diferencia de los dos anteriores), el cual nos permite implementar funciones complejas a nuestra página, esto significa que cada que que el usuario quiera hacer alguna interacción con nuestro sitio, más allá de solo leer información, necesitaremos de su poder para llevarlos a cabo. Acá podemos pensar desde validaciones a formulario (cada vez que el usuario escriba algo en una página revisar que esté bien escrito o que cumpla con cierto criterio) como cosas mas complejas como animar graficos 2D o 3D. También es el encargado de hacer consultas a una o muchas APIs, ordenar la información obtenida y trabajar con ella pero en el front. A continuación veremos un trozo de código el cual obtiene lo que un usuario escribió en un input (concidere `Google` como referencia, donde tenemos una caja de texto con un ID _input_ y el botón _"Buscar en Google"_ con un ID _buscar_).
 
 ```js
-const _boton = document.querySelector('#buscar');
+const _boton = document.querySelector("#buscar");
 
-boton.addEventListener('click', () => {
-	const _texto = document.querySelector('#input').value;
+boton.addEventListener("click", () => {
+  const _texto = document.querySelector("#input").value;
 
-	irABuscarInformacion(cajaDeTexto);
+  irABuscarInformacion(cajaDeTexto);
 });
 ```
 

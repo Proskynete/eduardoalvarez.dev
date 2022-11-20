@@ -6,7 +6,7 @@ import InfoArticle from "./InfoArticle";
 
 const Article = (props: ArticleContentInterface) => {
   const {
-    frontmatter: { title, date, read_time, description },
+    frontmatter: { title, date, description },
     slug,
   } = props;
 

@@ -23,7 +23,6 @@ const DisqusComponent = dynamic(() => import("components/DisqusComponent"), {
   ssr: false,
 });
 const InfoArticle = dynamic(() => import("components/InfoArticle"));
-const Say = dynamic(() => import("components/Say"));
 const TableOfSections = dynamic(() => import("components/TableOfSections"));
 
 const BlogTemplate = (props: BlogTemplatePropsInterface) => {
@@ -43,7 +42,6 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
     tags,
     sections,
     title,
-    introduction,
     image_introduction,
   } = frontmatter;
 
@@ -64,10 +62,11 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
       algolia={algolia}
     >
       <article className="row justify-content-md-center">
-        <div className="col-12 col-md-10 col-lg-8">
+        <div className="col-12 col-md-7 col-xl-6">
           <div className="article">
             <header className="article__header">
               <h1 className="article__header__title">{title}</h1>
+
               <InfoArticle
                 date={date}
                 readTime={read_time}
@@ -80,6 +79,7 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
                 }}
               />
 
+              {/* Revisar como optimizar esta imagen */}
               <div className="article__header__hero">
                 <Image
                   loading="lazy"
@@ -99,20 +99,13 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
           <div className="article__body">
             <div className="row justify-content-center justify-content-lg-start">
               <div
-                className="col-12 col-lg-2 offset-lg-1 sticky-top"
+                className="col-12 col-md-2 offset-md-1 col-xl-2 sticky-top"
                 style={{ padding: "0", backgroundColor: "#fff" }}
               >
                 <TableOfSections sections={sections} />
               </div>
 
-              <div className="col-12 col-md-10 col-lg-7">
-                <Say
-                  variant="primary"
-                  anchor={introduction.anchor}
-                  title={introduction.title}
-                  content={introduction.content}
-                />
-
+              <div className="col-12 col-md-7 col-xl-6">
                 {image_introduction ? (
                   <figure className="article__body__image">
                     <Image
