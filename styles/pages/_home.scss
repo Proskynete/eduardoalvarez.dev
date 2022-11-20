@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     padding-top: $margin-lg;
+    padding-bottom: $margin-lg;
 
     @media screen and (min-width: 768px) {
       align-items: center;

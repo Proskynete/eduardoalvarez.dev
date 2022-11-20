@@ -1,1 +1,16 @@
-.articles-view {}
+.articles-view {
+  &__header {
+    display: flex;
+    flex-direction: column;
+    padding: $margin-hero 0 0;
+
+    &__title {
+      font-size: $size-xlg;
+    }
+
+    &__subtitle {
+      color: $black-grey;
+      font-size: $size-xs;
+    }
+  }
+}

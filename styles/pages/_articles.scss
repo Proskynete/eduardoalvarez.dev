@@ -1,6 +1,6 @@
 .articles {
   background-color: $white;
-  padding: $margin-hero $margin-lg $margin-xxlg;
+  padding: $margin-xxlg 0 $margin-hero;
 
   &__header {
     display: flex;
@@ -11,23 +11,6 @@
       font-size: $size-xlg;
       margin-bottom: $margin-xxlg;
     }
-
-    &__subtitle {
-      color: $info;
-      font-size: $size-xs;
-      margin-bottom: $margin-xxlg;
-      text-decoration: none;
-      width: max-content;
-
-      &:hover {
-        color: $secondary;
-        text-decoration: none;
-      }
-    }
-  }
-
-  @media screen and (min-width: 1200px) {
-    padding: $margin-hero;
   }
 
   > .article {

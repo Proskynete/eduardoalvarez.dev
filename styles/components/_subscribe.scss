@@ -1,13 +1,13 @@
 .subscribe {
   background-color: $white;
   height: 100%;
-  margin-top: 50px;
+  margin-top: $margin-xxlg;
   width: 100%;
 
   &-container {
     background-color: $wild-sand;
-    padding: 20px 15px 30px;
-    border-radius: 10px;
+    padding: $margin-lg $margin-md $margin-xxlg;
+    border-radius: $margin-xs;
 
     .subscribe {
       &-title {
