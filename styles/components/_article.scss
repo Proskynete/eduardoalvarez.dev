@@ -3,189 +3,50 @@
   width: 100%;
 
   &:not(:first-of-type) {
-    padding-top: 50px;
+    padding-top: $margin-lg;
   }
 
   &:not(:last-of-type) {
-    padding-bottom: 50px;
+    padding-bottom: $margin-lg;
   }
 
   &__inner {
     display: flex;
     flex-direction: column;
 
-    @media screen and (min-width: 768px) {
-      flex-direction: row;
-      justify-content: space-evenly;
-    }
-
     &__section {
-      &__image {
-        &__thumbnail {
-          border: 1px solid $primary;
-          width: 100%;
-        }
-      }
-
-      &:first-child {
-        display: flex;
-        justify-content: center;
-
-        @media screen and (min-width: 768px) {
-          align-items: center;
-          background: transparent;
-          border: 1px solid $primary;
-          flex-flow: column wrap;
-          justify-content: center;
-          margin-left: auto;
-          margin-right: auto;
-          max-height: 250px;
-          max-width: 250px;
-          min-height: 250px;
-          min-width: 250px;
-
-          .article__inner__section__image {
-            overflow: hidden;
-
-            &__thumbnail {
-              border: none;
-              width: 100%;
-            }
-          }
-        }
-      }
-
-      &:last-child {
-        @media screen and (min-width: 768px) {
-          display: flex;
-          flex-direction: column;
-          height: 250px;
-          justify-content: space-between;
-          padding-bottom: 10px;
-          padding-left: 25px;
-          padding-right: 25px;
-          width: 100%;
-        }
-      }
+      display: flex;
+      flex-direction: column;
+      width: 100%;
 
       &__header {
-        margin-top: $margin-xs;
-
         &__title {
           color: $info;
-          font-size: $size-lg;
+          font-size: $size-md;
+          font-weight: 500;
           margin-bottom: $margin-xs;
 
           &:hover {
             color: $secondary;
             text-decoration: none;
           }
-
-          @media screen and (min-width: 1440px) {
-            font-size: $size-xxlg;
-          }
         }
       }
 
       &__body {
         display: -webkit-box;
-        font-family: "Roboto";
-        font-weight: 400;
-        height: max-content;
+        font-size: $size-xs;
         line-height: 1.2;
-        margin-bottom: $margin-lg;
+        margin-bottom: $margin-xs;
         margin-left: auto;
         margin-right: auto;
+        margin-top: $margin-xs;
         overflow: hidden;
         text-overflow: ellipsis;
         width: 100%;
 
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 3;
-      }
-
-      &__footer {
-        @media screen and (min-width: 768px) {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        &__section {
-          display: flex;
-          justify-content: center;
-
-          @media screen and (min-width: 768px) {
-            justify-content: flex-start;
-            width: 50%;
-          }
-
-          &:first-child {
-            border: 1px solid $info;
-            margin-bottom: 20px;
-            padding: 5px;
-
-            @media screen and (min-width: 768px) {
-              border: none;
-              margin-bottom: 0;
-              padding: 0;
-            }
-          }
-
-          &__link {
-            color: $info;
-            font-size: $size-xs;
-            text-align: center;
-
-            @media screen and (min-width: 1440px) {
-              font-size: $size-md;
-            }
-
-            &:hover {
-              color: $secondary;
-              text-decoration: none;
-            }
-          }
-
-          &:last-child {
-            display: flex;
-            justify-content: space-around;
-            margin-left: auto;
-            margin-right: auto;
-            width: 80%;
-
-            @media screen and (min-width: 768px) {
-              justify-content: flex-end;
-              margin-left: 0;
-              margin-right: 0;
-              width: 50%;
-            }
-          }
-
-          &__share {
-            cursor: pointer;
-            font-size: 20px;
-
-            @media screen and (min-width: 768px) {
-              &:not(:first-child) {
-                margin-left: 20px;
-              }
-            }
-
-            @media screen and (min-width: 1440px) {
-              font-size: $size-xs;
-            }
-
-            &__link {
-              color: $info;
-
-              &:hover {
-                color: $secondary;
-                text-decoration: none;
-              }
-            }
-          }
-        }
       }
     }
   }
