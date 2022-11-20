@@ -1,12 +1,10 @@
-import { faAngleUp, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import config from "data/config.json";
 import { scrollToTop } from "helpers/scroll.helper";
 import { CONSTANTS, event } from "lib/gtag";
 import dynamic from "next/dynamic";
 import { memo } from "react";
 
-const SocialNetworks = dynamic(() => import("components/SocialNetworks"));
 const Subscribe = dynamic(() => import("components/Subscribe"));
 
 const handleScrollToTop = () => {
@@ -28,7 +26,6 @@ const Footer = () => {
       <section className="col-12">
         <Subscribe />
       </section>
-      <SocialNetworks />
       <footer className="footer">
         <div className="footer-button">
           <button className="button outline" onClick={handleScrollToTop}>
@@ -40,25 +37,11 @@ const Footer = () => {
               {/*<span className='legal'>Términos</span>
 							<span className='legal'>Políticas</span>*/}
             </div>
-            <p className="made-by">
-              Creado con <FontAwesomeIcon icon={faHeart} />
-            </p>
+            <p className="made-by">Desarrollado en 🇨🇱</p>
           </div>
         </div>
 
         <div className="footer-info">
-          <div className="footer-mail">
-            <p className="footer-mail-title">Contacto</p>
-            <a
-              href={`mailto:${config.email}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-mail-link"
-            >
-              {config.email}
-            </a>
-          </div>
-
           <div className="copyright">
             <img
               decoding="async"

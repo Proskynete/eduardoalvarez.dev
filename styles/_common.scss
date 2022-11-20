@@ -47,29 +47,6 @@ a {
   width: 1px;
 }
 
-input[type="email"],
-input[type="text"] {
-  border: 1px solid $primary;
-  font-family: "Hero";
-  font-size: 20px;
-  max-width: 350px;
-  outline: none;
-  padding: 10px 0;
-  width: 100%;
-
-  &.with-icon {
-    padding-left: 40px;
-  }
-
-  &::placeholder {
-    color: $grey;
-  }
-
-  &:focus {
-    border-color: $info;
-  }
-}
-
 .button {
   align-items: center;
   border: none;

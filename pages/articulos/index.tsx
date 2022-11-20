@@ -32,7 +32,7 @@ const Index = (props: HomePropsInterface) => {
 
   const { paginate, results } = customPaginated({
     page: +page || 1,
-    limit: 5,
+    limit: 8,
     elements: articles,
   });
 
@@ -97,6 +97,7 @@ const Index = (props: HomePropsInterface) => {
                         </span>
                       </p>
                     )}
+
                     {pagination?.next !== 0 && (
                       <p
                         className="articles__footer__navigation"

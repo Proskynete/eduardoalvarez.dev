@@ -1,19 +1,21 @@
 .label {
-  font-family: "Hero";
+  background-color: #6c757d;
+  border-radius: 0.25rem;
+  color: #ffffff;
   display: inline-block;
-  padding: .25em .4em;
+  font-family: "Hero";
   font-size: 75%;
   font-weight: 400;
   line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: .25rem;
   margin-right: 5px;
+  padding: 0.25em 0.4em;
+  text-align: center;
+  vertical-align: baseline;
+  white-space: nowrap;
 
   &.desarrollo-web {
-    color: #000000;
     background-color: #c3c3c3;
+    color: #000000;
   }
 
   &.introduccion {
@@ -22,7 +24,7 @@
   }
 
   &.personal {
-    background-color: #CB171E;
+    background-color: #cb171e;
     color: #ebebeb;
   }
 

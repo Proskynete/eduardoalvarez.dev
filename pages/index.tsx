@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getPosts } from "helpers/posts.helper";
 import { postsSortied } from "helpers/sorter.helper";
+import config from "data/config.json";
 import { BlogTemplatePropsInterface } from "models/blogtemplate.model";
 import {
   ArticleContentInterface,
@@ -7,8 +9,11 @@ import {
   HomePropsInterface,
 } from "models/index.model";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { memo } from "react";
+import {
+  SocialNetworkInterface,
+  socialNetworkMap,
+} from "models/social-network.model";
 
 const Article = dynamic(() => import("components/Article"));
 const Layout = dynamic(() => import("components/Layout"));
@@ -37,35 +42,51 @@ const Index = (props: HomePropsInterface) => {
                   className="home__presentation__image__img lazyload"
                 />
               </div>
+
               <div className="home__presentation__description">
                 <p className="home__presentation__description__title">
                   Hola! Mi nombre es Eduardo Álvarez
                 </p>
                 <p className="home__presentation__description__text">
-                  ... Y soy un apasionado por las tecnologías web (JS Lover).
-                  Busco compartir todo lo que he aprendido en estos años
-                  mediante artículos, tutoriales y cursos.
+                  Y soy un apasionado por las tecnologías web (JS Lover). Busco
+                  compartir todo lo que he aprendido en estos años mediante
+                  artículos, tutoriales y cursos.
                 </p>
 
-                <Link href="/autor">
-                  <a className="home__presentation__description__link">
-                    Conoce más sobre mi
-                  </a>
-                </Link>
+                <div className="home__presentation__description__social_network">
+                  {config.social_network.map(
+                    ({ show, name, link }: SocialNetworkInterface) =>
+                      show && (
+                        <a
+                          href={link}
+                          title={name}
+                          className="home__presentation__description__social_network__link"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          <FontAwesomeIcon
+                            icon={socialNetworkMap.get(name)}
+                            className="home__presentation__description__social_network__link__icon"
+                          />
+                        </a>
+                      )
+                  )}
+                </div>
               </div>
             </div>
+
             <div className="row justify-content-md-center">
-              <div className="col-12 col-md-9 col-xl-8">
+              <div className="col-12 col-md-9 col-xl-7">
                 <section className="articles">
                   <div className="articles__header">
-                    <p className="articles__header__title">Últimos artículos</p>
-                    <Link href="/articulos">
-                      <a className="articles__header__subtitle">Ver más</a>
-                    </Link>
+                    <p className="articles__header__title">
+                      Últimas publicaciones
+                    </p>
                   </div>
-                  {articles.map((article: ArticleContentInterface) => {
-                    return <Article key={article.slug} {...article} />;
-                  })}
+
+                  {articles.map((article: ArticleContentInterface) => (
+                    <Article key={article.slug} {...article} />
+                  ))}
                 </section>
               </div>
             </div>
@@ -87,7 +108,7 @@ export const getStaticProps =
       require["context"]("../content/posts", false, /\.md$/)
     );
     const sortied = postsSortied<BlogTemplatePropsInterface>(posts, "slug");
-    const articlesSliced = sortied.slice(0, 3);
+    const articlesSliced = sortied.slice(0, 5);
 
     return {
       props: {

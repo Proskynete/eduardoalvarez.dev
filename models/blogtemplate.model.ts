@@ -33,7 +33,6 @@ export interface FrontMatterInterface {
   tags?: Array<TagsEnum>;
   read_time?: number;
   hero_image?: string;
-  thumbnail_image?: string;
   introduction?: SayInterface;
   image_introduction?: string;
   sections?: Array<SectionsInterface>;

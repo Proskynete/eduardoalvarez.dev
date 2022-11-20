@@ -2,8 +2,7 @@
   &__presentation {
     display: flex;
     flex-direction: column;
-    padding-bottom: 50px;
-    padding-top: 50px;
+    padding-top: $margin-lg;
 
     @media screen and (min-width: 768px) {
       align-items: center;
@@ -29,10 +28,6 @@
 
       &__img {
         width: 300px;
-
-        @media screen and (min-width: 768px) {
-          width: 500px;
-        }
       }
     }
 
@@ -53,7 +48,7 @@
       }
 
       &__title {
-        font-size: $size-md;
+        font-size: $size-xlg;
         font-weight: 400;
         margin-bottom: 20px;
         text-align: center;
@@ -63,34 +58,35 @@
         }
 
         @media screen and (min-width: 1200px) {
-          font-size: $size-lg;
+          font-size: $size-xlg;
         }
       }
 
       &__text {
-        font-family: "Roboto";
-        font-weight: 400;
         line-height: 1.2;
-        margin-bottom: 20px;
-
-        @media screen and (min-width: 1200px) {
-          font-size: $size-xs;
-          font-weight: 300;
-        }
+        font-size: $size-md;
       }
 
-      &__link {
-        color: $info;
-        font-size: $size-xs;
-        width: max-content;
+      &__social_network {
+        display: flex;
+        margin-top: $margin-lg;
+        justify-content: center;
 
-        @media screen and (min-width: 1200px) {
-          font-size: $size-md;
+        @media screen and (min-width: 768px) {
+          justify-content: flex-start;
         }
 
-        &:hover {
-          color: $secondary;
-          text-decoration: none;
+        &__link {
+          margin-right: $margin-md;
+
+          &__icon {
+            color: $glacier;
+            font-size: $size-xlg;
+
+            &:hover {
+              color: $mandy;
+            }
+          }
         }
       }
     }

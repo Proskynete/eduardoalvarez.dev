@@ -6,7 +6,6 @@ description: 'React es una librería desarrollada por Facebook el cual fue cread
 date: 2021-02-14T01:01:47-03:00
 tags: ['introduction', 'javascript', 'react']
 hero_image: '/images/articles/el-javascript-necesario-para-react/parte-1/el-javascript-necesario-para-react.png'
-thumbnail_image: '/images/articles/el-javascript-necesario-para-react/parte-1/thumbnail.png'
 with_introduction: true
 introduction:
   {

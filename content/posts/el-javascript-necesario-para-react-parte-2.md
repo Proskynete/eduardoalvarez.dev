@@ -6,7 +6,6 @@ para enseñarnos.'
 date: 2021-03-01T13:36:33-03:00
 tags: ['introduction', 'javascript', 'react']
 hero_image: '/images/articles/el-javascript-necesario-para-react/parte-2/el-javascript-necesario-para-react-parte-2.png'
-thumbnail_image: '/images/articles/el-javascript-necesario-para-react/parte-2/thumbnail.png'
 with_introduction: true
 introduction:
   {
