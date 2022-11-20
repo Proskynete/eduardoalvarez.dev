@@ -2,10 +2,7 @@ import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { scrollToTop } from "helpers/scroll.helper";
 import { CONSTANTS, event } from "lib/gtag";
-import dynamic from "next/dynamic";
 import { memo } from "react";
-
-const Subscribe = dynamic(() => import("components/Subscribe"));
 
 const handleScrollToTop = () => {
   scrollToTop();
@@ -23,9 +20,6 @@ const Footer = () => {
 
   return (
     <section className="row">
-      <section className="col-12">
-        <Subscribe />
-      </section>
       <footer className="footer">
         <div className="footer-button">
           <button className="button outline" onClick={handleScrollToTop}>

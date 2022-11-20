@@ -17,6 +17,7 @@ import {
 
 const Article = dynamic(() => import("components/Article"));
 const Layout = dynamic(() => import("components/Layout"));
+const Subscribe = dynamic(() => import("components/Subscribe"));
 
 const Index = (props: HomePropsInterface) => {
   const { title, description, image, articles, algolia } = props;
@@ -29,7 +30,7 @@ const Index = (props: HomePropsInterface) => {
       algolia={algolia}
     >
       <div className="home">
-        <div className="row">
+        <div className="justify-content-md-center">
           <div className="col-12">
             <div className="home__presentation">
               <div className="home__presentation__image">
@@ -76,19 +77,31 @@ const Index = (props: HomePropsInterface) => {
             </div>
 
             <div className="row justify-content-md-center">
-              <div className="col-12 col-md-9 col-xl-7">
+              <div className="col-12 col-md-7 col-xl-6">
                 <section className="articles">
                   <div className="articles__header">
-                    <p className="articles__header__title">
-                      Últimas publicaciones
-                    </p>
+                    <p className="articles__header__title">Últimos artículos</p>
                   </div>
 
                   {articles.map((article: ArticleContentInterface) => (
                     <Article key={article.slug} {...article} />
                   ))}
+
+                  <div className="articles__show_more">
+                    <a
+                      href="/articulos"
+                      className="articles__show_more__link"
+                      title="Ver todos"
+                    >
+                      Ver todos los artículos
+                    </a>
+                  </div>
                 </section>
               </div>
+
+              <aside className="col-12 col-md-3 col-xl-2 home__aside">
+                <Subscribe />
+              </aside>
             </div>
           </div>
         </div>

@@ -8,14 +8,7 @@ import {
   InputsInterface,
   TargetElementInterface,
 } from "models/subscribe.model";
-import {
-  FocusEvent,
-  memo,
-  SyntheticEvent,
-  useContext,
-  useRef,
-  useState,
-} from "react";
+import { FocusEvent, memo, SyntheticEvent, useContext, useState } from "react";
 
 const defaultValues: InputsInterface = {
   name: "",
@@ -29,9 +22,6 @@ const Subscribe = () => {
     loading: false,
   });
   const { setAlert } = useContext(AlertContext);
-
-  const _name = useRef(null);
-  const _email = useRef(null);
 
   const handleChangeInput = (e: TargetElementInterface): void => {
     const { name, value } = e.target;
@@ -114,7 +104,6 @@ const Subscribe = () => {
             </div>
 
             <input
-              ref={_name}
               id="name"
               name="name"
               type="text"
@@ -125,6 +114,7 @@ const Subscribe = () => {
               onBlur={handleValidateInputs}
               required
               autoComplete="off"
+              autoCapitalize="off"
             />
           </div>
 
@@ -137,17 +127,17 @@ const Subscribe = () => {
             </div>
 
             <input
-              ref={_email}
               id="email"
               name="email"
               type="email"
               className="subscribe-inputs-container_input__input"
-              placeholder="Tu correo"
+              placeholder="Tu email"
               value={state.email}
               onChange={handleChangeInput}
               onBlur={handleValidateInputs}
               required
               autoComplete="off"
+              autoCapitalize="off"
             />
           </div>
         </div>
