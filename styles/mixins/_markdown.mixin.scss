@@ -1,234 +1,221 @@
 @mixin markdown-styles {
-	color: $black;
-	font-family: 'Roboto';
+  color: $black;
+  font-family: "Roboto";
 
-	h2 {
-		font-family: 'Hero';
-		font-size: $size-xxlg;
-		margin-bottom: $margin-xxlg;
-		padding-top: 70px;
-		position: relative;
+  h2 {
+    color: $glacier;
+    font-family: "Hero";
+    font-size: $size-xlg;
+    font-weight: 500;
+    margin-bottom: $margin-xxlg;
+    padding-top: $margin-hero;
+    position: relative;
 
-		@media (min-width: 1200px) {
-			padding-top: $margin-xxlg;
-		}
-	}
+    @media screen and (min-width: 768px) {
+      padding-top: $margin-lg;
+    }
+  }
 
-	h3 {
-		font-family: 'Hero';
-		font-size: $size-xlg;
-		margin-bottom: $margin-xxlg;
-		padding-top: 50px;
-		position: relative;
+  h3 {
+    font-family: "Hero";
+    font-size: $size-md;
+    font-weight: 500;
+    margin-bottom: $margin-xs;
+    margin-top: $margin-xs;
+    position: relative;
+  }
 
-		@media (min-width: 1200px) {
-			padding-top: $margin-xlg;
-		}
-	}
+  .subtitle {
+    color: $grey;
+    font-family: "Hero";
+    font-size: $size-md;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: $margin-xxlg;
+    margin-top: -$margin-xxlg;
+  }
 
-	h4 {
-		font-family: 'Hero';
-		font-size: $size-lg;
-		margin-bottom: $margin-xxlg;
-		padding-top: 50px;
-		position: relative;
+  p {
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: $margin-xxlg;
 
-		@media (min-width: 1200px) {
-			padding-top: $margin-lg;
-		}
-	}
+    strong {
+      font-weight: 400;
+    }
 
-	.subtitle {
-		color: $info;
-		font-family: 'Hero';
-		font-size: $size-lg;
-		font-weight: 400;
-		line-height: 1;
-		margin-bottom: $margin-xxlg;
-		margin-top: -$margin-xxlg;
-	}
+    em {
+      font-style: italic;
+    }
 
-	p {
-		font-weight: 300;
-		line-height: 1.8;
-		margin-bottom: $margin-xxlg;
+    a {
+      color: $glacier;
+      font-weight: 400;
+      text-decoration: none;
 
-		strong {
-			font-weight: 400;
-		}
+      &:hover {
+        text-decoration: none;
+        color: $mandy;
+      }
+    }
 
-		em {
-			font-style: italic;
-		}
+    img {
+      box-shadow: $box-shadow;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: $margin-hero;
+      max-width: 100%;
 
-		a {
-			color: $info;
-			text-decoration: none;
+      @media (min-width: 1200px) {
+        max-width: 80%;
+        width: 80%;
+      }
+    }
 
-			&:hover {
-				text-decoration: none;
-				color: $secondary;
-			}
-		}
+    code {
+      background-color: $wild-sand;
+      border-radius: 3px;
+      color: $primary;
+      font-style: italic;
+      font-weight: bolder;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
 
-		img {
-			box-shadow: $box-shadow;
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			margin-top: $margin-hero;
-			max-width: 100%;
+  blockquote {
+    background: $blockquote-color;
+    border-radius: $margin-xxs;
+    box-shadow: $box-shadow;
+    color: $blockquote-text;
+    margin-bottom: $margin-xxlg;
+    margin-top: $margin-hero;
+    padding: $margin-md $margin-md $margin-xlg;
 
-			@media (min-width: 1200px) {
-				max-width: 80%;
-				width: 80%;
-			}
-		}
+    p {
+      font-size: 16px;
+      line-height: 1.2;
+      margin: 0;
 
-		code {
-			background-color: $wild-sand;
-			border-radius: 3px;
-			color: $primary;
-			font-style: italic;
-			font-weight: bolder;
-			padding-left: 5px;
-			padding-right: 5px;
-		}
-	}
+      a {
+        color: $info;
+        font-weight: bolder;
 
-	blockquote {
-		background: $blockquote-color;
-		border-radius: 6px;
-		box-shadow: 5px 5px 9px 3px $grey;
-		color: $blockquote-text;
-		margin-bottom: 32px;
-		margin-top: 48px;
-		padding: 16px 16px 25px 16px;
+        &:hover {
+          color: $secondary;
+        }
+      }
 
-		p {
-			line-height: 1.2;
-			margin: 0;
+      code {
+        background-color: $blockquote-code;
+        border-radius: 3px;
+        color: $primary;
+        display: contents;
+        font-style: italic;
+        font-weight: bolder;
+        padding-left: 3px;
+        padding-right: 3px;
+      }
+    }
 
-			a {
-				color: $info;
-				font-weight: bolder;
+    ul {
+      li {
+        font-size: 16px;
+        line-height: 1.2;
 
-				&:hover {
-					color: $secondary;
-				}
-			}
+        &:not(:first-child) {
+          @media (min-width: 720px) {
+            margin-top: 5px;
+          }
+        }
 
-			code {
-				background-color: $blockquote-code;
-				border-radius: 3px;
-				color: $primary;
-				display: contents;
-				font-style: italic;
-				font-weight: bolder;
-				padding-left: 3px;
-				padding-right: 3px;
-			}
-		}
+        &:last-child {
+          margin-bottom: 0px;
+        }
 
-		ul {
-			li {
-				line-height: 16px;
+        &::before {
+          background-color: $primary;
+          border-radius: 50%;
+          content: "\f111";
+          height: 5px;
+          left: 0;
+          position: absolute;
+          top: 5px;
+          width: 5px;
+        }
+      }
+    }
+  }
 
-				&:not(:first-child) {
-					@media (min-width: 720px) {
-						margin-top: 10px;
-					}
-				}
+  ul {
+    display: flex;
+    flex-direction: column;
+    font-weight: 300;
+    height: max-content;
+    margin-top: 20px;
+    margin-bottom: 20px;
 
-				&:last-child {
-					margin-bottom: 0px;
-				}
+    li {
+      display: block;
+      line-height: 1.8;
+      padding-left: 15px;
+      position: relative;
 
-				&::before {
-					background-color: $primary;
-					border-radius: 50%;
-					content: '\f111';
-					height: 5px;
-					left: 0;
-					position: absolute;
-					top: 5px;
-					width: 5px;
-				}
-			}
-		}
-	}
+      &::before {
+        background-color: $primary;
+        border-radius: 50%;
+        content: "\f111";
+        height: 5px;
+        left: 0;
+        position: absolute;
+        top: 10px;
+        width: 5px;
+      }
 
-	ul {
-		display: flex;
-		flex-direction: column;
-		font-weight: 300;
-		height: max-content;
-		margin-top: 20px;
+      strong {
+        display: contents;
+        font-weight: 400;
+      }
 
-		li {
-			display: block;
-			line-height: 1.8;
-			padding-left: 15px;
-			position: relative;
+      em {
+        display: contents;
+        font-style: italic;
+      }
 
-			&:last-child {
-				margin-bottom: 30px;
-			}
+      a {
+        color: $info;
+        display: contents;
+        text-decoration: none;
 
-			&::before {
-				background-color: $primary;
-				border-radius: 50%;
-				content: '\f111';
-				height: 5px;
-				left: 0;
-				position: absolute;
-				top: 10px;
-				width: 5px;
-			}
+        &:hover {
+          color: $secondary;
+          text-decoration: none;
+        }
+      }
 
-			strong {
-				display: contents;
-				font-weight: 400;
-			}
+      code {
+        background-color: $wild-sand;
+        border-radius: 3px;
+        color: $primary;
+        font-style: italic;
+        font-weight: bolder;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+    }
+  }
 
-			em {
-				display: contents;
-				font-style: italic;
-			}
+  .custom-content {
+    width: 100%;
 
-			a {
-				color: $info;
-				display: contents;
-				text-decoration: none;
-
-				&:hover {
-					color: $secondary;
-					text-decoration: none;
-				}
-			}
-
-			code {
-				background-color: $wild-sand;
-				border-radius: 3px;
-				color: $primary;
-				font-style: italic;
-				font-weight: bolder;
-				padding-left: 5px;
-				padding-right: 5px;
-			}
-		}
-	}
-
-	.custom-content {
-		width: 100%;
-
-		img {
-			display: flex;
-			margin-bottom: 30px;
-			margin-left: auto;
-			margin-right: auto;
-			margin-top: 50px;
-			max-width: 100%;
-		}
-	}
+    img {
+      display: flex;
+      margin-bottom: 30px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 50px;
+      max-width: 100%;
+    }
+  }
 }

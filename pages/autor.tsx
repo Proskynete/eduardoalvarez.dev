@@ -10,7 +10,6 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
 const Layout = dynamic(() => import("components/Layout"));
-const Say = dynamic(() => import("components/Say"));
 const TableOfSections = dynamic(() => import("components/TableOfSections"));
 
 const BlogTemplate = (props: AuthorPropsInterface) => {
@@ -26,30 +25,6 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
       algolia={algolia}
     >
       <div className="author">
-        <div className="row">
-          <header className="author__header">
-            <div className="author__header__inner">
-              <div className="author__header__inner__text">
-                <p className="author__header__inner__text__title">
-                  Quién es Eduardo?
-                </p>
-                <p className="author__header__inner__text__subtitle">
-                  A human, not a machine
-                </p>
-                <div className="author__header__inner__text__image">
-                  <img
-                    decoding="async"
-                    data-sizes="auto"
-                    data-src="/images/isotipo/isotipo-white.png"
-                    alt={title}
-                    loading="lazy"
-                    className="lazyload"
-                  />
-                </div>
-              </div>
-            </div>
-          </header>
-        </div>
         <article className="row justify-content-md-center">
           <div className="col-12">
             <div className="article__body">
@@ -68,12 +43,6 @@ const BlogTemplate = (props: AuthorPropsInterface) => {
                       children={markdownBody}
                     />
                   </div>
-                  <Say
-                    variant="primary"
-                    anchor="filosofia-de-vida"
-                    title="Mi filosofía de vida"
-                    content="Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo."
-                  />
                 </div>
               </div>
             </div>

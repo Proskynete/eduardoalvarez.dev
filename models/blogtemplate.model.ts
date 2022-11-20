@@ -1,5 +1,4 @@
 import { IAlgolia } from "./index.model";
-import { SayInterface } from "./say.model";
 import { SectionsInterface } from "./sections.model";
 
 export type TagsEnum =
@@ -33,7 +32,6 @@ export interface FrontMatterInterface {
   tags?: Array<TagsEnum>;
   read_time?: number;
   hero_image?: string;
-  introduction?: SayInterface;
   image_introduction?: string;
   sections?: Array<SectionsInterface>;
   slug?: string;
