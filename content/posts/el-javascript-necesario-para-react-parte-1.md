@@ -4,7 +4,7 @@ description: 'React es una librería desarrollada por Facebook el cual fue cread
  motivo, mientras más aprendamos del lenguaje, más cosas podremos hacer en React. Es por eso que hoy vamos a revisar algunos conceptos 
  y funciones que, según mi experiencia, son fundamentales para ser un buen desarrollador de React.'
 date: 2021-02-14T01:01:47-03:00
-tags: ['introduction', 'javascript', 'react']
+tags: ['web-development', 'javascript']
 hero_image: '/images/articles/el-javascript-necesario-para-react/parte-1/el-javascript-necesario-para-react.png'
 with_introduction: true
 sections:
