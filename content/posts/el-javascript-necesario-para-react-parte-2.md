@@ -4,7 +4,7 @@ description: 'Hoy continuaremos revisando esas características de JavaScript qu
 React. Revisaremos Funciones, Default Parameters, Rest Parameters y Destructuring. Aprendamos juntos lo que JavaScript tiene 
 para enseñarnos.'
 date: 2021-03-01T13:36:33-03:00
-tags: ['introduction', 'javascript', 'react']
+tags: ['web-development', 'javascript']
 hero_image: '/images/articles/el-javascript-necesario-para-react/parte-2/el-javascript-necesario-para-react-parte-2.png'
 with_introduction: true
 sections:

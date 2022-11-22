@@ -61,38 +61,56 @@
     position: absolute;
     max-width: 100%;
     background-color: white;
-    border-radius: 5px;
+    border-radius: $margin-xxs;
     border: 1px solid #ccc;
     border-top: 0;
 
     &__item {
-      border-radius: 5px;
       border: 1px solid transparent;
       color: $fiord;
       cursor: pointer;
-      padding: 10px;
+      padding: $margin-xs;
 
-      &--hover {
-        border-color: $fiord;
+      &--hover,
+      &:hover {
+        background: $wild-sand;
+      }
+
+      &:first-of-type {
+        border-top-left-radius: $margin-xxs;
+        border-top-right-radius: $margin-xxs;
+      }
+
+      &:last-of-type {
+        border-bottom-left-radius: $margin-xxs;
+        border-bottom-right-radius: $margin-xxs;
+      }
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid $grey;
       }
 
       &__title {
-        font-size: 14px;
-        font-weight: 400;
+        display: -webkit-box;
+        font-size: $size-xs;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
 
         mark {
           background-color: $wild-sand;
-          border-radius: 3px;
+          border-radius: $margin-xxs;
           color: $mandy;
         }
       }
 
       &__description {
         display: -webkit-box;
-        font-family: "Roboto";
-        font-size: 14px;
+        font-size: $size-xs;
         font-weight: 300;
-        margin-top: 8px;
+        margin-top: $margin-xxs;
         overflow: hidden;
         text-overflow: ellipsis;
 
@@ -101,7 +119,7 @@
 
         mark {
           background-color: $wild-sand;
-          border-radius: 3px;
+          border-radius: $margin-xxs;
           color: $mandy;
         }
       }
