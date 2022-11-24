@@ -7,6 +7,7 @@ import { SearchComponentConnected } from "./SearchComponent";
 import algoliasearch from "algoliasearch";
 import Link from "next/link";
 import { IAlgolia } from "models/index.model";
+import Image from "next/image";
 
 interface PropsInterface {
   path: string;
@@ -35,13 +36,12 @@ const Nav = (props: PropsInterface) => {
         <section className="nav__inner__logo">
           <Link href="/">
             <a>
-              <img
-                decoding="async"
-                data-sizes="auto"
-                data-src="/images/logo/logo.png"
+              <Image
+                src="/images/logo/logo.png"
                 alt="logo"
-                loading="lazy"
                 className="nav__inner__logo__img lazyload"
+                width={180}
+                height={88}
               />
             </a>
           </Link>

@@ -1,13 +1,15 @@
 import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { scrollToTop } from "helpers/scroll.helper";
+import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { CONSTANTS, event } from "lib/gtag";
+import Image from "next/image";
 import { memo } from "react";
 
 const handleScrollToTop = () => {
   scrollToTop();
   event({
-    action: "SCROLL_TO_TOP",
+    action: "scroll_to_top",
     category: CONSTANTS.BUTTON_ACTION.CATEGORY,
     label: "Track button - scroll to top",
     value:
@@ -17,6 +19,7 @@ const handleScrollToTop = () => {
 
 const Footer = () => {
   const currentYear: number = new Date().getFullYear();
+  const { width } = useWindowDimensions();
 
   return (
     <section className="row">
@@ -37,22 +40,22 @@ const Footer = () => {
 
         <div className="footer-info">
           <div className="copyright">
-            <img
-              decoding="async"
-              data-sizes="auto"
-              data-src="/images/logo/black.png"
-              alt="logotipo"
-              loading="lazy"
-              className="small lazyload"
-            />
-            <img
-              decoding="async"
-              data-sizes="auto"
-              data-src="/images/logo/black2.png"
-              alt="logotipo"
-              loading="lazy"
-              className="medium lazyload"
-            />
+            {width >= 768 ? (
+              <Image
+                src="/images/logo/black2.png"
+                alt="logotipo"
+                width={200}
+                height={88}
+              />
+            ) : (
+              <Image
+                src="/images/logo/black.png"
+                alt="logotipo"
+                width={300}
+                height={135}
+              />
+            )}
+
             <p>Copyright &copy; 2021 - {currentYear}</p>
           </div>
         </div>
