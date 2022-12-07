@@ -22,6 +22,11 @@
 			"show": true
 		},
 		{
+			"name": "npm",
+			"link": "https://www.npmjs.com/settings/eduardoalvarez/packages",
+			"show": true
+		},
+		{
 			"name": "youtube",
 			"link": "https://youtube.com/channel/UCVrAjdQkLTKOdG0TUFFJomw",
 			"show": false
