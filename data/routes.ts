@@ -14,27 +14,15 @@ const navResources: MenuLinkInterface[] = [
     show: true,
   },
   {
-    link: "/recursos",
-    pathsAllowed: ["/recursos"],
-    title: "Recursos",
-    show: false,
-  },
-  {
     link: "/autor",
     pathsAllowed: ["/autor"],
-    title: "Autor",
+    title: "Acerca de",
     show: true,
   },
   {
     link: "/cursos",
     pathsAllowed: ["/cursos"],
     title: "Cursos",
-    show: false,
-  },
-  {
-    link: "/glosario",
-    pathsAllowed: ["/glosario"],
-    title: "Glosario",
     show: false,
   },
   {

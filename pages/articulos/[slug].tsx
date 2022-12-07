@@ -61,7 +61,7 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
       slug={`articulos/${slug}`}
       algolia={algolia}
     >
-      <article className="row justify-content-md-center">
+      <article className="row justify-content-md-center article_wrapper">
         <div className="col-12 col-md-7 col-xl-6">
           <div className="article">
             <header className="article__header">
