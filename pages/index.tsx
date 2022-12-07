@@ -59,7 +59,6 @@ const Index = (props: HomePropsInterface) => {
                     ({ show, name, link }: SocialNetworkInterface) =>
                       show && (
                         <a
-                          key={name}
                           href={link}
                           title={name}
                           className="home__presentation__description__social_network__link"
