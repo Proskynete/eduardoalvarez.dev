@@ -1,3 +1,4 @@
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { scrollToTop } from "helpers/scroll.helper";
@@ -30,32 +31,20 @@ const Footer = () => {
             <p className="footer-button-text">Subir</p>
           </button>
           <div className="footer-legals">
-            <div className="footer-legals-links">
-              {/*<span className='legal'>Términos</span>
-							<span className='legal'>Políticas</span>*/}
-            </div>
-            <p className="made-by">Desarrollado en 🇨🇱</p>
+            <p className="made-by">
+              Desarrollado con <FontAwesomeIcon icon={faHeart} /> desde 🇨🇱
+            </p>
           </div>
         </div>
 
         <div className="footer-info">
           <div className="copyright">
-            {width >= 768 ? (
-              <Image
-                src="/images/logo/black2.png"
-                alt="logotipo"
-                width={200}
-                height={88}
-              />
-            ) : (
-              <Image
-                src="/images/logo/black.png"
-                alt="logotipo"
-                width={300}
-                height={135}
-              />
-            )}
-
+            <Image
+              src={`/images/logo/black${width >= 768 ? "2" : ""}.png`}
+              alt="logotipo"
+              width={width >= 768 ? 200 : 300}
+              height={width >= 768 ? 88 : 135}
+            />
             <p>Copyright &copy; 2021 - {currentYear}</p>
           </div>
         </div>
