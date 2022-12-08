@@ -17,6 +17,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { memo, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
+import { ShareSection } from "components/ShareSection";
 
 const Layout = dynamic(() => import("components/Layout"));
 const DisqusComponent = dynamic(() => import("components/DisqusComponent"), {
@@ -64,6 +65,8 @@ const BlogTemplate = (props: BlogTemplatePropsInterface) => {
       <article className="row justify-content-md-center article_wrapper">
         <div className="col-12 col-md-7 col-xl-6">
           <div className="article">
+            <ShareSection slug={slug} />
+
             <header className="article__header">
               <h1 className="article__header__title">{title}</h1>
 
