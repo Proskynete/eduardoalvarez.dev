@@ -1,3 +1,7 @@
+.article_wrapper {
+  margin-bottom: calc($margin-hero * 2);
+}
+
 .articles {
   background-color: $white;
   padding: $margin-xxlg 0 $margin-hero;
