@@ -7,27 +7,32 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CONSTANTS, event } from "lib/gtag";
 import { memo } from "react";
+import config from "../data/config.json";
 
 interface ShareSectionProps {
   slug: string;
 }
 
 interface ShareLink {
+  name: string;
   icon: IconDefinition;
   url: string;
 }
 
-const baseLink = "https://eduardoalvarez.dev/articulos";
+const baseLink = `${config.url}/articulos`;
 const shareLinks: ShareLink[] = [
   {
+    name: "Facebook",
     icon: faFacebookF,
     url: `https://www.facebook.com/sharer/sharer.php?u=${baseLink}/`,
   },
   {
+    name: "Twitter",
     icon: faTwitter,
     url: `https://twitter.com/intent/tweet?url=${baseLink}/`,
   },
   {
+    name: "LinkedIn",
     icon: faLinkedinIn,
     url: `https://www.linkedin.com/shareArticle?mini=true&url=${baseLink}/`,
   },
@@ -55,9 +60,11 @@ const ShareSection = memo(({ slug }: ShareSectionProps) => {
         <div className="share_section__inner__icons">
           {shareLinks.map((shareLink) => (
             <button
-              key={shareLink.icon.iconName}
+              key={shareLink.name}
               className="share_section__inner__icons__icon"
-              onClick={() => handleClick(shareLink)}
+              onClick={() => {
+                handleClick(shareLink);
+              }}
             >
               <FontAwesomeIcon icon={shareLink.icon} />
             </button>

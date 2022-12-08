@@ -22,6 +22,7 @@ const Layout: FC<PropsInterface> = (props) => {
     children,
     footer = true,
     algolia,
+    publishDate,
   } = props;
   const [path, setPath] = useState("");
   const target = useRef(null);
@@ -38,6 +39,7 @@ const Layout: FC<PropsInterface> = (props) => {
         description={description}
         image={image}
         slug={slug}
+        publishDate={publishDate}
       />
       <ProgressBarScrolling target={target} />
       <Nav path={path} algolia={algolia} />

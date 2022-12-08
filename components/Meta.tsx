@@ -4,7 +4,7 @@ import Head from "next/head";
 import { memo } from "react";
 
 const Meta = (props: PropsInterface) => {
-  const { customTitle, description, image, slug = "" } = props;
+  const { customTitle, description, image, slug = "", publishDate } = props;
 
   return (
     <Head>
@@ -12,50 +12,9 @@ const Meta = (props: PropsInterface) => {
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />
 
-      <title>{customTitle} | eduardoalvarez.dev </title>
-
-      <link
-        rel="preload"
-        href="/fonts/Hero/regular.ttf"
-        as="font"
-        crossOrigin=""
-      />
-      <link
-        rel="preload"
-        href="/fonts/Hero/bold.ttf"
-        as="font"
-        crossOrigin=""
-      />
-      <link
-        rel="preload"
-        href="/fonts/Hero/light.ttf"
-        as="font"
-        crossOrigin=""
-      />
-      <link
-        rel="preload"
-        href="/fonts/Roboto/italic.ttf"
-        as="font"
-        crossOrigin=""
-      />
-      <link
-        rel="preload"
-        href="/fonts/Roboto/light-italic.ttf"
-        as="font"
-        crossOrigin=""
-      />
-      <link
-        rel="preload"
-        href="/fonts/Roboto/light.ttf"
-        as="font"
-        crossOrigin=""
-      />
-      <link
-        rel="preload"
-        href="/fonts/Roboto/regular.ttf"
-        as="font"
-        crossOrigin=""
-      />
+      <title>
+        {customTitle} | {data.domain}
+      </title>
 
       <link rel="icon" href="/favicon/favicon.ico" />
       <meta name="description" content={description} />
@@ -63,19 +22,13 @@ const Meta = (props: PropsInterface) => {
       <link rel="manifest" href="/manifest.json" />
       <meta name="robots" content="index, follow" />
 
-      <meta
-        name="keywords"
-        content="frontend, front-end, react, reactjs, mongo, mongodb, ts, typescript, js, javascript, nosql, express, node, nodejs, html, css"
-      />
-      <meta name="author" content="Eduardo Álvarez Castañeda" />
-      <meta name="copyright" content="Eduardo Álvarez Castañeda" />
-      <meta name="application-name" content="Blog de Eduardo Álvarez" />
+      <meta name="keywords" content={data.keywords} />
+      <meta name="author" content={data.author.name} />
+      <meta name="copyright" content={data.author.name} />
+      <meta name="application-name" content={`Blog de ${data.author.name}`} />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-      <meta
-        name="apple-mobile-web-app-title"
-        content="eduardoalvarez.dev | Frontend, HTML, CSS, Javascript, Typescript, React, Node, MongoDB"
-      />
+      <meta name="apple-mobile-web-app-title" content={data.title} />
       <meta name="format-detection" content="telephone=no" />
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="theme-color" content="#0A3F66" />
@@ -88,18 +41,24 @@ const Meta = (props: PropsInterface) => {
       <meta name="image" content={`${data.url}${image}`} />
       <link rel="canonical" href={`${data.url}/${slug}`} />
 
-      <meta property="og:title" content={customTitle} />
-      <meta property="og:type" content="blog" />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={`${data.url}${image}`} />
-      <meta property="og:url" content={`${data.url}${slug}`} />
-      <meta property="og:site_name" content={customTitle} />
-
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:url" content={`${data.url}/${slug}`} />
       <meta name="twitter:title" content={customTitle} />
-      <meta name="twitter:image" content={`${data.url}${image}`} />
       <meta name="twitter:description" content={description} />
+      <meta name="twitter:creator" content="@proskynete" />
+
+      <meta property="og:type" content="blog" />
+      <meta property="og:title" content={customTitle} />
+      <meta property="og:description" content={description} />
+      <meta property="og:url" content={`${data.url}/${slug}`} />
+      <meta property="og:image" content={`${data.url}/${image}`} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="600" />
+      <meta property="og:image:alt" content={customTitle} />
+      <meta property="og:site_name" content={customTitle} />
+      {publishDate && (
+        <meta property="article:published_time" content={publishDate} />
+      )}
     </Head>
   );
 };

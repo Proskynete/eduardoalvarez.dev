@@ -7,4 +7,5 @@ export interface PropsInterface {
   slug?: string;
   footer?: boolean;
   algolia?: IAlgolia;
+  publishDate?: string;
 }
