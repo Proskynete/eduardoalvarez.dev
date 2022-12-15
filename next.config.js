@@ -3,8 +3,9 @@
  */
 
 const path = require("path");
+const { withAxiom } = require("next-axiom");
 
-const nextConfig = {
+const nextConfig = withAxiom({
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
@@ -37,6 +38,6 @@ const nextConfig = {
       "react/jsx-runtime": "react/jsx-runtime.js",
     },
   },
-};
+});
 
 module.exports = nextConfig;

@@ -10,6 +10,8 @@ import { useRouter } from "next/router";
 import * as gtag from "lib/gtag";
 import type { AppProps } from "next/app";
 
+export { reportWebVitals } from "next-axiom";
+
 config.autoAddCss = false;
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
