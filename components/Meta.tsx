@@ -16,10 +16,10 @@ const Meta = (props: PropsInterface) => {
         {customTitle} | {data.domain}
       </title>
 
-      <link rel="icon" href="/favicon/favicon.ico" />
+      <link rel="icon" href={`${data.url}/favicon/favicon.ico`} />
       <meta name="description" content={description} />
 
-      <link rel="manifest" href="/manifest.json" />
+      <link rel="manifest" href={`${data.url}/manifest.json`} />
       <meta name="robots" content="index, follow" />
 
       <meta name="keywords" content={data.keywords} />
@@ -35,7 +35,7 @@ const Meta = (props: PropsInterface) => {
       <link
         rel="apple-touch-icon"
         sizes="192x192"
-        href="/images/manifest/192x192.png"
+        href={`${data.url}/images/manifest/192x192.png`}
       />
 
       <meta name="image" content={`${data.url}${image}`} />
