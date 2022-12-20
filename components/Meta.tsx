@@ -41,7 +41,7 @@ const Meta = (props: PropsInterface) => {
       <meta name="image" content={`${data.url}${image}`} />
       <link rel="canonical" href={`${data.url}/${slug}`} />
 
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={`${data.url}/${slug}`} />
       <meta name="twitter:title" content={customTitle} />
       <meta name="twitter:description" content={description} />
