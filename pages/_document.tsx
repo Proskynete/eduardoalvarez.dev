@@ -25,10 +25,14 @@ class MyDocument extends Document<DocumentInterface> {
 
   render() {
     const { isProduction } = this.props;
+    const d = new Date();
 
     return (
       <Html lang="es">
         <Head>
+          {d.getMonth() === 11 && (
+            <script defer src="https://app.embed.im/snow.js" />
+          )}
           {isProduction && (
             <>
               {/* Global Site Tag (gtag.js) - Google Analytics */}
