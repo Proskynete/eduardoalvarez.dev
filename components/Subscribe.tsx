@@ -31,7 +31,7 @@ const Subscribe = () => {
     });
   };
 
-  const handleValidateInputs = (e: FocusEvent<HTMLInputElement, Element>) => {
+  const handleValidateInputs = (e: FocusEvent<HTMLInputElement>): void => {
     if (
       state.name !== "" &&
       state.name.length >= 3 &&
@@ -43,7 +43,7 @@ const Subscribe = () => {
     }
   };
 
-  const handleSubscribe = async (e: SyntheticEvent) => {
+  const handleSubscribe = async (e: SyntheticEvent): Promise<void> => {
     e.preventDefault();
     setButtonState({ ...buttonState, loading: true });
 
