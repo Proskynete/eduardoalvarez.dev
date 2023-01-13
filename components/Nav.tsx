@@ -75,7 +75,7 @@ const Nav = (props: PropsInterface) => {
                     className="nav__inner__menu__content__inner__item"
                   >
                     <Link href={resource.link} passHref>
-                      <p
+                      <a
                         role="presentation"
                         onClick={handleRemoveActive}
                         className={`nav__inner__menu__content__inner__item__link ${
@@ -85,7 +85,7 @@ const Nav = (props: PropsInterface) => {
                         }`}
                       >
                         {resource.title}
-                      </p>
+                      </a>
                     </Link>
                   </li>
                 ) : null

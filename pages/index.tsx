@@ -49,9 +49,9 @@ const Index = (props: HomePropsInterface) => {
                   Hola! Mi nombre es Eduardo Álvarez
                 </p>
                 <p className="home__presentation__description__text">
-                  Y soy un apasionado por las tecnologías web (JS Lover). Busco
-                  compartir todo lo que he aprendido en estos años mediante
-                  artículos, tutoriales y cursos.
+                  Software Engineer con +8 años de experiencia. He trabajado en
+                  diferentes proyectos y empresas, las cuales han aportado
+                  conocimientos y habilidades las que comparto en este blog.
                 </p>
 
                 <div className="home__presentation__description__social_network">
