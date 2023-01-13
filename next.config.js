@@ -1,11 +1,9 @@
-/**
- * @type {import('next').NextConfig}
- */
-
-const path = require("path");
+/** @type {import('next').NextConfig} */
 const { withAxiom } = require("next-axiom");
+const path = require("path");
 
 const nextConfig = withAxiom({
+  reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
@@ -24,19 +22,6 @@ const nextConfig = withAxiom({
     });
 
     return config;
-  },
-  images: {
-    deviceSizes: [320, 420, 768, 1024, 1200],
-    iconSizes: [],
-    domains: [],
-    path: "/_next/image",
-    loader: "default",
-  },
-  resolve: {
-    alias: {
-      "react/jsx-dev-runtime": "react/jsx-dev-runtime.js",
-      "react/jsx-runtime": "react/jsx-runtime.js",
-    },
   },
 });
 
