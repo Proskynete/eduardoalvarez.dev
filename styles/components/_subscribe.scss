@@ -90,18 +90,18 @@
         background-clip: padding-box;
         background-color: #fff;
         border-radius: $margin-xxs;
-        border: 1px solid rgb(170, 170, 170);
+        border: 1px solid $grey;
         display: block;
         font-weight: 300;
         line-height: 1.5;
-        padding-left: calc($margin-xxlg + 5px) !important;
-        padding: $margin-xxs;
+        padding: $margin-xxs $margin-xxs $margin-xxs calc(#{$margin-xxlg} + 5px);
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         width: 100%;
-        color: rgb(10, 63, 102);
+        color: $grey;
 
         &:focus {
-          border-color: rgb(36, 127, 134);
+          border-color:  $glacier;
+          color: $fiord;
           box-shadow: none;
           outline: 0;
         }
