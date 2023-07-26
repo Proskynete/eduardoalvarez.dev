@@ -26,10 +26,10 @@ const navResources: MenuLinkInterface[] = [
     show: false,
   },
   {
-    link: "/podcats",
-    pathsAllowed: ["/podcats"],
+    link: "/podcasts",
+    pathsAllowed: ["/podcasts"],
     title: "Podcasts",
-    show: false,
+    show: true,
   },
 ];
 
