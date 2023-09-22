@@ -1,5 +1,6 @@
 ---
 import { useSanityClient } from '@sanity/astro';
+import { ViewTransitions } from 'astro:transitions';
 const posts = await useSanityClient().fetch(`*[_type == "post"]`);
 const categories = await useSanityClient().fetch(`*[_type == "category"]`);
 
@@ -7,6 +8,7 @@ const categories = await useSanityClient().fetch(`*[_type == "category"]`);
 
 <html lang="es">
 	<head>
+		<ViewTransitions />
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />

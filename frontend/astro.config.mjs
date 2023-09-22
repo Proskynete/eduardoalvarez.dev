@@ -5,6 +5,9 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
+  experimental: {
+    viewTransitions: true,
+  },
   integrations: [
     sanity({
       projectId: "0fe29bsm",
