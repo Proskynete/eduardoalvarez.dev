@@ -1,7 +1,28 @@
 {
-  "name": "frontend",
+  "name": "eduardoalvarez.dev",
+  "version": "4.0.0",
+  "description": "My personal Web site",
   "type": "module",
-  "version": "0.0.1",
+  "keywords": [
+    "react",
+    "typescript",
+    "lint",
+    "astro"
+  ],
+  "license": "ISC",
+  "author": {
+    "name": "Eduardo Esteban Álvarez Castañeda",
+    "email": "soy@eduardoalvarez.dev",
+    "url": "https://eduardoalvarez.dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Proskynete/eduardoalvarez.dev"
+  },
+  "bugs": {
+    "url": "https://github.com/Proskynete/eduardoalvarez.dev/issues"
+  },
+  "homepage": "https://github.com/Proskynete/eduardoalvarez.dev#readme",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -11,7 +32,9 @@
   },
   "dependencies": {
     "@sanity/astro": "^1.3.0",
+    "@sanity/image-url": "^1.0.2",
     "astro": "^3.1.2",
+    "astro-portabletext": "^0.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sanity": "^3.16.7"

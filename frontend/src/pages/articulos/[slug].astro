@@ -1,19 +1,23 @@
 ---
-import { useSanityClient } from "@sanity/astro";
+import { useSanityClient } from '@sanity/astro';
+import PortableText from '../../components/PortableText.astro';
+import PortableTextImage from '../../components/PortableTextImage.astro';
 
 export async function getStaticPaths() {
   const posts = await useSanityClient().fetch(`*[_type == "post"]`);
 
-  return posts.map(({ slug, title }) => {
+  return posts.map((post) => {
     return {
-      params: { slug: slug.current },
-      props: { title },
+      params: { slug: post.slug?.current || '', },
+      props: { ...post },
     };
   });
 }
 
-const { slug  } = Astro.params;
-const { title } = Astro.props;
+const { title, body } = Astro.props;
 ---
 
 <h1>{title}</h1>
+
+<PortableTextImage />
+<PortableText portableText={body} />
