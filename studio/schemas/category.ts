@@ -16,4 +16,13 @@ export default defineType({
       type: 'text',
     }),
   ],
+
+  preview: {
+    select: {
+      title: 'title',
+    },
+    prepare(selection) {
+      return {...selection}
+    },
+  },
 })

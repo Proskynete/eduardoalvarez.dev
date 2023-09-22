@@ -1,6 +1,8 @@
 ---
 import { useSanityClient } from '@sanity/astro';
 const posts = await useSanityClient().fetch(`*[_type == "post"]`);
+const categories = await useSanityClient().fetch(`*[_type == "category"]`);
+
 ---
 
 <html lang="es">
@@ -14,10 +16,25 @@ const posts = await useSanityClient().fetch(`*[_type == "post"]`);
 	<body>
 		<h1>Astro</h1>
 		
-		{posts && <ul>
-			{posts.map(({title, slug: { current }}) => (
-				<li><a href={`articulos/${current}`}>{title}</a></li>
+		{posts && <section>
+			{posts.map(({ title, description, publishedAt, categories: postCategories, mainImage, slug: { current } }) => (
+					<article>
+						<img src={mainImage.asset.url} alt={title}>
+						<header>
+							<a href={`articulos/${current}`}>{title}</a>
+						</header>
+
+						<div>{description}</div>
+						<time datetime={publishedAt}>{new Date(publishedAt).toLocaleDateString()}</time>	
+						<ul>
+							{postCategories.map((category) => (
+								<li>
+									{categories.find(({ _id }) => _id === category._ref)?.title}	
+								</li>
+							))}
+						</ul>
+					</article>
 			))}
-		</ul>}
+		</section>}
 	</body>
 </html>
