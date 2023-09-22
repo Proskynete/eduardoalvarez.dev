@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import sanity from "@sanity/astro";
+import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,5 +12,6 @@ export default defineConfig({
       apiVersion: "2023-02-08",
       useCdn: false,
     }),
+    tailwind(),
   ],
 });
