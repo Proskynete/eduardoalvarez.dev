@@ -1,27 +1,38 @@
 ---
 import { useSanityClient } from '@sanity/astro';
 import PortableText from '../../components/PortableText.astro';
-import PortableTextImage from '../../components/PortableTextImage.astro';
 import ArticlesLayout from '../../layouts/ArticlesLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await useSanityClient().fetch(`*[_type == "post"]`);
+  const categories = await useSanityClient().fetch(`*[_type == "category"]`);
 
   return posts.map((post) => {
     return {
-      params: { slug: post.slug?.current || '', },
-      props: { ...post },
+      params: { slug: post.slug?.current || '' },
+      props: {
+        ...post,
+        categories: post.categories.map((category) => 
+          categories.find((c) => c._id === category._ref)
+        ),
+      },
     };
   });
 }
 
-const { title, body } = Astro.props;
+const { title, body, mainImage, publishedAt, categories } = Astro.props;
 ---
 
-<ArticlesLayout title={title}>
+<ArticlesLayout title={title} image={mainImage}>
   <h1>{title}</h1>
 
-  <PortableTextImage />
-  <PortableText portableText={body} />
+  <div>
+    <time datetime={publishedAt}>{publishedAt}</time>
+    <ul>
+      {categories.map((category) => (
+        <li>{category.title}</li>
+      ))}
+  </div>
 
+  <PortableText portableText={body} />
 </ArticlesLayout>

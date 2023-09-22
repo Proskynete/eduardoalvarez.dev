@@ -1,9 +1,9 @@
 ---
 import { useSanityClient } from '@sanity/astro';
 import { ViewTransitions } from 'astro:transitions';
+
 const posts = await useSanityClient().fetch(`*[_type == "post"]`);
 const categories = await useSanityClient().fetch(`*[_type == "category"]`);
-
 ---
 
 <html lang="es">
@@ -19,9 +19,8 @@ const categories = await useSanityClient().fetch(`*[_type == "category"]`);
 		<h1>Astro</h1>
 		
 		{posts && <section>
-			{posts.map(({ title, description, publishedAt, categories: postCategories, mainImage, slug: { current } }) => (
+			{posts.map(({ title, description, publishedAt, categories: postCategories, slug: { current } }) => (
 					<article>
-						<img src={mainImage.asset.url} alt={title}>
 						<header>
 							<a href={`articulos/${current}`}>{title}</a>
 						</header>
@@ -31,7 +30,7 @@ const categories = await useSanityClient().fetch(`*[_type == "category"]`);
 						<ul>
 							{postCategories.map((category) => (
 								<li>
-									{categories.find(({ _id }) => _id === category._ref)?.title}	
+									{categories.find(({ _id }) => _id === category._ref)?.title}
 								</li>
 							))}
 						</ul>
