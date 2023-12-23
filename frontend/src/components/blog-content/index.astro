@@ -1,0 +1,14 @@
+---
+import type { Post } from "../../interfaces";
+
+export interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+---
+
+<div>
+  <h1>{post.title}</h1>
+  <p>{post.description}</p>
+</div>

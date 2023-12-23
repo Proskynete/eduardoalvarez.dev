@@ -1,41 +1,44 @@
 ---
-import { useSanityClient } from '@sanity/astro';
-import { ViewTransitions } from 'astro:transitions';
+import { useSanityClient } from "astro-sanity";
+import type { Post, SanityCategory } from "../interfaces";
+import Layout from "../layouts/base.astro";
 
-const posts = await useSanityClient().fetch(`*[_type == "post"]`);
-const categories = await useSanityClient().fetch(`*[_type == "category"]`);
+const posts: Post[] = await useSanityClient().fetch(`*[_type == "post"]`);
+const categories: SanityCategory[] = await useSanityClient().fetch(
+  `*[_type == "category"]`
+);
 ---
 
-<html lang="es">
-	<head>
-		<ViewTransitions />
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>My blog</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-		
-		{posts && <section>
-			{posts.map(({ title, description, publishedAt, categories: postCategories, slug: { current } }) => (
-					<article>
-						<header>
-							<a href={`articulos/${current}`}>{title}</a>
-						</header>
+<Layout>
+  <h1>Astro</h1>
 
-						<div>{description}</div>
-						<time datetime={publishedAt}>{new Date(publishedAt).toLocaleDateString()}</time>	
-						<ul>
-							{postCategories.map((category) => (
-								<li>
-									{categories.find(({ _id }) => _id === category._ref)?.title}
-								</li>
-							))}
-						</ul>
-					</article>
-			))}
-		</section>}
-	</body>
-</html>
+  {
+    posts.map(
+      ({
+        title,
+        description,
+        publishedAt,
+        categories: postCategories,
+        slug: { current },
+      }) => (
+        <article>
+          <header>
+            <a href={`articulos/${current}`}>{title}</a>
+          </header>
+
+          <div>{description}</div>
+          <time datetime={publishedAt}>
+            {new Date(publishedAt).toLocaleDateString()}
+          </time>
+          <ul>
+            {postCategories.map((category) => (
+              <li>
+                {categories.find(({ _id }) => _id === category._ref)?.title}
+              </li>
+            ))}
+          </ul>
+        </article>
+      )
+    )
+  }
+</Layout>
