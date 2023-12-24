@@ -13,6 +13,7 @@ export default {
   author: {
     name: "Eduardo Álvarez Castañeda",
   },
+  home_max_posts: 5,
   social_network: [
     {
       name: "instagram",

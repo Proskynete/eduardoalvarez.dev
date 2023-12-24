@@ -1,11 +1,10 @@
 ---
-import { useSanityClient } from "astro-sanity";
 import Article from "../components/article/index.astro";
-import type { Post } from "../interfaces";
 import Layout from "../layouts/base.astro";
+import { getAllPosts } from "../utils/sanity";
+import config from "../settings";
 
-const allPosts: Post[] = await useSanityClient().fetch(`*[_type == "post"]`);
-const posts = allPosts.slice(0, 6);
+const posts = await getAllPosts();
 ---
 
 <Layout>
@@ -15,15 +14,29 @@ const posts = allPosts.slice(0, 6);
     >
       Últimos artículos
     </h1>
-  </div>
 
-  <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+    <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+      {
+        posts.slice(0, config.home_max_posts).map((post) => (
+          <li class="py-12">
+            <Article post={post} />
+          </li>
+        ))
+      }
+    </ul>
+
     {
-      posts.map((post) => (
-        <li class="py-12">
-          <Article post={post} />
-        </li>
-      ))
+      posts.length > config.home_max_posts && (
+        <div class="flex justify-end text-base font-medium leading-6">
+          <a
+            href="/articles"
+            class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+            aria-label="All posts"
+          >
+            Ver todos &rarr;
+          </a>
+        </div>
+      )
     }
-  </ul>
+  </div>
 </Layout>
