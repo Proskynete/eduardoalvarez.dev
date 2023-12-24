@@ -8,32 +8,36 @@ export interface Props {
   image?: string;
 }
 
-const title = Astro.props.title ? `${Astro.props.title} | ${settings.title}` : settings.title;
+const title = Astro.props.title
+  ? `${Astro.props.title} | ${settings.title}`
+  : settings.title;
 const description = Astro.props.description || settings.description;
 const image = new URL(Astro.props.image || "./social.png", Astro.site);
 ---
 
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
-<title>{title}</title>
+  <title>{title}</title>
 
-<link rel="icon" href={`${settings.url}/favicon/favicon.ico`} />
-<meta name="description" content={description} />
+  <link rel="icon" href={`${settings.url}/favicon/favicon.ico`} />
+  <meta name="description" content={description} />
 
-<link rel="manifest" href={`${settings.url}/manifest.json`} />
-<meta name="robots" content="index, follow" />
+  <link rel="manifest" href={`${settings.url}/manifest.json`} />
+  <meta name="robots" content="index, follow" />
 
-<meta name="keywords" content={settings.keywords} />
-<meta name="author" content={settings.author.name} />
-<meta name="copyright" content={settings.author.name} />
-<meta name="application-name" content={`Blog de ${settings.author.name}`} />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content={settings.title} />
-<meta name="format-detection" content="telephone=no" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="theme-color" content="#0A3F66" />
+  <meta name="keywords" content={settings.keywords} />
+  <meta name="author" content={settings.author.name} />
+  <meta name="copyright" content={settings.author.name} />
+  <meta name="application-name" content={`Blog de ${settings.author.name}`} />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content={settings.title} />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#0A3F66" />
 
-<meta name="image" content={`${settings.url}${image}`} />
+  <meta name="image" content={`${settings.url}${image}`} />
+</head>

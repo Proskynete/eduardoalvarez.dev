@@ -25,10 +25,12 @@ export default defineType({
       type: 'text',
     }),
     defineField({
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+      options: {
+        list: [{title: 'javascript', value: 'JavaScript'}],
+      },
     }),
     defineField({
       name: 'publishedAt',

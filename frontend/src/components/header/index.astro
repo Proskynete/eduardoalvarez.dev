@@ -1,0 +1,139 @@
+---
+interface NavItem {
+  name: string;
+  href: string;
+  show: boolean;
+}
+
+const navItems: NavItem[] = [
+  {
+    name: "Artículos",
+    href: "/articulos",
+    show: true,
+  },
+  {
+    name: "Podcast",
+    href: "/podcast",
+    show: false,
+  },
+  {
+    name: "Libros",
+    href: "/libros",
+    show: false,
+  },
+];
+---
+
+<script>
+  const button = document.querySelector("#change-theme");
+  button.addEventListener("click", () => {
+    const currentTheme = localStorage.getItem("theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    localStorage.setItem("theme", newTheme);
+  });
+</script>
+
+<header class="flex items-center justify-between py-10">
+  <div>
+    <a aria-label="Eduardo Alvarez logo" href="/"> Logo</a>
+  </div>
+
+  <div
+    class="flex items-center space-x-4 leading-5 sm:space-x-6"
+    transition:animate="fade"
+  >
+    {
+      navItems.map(
+        (item) =>
+          item.show && (
+            <a
+              class="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
+              href={item.href}
+            >
+              {item.name}
+            </a>
+          )
+      )
+    }
+
+    <button aria-label="Buscador">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="h-6 w-6 text-gray-900 dark:text-gray-100"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+        >
+        </path>
+      </svg>
+    </button>
+
+    <button id="change-theme" aria-label="Cambiar tema">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        class="h-6 w-6 text-gray-900 dark:text-gray-100"
+      >
+        <path
+          d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+        ></path>
+      </svg>
+    </button>
+  </div>
+
+  <button aria-label="Toggle Menu" class="sm:hidden">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      class="h-8 w-8 text-gray-900 dark:text-gray-100"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </button>
+
+  <div
+    class="fixed left-0 top-0 z-10 h-full w-full transform bg-white opacity-95 duration-300 ease-in-out dark:bg-gray-950 dark:opacity-[0.98] translate-x-full"
+  >
+    <div class="flex justify-end">
+      <button class="mr-8 mt-11 h-8 w-8" aria-label="Toggle Menu">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          class="text-gray-900 dark:text-gray-100"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="fixed mt-8 h-full">
+      {
+        navItems.map((item) => (
+          <div class="px-12 py-4">
+            <a
+              class="text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100"
+              href={item.href}
+            >
+              {item.name}
+            </a>
+          </div>
+        ))
+      }
+    </nav>
+  </div>
+</header>

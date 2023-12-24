@@ -1,5 +1,8 @@
 ---
 import BaseHead from "../components/base-head/index.astro";
+import Header from "../components/header/index.astro";
+import Footer from "../components/footer/index.astro";
+
 import type { Props as BaseHeadProps } from "../components/base-head/index.astro";
 
 export interface Props {
@@ -9,16 +12,43 @@ export interface Props {
 const { seo } = Astro.props;
 ---
 
+<script is:inline>
+  const theme = (() => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  })();
+
+  if (theme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+  window.localStorage.setItem("theme", theme);
+</script>
+
 <html lang="es">
-  <head>
-    <BaseHead {...seo} />
-    <slot name="head-bottom" />
-  </head>
-  <body>
-    <slot name="header" />
-    <main>
-      <slot />
-    </main>
-    <slot name="footer" />
+  <BaseHead {...seo} />
+
+  <body
+    class="bg-white text-black antialiased dark:bg-gray-950 dark:text-white"
+  >
+    <section class="mx-auto max-w-3xl xl:max-w-6xl px-4 sm:px-6 xl:px-0">
+      <div class="flex h-screen flex-col justify-between font-sans">
+        <main class="mb-auto">
+          <Header />
+
+          <div class="divide-y divide-gray-200 dark:divide-gray-700">
+            <slot />
+          </div>
+
+          <Footer />
+        </main>
+      </div>
+    </section>
   </body>
 </html>
