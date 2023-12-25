@@ -6,7 +6,6 @@ import Layout from "../layouts/base.astro";
 type Frontmatter = IArticle;
 
 const posts = await Astro.glob<Frontmatter>("./articles/*.mdx");
-
 posts.sort((a, b) => {
   const dateA = new Date(a.frontmatter.date);
   const dateB = new Date(b.frontmatter.date);
@@ -15,6 +14,15 @@ posts.sort((a, b) => {
 ---
 
 <Layout>
+  <div>
+    <img src="" alt="" />
+    <p>Hola! Mi nombre es Eduardo Álvarez</p>
+    <p>
+      Software Engineer con +8 años de experiencia. He trabajado en diferentes
+      proyectos y empresas, las cuales han aportado conocimientos y habilidades
+      las que comparto en este blog.
+    </p>
+  </div>
   <div class="space-y-2 pb-8 pt-6 md:space-y-5">
     <h1
       class="font-hero text-4xl leading-9 text-gray-900 dark:text-gray-100 sm:leading-10 md:text-5xl md:leading-14"
@@ -24,12 +32,21 @@ posts.sort((a, b) => {
 
     <ul class="divide-y divide-gray-200 dark:divide-gray-700">
       {
-        posts.map((post) => (
+        posts.slice(0, 5).map((post) => (
           <li class="py-12">
             <Article article={post.frontmatter} />
           </li>
         ))
       }
     </ul>
+
+    <div class="flex justify-end">
+      <a
+        href="/articles"
+        class="text-base font-medium leading-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 transition ease-in-out duration-150"
+      >
+        Ver todos los artículos &rarr;
+      </a>
+    </div>
   </div>
 </Layout>
