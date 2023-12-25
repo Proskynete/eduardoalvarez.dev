@@ -1,6 +1,11 @@
 ---
 import Article from "../components/article/index.astro";
+import { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/base.astro";
+
+type Frontmatter = IArticle;
+
+const posts = await Astro.glob<Frontmatter>("./articles/*.mdx");
 ---
 
 <Layout>
@@ -15,7 +20,7 @@ import Layout from "../layouts/base.astro";
       {
         posts.map((post) => (
           <li class="py-12">
-            <Article post={post} />
+            <Article article={post.frontmatter} />
           </li>
         ))
       }

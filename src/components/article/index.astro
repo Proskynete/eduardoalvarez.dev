@@ -1,11 +1,11 @@
 ---
-import type { Post } from "../../interfaces";
+import type { Article } from "../../interfaces";
 
 export interface Props {
-  post: Post;
+  article: Article;
 }
 
-const { post } = Astro.props;
+const { article } = Astro.props;
 ---
 
 <article>
@@ -15,8 +15,8 @@ const { post } = Astro.props;
       <dd
         class="text-base font-hero leading-6 text-gray-500 dark:text-gray-400"
       >
-        <time date-time={post.publishedAt}
-          >{new Date(post.publishedAt).toLocaleDateString()}</time
+        <time date-time={article.date}
+          >{new Date(article.date).toLocaleDateString()}</time
         >
       </dd>
     </dl>
@@ -25,29 +25,29 @@ const { post } = Astro.props;
         <div>
           <h2 class="text-2xl font-hero leading-8 tracking-tight">
             <a
-              href={`/articles/${post.slug.current}`}
+              href={`/articles/${article.slug}`}
               class="text-gray-900 dark:text-gray-100"
-              transition:name={`title ${post.slug.current} name`}
+              transition:name={`title ${article.slug} name`}
             >
-              {post.title}
+              {article.title}
             </a>
           </h2>
           <div class="flex flex-wrap font-hero">
-            {post.category}
+            {article.category}
           </div>
         </div>
 
         <div
           class="prose font-hero max-w-none text-gray-500 dark:text-gray-400"
         >
-          {post.description}
+          {article.description}
         </div>
       </div>
       <div class="text-base font-hero font-medium leading-6">
         <a
-          href={`/articles/${post.slug.current}`}
+          href={`/articles/${article.slug}`}
           class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-          aria-label={`Leer más: "${post.title}"`}
+          aria-label={`Leer más: "${article.title}"`}
         >
           Leer más &rarr;
         </a>
