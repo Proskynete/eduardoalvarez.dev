@@ -9,47 +9,47 @@ const { post } = Astro.props;
 ---
 
 <article>
-  <div class="space-y-2 xl:grid xl:items-baseline xl:space-y-0">
+  <div class="space-y-2">
     <dl>
-      <dt class="sr-only">Publicado el</dt><dd
-        class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400"
+      <dt class="sr-only">Publicado el</dt>
+      <dd
+        class="text-base font-hero leading-6 text-gray-500 dark:text-gray-400"
       >
-        <time datetime={post.publishedAt}>
-          {
-            new Date(post.publishedAt).toLocaleDateString("es-ES", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })
-          }
-        </time>
+        <time date-time={post.publishedAt}
+          >{new Date(post.publishedAt).toLocaleDateString()}</time
+        >
       </dd>
     </dl>
-
     <div class="space-y-5 xl:col-span-3">
       <div class="space-y-6">
         <div>
-          <h2 class="text-2xl font-bold leading-8 tracking-tight">
+          <h2 class="text-2xl font-hero leading-8 tracking-tight">
             <a
+              href={`/articles/${post.slug.current}`}
               class="text-gray-900 dark:text-gray-100"
-              href=`/articles/${post.slug.current}`
             >
               {post.title}
             </a>
           </h2>
-
-          <div class="flex flex-wrap">
-            <p
-              class="mr-3 text-sm font-medium uppercase text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            >
-              {post.category}
-            </p>
+          <div class="flex flex-wrap font-hero">
+            {post.category}
           </div>
         </div>
 
-        <div class="prose max-w-none text-gray-500 dark:text-gray-400">
+        <div
+          class="prose font-hero max-w-none text-gray-500 dark:text-gray-400"
+        >
           {post.description}
         </div>
+      </div>
+      <div class="text-base font-hero font-medium leading-6">
+        <a
+          href={`/articles/${post.slug.current}`}
+          class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+          aria-label={`Leer más: "${post.title}"`}
+        >
+          Leer más &rarr;
+        </a>
       </div>
     </div>
   </div>

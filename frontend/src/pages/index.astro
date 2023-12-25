@@ -1,23 +1,22 @@
 ---
 import Article from "../components/article/index.astro";
 import Layout from "../layouts/base.astro";
-import { getAllPosts } from "../utils/sanity";
-import config from "../settings";
+import { getFiveLatestPosts } from "../utils/sanity";
 
-const posts = await getAllPosts();
+const [posts, hasNext] = await getFiveLatestPosts();
 ---
 
 <Layout>
   <div class="space-y-2 pb-8 pt-6 md:space-y-5">
     <h1
-      class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14"
+      class="font-hero text-4xl leading-9 text-gray-900 dark:text-gray-100 sm:leading-10 md:text-5xl md:leading-14"
     >
       Últimos artículos
     </h1>
 
     <ul class="divide-y divide-gray-200 dark:divide-gray-700">
       {
-        posts.slice(0, config.home_max_posts).map((post) => (
+        posts.map((post) => (
           <li class="py-12">
             <Article post={post} />
           </li>
@@ -26,7 +25,7 @@ const posts = await getAllPosts();
     </ul>
 
     {
-      posts.length > config.home_max_posts && (
+      posts.length && hasNext && (
         <div class="flex justify-end text-base font-medium leading-6">
           <a
             href="/articles"

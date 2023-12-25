@@ -2,12 +2,14 @@
 import MobileNav from "./components/mobile.tsx";
 import Search from "./components/search.tsx";
 import ToggleButton from "./components/toggle-theme.tsx";
+import { Image } from "astro:assets";
+import LOGO from "../../assets/images/logo.webp";
 ---
 
 <header class="flex items-center justify-between py-10">
-  <div>
-    <a aria-label="Eduardo Alvarez logo" href="/"> Logo</a>
-  </div>
+  <a aria-label="Eduardo Alvarez logo" href="/">
+    <Image src={LOGO} alt="Eduardo Alvarez logo" />
+  </a>
 
   <div class="flex items-center gap-4 leading-5 sm:space-x-6">
     <Search client:visible />

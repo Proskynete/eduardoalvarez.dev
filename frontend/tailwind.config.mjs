@@ -10,6 +10,10 @@ export default {
         primary: colors.indigo,
         gray: colors.gray,
       },
+      fontFamily: {
+        hero: ['"Hero"'],
+        avenir: ['"Avenir"'],
+      },
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
