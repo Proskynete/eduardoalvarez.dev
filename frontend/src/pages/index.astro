@@ -1,9 +1,9 @@
 ---
 import Article from "../components/article/index.astro";
 import Layout from "../layouts/base.astro";
-import { getFiveLatestPosts } from "../utils/sanity";
+import { getPaginatedPosts } from "../utils/sanity";
 
-const [posts, hasNext] = await getFiveLatestPosts();
+const [posts] = await getPaginatedPosts({ limit: 8, current: 1 });
 ---
 
 <Layout>
@@ -23,19 +23,5 @@ const [posts, hasNext] = await getFiveLatestPosts();
         ))
       }
     </ul>
-
-    {
-      posts.length && hasNext && (
-        <div class="flex justify-end text-base font-medium leading-6">
-          <a
-            href="/articles"
-            class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label="All posts"
-          >
-            Ver todos &rarr;
-          </a>
-        </div>
-      )
-    }
   </div>
 </Layout>

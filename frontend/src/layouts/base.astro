@@ -3,6 +3,7 @@ import "../assets/styles/main.css";
 import BaseHead from "../components/base-head/index.astro";
 import Header from "../components/header/index.astro";
 import Footer from "../components/footer/index.astro";
+import { ViewTransitions } from "astro:transitions";
 import type { Props as BaseHeadProps } from "../components/base-head/index.astro";
 
 export interface Props {
@@ -33,6 +34,7 @@ const { seo } = Astro.props;
 
 <html lang="es">
   <BaseHead {...seo} />
+  <ViewTransitions fallback="none" />
 
   <body
     class="bg-white text-black antialiased dark:bg-gray-950 dark:text-white"

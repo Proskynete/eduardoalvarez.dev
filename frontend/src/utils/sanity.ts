@@ -8,23 +8,8 @@ export const getSanityImageURL = (source: string) => {
   return builder.image(source);
 };
 
-export const getFiveLatestPosts = async (): Promise<
-  [Post[], hasNext: boolean]
-> => {
-  const posts = await useSanityClient().fetch(
-    `*[_type == "post"] | order(publishedAt desc)`
-  );
-  const hasNext = posts.length >= 5;
-
-  return [posts, hasNext];
-};
-
-export const getPostBySlug = async (slug: string): Promise<Post> => {
-  return await useSanityClient().fetch(
-    `*[_type == "post" && slug.current == $slug][0]`,
-    { slug }
-  );
-};
+export const getAllPosts = async (): Promise<Post[]> =>
+  await useSanityClient().fetch(`*[_type == "post"]`);
 
 interface PaginatedPosts {
   limit: number;
@@ -34,7 +19,7 @@ interface PaginatedPosts {
 export const getPaginatedPosts = async ({
   limit,
   current,
-}): Promise<[Post[], total: number]> => {
+}: PaginatedPosts): Promise<[Post[], hasNextPage: boolean]> => {
   const start = current === 1 ? current - 1 : limit * current - limit + 1;
   const end = limit * current;
 
@@ -46,5 +31,7 @@ export const getPaginatedPosts = async ({
     }
   );
 
-  return [posts, posts.length];
+  const total = await useSanityClient().fetch(`count(*[_type == "post"])`);
+  const hasNextPage = total > end;
+  return [posts, hasNextPage];
 };
