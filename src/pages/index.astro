@@ -1,9 +1,6 @@
 ---
 import Article from "../components/article/index.astro";
 import Layout from "../layouts/base.astro";
-import { getPaginatedPosts } from "../utils/sanity";
-
-const [posts] = await getPaginatedPosts({ limit: 8, current: 1 });
 ---
 
 <Layout>

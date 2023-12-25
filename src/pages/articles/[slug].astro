@@ -1,12 +1,8 @@
 ---
 import Layout from "../../layouts/base.astro";
 import BlogContent from "../../components/blog-content/index.astro";
-import type { Post } from "../../interfaces";
-import { getAllPosts } from "../../utils/sanity";
 
 export async function getStaticPaths() {
-  const posts: Post[] = await getAllPosts();
-
   return posts.map((post) => ({
     params: { slug: post.slug.current },
     props: { post },
