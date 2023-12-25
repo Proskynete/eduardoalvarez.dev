@@ -6,6 +6,12 @@ import Layout from "../layouts/base.astro";
 type Frontmatter = IArticle;
 
 const posts = await Astro.glob<Frontmatter>("./articles/*.mdx");
+
+posts.sort((a, b) => {
+  const dateA = new Date(a.frontmatter.date);
+  const dateB = new Date(b.frontmatter.date);
+  return dateB.getTime() - dateA.getTime();
+});
 ---
 
 <Layout>
