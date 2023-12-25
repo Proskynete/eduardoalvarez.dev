@@ -5,7 +5,6 @@ export default {
     "Artículos, Videos, Podcasts, Tutoriales y Recursos sobre Desarrollo Web, Frontend, HTML, CSS, Javascript, Typescript, React, Node y MongoDB",
   keywords:
     "frontend, front-end, react, reactjs, mongo, mongodb, ts, typescript, js, javascript, nosql, express, node, nodejs, html, css",
-  image: "/images/isotipo/isotipo-blue.png",
   url: "https://eduardoalvarez.dev",
   domain: "eduardoalvarez.dev",
   languaje: "es-ES",
@@ -15,17 +14,17 @@ export default {
   },
   social_network: [
     {
-      name: "instagram",
-      link: "https://www.instagram.com/proskynete",
+      name: "Instagram",
+      link: "https://www.instagram.com/eduardo_alvarez.dev",
       show: true,
     },
     {
-      name: "github",
+      name: "Github",
       link: "https://github.com/Proskynete",
       show: true,
     },
     {
-      name: "linkedin",
+      name: "LinkedIn",
       link: "https://www.linkedin.com/in/eduardoalvarezc/",
       show: true,
     },
@@ -35,7 +34,7 @@ export default {
       show: true,
     },
     {
-      name: "youtube",
+      name: "YouTube",
       link: "https://youtube.com/channel/UCVrAjdQkLTKOdG0TUFFJomw",
       show: false,
     },
