@@ -4,7 +4,6 @@ import settings from "../../settings";
 export interface Props {
   title?: string;
   description?: string;
-  canonicalURL?: URL | string;
   image?: string;
 }
 
@@ -13,33 +12,15 @@ const title = Astro.props.title
   : settings.title;
 const description = Astro.props.description || settings.description;
 const image = new URL(Astro.props.image || "./social.png", Astro.site);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-
-  <title>{title}</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href={`${settings.url}/favicon/favicon.ico`} />
-  <meta name="description" content={description} />
-
-  <link rel="manifest" href={`${settings.url}/manifest.json`} />
-  <meta name="robots" content="index, follow" />
-
-  <meta name="keywords" content={settings.keywords} />
-  <meta name="author" content={settings.author.name} />
-  <meta name="copyright" content={settings.author.name} />
-  <meta name="application-name" content={`Blog de ${settings.author.name}`} />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content={settings.title} />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="theme-color" content="#0A3F66" />
-
-  <meta name="image" content={`${settings.url}${image}`} />
+  <meta name="generator" content={Astro.generator} />
 
   <link
     rel="preload"
@@ -55,4 +36,39 @@ const image = new URL(Astro.props.image || "./social.png", Astro.site);
     type="font/woff"
     crossorigin
   />
+
+  <link rel="canonical" href={canonicalURL} />
+
+  <title>{title}</title>
+  <meta name="title" content={title} />
+  <meta name="description" content={description} />
+
+  <link rel="manifest" href={`${settings.url}/manifest.json`} />
+  <meta name="robots" content="index, follow" />
+
+  <meta name="keywords" content={settings.keywords} />
+  <meta name="author" content={settings.author.name} />
+  <meta name="copyright" content={settings.author.name} />
+  <meta name="application-name" content={`Blog de ${settings.author.name}`} />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content={settings.title} />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#0A3F66" />
+  <meta name="image" content={`${settings.url}${image}`} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={Astro.url} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(image, Astro.url)} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={Astro.url} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={new URL(image, Astro.url)} />
 </head>

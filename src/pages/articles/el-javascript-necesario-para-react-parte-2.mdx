@@ -1,14 +1,12 @@
 ---
-layout: ../../layouts/article.astro
+layout: ../../layouts/article/index.astro
 title: 'El Javascript necesario para React - Parte 2'
 slug: 'el-javascript-necesario-para-react-parte-2'
 description: 'Hoy continuaremos revisando esas características de JavaScript que no ayudarán al momento de estar desarrollando en 
 React. Revisaremos Funciones, Default Parameters, Rest Parameters y Destructuring. Aprendamos juntos lo que JavaScript tiene 
 para enseñarnos.'
 date: 2021-03-01T13:36:33-03:00
-tags: ['web-development', 'javascript']
-hero_image: '/images/articles/el-javascript-necesario-para-react/parte-2/el-javascript-necesario-para-react-parte-2.png'
-with_introduction: true
+categories: ['web-development', 'javascript']
 sections:
   [
     { title: 'Funciones', anchor: 'funciones' },
@@ -60,16 +58,7 @@ console.log(pitagoras(3, 4)); // Output: 5
 ```
 
 ¡Wow! Si nos damos cuenta, las dos formas son muy similares. La primera es asignando un nombre directamente a la función y
-la segunda es creando una variable (como lo vimos en la
-
-<a
-  href="https://eduardoalvarez.dev/articulos/el-javascript-necesario-para-react-parte-1"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  El JavaScript necesario para React - Parte 1
-</a>
-) y asignarle una función anónima... Entonces ¿Cuál utilizamos? Y la respuesta es:
+la segunda es creando una variable (como lo vimos en la [El JavaScript necesario para React - Parte 1](https://eduardoalvarez.dev/articulos/el-javascript-necesario-para-react-parte-1) y asignarle una función anónima... Entonces ¿Cuál utilizamos? Y la respuesta es:
 **La que quieras** 😁, ya que no hay una diferencia sustancial entre una y la otra.
 Aun que con lo que vamos a ver ahora, vas a querer utilizar las **arrow functions**
 siempre 😮.
