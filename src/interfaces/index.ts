@@ -1,12 +1,19 @@
+interface Section {
+  title: string;
+  anchor: string;
+}
+
+export type CategoryAllowed = "web-development" | "javascript";
+
 export interface Article {
   title: string;
   slug: string;
   description: string;
   date: string;
-  tags: string[];
+  categories: CategoryAllowed[];
   with_introduction: boolean;
   hero_image: string;
-  sections: string[];
+  sections: Section[];
 }
 
 export interface ArticleLayout {

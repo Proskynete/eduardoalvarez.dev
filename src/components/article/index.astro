@@ -15,7 +15,7 @@ const { article } = Astro.props;
       <dd
         class="text-base font-hero leading-6 text-gray-500 dark:text-gray-400"
       >
-        <time date-time={article.date}
+        <time date-time={article.date} transition:name={`date ${article.slug}`}
           >{new Date(article.date).toLocaleDateString()}</time
         >
       </dd>
@@ -42,15 +42,6 @@ const { article } = Astro.props;
         >
           {article.description}
         </div>
-      </div>
-      <div class="text-base font-hero font-medium leading-6">
-        <a
-          href={`/articles/${article.slug}`}
-          class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-          aria-label={`Leer más: "${article.title}"`}
-        >
-          Leer más &rarr;
-        </a>
       </div>
     </div>
   </div>

@@ -1,9 +1,12 @@
 ---
 import type { ArticleLayout } from "../interfaces";
+import { CategoryMap } from "../utils/categories";
+import { calculateReadingTime } from "../utils/reading-time";
 import Layout from "../layouts/base.astro";
 
 type Props = ArticleLayout;
 
+const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
 const { content } = Astro.props;
 ---
 
@@ -18,12 +21,16 @@ const { content } = Astro.props;
               <dd
                 class="text-base font-avenir leading-6 text-gray-500 dark:text-gray-400"
               >
-                <time date-time={content.date}>
+                <time
+                  date-time={content.date}
+                  transition:name={`date ${content.slug}`}
+                >
                   {new Date(content.date).toLocaleDateString()}
                 </time>
               </dd>
             </div>
           </dl>
+
           <div>
             <h1
               class="text-3xl font-hero leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14"
@@ -32,34 +39,29 @@ const { content } = Astro.props;
               {content.title}
             </h1>
           </div>
+
+          <p>
+            ¿Ves alguna errata o quieres modificar algo?
+            <a
+              class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+              href=`https://github.com/proskynete/website/edit/main/src/pages/articles/${content.slug}.mdx`
+            >
+              Haz una Pull Request
+            </a>
+          </p>
         </div>
       </header>
 
       <div
         class="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
       >
-        <dl
-          class="pb-10 pt-6 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700"
-        >
-          <!-- <dd>
-          <ul
-            class="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8"
-          >
-            <li>swkivbwskijeb</li>
-          </ul>
-        </dd> -->
-        </dl>
+        <div></div>
+
         <div
           class="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0"
         >
           <div class="prose max-w-none pb-8 pt-10 dark:prose-invert">
             <slot />
-          </div>
-
-          <div class="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
-            <a href="" rel="nofollow">Discutir en Twitter</a>
-            {` • `}
-            <a href="">Ver en GitHub</a>
           </div>
         </div>
 
@@ -67,25 +69,32 @@ const { content } = Astro.props;
           <div
             class="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y"
           >
-            <div class="py-4 xl:py-8">
-              <h2
+            <div class="py-4">
+              <p
                 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400"
               >
                 Categorías
-              </h2>
+              </p>
               <div class="flex flex-wrap">
                 {
                   content.tags.map((category) => (
-                    <a
-                      href=""
-                      class="mr-3 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                    >
-                      {category}
-                    </a>
+                    <p class="mr-3 text-primary-500">
+                      {CategoryMap.get(category)}
+                    </p>
                   ))
                 }
               </div>
             </div>
+
+            <div class="py-4">
+              <p
+                class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400"
+              >
+                Tiempo de lectura
+              </p>
+              <div class="flex flex-wrap">{timeToRead} minutos</div>
+            </div>
+
             <div
               class="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8"
             >
