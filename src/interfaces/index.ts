@@ -11,8 +11,7 @@ export interface Article {
   description: string;
   date: string;
   categories: CategoryAllowed[];
-  with_introduction: boolean;
-  hero_image: string;
+  seo_image: string;
   sections: Section[];
 }
 

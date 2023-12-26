@@ -25,9 +25,16 @@ const articleFound = articles
 
 const previousArticle = articles[articleFound + 1];
 const nextArticle = articles[articleFound - 1];
+
+const seo = {
+  title: content.title,
+  description: content.description,
+  image: content.seo_image,
+  url: `/articulos/${content.slug}`,
+};
 ---
 
-<Layout>
+<Layout seo={seo}>
   <article>
     <div class="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
       <header class="xl:pb-6">
