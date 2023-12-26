@@ -69,7 +69,7 @@ posts.sort((a, b) => {
     <ul class="divide-y divide-gray-200 dark:divide-gray-700">
       {
         posts.slice(0, 5).map((post) => (
-          <li class="py-12 first:pt-0">
+          <li class="py-6 first:pt-0">
             <Article article={post.frontmatter} />
           </li>
         ))
