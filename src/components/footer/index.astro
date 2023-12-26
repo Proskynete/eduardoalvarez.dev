@@ -1,13 +1,31 @@
 ---
+import config from "../../settings";
 ---
 
-<footer>
-  <div class="mt-16 flex flex-col items-center">
+<div class="mt-16 flex flex-col items-center">
+  <div class="mb-3 flex gap-10">
+    {
+      config.contacts
+        .filter((social) => social.show)
+        .map((social) => (
+          <a
+            class="text-lg text-gray-500 transition hover:text-gray-600"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={social.href}
+          >
+            <span>{social.name}</span>
+          </a>
+        ))
+    }
+  </div>
+
+  <div class="mt-5 flex flex-col items-center">
     <div class="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
       <div>Eduardo Álvarez Castañeda</div>
-      <div>•</div><div>© 2023</div>
+      <div>•</div><div>© {new Date().getFullYear()}</div>
     </div><div class="mb-8 text-sm text-gray-500 dark:text-gray-400">
       <a href="https://eduardoalvarez.dev">eduardoalvarez.dev</a>
     </div>
   </div>
-</footer>
+</div>
