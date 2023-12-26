@@ -75,6 +75,6 @@ export default defineConfig({
       theme_color: "#0A3F66",
       display: "standalone",
     }),
-    publishAlgoliaRSS({}),
+    publishAlgoliaRSS(),
   ],
 });

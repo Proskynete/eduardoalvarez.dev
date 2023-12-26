@@ -1,15 +1,10 @@
+import "dotenv/config";
 import type { AstroIntegration } from "astro";
 import fs from "node:fs";
 import kleur from "kleur";
 import path from "node:path";
 import { XMLParser } from "fast-xml-parser";
 import algoliasearch from "algoliasearch";
-
-interface Config {
-  applicationId: string;
-  apiKey: string;
-  indexName: string;
-}
 
 interface PostRSS {
   title: string;
@@ -20,11 +15,7 @@ interface PostRSS {
   author?: string;
 }
 
-export const publishAlgoliaRSS = ({
-  applicationId,
-  apiKey,
-  indexName,
-}: Config) => {
+export const publishAlgoliaRSS = () => {
   const hooks = [
     `astro:config:setup`,
     `astro:config:done`,
@@ -39,13 +30,13 @@ export const publishAlgoliaRSS = ({
   ] as const;
 
   let integration: AstroIntegration = {
-    name: "astro-integration-publish-algolia-rss",
+    name: "astro-integration-publish-algolia-rss-posts",
     hooks: {
       [hooks[7]]: async (args) => {
         if (
-          applicationId === undefined ||
-          apiKey === undefined ||
-          indexName === undefined
+          process.env.ALGOLIA_APPLICATION_ID === undefined ||
+          process.env.ALGOLIA_ADMIN_API_KEY === undefined ||
+          process.env.ALGOLIA_INDEX_NAME === undefined
         ) {
           console.log(
             `${kleur.red("publishAlgoliaRSS: ")} Missing Algolia config.\n`
@@ -70,8 +61,11 @@ export const publishAlgoliaRSS = ({
           const parser = new XMLParser(options);
           const json = parser.parse(rss);
 
-          const client = algoliasearch(applicationId, apiKey);
-          const index = client.initIndex(indexName);
+          const client = algoliasearch(
+            process.env.ALGOLIA_APPLICATION_ID,
+            process.env.ALGOLIA_ADMIN_API_KEY
+          );
+          const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
 
           const posts = json.rss.channel.item.map((post: PostRSS) => ({
             ...post,
