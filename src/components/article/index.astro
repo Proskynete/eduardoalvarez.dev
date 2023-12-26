@@ -1,0 +1,45 @@
+---
+import type { Article } from "../../interfaces";
+
+export interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+---
+
+<article>
+  <div class="space-y-2">
+    <dl>
+      <dt class="sr-only">Publicado el</dt>
+      <dd
+        class="text-base font-hero leading-6 text-gray-500 dark:text-gray-400"
+      >
+        <time date-time={article.date} transition:name={`date ${article.slug}`}
+          >{new Date(article.date).toLocaleDateString()}</time
+        >
+      </dd>
+    </dl>
+    <div class="space-y-3 xl:col-span-3">
+      <div class="space-y-2">
+        <div>
+          <h2 class="text-2xl font-hero leading-8 tracking-tight">
+            <a
+              href={`/articulos/${article.slug}`}
+              class="text-gray-900 dark:text-gray-100"
+              transition:name={`title ${article.slug} name`}
+            >
+              {article.title}
+            </a>
+          </h2>
+        </div>
+
+        <div
+          class="prose font-hero max-w-none text-gray-500 dark:text-gray-400"
+        >
+          {article.description}
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

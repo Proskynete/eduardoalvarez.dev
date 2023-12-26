@@ -1,0 +1,19 @@
+---
+import MobileNav from "./components/mobile";
+import Search from "./components/search";
+import ToggleButton from "./components/toggle-theme";
+import { Image } from "astro:assets";
+import LOGO from "../../assets/images/logo.webp";
+---
+
+<header class="flex items-center justify-between py-3 md:py-10">
+  <a href="/" aria-label="Eduardo Alvarez logo">
+    <Image src={LOGO} alt="Eduardo Alvarez logo" />
+  </a>
+
+  <div class="flex items-center gap-4 leading-5 sm:space-x-6">
+    <Search client:visible />
+    <ToggleButton client:load />
+    <MobileNav client:visible />
+  </div>
+</header>

@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Avenir";
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url("/fonts/Avenir.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: "Hero";
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url("/fonts/Hero.woff") format("woff");
+  }
+}
