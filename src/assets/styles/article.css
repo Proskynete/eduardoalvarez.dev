@@ -3,18 +3,18 @@
 }
 
 #article-body h2 {
-  font-weight: 700;
   font-size: 1.5em;
-  margin-bottom: 1em;
+  font-weight: 700;
   line-height: 1.3333333;
+  margin-bottom: 1em;
 }
 
 #article-body h3 {
-  font-weight: 600;
   font-size: 1.25em;
-  margin-top: 1.6em;
-  margin-bottom: 0.6em;
+  font-weight: 600;
   line-height: 1.6;
+  margin-bottom: 0.6em;
+  margin-top: 1.6em;
 }
 
 #article-body p {
@@ -24,10 +24,11 @@
 }
 
 #article-body p strong {
-  font-weight: 400;
+  font-weight: 700;
 }
 
 #article-body p em {
+  font-family: "Avenir";
   font-style: italic;
 }
 
@@ -55,17 +56,20 @@
 }
 
 #article-body p code {
+  background-color: #f4f4f4;
   border-radius: 3px;
+  color: #0a3f66;
+  font-family: "Avenir";
   font-style: italic;
-  font-weight: bolder;
   padding-left: 5px;
   padding-right: 5px;
 }
 
 #article-body blockquote {
-  background-color: --tw-bg-opacity;
+  background-color: #f0db4f;
   border-radius: 5px;
   box-shadow: 5px 5px 10px 5px #aaa;
+  color: rgb(44, 52, 53);
   margin-bottom: 30px;
   margin-top: 50px;
   padding: 15px 15px 25px;
@@ -75,6 +79,10 @@
   font-size: 16px;
   line-height: 1.2;
   margin: 0;
+}
+
+#article-body blockquote p strong {
+  font-weight: 700;
 }
 
 #article-body blockquote p a {
@@ -95,6 +103,10 @@
   line-height: 1.2;
 }
 
+#article-body blockquote ul li strong {
+  font-weight: 700;
+}
+
 #article-body blockquote ul li:not(:first-child) {
   @media (min-width: 720px) {
     margin-top: 5px;
@@ -106,19 +118,19 @@
 }
 
 #article-body blockquote ul li::before {
-  border-radius: 50%;
-  content: "\f111";
-  height: 5px;
-  left: 0;
-  position: absolute;
-  top: 5px;
-  width: 5px;
+  align-items: center;
+  content: "•";
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  justify-content: center;
+  top: 40%;
 }
 
 #article-body pre {
-  padding: 20px;
   border-radius: 5px;
   margin-bottom: 30px;
+  padding: 20px;
 }
 
 #article-body ul {
@@ -126,8 +138,8 @@
   flex-direction: column;
   font-weight: 300;
   height: max-content;
-  margin-top: 20px;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 #article-body ul li {
@@ -138,13 +150,10 @@
 }
 
 #article-body ul li::before {
-  border-radius: 50%;
-  content: "\f111";
-  height: 5px;
+  content: "•";
+  font-weight: 700;
   left: 0;
   position: absolute;
-  top: 10px;
-  width: 5px;
 }
 #article-body ul li strong {
   display: contents;
