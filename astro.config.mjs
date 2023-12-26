@@ -26,7 +26,7 @@ export default defineConfig({
     webmanifest({
       name: `Blog de ${config.author.name}`,
       short_name: `Blog de ${config.author.name}`,
-      icon: "src/images/your-icon.svg",
+      icon: "./public/images/me/logo.webp",
       description: config.description,
       start_url: "/",
       theme_color: "#030712",
