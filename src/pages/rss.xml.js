@@ -7,6 +7,7 @@ const articles = Object.values(articlesFiles).sort(articlesSort);
 
 export function GET(context) {
   return rss({
+    stylesheet: "/rss/styles.xsl",
     title: config.title,
     description: config.description,
     site: context.site,
