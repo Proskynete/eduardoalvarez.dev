@@ -16,9 +16,9 @@ const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
 const { content } = Astro.props;
 
 const editUrl = (path: string) =>
-  `${config.repo_url}/edit/main/src/pages/articles/${path}.mdx`;
+  `${config.repo_url}/edit/main/src/pages/articulos/${path}.mdx`;
 
-const articles = await Astro.glob<Frontmatter>("../../pages/articles/*.mdx");
+const articles = await Astro.glob<Frontmatter>("../../pages/articulos/*.mdx");
 const articleFound = articles
   .sort(articlesSort)
   .findIndex((article) => article.frontmatter.slug === content.slug);

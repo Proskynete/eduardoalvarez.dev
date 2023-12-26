@@ -1,0 +1,63 @@
+---
+import type { GetStaticPaths } from "astro";
+import Article from "../../components/article/index.astro";
+import type { Article as IArticle } from "../../interfaces";
+import Layout from "../../layouts/base/index.astro";
+import { articlesSort } from "../../utils/articles";
+
+type Frontmatter = IArticle;
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await Astro.glob<Frontmatter>("../articulos/*.mdx");
+  posts.sort(articlesSort);
+
+  return paginate(posts, {
+    pageSize: 1,
+  });
+}) satisfies GetStaticPaths;
+
+const {
+  page: {
+    data,
+    url: { next, prev },
+  },
+} = Astro.props;
+---
+
+<Layout>
+  <div class="space-y-2 pb-8 pt-6 md:space-y-5">
+    <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+      {
+        data.slice(0, 5).map((post) => (
+          <li class="py-6 first:pt-0">
+            <Article article={post.frontmatter} />
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex justify-evenly">
+      {
+        prev && (
+          <a
+            href={prev}
+            class="text-base font-medium leading-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 transition ease-in-out duration-150"
+          >
+            Artículos mas recientes
+          </a>
+        )
+      }
+
+      {
+        next && (
+          <a
+            href={next}
+            class="text-base font-medium leading-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 transition ease-in-out duration-150"
+          >
+            Artículos anterriores
+          </a>
+        )
+      }
+    </div>
+  </div>
+</Layout>
