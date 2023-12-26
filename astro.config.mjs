@@ -7,14 +7,13 @@ import mdx from "@astrojs/mdx";
 // https://astro.build/config
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
-  integrations: [
-    mdx({
-      markdown: {
-        syntaxHighlight: "prism",
-      },
-    }),
-    react(),
-    tailwind(),
-    sitemap(),
-  ],
+  markdown: {
+    syntaxHighlight: "shiki",
+    shikiConfig: {
+      theme: "one-dark-pro",
+      langs: ["javascript", "typescript", "bash", "json", "css", "html"],
+      wrap: true,
+    },
+  },
+  integrations: [mdx(), react(), tailwind(), sitemap()],
 });
