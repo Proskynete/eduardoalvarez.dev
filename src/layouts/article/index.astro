@@ -1,13 +1,15 @@
 ---
 import "../../assets/styles/main.css";
 import "../../assets/styles/article.css";
-import type { ArticleLayout } from "../../interfaces";
+import type { ArticleLayout, Article } from "../../interfaces";
 import { CategoryMap } from "../../utils/categories";
 import Giscus from "@giscus/react";
 import { calculateReadingTime } from "../../utils/reading-time";
+import { articlesSort } from "../../utils/articles";
 import config from "../../settings";
 import Layout from "../base/index.astro";
 
+type Frontmatter = Article;
 type Props = ArticleLayout;
 
 const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
@@ -16,10 +18,13 @@ const { content } = Astro.props;
 const editUrl = (path: string) =>
   `${config.repo_url}/edit/main/src/pages/articles/${path}.mdx`;
 
-const discussUrl = (path: string) =>
-  `https://twitter.com/search?q=${encodeURIComponent(
-    `${config.url}/articles/${path}`
-  )}`;
+const articles = await Astro.glob<Frontmatter>("../../pages/articles/*.mdx");
+const articleFound = articles
+  .sort(articlesSort)
+  .findIndex((article) => article.frontmatter.slug === content.slug);
+
+const previousArticle = articles[articleFound + 1];
+const nextArticle = articles[articleFound - 1];
 ---
 
 <Layout>
@@ -82,23 +87,19 @@ const discussUrl = (path: string) =>
           <div
             class="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0"
           >
-            <div class="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
-              <a href={discussUrl(content.slug)} rel="nofollow">
-                Discutir en Twitter
-              </a>
-              {` • `}
-              <a href={editUrl(content.slug)}>Ver en GitHub</a>
-            </div>
             <Giscus
               id="comments"
               repo="Proskynete/website"
               repoId="R_kgDOJ_yh4w"
               category="Announcements"
               categoryId="DIC_kwDOJ_yh484Cb_lo"
-              mapping="pathname"
+              mapping="specific"
+              term={content.slug}
+              strict="0"
               reactionsEnabled="1"
               emitMetadata="0"
-              theme="transparent_dark"
+              inputPosition="top"
+              theme="preferred_color_scheme"
               lang="es"
               loading="lazy"
             />
@@ -138,31 +139,35 @@ const discussUrl = (path: string) =>
             <div
               class="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8"
             >
-              <div>
-                <h2
-                  class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400"
-                >
-                  Artículo anterior
-                </h2>
-                <div
-                  class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                >
-                  <a href="">Title</a>
-                </div>
-              </div>
+              {
+                previousArticle && (
+                  <div>
+                    <h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                      Artículo anterior
+                    </h2>
+                    <div class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                      <a href={`${previousArticle.frontmatter.slug}`}>
+                        {previousArticle.frontmatter.title}
+                      </a>
+                    </div>
+                  </div>
+                )
+              }
 
-              <div>
-                <h2
-                  class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400"
-                >
-                  Siguiente artículo
-                </h2>
-                <div
-                  class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                >
-                  <a href="">Title</a>
-                </div>
-              </div>
+              {
+                nextArticle && (
+                  <div>
+                    <h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                      Siguiente artículo
+                    </h2>
+                    <div class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                      <a href={`${nextArticle.frontmatter.slug}`}>
+                        {nextArticle.frontmatter.title}
+                      </a>
+                    </div>
+                  </div>
+                )
+              }
             </div>
           </div>
 
