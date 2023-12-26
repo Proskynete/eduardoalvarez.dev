@@ -6,6 +6,7 @@ export default {
   keywords:
     "frontend, front-end, react, reactjs, mongo, mongodb, ts, typescript, js, javascript, nosql, express, node, nodejs, html, css",
   url: "https://eduardoalvarez.dev",
+  repo_url: "https://github.com/proskynete/website",
   domain: "eduardoalvarez.dev",
   languaje: "es-ES",
   email: "soy@eduardoalvarez.dev",

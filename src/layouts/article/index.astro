@@ -3,13 +3,23 @@ import "../../assets/styles/main.css";
 import "../../assets/styles/article.css";
 import type { ArticleLayout } from "../../interfaces";
 import { CategoryMap } from "../../utils/categories";
+import Giscus from "@giscus/react";
 import { calculateReadingTime } from "../../utils/reading-time";
+import config from "../../settings";
 import Layout from "../base/index.astro";
 
 type Props = ArticleLayout;
 
 const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
 const { content } = Astro.props;
+
+const editUrl = (path: string) =>
+  `${config.repo_url}/edit/main/src/pages/articles/${path}.mdx`;
+
+const discussUrl = (path: string) =>
+  `https://twitter.com/search?q=${encodeURIComponent(
+    `${config.url}/articles/${path}`
+  )}`;
 ---
 
 <Layout>
@@ -46,7 +56,7 @@ const { content } = Astro.props;
             ¿Ves alguna errata o quieres modificar algo?
             <a
               class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-              href=`https://github.com/proskynete/website/edit/main/src/pages/articles/${content.slug}.mdx`
+              href={editUrl(content.slug)}
             >
               Haz una Pull Request
             </a>
@@ -67,6 +77,34 @@ const { content } = Astro.props;
             class="prose max-w-none pb-8 dark:prose-invert"
           >
             <slot />
+          </div>
+
+          <div
+            class="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0"
+          >
+            <div class="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
+              <a href={discussUrl(content.slug)} rel="nofollow">
+                Discuss on Twitter</a
+              >
+              {` • `}
+              <a href={editUrl(content.slug)}>View on GitHub</a>
+            </div>
+             Cargar comentarios
+            <Giscus
+              id="comments"
+              repo="giscus/giscus-component"
+              repoId="MDEwOlJlcG9zaXRvcnkzOTEzMTMwMjA="
+              category="Announcements"
+              categoryId="DIC_kwDOF1L2fM4B-hVS"
+              mapping="specific"
+              term="Welcome to @giscus/react component!"
+              reactionsEnabled="1"
+              emitMetadata="0"
+              inputPosition="top"
+              theme="light"
+              lang="es"
+              loading="lazy"
+            />
           </div>
         </div>
 

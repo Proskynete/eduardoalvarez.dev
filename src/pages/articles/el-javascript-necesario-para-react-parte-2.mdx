@@ -173,15 +173,7 @@ const celular = {
   el `this` puede obtener toda la información que existe dentro del objeto que declaró la función.
 - Por otra parte, la función **apagar()** no hace referencia al objeto `celular`, sino que hace referencia al contexto/scope/ámbito donde
   está definido el objeto `celular`, es decir, el contexto padre del objeto, que para efectos de este ejemplo, es el contexto `Window`. (Si
-  quieres saber más sobre this, te recomiendo leer el siguiente artículo de
-  <a
-    href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/this"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Mozilla.org
-  </a>
-  )
+  quieres saber más sobre this, te recomiendo leer el siguiente artículo de [Mozilla.org](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/this)
 
 ¿Y ahora que? ¿Cuándo es una buena opción utilizar la flechita o la tradicional? Y la respuesta que te puedo recomendar es que para
 la mayoría de las funciones utilices `arrow functions` y para los casos donde tenemos que leer propiedades dentro de un mismo objeto, usar
