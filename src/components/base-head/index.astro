@@ -22,7 +22,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href={`${settings.url}/favicon/favicon.ico`} />
+  <link rel="icon" href={`${settings.url}/favicon.ico`} />
   <meta name="generator" content={Astro.generator} />
 
   <link
@@ -61,14 +61,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="theme-color" content="#0A3F66" />
   <meta name="image" content={`${settings.url}${image}`} />
 
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content={Astro.url} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={`${settings.url}${image}`} />
 
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content={Astro.url} />
   <meta property="twitter:title" content={title} />
