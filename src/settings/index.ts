@@ -53,17 +53,17 @@ export default {
     },
     {
       name: "Github",
-      link: "https://github.com/Proskynete",
+      href: "https://github.com/Proskynete",
       show: true,
     },
     {
       name: "YouTube",
-      link: "https://www.youtube.com/@eduardo-alvarez-dev",
+      href: "https://www.youtube.com/@eduardo-alvarez-dev",
       show: false,
     },
     {
       name: "Twitter",
-      link: "https://twitter.com/proskynete",
+      href: "https://twitter.com/proskynete",
       show: true,
     },
   ],

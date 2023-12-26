@@ -1,8 +1,11 @@
 import { defineConfig } from "astro/config";
+import webmanifest from "astro-webmanifest";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
+
+import config from "./src/settings";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,5 +18,20 @@ export default defineConfig({
       wrap: true,
     },
   },
-  integrations: [mdx(), react(), tailwind(), sitemap()],
+  integrations: [
+    mdx(),
+    react(),
+    tailwind(),
+    sitemap(),
+    webmanifest({
+      name: `Blog de ${config.author.name}`,
+      short_name: `Blog de ${config.author.name}`,
+      icon: "./public/images/me/logo.webp",
+      description: config.description,
+      start_url: "/",
+      theme_color: "#030712",
+      background_color: "#030712",
+      display: "standalone",
+    }),
+  ],
 });
