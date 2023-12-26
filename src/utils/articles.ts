@@ -1,5 +1,11 @@
-export const articlesSort = (a, b) => {
-  const dateA = new Date(a.frontmatter.date);
-  const dateB = new Date(b.frontmatter.date);
-  return dateB.getTime() - dateA.getTime();
+interface Article {
+  frontmatter: {
+    date: string;
+  };
+}
+
+export const articlesSort = (a: Article, b: Article) => {
+  const dateA = new Date(a.frontmatter.date).getTime();
+  const dateB = new Date(b.frontmatter.date).getTime();
+  return dateB - dateA;
 };

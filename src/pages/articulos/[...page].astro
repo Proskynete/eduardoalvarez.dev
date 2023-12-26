@@ -1,7 +1,7 @@
 ---
 import type { GetStaticPaths } from "astro";
 import Article from "../../components/article/index.astro";
-import type { Article as IArticle } from "../../interfaces";
+import type { Article as IArticle, ArticleLayout } from "../../interfaces";
 import Layout from "../../layouts/base/index.astro";
 import { articlesSort } from "../../utils/articles";
 import Pagination from "../../components/pagination/index.astro";
@@ -9,7 +9,7 @@ import Pagination from "../../components/pagination/index.astro";
 type Frontmatter = IArticle;
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await Astro.glob<Frontmatter>("../articulos/*.mdx");
+  const posts = await Astro.glob<Frontmatter>("./*.mdx");
   posts.sort(articlesSort);
 
   return paginate(posts, {
@@ -29,7 +29,7 @@ const {
   <div class="space-y-2 pb-8 pt-6 md:space-y-5">
     <ul class="divide-y divide-gray-200 dark:divide-gray-700">
       {
-        data.slice(0, 5).map((post) => (
+        data.slice(0, 5).map((post: ArticleLayout) => (
           <li class="py-6 first:pt-0">
             <Article article={post.frontmatter} />
           </li>
