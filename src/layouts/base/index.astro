@@ -3,6 +3,7 @@ import "../../assets/styles/main.css";
 import BaseHead from "../../components/base-head/index.astro";
 import Header from "../../components/header/index.astro";
 import Footer from "../../components/footer/index.astro";
+import ScrollingProgressBar from "../../components/scrolling-progress-bar/index";
 import { ViewTransitions } from "astro:transitions";
 import type { Props as BaseHeadProps } from "../../components/base-head/index.astro";
 
@@ -39,6 +40,7 @@ const { seo } = Astro.props;
   <body
     class="bg-white text-black antialiased dark:bg-gray-950 dark:text-white"
   >
+    <ScrollingProgressBar client:load />
     <section class="mx-auto max-w-3xl xl:max-w-6xl px-4 sm:px-6 xl:px-0">
       <div class="flex h-screen flex-col justify-between font-sans">
         <main class="mb-auto">
