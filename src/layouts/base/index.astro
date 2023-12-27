@@ -2,7 +2,6 @@
 import "../../assets/styles/main.css";
 import BaseHead from "../../components/base-head/index.astro";
 import Header from "../../components/header/index.astro";
-import Subscribe from "../../components/subscribe/index";
 import Footer from "../../components/footer/index.astro";
 import { ViewTransitions } from "astro:transitions";
 import type { Props as BaseHeadProps } from "../../components/base-head/index.astro";
@@ -46,10 +45,6 @@ const { seo } = Astro.props;
           <Header />
 
           <slot />
-
-          <div class="flex items-center justify-center pt-4">
-            <Subscribe client:load />
-          </div>
 
           <Footer />
         </main>
