@@ -2,9 +2,7 @@
 import Article from "../components/article/index.astro";
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/base/index.astro";
-import ME from "../assets/images/me.webp";
 import config from "../settings";
-import { Image } from "astro:assets";
 import { articlesSort } from "../utils/articles";
 
 type Frontmatter = IArticle;
@@ -15,11 +13,32 @@ const posts = await Astro.glob<Frontmatter>("./articulos/*.mdx");
 posts.sort(articlesSort).slice(0, _MAX_ARTICLES);
 ---
 
+<script id="mcjs">
+  !(function (c, h, i, m, p) {
+    (m = c.createElement(h)),
+      (p = c.getElementsByTagName(h)[0]),
+      (m.async = 1),
+      (m.src = i),
+      p.parentNode.insertBefore(m, p);
+  })(
+    document,
+    "script",
+    "https://chimpstatic.com/mcjs-connected/js/users/eb43ce4f934dc123f48e8b441/f2eba91442500111420d3a984.js"
+  );
+</script>
+
 <Layout>
   <div
     class="flex flex-col md:flex-row md:space-x-6 items-center content-center w-5/6 m-auto mb-20"
   >
-    <Image src={ME} alt="Eduardo Alvarez ilustración" />
+    <img
+      src="/images/eduardo_alvarez.webp"
+      alt="Eduardo Alvarez ilustración"
+      width="205"
+      height="200"
+      loading="lazy"
+      decoding="async"
+    />
 
     <div class="space-y-2">
       <p

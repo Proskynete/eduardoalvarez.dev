@@ -13,7 +13,7 @@ export const getStaticPaths = (async ({ paginate }) => {
   posts.sort(articlesSort);
 
   return paginate(posts, {
-    pageSize: 10,
+    pageSize: 8,
   });
 }) satisfies GetStaticPaths;
 
