@@ -1,6 +1,5 @@
 ---
 import Article from "../components/article/index.astro";
-import Subscribe from "../components/subscribe/index.tsx";
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/base/index.astro";
 import config from "../settings";
@@ -79,8 +78,6 @@ posts.sort(articlesSort).slice(0, _MAX_ARTICLES);
         ))
       }
     </ul>
-
-    <Subscribe client:load />
 
     {
       posts.length >= _MAX_ARTICLES && (

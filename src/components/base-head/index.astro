@@ -14,7 +14,7 @@ const title = Astro.props.title
 const description = Astro.props.description || settings.description;
 const image = Astro.props.image
   ? Astro.props.image
-  : new URL("./social.png", Astro.site);
+  : new URL("./images/eduardo_alvarez.webp", Astro.site);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -58,17 +58,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="format-detection" content="telephone=no" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="theme-color" content="#030712" />
-  <meta name="image" content={`${settings.url}${image}`} />
+  <meta name="image" content={image} />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content={Astro.url} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={`${settings.url}${image}`} />
+  <meta property="og:image" content={image} />
 
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content={Astro.url} />
   <meta property="twitter:title" content={title} />
   <meta property="twitter:description" content={description} />
-  <meta property="twitter:image" content={`${settings.url}${image}`} />
+  <meta property="twitter:image" content={image} />
 </head>
