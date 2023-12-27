@@ -9,9 +9,10 @@ import type { Props as BaseHeadProps } from "../../components/base-head/index.as
 
 export interface Props {
   seo?: BaseHeadProps;
+  withSubscribe?: boolean;
 }
 
-const { seo } = Astro.props;
+const { seo, withSubscribe } = Astro.props;
 ---
 
 <script is:inline>
@@ -47,9 +48,13 @@ const { seo } = Astro.props;
 
           <slot />
 
-          <div class="flex items-center justify-center pt-4">
-            <Subscribe client:load />
-          </div>
+          {
+            !!withSubscribe && (
+              <div class="flex items-center justify-center pt-4">
+                <Subscribe client:load />
+              </div>
+            )
+          }
 
           <Footer />
         </main>
