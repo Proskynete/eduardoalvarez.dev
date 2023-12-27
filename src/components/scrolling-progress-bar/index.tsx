@@ -22,7 +22,7 @@ const ScrollingProgressBar = () => {
 
   return (
     <div
-      className="top-0 sticky z-50 h-[5px] bg-teal-700 transition-all duration-300"
+      className="top-0 sticky z-50 h-[5px] bg-teal-700 transition-[width]"
       style={{ width: `${state}%` }}
     />
   );
