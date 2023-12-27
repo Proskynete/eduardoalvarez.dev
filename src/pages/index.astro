@@ -3,9 +3,7 @@ import Article from "../components/article/index.astro";
 import Subscribe from "../components/subscribe/index.tsx";
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/base/index.astro";
-import ME from "../assets/images/me.webp";
 import config from "../settings";
-import { Image } from "astro:assets";
 import { articlesSort } from "../utils/articles";
 
 type Frontmatter = IArticle;
@@ -20,7 +18,14 @@ posts.sort(articlesSort).slice(0, _MAX_ARTICLES);
   <div
     class="flex flex-col md:flex-row md:space-x-6 items-center content-center w-5/6 m-auto mb-20"
   >
-    <Image src={ME} alt="Eduardo Alvarez ilustración" />
+    <img
+      src="/images/eduardo_alvarez.webp"
+      alt="Eduardo Alvarez ilustración"
+      width="205"
+      height="200"
+      loading="lazy"
+      decoding="async"
+    />
 
     <div class="space-y-2">
       <p
