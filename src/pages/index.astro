@@ -13,7 +13,21 @@ const posts = await Astro.glob<Frontmatter>("./articulos/*.mdx");
 posts.sort(articlesSort).slice(0, _MAX_ARTICLES);
 ---
 
-<Layout withSubscribe>
+<script id="mcjs">
+  !(function (c, h, i, m, p) {
+    (m = c.createElement(h)),
+      (p = c.getElementsByTagName(h)[0]),
+      (m.async = 1),
+      (m.src = i),
+      p.parentNode.insertBefore(m, p);
+  })(
+    document,
+    "script",
+    "https://chimpstatic.com/mcjs-connected/js/users/eb43ce4f934dc123f48e8b441/f2eba91442500111420d3a984.js"
+  );
+</script>
+
+<Layout>
   <div
     class="flex flex-col md:flex-row md:space-x-6 items-center content-center w-5/6 m-auto mb-20"
   >

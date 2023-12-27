@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import webmanifest from "astro-webmanifest";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
-import vercel from "@astrojs/vercel/serverless";
+// import vercel from "@astrojs/vercel/serverless";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import { publishAlgoliaRSS } from "./src/scripts/algolia.ts";
@@ -11,8 +11,8 @@ import config from "./src/settings";
 // https://astro.build/config
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
-  output: "hybrid",
-  adapter: vercel(),
+  // output: "hybrid",
+  // adapter: vercel(),
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {
