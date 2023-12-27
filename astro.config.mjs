@@ -11,7 +11,7 @@ import config from "./src/settings";
 // https://astro.build/config
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
-  output: "server",
+  output: "hybrid",
   adapter: vercel(),
   markdown: {
     syntaxHighlight: "shiki",
