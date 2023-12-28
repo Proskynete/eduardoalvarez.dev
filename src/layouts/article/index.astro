@@ -57,17 +57,17 @@ const seo: BaseHeadProps = {
           </div>
 
           <Giscus
+            client:load
             id="comments"
-            repo="Proskynete/website"
+            repo="proskynete/website"
             repoId="R_kgDOJ_yh4w"
-            category="Announcements"
-            categoryId="DIC_kwDOJ_yh484Cb_lo"
+            category="Blog Comments"
+            categoryId="DIC_kwDOJ_yh484CcCn6"
             mapping="specific"
-            term={content.slug}
-            strict="0"
+            term={`blog/${content.slug}`}
             reactionsEnabled="1"
             emitMetadata="0"
-            inputPosition="top"
+            inputPosition="bottom"
             theme="preferred_color_scheme"
             lang="es"
             loading="lazy"
