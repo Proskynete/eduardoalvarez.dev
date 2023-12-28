@@ -1,22 +1,19 @@
 ---
-import "../../assets/styles/main.css";
 import "../../assets/styles/article.css";
-import type { ArticleLayout, Article } from "../../interfaces";
-import { CategoryMap } from "../../utils/categories";
-import Giscus from "@giscus/react";
-import { calculateReadingTime } from "../../utils/reading-time";
-import { articlesSort } from "../../utils/articles";
-import config from "../../settings";
+
 import Layout from "../base/index.astro";
+import Head from "./components/head.astro";
+import Aside from "./components/aside.astro";
+import { articlesSort } from "../../utils/articles";
+import { GiscusWrapper } from "../../components/giscus";
+import { calculateReadingTime } from "../../utils/reading-time";
+import type { Props as BaseHeadProps } from "../base/components/head.astro";
+import type { Article } from "../../interfaces";
 
 type Frontmatter = Article;
-type Props = ArticleLayout;
-
-const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
 const { content } = Astro.props;
 
-const editUrl = (path: string) =>
-  `${config.repo_url}/edit/main/src/pages/articulos/${path}.mdx`;
+const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
 
 const articles = await Astro.glob<Frontmatter>("../../pages/articulos/*.mdx");
 const articleFound = articles
@@ -26,63 +23,31 @@ const articleFound = articles
 const previousArticle = articles[articleFound + 1];
 const nextArticle = articles[articleFound - 1];
 
-const seo = {
+const seo: BaseHeadProps = {
   title: content.title,
   description: content.description,
   image: content.seo_image,
-  url: `/articulos/${content.slug}`,
+  slug: `/articulos/${content.slug}`,
 };
 ---
 
 <Layout seo={seo}>
   <article>
     <div class="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
-      <header class="xl:pb-6">
-        <div class="space-y-1 text-center">
-          <dl class="space-y-10">
-            <div>
-              <dt class="sr-only">Publicado el</dt>
-              <dd
-                class="text-base font-avenir leading-6 text-gray-500 dark:text-gray-400"
-              >
-                <time
-                  date-time={content.date}
-                  transition:name={`date ${content.slug}`}
-                >
-                  {new Date(content.date).toLocaleDateString()}
-                </time>
-              </dd>
-            </div>
-          </dl>
-
-          <div>
-            <h1
-              class="text-3xl font-hero leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14"
-              transition:name={`title ${content.slug} name`}
-            >
-              {content.title}
-            </h1>
-          </div>
-
-          <p>
-            ¿Ves alguna errata?
-            <a
-              class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-              href={editUrl(content.slug)}
-            >
-              Haz una Pull Request
-            </a>
-          </p>
-        </div>
-      </header>
+      <Head content={content} />
 
       <div
-        class="grid-rows-[auto_1fr] pt-10 divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
+        class="grid flex-row-reverse grid-rows-[auto_1fr] pt-10 divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
       >
-        <div></div>
+        <Aside
+          content={content}
+          timeToRead={timeToRead}
+          previousArticle={previousArticle}
+          nextArticle={nextArticle}
+        />
 
         <div
-          class="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0"
+          class="divide-y divide-gray-200 dark:divide-gray-700 col-span-3 xl:pb-0 xl:col-start-2 xl:row-span-2 pt-4 xl:pt-0"
         >
           <div
             id="article-body"
@@ -91,125 +56,7 @@ const seo = {
             <slot />
           </div>
 
-          <div
-            class="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0"
-          >
-            <Giscus
-              id="comments"
-              repo="Proskynete/website"
-              repoId="R_kgDOJ_yh4w"
-              category="Announcements"
-              categoryId="DIC_kwDOJ_yh484Cb_lo"
-              mapping="specific"
-              term={content.slug}
-              strict="0"
-              reactionsEnabled="1"
-              emitMetadata="0"
-              inputPosition="top"
-              theme="preferred_color_scheme"
-              lang="es"
-              loading="lazy"
-            />
-          </div>
-        </div>
-
-        <div>
-          <footer class="xl:sticky top-0">
-            <div
-              class="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y"
-            >
-              <div class="py-4">
-                <p
-                  class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2"
-                >
-                  Categorías
-                </p>
-                <div class="flex flex-wrap">
-                  {
-                    content.categories.map((category) => (
-                      <p class="mr-3 text-primary-500">
-                        {CategoryMap.get(category)}
-                      </p>
-                    ))
-                  }
-                </div>
-              </div>
-
-              <div class="py-4">
-                <p
-                  class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2"
-                >
-                  Tiempo de lectura
-                </p>
-                <div class="flex flex-wrap">{timeToRead} minutos</div>
-              </div>
-
-              <div class="py-4 hidden lg:block">
-                <p
-                  class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2"
-                >
-                  Secciones
-                </p>
-
-                {
-                  content.sections.map((section) => (
-                    <a
-                      href={`#${section.anchor}`}
-                      class="flex text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                    >
-                      {section.title}
-                    </a>
-                  ))
-                }
-              </div>
-
-              <div
-                class="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8"
-              >
-                {
-                  previousArticle && (
-                    <div>
-                      <h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
-                        Artículo anterior
-                      </h2>
-
-                      <a
-                        href={`${previousArticle.frontmatter.slug}`}
-                        class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                      >
-                        {previousArticle.frontmatter.title}
-                      </a>
-                    </div>
-                  )
-                }
-
-                {
-                  nextArticle && (
-                    <div>
-                      <h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                        Siguiente artículo
-                      </h2>
-                      <div class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                        <a href={`${nextArticle.frontmatter.slug}`}>
-                          {nextArticle.frontmatter.title}
-                        </a>
-                      </div>
-                    </div>
-                  )
-                }
-              </div>
-            </div>
-
-            <div class="pt-4 xl:pt-8">
-              <a
-                href="/"
-                class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                aria-label="Volver al inicio"
-              >
-                &larr; Volver al inicio
-              </a>
-            </div>
-          </footer>
+          <GiscusWrapper client:load slug={content.slug} />
         </div>
       </div>
     </div>

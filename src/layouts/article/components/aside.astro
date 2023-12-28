@@ -1,0 +1,104 @@
+---
+import { CategoryMap } from "../../../utils/categories";
+
+const { content, timeToRead, previousArticle, nextArticle } = Astro.props;
+---
+
+<aside class="xl:sticky top-3 col-span-4 xl:col-span-1">
+  <div
+    class="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 divide-y"
+  >
+    <div
+      class="flex flex-col xl:flex-row md:gap-y-0 sm:flex-row xl:block xl:space-y-8 divide-y sm:divide-y-0 xl:divide-y"
+    >
+      <div class="pb-4 w-full">
+        <p
+          class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2"
+        >
+          Categorías
+        </p>
+        <div class="flex flex-wrap">
+          {
+            content.categories.map((category) => (
+              <p class="mr-3 text-primary-500">{CategoryMap.get(category)}</p>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="py-4 sm:pt-0 xl:pt-4 w-full !mt-0">
+        <p
+          class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2"
+        >
+          Tiempo de lectura
+        </p>
+        <div class="flex flex-wrap">{timeToRead} minutos</div>
+      </div>
+    </div>
+
+    <div class="py-4 hidden xl:block">
+      <p
+        class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2"
+      >
+        Secciones
+      </p>
+
+      {
+        content.sections.map((section) => (
+          <a
+            href={`#${section.anchor}`}
+            class="flex text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+          >
+            {section.title}
+          </a>
+        ))
+      }
+    </div>
+
+    <div
+      class="flex flex-col gap-y-5 sm:flex-row py-4 xl:block xl:space-y-8 xl:py-8"
+    >
+      {
+        previousArticle && (
+          <div class="w-full">
+            <h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
+              Artículo anterior
+            </h2>
+
+            <a
+              href={`${previousArticle.frontmatter.slug}`}
+              class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+            >
+              {previousArticle.frontmatter.title}
+            </a>
+          </div>
+        )
+      }
+
+      {
+        nextArticle && (
+          <div class="w-full">
+            <h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+              Siguiente artículo
+            </h2>
+            <div class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+              <a href={`${nextArticle.frontmatter.slug}`}>
+                {nextArticle.frontmatter.title}
+              </a>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="py-4">
+    <a
+      href="/"
+      class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+      aria-label="Volver al inicio"
+    >
+      &larr; Volver a la home
+    </a>
+  </div>
+</aside>

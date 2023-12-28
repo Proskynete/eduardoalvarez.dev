@@ -1,5 +1,5 @@
 ---
-import settings from "../../settings";
+import settings from "../../../settings";
 
 export interface Props {
   title?: string;
@@ -24,21 +24,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href={`${settings.url}/favicon.ico`} />
   <meta name="generator" content={Astro.generator} />
-
-  <link
-    rel="preload"
-    href="/fonts/Avenir.woff"
-    as="font"
-    type="font/woff"
-    crossorigin
-  />
-  <link
-    rel="preload"
-    href="/fonts/Hero.woff"
-    as="font"
-    type="font/woff"
-    crossorigin
-  />
 
   <link rel="canonical" href={canonicalURL} />
 
