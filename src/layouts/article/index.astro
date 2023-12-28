@@ -1,11 +1,11 @@
 ---
 import "../../assets/styles/article.css";
 
-import Giscus from "@giscus/react";
 import Layout from "../base/index.astro";
 import Head from "./components/head.astro";
 import Aside from "./components/aside.astro";
 import { articlesSort } from "../../utils/articles";
+import { GiscusWrapper } from "../../components/giscus";
 import { calculateReadingTime } from "../../utils/reading-time";
 import type { Props as BaseHeadProps } from "../base/components/head.astro";
 import type { Article } from "../../interfaces";
@@ -56,22 +56,7 @@ const seo: BaseHeadProps = {
             <slot />
           </div>
 
-          <Giscus
-            client:load
-            id="comments"
-            repo="proskynete/website"
-            repoId="R_kgDOJ_yh4w"
-            category="Blog Comments"
-            categoryId="DIC_kwDOJ_yh484CcCn6"
-            mapping="specific"
-            term={`blog/${content.slug}`}
-            reactionsEnabled="1"
-            emitMetadata="0"
-            inputPosition="bottom"
-            theme="preferred_color_scheme"
-            lang="es"
-            loading="lazy"
-          />
+          <GiscusWrapper client:load slug={content.slug} />
         </div>
       </div>
     </div>
