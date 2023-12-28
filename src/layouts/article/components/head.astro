@@ -1,0 +1,44 @@
+---
+import { githubArticlePath } from "../../../utils/articles";
+
+const { content } = Astro.props;
+---
+
+<header class="xl:pb-6">
+  <div class="space-y-1 text-center">
+    <dl class="space-y-10">
+      <div>
+        <dt class="sr-only">Publicado el</dt>
+        <dd
+          class="text-base font-avenir leading-6 text-gray-500 dark:text-gray-400"
+        >
+          <time
+            date-time={content.date}
+            transition:name={`date ${content.slug}`}
+          >
+            {new Date(content.date).toLocaleDateString()}
+          </time>
+        </dd>
+      </div>
+    </dl>
+
+    <div>
+      <h1
+        class="text-3xl font-hero leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14"
+        transition:name={`title ${content.slug} name`}
+      >
+        {content.title}
+      </h1>
+    </div>
+
+    <p>
+      ¿Ves alguna errata?
+      <a
+        class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+        href={githubArticlePath(content.slug)}
+      >
+        Haz una Pull Request
+      </a>
+    </p>
+  </div>
+</header>

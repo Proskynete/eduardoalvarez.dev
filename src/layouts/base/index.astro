@@ -1,0 +1,55 @@
+---
+import "../../assets/styles/main.css";
+import { ViewTransitions } from "astro:transitions";
+import BaseHead, { type Props as BaseHeadProps } from "./components/head.astro";
+import Footer from "../../components/footer/index.astro";
+import Header from "../../components/header/index.astro";
+import ScrollingProgressBar from "../../components/scrolling-progress-bar/index";
+
+export interface Props {
+  seo?: BaseHeadProps;
+}
+
+const { seo } = Astro.props;
+---
+
+<script is:inline>
+  const theme = (() => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  })();
+
+  if (theme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+  window.localStorage.setItem("theme", theme);
+</script>
+
+<html lang="es">
+  <BaseHead {...seo} />
+  <ViewTransitions fallback="none" />
+
+  <body
+    class="bg-white text-black antialiased dark:bg-gray-950 dark:text-white"
+  >
+    <ScrollingProgressBar client:load />
+    <section class="mx-auto max-w-3xl xl:max-w-6xl px-4 sm:px-6 xl:px-0">
+      <div class="flex flex-col justify-between font-sans">
+        <main class="mb-auto">
+          <Header />
+
+          <slot />
+
+          <Footer />
+        </main>
+      </div>
+    </section>
+  </body>
+</html>
