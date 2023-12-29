@@ -1,5 +1,7 @@
 #article-body {
   font-family: "Hero", sans-serif;
+  max-width: 100%;
+  display: grid;
 }
 
 #article-body h2 {
