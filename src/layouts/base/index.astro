@@ -11,6 +11,7 @@ export interface Props {
 }
 
 const { seo } = Astro.props;
+const d = new Date();
 ---
 
 <script is:inline>
@@ -36,6 +37,8 @@ const { seo } = Astro.props;
   <BaseHead {...seo} />
   <ViewTransitions fallback="none" />
 
+  {d.getMonth() === 11 && <script defer src="https://app.embed.im/snow.js" />}
+
   <body
     class="bg-white text-black antialiased dark:bg-gray-950 dark:text-white"
   >
@@ -51,5 +54,14 @@ const { seo } = Astro.props;
         </main>
       </div>
     </section>
+    <style is:global>
+      :root {
+        color-scheme: light dark;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
   </body>
 </html>
