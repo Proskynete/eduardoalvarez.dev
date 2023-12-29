@@ -14,6 +14,11 @@ export default {
         hero: ['"Hero"'],
         avenir: ['"Avenir"'],
       },
+      colors: {
+        primary: colors.pink,
+        secondary: colors.purple,
+        gray: colors.gray,
+      },
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {

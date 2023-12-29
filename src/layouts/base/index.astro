@@ -1,6 +1,7 @@
 ---
 import "../../assets/styles/main.css";
-import { ViewTransitions, fade } from "astro:transitions";
+import "../../assets/styles/snow.css";
+import { ViewTransitions } from "astro:transitions";
 import BaseHead, { type Props as BaseHeadProps } from "./components/head.astro";
 import Footer from "../../components/footer/index.astro";
 import Header from "../../components/header/index.astro";
@@ -11,7 +12,6 @@ export interface Props {
 }
 
 const { seo } = Astro.props;
-const d = new Date();
 ---
 
 <script is:inline>
@@ -37,15 +37,14 @@ const d = new Date();
   <BaseHead {...seo} />
   <ViewTransitions fallback="none" />
 
-  {d.getMonth() === 11 && <script defer src="https://app.embed.im/snow.js" />}
-
   <body
     class="bg-white text-black antialiased dark:bg-gray-950 dark:text-white"
   >
+    <div id="tsparticles"></div>
     <ScrollingProgressBar client:load />
     <section class="mx-auto max-w-3xl xl:max-w-6xl px-4 sm:px-6 xl:px-0">
       <div class="flex flex-col justify-between font-sans">
-        <main class="mb-auto" transition:animate={fade({ duration: "0.4s" })}>
+        <main class="mb-auto">
           <Header />
 
           <slot />
@@ -57,10 +56,6 @@ const d = new Date();
     <style is:global>
       :root {
         color-scheme: light dark;
-      }
-
-      html {
-        scroll-behavior: smooth;
       }
     </style>
   </body>
