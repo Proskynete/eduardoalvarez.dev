@@ -11,7 +11,10 @@ import config from "./src/settings";
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
   markdown: {
-    syntaxHighlight: "prism",
+    syntaxHighlight: "shiki",
+    shikiConfig: {
+      theme: "monokai",
+    },
   },
   integrations: [
     mdx(),
