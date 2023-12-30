@@ -10,6 +10,12 @@ export interface Props {
   seo?: BaseHeadProps;
 }
 
+const algolia = {
+  ALGOLIA_ADMIN_API_KEY: import.meta.env.ALGOLIA_ADMIN_API_KEY,
+  ALGOLIA_APPLICATION_ID: import.meta.env.ALGOLIA_APPLICATION_ID,
+  ALGOLIA_INDEX_NAME: import.meta.env.ALGOLIA_INDEX_NAME,
+} as const;
+
 const { seo } = Astro.props;
 ---
 
@@ -45,7 +51,7 @@ const { seo } = Astro.props;
     <section class="mx-auto max-w-3xl xl:max-w-6xl px-4 sm:px-6 xl:px-0">
       <div class="flex flex-col justify-between font-sans">
         <main class="mb-auto">
-          <Header />
+          <Header algolia={algolia} />
 
           <slot />
 
