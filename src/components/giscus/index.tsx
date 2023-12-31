@@ -17,7 +17,7 @@ const GiscusWrapper = ({ slug }: GiscusProps) => {
       reactionsEnabled="1"
       emitMetadata="0"
       inputPosition="bottom"
-      theme="preferred_color_scheme"
+      theme="light"
       lang="es"
       loading="lazy"
     />

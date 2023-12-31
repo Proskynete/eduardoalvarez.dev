@@ -2,6 +2,8 @@
 import MobileNav from "./components/mobile";
 import Search from "./components/search";
 import ToggleButton from "./components/toggle-theme";
+
+const { algolia } = Astro.props;
 ---
 
 <header class="flex items-center justify-between py-3 md:py-10">
@@ -17,7 +19,7 @@ import ToggleButton from "./components/toggle-theme";
   </a>
 
   <div class="flex items-center gap-4 leading-5 sm:space-x-6">
-    <Search client:visible />
+    <Search client:load algolia={algolia} />
     <ToggleButton client:load />
     <MobileNav client:visible />
   </div>

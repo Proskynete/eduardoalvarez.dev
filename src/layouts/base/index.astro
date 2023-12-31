@@ -10,6 +10,12 @@ export interface Props {
   seo?: BaseHeadProps;
 }
 
+const algolia = {
+  ALGOLIA_ADMIN_API_KEY: import.meta.env.ALGOLIA_ADMIN_API_KEY,
+  ALGOLIA_APPLICATION_ID: import.meta.env.ALGOLIA_APPLICATION_ID,
+  ALGOLIA_INDEX_NAME: import.meta.env.ALGOLIA_INDEX_NAME,
+} as const;
+
 const { seo } = Astro.props;
 ---
 
@@ -34,16 +40,18 @@ const { seo } = Astro.props;
 
 <html lang="es">
   <BaseHead {...seo} />
+
   <ViewTransitions fallback="none" />
 
   <body
     class="bg-white text-black antialiased dark:bg-gray-950 dark:text-white"
   >
+    <div id="tsparticles"></div>
     <ScrollingProgressBar client:load />
     <section class="mx-auto max-w-3xl xl:max-w-6xl px-4 sm:px-6 xl:px-0">
       <div class="flex flex-col justify-between font-sans">
         <main class="mb-auto">
-          <Header />
+          <Header algolia={algolia} />
 
           <slot />
 
@@ -51,5 +59,10 @@ const { seo } = Astro.props;
         </main>
       </div>
     </section>
+    <style is:global>
+      :root {
+        color-scheme: light dark;
+      }
+    </style>
   </body>
 </html>

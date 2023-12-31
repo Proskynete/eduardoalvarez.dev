@@ -1,5 +1,7 @@
 #article-body {
   font-family: "Hero", sans-serif;
+  max-width: 100%;
+  display: grid;
 }
 
 #article-body h2 {
@@ -7,6 +9,7 @@
   font-weight: 700;
   line-height: 1.3333333;
   margin-bottom: 1em;
+  padding-top: 2.5rem;
 }
 
 #article-body h3 {

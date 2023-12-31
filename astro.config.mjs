@@ -13,9 +13,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {
-      theme: "one-dark-pro",
-      langs: ["javascript", "typescript", "bash", "json", "css", "html"],
-      wrap: true,
+      theme: "monokai",
     },
   },
   integrations: [
