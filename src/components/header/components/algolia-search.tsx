@@ -2,7 +2,7 @@ import Autocomplete from "downshift";
 import { useRef, useState } from "react";
 import { connectAutoComplete, Highlight } from "react-instantsearch-dom";
 
-const AlgoliaSearch = ({ refine, hits }) => {
+const AlgoliaSearch = ({ refine, hits, onClose }) => {
   const [search, setSearch] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const hitsRef = useRef<HTMLDivElement>(null);
@@ -10,6 +10,7 @@ const AlgoliaSearch = ({ refine, hits }) => {
   const handleClearSearch = () => {
     setSearch("");
     refine("");
+    onClose();
   };
 
   return (

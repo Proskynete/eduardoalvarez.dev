@@ -12,8 +12,12 @@ export default function Search({ algolia }) {
     algolia.ALGOLIA_ADMIN_API_KEY
   );
 
-  const handleClick = () => {
+  const handleToggleShowInput = () => {
     setShowInput(!showInput);
+  };
+
+  const handleClose = () => {
+    setShowInput(false);
   };
 
   return (
@@ -35,11 +39,11 @@ export default function Search({ algolia }) {
           indexName={algolia.ALGOLIA_INDEX_NAME}
           searchClient={client}
         >
-          <SearchComponentConnected />
+          <SearchComponentConnected onClose={handleClose} />
         </InstantSearch>
       )}
 
-      <button aria-label="Buscador" onClick={handleClick}>
+      <button aria-label="Buscador" onClick={handleToggleShowInput}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
