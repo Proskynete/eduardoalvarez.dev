@@ -7,13 +7,20 @@ const AlgoliaSearch = ({ refine, hits }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const hitsRef = useRef<HTMLDivElement>(null);
 
+  const handleClearSearch = () => {
+    setSearch("");
+    refine("");
+  };
+
   return (
     <Autocomplete
       itemToString={(item) => (item ? item.name : item)}
-      onChange={(item) => console.log(item)}
+      onChange={({ link }) => {
+        window.location.href = link;
+      }}
     >
       {({ getInputProps, getItemProps, highlightedIndex }) => (
-        <div>
+        <div className="relative w-[300px]">
           <label htmlFor="search" className="sr-only">
             Buscar
           </label>
@@ -22,7 +29,7 @@ const AlgoliaSearch = ({ refine, hits }) => {
               ref={inputRef}
               type="text"
               id="search"
-              className="focus:ring-primary-600 w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 dark:bg-black"
+              className="focus:ring-primary-600 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 dark:bg-black w-full"
               placeholder="Buscar..."
               value={search}
               {...getInputProps({
@@ -31,11 +38,11 @@ const AlgoliaSearch = ({ refine, hits }) => {
                   refine(e.target.value);
                 },
               })}
-              required
             />
             <button
               type="button"
               className="absolute inset-y-0 end-0 flex items-center pe-3"
+              onClick={handleClearSearch}
             >
               <svg
                 className="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -55,13 +62,15 @@ const AlgoliaSearch = ({ refine, hits }) => {
           </div>
 
           {search.length > 0 && (
-            <div className="search__hits">
+            <div className="absolute max-w-full bg-white dark:bg-gray-900 rounded-md border border-gray-200 dark:border-gray-700 shadow-lg mt-2">
               {hits.slice(0, 5).map((item: any, index: number) => (
                 <div
                   ref={hitsRef}
                   key={item.objectID}
-                  className={`search__hits__item ${
-                    highlightedIndex === index && "search__hits__item--hover"
+                  className={`text-gray-900 dark:text-gray-200 cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-800 ${
+                    highlightedIndex === index
+                      ? "bg-gray-100 dark:bg-gray-800"
+                      : ""
                   }`}
                   {...getItemProps({
                     item,
@@ -72,14 +81,14 @@ const AlgoliaSearch = ({ refine, hits }) => {
                     attribute="title"
                     hit={item}
                     tagName="mark"
-                    className="search__hits__item__title"
+                    className="font-bold overflow-hidden block text-sm mb-1"
                   />
 
                   <Highlight
                     attribute="description"
                     hit={item}
                     tagName="mark"
-                    className="search__hits__item__description"
+                    className="text-sm font-light text-gray-500 dark:text-gray-400 mb-2 line-clamp-3"
                   />
                 </div>
               ))}
