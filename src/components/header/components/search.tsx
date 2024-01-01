@@ -43,7 +43,11 @@ export default function Search({ algolia }) {
         </InstantSearch>
       )}
 
-      <button aria-label="Buscador" onClick={handleToggleShowInput}>
+      <button
+        aria-label="Buscador"
+        onClick={handleToggleShowInput}
+        className="hidden md:block "
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

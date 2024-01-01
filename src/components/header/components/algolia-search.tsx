@@ -21,7 +21,7 @@ const AlgoliaSearch = ({ refine, hits, onClose }) => {
       }}
     >
       {({ getInputProps, getItemProps, highlightedIndex }) => (
-        <div className="relative w-[300px]">
+        <div className="relative max-w-[300px] w-full">
           <label htmlFor="search" className="sr-only">
             Buscar
           </label>
