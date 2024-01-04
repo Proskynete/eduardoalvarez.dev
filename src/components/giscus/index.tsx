@@ -1,10 +1,31 @@
 import Giscus from "@giscus/react";
+import { useEffect, useState } from "react";
 
 interface GiscusProps {
   slug: string;
 }
 
 const GiscusWrapper = ({ slug }: GiscusProps) => {
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return document.documentElement.classList.contains("dark");
+  });
+
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "attributes") {
+          setDarkMode(
+            (mutation.target as HTMLElement).classList.contains("dark")
+          );
+        }
+      });
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+    });
+  }, [darkMode]);
+
   return (
     <Giscus
       id="comments"
@@ -17,7 +38,7 @@ const GiscusWrapper = ({ slug }: GiscusProps) => {
       reactionsEnabled="1"
       emitMetadata="0"
       inputPosition="bottom"
-      theme="light"
+      theme={darkMode ? "dark" : "light"}
       lang="es"
       loading="lazy"
     />
