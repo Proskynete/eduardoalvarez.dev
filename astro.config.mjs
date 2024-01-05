@@ -7,6 +7,8 @@ import mdx from "@astrojs/mdx";
 import { publishAlgoliaRSS } from "./src/scripts/algolia.ts";
 import config from "./src/settings";
 
+import partytown from "@astrojs/partytown";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
@@ -21,6 +23,7 @@ export default defineConfig({
     react(),
     tailwind(),
     sitemap(),
+    partytown(),
     webmanifest({
       name: `Blog de ${config.author.name}`,
       short_name: `Blog de ${config.author.name}`,
