@@ -30,7 +30,7 @@ const AlgoliaSearch = ({ refine, hits, onClose }) => {
               ref={inputRef}
               type="text"
               id="search"
-              className="focus:ring-primary-600 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 dark:bg-black w-full"
+              className="focus:ring-primary-600 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 bg-black w-full"
               placeholder="Buscar..."
               value={search}
               {...getInputProps({
@@ -46,7 +46,7 @@ const AlgoliaSearch = ({ refine, hits, onClose }) => {
               onClick={handleClearSearch}
             >
               <svg
-                className="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                className="w-4 h-4 text-gray-400 hover:text-white"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -63,12 +63,12 @@ const AlgoliaSearch = ({ refine, hits, onClose }) => {
           </div>
 
           {search.length > 0 && (
-            <div className="absolute max-w-full bg-white dark:bg-gray-900 rounded-md border border-gray-200 dark:border-gray-700 shadow-lg mt-2">
+            <div className="absolute max-w-full bg-gray-900 rounded-md border border-gray-700 shadow-lg mt-2">
               {hits.slice(0, 5).map((item: any, index: number) => (
                 <div
                   ref={hitsRef}
                   key={item.objectID}
-                  className={`text-gray-900 dark:text-gray-200 cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-800 ${
+                  className={`text-gray-200 cursor-pointer p-2 hover:bg-gray-800 ${
                     highlightedIndex === index
                       ? "bg-gray-100 dark:bg-gray-800"
                       : ""
@@ -89,7 +89,7 @@ const AlgoliaSearch = ({ refine, hits, onClose }) => {
                     attribute="description"
                     hit={item}
                     tagName="mark"
-                    className="text-sm font-light text-gray-500 dark:text-gray-400 mb-2 line-clamp-3"
+                    className="text-sm font-light text-gray-400 mb-2 line-clamp-3"
                   />
                 </div>
               ))}

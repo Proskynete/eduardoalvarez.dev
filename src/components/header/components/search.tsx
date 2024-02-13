@@ -28,7 +28,7 @@ export default function Search({ algolia }) {
           .map((item) => (
             <a
               key={item.name}
-              className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
+              className="hidden font-medium text-gray-100 sm:block"
               href={item.href}
             >
               {item.name}
@@ -54,7 +54,7 @@ export default function Search({ algolia }) {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="h-6 w-6 text-gray-900 dark:text-gray-100"
+          className="h-6 w-6 text-gray-100"
         >
           <path
             strokeLinecap="round"
