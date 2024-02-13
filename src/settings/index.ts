@@ -58,7 +58,7 @@ export default {
     },
     {
       name: "Instagram",
-      link: "https://www.instagram.com/eduardo_alvarez.dev",
+      href: "https://www.instagram.com/eduardo_alvarez.dev",
       show: true,
     },
     {

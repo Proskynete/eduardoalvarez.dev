@@ -28,7 +28,7 @@ export default function Search({ algolia }) {
           .map((item) => (
             <a
               key={item.name}
-              className="hidden font-medium text-gray-100 sm:block"
+              className="hidden font-medium sm:block text-gray-100  hover:text-gray-300 focus:outline-none focus:text-gray-300 transition ease-in-out duration-150"
               href={item.href}
             >
               {item.name}

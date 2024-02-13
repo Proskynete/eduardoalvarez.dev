@@ -22,7 +22,10 @@ const { article } = Astro.props;
       <div class="space-y-2">
         <div>
           <h2 class="text-2xl font-hero leading-8 tracking-tight">
-            <a href={`/articulos/${article.slug}`} class="text-gray-100">
+            <a
+              href={`/articulos/${article.slug}`}
+              class="text-gray-100 hover:text-gray-300 transition ease-in-out duration-150"
+            >
               {article.title}
             </a>
           </h2>

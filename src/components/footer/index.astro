@@ -10,7 +10,7 @@ const currentYear = new Date().getFullYear();
         .filter((social) => social.show)
         .map((social) => (
           <a
-            class="text-lg transition text-gray-600"
+            class="text-lg text-gray-600 hover:text-gray-400 transition ease-in-out duration-150"
             target="_blank"
             rel="noopener noreferrer"
             href={social.href}
