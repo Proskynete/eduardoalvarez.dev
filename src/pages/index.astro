@@ -7,10 +7,9 @@ import { articlesSort } from "../utils/articles";
 
 type Frontmatter = IArticle;
 
-const _MAX_ARTICLES = 5;
-
+const _MAX_ARTICLES = 3;
 const posts = await Astro.glob<Frontmatter>("./articulos/*.mdx");
-posts.sort(articlesSort).slice(0, _MAX_ARTICLES);
+posts.sort(articlesSort).splice(_MAX_ARTICLES);
 ---
 
 <Layout>
