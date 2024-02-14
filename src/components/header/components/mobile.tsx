@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { navItems } from "../constants";
+import { version } from "../../../../package.json";
 
 export default function Mobile() {
   const [navShow, setNavShow] = useState(false);
@@ -57,18 +58,34 @@ export default function Mobile() {
           </svg>
         </button>
 
-        <nav className="relative flex flex-col justify-end content-end items-end w-full h-full pt-40 px-12 pb-12">
-          <p className="text-2xl tracking-widest text-gray-100">Comandos</p>
+        <nav className="relative flex flex-col justify-end items-end text-right w-full h-full pt-40 px-8 pb-12">
+          <p className="text-gray-100">
+            eduardoalvarez.dev/
+            <span className="text-green-500 font-bold ml-2">v{version}</span>
+          </p>
 
-          <ul className="mt-12 flex flex-col items-end">
+          <div className="my-2">
+            <p className="text-gray-100">+ astro</p>
+            <p className="text-gray-100">+ react</p>
+            <p className="text-gray-100">+ tailwindcss</p>
+            <p className="text-gray-100">+ typescript</p>
+            <p className="text-gray-100 mt-2">
+              Se encontraron
+              <span className="mx-1 text-green-500 font-bold">0</span>
+              vulnerabilidades
+            </p>
+          </div>
+
+          <p className="text-gray-100 mt-4">
+            A continuación la lista de comandos que puedes usar:
+          </p>
+
+          <ul className="mt-8 flex flex-col items-end">
             {navItems
               .filter((item) => item.show)
               .map((link) => (
                 <li key={link.name} className="py-2">
-                  <a
-                    href={link.href}
-                    className="tracking-widest text-gray-100 "
-                  >
+                  <a href={link.href} className="text-gray-100">
                     <p className="flex items-baseline text-gray-300">
                       cd
                       <span className="ml-4 text-gray-100">{link.name}</span>
