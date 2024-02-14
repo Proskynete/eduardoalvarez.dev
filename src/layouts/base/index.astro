@@ -19,34 +19,13 @@ const algolia = {
 const { seo } = Astro.props;
 ---
 
-<script is:inline>
-  const theme = (() => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
-    }
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  })();
-
-  if (theme === "dark") {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
-  window.localStorage.setItem("theme", theme);
-</script>
-
 <html lang="es">
   <BaseHead {...seo} />
 
   <ViewTransitions fallback="none" />
 
-  <body
-    class="bg-white text-black antialiased dark:bg-gray-950 dark:text-white"
-  >
-    <ScrollingProgressBar client:load />
+  <body class="antialiased bg-black/95 text-white">
+    <ScrollingProgressBar client:idle />
 
     <section class="mx-auto max-w-3xl xl:max-w-6xl px-4 sm:px-6 xl:px-0">
       <div class="flex flex-col justify-between font-sans">
@@ -59,10 +38,5 @@ const { seo } = Astro.props;
         </main>
       </div>
     </section>
-    <style is:global>
-      :root {
-        color-scheme: light dark;
-      }
-    </style>
   </body>
 </html>

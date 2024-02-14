@@ -1,6 +1,5 @@
 ---
 import { githubArticlePath } from "../../../utils/articles";
-
 const { content } = Astro.props;
 ---
 
@@ -9,9 +8,7 @@ const { content } = Astro.props;
     <dl class="space-y-10">
       <div>
         <dt class="sr-only">Publicado el</dt>
-        <dd
-          class="text-base font-avenir leading-6 text-gray-500 dark:text-gray-400"
-        >
+        <dd class="text-base font-avenir leading-6 text-gray-400">
           <time date-time={content.date}>
             {new Date(content.date).toLocaleDateString()}
           </time>
@@ -21,7 +18,7 @@ const { content } = Astro.props;
 
     <div>
       <h1
-        class="text-3xl font-hero leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14"
+        class="text-3xl font-hero leading-9 tracking-tight text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14"
       >
         {content.title}
       </h1>
@@ -30,7 +27,7 @@ const { content } = Astro.props;
     <p>
       ¿Ves alguna errata?
       <a
-        class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+        class="text-primary-400 hover:text-primary-600 transition ease-in-out duration-150"
         href={githubArticlePath(content.slug)}
       >
         Haz una pull request

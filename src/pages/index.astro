@@ -1,21 +1,26 @@
 ---
 import Article from "../components/article/index.astro";
+import Project from "../components/project/index.astro";
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
 import config from "../settings";
 import { articlesSort } from "../utils/articles";
+import projectsInfo from "../settings/projects";
 
 type Frontmatter = IArticle;
 
-const _MAX_ARTICLES = 5;
-
+const _MAX_ARTICLES = 3;
 const posts = await Astro.glob<Frontmatter>("./articulos/*.mdx");
-posts.sort(articlesSort).slice(0, _MAX_ARTICLES);
+posts.sort(articlesSort).splice(_MAX_ARTICLES);
+
+const seo = {
+  title: "Inicio",
+};
 ---
 
-<Layout>
+<Layout seo={seo}>
   <div
-    class="flex flex-col md:flex-row md:space-x-6 items-center content-center w-5/6 m-auto mb-20"
+    class="flex flex-col md:flex-row md:space-x-6 items-center content-center md:w-5/6 md:mx-auto m-auto mb-20"
   >
     <img
       src="/images/eduardo_alvarez.webp"
@@ -26,50 +31,64 @@ posts.sort(articlesSort).slice(0, _MAX_ARTICLES);
       decoding="async"
     />
 
-    <div class="space-y-2">
-      <p
-        class="font-hero text-3xl text-gray-900 dark:text-gray-100 sm:leading-10 md:leading-14"
+    <div>
+      <h1
+        class="font-hero font-semibold text-3xl text-gray-100 sm:leading-10 md:leading-14 text-center md:text-left"
       >
-        Eduardo Álvarez
-      </p>
-      <p>
-        Software Engineer con +8 años de experiencia. He trabajado en diferentes
-        proyectos y empresas, las cuales han aportado conocimientos y
-        habilidades las que comparto en este blog.
-      </p>
+        ¡Hola! Mi nombre es Eduardo Álvarez.
+      </h1>
 
-      {
-        config.social_network
-          .filter((social) => social.show)
-          .map((social, i) => (
-            <span class="inline-flex rounded-md shadow-sm">
-              <a
-                href={social.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-base font-medium leading-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 transition ease-in-out duration-150"
-              >
-                {social.name}
-              </a>
-              {i !==
-                config.social_network.filter((social) => social.show).length -
-                  1 && (
-                <span class="mx-2 text-gray-500 dark:text-gray-400">/</span>
-              )}
-            </span>
-          ))
-      }
+      <div class="mt-4 space-y-4 md:space-y-2">
+        <p>
+          Software engineer enfocado en Frontend con +8 años de experiencia en
+          los cuales he trabajado en diferentes proyectos y empresas, de las
+          cuales he adquirido conocimientos y habilidades, las que podrás ver en
+          este sitio.
+        </p>
+
+        {
+          config.social_network
+            .filter((social) => social.show)
+            .map((social, i) => (
+              <span class="inline-flex rounded-md shadow-sm">
+                <a
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-base font-medium leading-6 text-gray-100  hover:text-gray-300 focus:outline-none focus:text-gray-300 transition ease-in-out duration-150"
+                >
+                  {social.name}
+                </a>
+                {i !==
+                  config.social_network.filter((social) => social.show).length -
+                    1 && <span class="mx-2 text-gray-400">/</span>}
+              </span>
+            ))
+        }
+      </div>
     </div>
   </div>
 
-  <div class="space-y-5">
+  <section class="space-y-5 mb-20">
     <h1
-      class="font-hero text-4xl leading-9 text-gray-900 dark:text-gray-100 sm:leading-10 md:text-3xl"
+      class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl"
+    >
+      Proyectos
+    </h1>
+
+    <section class="grid grid-cols-1 gap-5 md:grid-cols-2">
+      {projectsInfo.projects.map((project) => <Project project={project} />)}
+    </section>
+  </section>
+
+  <section class="space-y-5">
+    <h1
+      class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl"
     >
       Últimos artículos
     </h1>
 
-    <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+    <ul class="divide-y divide-gray-700">
       {
         posts.map((post) => (
           <li class="py-6 first:pt-0">
@@ -84,12 +103,12 @@ posts.sort(articlesSort).slice(0, _MAX_ARTICLES);
         <div class="flex justify-end">
           <a
             href="/articulos"
-            class="text-base font-medium leading-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 transition ease-in-out duration-150"
+            class="text-base font-medium leading-6 text-gray-100 hover:text-gray-300 focus:outline-none focus:text-gray-300 transition ease-in-out duration-150"
           >
             Ver todos los artículos &rarr;
           </a>
         </div>
       )
     }
-  </div>
+  </section>
 </Layout>

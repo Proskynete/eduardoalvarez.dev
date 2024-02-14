@@ -12,9 +12,7 @@ const { article } = Astro.props;
   <div>
     <dl>
       <dt class="sr-only">Publicado el</dt>
-      <dd
-        class="text-base font-hero leading-6 text-gray-500 dark:text-gray-400"
-      >
+      <dd class="text-base font-hero leading-6 text-gray-400">
         <time date-time={article.date}
           >{new Date(article.date).toLocaleDateString()}</time
         >
@@ -26,16 +24,14 @@ const { article } = Astro.props;
           <h2 class="text-2xl font-hero leading-8 tracking-tight">
             <a
               href={`/articulos/${article.slug}`}
-              class="text-gray-900 dark:text-gray-100"
+              class="text-gray-100 hover:text-gray-300 transition ease-in-out duration-150"
             >
               {article.title}
             </a>
           </h2>
         </div>
 
-        <div
-          class="prose font-hero max-w-none text-gray-500 dark:text-gray-400"
-        >
+        <div class="prose font-hero max-w-none text-gray-400">
           {article.description}
         </div>
       </div>

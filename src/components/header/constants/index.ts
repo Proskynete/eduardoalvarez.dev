@@ -5,17 +5,27 @@ export interface NavItem {
 }
 export const navItems: NavItem[] = [
   {
-    name: "Artículos",
+    name: "~/eduardoalvarez.dev",
+    href: "/",
+    show: true,
+  },
+  {
+    name: "./artículos",
     href: "/articulos",
     show: true,
   },
   {
-    name: "Podcast",
+    name: "./podcast",
     href: "/podcast",
     show: false,
   },
   {
-    name: "Libros",
+    name: "./cursos",
+    href: "/cursos",
+    show: false,
+  },
+  {
+    name: "./libros",
     href: "/libros",
     show: false,
   },

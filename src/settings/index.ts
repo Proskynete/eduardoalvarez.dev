@@ -15,11 +15,6 @@ export default {
   },
   social_network: [
     {
-      name: "Instagram",
-      link: "https://www.instagram.com/eduardo_alvarez.dev",
-      show: true,
-    },
-    {
       name: "Github",
       link: "https://github.com/Proskynete",
       show: true,
@@ -27,6 +22,11 @@ export default {
     {
       name: "LinkedIn",
       link: "https://www.linkedin.com/in/eduardoalvarezc/",
+      show: true,
+    },
+    {
+      name: "Curriculum",
+      link: "https://resume.eduardoalvarez.dev",
       show: true,
     },
     {
@@ -54,6 +54,11 @@ export default {
     {
       name: "Github",
       href: "https://github.com/Proskynete",
+      show: true,
+    },
+    {
+      name: "Instagram",
+      href: "https://www.instagram.com/eduardo_alvarez.dev",
       show: true,
     },
     {

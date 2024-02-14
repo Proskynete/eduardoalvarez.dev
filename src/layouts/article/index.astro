@@ -33,11 +33,11 @@ const seo: BaseHeadProps = {
 
 <Layout seo={seo}>
   <article>
-    <div class="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
+    <div class="xl:divide-y xl:divide-gray-700">
       <Head content={content} />
 
       <div
-        class="grid grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
+        class="grid grid-rows-[auto_1fr] divide-y divide-gray-700 xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
       >
         <Aside
           content={content}
@@ -47,12 +47,9 @@ const seo: BaseHeadProps = {
         />
 
         <div
-          class="divide-y divide-gray-200 dark:divide-gray-700 col-span-3 xl:pb-0 xl:col-start-2 xl:row-span-2 pt-4 xl:pt-0"
+          class="divide-y divide-gray-700 col-span-3 xl:pb-0 xl:col-start-2 xl:row-span-2 pt-4 xl:pt-0"
         >
-          <div
-            id="article-body"
-            class="prose max-w-none pb-8 dark:prose-invert"
-          >
+          <div id="article-body" class="max-w-none pb-8 prose-invert">
             <slot />
           </div>
 

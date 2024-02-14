@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { navItems } from "../constants";
 import algoliasearch from "algoliasearch";
 import { InstantSearch } from "react-instantsearch-dom";
@@ -23,17 +23,20 @@ export default function Search({ algolia }) {
   return (
     <>
       {!showInput ? (
-        navItems
-          .filter((item) => item.show)
-          .map((item) => (
-            <a
-              key={item.name}
-              className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
-              href={item.href}
-            >
-              {item.name}
-            </a>
-          ))
+        <div className="hidden sm:flex gap-3">
+          <p className="text-gray-100 focus:text-gray-100">cd</p>
+          {navItems
+            .filter((item) => item.show)
+            .map((item) => (
+              <a
+                key={item.name}
+                className="font-medium sm:block text-gray-300 hover:text-gray-100 focus:outline-none focus:text-gray-100 transition ease-in-out duration-150"
+                href={item.href}
+              >
+                {item.name}
+              </a>
+            ))}
+        </div>
       ) : (
         <InstantSearch
           indexName={algolia.ALGOLIA_INDEX_NAME}
@@ -49,12 +52,11 @@ export default function Search({ algolia }) {
         className="hidden md:block "
       >
         <svg
-          xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="h-6 w-6 text-gray-900 dark:text-gray-100"
+          className="h-6 w-6 text-gray-300 transition-colors duration-150 hover:text-gray-100"
         >
           <path
             strokeLinecap="round"
