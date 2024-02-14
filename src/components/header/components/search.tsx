@@ -23,17 +23,20 @@ export default function Search({ algolia }) {
   return (
     <>
       {!showInput ? (
-        navItems
-          .filter((item) => item.show)
-          .map((item) => (
-            <a
-              key={item.name}
-              className="hidden font-medium sm:block text-gray-100  hover:text-gray-300 focus:outline-none focus:text-gray-300 transition ease-in-out duration-150"
-              href={item.href}
-            >
-              {item.name}
-            </a>
-          ))
+        <div className="hidden sm:flex gap-3">
+          <p className="text-gray-100 focus:text-gray-100">cd</p>
+          {navItems
+            .filter((item) => item.show)
+            .map((item) => (
+              <a
+                key={item.name}
+                className="font-medium sm:block text-gray-300 hover:text-gray-100 focus:outline-none focus:text-gray-100 transition ease-in-out duration-150"
+                href={item.href}
+              >
+                {item.name}
+              </a>
+            ))}
+        </div>
       ) : (
         <InstantSearch
           indexName={algolia.ALGOLIA_INDEX_NAME}
