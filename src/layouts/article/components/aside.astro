@@ -1,4 +1,5 @@
 ---
+import type { CategoryAllowed } from "../../../interfaces";
 import { CategoryMap } from "../../../utils/categories";
 
 const { content, timeToRead, previousArticle, nextArticle } = Astro.props;
@@ -10,10 +11,10 @@ const { content, timeToRead, previousArticle, nextArticle } = Astro.props;
       class="flex flex-col xl:flex-row md:gap-y-0 sm:flex-row xl:block xl:space-y-8 divide-y divide-gray-700 sm:divide-y-0 xl:divide-y"
     >
       <div class="pb-4 w-full">
-        <h3 class="text-xs uppercase tracking-wide mb-2">Categorías</h3>
+        <p class="text-xs uppercase tracking-wide mb-2">Categorías</p>
         <div class="flex flex-wrap">
           {
-            content.categories.map((category) => (
+            content.categories.map((category: CategoryAllowed) => (
               <p class="mr-3 text-gray-400">{CategoryMap.get(category)}</p>
             ))
           }
@@ -27,13 +28,13 @@ const { content, timeToRead, previousArticle, nextArticle } = Astro.props;
     </div>
 
     <div class="py-4 hidden xl:block">
-      <h3 class="text-xs uppercase tracking-wide mb-2">Secciones</h3>
+      <p class="text-xs uppercase tracking-wide mb-2">Secciones</p>
 
       {
         content.sections.map((section) => (
           <a
             href={`#${section.anchor}`}
-            class="flex text-primary-600 hover:text-primary-400 transition ease-in-out duration-150"
+            class="flex text-primary-400 hover:text-primary-500 transition ease-in-out duration-150"
           >
             {section.title}
           </a>
@@ -53,7 +54,7 @@ const { content, timeToRead, previousArticle, nextArticle } = Astro.props;
 
             <a
               href={`${previousArticle.frontmatter.slug}`}
-              class="text-primary-600 hover:text-primary-400 transition ease-in-out duration-150"
+              class="text-primary-400 hover:text-primary-500 transition ease-in-out duration-150"
             >
               {previousArticle.frontmatter.title}
             </a>
@@ -64,10 +65,11 @@ const { content, timeToRead, previousArticle, nextArticle } = Astro.props;
       {
         nextArticle && (
           <div class="w-full">
-            <h2 class="text-xs uppercase tracking-wide text-gray-400">
+            <p class="text-xs uppercase tracking-wide mb-2 transition ease-in-out duration-150">
               Siguiente artículo
-            </h2>
-            <div class="text-primary-600 hover:text-primary-400 transition ease-in-out duration-150">
+            </p>
+
+            <div class="text-primary-400 hover:text-primary-500 transition ease-in-out duration-150">
               <a href={`${nextArticle.frontmatter.slug}`}>
                 {nextArticle.frontmatter.title}
               </a>
@@ -81,7 +83,7 @@ const { content, timeToRead, previousArticle, nextArticle } = Astro.props;
   <div class="py-4">
     <a
       href="/"
-      class="text-primary-600 hover:text-primary-400 transition ease-in-out duration-150"
+      class="text-primary-400 hover:text-primary-500 transition ease-in-out duration-150"
       aria-label="Volver al inicio"
     >
       &larr; Volver a la home
