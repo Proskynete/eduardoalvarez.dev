@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { navItems } from "../constants";
 import algoliasearch from "algoliasearch";
 import { InstantSearch } from "react-instantsearch-dom";
@@ -52,12 +52,11 @@ export default function Search({ algolia }) {
         className="hidden md:block "
       >
         <svg
-          xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="h-6 w-6 text-gray-100"
+          className="h-6 w-6 text-gray-300 transition-colors duration-150 hover:text-gray-100"
         >
           <path
             strokeLinecap="round"

@@ -1,0 +1,48 @@
+---
+interface Article {
+  title: string;
+  link?: string;
+  githubLink: string;
+  description: string;
+  techStack: string[];
+}
+
+import GithubIcon from "../../assets/svg/github.svg?raw";
+
+export interface Props {
+  project: Article;
+}
+
+const { project } = Astro.props;
+---
+
+<div class="flex flex-col rounded-md border border-neutral-800 p-4">
+  <div class="mb-2 flex items-center justify-between">
+    <a href={project.link || project.githubLink} target="_blank">
+      <h1>{project.title}</h1>
+    </a>
+
+    <div class="flex items-center space-x-3">
+      <a href={project.githubLink} target="_blank" title="Link to repository">
+        <Fragment set:html={GithubIcon} />
+      </a>
+    </div>
+  </div>
+
+  <p class="text-gray-400 trunc line-clamp-1">{project.description}</p>
+
+  <div class="mt-3 flex items-center">
+    <div class="flex items-center space-x-2">
+      {
+        project.techStack.map((tech) => (
+          <div
+            class="truncate rounded-md border border-neutral-800 bg-neutral-900 px-2 py-1 font-mono text-xs"
+            title={tech}
+          >
+            {tech}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

@@ -1,9 +1,11 @@
 ---
 import Article from "../components/article/index.astro";
+import Project from "../components/project/index.astro";
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
 import config from "../settings";
 import { articlesSort } from "../utils/articles";
+import projectsInfo from "../settings/projects";
 
 type Frontmatter = IArticle;
 
@@ -25,35 +27,57 @@ posts.sort(articlesSort).splice(_MAX_ARTICLES);
       decoding="async"
     />
 
-    <div class="space-y-2">
-      <h1 class="font-hero text-3xl text-gray-100 sm:leading-10 md:leading-14">
-        Hey! Bienvenido 🖖🏻
+    <div>
+      <h1
+        class="font-hero font-semibold text-3xl text-gray-100 sm:leading-10 md:leading-14"
+      >
+        ¡Hola! Mi nombre es Eduardo Álvarez.
       </h1>
-      <p>Mi nombre es Eduardo Álvarez</p>
 
-      {
-        config.social_network
-          .filter((social) => social.show)
-          .map((social, i) => (
-            <span class="inline-flex rounded-md shadow-sm">
-              <a
-                href={social.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-base font-medium leading-6 text-gray-100  hover:text-gray-300 focus:outline-none focus:text-gray-300 transition ease-in-out duration-150"
-              >
-                {social.name}
-              </a>
-              {i !==
-                config.social_network.filter((social) => social.show).length -
-                  1 && <span class="mx-2 text-gray-400">/</span>}
-            </span>
-          ))
-      }
+      <div class="mt-4 space-y-2">
+        <p>
+          Software engineer enfocado en Frontend con +8 años de experiencia. He
+          trabajado en diferentes proyectos y empresas, de las cuales he
+          adquirido conocimientos y habilidades, las cuales quiero compartir
+          contigo en este espacio.
+        </p>
+
+        {
+          config.social_network
+            .filter((social) => social.show)
+            .map((social, i) => (
+              <span class="inline-flex rounded-md shadow-sm">
+                <a
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-base font-medium leading-6 text-gray-100  hover:text-gray-300 focus:outline-none focus:text-gray-300 transition ease-in-out duration-150"
+                >
+                  {social.name}
+                </a>
+                {i !==
+                  config.social_network.filter((social) => social.show).length -
+                    1 && <span class="mx-2 text-gray-400">/</span>}
+              </span>
+            ))
+        }
+      </div>
     </div>
   </div>
 
-  <div class="space-y-5">
+  <section class="space-y-5 mb-20">
+    <h1
+      class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl"
+    >
+      Proyectos
+    </h1>
+
+    <section class="grid grid-cols-1 gap-5 md:grid-cols-2">
+      {projectsInfo.projects.map((project) => <Project project={project} />)}
+    </section>
+  </section>
+
+  <section class="space-y-5">
     <h1
       class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl"
     >
@@ -82,5 +106,5 @@ posts.sort(articlesSort).splice(_MAX_ARTICLES);
         </div>
       )
     }
-  </div>
+  </section>
 </Layout>

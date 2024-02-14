@@ -39,7 +39,7 @@ export default function Mobile() {
         }`}
       >
         <button
-          className="absolute h-8 w-8 top-11 right-5"
+          className="absolute h-8 w-8 top-11 right-5 z-20 focus:outline-none focus:ring-2 focus:ring-gray-100 focus:ring-opacity-50"
           aria-label="Toggle Menu"
           onClick={onToggleNav}
         >
