@@ -1,9 +1,15 @@
 import config from "./index";
 
 export default {
-  name: `Blog de ${config.author.name}`,
-  short_name: `Blog de ${config.author.name}`,
-  icon: "./public/images/manifest/512x512.png",
+  name: `Portafolio y blog de ${config.author.name}`,
+  short_name: `${config.author.name}`,
+  description: config.description,
+  lang: "es",
+  start_url: "/",
+  orientation: "portrait",
+  theme_color: "#0d0d0d",
+  background_color: "#0d0d0d",
+  display: "standalone", // fullscreen
   icons: [
     {
       src: "./public/images/manifest/72x72.png",
@@ -46,9 +52,4 @@ export default {
       sizes: "512x512",
     },
   ],
-  description: config.description,
-  start_url: "/",
-  background_color: "#0d0d0d",
-  theme_color: "#0d0d0d",
-  display: "standalone",
 };

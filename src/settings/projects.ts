@@ -14,21 +14,41 @@ export default {
         "https://github.com/Proskynete/vertical-timeline-component-react",
       description:
         "A simple component to generate a responsive vertical timeline",
-      techStack: ["React", "TypeScript", "Styled Components"],
+      techStack: [
+        "React",
+        "TypeScript",
+        "Styled Components",
+        "Coveralls",
+        "Jest",
+      ],
     },
     {
       title: "Pretty Rating React",
       githubLink: "https://github.com/Proskynete/pretty-rating-react",
       description:
         "A small and simple library that transform you rating in icons for you web",
-      techStack: ["React", "TypeScript", "Styled Components"],
+      techStack: [
+        "React",
+        "TypeScript",
+        "Styled Components",
+        "Coveralls",
+        "Jest",
+      ],
     },
     {
       title: "Node API Skeleton",
       githubLink: "https://github.com/Proskynete/node-api-skeleton",
       description:
         "Starter project for a Node API with TS, testing and CI/CD setup.",
-      techStack: ["Express", "TypeScript", "Swagger", "Github Actions"],
+      techStack: [
+        "Express",
+        "TypeScript",
+        "Jest",
+        "SuperTest",
+        "Swagger",
+        "Docker",
+        "Github Actions",
+      ],
     },
   ],
 };
