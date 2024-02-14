@@ -12,9 +12,13 @@ type Frontmatter = IArticle;
 const _MAX_ARTICLES = 3;
 const posts = await Astro.glob<Frontmatter>("./articulos/*.mdx");
 posts.sort(articlesSort).splice(_MAX_ARTICLES);
+
+const seo = {
+  title: "Inicio",
+};
 ---
 
-<Layout>
+<Layout seo={seo}>
   <div
     class="flex flex-col md:flex-row md:space-x-6 items-center content-center w-5/6 m-auto mb-20"
   >
