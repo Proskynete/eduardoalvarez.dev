@@ -19,7 +19,7 @@ const { project } = Astro.props;
 <div class="flex flex-col rounded-md border border-neutral-800 p-4">
   <div class="mb-2 flex items-center justify-between">
     <a href={project.link || project.githubLink} target="_blank">
-      <h1>{project.title}</h1>
+      <h2 class="font-hero font-semibold">{project.title}</h2>
     </a>
 
     <div class="flex items-center space-x-3">
@@ -29,14 +29,16 @@ const { project } = Astro.props;
     </div>
   </div>
 
-  <p class="text-gray-400 trunc line-clamp-1">{project.description}</p>
+  <p class="font-avenir text-md text-gray-400 trunc line-clamp-1">
+    {project.description}
+  </p>
 
-  <div class="mt-3 flex items-center">
-    <div class="flex items-center space-x-2">
+  <div class="mt-3 flex items-center w-full">
+    <div class="flex items-center space-x-2 overflow-x-auto">
       {
         project.techStack.map((tech) => (
           <div
-            class="truncate rounded-md border border-neutral-800 bg-neutral-900 px-2 py-1 font-mono text-xs"
+            class="font-avenir rounded-md border border-neutral-800 px-2 py-1 text-xs min-w-fit"
             title={tech}
           >
             {tech}
