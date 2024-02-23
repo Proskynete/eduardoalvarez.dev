@@ -22,7 +22,7 @@ const { seo } = Astro.props;
 <html lang="es">
   <BaseHead {...seo} />
 
-  <ViewTransitions fallback="none" />
+  <ViewTransitions fallback="animate" />
 
   <body class="antialiased bg-black/95 text-white">
     <ScrollingProgressBar client:idle />
