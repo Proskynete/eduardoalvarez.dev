@@ -1,5 +1,6 @@
 interface Organization {
   name: string;
+  logo: string;
   url: string;
 }
 
@@ -10,6 +11,7 @@ interface Location {
 
 export interface Talk {
   title: string;
+  description: string;
   date: string[];
   image: string;
   location: Location;
@@ -20,6 +22,8 @@ export interface Talk {
 export const talks: Talk[] = [
   {
     title: "Conseguir Trabajo en Tecnología",
+    description:
+      "En este taller aprendimos a cómo buscar trabajo en tecnología, revisamos algunos tips para preparar nuestra primera entrevista de trabajo, creación y revisión de tu CV.",
     date: ["2023-10-28T13:00:00.839Z", "2023-10-28T20:00:00.839Z"],
     image: "images/talleres/trabajo-en-tecnologia/final.webp",
     location: {
@@ -28,7 +32,8 @@ export const talks: Talk[] = [
     },
     organizations: [
       {
-        name: "JSConf Chile",
+        name: "JavaScript Chile",
+        logo: "images/organizations/js-chile.webp",
         url: "https://jschile.org/",
       },
     ],
@@ -36,6 +41,8 @@ export const talks: Talk[] = [
   },
   {
     title: "React y Redux avanzado - parte 2",
+    description:
+      "Aprendimos como trabajar con Redux, configurar middlewares, y como manejar el estado de nuestra aplicación de forma eficiente.",
     date: ["2019-03-16T13:00:00.839Z", "2019-03-16T20:00:00.839Z"],
     image: "images/talleres/react-redux/parte-2.webp",
     location: {
@@ -45,16 +52,20 @@ export const talks: Talk[] = [
     organizations: [
       {
         name: "Globant",
+        logo: "images/organizations/globant.webp",
         url: "https://www.globant.com/",
       },
       {
         name: "Laboratoria",
+        logo: "images/organizations/laboratoria.webp",
         url: "https://www.laboratoria.la/",
       },
     ],
   },
   {
     title: "React y Redux avanzado - parte 1",
+    description:
+      "Aprendimos como trabajar con React, revisamos todos los conceptos básicos y como trabajar con la librería optado las mejores prácticas y dejamos todo listo para la parte 2.",
     date: ["2019-03-05T21:00:00.839Z", "2019-03-06T23:00:00.839Z"],
     image: "images/talleres/react-redux/parte-1.webp",
     location: {
@@ -64,10 +75,12 @@ export const talks: Talk[] = [
     organizations: [
       {
         name: "Globant",
+        logo: "images/organizations/globant.webp",
         url: "https://www.globant.com/",
       },
       {
         name: "Laboratoria",
+        logo: "images/organizations/laboratoria.webp",
         url: "https://www.laboratoria.la/",
       },
     ],

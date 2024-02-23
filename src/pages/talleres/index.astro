@@ -20,7 +20,7 @@ const seo = {
         <h1
           class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl"
         >
-          Charlas y talleres
+          Charlas y Talleres
         </h1>
         <p class="text-gray-400">Charlas y talleres que he dado.</p>
       </hgroup>
@@ -29,64 +29,81 @@ const seo = {
         {
           talks.map((talk: Talk) => (
             <article class="relative flex flex-col-reverse md:flex-row border rounded-md md:mb-4 before:content-[''] before:rounded-t-md before:xl:rounded-md">
-              <div class="p-4 w-full md:w-3/5">
-                <div class="mb-2 flex items-center justify-between">
-                  <h3 class="text-xl font-bold">{talk.title}</h3>
+              <div class="p-4 w-full md:w-3/5 flex flex-col justify-between">
+                <div class="flex flex-col gap-2">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-xl font-hero font-bold">{talk.title}</h3>
 
-                  {talk.repo && (
-                    <div class="flex items-center space-x-3">
+                    {talk.repo && (
+                      <div class="flex items-center space-x-3">
+                        <a
+                          href={talk.repo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Link to repository"
+                          class="text-gray-400 hover:text-gray-100 transition-colors duration-300"
+                        >
+                          <Icon.Github width={25} aria-hidden="true" />
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
+                  <div class="flex flex-col">
+                    <p class="text-sm">
+                      Lugar:
                       <a
-                        href={talk.repo}
+                        href={talk.location.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        title="Link to repository"
-                        class="text-gray-400 hover:text-gray-100 transition-colors duration-300"
                       >
-                        <Icon.Github width={25} aria-hidden="true" />
+                        {talk.location.name}
                       </a>
-                    </div>
-                  )}
+                    </p>
+
+                    <p class="text-sm">
+                      Cuando:
+                      <time datetime={talk.date[0]}>
+                        {new Date(talk.date[0]).toLocaleDateString("es-ES", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </time>
+                    </p>
+                  </div>
+
+                  <div class="mt-2">
+                    <p class="text-sm">Descripción: {talk.description}</p>
+                  </div>
                 </div>
 
-                <div class="mt-2">
-                  <p class="text-sm">
-                    Lugar:
-                    <a
-                      href={talk.location.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {talk.location.name}
-                    </a>
-                  </p>
+                <div class="flex flex-col gap-1 mt-5 md:mt-0">
+                  <p class="text-sm">Organizaciones:</p>
 
-                  <p class="text-sm">
-                    Cuando:
-                    <time datetime={talk.date[0]}>
-                      {new Date(talk.date[0]).toLocaleDateString("es-ES", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </time>
-                  </p>
-
-                  <p class="text-sm">
-                    Organizadores:
+                  <div class="flex gap-4">
                     {talk.organizations.map((org) => (
                       <a
                         href={org.url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        class="flex items-center group hover:transform transition-transform"
                       >
-                        {org.name}
+                        <img
+                          class="w-10 h-10 rounded-full mr-2 group-hover:rotate-12 duration-300"
+                          src={org.logo}
+                          alt={org.name}
+                        />
+                        <div class="text-sm">
+                          <p class="leading-none text-sm">{org.name}</p>
+                        </div>
                       </a>
                     ))}
-                  </p>
+                  </div>
                 </div>
               </div>
 
-              <div class="w-full md:w-2/5 ">
+              <div class="w-full md:w-2/5">
                 <img
                   src={talk.image}
                   alt={talk.title}
