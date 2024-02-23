@@ -24,10 +24,10 @@
 
 ### Roadmap
 
-[x] Add icons
-[x] Add projects section in home
-[x] Add Talks and Workshops section
-[ ] Add linters, prettier & husky
-[ ] Share to Twitter button
-[ ] Create Podcast section
-[ ] Create Courses section
+- [x] Add icons
+- [x] Add projects section in home
+- [x] Add Talks and Workshops section
+- [ ] Add linters, prettier & husky
+- [ ] Share to Twitter button
+- [ ] Create Podcast section
+- [ ] Create Courses section
