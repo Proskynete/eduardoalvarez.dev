@@ -21,3 +21,13 @@
 <p align="center">
   <img src="https://eduardoalvarez.dev/images/eduardo_alvarez.webp?raw=true" width="200" />
 </p>
+
+### Roadmap
+
+[x] Add icons
+[x] Add projects section in home
+[x] Add Talks and Workshops section
+[ ] Add linters, prettier & husky
+[ ] Share to Twitter button
+[ ] Create Podcast section
+[ ] Create Courses section
