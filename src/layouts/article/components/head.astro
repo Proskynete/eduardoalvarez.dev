@@ -1,4 +1,5 @@
 ---
+import { Icon } from "../../../assets/icons";
 import { githubArticlePath } from "../../../utils/articles";
 const { content } = Astro.props;
 ---
@@ -24,13 +25,13 @@ const { content } = Astro.props;
       </h1>
     </div>
 
-    <p>
+    <p class="flex gap-1 justify-center">
       ¿Ves alguna errata?
       <a
-        class="text-primary-400 hover:text-primary-600 transition ease-in-out duration-150"
+        class="flex gap-1 text-primary-400 hover:text-primary-600 transition ease-in-out duration-300"
         href={githubArticlePath(content.slug)}
       >
-        Haz una pull request
+        Haz una pull request <Icon.Github width={25} />
       </a>
     </p>
   </div>

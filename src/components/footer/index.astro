@@ -10,7 +10,7 @@ const currentYear = new Date().getFullYear();
         .filter((social) => social.show)
         .map((social) => (
           <a
-            class="text-lg text-gray-400 hover:text-gray-200 transition ease-in-out duration-150"
+            class="text-lg text-gray-400 hover:text-gray-200 transition ease-in-out duration-300"
             target="_blank"
             rel="noopener noreferrer"
             href={social.href}
@@ -24,7 +24,7 @@ const currentYear = new Date().getFullYear();
   <div class="mt-5 flex flex-col items-center">
     <div class="mb-10 flex space-x-2 text-sm text-gray-400">
       <pre
-        class="text-xs text-gray-100">&gt; $ cd ~/eduardoalvarez.dev/{currentYear}<span class="w-1 h-3 inline-block bg-gray-400 ml-2 rounded-sm motion-safe:animate-ping motion-safe:duration-75" /></pre>
+        class="text-xs text-gray-100">$ cd ~/eduardoalvarez.dev/{currentYear}<span class="w-1 h-3 inline-block bg-gray-400 ml-1 rounded-sm motion-safe:animate-ping motion-safe:duration-75" /></pre>
     </div>
   </div>
 </div>

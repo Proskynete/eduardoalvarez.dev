@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useEffect, useState } from "react";
 import { navItems } from "../constants";
 import algoliasearch from "algoliasearch";
 import { InstantSearch } from "react-instantsearch-dom";
@@ -6,6 +6,11 @@ import { SearchComponentConnected } from "./algolia-search";
 
 export default function Search({ algolia }) {
   const [showInput, setShowInput] = useState(false);
+  const [pathname, setPathname] = useState("");
+
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
 
   const client = algoliasearch(
     algolia.ALGOLIA_APPLICATION_ID,
@@ -24,13 +29,17 @@ export default function Search({ algolia }) {
     <>
       {!showInput ? (
         <div className="hidden sm:flex gap-3">
-          <p className="text-gray-100 focus:text-gray-100">cd</p>
+          <p className="text-gray-100">cd</p>
           {navItems
             .filter((item) => item.show)
             .map((item) => (
               <a
                 key={item.name}
-                className="font-medium sm:block text-gray-300 hover:text-gray-100 focus:outline-none focus:text-gray-100 transition ease-in-out duration-150"
+                className={`font-medium sm:block transition ease-in-out duration-300 ${
+                  pathname === item.href
+                    ? "text-gray-100 cursor-default pointer-events-none"
+                    : "text-gray-300 hover:text-gray-100 focus:outline-none focus:text-gray-100"
+                }`}
                 href={item.href}
               >
                 {item.name}
@@ -56,7 +65,7 @@ export default function Search({ algolia }) {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="h-6 w-6 text-gray-300 transition-colors duration-150 hover:text-gray-100"
+          className="h-6 w-6 text-gray-300 hover:text-gray-100 transition-colors duration-300"
         >
           <path
             strokeLinecap="round"

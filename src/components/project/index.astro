@@ -7,7 +7,7 @@ interface Article {
   techStack: string[];
 }
 
-import GithubIcon from "../../assets/svg/github.svg?raw";
+import { Icon } from "../../assets/icons/";
 
 export interface Props {
   project: Article;
@@ -23,8 +23,14 @@ const { project } = Astro.props;
     </a>
 
     <div class="flex items-center space-x-3">
-      <a href={project.githubLink} target="_blank" title="Link to repository">
-        <Fragment set:html={GithubIcon} />
+      <a
+        href={project.githubLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Link to repository"
+        class="text-gray-400 hover:text-gray-100 transition-colors duration-300"
+      >
+        <Icon.Github width={25} aria-hidden="true" />
       </a>
     </div>
   </div>
