@@ -15,8 +15,8 @@ export const navItems: NavItem[] = [
     show: true,
   },
   {
-    name: "./talleres",
-    href: "/talleres",
+    name: "./charlas-talleres",
+    href: "/charlas-talleres",
     show: true,
   },
   {
