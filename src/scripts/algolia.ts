@@ -1,10 +1,12 @@
 import "dotenv/config";
-import type { AstroIntegration } from "astro";
+
 import fs from "node:fs";
-import kleur from "kleur";
 import path from "node:path";
-import { XMLParser } from "fast-xml-parser";
+
 import algoliasearch from "algoliasearch";
+import type { AstroIntegration } from "astro";
+import { XMLParser } from "fast-xml-parser";
+import kleur from "kleur";
 
 interface PostRSS {
   title: string;
@@ -29,7 +31,7 @@ export const publishAlgoliaRSS = () => {
     `astro:build:done`,
   ] as const;
 
-  let integration: AstroIntegration = {
+  const integration: AstroIntegration = {
     name: "astro-integration-publish-algolia-rss-posts",
     hooks: {
       [hooks[7]]: async (args) => {
@@ -38,22 +40,15 @@ export const publishAlgoliaRSS = () => {
           process.env.ALGOLIA_ADMIN_API_KEY === undefined ||
           process.env.ALGOLIA_INDEX_NAME === undefined
         ) {
-          console.log(
-            `${kleur.red("publishAlgoliaRSS: ")} Missing Algolia config.\n`
-          );
+          console.log(`${kleur.red("publishAlgoliaRSS: ")} Missing Algolia config.\n`);
           return;
         }
 
         try {
-          const rss = await fs.promises.readFile(
-            path.resolve(args.dir.pathname, "./rss.xml"),
-            "utf8"
-          );
+          const rss = await fs.promises.readFile(path.resolve(args.dir.pathname, "./rss.xml"), "utf8");
 
           if (rss === undefined) {
-            console.log(
-              `${kleur.red("publishAlgoliaRSS: ")} Missing RSS file.\n`
-            );
+            console.log(`${kleur.red("publishAlgoliaRSS: ")} Missing RSS file.\n`);
             return;
           }
 
@@ -61,10 +56,7 @@ export const publishAlgoliaRSS = () => {
           const parser = new XMLParser(options);
           const json = parser.parse(rss);
 
-          const client = algoliasearch(
-            process.env.ALGOLIA_APPLICATION_ID,
-            process.env.ALGOLIA_ADMIN_API_KEY
-          );
+          const client = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_ADMIN_API_KEY);
           const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
 
           const posts = json.rss.channel.item.map((post: PostRSS) => ({
@@ -74,11 +66,7 @@ export const publishAlgoliaRSS = () => {
 
           await index.saveObjects(posts);
 
-          console.log(
-            `${kleur.green(
-              "publishAlgoliaRSS: "
-            )} Sended posts to Algolia... 🚀\n`
-          );
+          console.log(`${kleur.green("publishAlgoliaRSS: ")} Sended posts to Algolia... 🚀\n`);
         } catch (err) {
           console.log(`${kleur.red("publishAlgoliaRSS: ")} ${err}.\n`);
         }

@@ -1,4 +1,5 @@
 import rss from "@astrojs/rss";
+
 import config from "../settings/index.ts";
 import { articlesSort } from "../utils/articles";
 

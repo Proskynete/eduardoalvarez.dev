@@ -30,17 +30,33 @@ const {
 ---
 
 <Layout seo={seo}>
-  <div class="space-y-2 pb-8 pt-6 md:space-y-5">
-    <ul class="divide-y divide-gray-700">
-      {
-        data.slice(0, 5).map((post: ArticleLayout) => (
-          <li class="py-6 first:pt-0">
-            <Article article={post.frontmatter} />
-          </li>
-        ))
-      }
-    </ul>
+  <div class="flex flex-col">
+    <section class="space-y-5 mb-20">
+      <hgroup class="mb-8">
+        <h1
+          class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl"
+        >
+          Artículos
+        </h1>
+        <p class="text-gray-400">
+          Todo lo que he escrito en este blog, ordenado por fecha de
+          publicación.
+        </p>
+      </hgroup>
 
-    <Pagination next={next} prev={prev} />
+      <section class="grid grid-cols-1 gap-5">
+        <ul class="divide-y divide-gray-700">
+          {
+            data.slice(0, 5).map((post: ArticleLayout) => (
+              <li class="py-6 first:pt-0">
+                <Article article={post.frontmatter} />
+              </li>
+            ))
+          }
+        </ul>
+
+        <Pagination next={next} prev={prev} />
+      </section>
+    </section>
   </div>
 </Layout>

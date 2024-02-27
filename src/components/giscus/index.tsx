@@ -1,5 +1,4 @@
 import Giscus from "@giscus/react";
-import { useEffect, useState } from "react";
 
 interface GiscusProps {
   slug: string;

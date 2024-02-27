@@ -2,7 +2,13 @@ import Autocomplete from "downshift";
 import { useRef, useState } from "react";
 import { connectAutoComplete, Highlight } from "react-instantsearch-dom";
 
-const AlgoliaSearch = ({ refine, hits, onClose }) => {
+interface AlgoliaSearchProps {
+  refine: (value: string) => void;
+  hits: any[];
+  onClose?: () => void;
+}
+
+const AlgoliaSearch = ({ refine, hits, onClose }: AlgoliaSearchProps) => {
   const [search, setSearch] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const hitsRef = useRef<HTMLDivElement>(null);
@@ -10,7 +16,7 @@ const AlgoliaSearch = ({ refine, hits, onClose }) => {
   const handleClearSearch = () => {
     setSearch("");
     refine("");
-    onClose();
+    onClose && onClose();
   };
 
   return (
@@ -29,10 +35,8 @@ const AlgoliaSearch = ({ refine, hits, onClose }) => {
             <input
               ref={inputRef}
               type="text"
-              id="search"
               className="focus:ring-primary-600 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 bg-black w-full"
               placeholder="Buscar..."
-              value={search}
               {...getInputProps({
                 onChange(e) {
                   setSearch(e.target.value);
@@ -63,15 +67,13 @@ const AlgoliaSearch = ({ refine, hits, onClose }) => {
           </div>
 
           {search.length > 0 && (
-            <div className="absolute max-w-full bg-gray-900 rounded-md border border-gray-700 shadow-lg mt-2">
+            <div className="absolute max-w-full bg-gray-900 rounded-md border border-gray-700 shadow-lg mt-2 z-50">
               {hits.slice(0, 5).map((item: any, index: number) => (
                 <div
                   ref={hitsRef}
                   key={item.objectID}
                   className={`text-gray-200 cursor-pointer p-2 hover:bg-gray-800 ${
-                    highlightedIndex === index
-                      ? "bg-gray-100 dark:bg-gray-800"
-                      : ""
+                    highlightedIndex === index ? "bg-gray-100 dark:bg-gray-800" : ""
                   }`}
                   {...getItemProps({
                     item,

@@ -15,7 +15,7 @@
 - [x] Agregar iconos
 - [x] Agrear proyectos en la vista principal
 - [x] Agregar nueva vista - Charlas y talleres
-- [ ] Agregar y configurar linters, prettier & husky
+- [x] Agregar y configurar linters, prettier & husky
 - [ ] Mostrar botón para compartir artículo
 - [ ] Crear la vista de Podcast
 - [ ] Crear la vista de cursos

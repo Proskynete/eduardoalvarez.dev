@@ -1,10 +1,19 @@
-import { useEffect, useState } from "react";
-import { navItems } from "../constants";
 import algoliasearch from "algoliasearch";
+import { useEffect, useState } from "react";
 import { InstantSearch } from "react-instantsearch-dom";
+
+import { navItems } from "../constants";
 import { SearchComponentConnected } from "./algolia-search";
 
-export default function Search({ algolia }) {
+interface SearchProps {
+  algolia: {
+    ALGOLIA_APPLICATION_ID: string;
+    ALGOLIA_ADMIN_API_KEY: string;
+    ALGOLIA_INDEX_NAME: string;
+  };
+}
+
+export default function Search({ algolia }: SearchProps) {
   const [showInput, setShowInput] = useState(false);
   const [pathname, setPathname] = useState("");
 
@@ -12,10 +21,7 @@ export default function Search({ algolia }) {
     setPathname(window.location.pathname);
   }, []);
 
-  const client = algoliasearch(
-    algolia.ALGOLIA_APPLICATION_ID,
-    algolia.ALGOLIA_ADMIN_API_KEY
-  );
+  const client = algoliasearch(algolia.ALGOLIA_APPLICATION_ID, algolia.ALGOLIA_ADMIN_API_KEY);
 
   const handleToggleShowInput = () => {
     setShowInput(!showInput);
@@ -47,19 +53,12 @@ export default function Search({ algolia }) {
             ))}
         </div>
       ) : (
-        <InstantSearch
-          indexName={algolia.ALGOLIA_INDEX_NAME}
-          searchClient={client}
-        >
+        <InstantSearch indexName={algolia.ALGOLIA_INDEX_NAME} searchClient={client}>
           <SearchComponentConnected onClose={handleClose} />
         </InstantSearch>
       )}
 
-      <button
-        aria-label="Buscador"
-        onClick={handleToggleShowInput}
-        className="hidden md:block "
-      >
+      <button aria-label="Buscador" onClick={handleToggleShowInput} className="hidden md:block ">
         <svg
           fill="none"
           viewBox="0 0 24 24"
