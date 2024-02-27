@@ -53,7 +53,7 @@ const seo: BaseHeadProps = {
             <slot />
           </div>
 
-          <GiscusWrapper client:load slug={content.slug} />
+          <GiscusWrapper client:visible slug={content.slug} />
         </div>
       </div>
     </div>
