@@ -39,18 +39,41 @@ const seo: BaseHeadProps = {
       <div
         class="grid grid-rows-[auto_1fr] divide-y divide-gray-700 xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
       >
-        <Aside
-          content={content}
-          timeToRead={timeToRead}
-          previousArticle={previousArticle}
-          nextArticle={nextArticle}
-        />
+        <Aside content={content} timeToRead={timeToRead} />
 
         <div
           class="divide-y divide-gray-700 col-span-3 xl:pb-0 xl:col-start-2 xl:row-span-2 pt-4 xl:pt-0"
         >
           <div id="article-body" class="max-w-none pb-8 prose-invert">
             <slot />
+          </div>
+
+          <div class="flex justify-between items-center py-8 gap-2">
+            {
+              previousArticle && (
+                <a
+                  href={`/articulos/${previousArticle.frontmatter.slug}`}
+                  class="border rounded-md py-2 px-4 text-pretty text-gray-100 hover:text-gray-300"
+                >
+                  <p class="text-md font-bold">
+                    ← {previousArticle.frontmatter.title}
+                  </p>
+                </a>
+              )
+            }
+
+            {
+              nextArticle && (
+                <a
+                  href={`/articulos/${nextArticle.frontmatter.slug}`}
+                  class="border rounded-md py-2 px-4 text-pretty text-gray-100 hover:text-gray-300"
+                >
+                  <p class="text-md font-bold">
+                    {nextArticle.frontmatter.title} →
+                  </p>
+                </a>
+              )
+            }
           </div>
 
           <GiscusWrapper client:visible slug={content.slug} />
