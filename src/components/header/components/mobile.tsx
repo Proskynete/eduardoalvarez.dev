@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { navItems } from "../constants";
+
 import { version } from "../../../../package.json";
+import { navItems } from "../constants";
 
 export default function Mobile() {
   const [navShow, setNavShow] = useState(false);
@@ -15,11 +16,7 @@ export default function Mobile() {
 
   return (
     <>
-      <button
-        aria-label="Toggle Menu"
-        onClick={onToggleNav}
-        className="sm:hidden"
-      >
+      <button aria-label="Toggle Menu" onClick={onToggleNav} className="sm:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -44,12 +41,7 @@ export default function Mobile() {
           aria-label="Toggle Menu"
           onClick={onToggleNav}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="text-gray-100"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="text-gray-100">
             <path
               fillRule="evenodd"
               d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -76,9 +68,7 @@ export default function Mobile() {
             </p>
           </div>
 
-          <p className="text-gray-100 mt-4">
-            A continuación la lista de comandos que puedes usar:
-          </p>
+          <p className="text-gray-100 mt-4">A continuación la lista de comandos que puedes usar:</p>
 
           <ul className="mt-8 flex flex-col items-end">
             {navItems
