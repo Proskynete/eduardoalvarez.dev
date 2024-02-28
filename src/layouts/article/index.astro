@@ -5,7 +5,7 @@ import Layout from "../base/index.astro";
 import Head from "./components/head.astro";
 import Aside from "./components/aside.astro";
 import { articlesSort } from "../../utils/articles";
-import { GiscusWrapper } from "../../components/giscus";
+import { GiscusWrapper } from "./components/giscus";
 import { calculateReadingTime } from "../../utils/reading-time";
 import type { Props as BaseHeadProps } from "../base/components/head.astro";
 import type { Article } from "../../interfaces";
@@ -16,9 +16,7 @@ const { content } = Astro.props;
 const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
 
 const articles = await Astro.glob<Frontmatter>("../../pages/articulos/*.mdx");
-const articleFound = articles
-  .sort(articlesSort)
-  .findIndex((article) => article.frontmatter.slug === content.slug);
+const articleFound = articles.sort(articlesSort).findIndex((article) => article.frontmatter.slug === content.slug);
 
 const previousArticle = articles[articleFound + 1];
 const nextArticle = articles[articleFound - 1];
@@ -36,14 +34,10 @@ const seo: BaseHeadProps = {
     <div class="xl:divide-y xl:divide-gray-700">
       <Head content={content} />
 
-      <div
-        class="grid grid-rows-[auto_1fr] divide-y divide-gray-700 xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
-      >
+      <div class="grid grid-rows-[auto_1fr] divide-y divide-gray-700 xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">
         <Aside content={content} timeToRead={timeToRead} />
 
-        <div
-          class="divide-y divide-gray-700 col-span-3 xl:pb-0 xl:col-start-2 xl:row-span-2 pt-4 xl:pt-0"
-        >
+        <div class="divide-y divide-gray-700 col-span-3 xl:pb-0 xl:col-start-2 xl:row-span-2 pt-4 xl:pt-0">
           <div id="article-body" class="max-w-none pb-8 prose-invert">
             <slot />
           </div>
@@ -55,9 +49,7 @@ const seo: BaseHeadProps = {
                   href={`/articulos/${previousArticle.frontmatter.slug}`}
                   class="border rounded-md py-2 px-4 text-pretty text-gray-100 hover:text-gray-300"
                 >
-                  <p class="text-md font-bold">
-                    ← {previousArticle.frontmatter.title}
-                  </p>
+                  <p class="text-md font-bold">← {previousArticle.frontmatter.title}</p>
                 </a>
               )
             }
@@ -68,9 +60,7 @@ const seo: BaseHeadProps = {
                   href={`/articulos/${nextArticle.frontmatter.slug}`}
                   class="border rounded-md py-2 px-4 text-pretty text-gray-100 hover:text-gray-300"
                 >
-                  <p class="text-md font-bold">
-                    {nextArticle.frontmatter.title} →
-                  </p>
+                  <p class="text-md font-bold">{nextArticle.frontmatter.title} →</p>
                 </a>
               )
             }

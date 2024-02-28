@@ -3,7 +3,16 @@ interface Section {
   anchor: string;
 }
 
-export type CategoryAllowed = "web-development" | "javascript";
+export type CategoryAllowed =
+  | "web-development"
+  | "javascript"
+  | "react"
+  | "vue"
+  | "astro"
+  | "node"
+  | "express"
+  | "sql"
+  | "no-sql";
 
 export interface Article {
   title: string;
