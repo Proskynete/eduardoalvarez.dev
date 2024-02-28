@@ -15,11 +15,7 @@ const seo = {
   <div class="flex flex-col">
     <section class="space-y-5 mb-20">
       <hgroup class="mb-8">
-        <h1
-          class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl"
-        >
-          Charlas y Talleres
-        </h1>
+        <h1 class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl">Charlas y Talleres</h1>
         <p class="text-gray-400">Charlas y talleres que he dado.</p>
       </hgroup>
 
@@ -49,18 +45,14 @@ const seo = {
 
                   <div class="flex flex-col">
                     <p class="text-sm">
-                      Lugar:
-                      <a
-                        href={talk.location.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                      <span class="font-semibold">Lugar</span>:
+                      <a href={talk.location.url} target="_blank" rel="noopener noreferrer">
                         {talk.location.name}
                       </a>
                     </p>
 
                     <p class="text-sm">
-                      Cuando:
+                      <span class="font-semibold">Cuando</span>:
                       <time datetime={talk.date[0]}>
                         {new Date(talk.date[0]).toLocaleDateString("es-ES", {
                           year: "numeric",
@@ -72,12 +64,14 @@ const seo = {
                   </div>
 
                   <div class="mt-2">
-                    <p class="text-sm">Descripción: {talk.description}</p>
+                    <p class="text-sm">
+                      <span class="font-semibold">Descripción</span>:{talk.description}
+                    </p>
                   </div>
                 </div>
 
-                <div class="flex flex-col gap-1 mt-5 md:mt-0">
-                  <p class="text-sm">Organizaciones:</p>
+                <div class="flex flex-col gap-2 mt-5 md:mt-0">
+                  <p class="text-sm font-semibold">Organizaciones:</p>
 
                   <div class="flex gap-4">
                     {talk.organizations.map((org) => (
