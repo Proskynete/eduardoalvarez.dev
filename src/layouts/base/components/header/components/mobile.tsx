@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { version } from "../../../../package.json";
+import { version } from "../../../../../../package.json";
 import { navItems } from "../constants";
 
 export default function Mobile() {

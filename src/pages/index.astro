@@ -19,31 +19,27 @@ const seo = {
 ---
 
 <Layout seo={seo}>
-  <div
-    class="flex flex-col md:flex-row md:space-x-6 items-center content-center md:w-5/6 md:mx-auto m-auto mb-20"
-  >
+  <div class="flex flex-col md:flex-row md:space-x-6 items-center content-center md:w-5/6 md:mx-auto m-auto mb-20">
     <img
       src="/images/eduardo_alvarez.webp"
       alt="Eduardo Alvarez ilustración"
+      class="aspect-square"
       width="205"
-      height="200"
+      height="205"
       loading="lazy"
       decoding="async"
     />
 
     <div>
-      <h1
-        class="font-hero font-semibold text-3xl text-gray-100 sm:leading-10 md:leading-14 text-center md:text-left"
-      >
+      <h1 class="font-hero font-semibold text-3xl text-gray-100 sm:leading-10 md:leading-14 text-center md:text-left">
         ¡Hola! Mi nombre es Eduardo Álvarez.
       </h1>
 
       <div class="mt-4 space-y-4 md:space-y-2">
         <p>
-          Software engineer enfocado en Frontend con +8 años de experiencia en
-          los cuales he trabajado en difere ntes proyectos y empresas, de las
-          cuales he adquirido conocimientos y habilidades, las que podrás ver en
-          este sitio.
+          Software engineer enfocado en Frontend con +8 años de experiencia en los cuales he trabajado en difere ntes
+          proyectos y empresas, de las cuales he adquirido conocimientos y habilidades, las que podrás ver en este
+          sitio.
         </p>
 
         {
@@ -59,9 +55,9 @@ const seo = {
                 >
                   {social.name}
                 </a>
-                {i !==
-                  config.social_network.filter((social) => social.show).length -
-                    1 && <span class="mx-2 text-gray-400">/</span>}
+                {i !== config.social_network.filter((social) => social.show).length - 1 && (
+                  <span class="mx-2 text-gray-400">/</span>
+                )}
               </span>
             ))
         }
@@ -70,11 +66,7 @@ const seo = {
   </div>
 
   <section class="space-y-5 mb-20">
-    <h1
-      class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl"
-    >
-      Proyectos
-    </h1>
+    <h1 class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl">Proyectos</h1>
 
     <section class="grid grid-cols-1 gap-5 md:grid-cols-2">
       {projectsInfo.projects.map((project) => <Project project={project} />)}
@@ -82,11 +74,7 @@ const seo = {
   </section>
 
   <section class="space-y-5">
-    <h1
-      class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl"
-    >
-      Últimos artículos
-    </h1>
+    <h1 class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl">Últimos artículos</h1>
 
     <ul class="divide-y divide-gray-700">
       {

@@ -21,7 +21,7 @@ export interface Talk {
 
 export const talks: Talk[] = [
   {
-    title: "Conseguir Trabajo en Tecnología",
+    title: "Conseguir trabajo en tecnología",
     description:
       "En este taller aprendimos a cómo buscar trabajo en tecnología, revisamos algunos tips para preparar nuestra primera entrevista de trabajo, creación y revisión de tu CV.",
     date: ["2023-10-28T13:00:00.839Z", "2023-10-28T20:00:00.839Z"],
@@ -40,7 +40,7 @@ export const talks: Talk[] = [
     repo: "https://github.com/JSConfCL/techschool/tree/main/ConseguirTrabajoTI",
   },
   {
-    title: "React y Redux avanzado - parte 2",
+    title: "React y Redux avanzado - Parte 2",
     description:
       "Aprendimos como trabajar con Redux, configurar middlewares, y como manejar el estado de nuestra aplicación de forma eficiente.",
     date: ["2019-03-16T13:00:00.839Z", "2019-03-16T20:00:00.839Z"],
@@ -63,7 +63,7 @@ export const talks: Talk[] = [
     ],
   },
   {
-    title: "React y Redux avanzado - parte 1",
+    title: "React y Redux avanzado - Parte 1",
     description:
       "Aprendimos como trabajar con React, revisamos todos los conceptos básicos y como trabajar con la librería optado las mejores prácticas y dejamos todo listo para la parte 2.",
     date: ["2019-03-05T21:00:00.839Z", "2019-03-06T23:00:00.839Z"],
