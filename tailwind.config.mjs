@@ -5,10 +5,6 @@ export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}"],
   theme: {
     extend: {
-      colors: {
-        primary: colors.indigo,
-        gray: colors.gray,
-      },
       fontFamily: {
         hero: ['"Hero"'],
         avenir: ['"Avenir"'],

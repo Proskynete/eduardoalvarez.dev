@@ -12,42 +12,42 @@ export default {
   display: "standalone", // fullscreen
   icons: [
     {
-      src: "./public/images/manifest/72x72.png",
+      src: "./images/manifest/72x72.png",
       type: "image/png",
       sizes: "72x72",
     },
     {
-      src: "./public/images/manifest/96x96.png",
+      src: "./images/manifest/96x96.png",
       type: "image/png",
       sizes: "96x96",
     },
     {
-      src: "./public/images/manifest/128x128.png",
+      src: "./images/manifest/128x128.png",
       type: "image/png",
       sizes: "128x128",
     },
     {
-      src: "./public/images/manifest/144x144.png",
+      src: "./images/manifest/144x144.png",
       type: "image/png",
       sizes: "144x144",
     },
     {
-      src: "./public/images/manifest/152x152.png",
+      src: "./images/manifest/152x152.png",
       type: "image/png",
       sizes: "152x152",
     },
     {
-      src: "./public/images/manifest/192x192.png",
+      src: "./images/manifest/192x192.png",
       type: "image/png",
       sizes: "192x192",
     },
     {
-      src: "./public/images/manifest/384x384.png",
+      src: "./images/manifest/384x384.png",
       type: "image/png",
       sizes: "384x384",
     },
     {
-      src: "./public/images/manifest/512x512.png",
+      src: "./images/manifest/512x512.png",
       type: "image/png",
       sizes: "512x512",
     },
