@@ -1,0 +1,27 @@
+---
+import Layout from "../../layouts/main/index.astro";
+
+const seo = {
+  title: "Recursos",
+  description:
+    "Recursos para utilizar en los proyectos de desarrollo web que te ayudarán a mejorar la calidad de tu código y la productividad en tu trabajo.",
+  image: "/images/recursos.webp",
+};
+---
+
+<Layout seo={seo}>
+  <div class="flex flex-col">
+    <section class="space-y-5 mb-20">
+      <hgroup class="mb-8">
+        <h1 class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl">Recursos</h1>
+        <p class="text-gray-400">Lista de recursos para utilizar en tus proyectos web.</p>
+      </hgroup>
+
+      <section class="grid grid-cols-1 gap-5 mx-auto lg:max-w-[80%]">
+        <ul>
+          <li>Curso de Astro - Consumir la API de Pokemon.</li>
+        </ul>
+      </section>
+    </section>
+  </div>
+</Layout>
