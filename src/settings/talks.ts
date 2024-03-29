@@ -17,6 +17,7 @@ export interface Talk {
   location: Location;
   organizations: Organization[];
   repo?: string;
+  resources?: string;
 }
 
 export const talks: Talk[] = [
@@ -37,7 +38,7 @@ export const talks: Talk[] = [
         url: "https://jschile.org/",
       },
     ],
-    repo: "https://github.com/JSConfCL/techschool/tree/main/ConseguirTrabajoTI",
+    repo: "https://github.com/Proskynete/Conseguir-Trabajo-TI",
   },
   {
     title: "React y Redux avanzado - Parte 2",
