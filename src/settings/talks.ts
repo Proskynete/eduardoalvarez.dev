@@ -39,6 +39,7 @@ export const talks: Talk[] = [
       },
     ],
     repo: "https://github.com/Proskynete/Conseguir-Trabajo-TI",
+    resources: "",
   },
   {
     title: "React y Redux avanzado - Parte 2",
