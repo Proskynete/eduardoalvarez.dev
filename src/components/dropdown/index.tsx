@@ -33,7 +33,7 @@ export function Dropdown({ options }: DropdownProps) {
       {open && (
         <div
           id="dropdown"
-          className={`absolute w-full xl:w-44 z-10 divide-y top-7 right-0 divide-gray-100 rounded-lg shadow bg-gray-700 block transition ease-in-out duration-300`}
+          className={`absolute w-44 z-10 divide-y top-7 right-0 divide-gray-100 rounded-lg shadow bg-gray-700 block transition ease-in-out duration-300`}
         >
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
             {options.map((group, index) => (
