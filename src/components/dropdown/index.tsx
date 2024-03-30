@@ -54,7 +54,7 @@ export function Dropdown({ options }: DropdownProps) {
                       </li>
                     </a>
                   ) : (
-                    <li key={title} className={`inline-flex w-full px-2 py-1 bg-gray-600 text-gray-400 cursor-pointer`}>
+                    <li key={title} className={`inline-flex w-full px-2 py-1 bg-gray-600 text-gray-400 cursor-default`}>
                       {name}
                     </li>
                   ),
