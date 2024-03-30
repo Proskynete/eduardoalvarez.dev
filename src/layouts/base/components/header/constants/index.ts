@@ -17,7 +17,7 @@ export const navItems: NavItem[] = [
   {
     name: "./recursos",
     href: "/recursos",
-    show: false,
+    show: true,
   },
   {
     name: "./retos",

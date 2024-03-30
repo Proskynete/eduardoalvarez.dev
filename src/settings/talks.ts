@@ -9,6 +9,11 @@ interface Location {
   url: string;
 }
 
+interface Resources {
+  label: string;
+  url: string;
+}
+
 export interface Talk {
   title: string;
   description: string;
@@ -17,7 +22,8 @@ export interface Talk {
   location: Location;
   organizations: Organization[];
   repo?: string;
-  resources?: string;
+  resources?: Resources[];
+  presentation?: string;
 }
 
 export const talks: Talk[] = [
@@ -38,7 +44,16 @@ export const talks: Talk[] = [
         url: "https://jschile.org/",
       },
     ],
+    resources: [
+      { label: "Configuración", url: "/resources/astro-pokemon/config.zip" },
+      {
+        label: "Imágenes",
+        url: "/resources/astro-pokemon/images.zip",
+      },
+      { label: "Estilos", url: "/resources/astro-pokemon/styles.zip" },
+    ],
     repo: "https://github.com/Proskynete/Astro-Pokemon-Taller",
+    presentation: "https://slides.com/eduardoalvarez/astro-pokemon",
   },
   {
     title: "Conseguir trabajo en tecnología",

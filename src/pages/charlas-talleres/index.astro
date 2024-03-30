@@ -3,6 +3,7 @@ import Layout from "../../layouts/main/index.astro";
 import { talks } from "../../settings/talks";
 import type { Talk } from "../../settings/talks";
 import { Icon } from "../../assets/icons/";
+import { clearString } from "../../utils/strings";
 
 const seo = {
   title: "Charlas y talleres",
@@ -25,23 +26,11 @@ const seo = {
             <article class="relative flex flex-col-reverse md:flex-row border rounded-md md:mb-4 before:content-[''] before:rounded-t-md before:xl:rounded-md">
               <div class="p-4 w-full md:w-3/5 flex flex-col justify-between">
                 <div class="flex flex-col gap-2">
-                  <div class="flex items-center justify-between">
+                  <div class="flex items-baseline justify-between">
                     <h3 class="text-xl font-hero font-bold">{talk.title}</h3>
 
                     {(talk.repo || talk.resources) && (
-                      <div class="flex items-center space-x-3">
-                        {talk.resources && (
-                          <a
-                            href={talk.resources}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Link to resources"
-                            class="text-gray-400 hover:text-gray-100 transition-colors duration-300"
-                          >
-                            <Icon.Resources width={25} aria-hidden="true" />
-                          </a>
-                        )}
-
+                      <div class="flex items-start space-x-3">
                         {talk.repo && (
                           <a
                             href={talk.repo}
@@ -58,9 +47,14 @@ const seo = {
                   </div>
 
                   <div class="flex flex-col">
-                    <p class="text-sm">
+                    <p class="flex text-sm gap-1">
                       <span class="font-semibold">Lugar</span>:
-                      <a href={talk.location.url} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={talk.location.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="flex w-fit text-primary-400 hover:text-primary-500 transition ease-in-out duration-300"
+                      >
                         {talk.location.name}
                       </a>
                     </p>
@@ -76,10 +70,36 @@ const seo = {
                         })}
                       </time>
                     </p>
+
+                    {talk.resources && (
+                      <p class="flex text-sm gap-1">
+                        <span class="font-semibold">Recursos:</span>
+                        {talk.resources
+                          ?.map((resource) => (
+                            <a
+                              href={resource.url}
+                              download={clearString(`${talk.title}-${resource.label}`)}
+                              class="flex w-fit text-primary-400 hover:text-primary-500 transition ease-in-out duration-300"
+                            >
+                              {resource.label}
+                            </a>
+                          ))
+                          .reduce((prev, curr) => [prev, ", ", curr])}
+                      </p>
+                    )}
+
+                    {talk.presentation && (
+                      <p class="text-sm">
+                        <span class="font-semibold">Presetación</span>:
+                        <a href={talk.presentation} download>
+                          Ver
+                        </a>
+                      </p>
+                    )}
                   </div>
 
                   <div class="mt-2">
-                    <p class="text-sm line-clamp-3">
+                    <p class="text-sm line-clamp-2">
                       <span class="font-semibold ">Descripción</span>: {talk.description}
                     </p>
                   </div>
