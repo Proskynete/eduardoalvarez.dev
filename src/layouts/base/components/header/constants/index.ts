@@ -15,11 +15,6 @@ export const navItems: NavItem[] = [
     show: true,
   },
   {
-    name: "./recursos",
-    href: "/recursos",
-    show: true,
-  },
-  {
     name: "./retos",
     href: "/retos",
     show: false,
