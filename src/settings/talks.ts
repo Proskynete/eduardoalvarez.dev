@@ -21,9 +21,11 @@ export interface Talk {
   image: string;
   location: Location;
   organizations: Organization[];
-  repo?: string;
-  resources?: Resources[];
-  presentation?: string;
+  options?: {
+    repo?: string;
+    resources?: Resources[];
+    presentation?: string;
+  };
 }
 
 export const talks: Talk[] = [
@@ -44,16 +46,18 @@ export const talks: Talk[] = [
         url: "https://jschile.org/",
       },
     ],
-    resources: [
-      { label: "Configuración", url: "/resources/astro-pokemon/config.zip" },
-      {
-        label: "Imágenes",
-        url: "/resources/astro-pokemon/images.zip",
-      },
-      { label: "Estilos", url: "/resources/astro-pokemon/styles.zip" },
-    ],
-    repo: "https://github.com/Proskynete/Astro-Pokemon-Taller",
-    presentation: "https://slides.com/eduardoalvarez/astro-pokemon",
+    options: {
+      repo: "https://github.com/Proskynete/Astro-Pokemon-Taller",
+      presentation: "https://slides.com/eduardoalvarez/astro-pokemon",
+      resources: [
+        { label: "Configuración", url: "/resources/astro-pokemon/config.zip" },
+        {
+          label: "Imágenes",
+          url: "/resources/astro-pokemon/images.zip",
+        },
+        { label: "Estilos", url: "/resources/astro-pokemon/styles.zip" },
+      ],
+    },
   },
   {
     title: "Conseguir trabajo en tecnología",
@@ -72,7 +76,9 @@ export const talks: Talk[] = [
         url: "https://jschile.org/",
       },
     ],
-    repo: "https://github.com/Proskynete/Conseguir-Trabajo-TI",
+    options: {
+      repo: "https://github.com/Proskynete/Conseguir-Trabajo-TI",
+    },
   },
   {
     title: "React y Redux avanzado - Parte 2",
