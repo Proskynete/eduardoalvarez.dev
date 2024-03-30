@@ -2,7 +2,7 @@
 import Layout from "../../layouts/main/index.astro";
 import { talks } from "../../settings/talks";
 import type { Talk } from "../../settings/talks";
-import { Icon } from "../../assets/icons/";
+import { Dropdown } from "../../components/dropdown";
 
 const seo = {
   title: "Charlas y talleres",
@@ -25,28 +25,57 @@ const seo = {
             <article class="relative flex flex-col-reverse md:flex-row border rounded-md md:mb-4 before:content-[''] before:rounded-t-md before:xl:rounded-md">
               <div class="p-4 w-full md:w-3/5 flex flex-col justify-between">
                 <div class="flex flex-col gap-2">
-                  <div class="flex items-center justify-between">
+                  <div class="flex items-baseline justify-between">
                     <h3 class="text-xl font-hero font-bold">{talk.title}</h3>
 
-                    {talk.repo && (
-                      <div class="flex items-center space-x-3">
-                        <a
-                          href={talk.repo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title="Link to repository"
-                          class="text-gray-400 hover:text-gray-100 transition-colors duration-300"
-                        >
-                          <Icon.Github width={25} aria-hidden="true" />
-                        </a>
+                    {talk.options && (
+                      <div class="flex items-start space-x-3">
+                        <Dropdown
+                          client:visible
+                          options={[
+                            [
+                              {
+                                name: "Repositorio",
+                                type: "title",
+                              },
+                              {
+                                name: "Github",
+                                url: talk.options.repo,
+                                ariaTitle: "Repositorio en Github",
+                              },
+                            ],
+                            (talk.options.resources && [
+                              {
+                                name: "Descargables",
+                                type: "title",
+                              },
+                              ...(talk.options.resources?.map(
+                                (option) =>
+                                  ({
+                                    name: option.label,
+                                    url: option.url,
+                                    type: "download",
+                                    ariaTitle: `Descargar ${option.label}`,
+                                    title: `${talk.title}-${option.label}`,
+                                  }) as { name: string; url: string; type: "download" | "title" | "link" }
+                              ) || []),
+                            ]) ||
+                              [],
+                          ]}
+                        />
                       </div>
                     )}
                   </div>
 
                   <div class="flex flex-col">
-                    <p class="text-sm">
+                    <p class="flex text-sm gap-1">
                       <span class="font-semibold">Lugar</span>:
-                      <a href={talk.location.url} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={talk.location.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="flex w-fit text-primary-400 hover:text-primary-500 transition ease-in-out duration-300"
+                      >
                         {talk.location.name}
                       </a>
                     </p>
@@ -65,8 +94,8 @@ const seo = {
                   </div>
 
                   <div class="mt-2">
-                    <p class="text-sm">
-                      <span class="font-semibold">Descripción</span>: {talk.description}
+                    <p class="text-sm line-clamp-2">
+                      <span class="font-semibold ">Descripción</span>: {talk.description}
                     </p>
                   </div>
                 </div>
@@ -88,7 +117,7 @@ const seo = {
                           alt={org.name}
                         />
                         <div class="text-sm">
-                          <p class="leading-none text-sm">{org.name}</p>
+                          <p class="leading-none text-sm text-primary-400 hover:text-primary-500">{org.name}</p>
                         </div>
                       </a>
                     ))}

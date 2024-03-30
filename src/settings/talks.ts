@@ -9,6 +9,11 @@ interface Location {
   url: string;
 }
 
+interface Resources {
+  label: string;
+  url: string;
+}
+
 export interface Talk {
   title: string;
   description: string;
@@ -16,10 +21,44 @@ export interface Talk {
   image: string;
   location: Location;
   organizations: Organization[];
-  repo?: string;
+  options?: {
+    repo?: string;
+    resources?: Resources[];
+    presentation?: string;
+  };
 }
 
 export const talks: Talk[] = [
+  {
+    title: "Astro y Pokémon: Atrapando componentes web en la selva moderna del desarrollo",
+    description:
+      "Sumerjámonos en el emocionante mundo de Astro, el framework que está revolucionando el desarrollo web, con un taller interactivo de 2 horas. Aprenderemos a construir un sitio web ultra-rápido, consumiendo la API de Pokémon para crear una Pokédex. Descubre cómo Astro te permite integrar componentes de diferentes frameworks en un solo proyecto, optimizando el rendimiento sin sacrificar la flexibilidad. Perfecto para principiantes y no tan principiantes, este taller es tu portal a las últimas tendencias en tecnología web.",
+    date: ["2024-04-06T13:00:00.839Z", "2024-04-06T20:00:00.839Z"],
+    image: "images/talleres/astro-pokemon/final.webp",
+    location: {
+      name: "DUOC UC Sede Valparaíso. Chile",
+      url: "https://maps.app.goo.gl/G7hdHkZdwcDKbHxb8",
+    },
+    organizations: [
+      {
+        name: "JavaScript Chile",
+        logo: "images/organizations/js-chile.webp",
+        url: "https://jschile.org/",
+      },
+    ],
+    options: {
+      repo: "https://github.com/Proskynete/Astro-Pokemon-Taller",
+      presentation: "https://slides.com/eduardoalvarez/astro-pokemon",
+      resources: [
+        { label: "Configuración", url: "/resources/astro-pokemon/config.zip" },
+        {
+          label: "Imágenes",
+          url: "/resources/astro-pokemon/images.zip",
+        },
+        { label: "Estilos", url: "/resources/astro-pokemon/styles.zip" },
+      ],
+    },
+  },
   {
     title: "Conseguir trabajo en tecnología",
     description:
@@ -37,7 +76,9 @@ export const talks: Talk[] = [
         url: "https://jschile.org/",
       },
     ],
-    repo: "https://github.com/JSConfCL/techschool/tree/main/ConseguirTrabajoTI",
+    options: {
+      repo: "https://github.com/Proskynete/Conseguir-Trabajo-TI",
+    },
   },
   {
     title: "React y Redux avanzado - Parte 2",
