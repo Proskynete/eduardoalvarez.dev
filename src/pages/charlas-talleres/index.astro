@@ -21,122 +21,125 @@ const seo = {
 
       <section class="grid grid-cols-1 gap-5 mx-auto lg:max-w-[80%]">
         {
-          talks.map((talk: Talk) => (
-            <article class="relative flex flex-col-reverse md:flex-row border rounded-md md:mb-4 before:content-[''] before:rounded-t-md before:xl:rounded-md">
-              <div class="p-4 w-full md:w-3/5 flex flex-col justify-between">
-                <div class="flex flex-col gap-2">
-                  <div class="flex items-baseline justify-between">
-                    <h3 class="text-xl font-hero font-bold">{talk.title}</h3>
+          talks.map(
+            (talk: Talk) =>
+              talk.show && (
+                <article class="relative flex flex-col-reverse md:flex-row border rounded-md md:mb-4 before:content-[''] before:rounded-t-md before:xl:rounded-md">
+                  <div class="p-4 w-full md:w-3/5 flex flex-col justify-between">
+                    <div class="flex flex-col gap-2">
+                      <div class="flex items-baseline justify-between">
+                        <h3 class="text-xl font-hero font-bold">{talk.title}</h3>
 
-                    {talk.options && (
-                      <div class="flex items-start space-x-3">
-                        <Dropdown
-                          client:visible
-                          options={[
-                            [
-                              {
-                                name: "Repositorio",
-                                type: "title",
-                              },
-                              {
-                                name: "Github",
-                                url: talk.options.repo,
-                                ariaTitle: "Repositorio en Github",
-                              },
-                            ],
-                            (talk.options.resources && [
-                              {
-                                name: "Descargables",
-                                type: "title",
-                              },
-                              ...(talk.options.resources?.map(
-                                (option) =>
-                                  ({
-                                    name: option.label,
-                                    url: option.url,
-                                    type: "download",
-                                    ariaTitle: `Descargar ${option.label}`,
-                                    title: `${talk.title}-${option.label}`,
-                                  }) as { name: string; url: string; type: "download" | "title" | "link" }
-                              ) || []),
-                            ]) ||
-                              [],
-                          ]}
-                        />
+                        {talk.options && (
+                          <div class="flex items-start space-x-3">
+                            <Dropdown
+                              client:visible
+                              options={[
+                                [
+                                  {
+                                    name: "Repositorio",
+                                    type: "title",
+                                  },
+                                  {
+                                    name: "Github",
+                                    url: talk.options.repo,
+                                    ariaTitle: "Repositorio en Github",
+                                  },
+                                ],
+                                (talk.options.resources && [
+                                  {
+                                    name: "Descargables",
+                                    type: "title",
+                                  },
+                                  ...(talk.options.resources?.map(
+                                    (option) =>
+                                      ({
+                                        name: option.label,
+                                        url: option.url,
+                                        type: "download",
+                                        ariaTitle: `Descargar ${option.label}`,
+                                        title: `${talk.title}-${option.label}`,
+                                      }) as { name: string; url: string; type: "download" | "title" | "link" }
+                                  ) || []),
+                                ]) ||
+                                  [],
+                              ]}
+                            />
+                          </div>
+                        )}
                       </div>
-                    )}
+
+                      <div class="flex flex-col">
+                        <p class="flex text-sm gap-1">
+                          <span class="font-semibold">Lugar</span>:
+                          <a
+                            href={talk.location.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex w-fit text-primary-400 hover:text-primary-500 transition ease-in-out duration-300"
+                          >
+                            {talk.location.name}
+                          </a>
+                        </p>
+
+                        <p class="text-sm">
+                          <span class="font-semibold">Cuando</span>:
+                          <time datetime={talk.date[0]}>
+                            El{" "}
+                            {new Date(talk.date[0]).toLocaleDateString("es-ES", {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            })}
+                          </time>
+                        </p>
+                      </div>
+
+                      <div class="mt-2">
+                        <p class="text-sm line-clamp-2">
+                          <span class="font-semibold ">Descripción</span>: {talk.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2 mt-5 lg:mt-0">
+                      <p class="text-sm font-semibold hidden md:block">Organizaciones:</p>
+
+                      <div class="flex gap-4">
+                        {talk.organizations.map((org) => (
+                          <a
+                            href={org.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex items-center group hover:transform transition-transform"
+                          >
+                            <img
+                              class="w-10 h-10 rounded-full mr-2 group-hover:rotate-12 duration-300"
+                              src={org.logo}
+                              alt={org.name}
+                            />
+                            <div class="text-sm">
+                              <p class="leading-none text-sm text-primary-400 hover:text-primary-500">{org.name}</p>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="flex flex-col">
-                    <p class="flex text-sm gap-1">
-                      <span class="font-semibold">Lugar</span>:
-                      <a
-                        href={talk.location.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="flex w-fit text-primary-400 hover:text-primary-500 transition ease-in-out duration-300"
-                      >
-                        {talk.location.name}
-                      </a>
-                    </p>
-
-                    <p class="text-sm">
-                      <span class="font-semibold">Cuando</span>:
-                      <time datetime={talk.date[0]}>
-                        El{" "}
-                        {new Date(talk.date[0]).toLocaleDateString("es-ES", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </time>
-                    </p>
+                  <div class="w-full md:w-2/5 ">
+                    <img
+                      src={talk.image}
+                      alt={talk.title}
+                      class="rounded-t-md rounded-b-none md:rounded-r-md md:rounded-l-none w-max h-auto md:w-full md:h-full object-cover lg:object-contain aspec-[4/2]"
+                      loading="lazy"
+                      width={160}
+                      height={120}
+                    />
                   </div>
-
-                  <div class="mt-2">
-                    <p class="text-sm line-clamp-2">
-                      <span class="font-semibold ">Descripción</span>: {talk.description}
-                    </p>
-                  </div>
-                </div>
-
-                <div class="flex flex-col gap-2 mt-5 lg:mt-0">
-                  <p class="text-sm font-semibold hidden md:block">Organizaciones:</p>
-
-                  <div class="flex gap-4">
-                    {talk.organizations.map((org) => (
-                      <a
-                        href={org.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="flex items-center group hover:transform transition-transform"
-                      >
-                        <img
-                          class="w-10 h-10 rounded-full mr-2 group-hover:rotate-12 duration-300"
-                          src={org.logo}
-                          alt={org.name}
-                        />
-                        <div class="text-sm">
-                          <p class="leading-none text-sm text-primary-400 hover:text-primary-500">{org.name}</p>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div class="w-full md:w-2/5 ">
-                <img
-                  src={talk.image}
-                  alt={talk.title}
-                  class="rounded-t-md rounded-b-none md:rounded-r-md md:rounded-l-none w-max h-auto md:w-full md:h-full object-cover lg:object-contain aspec-[4/2]"
-                  loading="lazy"
-                  width={160}
-                  height={120}
-                />
-              </div>
-            </article>
-          ))
+                </article>
+              )
+          )
         }
       </section>
     </section>
