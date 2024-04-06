@@ -19,7 +19,7 @@ export interface Talk {
   description: string;
   show: boolean;
   date: string[];
-  image: string;
+  image?: string;
   location: Location;
   organizations: Organization[];
   options?: {
@@ -35,8 +35,8 @@ export const talks: Talk[] = [
     description:
       "Sumerjámonos en el emocionante mundo de Astro, el framework que está revolucionando el desarrollo web, con un taller interactivo de 2 horas. Aprenderemos a construir un sitio web ultra-rápido, consumiendo la API de Pokémon para crear una Pokédex. Descubre cómo Astro te permite integrar componentes de diferentes frameworks en un solo proyecto, optimizando el rendimiento sin sacrificar la flexibilidad. Perfecto para principiantes y no tan principiantes, este taller es tu portal a las últimas tendencias en tecnología web.",
     date: ["2024-04-06T13:00:00.839Z", "2024-04-06T20:00:00.839Z"],
-    image: "images/talleres/astro-pokemon/final.webp",
-    show: false,
+    image: undefined,
+    show: true,
     location: {
       name: "DUOC UC Sede Valparaíso. Chile",
       url: "https://maps.app.goo.gl/G7hdHkZdwcDKbHxb8",
