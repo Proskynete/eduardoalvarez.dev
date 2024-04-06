@@ -50,7 +50,8 @@ export const talks: Talk[] = [
     ],
     options: {
       repo: "https://github.com/Proskynete/Astro-Pokemon-Taller",
-      presentation: "https://slides.com/eduardoalvarez/astro-pokemon",
+      presentation:
+        "https://www.canva.com/design/DAGBY3leSdU/I58oujde9CXFZ72gR0vBLw/view?utm_content=DAGBY3leSdU&utm_campaign=designshare&utm_medium=link&utm_source=editor",
       resources: [
         { label: "Configuración", url: "/resources/astro-pokemon/config.zip" },
         {
