@@ -46,6 +46,19 @@ const seo = {
                                     ariaTitle: "Repositorio en Github",
                                   },
                                 ],
+                                (talk.options.presentation && [
+                                  {
+                                    name: "Presentación",
+                                    type: "title",
+                                  },
+                                  {
+                                    name: "Ir a ver",
+                                    url: talk.options.presentation,
+                                    type: "link",
+                                    ariaTitle: "Revisar presentación",
+                                  },
+                                ]) ||
+                                  [],
                                 (talk.options.resources && [
                                   {
                                     name: "Descargables",
