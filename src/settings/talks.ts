@@ -47,6 +47,11 @@ export const talks: Talk[] = [
         logo: "images/organizations/js-chile.webp",
         url: "https://jschile.org/",
       },
+      {
+        name: "Duoc UC",
+        logo: "images/organizations/duoc.webp",
+        url: "https://www.duoc.cl/",
+      },
     ],
     options: {
       repo: "https://github.com/Proskynete/Astro-Pokemon-Taller",
