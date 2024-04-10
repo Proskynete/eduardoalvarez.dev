@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { Icon } from "../../assets/icons";
 import { clearString } from "../../utils/strings";
@@ -17,9 +17,32 @@ interface DropdownProps {
 
 export function Dropdown({ options }: DropdownProps) {
   const [open, setOpen] = useState(false);
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  const handleClick = (e: MouseEvent) => {
+    if (elementRef.current && !elementRef.current.contains(e.target as Node)) {
+      setOpen(false);
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      setOpen(false);
+    }
+  };
+
+  const handleFocus = () => {
+    document.addEventListener("click", handleClick);
+    document.addEventListener("keydown", handleKeyDown);
+  };
+
+  const handleBlur = () => {
+    document.removeEventListener("click", handleClick);
+    document.removeEventListener("keydown", handleKeyDown);
+  };
 
   return (
-    <div className="relative w-full xl:w-max">
+    <div ref={elementRef} className="flex relative h-full w-full xl:w-max" onFocus={handleFocus} onBlur={handleBlur}>
       <button
         id="dropdown-button"
         data-dropdown-toggle="dropdown"
@@ -33,7 +56,7 @@ export function Dropdown({ options }: DropdownProps) {
       {open && (
         <div
           id="dropdown"
-          className={`absolute w-44 z-10 divide-y top-7 right-0 divide-gray-100 rounded-lg shadow bg-gray-700 block transition ease-in-out duration-300`}
+          className={`absolute w-44 z-10 divide-y top-9 right-0 divide-gray-100 rounded-lg shadow bg-gray-700 block transition ease-in-out duration-300`}
         >
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
             {options.map((group, index) => (
