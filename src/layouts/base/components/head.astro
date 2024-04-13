@@ -8,13 +8,9 @@ export interface Props {
   slug?: string;
 }
 
-const title = Astro.props.title
-  ? `${Astro.props.title} | ${settings.title}`
-  : settings.title;
+const title = Astro.props.title ? `${Astro.props.title} | ${settings.title}` : settings.title;
 const description = Astro.props.description || settings.description;
-const image = Astro.props.image
-  ? Astro.props.image
-  : new URL("./images/eduardo_alvarez.webp", Astro.site);
+const image = Astro.props.image ? Astro.props.image : new URL("./images/eduardo_alvarez-white-bg.webp", Astro.site);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -58,10 +54,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta property="twitter:image" content={image} />
 </head>
 
-<script
-  type="text/partytown"
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=G-YP2WF7DHFM"></script>
+<script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-YP2WF7DHFM"></script>
 
 <script type="text/partytown">
   window.dataLayer = window.dataLayer || [];

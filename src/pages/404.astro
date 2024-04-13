@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/main/index.astro";
+import NOT_FOUND from "../assets/images/not_found.webp";
+---
+
+<Layout>
+  <div class="flex flex-col-reverse md:flex-row items-center justify-center gap-10">
+    <div>
+      <h1 class="font-hero font-semibold text-3xl text-gray-100 sm:leading-10 md:leading-14 text-center md:text-left">
+        ¡Ups! Parece que esta página no existe.
+      </h1>
+
+      <p class="text-gray-300 text-center md:text-left">
+        Puedes regresar a la página principal o buscar lo que necesitas.
+      </p>
+    </div>
+
+    <Image
+      src={NOT_FOUND}
+      alt="Eduardo Alvarez ilustración de página no encontrada"
+      class="min-w-[350px] min-h-[350px] w-[350px] h-[350px]"
+      width="350"
+      height="350"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+</Layout>

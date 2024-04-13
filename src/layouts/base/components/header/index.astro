@@ -1,21 +1,22 @@
 ---
+import { Image } from "astro:assets";
 import MobileNav from "./components/mobile";
 import Search from "./components/search";
+import LOGO from "../../../../assets/images/logo.webp";
 
 const { algolia } = Astro.props;
 ---
 
 <header class="flex items-center justify-between py-3 md:py-10">
   <a href="/" aria-label="Eduardo Alvarez logo">
-    <img
-      src="/images/logo.webp"
+    <Image
+      src={LOGO}
       alt="Eduardo Alvarez logo"
-      class="aspect-[4/2]"
+      class="min-w-[180px] min-h-[87px]"
       width="180"
       height="87"
       loading="lazy"
       decoding="async"
-      aria-hidden="true"
     />
   </a>
 
