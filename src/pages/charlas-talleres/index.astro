@@ -3,11 +3,13 @@ import Layout from "../../layouts/main/index.astro";
 import { talks } from "../../settings/talks";
 import type { Talk } from "../../settings/talks";
 import { Dropdown } from "../../components/dropdown";
+import { Image } from "astro:assets";
+import NO_IMAGE from "../../assets/images/no-image.webp";
 
 const seo = {
   title: "Charlas y talleres",
-  description: "Charlas y talleres que he dado.",
-  image: "/images/charlas.webp",
+  description: "Charlas y talleres que he impartido.",
+  image: "/images/talleres/charlas-talleres.webp",
 };
 ---
 
@@ -16,7 +18,7 @@ const seo = {
     <section class="space-y-5 mb-20">
       <hgroup class="mb-8">
         <h1 class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl">Charlas y Talleres</h1>
-        <p class="text-gray-400">Charlas y talleres que he dado.</p>
+        <p class="text-gray-400">Charlas y talleres que he impartido.</p>
       </hgroup>
 
       <section class="grid grid-cols-1 gap-5 mx-auto lg:max-w-[80%]">
@@ -126,10 +128,14 @@ const seo = {
                             rel="noopener noreferrer"
                             class="flex items-center group hover:transform transition-transform"
                           >
-                            <img
+                            <Image
                               class="w-10 h-10 rounded-full mr-2 group-hover:rotate-12 duration-300"
                               src={org.logo}
                               alt={org.name}
+                              width={40}
+                              height={40}
+                              loading="lazy"
+                              decoding="async"
                             />
                             <div class="text-sm">
                               <p class="leading-none text-sm text-primary-400 hover:text-primary-500">{org.name}</p>
@@ -141,13 +147,14 @@ const seo = {
                   </div>
 
                   <div class="w-full md:w-2/5 ">
-                    <img
-                      src={talk.image || "/images/no-image.webp"}
+                    <Image
+                      src={talk.image || NO_IMAGE}
                       alt={talk.title}
                       class="rounded-t-md rounded-b-none md:rounded-r-md md:rounded-l-none w-max h-auto md:w-full md:h-full object-cover lg:object-contain aspec-[4/2]"
+                      width={800}
+                      height={533}
                       loading="lazy"
-                      width={160}
-                      height={120}
+                      decoding="async"
                     />
                   </div>
                 </article>

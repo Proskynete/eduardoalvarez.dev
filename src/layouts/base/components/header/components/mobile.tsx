@@ -50,7 +50,7 @@ export default function Mobile() {
           </svg>
         </button>
 
-        <nav className="relative flex flex-col justify-end items-end text-right w-full h-full pt-40 px-8 pb-12">
+        <nav className="relative flex flex-col justify-end items-end text-right w-full h-full pt-40 px-8 pb-12 z-10">
           <p className="text-gray-100">
             eduardoalvarez.dev/
             <span className="text-green-500 font-bold ml-2">v{version}</span>

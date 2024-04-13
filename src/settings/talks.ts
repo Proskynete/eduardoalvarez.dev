@@ -1,6 +1,15 @@
+import DUOC_ORGANIZATION from "../assets/images/organizations/duoc.webp";
+import GLOBANT_ORGANIZATION from "../assets/images/organizations/globant.webp";
+import JS_ORGANIZATION from "../assets/images/organizations/js-chile.webp";
+import LABORATORIA_ORGANIZATION from "../assets/images/organizations/laboratoria.webp";
+import ASTRO_TALK from "../assets/images/talks/astro-pokemon/final.webp";
+import REACT_REDUX_PART1_TALK from "../assets/images/talks/react-redux/parte-1.webp";
+import REACT_REDUX_TALK from "../assets/images/talks/react-redux/parte-2.webp";
+import TRABAJO_TALK from "../assets/images/talks/trabajo-en-tecnologia/final.webp";
+
 interface Organization {
   name: string;
-  logo: string;
+  logo: ImageMetadata;
   url: string;
 }
 
@@ -19,7 +28,7 @@ export interface Talk {
   description: string;
   show: boolean;
   date: string[];
-  image?: string;
+  image?: ImageMetadata;
   location: Location;
   organizations: Organization[];
   options?: {
@@ -35,7 +44,7 @@ export const talks: Talk[] = [
     description:
       "Sumerjámonos en el emocionante mundo de Astro, el framework que está revolucionando el desarrollo web, con un taller interactivo de 2 horas. Aprenderemos a construir un sitio web ultra-rápido, consumiendo la API de Pokémon para crear una Pokédex. Descubre cómo Astro te permite integrar componentes de diferentes frameworks en un solo proyecto, optimizando el rendimiento sin sacrificar la flexibilidad. Perfecto para principiantes y no tan principiantes, este taller es tu portal a las últimas tendencias en tecnología web.",
     date: ["2024-04-06T13:00:00.839Z", "2024-04-06T20:00:00.839Z"],
-    image: "images/talleres/astro-pokemon/final.webp",
+    image: ASTRO_TALK,
     show: true,
     location: {
       name: "DUOC UC Sede Valparaíso. Chile",
@@ -44,12 +53,12 @@ export const talks: Talk[] = [
     organizations: [
       {
         name: "JavaScript Chile",
-        logo: "images/organizations/js-chile.webp",
+        logo: JS_ORGANIZATION,
         url: "https://jschile.org/",
       },
       {
         name: "Duoc UC",
-        logo: "images/organizations/duoc.webp",
+        logo: DUOC_ORGANIZATION,
         url: "https://www.duoc.cl/",
       },
     ],
@@ -72,7 +81,7 @@ export const talks: Talk[] = [
     description:
       "En este taller aprendimos a cómo buscar trabajo en tecnología, revisamos algunos tips para preparar nuestra primera entrevista de trabajo, creación y revisión de tu CV.",
     date: ["2023-10-28T13:00:00.839Z", "2023-10-28T20:00:00.839Z"],
-    image: "images/talleres/trabajo-en-tecnologia/final.webp",
+    image: TRABAJO_TALK,
     show: true,
     location: {
       name: "Hub Providencia, Los Jesuitas #881, Providencia. Chile",
@@ -81,7 +90,7 @@ export const talks: Talk[] = [
     organizations: [
       {
         name: "JavaScript Chile",
-        logo: "images/organizations/js-chile.webp",
+        logo: JS_ORGANIZATION,
         url: "https://jschile.org/",
       },
     ],
@@ -94,7 +103,7 @@ export const talks: Talk[] = [
     description:
       "Aprendimos como trabajar con Redux, configurar middlewares, y como manejar el estado de nuestra aplicación de forma eficiente.",
     date: ["2019-03-16T13:00:00.839Z", "2019-03-16T20:00:00.839Z"],
-    image: "images/talleres/react-redux/parte-2.webp",
+    image: REACT_REDUX_TALK,
     show: true,
     location: {
       name: "Av. Puma #1180, Santiago. Chile",
@@ -103,12 +112,12 @@ export const talks: Talk[] = [
     organizations: [
       {
         name: "Globant",
-        logo: "images/organizations/globant.webp",
+        logo: GLOBANT_ORGANIZATION,
         url: "https://www.globant.com/",
       },
       {
         name: "Laboratoria",
-        logo: "images/organizations/laboratoria.webp",
+        logo: LABORATORIA_ORGANIZATION,
         url: "https://www.laboratoria.la/",
       },
     ],
@@ -118,7 +127,7 @@ export const talks: Talk[] = [
     description:
       "Aprendimos como trabajar con React, revisamos todos los conceptos básicos y como trabajar con la librería optado las mejores prácticas y dejamos todo listo para la parte 2.",
     date: ["2019-03-05T21:00:00.839Z", "2019-03-06T23:00:00.839Z"],
-    image: "images/talleres/react-redux/parte-1.webp",
+    image: REACT_REDUX_PART1_TALK,
     show: true,
     location: {
       name: "Cerro el Plomo #5630, Las Condes. Chile",
@@ -127,12 +136,12 @@ export const talks: Talk[] = [
     organizations: [
       {
         name: "Globant",
-        logo: "images/organizations/globant.webp",
+        logo: GLOBANT_ORGANIZATION,
         url: "https://www.globant.com/",
       },
       {
         name: "Laboratoria",
-        logo: "images/organizations/laboratoria.webp",
+        logo: LABORATORIA_ORGANIZATION,
         url: "https://www.laboratoria.la/",
       },
     ],

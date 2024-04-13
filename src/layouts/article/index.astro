@@ -21,6 +21,9 @@ const articleFound = articles.sort(articlesSort).findIndex((article) => article.
 const previousArticle = articles[articleFound + 1];
 const nextArticle = articles[articleFound - 1];
 
+const tags = content.categories.map((tag) => tag.replaceAll(/(-)/g, "")).join(",");
+const toShare = `https://twitter.com/intent/tweet?text=${content.title}&url=https://www.eduardoalvarez.dev/articulos/${content.slug}&via=proskynete&hashtags=${tags}`;
+
 const seo: BaseHeadProps = {
   title: content.title,
   description: content.description,
@@ -47,4 +50,15 @@ const seo: BaseHeadProps = {
       </div>
     </div>
   </article>
+
+  <div class="fixed bottom-10 left-0 w-screen flex items-center justify-center">
+    <a
+      target="_blank"
+      rel="nofollow noopener"
+      href={toShare}
+      class="flex items-center justify-center py-2 px-4 bg-white rounded-full shadow-md text-neutral-800 cursor-pointer transition-transform transform-gpu hover:scale-105"
+    >
+      Comparte el artículo
+    </a>
+  </div>
 </Layout>

@@ -49,28 +49,28 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
 
     <div class="py-4 flex flex-col gap-4">
       {
-        previousArticle && (
+        nextArticle && (
           <div class="flex flex-col">
-            <p class="text-xs uppercase tracking-wide mb-2">Artículo anterior</p>
+            <p class="flex items-center text-xs uppercase tracking-wide">Siguiete artículo</p>
             <a
-              href={`/articulos/${previousArticle.frontmatter.slug}`}
+              href={`/articulos/${nextArticle.frontmatter.slug}`}
               class="flex w-fit text-primary-400 hover:text-primary-500 transition ease-in-out duration-300"
             >
-              <p class="text-md">{previousArticle.frontmatter.title}</p>
+              <p class="text-md">{nextArticle.frontmatter.title}</p>
             </a>
           </div>
         )
       }
 
       {
-        nextArticle && (
+        previousArticle && (
           <div class="flex flex-col">
-            <p class="text-xs uppercase tracking-wide mb-2">Siguiete artículo</p>
+            <p class="flex items-center text-xs uppercase tracking-wide">Artículo anterior</p>
             <a
-              href={`/articulos/${nextArticle.frontmatter.slug}`}
+              href={`/articulos/${previousArticle.frontmatter.slug}`}
               class="flex w-fit text-primary-400 hover:text-primary-500 transition ease-in-out duration-300"
             >
-              <p class="text-md">{nextArticle.frontmatter.title}</p>
+              <p class="text-md">{previousArticle.frontmatter.title}</p>
             </a>
           </div>
         )

@@ -46,7 +46,7 @@ export function Dropdown({ options }: DropdownProps) {
       <button
         id="dropdown-button"
         data-dropdown-toggle="dropdown"
-        className="z-10 w-full xl:w-max flex items-center justify-center px-2 text-sm font-medium bg-transparent text-white transition ease-in-out duration-300"
+        className="w-full xl:w-max flex items-center justify-center px-2 text-sm font-medium bg-transparent text-white transition ease-in-out duration-300"
         type="button"
         onClick={() => setOpen(!open)}
       >
@@ -56,7 +56,7 @@ export function Dropdown({ options }: DropdownProps) {
       {open && (
         <div
           id="dropdown"
-          className={`absolute w-44 z-10 divide-y top-9 right-0 divide-gray-100 rounded-lg shadow bg-gray-700 block transition ease-in-out duration-300`}
+          className={`absolute w-44 divide-y top-9 right-0 divide-gray-100 rounded-lg shadow bg-gray-700 block transition ease-in-out duration-300`}
         >
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
             {options.map((group, index) => (
