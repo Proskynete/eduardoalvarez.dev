@@ -9,7 +9,8 @@ export default {
   orientation: "portrait",
   theme_color: "#0d0d0d",
   background_color: "#0d0d0d",
-  display: "fullscreen", // standalone
+  display: "standalone", // fullscreen
+  display_override: ["window-control-overlay", "minimal-ui"],
   icons: [
     {
       src: "./images/manifest/android-chrome-192x192.png",
