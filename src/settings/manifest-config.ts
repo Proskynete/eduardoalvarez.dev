@@ -10,7 +10,7 @@ export default {
   orientation: "portrait",
   theme_color: "#0d0d0d",
   background_color: "#0d0d0d",
-  display_override: ["fullscreen"],
+  display_override: ["fullscreen", "minimal-ui"],
   display: "standalone", // fullscreen
   icons: [
     {
