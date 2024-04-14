@@ -5,10 +5,12 @@ export default {
   short_name: `${config.author.name}`,
   description: config.description,
   lang: "es",
+  id: "/",
   start_url: "/",
   orientation: "portrait",
   theme_color: "#0d0d0d",
   background_color: "#0d0d0d",
+  display_override: ["fullscreen"],
   display: "standalone", // fullscreen
   icons: [
     {
