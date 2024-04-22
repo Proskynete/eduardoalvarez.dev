@@ -121,6 +121,9 @@ export const talks: Talk[] = [
         url: "https://www.laboratoria.la/",
       },
     ],
+    options: {
+      repo: "https://github.com/Proskynete/workshop-laboratoria-globant",
+    },
   },
   {
     title: "React y Redux avanzado - Parte 1",
@@ -145,5 +148,8 @@ export const talks: Talk[] = [
         url: "https://www.laboratoria.la/",
       },
     ],
+    options: {
+      repo: "https://github.com/Proskynete/workshop-laboratoria-globant",
+    },
   },
 ];
