@@ -37,7 +37,7 @@ const seo = {
                             <Dropdown
                               client:visible
                               options={[
-                                [
+                                (talk.options.repo && [
                                   {
                                     name: "Repositorio",
                                     type: "title",
@@ -47,7 +47,8 @@ const seo = {
                                     url: talk.options.repo,
                                     ariaTitle: "Repositorio en Github",
                                   },
-                                ],
+                                ]) ||
+                                  [],
                                 (talk.options.presentation && [
                                   {
                                     name: "Presentación",
