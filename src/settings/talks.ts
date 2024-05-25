@@ -1,5 +1,6 @@
 import DUOC_ORGANIZATION from "../assets/images/organizations/duoc.webp";
 import GLOBANT_ORGANIZATION from "../assets/images/organizations/globant.webp";
+import IEEE_UDP from "../assets/images/organizations/ieee_udp.webp";
 import JS_ORGANIZATION from "../assets/images/organizations/js-chile.webp";
 import LABORATORIA_ORGANIZATION from "../assets/images/organizations/laboratoria.webp";
 import ASTRO_TALK from "../assets/images/talks/astro-pokemon/final.webp";
@@ -40,6 +41,28 @@ export interface Talk {
 
 export const talks: Talk[] = [
   {
+    title: "JavasScript: ¡El lenguaje que le da vida a la web!",
+    description:
+      "En esta charla, pudimos aprender los conceptos básicos de JavaScript, como ha sido su evolución, entendimos que es ECMA y como se relaciona con las versiones de JavaScript, También vimos como JavaScript trabaja con el asincronismo y la evolución de su sintaxis.",
+    date: ["2024-05-21T11:30:00.839Z", "2024-05-21T13:00:00.839Z"],
+    show: true,
+    location: {
+      name: "Av. Ejército Libertador 233, Santiago.",
+      url: "https://maps.app.goo.gl/CMo5webEuoPDF55G9",
+    },
+    organizations: [
+      {
+        name: "IEEE Student Branch UDP",
+        logo: IEEE_UDP,
+        url: "https://www.instagram.com/ieee.udp",
+      },
+    ],
+    options: {
+      presentation:
+        "https://www.canva.com/design/DAGF74TdAiU/z7df9PVWj-3mi9JFE41pjw/view?utm_content=DAGF74TdAiU&utm_campaign=designshare&utm_medium=link",
+    },
+  },
+  {
     title: "Astro y Pokémon: Atrapando componentes web en la selva moderna del desarrollo",
     description:
       "Sumerjámonos en el emocionante mundo de Astro, el framework que está revolucionando el desarrollo web, con un taller interactivo de 2 horas. Aprenderemos a construir un sitio web ultra-rápido, consumiendo la API de Pokémon para crear una Pokédex. Descubre cómo Astro te permite integrar componentes de diferentes frameworks en un solo proyecto, optimizando el rendimiento sin sacrificar la flexibilidad. Perfecto para principiantes y no tan principiantes, este taller es tu portal a las últimas tendencias en tecnología web.",
@@ -65,7 +88,7 @@ export const talks: Talk[] = [
     options: {
       repo: "https://github.com/Proskynete/Astro-Pokemon-Taller",
       presentation:
-        "https://www.canva.com/design/DAGBY3leSdU/I58oujde9CXFZ72gR0vBLw/view?utm_content=DAGBY3leSdU&utm_campaign=designshare&utm_medium=link&utm_source=editor",
+        "https://www.canva.com/design/DAGBY3leSdU/I58oujde9CXFZ72gR0vBLw/view?utm_content=DAGBY3leSdU&utm_campaign=designshare&utm_medium=link",
       resources: [
         { label: "Configuración", url: "/resources/astro-pokemon/config.zip" },
         {
