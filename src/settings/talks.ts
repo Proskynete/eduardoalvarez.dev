@@ -4,6 +4,7 @@ import IEEE_UDP from "../assets/images/organizations/ieee_udp.webp";
 import JS_ORGANIZATION from "../assets/images/organizations/js-chile.webp";
 import LABORATORIA_ORGANIZATION from "../assets/images/organizations/laboratoria.webp";
 import ASTRO_TALK from "../assets/images/talks/astro-pokemon/final.webp";
+import JS_TALK from "../assets/images/talks/javascript-lenguaje-de-la-web/final.webp";
 import REACT_REDUX_PART1_TALK from "../assets/images/talks/react-redux/parte-1.webp";
 import REACT_REDUX_TALK from "../assets/images/talks/react-redux/parte-2.webp";
 import TRABAJO_TALK from "../assets/images/talks/trabajo-en-tecnologia/final.webp";
@@ -41,10 +42,11 @@ export interface Talk {
 
 export const talks: Talk[] = [
   {
-    title: "JavasScript: ¡El lenguaje que le da vida a la web!",
+    title: "JavaScript: ¡El lenguaje que le da vida a la web!",
     description:
       "En esta charla, pudimos aprender los conceptos básicos de JavaScript, como ha sido su evolución, entendimos que es ECMA y como se relaciona con las versiones de JavaScript, También vimos como JavaScript trabaja con el asincronismo y la evolución de su sintaxis.",
     date: ["2024-05-21T11:30:00.839Z", "2024-05-21T13:00:00.839Z"],
+    image: JS_TALK,
     show: true,
     location: {
       name: "Av. Ejército Libertador 233, Santiago.",
