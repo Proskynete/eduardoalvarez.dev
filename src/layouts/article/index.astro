@@ -11,6 +11,11 @@ import type { Props as BaseHeadProps } from "../base/components/head.astro";
 import type { Article } from "../../interfaces";
 
 type Frontmatter = Article;
+
+type Props = {
+  content: Article;
+};
+
 const { content } = Astro.props;
 
 const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
