@@ -158,9 +158,7 @@ const celular = {
   marca: "Peraphone",
   modelo: "Galactico 20",
   encender: function () {
-    console.log(
-      "Encendiendo el mejor celular.. el " + this.marca + " - " + this.modelo
-    );
+    console.log("Encendiendo el mejor celular.. el " + this.marca + " - " + this.modelo);
   },
   apagar: () => {
     console.log("El " + this.modelo + " se irá a dormir");
@@ -186,8 +184,7 @@ Los `default parameters` o `Parámetros predeterminados` son una nueva caracter�
 una función que en caso de que su valor sea `undefined`, se inicie con el valor que le designemos.
 
 ```javascript
-const saludar = (nombre, origen = "por ahí") =>
-  "Mi nombre es: " + nombre + " y vengo de " + origen;
+const saludar = (nombre, origen = "por ahí") => "Mi nombre es: " + nombre + " y vengo de " + origen;
 
 console.log(saludar("Morty", "C132")); // Output: Mi nombre es Morty y vengo de C137
 console.log(saludar("Evil Morty")); // Output: Mi nombre es Evil Morty y vengo de por ahí

@@ -38,9 +38,16 @@ const AlgoliaSearch = ({ refine, hits, onClose }: AlgoliaSearchProps) => {
               className="focus:ring-primary-600 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 bg-black w-full"
               placeholder="Buscar..."
               {...getInputProps({
-                onChange(e) {
-                  setSearch(e.target.value);
-                  refine(e.target.value);
+                autoFocus: true,
+                value: search,
+                onChange: (event) => {
+                  setSearch(event.target.value);
+                  refine(event.target.value);
+                },
+                onKeyDown: (event) => {
+                  if (event.key === "Escape") {
+                    handleClearSearch();
+                  }
                 },
               })}
             />
@@ -103,4 +110,4 @@ const AlgoliaSearch = ({ refine, hits, onClose }: AlgoliaSearchProps) => {
   );
 };
 
-export const SearchComponentConnected = connectAutoComplete(AlgoliaSearch);
+export const SearchComponentConnected = connectAutoComplete(AlgoliaSearch) as any;

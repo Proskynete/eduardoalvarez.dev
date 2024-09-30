@@ -56,9 +56,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta property="twitter:image" content={image} />
 </head>
 
-<script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-YP2WF7DHFM"></script>
+<script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-YP2WF7DHFM" is:inline></script>
 
-<script type="text/partytown">
+<script type="text/partytown" is:inline>
   window.dataLayer = window.dataLayer || [];
   function gtag() {
     dataLayer.push(arguments);
