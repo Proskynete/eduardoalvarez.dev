@@ -8,7 +8,7 @@ const GiscusWrapper = ({ slug }: GiscusProps) => {
   return (
     <Giscus
       id="comments"
-      repo="proskynete/website"
+      repo="proskynete/eduardoalvarez.dev"
       repoId="R_kgDOJ_yh4w"
       category="Blog Comments"
       categoryId="DIC_kwDOJ_yh484CcCn6"

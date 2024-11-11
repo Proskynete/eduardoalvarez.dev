@@ -31,7 +31,7 @@
 }
 
 #article-body p em {
-  font-family: "Avenir";
+  font-family: "Avenir", sans-serif;
   font-style: italic;
 }
 
@@ -62,7 +62,7 @@
   background-color: #f4f4f4;
   border-radius: 3px;
   color: #0a3f66;
-  font-family: "Avenir";
+  font-family: "Avenir", sans-serif;
   font-style: italic;
   padding-left: 5px;
   padding-right: 5px;

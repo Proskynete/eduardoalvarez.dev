@@ -1,6 +1,8 @@
 ---
 import type { Article } from "../../interfaces";
 
+export const prerender = true;
+
 export interface Props {
   article: Article;
 }
@@ -13,9 +15,7 @@ const { article } = Astro.props;
     <dl>
       <dt class="sr-only">Publicado el</dt>
       <dd class="text-base font-hero leading-6 text-gray-400">
-        <time date-time={article.date}
-          >{new Date(article.date).toLocaleDateString()}</time
-        >
+        <time date-time={article.date}>{new Date(article.date).toLocaleDateString()}</time>
       </dd>
     </dl>
     <div class="space-y-3 xl:col-span-3">
