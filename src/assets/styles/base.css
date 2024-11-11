@@ -1,11 +1,13 @@
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   @font-face {
     font-family: "Avenir";
     font-style: normal;
     font-weight: 400;
-    font-display: block;
+    font-display: swap;
     src: url("/fonts/Avenir.woff") format("woff");
   }
 
@@ -13,12 +15,14 @@
     font-family: "Hero";
     font-style: normal;
     font-weight: 400;
-    font-display: block;
+    font-display: swap;
     src: url("/fonts/Hero.woff") format("woff");
   }
-}
 
-html,
-body {
-  scrollbar-gutter: stable;
+  html,
+  body {
+    font-family: "Avenir", system-ui, sans-serif;
+    text-rendering: geometricPrecision;
+    scrollbar-gutter: stable;
+  }
 }
