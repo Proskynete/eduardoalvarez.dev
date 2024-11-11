@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 import webmanifest from "astro-webmanifest";
+import serviceWorker from "astrojs-service-worker";
 
 import { publishAlgoliaRSS } from "./src/scripts/algolia.ts";
 import config from "./src/settings/manifest-config.ts";
@@ -17,5 +18,14 @@ export default defineConfig({
       theme: "monokai",
     },
   },
-  integrations: [mdx(), react(), tailwind(), sitemap(), partytown(), webmanifest(config), publishAlgoliaRSS()],
+  integrations: [
+    mdx(),
+    react(),
+    tailwind(),
+    sitemap(),
+    partytown(),
+    webmanifest(config),
+    publishAlgoliaRSS(),
+    serviceWorker(),
+  ],
 });
