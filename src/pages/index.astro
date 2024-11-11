@@ -7,7 +7,10 @@ import config from "../settings";
 import { articlesSort } from "../utils/articles";
 import projectsInfo from "../settings/projects";
 import { Image } from "astro:assets";
+import Subscribe from "../components/subscribe/index.astro";
 import ME from "../assets/images/eduardo_alvarez.webp";
+
+export const prerender = true;
 
 type Frontmatter = IArticle;
 
@@ -75,7 +78,7 @@ const seo = {
     </section>
   </section>
 
-  <section class="space-y-5">
+  <section class="space-y-5 mb-20">
     <h1 class="font-hero text-4xl leading-9 text-gray-100 sm:leading-10 md:text-3xl">Últimos artículos</h1>
 
     <ul class="divide-y divide-gray-700">
@@ -101,4 +104,6 @@ const seo = {
       )
     }
   </section>
+
+  <Subscribe />
 </Layout>

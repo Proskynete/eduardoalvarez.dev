@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 interface Article {
   title: string;
   link?: string;
@@ -43,10 +45,7 @@ const { project } = Astro.props;
     <div class="flex items-center space-x-2 overflow-x-auto">
       {
         project.techStack.map((tech) => (
-          <div
-            class="font-avenir rounded-md border border-neutral-800 px-2 py-1 text-xs min-w-fit"
-            title={tech}
-          >
+          <div class="font-avenir rounded-md border border-neutral-800 px-2 py-1 text-xs min-w-fit" title={tech}>
             {tech}
           </div>
         ))
