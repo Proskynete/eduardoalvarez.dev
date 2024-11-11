@@ -1,4 +1,5 @@
-const colors = require("tailwindcss/colors");
+import colors from "tailwindcss/colors";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -6,8 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        hero: ['"Hero"'],
-        avenir: ['"Avenir"'],
+        hero: ["Hero", ...defaultTheme.fontFamily.sans],
+        avenir: ["Avenir", ...defaultTheme.fontFamily.sans],
       },
       colors: {
         primary: colors.pink,
