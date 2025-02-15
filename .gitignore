@@ -1,7 +1,9 @@
 # build output
 dist/
+
 # generated types
 .astro/
+
 # Vercel
 .vercel
 
@@ -14,6 +16,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# admin section
+src/layouts/admin*
+src/pages/admin*
 
 # environment variables
 .env
