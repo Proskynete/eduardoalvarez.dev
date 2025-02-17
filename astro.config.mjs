@@ -21,8 +21,11 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  adapter: vercel(),
   output: "server",
+  adapter: vercel(),
+  webAnalytics: {
+    enabled: true,
+  },
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {
