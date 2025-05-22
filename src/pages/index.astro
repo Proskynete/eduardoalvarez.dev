@@ -1,6 +1,7 @@
 ---
 import Article from "../components/article/index.astro";
 import Project from "../components/project/index.astro";
+import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
 import config from "../settings";
 import { articlesSort } from "../utils/articles";
@@ -11,8 +12,12 @@ import ME from "../assets/images/eduardo_alvarez.webp";
 
 export const prerender = true;
 
+interface Posts {
+  frontmatter: IArticle;
+}
+
 const _MAX_ARTICLES = 3;
-const posts = await Astro.glob("./articulos/*.mdx");
+const posts: Posts[] = await Astro.glob("./articulos/*.mdx");
 posts.sort(articlesSort).splice(_MAX_ARTICLES);
 
 const seo = {
@@ -78,9 +83,9 @@ const seo = {
 
     <ul class="divide-y divide-gray-700">
       {
-        posts.map((post) => (
+        posts.map(({ frontmatter }) => (
           <li class="py-6 first:pt-0">
-            <Article article={post.frontmatter} />
+            <Article article={frontmatter} />
           </li>
         ))
       }

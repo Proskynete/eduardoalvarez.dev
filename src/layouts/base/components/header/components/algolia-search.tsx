@@ -1,5 +1,5 @@
 import Autocomplete from "downshift";
-import { useRef, useState } from "react";
+import { type ChangeEvent, useRef, useState } from "react";
 import { connectAutoComplete, Highlight } from "react-instantsearch-dom";
 
 interface AlgoliaSearchProps {
@@ -40,9 +40,9 @@ const AlgoliaSearch = ({ refine, hits, onClose }: AlgoliaSearchProps) => {
               {...getInputProps({
                 autoFocus: true,
                 value: search,
-                onChange: (event) => {
-                  setSearch(event.target.value);
-                  refine(event.target.value);
+                onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                  setSearch(e.target.value);
+                  refine(e.target.value);
                 },
                 onKeyDown: (event) => {
                   if (event.key === "Escape") {
