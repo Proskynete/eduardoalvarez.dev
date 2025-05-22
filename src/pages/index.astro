@@ -12,10 +12,12 @@ import ME from "../assets/images/eduardo_alvarez.webp";
 
 export const prerender = true;
 
-type Frontmatter = IArticle;
+interface Posts {
+  frontmatter: IArticle;
+}
 
 const _MAX_ARTICLES = 3;
-const posts = await Astro.glob<Frontmatter>("./articulos/*.mdx");
+const posts: Posts[] = await Astro.glob("./articulos/*.mdx");
 posts.sort(articlesSort).splice(_MAX_ARTICLES);
 
 const seo = {
@@ -29,8 +31,6 @@ const seo = {
       src={ME}
       alt="Ilustración de Eduardo Alvarez"
       class="min-w-[205px] min-h-[200px] w-[205px] h-[200px]"
-      width="205"
-      height="200"
       loading="lazy"
       decoding="async"
     />
@@ -83,9 +83,9 @@ const seo = {
 
     <ul class="divide-y divide-gray-700">
       {
-        posts.map((post) => (
+        posts.map(({ frontmatter }) => (
           <li class="py-6 first:pt-0">
-            <Article article={post.frontmatter} />
+            <Article article={frontmatter} />
           </li>
         ))
       }

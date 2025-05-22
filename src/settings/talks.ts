@@ -1,8 +1,8 @@
 import DUOC_ORGANIZATION from "../assets/images/organizations/duoc.webp";
 import GLOBANT_ORGANIZATION from "../assets/images/organizations/globant.webp";
 import IEEE_UDP from "../assets/images/organizations/ieee_udp.webp";
-import JS_ORGANIZATION from "../assets/images/organizations/js-chile.webp";
 import LABORATORIA_ORGANIZATION from "../assets/images/organizations/laboratoria.webp";
+import TECH_SCHOOL from "../assets/images/organizations/tech-school.webp";
 import ASTRO_TALK from "../assets/images/talks/astro-pokemon/final.webp";
 import JS_TALK from "../assets/images/talks/javascript-lenguaje-de-la-web/final.webp";
 import REACT_REDUX_PART1_TALK from "../assets/images/talks/react-redux/parte-1.webp";
@@ -77,8 +77,8 @@ export const talks: Talk[] = [
     },
     organizations: [
       {
-        name: "JavaScript Chile",
-        logo: JS_ORGANIZATION,
+        name: "Tech School",
+        logo: TECH_SCHOOL,
         url: "https://jschile.org/",
       },
       {
@@ -114,8 +114,8 @@ export const talks: Talk[] = [
     },
     organizations: [
       {
-        name: "JavaScript Chile",
-        logo: JS_ORGANIZATION,
+        name: "Tech School",
+        logo: TECH_SCHOOL,
         url: "https://jschile.org/",
       },
     ],
