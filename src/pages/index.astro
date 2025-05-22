@@ -1,7 +1,6 @@
 ---
 import Article from "../components/article/index.astro";
 import Project from "../components/project/index.astro";
-import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
 import config from "../settings";
 import { articlesSort } from "../utils/articles";
@@ -12,10 +11,8 @@ import ME from "../assets/images/eduardo_alvarez.webp";
 
 export const prerender = true;
 
-type Frontmatter = IArticle;
-
 const _MAX_ARTICLES = 3;
-const posts = await Astro.glob<Frontmatter>("./articulos/*.mdx");
+const posts = await Astro.glob("./articulos/*.mdx");
 posts.sort(articlesSort).splice(_MAX_ARTICLES);
 
 const seo = {
@@ -29,8 +26,6 @@ const seo = {
       src={ME}
       alt="Ilustración de Eduardo Alvarez"
       class="min-w-[205px] min-h-[200px] w-[205px] h-[200px]"
-      width="205"
-      height="200"
       loading="lazy"
       decoding="async"
     />
