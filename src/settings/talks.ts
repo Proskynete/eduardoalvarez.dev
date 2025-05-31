@@ -46,7 +46,6 @@ export const talks: Talk[] = [
     description:
       "Aprenderemos de astro mientras creamos un sitio web donde podamos mostrar nuestras redes sociales, habilidades y proyectos. Este taller es ideal para quienes quieren aprender a crear un sitio web de forma rápida y sencilla, sin necesidad de tener experiencia previa en desarrollo web.",
     date: ["2025-05-31T11:00:00.839Z", "2025-05-31T13:00:00.839Z"],
-    image: undefined,
     show: true,
     location: {
       name: "Av. Esq. Blanca 501, Maipú, Chile",
