@@ -42,6 +42,30 @@ export interface Talk {
 
 export const talks: Talk[] = [
   {
+    title: "Taller de Astro: Crea tu portafolio",
+    description:
+      "Aprenderemos de astro mientras creamos un sitio web donde podamos mostrar nuestras redes sociales, habilidades y proyectos. Este taller es ideal para quienes quieren aprender a crear un sitio web de forma rápida y sencilla, sin necesidad de tener experiencia previa en desarrollo web.",
+    date: ["2025-05-31T11:00:00.839Z", "2025-05-31T13:00:00.839Z"],
+    image: undefined,
+    show: true,
+    location: {
+      name: "Av. Esq. Blanca 501, Maipú, Chile",
+      url: "https://maps.app.goo.gl/nG6GBow9wcA9sycd6",
+    },
+    organizations: [
+      {
+        name: "Tech School",
+        logo: TECH_SCHOOL,
+        url: "https://tsc.lat/",
+      },
+    ],
+    options: {
+      repo: "https://github.com/Proskynete/taller-my-social-networks",
+      presentation:
+        "https://www.canva.com/design/DAGo_GFAnWY/yLUjLoIICDPy_PTs5ZejAA/view?utm_content=DAGo_GFAnWY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hcf7946635d",
+    },
+  },
+  {
     title: "JavaScript: ¡El lenguaje que le da vida a la web!",
     description:
       "En esta charla, pudimos aprender los conceptos básicos de JavaScript, como ha sido su evolución, entendimos que es ECMA y como se relaciona con las versiones de JavaScript, También vimos como JavaScript trabaja con el asincronismo y la evolución de su sintaxis.",
@@ -49,7 +73,7 @@ export const talks: Talk[] = [
     image: JS_TALK,
     show: true,
     location: {
-      name: "Av. Ejército Libertador 233, Santiago.",
+      name: "Av. Ejército Libertador 233, Santiago, Chile.",
       url: "https://maps.app.goo.gl/CMo5webEuoPDF55G9",
     },
     organizations: [
@@ -79,7 +103,7 @@ export const talks: Talk[] = [
       {
         name: "Tech School",
         logo: TECH_SCHOOL,
-        url: "https://jschile.org/",
+        url: "https://tsc.lat/",
       },
       {
         name: "Duoc UC",
@@ -116,7 +140,7 @@ export const talks: Talk[] = [
       {
         name: "Tech School",
         logo: TECH_SCHOOL,
-        url: "https://jschile.org/",
+        url: "https://tsc.lat/",
       },
     ],
     options: {
