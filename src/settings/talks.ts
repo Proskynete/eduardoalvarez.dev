@@ -7,6 +7,7 @@ import ASTRO_TALK from "../assets/images/talks/astro-pokemon/final.webp";
 import JS_TALK from "../assets/images/talks/javascript-lenguaje-de-la-web/final.webp";
 import REACT_REDUX_PART1_TALK from "../assets/images/talks/react-redux/parte-1.webp";
 import REACT_REDUX_TALK from "../assets/images/talks/react-redux/parte-2.webp";
+import WORKSHOP_ASTRO from "../assets/images/talks/taller-astro-crea-tu-portafolio/final.webp";
 import TRABAJO_TALK from "../assets/images/talks/trabajo-en-tecnologia/final.webp";
 
 interface Organization {
@@ -51,6 +52,7 @@ export const talks: Talk[] = [
       name: "Av. Esq. Blanca 501, Maipú, Chile",
       url: "https://maps.app.goo.gl/nG6GBow9wcA9sycd6",
     },
+    image: WORKSHOP_ASTRO,
     organizations: [
       {
         name: "Tech School",
