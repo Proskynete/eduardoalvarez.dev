@@ -9,6 +9,7 @@ import projectsInfo from "../settings/projects";
 import { Image } from "astro:assets";
 import Subscribe from "../components/subscribe/index.astro";
 import ME from "../assets/images/eduardo_alvarez.webp";
+import { getDifferenceInYears } from "../utils/date";
 
 export const prerender = true;
 
@@ -19,18 +20,6 @@ interface Posts {
 const _MAX_ARTICLES = 3;
 const posts: Posts[] = await Astro.glob("./articulos/*.mdx");
 posts.sort(articlesSort).splice(_MAX_ARTICLES);
-
-const getDifferenceInYears = (): number => {
-  const date = new Date("2015-11-01");
-  const currentDate = new Date();
-  const yearsDifference = currentDate.getFullYear() - date.getFullYear();
-  const monthDifference = currentDate.getMonth() - date.getMonth();
-  const dayDifference = currentDate.getDate() - date.getDate();
-  if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
-    return yearsDifference - 1;
-  }
-  return yearsDifference;
-};
 
 const seo = {
   title: "Inicio",
