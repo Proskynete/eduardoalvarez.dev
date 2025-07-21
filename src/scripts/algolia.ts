@@ -36,15 +36,16 @@ export const publishAlgoliaRSS = () => {
     hooks: {
       [hooks[7]]: async (args) => {
         if (
-          process.env.PUBLIC_ALGOLIA_APPLICATION_ID === undefined ||
-          process.env.PUBLIC_ALGOLIA_ADMIN_API_KEY === undefined ||
-          process.env.PUBLIC_ALGOLIA_INDEX_NAME === undefined
+          process.env.ALGOLIA_APPLICATION_ID === undefined ||
+          process.env.ALGOLIA_ADMIN_API_KEY === undefined ||
+          process.env.ALGOLIA_INDEX_NAME === undefined
         ) {
           console.log(`${kleur.red("publishAlgoliaRSS: ")} Missing Algolia config.\n`);
           return;
         }
 
         try {
+          console.log({ args });
           const rss = await fs.promises.readFile(path.resolve(args.dir.pathname, "./rss.xml"), "utf8");
 
           if (rss === undefined) {
@@ -56,11 +57,8 @@ export const publishAlgoliaRSS = () => {
           const parser = new XMLParser(options);
           const json = parser.parse(rss);
 
-          const client = algoliasearch(
-            process.env.PUBLIC_ALGOLIA_APPLICATION_ID,
-            process.env.PUBLIC_ALGOLIA_ADMIN_API_KEY,
-          );
-          const index = client.initIndex(process.env.PUBLIC_ALGOLIA_INDEX_NAME);
+          const client = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_ADMIN_API_KEY);
+          const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
 
           const posts = json.rss.channel.item.map((post: PostRSS) => ({
             ...post,
