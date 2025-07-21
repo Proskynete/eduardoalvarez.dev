@@ -1,5 +1,5 @@
 export default {
-  title: "eduardoalvarez.dev | Frontend, HTML, CSS, Javascript, Typescript, React, Node, MongoDB",
+  title: "eduardoalvarez.dev",
   description:
     "Artículos, Videos, Podcasts, Tutoriales y Recursos sobre Desarrollo Web, Frontend, HTML, CSS, Javascript, Typescript, React, Node y MongoDB",
   keywords:
