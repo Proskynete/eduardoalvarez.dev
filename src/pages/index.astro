@@ -20,6 +20,18 @@ const _MAX_ARTICLES = 3;
 const posts: Posts[] = await Astro.glob("./articulos/*.mdx");
 posts.sort(articlesSort).splice(_MAX_ARTICLES);
 
+const getDifferenceInYears = (): number => {
+  const date = new Date("2015-11-01");
+  const currentDate = new Date();
+  const yearsDifference = currentDate.getFullYear() - date.getFullYear();
+  const monthDifference = currentDate.getMonth() - date.getMonth();
+  const dayDifference = currentDate.getDate() - date.getDate();
+  if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+    return yearsDifference - 1;
+  }
+  return yearsDifference;
+};
+
 const seo = {
   title: "Inicio",
 };
@@ -42,9 +54,9 @@ const seo = {
 
       <div class="mt-4 space-y-4 md:space-y-2">
         <p>
-          Software engineer enfocado en Frontend con +8 años de experiencia en los cuales he trabajado en diferentes
-          proyectos y empresas, de las cuales he adquirido conocimientos y habilidades, las que podrás ver en este
-          sitio.
+          Ingeniero de Software con más de {getDifferenceInYears()} años de experiencia creando productos digitales centrados
+          en el usuario. Me especializo en frontend, liderazgo técnico y arquitectura. En este sitio comparto lo que he aprendido
+          construyendo soluciones reales para equipos y empresas de toda Latinoamérica.
         </p>
 
         {
