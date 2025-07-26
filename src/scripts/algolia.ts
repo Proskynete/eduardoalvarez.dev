@@ -1,21 +1,15 @@
 import "dotenv/config";
 
-import fs from "node:fs";
-import path from "node:path";
-
 import algoliasearch from "algoliasearch";
 import type { AstroIntegration } from "astro";
-import { XMLParser } from "fast-xml-parser";
+import { readFileSync } from "fs";
+import { glob } from "glob";
+import matter from "gray-matter";
 import kleur from "kleur";
 
-interface PostRSS {
-  title: string;
-  link: string;
-  guid: string;
-  pubDate: string;
-  description: string;
-  author?: string;
-}
+import config from "../settings/index.ts";
+
+const log = console.log;
 
 export const publishAlgoliaRSS = () => {
   const hooks = [
@@ -34,42 +28,40 @@ export const publishAlgoliaRSS = () => {
   const integration: AstroIntegration = {
     name: "astro-integration-publish-algolia-rss-posts",
     hooks: {
-      [hooks[7]]: async (args) => {
+      [hooks[7]]: async () => {
         if (
           process.env.ALGOLIA_APPLICATION_ID === undefined ||
           process.env.ALGOLIA_ADMIN_API_KEY === undefined ||
           process.env.ALGOLIA_INDEX_NAME === undefined
         ) {
-          console.log(`${kleur.red("publishAlgoliaRSS: ")} Missing Algolia config.\n`);
+          log(`${kleur.red("publishAlgoliaRSS: ")} Missing Algolia config.\n`);
           return;
         }
 
         try {
-          console.log({ args });
-          const rss = await fs.promises.readFile(path.resolve(args.dir.pathname, "./rss.xml"), "utf8");
+          const articles = await glob("src/pages/articulos/**/*.mdx");
+          const posts = articles.map((article) => {
+            const fileContent = readFileSync(article, "utf-8");
+            const { data } = matter(fileContent);
+            const slug = article.replace("src/pages/articulos/", "").replace(".mdx", "");
 
-          if (rss === undefined) {
-            console.log(`${kleur.red("publishAlgoliaRSS: ")} Missing RSS file.\n`);
-            return;
-          }
-
-          const options = {};
-          const parser = new XMLParser(options);
-          const json = parser.parse(rss);
+            return {
+              objectID: `${config.url}/articulos/${slug}`,
+              title: data.title,
+              description: data.description,
+              pubDate: new Date(data.date).getTime(),
+              link: `${config.url}/articulos/${slug}`,
+              guid: `${config.url}/articulos/${slug}`,
+              author: config.author.name,
+            };
+          });
 
           const client = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_ADMIN_API_KEY);
           const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
-
-          const posts = json.rss.channel.item.map((post: PostRSS) => ({
-            ...post,
-            objectID: post.guid,
-          }));
-
           await index.saveObjects(posts);
-
-          console.log(`${kleur.green("publishAlgoliaRSS: ")} Sended posts to Algolia... 🚀\n`);
+          log(`${kleur.green("publishAlgoliaRSS: ")} Sended posts to Algolia... 🚀\n`);
         } catch (err) {
-          console.log(`${kleur.red("publishAlgoliaRSS: ")} ${err}.\n`);
+          log(`${kleur.red("publishAlgoliaRSS: ")} ${err}.\n`);
         }
       },
     },
