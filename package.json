@@ -45,8 +45,6 @@
     "@mailchimp/mailchimp_marketing": "3.0.80",
     "@tailwindcss/forms": "0.5.7",
     "@tailwindcss/typography": "0.5.10",
-    "@types/react": "18.2.45",
-    "@types/react-dom": "18.2.18",
     "algoliasearch": "4.22.0",
     "astro": "^4.15.9",
     "astro-webmanifest": "1.0.0",
@@ -65,6 +63,8 @@
   "devDependencies": {
     "@commitlint/cli": "19.0.1",
     "@commitlint/config-conventional": "19.0.0",
+    "@types/react": "18.2.45",
+    "@types/react-dom": "18.2.18",
     "@types/react-instantsearch-dom": "6.12.7",
     "@typescript-eslint/eslint-plugin": "7.1.0",
     "@typescript-eslint/parser": "7.1.0",
