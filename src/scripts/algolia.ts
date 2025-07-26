@@ -59,7 +59,7 @@ export const publishAlgoliaRSS = () => {
           const client = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_ADMIN_API_KEY);
           const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
           await index.saveObjects(posts);
-          log(`${kleur.green("publishAlgoliaRSS: ")} Sended posts to Algolia... 🚀\n`);
+          log(`${kleur.green("publishAlgoliaRSS: ")} Sent posts to Algolia... 🚀\n`);
         } catch (err) {
           log(`${kleur.red("publishAlgoliaRSS: ")} ${err}.\n`);
         }
