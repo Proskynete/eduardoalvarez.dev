@@ -9,8 +9,6 @@ import kleur from "kleur";
 
 import config from "../settings/index.ts";
 
-const log = console.log;
-
 export const publishAlgoliaRSS = () => {
   const hooks = [
     `astro:config:setup`,
@@ -34,7 +32,7 @@ export const publishAlgoliaRSS = () => {
           process.env.ALGOLIA_ADMIN_API_KEY === undefined ||
           process.env.ALGOLIA_INDEX_NAME === undefined
         ) {
-          log(`${kleur.red("publishAlgoliaRSS: ")} Missing Algolia config.\n`);
+          console.log(`${kleur.red("publishAlgoliaRSS: ")} Missing Algolia config.\n`);
           return;
         }
 
@@ -43,25 +41,25 @@ export const publishAlgoliaRSS = () => {
           const posts = articles.map((article) => {
             const fileContent = readFileSync(article, "utf-8");
             const { data } = matter(fileContent);
-            const slug = article.replace("src/pages/articulos/", "").replace(".mdx", "");
 
             return {
-              objectID: `${config.url}/articulos/${slug}`,
+              objectID: `${config.url}/articulos/${data.slug}`,
               title: data.title,
               description: data.description,
-              pubDate: new Date(data.date).getTime(),
-              link: `${config.url}/articulos/${slug}`,
-              guid: `${config.url}/articulos/${slug}`,
+              pubDate: new Date(data.date).toISOString(),
+              link: `${config.url}/articulos/${data.slug}`,
+              guid: `${config.url}/articulos/${data.slug}`,
               author: config.author.name,
+              image: data.image || `${config.url}/${data.seo_image}`,
             };
           });
 
           const client = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_ADMIN_API_KEY);
           const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
           await index.saveObjects(posts);
-          log(`${kleur.green("publishAlgoliaRSS: ")} Sent posts to Algolia... 🚀\n`);
+          console.log(`${kleur.green("publishAlgoliaRSS: ")} Sent posts to Algolia... 🚀\n`);
         } catch (err) {
-          log(`${kleur.red("publishAlgoliaRSS: ")} ${err}.\n`);
+          console.log(`${kleur.red("publishAlgoliaRSS: ")} ${err}.\n`);
         }
       },
     },

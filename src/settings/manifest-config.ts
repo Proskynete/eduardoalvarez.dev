@@ -1,7 +1,7 @@
 import config from "./index";
 
 export default {
-  name: `Portafolio y blog de ${config.author.name}`,
+  name: `Blog de ${config.author.name}`,
   short_name: `${config.author.name}`,
   description: config.description,
   lang: "es",
