@@ -9,6 +9,7 @@ import projectsInfo from "../settings/projects";
 import { Image } from "astro:assets";
 import Subscribe from "../components/subscribe/index.astro";
 import ME from "../assets/images/eduardo_alvarez.webp";
+import { getDifferenceInYears } from "../utils/date";
 
 export const prerender = true;
 
@@ -42,9 +43,9 @@ const seo = {
 
       <div class="mt-4 space-y-4 md:space-y-2">
         <p>
-          Software engineer enfocado en Frontend con +8 años de experiencia en los cuales he trabajado en diferentes
-          proyectos y empresas, de las cuales he adquirido conocimientos y habilidades, las que podrás ver en este
-          sitio.
+          Ingeniero de Software con más de {getDifferenceInYears()} años de experiencia creando productos digitales centrados
+          en el usuario. Me especializo en frontend, liderazgo técnico y arquitectura. En este sitio comparto lo que he aprendido
+          construyendo soluciones reales para equipos y empresas de toda Latinoamérica.
         </p>
 
         {
