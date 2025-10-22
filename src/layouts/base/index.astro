@@ -1,7 +1,7 @@
 ---
 import "../../assets/styles/base.css";
 
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import BaseHead, { type Props as BaseHeadProps } from "./components/head.astro";
 import Footer from "./components/footer/index.astro";
 import Header from "./components/header/index.astro";
@@ -23,7 +23,7 @@ const { seo } = Astro.props;
 <html lang="es">
   <BaseHead {...seo} />
 
-  <ViewTransitions fallback="animate" />
+  <ClientRouter />
 
   <body class="antialiased bg-black/95 text-white">
     <ScrollingProgressBar client:visible />
