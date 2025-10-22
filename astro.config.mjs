@@ -3,7 +3,7 @@ import partytown from "@astrojs/partytown";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 import { defineConfig } from "astro/config";
 import webmanifest from "astro-webmanifest";
 import serviceWorker from "astrojs-service-worker";
@@ -22,10 +22,11 @@ export default defineConfig({
     enabled: false,
   },
   output: "server",
-  adapter: vercel(),
-  webAnalytics: {
-    enabled: true,
-  },
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {
