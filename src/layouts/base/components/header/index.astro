@@ -3,6 +3,16 @@ import { Image } from "astro:assets";
 import MobileNav from "./components/mobile";
 import Navigation from "./components/navigation";
 import LOGO from "../../../../assets/images/logo.webp";
+
+interface Props {
+  algolia?: {
+    ALGOLIA_APPLICATION_ID?: string;
+    ALGOLIA_INDEX_NAME?: string;
+    ALGOLIA_ADMIN_API_KEY?: string;
+  };
+}
+
+const { algolia } = Astro.props;
 ---
 
 <header class="flex items-center justify-between py-3 md:py-10">
@@ -19,7 +29,7 @@ import LOGO from "../../../../assets/images/logo.webp";
   </a>
 
   <div class="flex items-center gap-4 leading-5 sm:space-x-6">
-    <Navigation client:load />
+    <Navigation client:load algolia={algolia} />
     <MobileNav client:visible />
   </div>
 </header>

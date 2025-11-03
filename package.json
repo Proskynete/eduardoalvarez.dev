@@ -45,6 +45,7 @@
     "@mailchimp/mailchimp_marketing": "3.0.80",
     "@tailwindcss/forms": "0.5.7",
     "@tailwindcss/typography": "0.5.10",
+    "algoliasearch": "^5.42.0",
     "astro": "^5.14.8",
     "astro-webmanifest": "1.0.0",
     "astrojs-service-worker": "2.0.0",
