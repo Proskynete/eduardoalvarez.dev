@@ -1,10 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import MobileNav from "./components/mobile";
-import Search from "./components/search";
+import Navigation from "./components/navigation";
 import LOGO from "../../../../assets/images/logo.webp";
-
-const { algolia } = Astro.props;
 ---
 
 <header class="flex items-center justify-between py-3 md:py-10">
@@ -21,7 +19,7 @@ const { algolia } = Astro.props;
   </a>
 
   <div class="flex items-center gap-4 leading-5 sm:space-x-6">
-    <Search client:load algolia={algolia} />
+    <Navigation client:load />
     <MobileNav client:visible />
   </div>
 </header>
