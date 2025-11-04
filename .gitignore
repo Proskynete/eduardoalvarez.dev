@@ -10,6 +10,9 @@ dist/
 # dependencies
 node_modules/
 
+# NPM
+.npmrc
+
 # logs
 npm-debug.log*
 yarn-debug.log*
