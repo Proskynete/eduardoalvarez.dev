@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
-  plugins: ["simple-import-sort"],
+  plugins: ["simple-import-sort", "react"],
   parserOptions: {
     ecmaFeatures: {
       tsx: true,

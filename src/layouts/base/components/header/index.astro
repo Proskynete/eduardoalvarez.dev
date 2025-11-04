@@ -1,8 +1,16 @@
 ---
 import { Image } from "astro:assets";
 import MobileNav from "./components/mobile";
-import Search from "./components/search";
+import Navigation from "./components/navigation";
 import LOGO from "../../../../assets/images/logo.webp";
+
+interface Props {
+  algolia?: {
+    ALGOLIA_APPLICATION_ID?: string;
+    ALGOLIA_INDEX_NAME?: string;
+    ALGOLIA_ADMIN_API_KEY?: string;
+  };
+}
 
 const { algolia } = Astro.props;
 ---
@@ -21,7 +29,7 @@ const { algolia } = Astro.props;
   </a>
 
   <div class="flex items-center gap-4 leading-5 sm:space-x-6">
-    <Search client:load algolia={algolia} />
+    <Navigation client:load algolia={algolia} />
     <MobileNav client:visible />
   </div>
 </header>

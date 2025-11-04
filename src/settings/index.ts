@@ -30,7 +30,7 @@ export default {
     },
     {
       name: "npm",
-      link: "https://www.npmjs.com/settings/eduardoalvarez/packages",
+      link: "https://www.npmjs.com/~eduardoalvarez",
       show: true,
     },
     {
@@ -57,7 +57,7 @@ export default {
     },
     {
       name: "Instagram",
-      href: "https://www.instagram.com/eduardo_alvarez.dev",
+      href: "https://www.instagram.com/eduardoalvarez.dev",
       show: true,
     },
     {

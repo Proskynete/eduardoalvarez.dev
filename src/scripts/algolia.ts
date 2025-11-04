@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-import algoliasearch from "algoliasearch";
+import { algoliasearch } from "algoliasearch";
 import type { AstroIntegration } from "astro";
 import { readFileSync } from "fs";
 import { glob } from "glob";
@@ -38,7 +38,7 @@ export const publishAlgoliaRSS = () => {
 
         try {
           const articles = await glob("src/pages/articulos/**/*.mdx");
-          const posts = articles.map((article) => {
+          const objects = articles.map((article) => {
             const fileContent = readFileSync(article, "utf-8");
             const { data } = matter(fileContent);
 
@@ -49,14 +49,15 @@ export const publishAlgoliaRSS = () => {
               pubDate: new Date(data.date).toISOString(),
               link: `${config.url}/articulos/${data.slug}`,
               guid: `${config.url}/articulos/${data.slug}`,
+              slug: data.slug,
               author: config.author.name,
               image: data.image || `${config.url}/${data.seo_image}`,
             };
           });
 
           const client = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_ADMIN_API_KEY);
-          const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
-          await index.saveObjects(posts);
+          const indexName = process.env.ALGOLIA_INDEX_NAME;
+          await client.saveObjects({ indexName, objects });
           console.log(`${kleur.green("publishAlgoliaRSS: ")} Sent posts to Algolia... 🚀\n`);
         } catch (err) {
           console.log(`${kleur.red("publishAlgoliaRSS: ")} ${err}.\n`);
