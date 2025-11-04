@@ -38,7 +38,7 @@ export const publishAlgoliaRSS = () => {
 
         try {
           const articles = await glob("src/pages/articulos/**/*.mdx");
-          const posts = articles.map((article) => {
+          const objects = articles.map((article) => {
             const fileContent = readFileSync(article, "utf-8");
             const { data } = matter(fileContent);
 
@@ -56,7 +56,8 @@ export const publishAlgoliaRSS = () => {
           });
 
           const client = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_ADMIN_API_KEY);
-          await client.saveObjects({ indexName: process.env.ALGOLIA_INDEX_NAME, objects: posts });
+          const indexName = process.env.ALGOLIA_INDEX_NAME;
+          await client.saveObjects({ indexName, objects });
           console.log(`${kleur.green("publishAlgoliaRSS: ")} Sent posts to Algolia... 🚀\n`);
         } catch (err) {
           console.log(`${kleur.red("publishAlgoliaRSS: ")} ${err}.\n`);
