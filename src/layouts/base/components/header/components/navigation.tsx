@@ -12,7 +12,7 @@ interface NavigationProps {
   algolia?: {
     ALGOLIA_APPLICATION_ID?: string;
     ALGOLIA_INDEX_NAME?: string;
-    ALGOLIA_ADMIN_API_KEY?: string;
+    ALGOLIA_SEARCH_API_KEY?: string;
   };
 }
 
