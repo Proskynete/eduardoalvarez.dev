@@ -39,6 +39,7 @@ export default function Navigation({ algolia }: NavigationProps) {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [isInputVisible, setIsInputVisible] = useState(false);
   const searchClientRef = useRef<ReturnType<typeof algoliasearch> | null>(null);
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
@@ -158,6 +159,17 @@ export default function Navigation({ algolia }: NavigationProps) {
     setSelectedIndex(-1);
   };
 
+  const handleToggleSearch = () => {
+    setIsInputVisible((prev) => !prev);
+    if (isInputVisible) {
+      // Si se está ocultando, limpiar todo
+      setSearchQuery("");
+      setSearchResults([]);
+      setIsSearchOpen(false);
+      setSelectedIndex(-1);
+    }
+  };
+
   const renderHighlightedText = (text: string, query: string) => {
     if (!query.trim()) return text;
 
@@ -179,56 +191,66 @@ export default function Navigation({ algolia }: NavigationProps) {
 
   return (
     <div className="hidden sm:flex gap-3 items-center relative" ref={searchContainerRef}>
-      <p className="text-gray-100">cd</p>
-      {navItems
-        .filter((item) => item.show)
-        .map((item) => (
-          <a
-            key={item.name}
-            className={`font-medium sm:block transition ease-in-out duration-300 ${
-              pathname === item.href
-                ? "text-gray-100 cursor-default pointer-events-none"
-                : "text-gray-300 hover:text-gray-100 focus:outline-none focus:text-gray-100"
-            }`}
-            href={item.href}
-          >
-            {item.name}
-          </a>
-        ))}
+      {!isInputVisible && (
+        <>
+          <p className="text-gray-100">cd</p>
+          {navItems
+            .filter((item) => item.show)
+            .map((item) => (
+              <a
+                key={item.name}
+                className={`font-medium sm:block transition ease-in-out duration-300 ${
+                  pathname === item.href
+                    ? "text-gray-100 cursor-default pointer-events-none"
+                    : "text-gray-300 hover:text-gray-100 focus:outline-none focus:text-gray-100"
+                }`}
+                href={item.href}
+              >
+                {item.name}
+              </a>
+            ))}
+        </>
+      )}
 
-      <div className="relative ml-4 flex items-center pr-3 rounded-md bg-transparent border border-gray-700 focus-within:border-primary-600 transition-colors duration-300">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Buscar artículos..."
-            value={searchQuery}
-            onChange={(e) => handleSearch(e.target.value)}
-            onFocus={() => {
-              if (searchResults.length > 0) {
-                setIsSearchOpen(true);
-              }
-            }}
-            className="w-full bg-transparent border-0 focus:ring-0"
-          />
+      <div className="relative ml-1 flex items-center">
+        {isInputVisible && (
+          <div className="relative flex items-center pr-3 rounded-md bg-transparent border border-gray-700 focus-within:border-primary-600 transition-colors duration-300">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Buscar artículos..."
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+                onFocus={() => {
+                  if (searchResults.length > 0) {
+                    setIsSearchOpen(true);
+                  }
+                }}
+                className="w-64 bg-transparent border-0 focus:ring-0"
+                autoFocus
+              />
 
-          {searchQuery && (
-            <button
-              type="button"
-              onClick={handleClearSearch}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-100 transition-colors duration-200"
-              aria-label="Limpiar búsqueda"
-            >
-              <Icon.Close className="h-4 w-4" />
-            </button>
-          )}
-        </div>
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={handleClearSearch}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-100 transition-colors duration-200"
+                  aria-label="Limpiar búsqueda"
+                >
+                  <Icon.Close className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+          </div>
+        )}
 
         <button
           type="button"
-          className="ml-2 text-gray-300 hover:text-gray-100 transition-colors duration-200"
+          onClick={handleToggleSearch}
+          className={`text-gray-300 hover:text-gray-100 transition-colors duration-200 ${isInputVisible ? "ml-2" : ""}`}
           aria-label="Buscar"
         >
-          <Icon.Search className="h-6 w-6" />
+          {!isInputVisible ? <Icon.Search className="h-6 w-6" /> : <Icon.Close className="h-6 w-6" />}
         </button>
 
         {isSearchOpen && searchResults.length > 0 && (
