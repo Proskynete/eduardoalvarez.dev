@@ -1,6 +1,7 @@
 import { algoliasearch } from "algoliasearch";
 import { useEffect, useRef, useState } from "react";
 
+import { Icon } from "../../../../../assets/icons";
 import { navItems } from "../constants";
 
 interface NavigationProps {
@@ -18,6 +19,18 @@ interface SearchResult {
   description?: string;
   categories?: string[];
   link?: string;
+  _highlightResult?: {
+    title?: {
+      value: string;
+      matchLevel: string;
+      matchedWords: string[];
+    };
+    description?: {
+      value: string;
+      matchLevel: string;
+      matchedWords: string[];
+    };
+  };
 }
 
 export default function Navigation({ algolia }: NavigationProps) {
@@ -132,12 +145,36 @@ export default function Navigation({ algolia }: NavigationProps) {
   };
 
   const handleResultClick = () => {
-    // Cerrar el dropdown cuando se hace clic en un resultado
     setIsSearchOpen(false);
     setSearchQuery("");
     setSearchResults([]);
     setSelectedIndex(-1);
-    // Dejar que el enlace navegue naturalmente
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    setSearchResults([]);
+    setIsSearchOpen(false);
+    setSelectedIndex(-1);
+  };
+
+  const renderHighlightedText = (text: string, query: string) => {
+    if (!query.trim()) return text;
+
+    const parts = text.split(new RegExp(`(${query})`, "gi"));
+    return (
+      <>
+        {parts.map((part, index) =>
+          part.toLowerCase() === query.toLowerCase() ? (
+            <mark key={index} className="bg-yellow-400 text-gray-900 font-semibold">
+              {part}
+            </mark>
+          ) : (
+            part
+          ),
+        )}
+      </>
+    );
   };
 
   return (
@@ -159,24 +196,43 @@ export default function Navigation({ algolia }: NavigationProps) {
           </a>
         ))}
 
-      {/* Buscador */}
-      <div className="relative ml-4">
-        <input
-          type="text"
-          placeholder="Buscar artículos..."
-          value={searchQuery}
-          onChange={(e) => handleSearch(e.target.value)}
-          onFocus={() => {
-            if (searchResults.length > 0) {
-              setIsSearchOpen(true);
-            }
-          }}
-          className="px-3 py-1.5 bg-gray-900 border border-gray-700 rounded-md text-gray-100 placeholder-gray-500 focus:outline-none focus:border-gray-600 focus:ring-1 focus:ring-gray-600 text-sm w-48 transition ease-in-out duration-300"
-        />
+      <div className="relative ml-4 flex items-center pr-3 rounded-md bg-transparent border border-gray-700 focus-within:border-primary-600 transition-colors duration-300">
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Buscar artículos..."
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
+            onFocus={() => {
+              if (searchResults.length > 0) {
+                setIsSearchOpen(true);
+              }
+            }}
+            className="w-full bg-transparent border-0 focus:ring-0"
+          />
 
-        {/* Resultados/Hints */}
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={handleClearSearch}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-100 transition-colors duration-200"
+              aria-label="Limpiar búsqueda"
+            >
+              <Icon.Close className="h-4 w-4" />
+            </button>
+          )}
+        </div>
+
+        <button
+          type="button"
+          className="ml-2 text-gray-300 hover:text-gray-100 transition-colors duration-200"
+          aria-label="Buscar"
+        >
+          <Icon.Search className="h-6 w-6" />
+        </button>
+
         {isSearchOpen && searchResults.length > 0 && (
-          <div className="absolute top-full left-0 mt-2 w-96 bg-gray-900 border border-gray-700 rounded-md shadow-lg z-50 max-h-96 overflow-y-auto">
+          <div className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50 max-h-96 overflow-y-auto">
             {searchResults.map((result, index) => {
               const articleUrl = getArticleUrl(result);
               return (
@@ -184,17 +240,23 @@ export default function Navigation({ algolia }: NavigationProps) {
                   key={result.objectID}
                   href={articleUrl}
                   onClick={handleResultClick}
-                  className={`block w-full text-left px-4 py-3 hover:bg-gray-800 transition ease-in-out duration-200 border-b border-gray-800 last:border-b-0 cursor-pointer ${
-                    index === selectedIndex ? "bg-gray-800" : ""
+                  className={`block w-full text-left px-4 py-3 hover:bg-gray-700 transition ease-in-out duration-200 border-b border-gray-700 last:border-b-0 cursor-pointer ${
+                    index === selectedIndex ? "bg-gray-700" : ""
                   }`}
                   aria-label={`Ir al artículo: ${result.title}`}
                 >
-                  <div className="font-medium text-gray-100 text-sm mb-1">{result.title}</div>
-                  {result.description && <div className="text-xs text-gray-400 line-clamp-2">{result.description}</div>}
+                  <div className="font-semibold text-gray-100 text-sm mb-1">
+                    {renderHighlightedText(result.title, searchQuery)}
+                  </div>
+                  {result.description && (
+                    <div className="text-xs text-gray-400 line-clamp-2">
+                      {renderHighlightedText(result.description, searchQuery)}
+                    </div>
+                  )}
                   {result.categories && result.categories.length > 0 && (
                     <div className="flex gap-2 mt-2">
                       {result.categories.slice(0, 3).map((category) => (
-                        <span key={category} className="text-xs px-2 py-0.5 bg-gray-800 text-gray-400 rounded">
+                        <span key={category} className="text-xs px-2 py-0.5 bg-gray-700 text-gray-400 rounded">
                           {category}
                         </span>
                       ))}
