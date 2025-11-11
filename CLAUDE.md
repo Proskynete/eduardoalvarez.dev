@@ -35,35 +35,42 @@ npm run astro -- [command]
 ### Directory Structure
 
 **`src/pages/`** - File-based routing following Astro conventions
-- `articulos/` - Blog articles as MDX files with dynamic pagination
+- `articulos/` - Blog articles as MDX files with dynamic pagination via `[...page].astro`
+- `articulos/*.mdx` - Individual blog articles
 - `charlas-talleres/` - Talks and workshops page
 - `api/` - Serverless endpoints (subscribe, create-new-post)
-- `admin/` - Admin dashboard (post creation)
+- `admin/` - Admin dashboard for creating new blog posts
+- `rss.xml.ts` - RSS feed generation
 
 **`src/layouts/`** - Page layout templates
-- `base/index.astro` - Main wrapper with header, footer, SEO
-- `article/index.astro` - Blog article layout with sidebar and TOC
+- `base/index.astro` - Main wrapper with header, footer, SEO, and Algolia config
+- `article/index.astro` - Blog article layout with sidebar, TOC, Giscus comments, and share button
 - `admin/index.astro` - Admin dashboard layout
+- `main/index.astro` - Main page layout
 
 **`src/components/`** - Reusable React and Astro components
-- Features grouped by purpose: `article/`, `project/`, `pagination/`, `search-*/`, `dropdown/`, etc.
-- Each component has `index.astro` or `index.tsx` entry point
+- `article/` - Article card component
+- `pagination/` - Pagination controls
+- `dropdown/` - Dropdown menu (React)
+- `scrolling-progress-bar/` - Reading progress indicator (React)
+- `subscribe/` - Newsletter subscription form
+- `project/` - Project card component (currently hidden from display)
 
 **`src/utils/`** - Pure utility functions
-- `articles.ts` - Sort/filter articles, generate GitHub links
+- `articles.ts` - Sort articles by date, generate GitHub edit links
 - `categories.ts` - Category management
 - `date.ts` - Date calculations
 - `reading-time.ts` - Calculate reading time for articles
 - `strings.ts` - String manipulation
 
 **`src/settings/`** - Configuration and data
-- `index.ts` - Main site config (title, social links, SEO defaults)
+- `index.ts` - Main site config (title, social links, SEO defaults, contacts)
 - `manifest-config.ts` - PWA web manifest
 - `talks.ts` - Talks/workshops data
-- `projects.ts` - Project data (currently hidden from display per roadmap)
+- `projects.ts` - Project data (currently hidden from display)
 
 **`src/interfaces/index.ts`** - TypeScript type definitions
-- Core types: `Article`, `CategoryAllowed`, `Talk`, etc.
+- Core types: `Article`, `CategoryAllowed`, `ArticleLayout`, `Section`
 
 **`src/scripts/algolia.ts`** - Custom Astro integration
 - Hooks into build process (`astro:build:generated`)
@@ -73,33 +80,42 @@ npm run astro -- [command]
 
 ### Design Patterns
 
-**Layout Composition**: Nested layouts inherit from `BaseLayout`, which includes SEO head, header with search, and footer.
+**Layout Composition**: Nested layouts inherit from `BaseLayout` (src/layouts/base/index.astro), which includes SEO head, header with Algolia search, and footer. Article layout extends base layout and adds sidebar with TOC, Giscus comments, and share functionality.
 
-**Component Organization**: Feature-based grouping with subdirectories for nested components. Example: `header/` contains `Header` component plus `header/components/` for internal components.
+**Component Organization**: Feature-based grouping. Astro components use `.astro` extension, React components use `.tsx`. Interactive components (search, dropdown, progress bar) are React; static components are Astro.
 
-**Data Structure**: Article metadata in MDX frontmatter (title, date, categories, description, cover image). Use types from `src/interfaces/index.ts` for consistency.
+**Data Structure**: Article metadata in MDX frontmatter with these required fields:
+- `layout`: Path to layout file (e.g., `../../layouts/article/index.astro`)
+- `title`: Article title
+- `slug`: URL-friendly identifier
+- `description`: SEO description
+- `date`: Publication date (ISO format)
+- `categories`: Array of `CategoryAllowed` types
+- `seo_image`: Path to social media image
+- `sections`: Array of `{title, anchor}` for table of contents
 
-**Utility Functions**: Pure functions for sorting, filtering, and formatting. Centralized config in `src/settings/index.ts`.
+**Utility Functions**: Pure functions for sorting (`articlesSort`), filtering, and formatting. All utilities import centralized config from `src/settings/index.ts`.
 
 ## Key Technologies & Integrations
 
 | Technology | Purpose |
 |---|---|
-| **Astro** | Static site generation with SSR via Vercel |
-| **React 19** | Interactive components |
-| **TypeScript 5.3** | Type safety (strict mode enabled) |
-| **Tailwind CSS 3.4** | Utility-first styling |
-| **MDX** | Blog content as code |
-| **Algolia** | Full-text search with custom build integration |
-| **Giscus** | GitHub Discussions-based comments |
-| **Mailchimp** | Newsletter subscription backend |
-| **Vercel** | Hosting with SSR and analytics |
+| **Astro 5** | Static site generation with SSR via Vercel adapter |
+| **React 19** | Interactive components (search, dropdown, progress bar) |
+| **TypeScript 5.3** | Type safety (strict mode with `strictNullChecks: true`) |
+| **Tailwind CSS 3.4** | Utility-first styling with typography and forms plugins |
+| **MDX** | Blog content with embedded React components |
+| **Algolia** | Full-text search with custom build integration (src/scripts/algolia.ts) |
+| **Giscus** | GitHub Discussions-based comments (@giscus/react) |
+| **Mailchimp** | Newsletter subscription backend (via api/subscribe.ts) |
+| **Vercel** | Hosting with SSR, analytics, and serverless functions |
 
 **Additional Features**:
-- PWA support (web manifest, service worker)
+- PWA support (web manifest via astro-webmanifest, service worker via astrojs-service-worker)
 - Auto-generated sitemap and RSS feed
 - Image optimization
 - Shiki syntax highlighting (Monokai theme)
+- Partytown for off-thread analytics scripts
 
 ## Common Development Tasks
 
@@ -109,30 +125,47 @@ npm run astro -- [command]
 2. Add frontmatter with required fields:
    ```yaml
    ---
+   layout: ../../layouts/article/index.astro
    title: "Article Title"
-   date: 2025-11-04
-   categories: ["web-development", "javascript"]
+   slug: "article-title"
    description: "Brief summary for SEO"
-   cover_image: "https://example.com/image.png"
+   date: 2025-11-04T12:00:00-03:00
+   categories: ["web-development", "javascript"]
+   seo_image: /images/articulos/my-article/cover.webp
+   sections:
+     [
+       { title: 'Section 1', anchor: 'section-1' },
+       { title: 'Section 2', anchor: 'section-2' },
+     ]
    ---
    ```
-3. Write content in MDX format
-4. On build, the article is automatically indexed in Algolia
+3. Write content in MDX format with heading IDs matching section anchors
+4. On build, the article is automatically indexed in Algolia (via src/scripts/algolia.ts)
+
+**Note**: Categories must be one of the allowed types defined in `src/interfaces/index.ts`: `web-development`, `javascript`, `react`, `vue`, `astro`, `node`, `express`, `sql`, `no-sql`.
+
+### Using the Admin Dashboard
+
+The admin dashboard (src/pages/admin/index.astro) provides a UI for creating new blog posts. It uses:
+- `api/create-new-post.ts` - Serverless endpoint that generates MDX files from template
+- `admin/template.mdx.tpl` - Template for new articles
 
 ### Creating a New Component
 
 1. Create folder in `src/components/feature-name/`
-2. Create `index.astro` or `index.tsx`
+2. Create `index.astro` (static) or `index.tsx` (interactive)
 3. Use TypeScript for type safety
-4. Import in layout or parent component as needed
+4. Import in layout or parent component
+5. For React components that need interactivity, use client directives (`client:load`, `client:visible`)
 
 ### Updating Site Configuration
 
 Edit `src/settings/index.ts` to update:
-- Site title and description
-- Social media links
+- Site title, description, and keywords
+- Social media links (social_network array)
+- Contact information (contacts array)
 - Author information
-- SEO defaults
+- SEO defaults and URLs
 
 ### Debugging Build Issues
 
@@ -140,16 +173,28 @@ Run `astro check` to validate TypeScript without building. This catches type err
 
 ## Code Style & Quality
 
-**Linting Rules**:
-- Import sorting enforced via `simple-import-sort`
-- React components don't require `React` import (JSX transform)
+**Linting Rules** (.eslintrc.cjs):
+- Import sorting enforced via `simple-import-sort` plugin
+- React components don't require `React` import (JSX transform enabled)
 - TypeScript strict mode enabled (`strictNullChecks: true`)
-- Prettier formatting: 2-space tabs, semicolons, 120 character line width
+- No duplicate imports allowed
+- `any` types and empty functions are allowed (overrides default TS rules)
+
+**Prettier Formatting** (.prettierrc):
+- 2-space indentation (tabWidth: 2)
+- Semicolons required (semi: true)
+- Bracket spacing enabled
+- 120 character line width (printWidth: 120)
 
 **Commit Messages**:
-- Follows Conventional Commits (enforced by commitlint)
+- Follows Conventional Commits (enforced by commitlint via husky)
 - Format: `type(scope): description`
-- Types: feat, fix, refactor, perf, docs, chore, etc.
+- Common types: feat, fix, refactor, perf, docs, chore, style, test
+- Enforced via `.husky/commit-msg` hook
+
+**Pre-commit Hooks**:
+- Husky runs lint-staged before commits
+- Lints and auto-fixes staged files via `.husky/pre-commit`
 
 **Environment Variables**:
 - `.env.local` for local development (not in version control)
@@ -160,16 +205,24 @@ Run `astro check` to validate TypeScript without building. This catches type err
 
 ## Architecture Decisions
 
-1. **MDX for Content**: Allows mixing markdown with React components for rich content.
-2. **Algolia for Search**: Client-side search without backend queries; indexed at build time.
-3. **Giscus for Comments**: Leverages GitHub Discussions, no separate comment backend needed.
-4. **Vercel Deployment**: Automatic deployments from git, built-in analytics, serverless functions support.
-5. **Astro + React**: Astro handles static content and routing; React for interactive features only (search, dropdowns).
+1. **MDX for Content**: Allows mixing markdown with React components for rich, interactive content in articles.
+
+2. **Algolia for Search**: Client-side search without backend queries; indexed at build time via custom integration (src/scripts/algolia.ts) that hooks into `astro:build:generated`.
+
+3. **Giscus for Comments**: Leverages GitHub Discussions, no separate comment backend needed. Comments are embedded per-article using the article slug.
+
+4. **Vercel Deployment**: Automatic deployments from git, built-in analytics, serverless functions support for API endpoints. SSR enabled via `output: "server"` and Vercel adapter.
+
+5. **Astro + React Hybrid**: Astro handles static content and routing with file-based routing; React for interactive features only (search with Downshift, dropdowns, progress bar). Interactive components use client directives.
+
+6. **Layout System**: BaseLayout provides common structure (header with search, footer); ArticleLayout extends it with article-specific features (sidebar, TOC from sections, Giscus, share button).
 
 ## Performance Considerations
 
-- **Inline Critical CSS**: All styles inlined to avoid render-blocking
-- **Service Worker**: Enables offline fallback
-- **Image Optimization**: Astro Image component auto-optimizes
-- **Shiki Syntax Highlighting**: Server-side highlighting, no client JS
-- **Partytown**: Analytics scripts run off main thread
+- **Inline Critical CSS**: All styles inlined via `inlineStylesheets: "always"` to avoid render-blocking
+- **Service Worker**: Enables offline fallback via astrojs-service-worker
+- **Image Optimization**: Astro Image component auto-optimizes images
+- **Shiki Syntax Highlighting**: Server-side highlighting, no client JS needed
+- **Partytown**: Analytics scripts run off main thread to avoid blocking
+- **HTML Compression**: Enabled via `compressHTML: true` in astro.config
+- **Prefetching**: Enabled for faster navigation via `prefetch: true`
