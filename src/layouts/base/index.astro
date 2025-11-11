@@ -11,10 +11,11 @@ export interface Props {
   seo?: BaseHeadProps;
 }
 
+// Usar Search-Only API Key para el cliente (solo lectura)
 const algolia = {
-  ALGOLIA_ADMIN_API_KEY: import.meta.env.ALGOLIA_ADMIN_API_KEY,
-  ALGOLIA_APPLICATION_ID: import.meta.env.ALGOLIA_APPLICATION_ID,
-  ALGOLIA_INDEX_NAME: import.meta.env.ALGOLIA_INDEX_NAME,
+  ALGOLIA_SEARCH_API_KEY: import.meta.env.PUBLIC_ALGOLIA_SEARCH_API_KEY,
+  ALGOLIA_APPLICATION_ID: import.meta.env.PUBLIC_ALGOLIA_APPLICATION_ID,
+  ALGOLIA_INDEX_NAME: import.meta.env.PUBLIC_ALGOLIA_INDEX_NAME,
 } as const;
 
 const { seo } = Astro.props;

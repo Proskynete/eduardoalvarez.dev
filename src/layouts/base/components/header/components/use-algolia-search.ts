@@ -13,7 +13,7 @@ interface SearchResult {
 interface AlgoliaConfig {
   ALGOLIA_APPLICATION_ID?: string;
   ALGOLIA_INDEX_NAME?: string;
-  ALGOLIA_ADMIN_API_KEY?: string;
+  ALGOLIA_SEARCH_API_KEY?: string; // Search-Only API Key (read-only)
 }
 
 export function useAlgoliaSearch(algolia?: AlgoliaConfig) {
@@ -22,8 +22,9 @@ export function useAlgoliaSearch(algolia?: AlgoliaConfig) {
   const searchClientRef = useRef<ReturnType<typeof algoliasearch> | null>(null);
 
   useEffect(() => {
-    if (algolia?.ALGOLIA_ADMIN_API_KEY && algolia?.ALGOLIA_APPLICATION_ID && algolia?.ALGOLIA_INDEX_NAME) {
-      searchClientRef.current = algoliasearch(algolia.ALGOLIA_APPLICATION_ID, algolia.ALGOLIA_ADMIN_API_KEY);
+    if (algolia?.ALGOLIA_SEARCH_API_KEY && algolia?.ALGOLIA_APPLICATION_ID && algolia?.ALGOLIA_INDEX_NAME) {
+      // Usar Search-Only API Key (solo lectura) para el cliente
+      searchClientRef.current = algoliasearch(algolia.ALGOLIA_APPLICATION_ID, algolia.ALGOLIA_SEARCH_API_KEY);
     }
   }, [algolia]);
 
