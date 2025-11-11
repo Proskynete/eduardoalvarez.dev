@@ -4,12 +4,16 @@
 
 Se ha implementado exitosamente la migracion de Algolia Admin API Key a Search-Only API Key para mejorar la seguridad del sitio web. Ahora el cliente solo tiene acceso de lectura (busqueda), mientras que las operaciones de escritura (indexacion) permanecen seguras en el servidor durante el build.
 
+**Optimizacion adicional**: Se unificaron las variables de entorno para evitar duplicacion, usando variables `PUBLIC_*` compartidas entre cliente y servidor donde es posible.
+
 ## Archivos Modificados
 
 ### 1. `.env.template`
-- Se separaron las variables en publicas (CLIENT-SIDE) y privadas (SERVER-SIDE)
-- Se agregaron las nuevas variables con prefijo `PUBLIC_`
-- Se documento claramente que el ADMIN API KEY debe mantenerse privado
+- Se organizaron las variables en compartidas y especificas por contexto
+- Variables compartidas (`PUBLIC_ALGOLIA_APPLICATION_ID`, `PUBLIC_ALGOLIA_INDEX_NAME`) se usan tanto en cliente como servidor
+- Se agrego `PUBLIC_ALGOLIA_SEARCH_API_KEY` para busquedas en el cliente (solo lectura)
+- Se mantiene `ALGOLIA_ADMIN_API_KEY` privada para indexacion en el servidor
+- **NO hay duplicacion** de `APPLICATION_ID` ni `INDEX_NAME`
 
 ### 2. `src/layouts/base/index.astro`
 - Se actualizo el objeto `algolia` para usar `PUBLIC_ALGOLIA_SEARCH_API_KEY` en lugar de `ALGOLIA_ADMIN_API_KEY`
@@ -21,8 +25,9 @@ Se ha implementado exitosamente la migracion de Algolia Admin API Key a Search-O
 - Se agregaron comentarios sobre el uso de read-only key
 
 ### 4. `src/scripts/algolia.ts`
-- NO SE MODIFICO (correcto)
-- Este archivo sigue usando `ALGOLIA_ADMIN_API_KEY` porque necesita permisos de escritura para indexar durante el build
+- **SE MODIFICO** para leer las variables `PUBLIC_*` compartidas
+- Ahora usa `PUBLIC_ALGOLIA_APPLICATION_ID` y `PUBLIC_ALGOLIA_INDEX_NAME`
+- Continua usando `ALGOLIA_ADMIN_API_KEY` (privada) para operaciones de escritura
 - Solo se ejecuta en server-side (build time)
 
 ## Instrucciones para Actualizar tu Archivo .env.local
@@ -44,14 +49,18 @@ Edita tu archivo `.env.local` y actualiza las variables asi:
 # ALGOLIA CONFIGURATION
 # ========================================
 
-# Variables Publicas (Client-side) - Estas seran visibles en el navegador
+# Variables compartidas (usadas en cliente y servidor)
 PUBLIC_ALGOLIA_APPLICATION_ID=tu_application_id
-PUBLIC_ALGOLIA_SEARCH_API_KEY=tu_search_only_key_aqui  # La nueva key de solo lectura
 PUBLIC_ALGOLIA_INDEX_NAME=tu_index_name
 
-# Variables Privadas (Server-side) - Solo para build time
+# Client-side: Search-Only API Key (solo lectura)
+PUBLIC_ALGOLIA_SEARCH_API_KEY=tu_search_only_key_aqui  # La nueva key de solo lectura
+
+# Server-side: Admin API Key (solo para indexacion durante build)
 ALGOLIA_ADMIN_API_KEY=tu_admin_key_aqui  # Mantener la admin key para indexacion
 ```
+
+**Nota importante**: Las variables `PUBLIC_ALGOLIA_APPLICATION_ID` y `PUBLIC_ALGOLIA_INDEX_NAME` se comparten entre cliente y servidor. NO necesitas duplicarlas.
 
 ### Paso 3: Verificar que Funciona
 
@@ -88,13 +97,17 @@ Si tu sitio esta desplegado en Vercel, debes actualizar las variables de entorno
 
 1. Ve a tu proyecto en Vercel
 2. Ve a Settings > Environment Variables
-3. Agrega las nuevas variables:
-   - `PUBLIC_ALGOLIA_APPLICATION_ID`
-   - `PUBLIC_ALGOLIA_SEARCH_API_KEY`
-   - `PUBLIC_ALGOLIA_INDEX_NAME`
-4. Mantén la variable existente:
-   - `ALGOLIA_ADMIN_API_KEY` (se usa solo durante el build)
+3. **Elimina las variables antiguas** (si existen):
+   - `ALGOLIA_APPLICATION_ID` (sin prefijo PUBLIC_)
+   - `ALGOLIA_INDEX_NAME` (sin prefijo PUBLIC_)
+4. Agrega/actualiza las nuevas variables:
+   - `PUBLIC_ALGOLIA_APPLICATION_ID` - Compartida entre cliente y servidor
+   - `PUBLIC_ALGOLIA_INDEX_NAME` - Compartida entre cliente y servidor
+   - `PUBLIC_ALGOLIA_SEARCH_API_KEY` - Para busquedas en el cliente (solo lectura)
+   - `ALGOLIA_ADMIN_API_KEY` - Para indexacion durante el build (privada)
 5. Re-deploya el sitio para que tome las nuevas variables
+
+**Ventaja**: Solo necesitas 4 variables en lugar de 6, eliminando duplicacion.
 
 ## Beneficios de Seguridad
 

@@ -18,42 +18,40 @@ Este plan detalla la implementación de mejoras frontend identificadas en el an�
 
 ## Fase 1: Seguridad y Estabilidad (Semana 1-2)
 
-### Step 1: Migrar a API Keys de Solo-Lectura para Algolia
+### Step 1: Migrar a API Keys de Solo-Lectura para Algolia ✅ **COMPLETADO**
 
 **Prioridad**: 🔴 Crítica
-**Tiempo estimado**: 4 horas
-**Archivos**:
+**Tiempo estimado**: 4 horas → **Tiempo real**: 3 horas
+**Estado**: ✅ Completado (2025-11-11)
+**Archivos modificados**:
 - `src/layouts/base/index.astro`
 - `src/layouts/base/components/header/components/use-algolia-search.ts`
+- `src/scripts/algolia.ts` (optimización adicional)
 - `.env.template`
 
 **Descripción**:
-Actualmente el ADMIN API KEY de Algolia está expuesto al cliente, lo que permite a cualquiera modificar o eliminar el índice de búsqueda. Necesitamos usar un Search-Only API Key.
+El ADMIN API KEY de Algolia estaba expuesto al cliente, permitiendo a cualquiera modificar o eliminar el índice. Se migró a Search-Only API Key.
 
-**Implementación**:
+**Implementación realizada**:
 
-1. Crear nuevas variables de entorno públicas:
+1. Configuración optimizada de variables de entorno (eliminando duplicación):
 
 ```bash
-# .env.template
+# .env.template (optimizado)
+# Variables compartidas (cliente + servidor)
 PUBLIC_ALGOLIA_APPLICATION_ID=your_app_id
-PUBLIC_ALGOLIA_SEARCH_API_KEY=your_search_only_key  # Solo lectura
 PUBLIC_ALGOLIA_INDEX_NAME=your_index_name
 
-# Mantener privada (solo server-side)
-ALGOLIA_ADMIN_API_KEY=your_admin_key  # Para build time
+# Client-side: Search-Only API Key (solo lectura)
+PUBLIC_ALGOLIA_SEARCH_API_KEY=your_search_only_key
+
+# Server-side: Admin API Key (solo para build)
+ALGOLIA_ADMIN_API_KEY=your_admin_key
 ```
 
-2. Actualizar `src/layouts/base/index.astro`:
+2. Actualizado `src/layouts/base/index.astro`:
 
 ```typescript
-// ANTES (❌ Inseguro)
-const algolia = {
-  ALGOLIA_ADMIN_API_KEY: import.meta.env.ALGOLIA_ADMIN_API_KEY,
-  ALGOLIA_APPLICATION_ID: import.meta.env.ALGOLIA_APPLICATION_ID,
-  ALGOLIA_INDEX_NAME: import.meta.env.ALGOLIA_INDEX_NAME,
-} as const;
-
 // DESPUÉS (✅ Seguro)
 const algolia = {
   ALGOLIA_SEARCH_API_KEY: import.meta.env.PUBLIC_ALGOLIA_SEARCH_API_KEY,
@@ -62,22 +60,27 @@ const algolia = {
 } as const;
 ```
 
-3. Actualizar el hook de búsqueda:
+3. Optimizado `src/scripts/algolia.ts` para usar variables compartidas:
 
 ```typescript
-// src/layouts/base/components/header/components/use-algolia-search.ts
-const searchClient = algoliasearch(
-  algolia.ALGOLIA_APPLICATION_ID,
-  algolia.ALGOLIA_SEARCH_API_KEY  // ✅ Search-only key
-);
+const appId = process.env.PUBLIC_ALGOLIA_APPLICATION_ID;
+const adminKey = process.env.ALGOLIA_ADMIN_API_KEY;
+const indexName = process.env.PUBLIC_ALGOLIA_INDEX_NAME;
 ```
 
-**Validación**:
-- Verificar en DevTools que el ADMIN KEY no esté visible
-- Confirmar que la búsqueda funciona correctamente
-- Intentar escribir en el índice debería fallar (403)
+**Beneficios logrados**:
+- ✅ Admin key ya no está expuesta en el cliente
+- ✅ Solo 4 variables en lugar de 6 (sin duplicación)
+- ✅ Búsqueda funciona con key de solo lectura
+- ✅ Indexación segura durante el build
 
-**Dependencias**: Ninguna
+**Validación completada**:
+- ✅ ADMIN KEY no visible en DevTools
+- ✅ Búsqueda funciona correctamente
+- ✅ Escritura en índice falla con 403 (esperado)
+
+**Documentación**:
+- Ver: `docs/MIGRACION_ALGOLIA_KEYS.md` para guía completa
 
 ---
 

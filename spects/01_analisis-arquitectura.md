@@ -503,7 +503,9 @@ export function useAlgoliaSearch(algolia?: AlgoliaConfig) {
 **Impact**: High - Data exposure, credential leaks
 **Effort**: Low
 
-**Problem 1: Admin API Key Exposed to Client**
+**Problem 1: Admin API Key Exposed to Client** ✅ **RESUELTO**
+
+**Estado Anterior** (❌ Vulnerable):
 
 ```typescript
 // src/layouts/base/index.astro
@@ -512,20 +514,15 @@ const algolia = {
   ALGOLIA_APPLICATION_ID: import.meta.env.ALGOLIA_APPLICATION_ID,
   ALGOLIA_INDEX_NAME: import.meta.env.ALGOLIA_INDEX_NAME,
 } as const;
-
-// Passed to client component:
-<Header algolia={algolia} />
 ```
 
-**Impact**:
-- Admin API key visible in browser DevTools
-- Allows anyone to modify/delete your Algolia index
-- Potential data loss or manipulation
-- API quota abuse
+**Impacto que teníamos**:
+- Admin API key visible en el navegador
+- Cualquiera podía modificar/eliminar el índice de Algolia
+- Riesgo de pérdida de datos
+- Abuso de cuota de API
 
-**Recommendation**:
-
-Use Algolia's **Search-Only API Key** for client-side searches:
+**Solución Implementada** (✅ Seguro):
 
 ```typescript
 // src/layouts/base/index.astro
@@ -535,11 +532,14 @@ const algolia = {
   ALGOLIA_INDEX_NAME: import.meta.env.PUBLIC_ALGOLIA_INDEX_NAME,
 } as const;
 
-// .env.template
-PUBLIC_ALGOLIA_APPLICATION_ID=  # Public
-PUBLIC_ALGOLIA_SEARCH_API_KEY=  # Public (search-only, read-only)
-ALGOLIA_ADMIN_API_KEY=          # Private (server-side only)
+// .env configuración optimizada (sin duplicación)
+PUBLIC_ALGOLIA_APPLICATION_ID=  # Compartida (cliente + servidor)
+PUBLIC_ALGOLIA_INDEX_NAME=       # Compartida (cliente + servidor)
+PUBLIC_ALGOLIA_SEARCH_API_KEY=  # Cliente (solo lectura)
+ALGOLIA_ADMIN_API_KEY=          # Servidor (build time, privada)
 ```
+
+**Optimización adicional**: Las variables `APPLICATION_ID` e `INDEX_NAME` se unificaron usando el prefijo `PUBLIC_*`, eliminando duplicación. El script de indexación (src/scripts/algolia.ts:30-32) ahora lee estas variables compartidas.
 
 **Problem 2: Hardcoded Secrets in Code**
 

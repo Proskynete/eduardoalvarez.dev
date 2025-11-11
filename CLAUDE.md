@@ -76,7 +76,7 @@ npm run astro -- [command]
 - Hooks into build process (`astro:build:generated`)
 - Extracts article metadata from MDX frontmatter
 - Publishes index to Algolia for search functionality
-- Requires env vars: `ALGOLIA_APPLICATION_ID`, `ALGOLIA_ADMIN_API_KEY`, `ALGOLIA_INDEX_NAME`
+- Requires env vars: `PUBLIC_ALGOLIA_APPLICATION_ID`, `PUBLIC_ALGOLIA_INDEX_NAME`, `ALGOLIA_ADMIN_API_KEY`
 
 ### Design Patterns
 
@@ -197,11 +197,12 @@ Run `astro check` to validate TypeScript without building. This catches type err
 - Lints and auto-fixes staged files via `.husky/pre-commit`
 
 **Environment Variables**:
-- `.env.local` for local development (not in version control)
+- `.env` or `.env.local` for local development (not in version control)
 - Required for Algolia integration:
-  - `ALGOLIA_APPLICATION_ID`
-  - `ALGOLIA_ADMIN_API_KEY`
-  - `ALGOLIA_INDEX_NAME`
+  - `PUBLIC_ALGOLIA_APPLICATION_ID` - Application ID (shared between client and server)
+  - `PUBLIC_ALGOLIA_INDEX_NAME` - Index name (shared between client and server)
+  - `PUBLIC_ALGOLIA_SEARCH_API_KEY` - Search-only API key for client-side searches (read-only)
+  - `ALGOLIA_ADMIN_API_KEY` - Admin API key for server-side indexing during build (private, keep secret)
 
 ## Architecture Decisions
 
