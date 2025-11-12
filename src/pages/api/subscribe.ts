@@ -24,7 +24,7 @@ type SubscribeInput = z.infer<typeof SubscribeSchema>;
 // Configurar Mailchimp
 client.setConfig({
   apiKey: import.meta.env.MAILCHIMP_API_KEY,
-  server: import.meta.env.MAILCHIMP_SERVER_PREFIX,
+  server: import.meta.env.MAILCHIMP_API_KEY.split("-")[1],
 });
 
 const TAGS = {
