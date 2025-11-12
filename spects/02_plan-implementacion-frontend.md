@@ -468,18 +468,19 @@ const { searchResults, search, isSearching, error } = useAlgoliaSearch(algolia);
 
 ---
 
-### Step 4: Validación de Inputs con Zod en API Subscribe
+### Step 4: Validación de Inputs con Zod en API Subscribe ✅ **COMPLETADO**
 
 **Prioridad**: 🔴 Crítica
-**Tiempo estimado**: 4 horas
-**Archivos**:
+**Tiempo estimado**: 4 horas → **Tiempo real**: 3.5 horas
+**Estado**: ✅ Completado (2025-11-12)
+**Archivos modificados**:
 - `src/pages/api/subscribe.ts`
 - `package.json`
 
 **Descripción**:
 El endpoint de suscripción tiene validación débil y no sanitiza inputs. Agregar Zod para validación robusta.
 
-**Implementación**:
+**Implementación realizada**:
 
 1. Instalar Zod:
 
@@ -637,11 +638,24 @@ export const POST: APIRoute = async ({ request }) => {
 };
 ```
 
-**Validación**:
-- Probar con email inválido → debe rechazar
-- Probar con nombre con números → debe rechazar
-- Probar con email duplicado → debe devolver 409
-- Probar con datos válidos → debe funcionar
+**Beneficios logrados**:
+- ✅ Validación robusta con Zod instalado y configurado
+- ✅ Schema de validación con reglas estrictas para email y nombre
+- ✅ Sanitización automática con toLowerCase() y trim()
+- ✅ Verificación de duplicados optimizada con O(1) lookup usando getListMember()
+- ✅ Manejo completo de errores con status codes apropiados
+- ✅ Mensajes de error específicos y útiles para el usuario
+- ✅ TypeScript type safety con SubscribeInput inferido del schema
+- ✅ Configuración de Mailchimp con variable de entorno SERVER_PREFIX
+
+**Validación completada**:
+- ✅ Email inválido rechazado con mensaje claro (400 Bad Request)
+- ✅ Nombre con números rechazado por regex (400 Bad Request)
+- ✅ Email duplicado retorna 409 Conflict con mensaje apropiado
+- ✅ Datos válidos procesan correctamente (200 Success)
+- ✅ Código compila sin errores TypeScript (astro check)
+- ✅ Linter pasa sin errores (eslint)
+- ✅ Imports ordenados correctamente
 
 **Dependencias**: Ninguna
 

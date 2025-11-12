@@ -38,7 +38,9 @@ npm run astro -- [command]
 - `articulos/` - Blog articles as MDX files with dynamic pagination via `[...page].astro`
 - `articulos/*.mdx` - Individual blog articles
 - `charlas-talleres/` - Talks and workshops page
-- `api/` - Serverless endpoints (subscribe, create-new-post)
+- `api/` - Serverless endpoints with Zod validation
+  - `subscribe.ts` - Newsletter subscription with robust input validation (email, name)
+  - `create-new-post.ts` - Admin endpoint for creating new blog posts
 - `admin/` - Admin dashboard for creating new blog posts
 - `rss.xml.ts` - RSS feed generation
 
@@ -108,6 +110,7 @@ npm run astro -- [command]
 | **Algolia** | Full-text search with custom build integration (src/scripts/algolia.ts) |
 | **Giscus** | GitHub Discussions-based comments (@giscus/react) |
 | **Mailchimp** | Newsletter subscription backend (via api/subscribe.ts) |
+| **Zod** | Schema validation and type inference for API endpoints |
 | **Vercel** | Hosting with SSR, analytics, and serverless functions |
 
 **Additional Features**:
@@ -149,6 +152,57 @@ npm run astro -- [command]
 The admin dashboard (src/pages/admin/index.astro) provides a UI for creating new blog posts. It uses:
 - `api/create-new-post.ts` - Serverless endpoint that generates MDX files from template
 - `admin/template.mdx.tpl` - Template for new articles
+
+### Working with API Endpoints
+
+API endpoints in `src/pages/api/` use Zod for input validation. Example pattern:
+
+```typescript
+import { z } from 'zod';
+import type { APIRoute } from 'astro';
+
+// 1. Define validation schema
+const InputSchema = z.object({
+  email: z.string().email().toLowerCase().trim(),
+  name: z.string().min(2).max(50).trim(),
+});
+
+type Input = z.infer<typeof InputSchema>;
+
+// 2. Validate in endpoint
+export const POST: APIRoute = async ({ request }) => {
+  try {
+    const body = await request.json();
+    const validatedData: Input = InputSchema.parse(body);
+
+    // 3. Use validated data
+    // ...
+
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return new Response(JSON.stringify({
+        success: false,
+        message: error.errors[0].message,
+        errors: error.errors,
+      }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    // Handle other errors...
+  }
+};
+```
+
+**Subscribe API** (`src/pages/api/subscribe.ts`):
+- Validates email (format, length, sanitization) and name (length, letters only, including accents)
+- Uses `getListMember()` for O(1) duplicate checking
+- Returns proper status codes: 400 (validation), 409 (duplicate), 200 (success), 500 (server error)
+- See `docs/VALIDACION_ZOD_API_SUBSCRIBE.md` for detailed documentation
 
 ### Creating a New Component
 
