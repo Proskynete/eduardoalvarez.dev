@@ -55,7 +55,7 @@ npm run astro -- [command]
 - `pagination/` - Pagination controls
 - `dropdown/` - Dropdown menu (React)
 - `scrolling-progress-bar/` - Reading progress indicator (React)
-- `subscribe/` - Newsletter subscription form
+- `subscribe/` - Newsletter subscription form with error handling, loading states, and field validation
 - `project/` - Project card component (currently hidden from display)
 
 **`src/utils/`** - Pure utility functions
@@ -203,6 +203,30 @@ export const POST: APIRoute = async ({ request }) => {
 - Uses `getListMember()` for O(1) duplicate checking
 - Returns proper status codes: 400 (validation), 409 (duplicate), 200 (success), 500 (server error)
 - See `docs/VALIDACION_ZOD_API_SUBSCRIBE.md` for detailed documentation
+
+### Working with the Subscribe Form
+
+The newsletter subscription form (`src/components/subscribe/index.astro`) has complete error handling and state management:
+
+**Features**:
+- HTML5 validation (required, minlength, maxlength, type)
+- Loading state with spinner and disabled inputs
+- Success state with auto-hide after 5 seconds
+- Error state with field-specific messages
+- Automatic error cleanup when typing
+- Dark theme consistent with site design
+
+**States handled**:
+- **200 (Success)**: Green message, form cleared, auto-hide
+- **400 (Validation)**: Red message + field-specific errors with red borders
+- **409 (Duplicate)**: Red message for already registered email
+- **500 (Server Error)**: Generic error message
+- **Network Error**: Connection error message
+
+**Integration**:
+The form consumes the Zod-validated API endpoint and displays appropriate UI for each response type. All error messages are in Spanish and user-friendly.
+
+See `docs/MANEJO_ERRORES_FORMULARIO_SUBSCRIBE.md` for detailed documentation.
 
 ### Creating a New Component
 

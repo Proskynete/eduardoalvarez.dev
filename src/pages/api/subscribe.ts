@@ -1,21 +1,21 @@
-import client from '@mailchimp/mailchimp_marketing';
-import type { APIRoute } from 'astro';
-import { z } from 'zod';
+import client from "@mailchimp/mailchimp_marketing";
+import type { APIRoute } from "astro";
+import { z } from "zod";
 
 // Schema de validación
 const SubscribeSchema = z.object({
   email: z
     .string()
-    .min(1, 'El email es requerido')
-    .email('Email inválido')
-    .max(100, 'Email demasiado largo')
+    .min(1, "El email es requerido")
+    .email("Email inválido")
+    .max(100, "Email demasiado largo")
     .toLowerCase()
     .trim(),
   name: z
     .string()
-    .min(2, 'El nombre debe tener al menos 2 caracteres')
-    .max(50, 'El nombre es demasiado largo')
-    .regex(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, 'El nombre solo puede contener letras')
+    .min(2, "El nombre debe tener al menos 2 caracteres")
+    .max(50, "El nombre es demasiado largo")
+    .regex(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, "El nombre solo puede contener letras")
     .trim(),
 });
 
@@ -28,8 +28,8 @@ client.setConfig({
 });
 
 const TAGS = {
-  SEND_POST_MAIL: 'send-post-mail',
-  FROM_WEB_PAGE: 'from-web-page',
+  SEND_POST_MAIL: "send-post-mail",
+  FROM_WEB_PAGE: "from-web-page",
 };
 
 export const POST: APIRoute = async ({ request }) => {
@@ -42,22 +42,19 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Verificar si el usuario ya existe (O(1) lookup)
     try {
-      const member = await client.lists.getListMember(
-        import.meta.env.MAILCHIMP_LIST_ID,
-        validatedData.email
-      );
+      const member = await client.lists.getListMember(import.meta.env.MAILCHIMP_LIST_ID, validatedData.email);
 
       if (member) {
         return new Response(
           JSON.stringify({
             success: false,
-            message: 'Este correo ya está registrado en nuestra lista',
+            message: "Este correo ya está registrado en nuestra lista",
             status: 409,
           }),
           {
             status: 409,
-            headers: { 'Content-Type': 'application/json' },
-          }
+            headers: { "Content-Type": "application/json" },
+          },
         );
       }
     } catch (error: any) {
@@ -68,30 +65,26 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Agregar nuevo suscriptor
-    await client.lists.addListMember(
-      import.meta.env.MAILCHIMP_LIST_ID,
-      {
-        email_address: validatedData.email,
-        status: 'subscribed',
-        tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
-        merge_fields: {
-          FNAME: validatedData.name,
-        },
-      }
-    );
+    await client.lists.addListMember(import.meta.env.MAILCHIMP_LIST_ID, {
+      email_address: validatedData.email,
+      status: "subscribed",
+      tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
+      merge_fields: {
+        FNAME: validatedData.name,
+      },
+    });
 
     return new Response(
       JSON.stringify({
         success: true,
-        message: '¡Registro exitoso! Revisa tu correo para confirmar la suscripción',
+        message: "¡Registro exitoso! Revisa tu correo para confirmar la suscripción",
         status: 200,
       }),
       {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
+        headers: { "Content-Type": "application/json" },
+      },
     );
-
   } catch (error) {
     // Error de validación de Zod
     if (error instanceof z.ZodError) {
@@ -104,41 +97,41 @@ export const POST: APIRoute = async ({ request }) => {
         }),
         {
           status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
+          headers: { "Content-Type": "application/json" },
+        },
       );
     }
 
     // Errores de Mailchimp
-    if (error instanceof Error && 'status' in error) {
+    if (error instanceof Error && "status" in error) {
       const mailchimpError = error as any;
-      console.error('Mailchimp error:', mailchimpError);
+      console.error("Mailchimp error:", mailchimpError);
 
       return new Response(
         JSON.stringify({
           success: false,
-          message: 'Error al procesar la suscripción. Intenta de nuevo más tarde.',
+          message: "Error al procesar la suscripción. Intenta de nuevo más tarde.",
           status: mailchimpError.status || 500,
         }),
         {
           status: mailchimpError.status || 500,
-          headers: { 'Content-Type': 'application/json' },
-        }
+          headers: { "Content-Type": "application/json" },
+        },
       );
     }
 
     // Error genérico
-    console.error('Unexpected error:', error);
+    console.error("Unexpected error:", error);
     return new Response(
       JSON.stringify({
         success: false,
-        message: 'Error interno del servidor',
+        message: "Error interno del servidor",
         status: 500,
       }),
       {
         status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
+        headers: { "Content-Type": "application/json" },
+      },
     );
   }
 };
