@@ -24,7 +24,7 @@ export default function Navigation({ algolia }: NavigationProps) {
   const [isInputVisible, setIsInputVisible] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
-  const { searchResults, search } = useAlgoliaSearch(algolia);
+  const { searchResults, search, isSearching, error } = useAlgoliaSearch(algolia);
 
   useEffect(() => {
     setPathname(window.location.pathname);
@@ -48,8 +48,12 @@ export default function Navigation({ algolia }: NavigationProps) {
     setSearchQuery(query);
     setSelectedIndex(-1);
 
-    const hasResults = await search(query);
-    setIsSearchOpen(hasResults ?? false);
+    if (query.trim()) {
+      await search(query);
+      setIsSearchOpen(true);
+    } else {
+      setIsSearchOpen(false);
+    }
   };
 
   const handleResultClick = () => {
@@ -130,7 +134,7 @@ export default function Navigation({ algolia }: NavigationProps) {
 
         <SearchToggleButton isInputVisible={isInputVisible} onToggle={handleToggleSearch} />
 
-        {isSearchOpen && searchResults.length > 0 && (
+        {isSearchOpen && (error || isSearching || searchResults.length > 0) && (
           <SearchResults
             results={searchResults}
             searchQuery={searchQuery}
@@ -138,6 +142,8 @@ export default function Navigation({ algolia }: NavigationProps) {
             onResultClick={handleResultClick}
             getArticleUrl={getArticleUrl}
             renderHighlightedText={renderHighlightedText}
+            error={error}
+            isSearching={isSearching}
           />
         )}
       </div>

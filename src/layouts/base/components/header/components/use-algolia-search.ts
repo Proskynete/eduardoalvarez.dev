@@ -19,6 +19,7 @@ interface AlgoliaConfig {
 export function useAlgoliaSearch(algolia?: AlgoliaConfig) {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const searchClientRef = useRef<ReturnType<typeof algoliasearch> | null>(null);
 
   useEffect(() => {
@@ -29,8 +30,24 @@ export function useAlgoliaSearch(algolia?: AlgoliaConfig) {
   }, [algolia]);
 
   const search = async (query: string) => {
-    if (!query.trim() || !searchClientRef.current || !algolia?.ALGOLIA_INDEX_NAME) {
+    // Resetear error al iniciar nueva búsqueda
+    setError(null);
+
+    if (!query.trim()) {
       setSearchResults([]);
+      setIsSearching(false);
+      return false;
+    }
+
+    // Validar configuración antes de buscar
+    if (!algolia?.ALGOLIA_APPLICATION_ID || !algolia?.ALGOLIA_INDEX_NAME || !algolia?.ALGOLIA_SEARCH_API_KEY) {
+      setError("La configuración de búsqueda no está disponible.");
+      setIsSearching(false);
+      return false;
+    }
+
+    if (!searchClientRef.current) {
+      setError("El servicio de búsqueda no está inicializado.");
       setIsSearching(false);
       return false;
     }
@@ -55,12 +72,19 @@ export function useAlgoliaSearch(algolia?: AlgoliaConfig) {
       return hits.length > 0;
     } catch (error) {
       console.error("Error searching:", error);
+      setError("Hubo un error al realizar la búsqueda. Por favor, intenta nuevamente.");
       setSearchResults([]);
       setIsSearching(false);
       return false;
     }
   };
 
-  return { searchResults, search, isSearching };
+  const clearSearch = () => {
+    setSearchResults([]);
+    setIsSearching(false);
+    setError(null);
+  };
+
+  return { searchResults, search, isSearching, error, clearSearch };
 }
 
