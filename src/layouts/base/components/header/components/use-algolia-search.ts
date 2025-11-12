@@ -20,6 +20,7 @@ export function useAlgoliaSearch(algolia?: AlgoliaConfig) {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hasSearched, setHasSearched] = useState(false);
   const searchClientRef = useRef<ReturnType<typeof algoliasearch> | null>(null);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export function useAlgoliaSearch(algolia?: AlgoliaConfig) {
     if (!query.trim()) {
       setSearchResults([]);
       setIsSearching(false);
+      setHasSearched(false);
       return false;
     }
 
@@ -69,12 +71,14 @@ export function useAlgoliaSearch(algolia?: AlgoliaConfig) {
       const hits = results[0]?.hits || [];
       setSearchResults(hits);
       setIsSearching(false);
+      setHasSearched(true);
       return hits.length > 0;
     } catch (error) {
       console.error("Error searching:", error);
       setError("Hubo un error al realizar la búsqueda. Por favor, intenta nuevamente.");
       setSearchResults([]);
       setIsSearching(false);
+      setHasSearched(true);
       return false;
     }
   };
@@ -83,8 +87,9 @@ export function useAlgoliaSearch(algolia?: AlgoliaConfig) {
     setSearchResults([]);
     setIsSearching(false);
     setError(null);
+    setHasSearched(false);
   };
 
-  return { searchResults, search, isSearching, error, clearSearch };
+  return { searchResults, search, isSearching, error, hasSearched, clearSearch };
 }
 
