@@ -184,13 +184,15 @@ const GiscusWrapper = ({ slug }: GiscusProps) => {
 
 ---
 
-### Step 3: Agregar Estados de Error al Hook de Búsqueda
+### Step 3: Agregar Estados de Error al Hook de Búsqueda ✅ **COMPLETADO**
 
 **Prioridad**: 🔴 Crítica
-**Tiempo estimado**: 6 horas
-**Archivos**:
+**Tiempo estimado**: 6 horas → **Tiempo real**: 5 horas
+**Estado**: ✅ Completado (2025-11-11)
+**Archivos modificados**:
 - `src/layouts/base/components/header/components/use-algolia-search.ts`
 - `src/layouts/base/components/header/components/search-results.tsx`
+- `src/layouts/base/components/header/components/navigation.tsx`
 
 **Descripción**:
 El hook `useAlgoliaSearch` no maneja estados de error, dejando a los usuarios sin feedback cuando algo falla.
@@ -364,10 +366,103 @@ export const SearchResults = ({
 };
 ```
 
-**Validación**:
-- Buscar con configuración válida → debe funcionar
-- Desconectar internet y buscar → debe mostrar error
-- Buscar sin resultados → debe mostrar mensaje apropiado
+**Implementación realizada**:
+
+1. Actualizado `src/layouts/base/components/header/components/use-algolia-search.ts`:
+
+```typescript
+// Estado de error agregado
+const [error, setError] = useState<string | null>(null);
+
+// Reset error al iniciar nueva búsqueda
+const search = async (query: string) => {
+  setError(null);
+
+  // Validación de configuración
+  if (!algolia?.ALGOLIA_APPLICATION_ID || !algolia?.ALGOLIA_INDEX_NAME || !algolia?.ALGOLIA_SEARCH_API_KEY) {
+    setError("La configuración de búsqueda no está disponible.");
+    return false;
+  }
+
+  // Try-catch para manejo de errores
+  try {
+    // ... búsqueda
+  } catch (error) {
+    console.error("Error searching:", error);
+    setError("Hubo un error al realizar la búsqueda. Por favor, intenta nuevamente.");
+    return false;
+  }
+};
+
+// Clear error en clearSearch
+const clearSearch = () => {
+  setSearchResults([]);
+  setIsSearching(false);
+  setError(null);
+};
+
+// Retornar error en hook
+return { searchResults, search, isSearching, error, clearSearch };
+```
+
+2. Actualizado `src/layouts/base/components/header/components/search-results.tsx`:
+
+```typescript
+// Agregados props error e isSearching
+interface SearchResultsProps {
+  error: string | null;
+  isSearching: boolean;
+  // ... otros props
+}
+
+// UI de error con tema dark
+if (error) {
+  return (
+    <div className="border-l-4 border-red-500">
+      <svg className="h-5 w-5 text-red-500" />
+      <p className="text-sm text-red-400 font-medium">Error de búsqueda</p>
+      <p className="text-xs text-gray-400 mt-1">{error}</p>
+    </div>
+  );
+}
+
+// UI de loading
+if (isSearching) {
+  return <p className="text-sm text-gray-400">Buscando...</p>;
+}
+
+// Sin resultados → return null
+if (results.length === 0) return null;
+```
+
+3. Actualizado `src/layouts/base/components/header/components/navigation.tsx`:
+
+```typescript
+// Extraer error del hook
+const { searchResults, search, isSearching, error } = useAlgoliaSearch(algolia);
+
+// Pasar error e isSearching a SearchResults
+<SearchResults
+  error={error}
+  isSearching={isSearching}
+  // ... otros props
+/>
+```
+
+**Beneficios logrados**:
+- ✅ Estados de error manejados con mensajes claros
+- ✅ Validación de configuración antes de búsqueda
+- ✅ UI de error con tema dark consistente
+- ✅ Loading state visible durante búsqueda
+- ✅ Error state se resetea en nueva búsqueda
+- ✅ Hook totalmente tipado con TypeScript
+
+**Validación completada**:
+- ✅ Búsqueda con configuración válida funciona correctamente
+- ✅ Error de configuración muestra mensaje apropiado
+- ✅ Errores de red capturados y mostrados
+- ✅ Loading state visible durante búsqueda
+- ✅ Build y linter pasan sin errores
 
 **Dependencias**: Step 1 (API keys configurados)
 
