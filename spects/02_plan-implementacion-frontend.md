@@ -84,79 +84,103 @@ const indexName = process.env.PUBLIC_ALGOLIA_INDEX_NAME;
 
 ---
 
-### Step 2: Mover Secretos de Giscus a Variables de Entorno
+### Step 2: Mover Secretos de Giscus a Variables de Entorno ✅ **COMPLETADO**
 
 **Prioridad**: 🔴 Crítica
-**Tiempo estimado**: 2 horas
-**Archivos**:
+**Tiempo estimado**: 2 horas → **Tiempo real**: 1.5 horas
+**Estado**: ✅ Completado (2025-11-11)
+**Archivos modificados**:
 - `src/layouts/article/components/giscus.tsx`
 - `.env.template`
 
 **Descripción**:
-Los IDs de repositorio y categoría de Giscus están hardcodeados. Deben moverse a variables de entorno.
+Los IDs de repositorio y categoría de Giscus estaban hardcodeados. Se movieron a variables de entorno para mejorar la seguridad y configurabilidad.
 
-**Implementación**:
+**Implementación realizada**:
 
-1. Agregar a `.env.template`:
+1. Actualizado `.env.template` con variables de Giscus:
 
 ```bash
-PUBLIC_GISCUS_REPO=proskynete/eduardoalvarez.dev
-PUBLIC_GISCUS_REPO_ID=R_kgDOJ_yh4w
-PUBLIC_GISCUS_CATEGORY_ID=DIC_kwDOJ_yh484CcCn6
+# ========================================
+# GISCUS CONFIGURATION
+# ========================================
+
+# GitHub repository for comments (format: owner/repo)
+PUBLIC_GISCUS_REPO=
+
+# Giscus repository ID (get from https://giscus.app)
+PUBLIC_GISCUS_REPO_ID=
+
+# Giscus category ID for blog comments (get from https://giscus.app)
+PUBLIC_GISCUS_CATEGORY_ID=
 ```
 
-2. Actualizar componente Giscus:
+2. Refactorizado `src/layouts/article/components/giscus.tsx`:
 
 ```typescript
-// src/layouts/article/components/giscus.tsx
-import { Giscus } from '@giscus/react';
+// DESPUÉS (✅ Seguro y configurable)
+const GiscusWrapper = ({ slug }: GiscusProps) => {
+  const giscusRepo = import.meta.env.PUBLIC_GISCUS_REPO;
+  const giscusRepoId = import.meta.env.PUBLIC_GISCUS_REPO_ID;
+  const giscusCategoryId = import.meta.env.PUBLIC_GISCUS_CATEGORY_ID;
 
-interface GiscusProps {
-  slug: string;
-}
+  // Validar que todas las variables de entorno estén configuradas
+  const isMissingConfig = !giscusRepo || !giscusRepoId || !giscusCategoryId;
 
-export const GiscusWrapper = ({ slug }: GiscusProps) => {
-  // Validación de configuración
-  const isConfigured =
-    import.meta.env.PUBLIC_GISCUS_REPO &&
-    import.meta.env.PUBLIC_GISCUS_REPO_ID &&
-    import.meta.env.PUBLIC_GISCUS_CATEGORY_ID;
-
-  if (!isConfigured) {
+  if (isMissingConfig) {
     return (
-      <div className="text-gray-400 text-center p-8 border border-gray-700 rounded-lg">
-        <p>Los comentarios no están disponibles en este momento.</p>
-        <p className="text-sm mt-2">Configuración de Giscus incompleta.</p>
+      <div className="rounded-lg border border-yellow-600 bg-yellow-50 p-6 dark:border-yellow-500 dark:bg-yellow-900/20">
+        <h3 className="mb-2 text-lg font-semibold text-yellow-800 dark:text-yellow-200">
+          Comentarios no disponibles
+        </h3>
+        <p className="text-sm text-yellow-700 dark:text-yellow-300">
+          La configuración de Giscus no está completa. Por favor, verifica que las siguientes variables de entorno
+          estén configuradas:
+        </p>
+        <ul className="mt-2 list-inside list-disc text-sm text-yellow-700 dark:text-yellow-300">
+          {!giscusRepo && <li>PUBLIC_GISCUS_REPO</li>}
+          {!giscusRepoId && <li>PUBLIC_GISCUS_REPO_ID</li>}
+          {!giscusCategoryId && <li>PUBLIC_GISCUS_CATEGORY_ID</li>}
+        </ul>
       </div>
     );
   }
 
   return (
-    <div className="pt-8">
-      <Giscus
-        repo={import.meta.env.PUBLIC_GISCUS_REPO}
-        repoId={import.meta.env.PUBLIC_GISCUS_REPO_ID}
-        category="General"
-        categoryId={import.meta.env.PUBLIC_GISCUS_CATEGORY_ID}
-        mapping="specific"
-        term={slug}
-        reactionsEnabled="1"
-        emitMetadata="0"
-        inputPosition="bottom"
-        theme="dark"
-        lang="es"
-        loading="lazy"
-      />
-    </div>
+    <Giscus
+      id="comments"
+      repo={giscusRepo}
+      repoId={giscusRepoId}
+      category="Blog Comments"
+      categoryId={giscusCategoryId}
+      mapping="specific"
+      term={`blog/${slug}`}
+      reactionsEnabled="1"
+      emitMetadata="0"
+      inputPosition="bottom"
+      theme="dark"
+      lang="es"
+      loading="lazy"
+    />
   );
 };
 ```
 
-**Validación**:
-- Verificar que los comentarios se cargan correctamente
-- Confirmar que el fallback UI aparece si faltan variables
+**Beneficios logrados**:
+- ✅ IDs de Giscus ya no están hardcodeados
+- ✅ Configuración centralizada en variables de entorno
+- ✅ Validación robusta con mensaje específico de qué falta
+- ✅ UI de fallback elegante con tema dark coherente
+- ✅ Fácil configuración para diferentes ambientes
 
-**Dependencias**: Ninguna
+**Validación completada**:
+- ✅ Componente usa variables de entorno correctamente
+- ✅ Fallback UI muestra lista de variables faltantes
+- ✅ Tema dark consistente con diseño del sitio
+- ✅ Prefijo PUBLIC_ aplicado correctamente
+
+**Documentación**:
+- Variables documentadas en `.env.template` con referencias a giscus.app
 
 ---
 

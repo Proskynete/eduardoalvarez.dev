@@ -203,6 +203,14 @@ Run `astro check` to validate TypeScript without building. This catches type err
   - `PUBLIC_ALGOLIA_INDEX_NAME` - Index name (shared between client and server)
   - `PUBLIC_ALGOLIA_SEARCH_API_KEY` - Search-only API key for client-side searches (read-only)
   - `ALGOLIA_ADMIN_API_KEY` - Admin API key for server-side indexing during build (private, keep secret)
+- Required for Giscus comments:
+  - `PUBLIC_GISCUS_REPO` - GitHub repository in format owner/repo
+  - `PUBLIC_GISCUS_REPO_ID` - Repository ID from giscus.app
+  - `PUBLIC_GISCUS_CATEGORY_ID` - Discussion category ID from giscus.app
+- Required for Mailchimp newsletter:
+  - `MAILCHIMP_API_KEY` - Mailchimp API key (private)
+  - `MAILCHIMP_LIST_ID` - Newsletter list ID (private)
+  - `MAILCHIMP_SERVER_PREFIX` - Mailchimp server prefix (e.g., us1)
 
 ## Architecture Decisions
 
@@ -210,7 +218,7 @@ Run `astro check` to validate TypeScript without building. This catches type err
 
 2. **Algolia for Search**: Client-side search without backend queries; indexed at build time via custom integration (src/scripts/algolia.ts) that hooks into `astro:build:generated`.
 
-3. **Giscus for Comments**: Leverages GitHub Discussions, no separate comment backend needed. Comments are embedded per-article using the article slug.
+3. **Giscus for Comments**: Leverages GitHub Discussions, no separate comment backend needed. Comments are embedded per-article using the article slug. Configuration is managed via environment variables with validation and fallback UI for missing configuration.
 
 4. **Vercel Deployment**: Automatic deployments from git, built-in analytics, serverless functions support for API endpoints. SSR enabled via `output: "server"` and Vercel adapter.
 
