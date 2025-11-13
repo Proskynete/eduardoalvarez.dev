@@ -26,6 +26,18 @@ npm run lint
 # Auto-fix linting issues
 npm run lint:fix
 
+# Run tests (watch mode)
+npm test
+
+# Run tests with UI
+npm run test:ui
+
+# Run tests with coverage report
+npm run test:coverage
+
+# Run tests once (for CI)
+npm run test:run
+
 # Run Astro CLI directly
 npm run astro -- [command]
 ```
@@ -72,7 +84,23 @@ npm run astro -- [command]
 - `projects.ts` - Project data (currently hidden from display)
 
 **`src/interfaces/index.ts`** - TypeScript type definitions
-- Core types: `Article`, `CategoryAllowed`, `ArticleLayout`, `Section`
+- Core types: `Article`, `CategoryAllowed`, `ArticleLayout`, `Section`, `Heading`, `HeadingDepth`
+- All types are strictly typed (no `any` types)
+
+**`src/test/`** - Testing infrastructure
+- `setup.ts` - Global test setup with jest-dom matchers and cleanup
+
+**Test files** - Unit tests for utilities and hooks (*.test.ts)
+- `src/utils/articles.test.ts` - Tests for article utilities (11 tests)
+- `src/utils/reading-time.test.ts` - Tests for reading time calculation (13 tests)
+- `src/utils/date.test.ts` - Tests for date utilities (13 tests)
+- `src/layouts/base/components/header/components/use-algolia-search.test.ts` - Tests for search hook (18 tests)
+
+**`vitest.config.ts`** - Vitest configuration
+- React support with @vitejs/plugin-react
+- jsdom environment for component testing
+- Coverage reporting with v8 provider
+- Coverage thresholds: 80% (statements, branches, functions, lines)
 
 **`src/scripts/algolia.ts`** - Custom Astro integration
 - Hooks into build process (`astro:build:generated`)
@@ -112,6 +140,16 @@ npm run astro -- [command]
 | **Mailchimp** | Newsletter subscription backend (via api/subscribe.ts) |
 | **Zod** | Schema validation and type inference for API endpoints |
 | **Vercel** | Hosting with SSR, analytics, and serverless functions |
+| **Vitest** | Unit testing framework with React Testing Library integration |
+
+**Testing Stack**:
+- Vitest 4.0 for unit testing
+- @testing-library/react for component testing
+- @testing-library/user-event for user interaction testing
+- @testing-library/jest-dom for DOM matchers
+- jsdom for browser environment simulation
+- @vitest/ui for visual test debugging
+- @vitest/coverage-v8 for code coverage reporting
 
 **Additional Features**:
 - PWA support (web manifest via astro-webmanifest, service worker via astrojs-service-worker)
@@ -249,6 +287,78 @@ Edit `src/settings/index.ts` to update:
 
 Run `astro check` to validate TypeScript without building. This catches type errors before the full build runs.
 
+### Running Tests
+
+The project has a comprehensive test suite with 55 tests and >93% coverage:
+
+**Running tests**:
+```bash
+# Watch mode (recommended for development)
+npm test
+
+# Run once (for CI)
+npm run test:run
+
+# With UI for debugging
+npm run test:ui
+
+# With coverage report
+npm run test:coverage
+```
+
+**Test structure**:
+- All test files are located next to the files they test
+- Test files end with `.test.ts` or `.test.tsx`
+- Use `describe` blocks to group related tests
+- Use `it` or `test` for individual test cases
+
+**Writing tests**:
+```typescript
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { renderHook, waitFor } from '@testing-library/react';
+
+describe('MyFunction', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('should do something', () => {
+    const result = myFunction();
+    expect(result).toBe(expected);
+  });
+});
+```
+
+**Testing hooks**:
+```typescript
+import { renderHook, waitFor } from '@testing-library/react';
+
+it('should update state', async () => {
+  const { result } = renderHook(() => useMyHook());
+
+  await result.current.doSomething();
+
+  await waitFor(() => {
+    expect(result.current.state).toBe(expected);
+  });
+});
+```
+
+**Mocking modules**:
+```typescript
+vi.mock('module-name', () => ({
+  functionName: vi.fn(() => mockValue),
+}));
+```
+
+**Coverage requirements**:
+- Statements: 80%
+- Branches: 80%
+- Functions: 80%
+- Lines: 80%
+
+Current coverage: 93.84% statements, 86.95% branches, 100% functions
+
 ## Code Style & Quality
 
 **Linting Rules** (.eslintrc.cjs):
@@ -256,7 +366,9 @@ Run `astro check` to validate TypeScript without building. This catches type err
 - React components don't require `React` import (JSX transform enabled)
 - TypeScript strict mode enabled (`strictNullChecks: true`)
 - No duplicate imports allowed
-- `any` types and empty functions are allowed (overrides default TS rules)
+- `@typescript-eslint/no-explicit-any`: 'error' - `any` types are forbidden
+- `@typescript-eslint/consistent-type-imports`: 'error' - Type imports must use `import type`
+- Empty functions are allowed (overrides default TS rules)
 
 **Prettier Formatting** (.prettierrc):
 - 2-space indentation (tabWidth: 2)

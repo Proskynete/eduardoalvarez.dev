@@ -1,22 +1,9 @@
-import { algoliasearch } from "algoliasearch";
-import { useEffect, useRef, useState } from "react";
+import { algoliasearch } from 'algoliasearch';
+import { useEffect, useRef, useState } from 'react';
 
-interface SearchResult {
-  objectID: string;
-  title: string;
-  slug: string;
-  description?: string;
-  categories?: string[];
-  link?: string;
-}
+import type { AlgoliaConfig, SearchHookResult, SearchResult } from './types';
 
-interface AlgoliaConfig {
-  ALGOLIA_APPLICATION_ID?: string;
-  ALGOLIA_INDEX_NAME?: string;
-  ALGOLIA_SEARCH_API_KEY?: string; // Search-Only API Key (read-only)
-}
-
-export function useAlgoliaSearch(algolia?: AlgoliaConfig) {
+export function useAlgoliaSearch(algolia?: AlgoliaConfig): SearchHookResult {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState<string | null>(null);

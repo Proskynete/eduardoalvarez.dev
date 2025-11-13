@@ -7,6 +7,9 @@ dist/
 # Vercel
 .vercel
 
+# Tests
+coverage/
+
 # dependencies
 node_modules/
 

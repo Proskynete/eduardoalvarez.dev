@@ -57,9 +57,9 @@ export const POST: APIRoute = async ({ request }) => {
           },
         );
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Error 404 significa que no existe (proceder con registro)
-      if (error.status !== 404) {
+      if (error && typeof error === 'object' && 'status' in error && error.status !== 404) {
         throw error;
       }
     }
@@ -104,7 +104,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Errores de Mailchimp
     if (error instanceof Error && "status" in error) {
-      const mailchimpError = error as any;
+      const mailchimpError = error as Error & { status?: number };
       console.error("Mailchimp error:", mailchimpError);
 
       return new Response(
