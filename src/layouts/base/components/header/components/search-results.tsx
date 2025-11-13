@@ -14,6 +14,9 @@ interface SearchResultsProps {
   onResultClick: () => void;
   getArticleUrl: (result: SearchResult) => string;
   renderHighlightedText: (text: string, query: string) => JSX.Element;
+  error: string | null;
+  isSearching: boolean;
+  hasSearched: boolean;
 }
 
 export default function SearchResults({
@@ -23,7 +26,82 @@ export default function SearchResults({
   onResultClick,
   getArticleUrl,
   renderHighlightedText,
+  error,
+  isSearching,
+  hasSearched,
 }: SearchResultsProps) {
+  // Mostrar UI de error
+  if (error) {
+    return (
+      <div className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50">
+        <div className="px-4 py-3 border-l-4 border-red-500">
+          <div className="flex items-start">
+            <svg
+              className="h-5 w-5 text-red-500 mr-3 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <div>
+              <p className="text-sm text-red-400 font-medium">Error de búsqueda</p>
+              <p className="text-xs text-gray-400 mt-1">{error}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Mostrar loading
+  if (isSearching) {
+    return (
+      <div className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50">
+        <div className="px-4 py-3 text-center">
+          <p className="text-sm text-gray-400">Buscando...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Mostrar mensaje cuando no hay resultados después de una búsqueda
+  if (hasSearched && results.length === 0) {
+    return (
+      <div className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50">
+        <div className="px-4 py-3 border-l-4 border-yellow-500">
+          <div className="flex items-start">
+            <svg
+              className="h-5 w-5 text-yellow-500 mr-3 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <div>
+              <p className="text-sm text-gray-300 font-medium">No se encontraron resultados</p>
+              <p className="text-xs text-gray-400 mt-1">
+                No hay artículos que coincidan con &quot;{searchQuery}&quot;
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // No mostrar nada si no se ha buscado aún
   if (results.length === 0) return null;
 
   return (

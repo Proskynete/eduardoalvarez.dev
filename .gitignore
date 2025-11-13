@@ -7,6 +7,9 @@ dist/
 # Vercel
 .vercel
 
+# Tests
+coverage/
+
 # dependencies
 node_modules/
 
@@ -18,6 +21,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+.zsh_history_project
 
 # admin section
 src/layouts/admin*
