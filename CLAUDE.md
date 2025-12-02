@@ -52,8 +52,9 @@ npm run astro -- [command]
 - `charlas-talleres/` - Talks and workshops page
 - `api/` - Serverless endpoints with Zod validation
   - `subscribe.ts` - Newsletter subscription with robust input validation (email, name)
-  - `create-new-post.ts` - Admin endpoint for creating new blog posts
-- `admin/` - Admin dashboard for creating new blog posts
+- `admin/` - Admin dashboard UI for creating new blog posts
+  - `index.astro` - Admin UI
+  - `template.mdx.tpl` - Template for new articles
 - `rss.xml.ts` - RSS feed generation
 
 **`src/layouts/`** - Page layout templates
@@ -135,7 +136,7 @@ npm run astro -- [command]
 | **TypeScript 5.3** | Type safety (strict mode with `strictNullChecks: true`) |
 | **Tailwind CSS 3.4** | Utility-first styling with typography and forms plugins |
 | **MDX** | Blog content with embedded React components |
-| **Algolia** | Full-text search with custom build integration (src/scripts/algolia.ts) |
+| **Algolia v5** | Full-text search with custom build integration (src/scripts/algolia.ts) |
 | **Giscus** | GitHub Discussions-based comments (@giscus/react) |
 | **Mailchimp** | Newsletter subscription backend (via api/subscribe.ts) |
 | **Zod** | Schema validation and type inference for API endpoints |
@@ -188,8 +189,7 @@ npm run astro -- [command]
 ### Using the Admin Dashboard
 
 The admin dashboard (src/pages/admin/index.astro) provides a UI for creating new blog posts. It uses:
-- `api/create-new-post.ts` - Serverless endpoint that generates MDX files from template
-- `admin/template.mdx.tpl` - Template for new articles
+- `src/pages/admin/template.mdx.tpl` - Template for new articles
 
 ### Working with API Endpoints
 
@@ -406,7 +406,7 @@ Current coverage: 93.84% statements, 86.95% branches, 100% functions
 
 1. **MDX for Content**: Allows mixing markdown with React components for rich, interactive content in articles.
 
-2. **Algolia for Search**: Client-side search without backend queries; indexed at build time via custom integration (src/scripts/algolia.ts) that hooks into `astro:build:generated`.
+2. **Algolia v5 for Search**: Client-side search without backend queries; indexed at build time via custom integration (src/scripts/algolia.ts) that hooks into `astro:build:generated`. Uses the new Algolia v5 client API with `searchForHits` method.
 
 3. **Giscus for Comments**: Leverages GitHub Discussions, no separate comment backend needed. Comments are embedded per-article using the article slug. Configuration is managed via environment variables with validation and fallback UI for missing configuration.
 
