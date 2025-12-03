@@ -28,12 +28,7 @@ const { seo } = Astro.props;
 
   <body class="antialiased bg-black/95 text-white">
     <!-- Skip Navigation Links -->
-    <a
-      href="#main-content"
-      class="skip-to-content"
-    >
-      Saltar al contenido principal
-    </a>
+    <a href="#main-content" class="skip-to-content">Saltar al contenido principal</a>
 
     <ScrollingProgressBar client:visible />
 
@@ -41,7 +36,7 @@ const { seo } = Astro.props;
       <div class="flex flex-col justify-between font-sans">
         <Header algolia={algolia} />
 
-        <main id="main-content" tabindex="-1" class="mb-auto focus:outline-none">
+        <main id="main-content" tabindex="-1" class="mb-auto">
           <slot />
         </main>
 
