@@ -11,6 +11,10 @@ import serviceWorker from "astrojs-service-worker";
 import { publishAlgoliaRSS } from "./src/scripts/algolia.ts";
 import config from "./src/settings/manifest-config.ts";
 
+// NOTA: La validación de variables de entorno está disponible en src/utils/env.ts
+// Se valida en tiempo de ejecución cuando se usan las variables, no en build time
+// Esto permite builds locales sin todas las variables configuradas
+
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
   build: {

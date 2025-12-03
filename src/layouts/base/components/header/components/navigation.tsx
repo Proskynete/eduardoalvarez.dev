@@ -122,17 +122,36 @@ export default function Navigation({ algolia }: NavigationProps) {
     <div className="hidden sm:flex gap-3 items-center relative" ref={searchContainerRef}>
       {!isInputVisible && <NavLinks pathname={pathname} />}
 
-      <div className="relative ml-1 flex items-center">
+      <div className="relative ml-1 flex items-center" role="search">
         {isInputVisible && (
           <SearchInput
             searchQuery={searchQuery}
             onSearchChange={handleSearch}
             onFocus={handleInputFocus}
             onClear={handleClearSearch}
+            isSearchOpen={isSearchOpen}
+            selectedIndex={selectedIndex}
           />
         )}
 
         <SearchToggleButton isInputVisible={isInputVisible} onToggle={handleToggleSearch} />
+
+        {/* Live region para lectores de pantalla */}
+        <div
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+        >
+          {isSearching && 'Buscando...'}
+          {!isSearching && searchResults.length > 0 && (
+            `${searchResults.length} resultado${searchResults.length !== 1 ? 's' : ''} encontrado${searchResults.length !== 1 ? 's' : ''}`
+          )}
+          {!isSearching && searchQuery && searchResults.length === 0 && hasSearched && (
+            'No se encontraron resultados'
+          )}
+          {error && `Error: ${error}`}
+        </div>
 
         {isSearchOpen && (error || isSearching || searchResults.length > 0 || hasSearched) && (
           <SearchResults
