@@ -6,8 +6,8 @@ interface NavLinksProps {
 
 export default function NavLinks({ pathname }: NavLinksProps) {
   return (
-    <>
-      <p className="text-gray-100">cd</p>
+    <nav aria-label="Main navigation" className="flex gap-3 items-center">
+      <p className="text-gray-100" aria-hidden="true">cd</p>
       {navItems
         .filter((item) => item.show)
         .map((item) => (
@@ -19,11 +19,12 @@ export default function NavLinks({ pathname }: NavLinksProps) {
                 : "text-gray-300 hover:text-gray-100 focus:outline-none focus:text-gray-100"
             }`}
             href={item.href}
+            aria-current={pathname === item.href ? "page" : undefined}
           >
             {item.name}
           </a>
         ))}
-    </>
+    </nav>
   );
 }
 

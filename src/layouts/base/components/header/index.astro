@@ -16,17 +16,19 @@ const { algolia } = Astro.props;
 ---
 
 <header class="flex items-center justify-between py-3 md:py-10">
-  <a href="/" aria-label="Eduardo Alvarez logo">
-    <Image
-      src={LOGO}
-      alt="Eduardo Alvarez logo"
-      class="min-w-[180px] min-h-[87px]"
-      width="180"
-      height="87"
-      loading="lazy"
-      decoding="async"
-    />
-  </a>
+  <div role="banner">
+    <a href="/" aria-label="Eduardo Alvarez logo">
+      <Image
+        src={LOGO}
+        alt="Eduardo Alvarez logo"
+        class="min-w-[180px] min-h-[87px]"
+        width="180"
+        height="87"
+        loading="lazy"
+        decoding="async"
+      />
+    </a>
+  </div>
 
   <div class="flex items-center gap-4 leading-5 sm:space-x-6">
     <Navigation client:load algolia={algolia} />
