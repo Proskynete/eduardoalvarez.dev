@@ -1,3 +1,5 @@
+import { forwardRef, useEffect, useRef } from 'react';
+
 interface SearchResult {
   objectID: string;
   title: string;
@@ -19,7 +21,7 @@ interface SearchResultsProps {
   hasSearched: boolean;
 }
 
-export default function SearchResults({
+const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(({
   results,
   searchQuery,
   selectedIndex,
@@ -29,11 +31,28 @@ export default function SearchResults({
   error,
   isSearching,
   hasSearched,
-}: SearchResultsProps) {
+}, ref) => {
+  const resultsContainerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll del elemento seleccionado
+  useEffect(() => {
+    if (selectedIndex >= 0 && resultsContainerRef.current) {
+      const selectedElement = resultsContainerRef.current.querySelector(
+        `#result-${selectedIndex}`
+      ) as HTMLElement;
+      selectedElement?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }, [selectedIndex]);
+
   // Mostrar UI de error
   if (error) {
     return (
-      <div className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50">
+      <div
+        ref={ref}
+        id="search-results"
+        className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50"
+        role="alert"
+      >
         <div className="px-4 py-3 border-l-4 border-red-500">
           <div className="flex items-start">
             <svg
@@ -62,7 +81,13 @@ export default function SearchResults({
   // Mostrar loading
   if (isSearching) {
     return (
-      <div className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50">
+      <div
+        ref={ref}
+        id="search-results"
+        className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50"
+        role="status"
+        aria-live="polite"
+      >
         <div className="px-4 py-3 text-center">
           <p className="text-sm text-gray-400">Buscando...</p>
         </div>
@@ -73,7 +98,13 @@ export default function SearchResults({
   // Mostrar mensaje cuando no hay resultados después de una búsqueda
   if (hasSearched && results.length === 0) {
     return (
-      <div className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50">
+      <div
+        ref={ref}
+        id="search-results"
+        className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50"
+        role="status"
+        aria-live="polite"
+      >
         <div className="px-4 py-3 border-l-4 border-yellow-500">
           <div className="flex items-start">
             <svg
@@ -105,18 +136,28 @@ export default function SearchResults({
   if (results.length === 0) return null;
 
   return (
-    <div className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50 max-h-96 overflow-y-auto">
-      {results.map((result, index) => {
-        const articleUrl = getArticleUrl(result);
-        return (
-          <a
-            key={result.objectID}
-            href={articleUrl}
-            onClick={onResultClick}
-            className={`block w-full text-left px-4 py-3 hover:bg-gray-700 transition ease-in-out duration-200 border-b border-gray-700 last:border-b-0 cursor-pointer ${
-              index === selectedIndex ? "bg-gray-700" : ""
-            }`}
-            aria-label={`Ir al artículo: ${result.title}`}
+    <div
+      ref={ref}
+      id="search-results"
+      className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50 max-h-96 overflow-y-auto"
+      role="listbox"
+      aria-label="Resultados de búsqueda"
+    >
+      <div ref={resultsContainerRef}>
+        {results.map((result, index) => {
+          const articleUrl = getArticleUrl(result);
+          return (
+            <a
+              key={result.objectID}
+              id={`result-${index}`}
+              href={articleUrl}
+              onClick={onResultClick}
+              className={`block w-full text-left px-4 py-3 hover:bg-gray-700 transition ease-in-out duration-200 border-b border-gray-700 last:border-b-0 cursor-pointer ${
+                index === selectedIndex ? "bg-gray-700" : ""
+              }`}
+              role="option"
+              aria-selected={index === selectedIndex}
+              aria-label={`Ir al artículo: ${result.title}`}
           >
             <div className="font-semibold text-gray-100 text-sm mb-1">
               {renderHighlightedText(result.title, searchQuery)}
@@ -138,7 +179,12 @@ export default function SearchResults({
           </a>
         );
       })}
+      </div>
     </div>
   );
-}
+});
+
+SearchResults.displayName = 'SearchResults';
+
+export default SearchResults;
 
