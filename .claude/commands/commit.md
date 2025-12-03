@@ -36,6 +36,7 @@ Create well-formatted commit: $ARGUMENTS
 7. For each commit (or the single commit if not split), determine commit type and SELECT the corresponding emoji from the emoji map
 8. Create commit with the complete structure: `<emoji> <type>[optional scope]: <description>`
 9. Husky handles pre-commit hooks automatically
+10. **NEVER add Claude signature to commits**
 
 ## Commit Format
 
