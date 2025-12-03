@@ -16,7 +16,12 @@ export default function Mobile() {
 
   return (
     <>
-      <button aria-label="Toggle Menu" onClick={onToggleNav} className="sm:hidden">
+      <button
+        aria-label="Toggle Menu"
+        aria-expanded={navShow}
+        onClick={onToggleNav}
+        className="sm:hidden"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -32,14 +37,17 @@ export default function Mobile() {
       </button>
 
       <div
-        className={`fixed left-0 top-0 z-10 h-full w-full transform opacity-95 duration-300 ease-in-out bg-black  ${
+        className={`fixed left-0 top-0 z-10 h-full w-full transform opacity-95 duration-300 ease-in-out bg-black ${
           navShow ? "translate-x-0" : "translate-x-full"
         }`}
+        aria-hidden={!navShow}
+        inert={!navShow ? "" : undefined}
       >
         <button
-          className="absolute h-8 w-8 top-11 right-5 z-20 focus:outline-none focus:ring-2 focus:ring-gray-100 focus:ring-opacity-50"
-          aria-label="Toggle Menu"
+          className="absolute h-8 w-8 top-11 right-5 z-20"
+          aria-label="Close Menu"
           onClick={onToggleNav}
+          tabIndex={navShow ? 0 : -1}
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="text-gray-100">
             <path
@@ -75,7 +83,7 @@ export default function Mobile() {
               .filter((item) => item.show)
               .map((link) => (
                 <li key={link.name} className="py-2">
-                  <a href={link.href} className="text-gray-100">
+                  <a href={link.href} className="text-gray-100" tabIndex={navShow ? 0 : -1}>
                     <p className="flex items-baseline text-gray-300">
                       cd
                       <span className="ml-4 text-gray-100">{link.name}</span>
