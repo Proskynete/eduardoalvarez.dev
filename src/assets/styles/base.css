@@ -130,3 +130,18 @@ a:has(h1, h2, h3, h4, h5, h6):focus-visible {
   outline-offset: 4px;
   border-radius: 0.5rem;
 }
+
+/* Logo - Asegurar outline visible */
+a[aria-label*="logo"]:focus-visible,
+a[aria-label*="Logo"]:focus-visible {
+  outline: 3px solid rgb(236, 72, 153) !important; /* pink-500 */
+  outline-offset: 6px !important;
+  border-radius: 0.5rem !important;
+}
+
+/* Links en footer y elementos sociales */
+footer a:focus-visible {
+  outline: 3px solid rgb(236, 72, 153); /* pink-500 */
+  outline-offset: 4px;
+  text-decoration: underline;
+}
