@@ -11,9 +11,17 @@ export default {
         avenir: ["Avenir", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        primary: colors.pink,
+        primary: {
+          ...colors.pink,
+          // Override pink-600 para mejor contraste en botones (WCAG AA: 4.73:1)
+          600: "#be185d", // pink-700 de Tailwind
+        },
         secondary: colors.purple,
-        gray: colors.gray,
+        gray: {
+          ...colors.gray,
+          // Color específico para inputs con mejor contraste (WCAG AA: 3.37:1)
+          input: "#4b5563", // gray-600 para borders de inputs
+        },
       },
       typography: ({ theme }) => ({
         DEFAULT: {

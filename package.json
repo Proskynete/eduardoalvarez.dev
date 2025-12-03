@@ -34,6 +34,7 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "test:run": "vitest run",
+    "a11y:audit": "axe http://localhost:4321 --exit",
     "prepare": "husky"
   },
   "dependencies": {
@@ -64,6 +65,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@axe-core/cli": "^4.11.0",
     "@commitlint/cli": "19.0.1",
     "@commitlint/config-conventional": "19.0.0",
     "@testing-library/jest-dom": "^6.9.1",
