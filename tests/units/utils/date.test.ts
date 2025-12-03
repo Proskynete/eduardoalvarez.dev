@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { getDifferenceInYears } from "../../src/utils/date";
+import { getDifferenceInYears } from "../../../src/utils/date";
 
 describe("date utils", () => {
   describe("getDifferenceInYears", () => {

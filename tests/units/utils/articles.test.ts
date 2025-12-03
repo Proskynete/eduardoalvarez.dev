@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { articlesSort, githubArticlePath } from "../../src/utils/articles";
+import { articlesSort, githubArticlePath } from "../../../src/utils/articles";
 
 describe("articles utils", () => {
   describe("articlesSort", () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { calculateReadingTime } from "../../src/utils/reading-time";
+import { calculateReadingTime } from "../../../src/utils/reading-time";
 
 describe("reading-time utils", () => {
   describe("calculateReadingTime", () => {
