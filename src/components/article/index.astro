@@ -1,5 +1,6 @@
 ---
 import type { Article } from "../../interfaces";
+import { prettyDate } from "../../utils/date";
 
 export const prerender = true;
 
@@ -10,31 +11,33 @@ export interface Props {
 const { article } = Astro.props;
 ---
 
-<article>
-  <div>
-    <dl>
-      <dt class="sr-only">Publicado el</dt>
-      <dd class="text-base font-hero leading-6 text-gray-400">
-        <time date-time={article.date}>{new Date(article.date).toLocaleDateString()}</time>
-      </dd>
-    </dl>
-    <div class="space-y-3 xl:col-span-3">
-      <div class="space-y-2">
-        <div>
-          <h3 class="text-2xl font-hero leading-8 tracking-tight">
-            <a
-              href={`/articulos/${article.slug}`}
-              class="text-gray-100 hover:text-gray-300 transition ease-in-out duration-300"
+<article class="group">
+  <a href={`/articulos/${article.slug}`} class="block">
+    <div class="mt-4">
+      <dl>
+        <dt class="sr-only">Publicado el</dt>
+        <dd class="text-base font-hero leading-6 text-gray-400">
+          <time datetime={article.date}>
+            {prettyDate(article.date)}
+          </time>
+        </dd>
+      </dl>
+
+      <div class="space-y-3 xl:col-span-3">
+        <div class="space-y-2">
+          <div>
+            <h3
+              class="text-2xl font-hero leading-8 tracking-tight text-gray-100 group-hover:text-gray-300 transition ease-in-out duration-300"
             >
               {article.title}
-            </a>
-          </h3>
-        </div>
+            </h3>
+          </div>
 
-        <div class="prose font-hero max-w-none text-gray-400">
-          {article.description}
+          <div class="prose font-hero max-w-none text-gray-400 line-clamp-2">
+            {article.description}
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </a>
 </article>

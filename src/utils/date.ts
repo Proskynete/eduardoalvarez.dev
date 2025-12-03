@@ -11,3 +11,11 @@ export const getDifferenceInYears = (): number => {
   }
   return yearsDifference;
 };
+
+export const prettyDate = (date: Date | string) => {
+  return new Date(date).toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
