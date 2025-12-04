@@ -7,6 +7,8 @@ import Footer from "./components/footer/index.astro";
 import Header from "./components/header/index.astro";
 import ScrollingProgressBar from "../../components/scrolling-progress-bar/index";
 
+import SpeedInsights from "@vercel/speed-insights/astro";
+
 export interface Props {
   seo?: BaseHeadProps;
 }
@@ -43,5 +45,7 @@ const { seo } = Astro.props;
         <Footer />
       </div>
     </section>
+
+    <SpeedInsights />
   </body>
 </html>
