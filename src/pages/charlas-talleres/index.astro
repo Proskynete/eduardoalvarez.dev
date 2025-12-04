@@ -125,18 +125,16 @@ const seo = {
 
                       <div class="flex gap-4">
                         {talk.organizations.map((org) => (
-                          <a
-                            href={org.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="flex items-center group hover:transform transition-transform"
-                          >
+                          <a href={org.url} target="_blank" rel="noopener noreferrer" class="flex items-center">
                             <Image
-                              class="w-10 h-10 rounded-full mr-2 group-hover:rotate-12 duration-300"
+                              class="w-10 h-10 rounded-full mr-2"
                               src={org.logo}
                               alt={org.name}
                               width={40}
                               height={40}
+                              widths={[40, 80]}
+                              sizes="40px"
+                              format="webp"
                               loading="lazy"
                               decoding="async"
                             />
@@ -156,6 +154,9 @@ const seo = {
                       class="rounded-t-md rounded-b-none md:rounded-r-md md:rounded-l-none w-max h-auto md:w-full md:h-full object-cover lg:object-contain aspec-[4/2]"
                       width={800}
                       height={533}
+                      widths={[400, 800, 1200]}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
+                      format="webp"
                       loading="lazy"
                       decoding="async"
                     />

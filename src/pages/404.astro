@@ -21,9 +21,12 @@ export const prerender = true;
     <Image
       src={NOT_FOUND}
       alt="Eduardo Alvarez ilustración de página no encontrada"
+      width={350}
+      height={350}
+      widths={[200, 350, 700]}
+      sizes="(max-width: 768px) 200px, 350px"
+      format="webp"
       class="min-w-[350px] min-h-[350px] w-[350px] h-[350px]"
-      width="350"
-      height="350"
       loading="lazy"
       decoding="async"
     />
