@@ -15,7 +15,6 @@ const PrivateEnvSchema = z.object({
   ALGOLIA_ADMIN_API_KEY: z.string().min(1, "Algolia Admin API Key requerido"),
   MAILCHIMP_API_KEY: z.string().min(1, "Mailchimp API Key requerido"),
   MAILCHIMP_LIST_ID: z.string().min(1, "Mailchimp List ID requerido"),
-  MAILCHIMP_SERVER_PREFIX: z.string().min(1, "Mailchimp Server Prefix requerido"),
 });
 
 // Tipos inferidos
@@ -68,6 +67,28 @@ export function validateEnv(): Env {
   const privateEnv = validatePrivateEnv();
 
   return { ...publicEnv, ...privateEnv };
+}
+
+/**
+ * Valida todas las variables de entorno desde process.env
+ * Específicamente para uso en astro.config.mjs donde import.meta.env no está disponible
+ */
+export function validateEnvAtStartup(): Env {
+  if (typeof process === "undefined") {
+    throw new Error("validateEnvAtStartup() solo puede ser llamado en Node.js (astro.config.mjs)");
+  }
+
+  // Combinar ambos schemas para validar todo desde process.env
+  const AllEnvSchema = PublicEnvSchema.merge(PrivateEnvSchema);
+  const result = AllEnvSchema.safeParse(process.env);
+
+  if (!result.success) {
+    console.error("❌ Variables de entorno inválidas:");
+    console.error(JSON.stringify(result.error.format(), null, 2));
+    throw new Error("Validación de environment falló");
+  }
+
+  return result.data;
 }
 
 /**
