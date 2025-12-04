@@ -16,12 +16,7 @@ export default function Mobile() {
 
   return (
     <>
-      <button
-        aria-label="Toggle Menu"
-        aria-expanded={navShow}
-        onClick={onToggleNav}
-        className="sm:hidden"
-      >
+      <button aria-label="Toggle Menu" aria-expanded={navShow} onClick={onToggleNav} className="sm:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -41,7 +36,7 @@ export default function Mobile() {
           navShow ? "translate-x-0" : "translate-x-full"
         }`}
         aria-hidden={!navShow}
-        inert={!navShow ? "" : undefined}
+        inert={!!navShow}
       >
         <button
           className="absolute h-8 w-8 top-11 right-5 z-20"

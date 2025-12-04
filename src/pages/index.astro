@@ -1,14 +1,13 @@
 ---
 import Article from "../components/article/index.astro";
-import Project from "../components/project/index.astro";
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
 import config from "../settings";
 import { articlesSort } from "../utils/articles";
-import { Image } from "astro:assets";
 import Subscribe from "../components/subscribe/index.astro";
 import ME from "../assets/images/eduardo_alvarez.webp";
 import { getDifferenceInYears } from "../utils/date";
+import { Image } from "astro:assets";
 
 export const prerender = true;
 

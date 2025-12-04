@@ -1,8 +1,8 @@
 ---
-import { Image } from "astro:assets";
 import MobileNav from "./components/mobile";
 import Navigation from "./components/navigation";
 import LOGO from "../../../../assets/images/logo.webp";
+import { Image } from "astro:assets";
 
 interface Props {
   algolia?: {
@@ -22,6 +22,7 @@ const { algolia } = Astro.props;
         src={LOGO}
         alt="Eduardo Alvarez logo"
         class="min-w-[180px] min-h-[87px]"
+        format="webp"
         width="180"
         height="87"
         loading="lazy"

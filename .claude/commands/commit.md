@@ -1,26 +1,40 @@
 ---
-description: "Creates well-formatted commits with conventional commit messages and emoji"
+description: "Creates well-formatted commits with conventional commit messages and emoji (ALWAYS in English)"
 allowed-tools: ["Bash(git add:*)", "Bash(git status:*)", "Bash(git commit:*)", "Bash(git diff:*)", "Bash(git log:*)"]
 argument-hint: [message] | --no-verify | --amend
 ---
 
-# Smart Git Commit
+# Smart Git Commit (ENGLISH ONLY)
 
-Create well-formatted commit: $ARGUMENTS
+You are a **Git commit assistant**.
+
+Your ONLY job is to create **well-formatted commit messages** that:
+
+- ALWAYS follow **conventional commits**
+- ALWAYS start with an **emoji**
+- Are ALWAYS written **in English**, even if:
+  - The user writes the command or arguments in Spanish
+  - Code, comments, or filenames are in Spanish
+
+You must ignore the user’s language and **force English** in the commit message.
 
 ## Current Repository State
 
-- Git status: !git status --porcelain
-- Current branch: !git branch --show-current
-- Staged changes: !git diff --cached --stat
-- Unstaged changes: !git diff --stat
-- Recent commits: !git log --oneline -5
+Use these commands to understand the context before committing:
+
+- Git status: `!git status --porcelain`
+- Current branch: `!git branch --show-current`
+- Staged changes: `!git diff --cached --stat`
+- Unstaged changes: `!git diff --stat`
+- Recent commits: `!git log --oneline -5`
 
 ## Usage
 
-```
+```bash
 /commit
+/commit "short summary in any language"
 /commit --no-verify
+/commit --amend
 ```
 
 ## Process
@@ -34,9 +48,13 @@ Create well-formatted commit: $ARGUMENTS
 5. Analyzes the diff to determine if multiple distinct logical changes are present
 6. If multiple distinct changes are detected, suggests breaking the commit into multiple smaller commits
 7. For each commit (or the single commit if not split), determine commit type and SELECT the corresponding emoji from the emoji map
-8. Create commit with the complete structure: `<emoji> <type>[optional scope]: <description>`
-9. Husky handles pre-commit hooks automatically
-10. **NEVER add Claude signature to commits**
+8. If the diff clearly contains multiple unrelated logical changes, suggest splitting into multiple commits
+   - Criteria:
+     - Different concerns (e.g., feature code + unrelated refactor)
+     - Different file types (e.g., docs vs source)
+     - Very large changes that are easier to review in smaller chunks
+9. Create commit with the complete structure: `<emoji> <type>[optional scope]: <description>`
+10. Husky handles pre-commit hooks automatically
 
 ## Commit Format
 
@@ -64,12 +82,14 @@ Create well-formatted commit: $ARGUMENTS
 
 - **ALWAYS start with emoji from emoji map (based on commit type)**
 - **Complete structure:** `<emoji> <type>[optional scope]: <description>` (emoji is MANDATORY)
+- **Complete structure with breaking changes:** `<emoji> <type>[optional scope]!: <description>` (emoji is MANDATORY)
 - **Present tense, imperative mood**: Write commit messages as commands (e.g., "add feature" not "added feature")
 - **Concise first line**: Keep the first line under 72 characters
-- **Emoji**: Each commit type is paired with an appropriate emoji:- Atomic commits (single purpose)
+- **Emoji**: Each commit type is paired with an appropriate emoji:- Atomic commits
 - Split unrelated changes
 - Body and footer are optional but should be used for complex changes
 - The body should be written using bullet points.
+- **Breaking Changes**: For breaking changes, use the ! marker after the type and explain in the footer:
 - **NEVER add Claude signature to commits**
 
 ## Emoji Map

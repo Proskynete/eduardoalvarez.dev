@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/main/index.astro";
-import { Image } from "astro:assets";
 import ME from "../assets/images/eduardo_alvarez.webp";
+import { Image } from "astro:assets";
 
 export const prerender = true;
 ---
@@ -12,6 +12,7 @@ export const prerender = true;
       src={ME}
       alt="Eduardo Alvarez ilustración"
       class="min-w-[205px] min-h-[200px] w-[205px] h-[200px]"
+      format="webp"
       width="205"
       height="200"
       loading="lazy"

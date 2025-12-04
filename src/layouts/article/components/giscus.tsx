@@ -32,7 +32,7 @@ const GiscusWrapper = ({ slug }: GiscusProps) => {
   return (
     <Giscus
       id="comments"
-      repo={giscusRepo}
+      repo={giscusRepo as `${string}/${string}`}
       repoId={giscusRepoId}
       category="Blog Comments"
       categoryId={giscusCategoryId}

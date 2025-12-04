@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, type ReactNode, useEffect, useRef } from "react";
 
 interface SearchResult {
   objectID: string;
@@ -15,176 +15,178 @@ interface SearchResultsProps {
   selectedIndex: number;
   onResultClick: () => void;
   getArticleUrl: (result: SearchResult) => string;
-  renderHighlightedText: (text: string, query: string) => JSX.Element;
+  renderHighlightedText: (text: string, query: string) => ReactNode;
   error: string | null;
   isSearching: boolean;
   hasSearched: boolean;
 }
 
-const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(({
-  results,
-  searchQuery,
-  selectedIndex,
-  onResultClick,
-  getArticleUrl,
-  renderHighlightedText,
-  error,
-  isSearching,
-  hasSearched,
-}, ref) => {
-  const resultsContainerRef = useRef<HTMLDivElement>(null);
+const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
+  (
+    {
+      results,
+      searchQuery,
+      selectedIndex,
+      onResultClick,
+      getArticleUrl,
+      renderHighlightedText,
+      error,
+      isSearching,
+      hasSearched,
+    },
+    ref,
+  ) => {
+    const resultsContainerRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll del elemento seleccionado
-  useEffect(() => {
-    if (selectedIndex >= 0 && resultsContainerRef.current) {
-      const selectedElement = resultsContainerRef.current.querySelector(
-        `#result-${selectedIndex}`
-      ) as HTMLElement;
-      selectedElement?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    // Auto-scroll del elemento seleccionado
+    useEffect(() => {
+      if (selectedIndex >= 0 && resultsContainerRef.current) {
+        const selectedElement = resultsContainerRef.current.querySelector(`#result-${selectedIndex}`) as HTMLElement;
+        selectedElement?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+    }, [selectedIndex]);
+
+    // Mostrar UI de error
+    if (error) {
+      return (
+        <div
+          ref={ref}
+          id="search-results"
+          className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50"
+          role="alert"
+        >
+          <div className="px-4 py-3 border-l-4 border-red-500">
+            <div className="flex items-start">
+              <svg
+                className="h-5 w-5 text-red-500 mr-3 flex-shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div>
+                <p className="text-sm text-red-400 font-medium">Error de búsqueda</p>
+                <p className="text-xs text-gray-400 mt-1">{error}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     }
-  }, [selectedIndex]);
 
-  // Mostrar UI de error
-  if (error) {
-    return (
-      <div
-        ref={ref}
-        id="search-results"
-        className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50"
-        role="alert"
-      >
-        <div className="px-4 py-3 border-l-4 border-red-500">
-          <div className="flex items-start">
-            <svg
-              className="h-5 w-5 text-red-500 mr-3 flex-shrink-0"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <div>
-              <p className="text-sm text-red-400 font-medium">Error de búsqueda</p>
-              <p className="text-xs text-gray-400 mt-1">{error}</p>
+    // Mostrar loading
+    if (isSearching) {
+      return (
+        <div
+          ref={ref}
+          id="search-results"
+          className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50"
+          role="status"
+          aria-live="polite"
+        >
+          <div className="px-4 py-3 text-center">
+            <p className="text-sm text-gray-400">Buscando...</p>
+          </div>
+        </div>
+      );
+    }
+
+    // Mostrar mensaje cuando no hay resultados después de una búsqueda
+    if (hasSearched && results.length === 0) {
+      return (
+        <div
+          ref={ref}
+          id="search-results"
+          className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50"
+          role="status"
+          aria-live="polite"
+        >
+          <div className="px-4 py-3 border-l-4 border-yellow-500">
+            <div className="flex items-start">
+              <svg
+                className="h-5 w-5 text-yellow-500 mr-3 flex-shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div>
+                <p className="text-sm text-gray-300 font-medium">No se encontraron resultados</p>
+                <p className="text-xs text-gray-400 mt-1">
+                  No hay artículos que coincidan con &quot;{searchQuery}&quot;
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
-  // Mostrar loading
-  if (isSearching) {
+    // No mostrar nada si no se ha buscado aún
+    if (results.length === 0) return null;
+
     return (
       <div
         ref={ref}
         id="search-results"
-        className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50"
-        role="status"
-        aria-live="polite"
+        className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50 max-h-96 overflow-y-auto"
+        role="listbox"
+        aria-label="Resultados de búsqueda"
       >
-        <div className="px-4 py-3 text-center">
-          <p className="text-sm text-gray-400">Buscando...</p>
+        <div ref={resultsContainerRef}>
+          {results.map((result, index) => {
+            const articleUrl = getArticleUrl(result);
+            return (
+              <a
+                key={result.objectID}
+                id={`result-${index}`}
+                href={articleUrl}
+                onClick={onResultClick}
+                className={`block w-full text-left px-4 py-3 hover:bg-gray-700 transition ease-in-out duration-200 border-b border-gray-700 last:border-b-0 cursor-pointer ${
+                  index === selectedIndex ? "bg-gray-700" : ""
+                }`}
+                role="option"
+                aria-selected={index === selectedIndex}
+                aria-label={`Ir al artículo: ${result.title}`}
+              >
+                <div className="font-semibold text-gray-100 text-sm mb-1">
+                  {renderHighlightedText(result.title, searchQuery)}
+                </div>
+                {result.description && (
+                  <div className="text-xs text-gray-400 line-clamp-2">
+                    {renderHighlightedText(result.description, searchQuery)}
+                  </div>
+                )}
+                {result.categories && result.categories.length > 0 && (
+                  <div className="flex gap-2 mt-2">
+                    {result.categories.slice(0, 3).map((category) => (
+                      <span key={category} className="text-xs px-2 py-0.5 bg-gray-700 text-gray-400 rounded">
+                        {category}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </a>
+            );
+          })}
         </div>
       </div>
     );
-  }
+  },
+);
 
-  // Mostrar mensaje cuando no hay resultados después de una búsqueda
-  if (hasSearched && results.length === 0) {
-    return (
-      <div
-        ref={ref}
-        id="search-results"
-        className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50"
-        role="status"
-        aria-live="polite"
-      >
-        <div className="px-4 py-3 border-l-4 border-yellow-500">
-          <div className="flex items-start">
-            <svg
-              className="h-5 w-5 text-yellow-500 mr-3 flex-shrink-0"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <div>
-              <p className="text-sm text-gray-300 font-medium">No se encontraron resultados</p>
-              <p className="text-xs text-gray-400 mt-1">
-                No hay artículos que coincidan con &quot;{searchQuery}&quot;
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // No mostrar nada si no se ha buscado aún
-  if (results.length === 0) return null;
-
-  return (
-    <div
-      ref={ref}
-      id="search-results"
-      className="absolute top-full right-7 mt-2 w-96 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50 max-h-96 overflow-y-auto"
-      role="listbox"
-      aria-label="Resultados de búsqueda"
-    >
-      <div ref={resultsContainerRef}>
-        {results.map((result, index) => {
-          const articleUrl = getArticleUrl(result);
-          return (
-            <a
-              key={result.objectID}
-              id={`result-${index}`}
-              href={articleUrl}
-              onClick={onResultClick}
-              className={`block w-full text-left px-4 py-3 hover:bg-gray-700 transition ease-in-out duration-200 border-b border-gray-700 last:border-b-0 cursor-pointer ${
-                index === selectedIndex ? "bg-gray-700" : ""
-              }`}
-              role="option"
-              aria-selected={index === selectedIndex}
-              aria-label={`Ir al artículo: ${result.title}`}
-          >
-            <div className="font-semibold text-gray-100 text-sm mb-1">
-              {renderHighlightedText(result.title, searchQuery)}
-            </div>
-            {result.description && (
-              <div className="text-xs text-gray-400 line-clamp-2">
-                {renderHighlightedText(result.description, searchQuery)}
-              </div>
-            )}
-            {result.categories && result.categories.length > 0 && (
-              <div className="flex gap-2 mt-2">
-                {result.categories.slice(0, 3).map((category) => (
-                  <span key={category} className="text-xs px-2 py-0.5 bg-gray-700 text-gray-400 rounded">
-                    {category}
-                  </span>
-                ))}
-              </div>
-            )}
-          </a>
-        );
-      })}
-      </div>
-    </div>
-  );
-});
-
-SearchResults.displayName = 'SearchResults';
+SearchResults.displayName = "SearchResults";
 
 export default SearchResults;
-
