@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a personal blog and portfolio site built with **Astro 5**, React, and TypeScript. It features a content management system for MDX blog posts, full-text search via Algolia, comments via Giscus, and newsletter integration with Mailchimp. The site is deployed to Vercel with server-side rendering enabled.
+This is a personal blog and portfolio site built with **Astro 5**, React, and TypeScript. It features a content management system for MDX blog posts, full-text search via Algolia, comments via Giscus, and newsletter integration with Mailchimp. The site is deployed to Vercel with static site generation and serverless API routes.
 
 ## Development Commands
 
@@ -140,7 +140,7 @@ npm run astro -- [command]
 
 | Technology | Purpose |
 |---|---|
-| **Astro 5** | Static site generation with SSR via Vercel adapter |
+| **Astro 5** | Static site generation with serverless API routes |
 | **React 19** | Interactive components (search, dropdown, progress bar) |
 | **TypeScript 5.3** | Type safety (strict mode with `strictNullChecks: true`) |
 | **Tailwind CSS 3.4** | Utility-first styling with typography and forms plugins |
@@ -149,7 +149,7 @@ npm run astro -- [command]
 | **Giscus** | GitHub Discussions-based comments (@giscus/react) |
 | **Mailchimp** | Newsletter subscription backend (via api/subscribe.ts) |
 | **Zod** | Schema validation and type inference for API endpoints |
-| **Vercel** | Hosting with SSR, analytics, and serverless functions |
+| **Vercel** | Hosting with static site generation and serverless API functions (configured via vercel.json) |
 | **Vitest** | Unit testing framework with React Testing Library integration |
 
 **Testing Stack**:
@@ -418,7 +418,7 @@ Current coverage: 93.84% statements, 86.95% branches, 100% functions
 
 3. **Giscus for Comments**: Leverages GitHub Discussions, no separate comment backend needed. Comments are embedded per-article using the article slug. Configuration is managed via environment variables with validation and fallback UI for missing configuration.
 
-4. **Vercel Deployment**: Automatic deployments from git, built-in analytics, serverless functions support for API endpoints. SSR enabled via `output: "server"` and Vercel adapter.
+4. **Vercel Deployment**: Automatic deployments from git, serverless functions support for API endpoints via `vercel.json` configuration. Currently using `output: "static"` (static site generation) instead of `output: "server"` due to a known issue where the Vercel adapter hangs indefinitely during build at the `astro:build:start` hook. API routes in `src/pages/api/` are automatically deployed as serverless functions by Vercel without requiring the adapter.
 
 5. **Astro + React Hybrid**: Astro handles static content and routing with file-based routing; React for interactive features only (search with Downshift, dropdowns, progress bar). Interactive components use client directives.
 

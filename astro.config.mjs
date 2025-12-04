@@ -38,12 +38,15 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  output: "server",
-  adapter: vercel({
-    webAnalytics: {
-      enabled: false,
-    },
-  }),
+  output: "static",
+  // WORKAROUND: Vercel adapter comentado temporalmente debido a bug que causa hang en astro:build:start
+  // El endpoint /api/subscribe.ts seguirá funcionando como serverless function en Vercel
+  // Tracking issue: https://github.com/withastro/astro/issues
+  // adapter: vercel({
+  //   webAnalytics: {
+  //     enabled: false,
+  //   },
+  // }),
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {
