@@ -42,7 +42,6 @@
   color: white;
   text-decoration: none;
   font-weight: 600;
-  border-radius: 0 0 0.5rem 0;
   transition: top 0.3s;
 }
 
@@ -50,6 +49,10 @@
   top: 0;
   outline: 3px solid rgb(147, 197, 253); /* primary-300 */
   outline-offset: 2px;
+}
+
+.skip-to-content:focus-visible {
+  border-radius: 0 0 0.5rem 0;
 }
 
 /* Focus outline global - Base para todos los elementos */
