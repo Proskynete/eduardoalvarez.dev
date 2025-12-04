@@ -200,7 +200,6 @@ Se mantiene la configuración existente con tags y merge fields:
 ```typescript
 client.setConfig({
   apiKey: import.meta.env.MAILCHIMP_API_KEY,
-  server: import.meta.env.MAILCHIMP_SERVER_PREFIX,
 });
 
 const TAGS = {

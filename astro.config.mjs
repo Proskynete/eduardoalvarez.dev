@@ -10,13 +10,13 @@ import serviceWorker from "astrojs-service-worker";
 
 import { publishAlgoliaRSS } from "./src/scripts/algolia.ts";
 import config from "./src/settings/manifest-config.ts";
-import { validateEnv } from "./src/utils/env.ts";
+import { validateEnvAtStartup } from "./src/utils/env.ts";
 
 // Validar variables de entorno en startup (fail-fast)
 // Puede omitirse en desarrollo local con: SKIP_ENV_VALIDATION=true
 if (process.env.SKIP_ENV_VALIDATION !== "true") {
   try {
-    validateEnv();
+    validateEnvAtStartup();
     console.log("✅ Variables de entorno validadas correctamente");
   } catch (error) {
     console.error("❌ Error en validación de environment:");
@@ -41,7 +41,7 @@ export default defineConfig({
   output: "server",
   adapter: vercel({
     webAnalytics: {
-      enabled: true,
+      enabled: false,
     },
   }),
   markdown: {

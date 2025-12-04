@@ -409,7 +409,6 @@ Current coverage: 93.84% statements, 86.95% branches, 100% functions
 - Required for Mailchimp newsletter:
   - `MAILCHIMP_API_KEY` - Mailchimp API key (private)
   - `MAILCHIMP_LIST_ID` - Newsletter list ID (private)
-  - `MAILCHIMP_SERVER_PREFIX` - Mailchimp server prefix (e.g., us1)
 
 ## Architecture Decisions
 
