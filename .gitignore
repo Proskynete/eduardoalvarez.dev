@@ -9,6 +9,8 @@ dist/
 
 # Tests
 coverage/
+playwright-report/
+test-results/
 
 # dependencies
 node_modules/
