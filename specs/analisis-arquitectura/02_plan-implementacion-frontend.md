@@ -518,7 +518,6 @@ type SubscribeInput = z.infer<typeof SubscribeSchema>;
 // Configurar Mailchimp
 client.setConfig({
   apiKey: import.meta.env.MAILCHIMP_API_KEY,
-  server: import.meta.env.MAILCHIMP_SERVER_PREFIX,
 });
 
 const TAGS = {
@@ -1850,7 +1849,6 @@ const PrivateEnvSchema = z.object({
   ALGOLIA_ADMIN_API_KEY: z.string().min(1, 'Algolia Admin API Key requerido'),
   MAILCHIMP_API_KEY: z.string().min(1, 'Mailchimp API Key requerido'),
   MAILCHIMP_LIST_ID: z.string().min(1, 'Mailchimp List ID requerido'),
-  MAILCHIMP_SERVER_PREFIX: z.string().min(1, 'Mailchimp Server Prefix requerido'),
 });
 
 // Tipos inferidos
@@ -1947,7 +1945,6 @@ ALGOLIA_ADMIN_API_KEY=your_admin_api_key
 # Mailchimp
 MAILCHIMP_API_KEY=your_mailchimp_api_key
 MAILCHIMP_LIST_ID=your_list_id
-MAILCHIMP_SERVER_PREFIX=us1
 
 # ===================================
 # Notas de Seguridad
