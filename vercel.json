@@ -1,14 +1,4 @@
 {
-  "functions": {
-    "src/pages/api/subscribe.ts": {
-      "maxDuration": 10,
-      "memory": 1024
-    },
-    "src/pages/api/create-new-post.ts": {
-      "maxDuration": 10,
-      "memory": 1024
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
