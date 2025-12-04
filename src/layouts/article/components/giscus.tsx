@@ -15,12 +15,10 @@ const GiscusWrapper = ({ slug }: GiscusProps) => {
   if (isMissingConfig) {
     return (
       <div className="rounded-lg border border-yellow-600 bg-yellow-50 p-6 dark:border-yellow-500 dark:bg-yellow-900/20">
-        <h3 className="mb-2 text-lg font-semibold text-yellow-800 dark:text-yellow-200">
-          Comentarios no disponibles
-        </h3>
+        <h3 className="mb-2 text-lg font-semibold text-yellow-800 dark:text-yellow-200">Comentarios no disponibles</h3>
         <p className="text-sm text-yellow-700 dark:text-yellow-300">
-          La configuración de Giscus no está completa. Por favor, verifica que las siguientes variables de entorno
-          estén configuradas:
+          La configuración de Giscus no está completa. Por favor, verifica que las siguientes variables de entorno estén
+          configuradas:
         </p>
         <ul className="mt-2 list-inside list-disc text-sm text-yellow-700 dark:text-yellow-300">
           {!giscusRepo && <li>PUBLIC_GISCUS_REPO</li>}
