@@ -28,7 +28,6 @@ export type Env = PublicEnv & PrivateEnv;
  * Puede ser llamado desde el cliente
  */
 export function validatePublicEnv(): PublicEnv {
-  console.log(import.meta.env);
   const result = PublicEnvSchema.safeParse(import.meta.env);
 
   if (!result.success) {

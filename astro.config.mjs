@@ -10,10 +10,23 @@ import serviceWorker from "astrojs-service-worker";
 
 import { publishAlgoliaRSS } from "./src/scripts/algolia.ts";
 import config from "./src/settings/manifest-config.ts";
+import { validateEnv } from "./src/utils/env.ts";
 
-// NOTA: La validación de variables de entorno está disponible en src/utils/env.ts
-// Se valida en tiempo de ejecución cuando se usan las variables, no en build time
-// Esto permite builds locales sin todas las variables configuradas
+// Validar variables de entorno en startup (fail-fast)
+// Puede omitirse en desarrollo local con: SKIP_ENV_VALIDATION=true
+if (process.env.SKIP_ENV_VALIDATION !== "true") {
+  try {
+    validateEnv();
+    console.log("✅ Variables de entorno validadas correctamente");
+  } catch (error) {
+    console.error("❌ Error en validación de environment:");
+    console.error(error);
+    console.error("\n💡 Tip: Para omitir en desarrollo local, usa: SKIP_ENV_VALIDATION=true");
+    process.exit(1);
+  }
+} else {
+  console.log("⚠️  Validación de environment omitida (SKIP_ENV_VALIDATION=true)");
+}
 
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
