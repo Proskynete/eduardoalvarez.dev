@@ -88,14 +88,23 @@ npm run astro -- [command]
 - Core types: `Article`, `CategoryAllowed`, `ArticleLayout`, `Section`, `Heading`, `HeadingDepth`
 - All types are strictly typed (no `any` types)
 
-**`src/test/`** - Testing infrastructure
-- `setup.ts` - Global test setup with jest-dom matchers and cleanup
+**`tests/`** - Testing directory (ALL tests MUST be located here)
+- `units/` - Unit tests with Vitest (*.test.ts, *.test.tsx)
+  - `setup.ts` - Global test setup with jest-dom matchers and cleanup
+  - `utils/` - Tests for utility functions
+    - `articles.test.ts` - Tests for article utilities (11 tests)
+    - `reading-time.test.ts` - Tests for reading time calculation (13 tests)
+    - `date.test.ts` - Tests for date utilities (13 tests)
+  - `layouts/` - Tests for layout components
+  - `components/` - Tests for React/Astro components
+- `e2e/` - End-to-end tests with Playwright (*.spec.ts)
+  - `search.spec.ts` - E2E tests for search functionality (5 tests)
+  - `subscribe.spec.ts` - E2E tests for newsletter subscription (6 tests)
 
-**Test files** - Unit tests for utilities and hooks (*.test.ts)
-- `src/utils/articles.test.ts` - Tests for article utilities (11 tests)
-- `src/utils/reading-time.test.ts` - Tests for reading time calculation (13 tests)
-- `src/utils/date.test.ts` - Tests for date utilities (13 tests)
-- `src/layouts/base/components/header/components/use-algolia-search.test.ts` - Tests for search hook (18 tests)
+**IMPORTANT**: All tests MUST be placed in the `tests/` directory:
+- Vitest unit tests → `tests/units/`
+- Playwright E2E tests → `tests/e2e/`
+- Never place test files directly in `src/` alongside source code
 
 **`vitest.config.ts`** - Vitest configuration
 - React support with @vitejs/plugin-react
