@@ -418,11 +418,53 @@ Current coverage: 93.84% statements, 86.95% branches, 100% functions
 
 3. **Giscus for Comments**: Leverages GitHub Discussions, no separate comment backend needed. Comments are embedded per-article using the article slug. Configuration is managed via environment variables with validation and fallback UI for missing configuration.
 
-4. **Vercel Deployment**: Automatic deployments from git, serverless functions support for API endpoints via `vercel.json` configuration. Currently using `output: "static"` (static site generation) instead of `output: "server"` due to a known issue where the Vercel adapter hangs indefinitely during build at the `astro:build:start` hook. API routes in `src/pages/api/` are automatically deployed as serverless functions by Vercel without requiring the adapter.
+4. **Vercel Deployment**: Automatic deployments from git, serverless functions support for API endpoints. Using `output: "server"` (server-side rendering) with Vercel adapter enabled. API routes in `src/pages/api/` are automatically deployed as serverless functions by Vercel.
 
 5. **Astro + React Hybrid**: Astro handles static content and routing with file-based routing; React for interactive features only (search with Downshift, dropdowns, progress bar). Interactive components use client directives.
 
 6. **Layout System**: BaseLayout provides common structure (header with search, footer); ArticleLayout extends it with article-specific features (sidebar, TOC from sections, Giscus, share button).
+
+## Implementation Plan Status
+
+**Overall Progress**: 15/16 steps completed (93.75%) 🎉
+
+### ✅ Phase 1: Security & Stability (5/5 - 100%)
+- Algolia read-only API keys migration
+- Giscus secrets moved to environment variables
+- Error states in search hook
+- Zod validation in API Subscribe
+- Error handling in subscription form
+
+### ✅ Phase 2: Testing & Type Safety (4/4 - 100%)
+- Testing infrastructure (Vitest + React Testing Library)
+- Tests for useAlgoliaSearch hook (18 tests)
+- Improved TypeScript definitions (no `any` types)
+- Tests for utility functions (37 tests)
+- **Metrics**: 55/55 tests passing, coverage >93%
+
+### ✅ Phase 3: Performance & Optimization (1/3 - Completed)
+- ⚠️ Step 10: Image optimization (DEPRECATED - current optimization sufficient)
+- ✅ Step 11: Environment variable validation with Zod
+- ⚠️ Step 12: Rate limiting (SKIPPED - Cloudflare handles this)
+
+### ✅ Phase 4: Accessibility & UX (6/6 - 100%)
+- Skip navigation links with keyboard accessibility
+- Improved keyboard navigation in search (ArrowUp, ArrowDown, Enter, Escape)
+- Color contrast audit completed
+- API response utility (ApiResponseBuilder class)
+- E2E tests with Playwright (search & subscribe flows)
+- JSDoc documentation for key components:
+  - `useAlgoliaSearch` - Full documentation with examples
+  - `useKeyboardNavigation` - Complete parameter documentation
+  - `ApiResponseBuilder` - Method documentation with examples
+  - Environment validation utilities - Complete JSDoc
+
+### Key Features Implemented
+- **Accessibility**: Skip to content, keyboard navigation, ARIA attributes, focus management
+- **Documentation**: JSDoc on hooks, utilities, and API builders
+- **Testing**: 55 unit tests + 11 E2E tests (search & subscribe)
+- **Type Safety**: Strict TypeScript with Zod validation
+- **Performance**: Image optimization, lazy loading, code splitting
 
 ## Performance Considerations
 

@@ -17,6 +17,35 @@ export interface ApiErrorResponse {
 
 export type ApiResponse<T = unknown> = ApiSuccessResponse<T> | ApiErrorResponse;
 
+/**
+ * Utilidad para crear respuestas de API consistentes
+ *
+ * Proporciona métodos estáticos para generar respuestas HTTP
+ * con formato JSON consistente y códigos de estado apropiados.
+ *
+ * @example
+ * ```typescript
+ * // Éxito (200)
+ * return ApiResponseBuilder.success('Usuario creado', { id: 123 });
+ *
+ * // Error de validación (400)
+ * return ApiResponseBuilder.badRequest('Datos inválidos', [
+ *   { field: 'email', message: 'Email inválido' }
+ * ]);
+ *
+ * // Conflicto (409)
+ * return ApiResponseBuilder.conflict('El email ya está registrado');
+ *
+ * // Error interno (500)
+ * return ApiResponseBuilder.internalError('Error al procesar solicitud');
+ * ```
+ *
+ * @remarks
+ * - Todos los métodos retornan objetos Response de Fetch API
+ * - Los headers incluyen 'Content-Type: application/json' automáticamente
+ * - Los códigos de estado siguen las convenciones HTTP estándar
+ * - Útil para mantener consistencia en respuestas de API routes en Astro
+ */
 export class ApiResponseBuilder {
   static json(body: ApiResponse, status: number): Response {
     return new Response(JSON.stringify(body), {

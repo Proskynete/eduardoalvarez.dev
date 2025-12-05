@@ -3,6 +3,40 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { AlgoliaConfig, SearchHookResult, SearchResult } from './types';
 
+/**
+ * Hook personalizado para búsqueda con Algolia
+ *
+ * Proporciona funcionalidad de búsqueda con gestión de estado,
+ * manejo de errores y loading states.
+ *
+ * @param algolia - Configuración de Algolia (API keys, index name)
+ * @returns Objeto con resultados, funciones de búsqueda y estados
+ *
+ * @example
+ * ```tsx
+ * const { searchResults, search, isSearching, error } = useAlgoliaSearch({
+ *   ALGOLIA_APPLICATION_ID: 'app-id',
+ *   ALGOLIA_SEARCH_API_KEY: 'search-key',
+ *   ALGOLIA_INDEX_NAME: 'articles'
+ * });
+ *
+ * // Realizar búsqueda
+ * await search('react hooks');
+ *
+ * // Usar resultados
+ * {searchResults.map(result => (
+ *   <div key={result.objectID}>{result.title}</div>
+ * ))}
+ * ```
+ *
+ * @remarks
+ * - El cliente de Algolia se inicializa una sola vez y se reutiliza
+ * - Las búsquedas son asíncronas y manejan errores automáticamente
+ * - El estado de error se limpia en cada nueva búsqueda
+ * - Usa la Search-Only API Key para seguridad (solo lectura)
+ *
+ * @see {@link https://www.algolia.com/doc/api-client/getting-started/install/javascript/}
+ */
 export function useAlgoliaSearch(algolia?: AlgoliaConfig): SearchHookResult {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
