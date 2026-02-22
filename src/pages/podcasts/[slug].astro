@@ -1,0 +1,292 @@
+---
+import Layout from "../../layouts/main/index.astro";
+import { podcasts, topicColors, platformIcons } from "../../settings/podcasts";
+import type { PodcastEpisode } from "../../settings/podcasts";
+import NO_IMAGE from "../../assets/images/no-image.webp";
+import { Image } from "astro:assets";
+import AudioPlayer from "../../components/audio-player/index";
+import { marked } from "marked";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return podcasts
+    .filter((podcast) => podcast.show)
+    .map((podcast) => ({
+      params: { slug: podcast.slug },
+      props: { podcast },
+    }));
+}
+
+interface Props {
+  podcast: PodcastEpisode;
+}
+
+const { podcast } = Astro.props;
+
+// Convertir contenido markdown a HTML
+const contentHtml = await marked(podcast.content);
+
+const seo = {
+  title: `${podcast.title} | Podcast`,
+  description: podcast.description,
+  image: "/images/podcasts/podcasts-cover.webp",
+};
+
+/**
+ * Formatea la duración en formato legible
+ */
+function formatDuration(minutes: number): string {
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  if (hours > 0) {
+    return `${hours}h ${mins}min`;
+  }
+  return `${mins} min`;
+}
+---
+
+<Layout seo={seo}>
+  <article class="max-w-4xl mx-auto">
+    {/* Breadcrumb */}
+    <nav class="mb-6" aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 text-sm text-gray-500">
+        <li>
+          <a href="/" class="hover:text-primary-400 transition">Inicio</a>
+        </li>
+        <li>
+          <span class="mx-2">/</span>
+        </li>
+        <li>
+          <a href="/podcasts" class="hover:text-primary-400 transition">Podcasts</a>
+        </li>
+        <li>
+          <span class="mx-2">/</span>
+        </li>
+        <li class="text-gray-400 truncate max-w-[200px]">{podcast.title}</li>
+      </ol>
+    </nav>
+
+    {/* Header del episodio */}
+    <header class="mb-8">
+      <div class="relative h-64 md:h-80 rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-neutral-900 to-neutral-800">
+        <Image
+          src={podcast.image || NO_IMAGE}
+          alt={podcast.title}
+          class="w-full h-full object-cover opacity-40"
+          width={1200}
+          height={600}
+          widths={[600, 1200]}
+          sizes="(max-width: 768px) 100vw, 1200px"
+          format="webp"
+          loading="eager"
+          decoding="async"
+        />
+
+        <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+          <div class="flex items-center gap-3 mb-3">
+            <span
+              class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-500/20 text-primary-400 border border-primary-500/30"
+            >
+              Episodio {podcast.episode}
+            </span>
+            <span class="text-gray-400">{formatDuration(podcast.duration)}</span>
+          </div>
+          <h1 class="text-2xl md:text-4xl font-hero font-bold text-white">{podcast.title}</h1>
+          <time datetime={podcast.date} class="text-gray-400 mt-2">
+            {
+              new Date(podcast.date).toLocaleDateString("es-ES", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            }
+          </time>
+        </div>
+      </div>
+
+      {/* Reproductor de audio destacado */}
+      <div class="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
+        <h2 class="text-lg font-semibold text-gray-200 mb-4">Escuchar episodio</h2>
+        <AudioPlayer client:load src={podcast.audioUrl} title={podcast.title} />
+      </div>
+    </header>
+
+    {/* Contenido principal en dos columnas */}
+    <div class="flex flex-col lg:flex-row gap-8">
+      {/* Columna principal: contenido */}
+      <div class="flex-1">
+        {/* Descripción */}
+        <section class="mb-8">
+          <h2 class="text-xl font-hero font-semibold text-gray-100 mb-4">Sobre este episodio</h2>
+          <p class="text-gray-400 leading-relaxed">{podcast.description}</p>
+        </section>
+
+        {/* Tópicos */}
+        <section class="mb-8">
+          <h2 class="text-xl font-hero font-semibold text-gray-100 mb-4">Temas tratados</h2>
+          <div class="flex flex-wrap gap-2">
+            {
+              podcast.topics.map((topic) => (
+                <span class={`px-3 py-1.5 text-sm rounded-lg border ${topicColors[topic.color]}`}>{topic.name}</span>
+              ))
+            }
+          </div>
+        </section>
+
+        {/* Contenido / Notas del episodio */}
+        <section class="mb-8">
+          <h2 class="text-xl font-hero font-semibold text-gray-100 mb-4">Notas del episodio</h2>
+          <div
+            class="prose prose-invert prose-gray max-w-none
+                   prose-headings:font-hero prose-headings:text-gray-100
+                   prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4
+                   prose-h3:text-lg prose-h3:mt-6 prose-h3:mb-3
+                   prose-p:text-gray-400 prose-p:leading-relaxed
+                   prose-a:text-primary-400 prose-a:no-underline hover:prose-a:text-primary-500
+                   prose-strong:text-gray-200
+                   prose-ul:text-gray-400 prose-ol:text-gray-400
+                   prose-li:marker:text-primary-500
+                   prose-blockquote:border-primary-500 prose-blockquote:text-gray-400 prose-blockquote:italic
+                   prose-code:text-primary-400 prose-code:bg-neutral-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+                   prose-pre:bg-neutral-900 prose-pre:border prose-pre:border-neutral-800"
+            set:html={contentHtml}
+          />
+        </section>
+      </div>
+
+      {/* Sidebar */}
+      <aside class="lg:w-80 flex-shrink-0">
+        {/* Invitados */}
+        {
+          podcast.guests.length > 0 && (
+            <section class="mb-8 bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
+              <h2 class="text-lg font-semibold text-gray-200 mb-4">
+                {podcast.guests.length === 1 ? "Invitado" : "Invitados"}
+              </h2>
+              <div class="flex flex-col gap-4">
+                {podcast.guests.map((guest) => (
+                  <div class="flex flex-col gap-3">
+                    <div class="flex items-center gap-3">
+                      <div class="w-14 h-14 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold text-lg">
+                        {guest.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .slice(0, 2)}
+                      </div>
+                      <div class="flex flex-col">
+                        <span class="font-medium text-gray-200">{guest.name}</span>
+                        <span class="text-sm text-gray-500">
+                          {guest.role}
+                          {guest.company && ` @ ${guest.company}`}
+                        </span>
+                      </div>
+                    </div>
+                    {/* Links sociales */}
+                    <div class="flex gap-2">
+                      {guest.linkedin && (
+                        <a
+                          href={guest.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-neutral-800 text-gray-400 hover:text-white hover:bg-neutral-700 transition text-sm"
+                        >
+                          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                          </svg>
+                          LinkedIn
+                        </a>
+                      )}
+                      {guest.twitter && (
+                        <a
+                          href={guest.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-neutral-800 text-gray-400 hover:text-white hover:bg-neutral-700 transition text-sm"
+                        >
+                          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                          </svg>
+                          Twitter
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {/* Plataformas */}
+        <section class="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-lg font-semibold text-gray-200 mb-4">Escuchar en</h2>
+          <div class="flex flex-col gap-2">
+            {
+              podcast.platforms.map((platform) => (
+                <a
+                  href={platform.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-3 px-4 py-3 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-gray-300 hover:text-white transition"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d={platformIcons[platform.icon]} />
+                  </svg>
+                  <span>{platform.name}</span>
+                </a>
+              ))
+            }
+          </div>
+        </section>
+
+        {/* Compartir */}
+        <section class="mt-8 bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-lg font-semibold text-gray-200 mb-4">Compartir</h2>
+          <div class="flex gap-2">
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(podcast.title)}&url=${encodeURIComponent(`https://eduardoalvarez.dev/podcasts/${podcast.slug}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-gray-400 hover:text-white transition"
+              aria-label="Compartir en Twitter"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                ></path>
+              </svg>
+            </a>
+            <a
+              href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://eduardoalvarez.dev/podcasts/${podcast.slug}`)}&title=${encodeURIComponent(podcast.title)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-gray-400 hover:text-white transition"
+              aria-label="Compartir en LinkedIn"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    {/* Volver a podcasts */}
+    <div class="mt-12 pt-8 border-t border-neutral-800">
+      <a
+        href="/podcasts"
+        class="inline-flex items-center gap-2 text-primary-400 hover:text-primary-500 transition"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Volver a todos los episodios
+      </a>
+    </div>
+  </article>
+</Layout>
