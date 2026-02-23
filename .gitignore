@@ -12,6 +12,9 @@ coverage/
 playwright-report/
 test-results/
 
+# Playwright
+.playwright-mcp/
+
 # dependencies
 node_modules/
 
@@ -36,3 +39,6 @@ src/pages/api/create-new-post.ts
 
 # macOS-specific files
 .DS_Store
+
+# skills
+skills-lock.json
