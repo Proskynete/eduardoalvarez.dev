@@ -27,7 +27,7 @@ export const navItems: NavItem[] = [
   {
     name: "./podcasts",
     href: "/podcasts",
-    show: true,
+    show: false,
   },
   {
     name: "./cursos",
