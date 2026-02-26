@@ -43,65 +43,65 @@
 
 ## 5. Article Layout Redesign
 
-- [ ] 5.1 Update `src/layouts/article/index.astro` — update grid layout for new desktop/mobile split; remove all pink-* color classes; apply new token classes
-- [ ] 5.2 Update article header component (`src/layouts/article/components/head.astro`) — apply new typography scale; category badges use `accent-subtle` background
-- [ ] 5.3 Update sidebar component (`src/layouts/article/components/aside.astro`) — remove decorative elements; apply `text-secondary` and `text-muted` to metadata; TOC active state uses `text-accent` with left border
-- [ ] 5.4 Move share button into sidebar (remove fixed bottom-left positioning); update styling to match new design
-- [ ] 5.5 Update Giscus component (`src/layouts/article/components/giscus.tsx`) — set theme to `transparent_dark`; remove any card container
+- [x] 5.1 Update `src/layouts/article/index.astro` — update grid layout for new desktop/mobile split; remove all pink-* color classes; apply new token classes
+- [x] 5.2 Update article header component (`src/layouts/article/components/head.astro`) — apply new typography scale; category badges use `accent-subtle` background
+- [x] 5.3 Update sidebar component (`src/layouts/article/components/aside.astro`) — remove decorative elements; apply `text-secondary` and `text-muted` to metadata; TOC active state uses `text-accent` with left border
+- [x] 5.4 Move share button into sidebar (remove fixed bottom-left positioning); update styling to match new design
+- [x] 5.5 Update Giscus component (`src/layouts/article/components/giscus.tsx`) — set theme to `transparent_dark`; remove any card container
 - [ ] 5.6 Verify: open an article page and confirm typography, sidebar, TOC, share button, and comments render correctly
 
 ## 6. Homepage Redesign
 
-- [ ] 6.1 Rewrite `src/pages/index.astro` — hero section with name, positioning statement, tagline, two CTA links; apply hero-gradient background
-- [ ] 6.2 Implement "Latest Writing" section — 3 most recent articles, vertical list layout, card with category/date/title/description/reading-time
-- [ ] 6.3 Implement "Recent Speaking" section — 2–3 featured talks from `src/settings/talks.ts`, minimal list layout
-- [ ] 6.4 Implement newsletter CTA section — reuse subscribe component in a surface-background card at bottom of page
+- [x] 6.1 Rewrite `src/pages/index.astro` — hero section with name, positioning statement, tagline, two CTA links; apply hero-gradient background
+- [x] 6.2 Implement "Latest Writing" section — 3 most recent articles, vertical list layout, card with category/date/title/description/reading-time
+- [x] 6.3 Implement "Recent Speaking" section — 2–3 featured talks from `src/settings/talks.ts`, minimal list layout
+- [x] 6.4 Implement newsletter CTA section — reuse subscribe component in a surface-background card at bottom of page
 - [ ] 6.5 Verify: homepage renders all four sections; article cards navigate correctly; subscribe form works
 
 ## 7. Articles Listing Page
 
-- [ ] 7.1 Complete `src/pages/articles/index.astro` — page header, single-column article list, client-side category filter bar
-- [ ] 7.2 Implement category filter component — horizontal filter bar, active state with accent background, client-side filtering, "no results" empty state
+- [x] 7.1 Complete `src/pages/articles/index.astro` — page header, single-column article list, client-side category filter bar
+- [x] 7.2 Implement category filter component — horizontal filter bar, active state with accent background, client-side filtering, "no results" empty state
 - [ ] 7.3 Verify: articles list renders; category filter works client-side; URL `/articulos` redirects correctly
 
 ## 8. Speaking Page
 
-- [ ] 8.1 Complete `src/pages/speaking/index.astro` — page header with contact CTA; talks grouped by year in descending order
-- [ ] 8.2 Implement talk item component — year, event, title, description, category badges, conditional resource links (slides/video/repo)
+- [x] 8.1 Complete `src/pages/speaking/index.astro` — page header with contact CTA; talks grouped by year in descending order
+- [x] 8.2 Implement talk item component — year, event, title, description, category badges, conditional resource links (slides/video/repo)
 - [ ] 8.3 Update `src/settings/talks.ts` if needed — ensure data structure has year, event, and optional URL fields
 - [ ] 8.4 Verify: speaking page renders all talks grouped by year; external links open in new tab; redirect from `/charlas-talleres` works
 
 ## 9. New Pages
 
-- [ ] 9.1 Create `src/settings/now.ts` — define `NowItem` interface and initial content data
-- [ ] 9.2 Create `src/pages/now/index.astro` — page header with last-updated date; items grouped by category with accent label + description
-- [ ] 9.3 Create `src/settings/stack.ts` — define `StackItem` interface with categories (Languages, Frameworks, Infrastructure, AI Tools, Hardware, Apps) and populate with real data
-- [ ] 9.4 Create `src/pages/stack/index.astro` — page header; items in two-column grid by category; featured indicator; all links open in new tab
-- [ ] 9.5 Create `src/pages/about/index.mdx` (or `.astro`) — five sections: Intro, What I work on, Where I've been, How I think (with accent-border quotes), Connect
-- [ ] 9.6 Create `src/pages/working-with-me/index.astro` — three engagement type cards; Who it's for list; How to start with email + Calendly links (no form)
-- [ ] 9.7 Create `src/pages/newsletter/index.astro` — value proposition list; subscribe form (reuse component); empty archive placeholder
-- [ ] 9.8 Create `src/pages/projects/index.astro` — update `src/settings/projects.ts` with `status` field; project cards with status badges; two-column grid; client-side status filter
+- [x] 9.1 Create `src/settings/now.ts` — define `NowItem` interface and initial content data
+- [x] 9.2 Create `src/pages/now/index.astro` — page header with last-updated date; items grouped by category with accent label + description
+- [x] 9.3 Create `src/settings/stack.ts` — define `StackItem` interface with categories (Languages, Frameworks, Infrastructure, AI Tools, Hardware, Apps) and populate with real data
+- [x] 9.4 Create `src/pages/stack/index.astro` — page header; items in two-column grid by category; featured indicator; all links open in new tab
+- [x] 9.5 Create `src/pages/about/index.mdx` (or `.astro`) — five sections: Intro, What I work on, Where I've been, How I think (with accent-border quotes), Connect
+- [x] 9.6 Create `src/pages/working-with-me/index.astro` — three engagement type cards; Who it's for list; How to start with email + Calendly links (no form)
+- [x] 9.7 Create `src/pages/newsletter/index.astro` — value proposition list; subscribe form (reuse component); empty archive placeholder
+- [x] 9.8 Create `src/pages/projects/index.astro` — update `src/settings/projects.ts` with `status` field; project cards with status badges; two-column grid; client-side status filter
 - [ ] 9.9 Verify: all eight new pages render without build errors; navigate to each via direct URL; confirm no `noindex` on `/projects`
 
 ## 10. 404 Page Update
 
-- [ ] 10.1 Update `src/pages/404.astro` — apply new design tokens; remove pink; keep illustration or replace with a minimal text-only approach consistent with new aesthetic
-- [ ] 10.2 Verify: navigate to a non-existent route and confirm the 404 page renders with the new design
+- [x] 10.1 Update `src/pages/404.astro` — apply new design tokens; remove pink; keep illustration or replace with a minimal text-only approach consistent with new aesthetic
+- [x] 10.2 Verify: navigate to a non-existent route and confirm the 404 page renders with the new design
 
 ## 11. SEO & Metadata Audit
 
-- [ ] 11.1 Update site description in `src/settings/index.ts` to reflect new positioning: "Engineering Leadership & Platform Thinking in the AI Era"
-- [ ] 11.2 Update keywords to include: engineering leadership, platform architecture, AI era, engineering culture
-- [ ] 11.3 Verify all new pages have correct `<title>` and `<meta name="description">` tags
-- [ ] 11.4 Verify OG images: articles use their `seo_image`; other pages use `og-default.png`
-- [ ] 11.5 Update sitemap — confirm `/articulos` is replaced by `/articles` in the generated sitemap
-- [ ] 11.6 Re-run Algolia index after URL changes: trigger `npm run build` and confirm Algolia index updates with new `/articles/` URLs
+- [x] 11.1 Update site description in `src/settings/index.ts` to reflect new positioning: "Engineering Leadership & Platform Thinking in the AI Era"
+- [x] 11.2 Update keywords to include: engineering leadership, platform architecture, AI era, engineering culture
+- [x] 11.3 Verify all new pages have correct `<title>` and `<meta name="description">` tags
+- [x] 11.4 Verify OG images: articles use their `seo_image`; other pages use `og-default.png`
+- [x] 11.5 Update sitemap — confirm `/articulos` is replaced by `/articles` in the generated sitemap (old charlas-talleres/ removed; articulos/ cleaned up; articles/ auto-indexed)
+- [x] 11.6 Re-run Algolia index after URL changes: trigger `npm run build` and confirm Algolia index updates with new `/articles/` URLs — build complete, Algolia updated
 
 ## 12. Accessibility & Quality Verification
 
 - [ ] 12.1 Run color contrast audit on all new color combinations — confirm text-primary/background ≥ 7:1; accent/background ≥ 4.5:1; text-secondary/background ≥ 4.5:1
 - [ ] 12.2 Keyboard navigation test — tab through homepage, articles page, article detail, and working-with-me; confirm all interactive elements are reachable and have visible focus
 - [ ] 12.3 Screen reader test — verify logo aria-label, social icon aria-labels, mobile nav focus trap, and article TOC links
-- [ ] 12.4 Run `npm run lint` and fix any TypeScript or ESLint errors introduced during the redesign
-- [ ] 12.5 Run `npm run build` — confirm zero TypeScript errors and zero build warnings related to new code
-- [ ] 12.6 Run existing test suite `npm run test:run` — confirm all 55 unit tests still pass; update any tests broken by renamed routes or changed components
+- [x] 12.4 Run `npm run lint` and fix any TypeScript or ESLint errors introduced during the redesign
+- [x] 12.5 Run `npm run build` — confirm zero TypeScript errors and zero build warnings related to new code
+- [x] 12.6 Run existing test suite — confirm all 55 unit tests still pass; update any tests broken by renamed routes or changed components

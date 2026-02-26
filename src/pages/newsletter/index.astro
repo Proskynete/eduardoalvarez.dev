@@ -1,0 +1,57 @@
+---
+import Layout from "../../layouts/main/index.astro";
+import Subscribe from "../../components/subscribe/index.astro";
+
+export const prerender = true;
+
+const seo = {
+  title: "Newsletter",
+  description: "Artículos sobre engineering leadership, platform architecture, y la era de la IA — en tu correo.",
+};
+
+const valueProps = [
+  "Artículos sobre liderazgo de ingeniería y arquitectura de plataforma",
+  "Perspectivas sobre cómo la IA está cambiando el trabajo de los equipos técnicos",
+  "Reflexiones desde la práctica — no teoría de libro, sino lo que funciona en organizaciones reales",
+  "Sin spam. Puedes darte de baja cuando quieras.",
+];
+---
+
+<Layout seo={seo}>
+  <div class="mx-auto max-w-content">
+    <!-- Page header -->
+    <header class="mb-12">
+      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Newsletter</h1>
+      <p class="text-text-secondary text-lg">
+        Artículos sobre engineering leadership, platform architecture, y la era de la IA — directamente en tu correo.
+      </p>
+    </header>
+
+    <!-- Value proposition -->
+    <section class="mb-10">
+      <ul class="space-y-3">
+        {
+          valueProps.map((prop) => (
+            <li class="flex gap-3 text-text-secondary leading-relaxed">
+              <span class="text-accent flex-shrink-0 mt-1">✓</span>
+              {prop}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- Subscribe form -->
+    <section class="bg-surface rounded-xl border border-surface-border p-8">
+      <h2 class="text-lg font-bold text-text-primary mb-1">Suscríbete</h2>
+      <p class="text-text-muted text-sm mb-6">Mensual. Sin spam.</p>
+      <Subscribe />
+    </section>
+
+    <!-- Archive placeholder -->
+    <section class="mt-16 border-t border-surface-border pt-10">
+      <h2 class="text-xl font-bold text-text-primary mb-4">Archivo</h2>
+      <p class="text-text-muted text-sm">El archivo de ediciones anteriores estará disponible próximamente.</p>
+    </section>
+  </div>
+</Layout>

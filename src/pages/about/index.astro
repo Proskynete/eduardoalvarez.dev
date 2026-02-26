@@ -1,0 +1,130 @@
+---
+import Layout from "../../layouts/main/index.astro";
+
+export const prerender = true;
+
+const seo = {
+  title: "About",
+  description: "Engineering leader, platform thinker, and technical mentor working in the AI era.",
+};
+---
+
+<Layout seo={seo}>
+  <div class="mx-auto max-w-content">
+    <header class="mb-12">
+      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">About</h1>
+    </header>
+
+    <div class="prose prose-invert max-w-none space-y-14">
+      <!-- Intro -->
+      <section>
+        <p class="text-text-secondary text-lg leading-relaxed">
+          Soy Eduardo Álvarez — ingeniero de software con más de una década construyendo productos digitales y liderando
+          equipos de ingeniería en Latinoamérica. Trabajo en la intersección de la arquitectura de plataforma, el
+          liderazgo técnico, y el impacto que la IA está teniendo en cómo construimos software hoy.
+        </p>
+        <p class="text-text-secondary text-lg leading-relaxed mt-4">
+          Este sitio es donde comparto lo que pienso, aprendo y experimento. No es un blog de tutoriales — es un espacio
+          para pensar en voz alta sobre ingeniería con criterio.
+        </p>
+      </section>
+
+      <!-- What I work on -->
+      <section>
+        <h2 class="text-2xl font-bold text-text-primary mb-5">En qué trabajo</h2>
+        <p class="text-text-secondary leading-relaxed mb-4">
+          La mayor parte de mi trabajo gira en torno a tres ejes:
+        </p>
+        <ul class="space-y-3">
+          <li class="flex gap-3">
+            <span class="text-accent mt-1 flex-shrink-0">→</span>
+            <span class="text-text-secondary leading-relaxed">
+              <strong class="text-text-primary">Platform Engineering</strong> — diseñar las plataformas internas que permiten
+              a los equipos de producto moverse más rápido con menos fricción técnica.
+            </span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-accent mt-1 flex-shrink-0">→</span>
+            <span class="text-text-secondary leading-relaxed">
+              <strong class="text-text-primary">Engineering Leadership</strong> — acompañar a managers y tech leads en su
+              evolución: cómo tomar decisiones con criterio, cómo construir contexto en lugar de control, y cómo escalar
+              impacto.
+            </span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-accent mt-1 flex-shrink-0">→</span>
+            <span class="text-text-secondary leading-relaxed">
+              <strong class="text-text-primary">AI-native Engineering</strong> — entender y documentar cómo los flujos de
+              trabajo de desarrollo están cambiando con los agentes de IA, y qué significa esto para los equipos y sus
+              líderes.
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Where I've been -->
+      <section>
+        <h2 class="text-2xl font-bold text-text-primary mb-5">Por dónde he pasado</h2>
+        <p class="text-text-secondary leading-relaxed">
+          He trabajado en startups y empresas medianas en Chile y América Latina, desde equipos de 3 personas hasta
+          organizaciones con múltiples squads distribuidos. He pasado por roles de contribuidor individual, tech lead y
+          engineering manager — y esa amplitud es lo que más valoro: entiendo el trabajo desde adentro y lo lidero desde
+          una perspectiva sistémica.
+        </p>
+        <p class="text-text-secondary leading-relaxed mt-4">
+          También he dado charlas en conferencias, talleres en instituciones académicas, y mentorías a decenas de
+          ingenieros en distintos momentos de su carrera.
+        </p>
+      </section>
+
+      <!-- How I think -->
+      <section>
+        <h2 class="text-2xl font-bold text-text-primary mb-5">Cómo pienso</h2>
+
+        <blockquote class="border-l-4 border-accent pl-5 my-6">
+          <p class="text-text-secondary text-lg leading-relaxed italic">
+            "El trabajo de un líder técnico no es tener las respuestas — es construir el contexto para que el equipo
+            llegue a mejores respuestas que las que tú tendrías solo."
+          </p>
+        </blockquote>
+
+        <p class="text-text-secondary leading-relaxed">
+          Creo en la ingeniería con criterio: no seguir tendencias por inercia, sino entender el costo real de cada
+          decisión técnica y organizacional. Creo que la documentación, la cultura de feedback y los sistemas de
+          plataforma son multiplicadores de impacto. Y creo que el liderazgo técnico efectivo requiere tanto de
+          empatía como de estructura.
+        </p>
+
+        <blockquote class="border-l-4 border-accent pl-5 my-6">
+          <p class="text-text-secondary text-lg leading-relaxed italic">
+            "Simple no es lo mismo que fácil. Las mejores arquitecturas son las que nadie nota porque simplemente
+            funcionan."
+          </p>
+        </blockquote>
+      </section>
+
+      <!-- Connect -->
+      <section>
+        <h2 class="text-2xl font-bold text-text-primary mb-5">Conectemos</h2>
+        <p class="text-text-secondary leading-relaxed mb-6">
+          Si estás trabajando en un desafío de plataforma, liderazgo o arquitectura — o simplemente quieres comentar
+          algo que leíste aquí — escríbeme.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="mailto:soy@eduardoalvarez.dev"
+            class="px-5 py-2.5 bg-accent text-background text-sm font-semibold rounded-lg hover:bg-accent-hover transition-colors duration-200"
+          >
+            Escríbeme →
+          </a>
+          <a
+            href="/working-with-me"
+            class="px-5 py-2.5 border border-surface-border text-text-primary text-sm font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors duration-200"
+          >
+            Trabajar juntos
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>
