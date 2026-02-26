@@ -6,38 +6,34 @@ export const prerender = true;
 
 export interface Props {
   article: Article;
+  showReadingTime?: boolean;
 }
 
-const { article } = Astro.props;
+const { article, showReadingTime = false } = Astro.props;
 ---
 
-<article class="group">
-  <a href={`/articulos/${article.slug}`} class="block">
-    <div class="mt-4">
-      <dl>
-        <dt class="sr-only">Publicado el</dt>
-        <dd class="text-base font-hero leading-6 text-gray-400">
-          <time datetime={article.date}>
-            {prettyDate(article.date)}
-          </time>
-        </dd>
-      </dl>
-
-      <div class="space-y-3 xl:col-span-3">
-        <div class="space-y-2">
-          <div>
-            <h3
-              class="text-2xl font-hero leading-8 tracking-tight text-gray-100 group-hover:text-gray-300 transition ease-in-out duration-300"
-            >
-              {article.title}
-            </h3>
-          </div>
-
-          <div class="prose font-hero max-w-none text-gray-400 line-clamp-2">
-            {article.description}
-          </div>
-        </div>
-      </div>
+<article class="group py-6">
+  <a href={`/articles/${article.slug}`} class="block space-y-2">
+    <div class="flex items-center gap-3">
+      {article.categories && article.categories.length > 0 && (
+        <span class="text-xs font-medium uppercase tracking-wider text-accent">
+          {article.categories[0]}
+        </span>
+      )}
+      <time
+        datetime={article.date}
+        class="text-xs text-text-muted"
+      >
+        {prettyDate(article.date)}
+      </time>
     </div>
+
+    <h3 class="text-xl font-semibold text-text-primary group-hover:text-accent transition-colors duration-200 leading-snug">
+      {article.title}
+    </h3>
+
+    <p class="text-text-secondary text-sm leading-relaxed line-clamp-2">
+      {article.description}
+    </p>
   </a>
 </article>

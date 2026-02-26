@@ -18,43 +18,32 @@ const { content } = Astro.props;
 const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
 
 const tags = content.categories.map((tag) => tag.replaceAll(/(-)/g, "")).join(",");
-const toShare = `https://twitter.com/intent/tweet?text=${content.title}&url=https://www.eduardoalvarez.dev/articulos/${content.slug}&via=proskynete&hashtags=${tags}`;
+const toShare = `https://twitter.com/intent/tweet?text=${content.title}&url=https://www.eduardoalvarez.dev/articles/${content.slug}&via=proskynete&hashtags=${tags}`;
 
 const seo: BaseHeadProps = {
   title: content.title,
   description: content.description,
   image: content.seo_image,
-  slug: `/articulos/${content.slug}`,
+  slug: `/articles/${content.slug}`,
 };
 ---
 
 <Layout seo={seo}>
-  <article>
-    <div class="xl:divide-y xl:divide-gray-700">
-      <Head content={content} />
+  <article class="mx-auto max-w-wide">
+    <Head content={content} />
 
-      <div class="grid grid-rows-[auto_1fr] divide-y divide-gray-700 xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">
-        <Aside content={content} timeToRead={timeToRead} />
+    <div class="mt-10 grid grid-cols-1 xl:grid-cols-[220px_1fr] xl:gap-x-12">
+      <Aside content={content} timeToRead={timeToRead} toShare={toShare} />
 
-        <div class="col-span-3 pt-4 divide-y divide-gray-700 xl:pb-0 xl:col-start-2 xl:row-span-2 xl:pt-0">
-          <div id="article-body" class="pb-8 max-w-none prose-invert">
-            <slot />
-          </div>
+      <div class="min-w-0">
+        <div id="article-body" class="pb-12 max-w-none prose-invert">
+          <slot />
+        </div>
 
+        <div class="border-t border-surface-border pt-10">
           <GiscusWrapper client:load slug={content.slug} />
         </div>
       </div>
     </div>
   </article>
-
-  <div class="fixed left-0 flex items-center justify-center w-screen bottom-10">
-    <a
-      target="_blank"
-      rel="nofollow noopener"
-      href={toShare}
-      class="flex items-center justify-center px-4 py-2 transition-transform bg-white rounded-full shadow-md cursor-pointer text-neutral-800 transform-gpu hover:scale-105"
-    >
-      Comparte el artículo
-    </a>
-  </div>
 </Layout>

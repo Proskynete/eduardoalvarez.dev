@@ -3,64 +3,83 @@ import { Icon } from "../../../assets/icons";
 import type { CategoryAllowed, TagsAllowed } from "../../../interfaces";
 import { CategoryMap, TagMap } from "../../../utils/categories";
 
-const { content, timeToRead } = Astro.props;
+const { content, timeToRead, toShare } = Astro.props;
 const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
 ---
 
-<aside class="col-span-4 pt-10 xl:sticky top-3 xl:col-span-1">
-  <div class="text-sm font-medium leading-5 divide-y divide-gray-700">
-    <div
-      class="flex flex-col divide-y divide-gray-700 xl:flex-row md:gap-y-0 sm:flex-row xl:block xl:space-y-8 sm:divide-y-0 xl:divide-y"
-    >
-      <div class="w-full pb-4">
-        <p class="mb-2 text-xs tracking-wide uppercase">Categorías</p>
-        <div class="flex flex-wrap">
-          {
-            content.categories.map((category: CategoryAllowed) => (
-              <p class="mr-3 text-gray-400">{CategoryMap.get(category)}</p>
-            ))
-          }
-        </div>
-      </div>
+<aside class="xl:sticky xl:top-24 xl:self-start mb-10 xl:mb-0">
+  <div class="text-sm divide-y divide-surface-border">
+    <!-- Reading time -->
+    <div class="pb-4">
+      <p class="mb-1 text-xs font-medium uppercase tracking-widest text-text-muted">Lectura</p>
+      <p class="text-text-secondary">{timeToRead} {prettyTimeToReadText}</p>
+    </div>
 
-      <div class="py-4 sm:pt-0 xl:pt-4 w-full !mt-0">
-        <p class="mb-2 text-xs tracking-wide uppercase">Tags</p>
-        <div class="flex flex-wrap">
-          {content.tags.map((tag: TagsAllowed) => <p class="mr-3 text-gray-400">{TagMap.get(tag)}</p>)}
-        </div>
-      </div>
-
-      <div class="py-4 sm:pt-0 xl:pt-4 w-full !mt-0">
-        <h3 class="mb-2 text-xs tracking-wide uppercase">Tiempo de lectura</h3>
-        <div class="flex flex-wrap text-gray-400">
-          {timeToRead}
-          {prettyTimeToReadText}
-        </div>
+    <!-- Categories -->
+    <div class="py-4">
+      <p class="mb-2 text-xs font-medium uppercase tracking-widest text-text-muted">Categorías</p>
+      <div class="flex flex-col gap-1">
+        {
+          content.categories.map((category: CategoryAllowed) => (
+            <span class="text-text-secondary">{CategoryMap.get(category) ?? category}</span>
+          ))
+        }
       </div>
     </div>
 
-    <div class="hidden py-4 xl:block">
-      <p class="mb-2 text-xs tracking-wide uppercase">Secciones</p>
+    <!-- Tags -->
+    {
+      content.tags && content.tags.length > 0 && (
+        <div class="py-4">
+          <p class="mb-2 text-xs font-medium uppercase tracking-widest text-text-muted">Tags</p>
+          <div class="flex flex-col gap-1">
+            {content.tags.map((tag: TagsAllowed) => (
+              <span class="text-text-secondary">{TagMap.get(tag) ?? tag}</span>
+            ))}
+          </div>
+        </div>
+      )
+    }
 
-      {
-        content.sections.map((section: { anchor: string; title: string }) => (
-          <a
-            href={`#${section.anchor}`}
-            class="flex transition duration-300 ease-in-out w-fit text-primary-400 hover:text-primary-500"
-          >
-            {section.title}
-          </a>
-        ))
-      }
-    </div>
+    <!-- Table of contents (desktop only) -->
+    {
+      content.sections && content.sections.length > 0 && (
+        <div class="hidden xl:block py-4">
+          <p class="mb-2 text-xs font-medium uppercase tracking-widest text-text-muted">Secciones</p>
+          <nav class="flex flex-col gap-0.5">
+            {content.sections.map((section: { anchor: string; title: string }) => (
+              <a
+                href={`#${section.anchor}`}
+                class="py-0.5 text-text-secondary hover:text-accent transition-colors duration-200 border-l-2 border-transparent hover:border-accent pl-2"
+              >
+                {section.title}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )
+    }
 
+    <!-- Share -->
     <div class="py-4">
       <a
-        href="/"
-        class="flex transition duration-300 ease-in-out text-primary-400 hover:text-primary-500"
-        aria-label="Volver al inicio"
+        href={toShare}
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        class="inline-flex items-center gap-1.5 text-accent hover:underline transition-colors duration-200"
       >
-        <Icon.ArrowLeft width={18} /> Volver a la raíz
+        Compartir en Twitter ↗
+      </a>
+    </div>
+
+    <!-- Back to articles -->
+    <div class="pt-4">
+      <a
+        href="/articles"
+        class="flex items-center gap-1 text-text-secondary hover:text-accent transition-colors duration-200"
+        aria-label="Volver a artículos"
+      >
+        <Icon.ArrowLeft width={16} /> Artículos
       </a>
     </div>
   </div>
