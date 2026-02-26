@@ -1,0 +1,48 @@
+---
+import { Image } from "astro:assets";
+import type { ImageOutputFormat } from "astro";
+
+interface Props {
+  src: Parameters<typeof Image>[0]["src"];
+  alt: string;
+  width?: number;
+  height?: number;
+  widths?: number[];
+  sizes?: string;
+  formats?: ImageOutputFormat[];
+  class?: string;
+  loading?: "lazy" | "eager";
+  decoding?: "async" | "sync" | "auto";
+  quality?: number | "low" | "mid" | "high" | "max";
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  widths,
+  sizes,
+  formats = ["webp"],
+  class: className,
+  loading = "lazy",
+  decoding = "async",
+  quality = "high",
+  ...rest
+} = Astro.props;
+---
+
+<Image
+  src={src}
+  alt={alt}
+  width={width}
+  height={height}
+  widths={widths}
+  sizes={sizes}
+  formats={formats}
+  class={className}
+  loading={loading}
+  decoding={decoding}
+  quality={quality}
+  {...rest}
+/>
