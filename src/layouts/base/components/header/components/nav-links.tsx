@@ -6,19 +6,16 @@ interface NavLinksProps {
 
 export default function NavLinks({ pathname }: NavLinksProps) {
   return (
-    <nav aria-label="Main navigation" className="flex gap-3 items-center">
-      <span className="text-gray-100" aria-hidden="true">
-        cd
-      </span>
+    <nav aria-label="Main navigation" className="flex gap-6 items-center">
       {navItems
         .filter((item) => item.show)
         .map((item) => (
           <a
             key={item.name}
-            className={`font-medium sm:block transition ease-in-out duration-300 ${
-              pathname === item.href
-                ? "text-gray-100 cursor-default pointer-events-none focus:outline-dashed"
-                : "text-gray-300 hover:text-gray-100 focus:text-gray-100"
+            className={`text-sm font-medium transition-colors duration-200 ${
+              pathname === item.href || pathname.startsWith(item.href + "/")
+                ? "text-accent cursor-default pointer-events-none"
+                : "text-text-secondary hover:text-text-primary"
             }`}
             href={item.href}
             aria-current={pathname === item.href ? "page" : undefined}

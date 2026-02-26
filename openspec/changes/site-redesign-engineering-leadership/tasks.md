@@ -1,35 +1,35 @@
 ## 1. Design System Foundation
 
-- [ ] 1.1 Install `geist` npm package (`npm install geist`) and verify it resolves correctly
-- [ ] 1.2 Update `tailwind.config.mjs` — add all color tokens: background, surface, surface-raised, surface-border, text-primary, text-secondary, text-muted, accent, accent-hover, accent-subtle, error, success, warning
-- [ ] 1.3 Update `tailwind.config.mjs` — add font families: `font-sans: ['Geist', ...]` and `font-mono: ['Geist Mono', ...]`
-- [ ] 1.4 Update `tailwind.config.mjs` — add container width tokens: content (672px), wide (960px), full (1280px)
-- [ ] 1.5 Update `tailwind.config.mjs` — add spacing tokens: section-gap (96px), card-pad (24px), nav-height (64px)
-- [ ] 1.6 Update `tailwind.config.mjs` — add controlled gradients as backgroundImage tokens: hero-gradient, accent-glow
-- [ ] 1.7 Update `src/assets/styles/base.css` — replace `*:focus-visible` outline from pink to `#06b6d4`; remove Hero/Avenir `@font-face` declarations
-- [ ] 1.8 Update `src/assets/styles/article.css` — remove Hero/Avenir font rules, update prose typography to Geist scale, update code block colors to surface-raised, update blockquote to accent left border
-- [ ] 1.9 Verify: run `npm run build` and confirm no Tailwind class resolution errors
+- [x] 1.1 Install `geist` npm package (`npm install geist`) and verify it resolves correctly
+- [x] 1.2 Update `tailwind.config.mjs` — add all color tokens: background, surface, surface-raised, surface-border, text-primary, text-secondary, text-muted, accent, accent-hover, accent-subtle, error, success, warning
+- [x] 1.3 Update `tailwind.config.mjs` — add font families: `font-sans: ['Geist', ...]` and `font-mono: ['Geist Mono', ...]`
+- [x] 1.4 Update `tailwind.config.mjs` — add container width tokens: content (672px), wide (960px), full (1280px)
+- [x] 1.5 Update `tailwind.config.mjs` — add spacing tokens: section-gap (96px), card-pad (24px), nav-height (64px)
+- [x] 1.6 Update `tailwind.config.mjs` — add controlled gradients as backgroundImage tokens: hero-gradient, accent-glow
+- [x] 1.7 Update `src/assets/styles/base.css` — replace `*:focus-visible` outline from pink to `#06b6d4`; remove Hero/Avenir `@font-face` declarations
+- [x] 1.8 Update `src/assets/styles/article.css` — remove Hero/Avenir font rules, update prose typography to Geist scale, update code block colors to surface-raised, update blockquote to accent left border
+- [x] 1.9 Verify: run `npm run build` and confirm no Tailwind class resolution errors
 
 ## 2. Brand Identity Assets
 
-- [ ] 2.1 Create isotype SVG (`public/images/logo-mark.svg`) — three-node network graph, cyan accent color, 64×64 viewBox, stroke-only, asymmetric triangle layout
-- [ ] 2.2 Create wordmark SVG (`public/images/logo.svg`) — "Eduardo Álvarez" in Geist Bold, `#f5f5f5`, horizontal layout, max-height 28px when rendered
-- [ ] 2.3 Generate favicon set from isotype SVG: `favicon.ico` (16+32px), `favicon-32x32.png` — place in `public/images/favicon/`
-- [ ] 2.4 Generate PWA icon set from isotype: `apple-touch-icon.png` (180px), `android-chrome-192x192.png`, `android-chrome-512x512.png` — place in `public/images/manifest/`
-- [ ] 2.5 Create OG default image (`public/images/og-default.png`, 1200×630px) — dark background, isotipo left, wordmark right, tagline below
-- [ ] 2.6 Update `src/layouts/base/components/head.astro` — update favicon meta tags to reference new SVG favicon and PNG fallbacks
-- [ ] 2.7 Update `src/settings/index.ts` — update site title, description, and keywords to reflect new positioning
+- [x] 2.1 Create isotype SVG (`public/images/logo-mark.svg`) — three-node network graph, cyan accent color, 64×64 viewBox, stroke-only, asymmetric triangle layout
+- [x] 2.2 Create wordmark SVG (`public/images/logo.svg`) — "Eduardo Álvarez" in Geist Bold, `#f5f5f5`, horizontal layout, max-height 28px when rendered
+- [x] 2.3 Generate favicon set from isotype SVG: `favicon.ico` (16+32px), `favicon-32x32.png` — place in `public/images/favicon/`
+- [x] 2.4 Generate PWA icon set from isotype: `apple-touch-icon.png` (180px), `android-chrome-192x192.png`, `android-chrome-512x512.png` — place in `public/images/manifest/`
+- [x] 2.5 Create OG default image (`public/images/og-default.png`, 1200×630px) — dark background, isotipo left, wordmark right, tagline below
+- [x] 2.6 Update `src/layouts/base/components/head.astro` — update favicon meta tags to reference new SVG favicon and PNG fallbacks
+- [x] 2.7 Update `src/settings/index.ts` — update site title, description, and keywords to reflect new positioning
 - [ ] 2.8 Verify: open browser and confirm favicon shows isotype in tab; share a URL and confirm OG image renders correctly
 
 ## 3. Base Layout & Navigation
 
-- [ ] 3.1 Rewrite `src/layouts/base/components/header/index.astro` — sticky header, 64px height, wordmark left + flat nav right, search icon right, `surface` background with `backdrop-blur` on scroll
-- [ ] 3.2 Update header navigation links — replace old routes with: Articles (`/articles`), Speaking (`/speaking`), Now (`/now`), Stack (`/stack`), About (`/about`), Working with Me (`/working-with-me`)
-- [ ] 3.3 Implement mobile nav — hamburger button, slide-in drawer with all nav items, focus trap when open, close on nav or ✕
-- [ ] 3.4 Implement active link highlighting — apply `text-accent` to the nav item matching the current pathname
-- [ ] 3.5 Rewrite `src/layouts/base/components/footer/index.astro` — remove terminal text and cursor animation; add isotipo (20px), wordmark, social icons (GitHub, LinkedIn, Twitter, RSS, Email), copyright
-- [ ] 3.6 Update `src/layouts/base/index.astro` — replace `bg-black/95` with `bg-background`; update container classes to new width tokens
-- [ ] 3.7 Update `src/components/scrolling-progress-bar/index.tsx` — change `bg-teal-700` to `bg-accent`
+- [x] 3.1 Rewrite `src/layouts/base/components/header/index.astro` — sticky header, 64px height, wordmark left + flat nav right, search icon right, `surface` background with `backdrop-blur` on scroll
+- [x] 3.2 Update header navigation links — replace old routes with: Articles (`/articles`), Speaking (`/speaking`), Now (`/now`), Stack (`/stack`), About (`/about`), Working with Me (`/working-with-me`)
+- [x] 3.3 Implement mobile nav — hamburger button, slide-in drawer with all nav items, focus trap when open, close on nav or ✕
+- [x] 3.4 Implement active link highlighting — apply `text-accent` to the nav item matching the current pathname
+- [x] 3.5 Rewrite `src/layouts/base/components/footer/index.astro` — remove terminal text and cursor animation; add isotipo (20px), wordmark, social icons (GitHub, LinkedIn, Twitter, RSS, Email), copyright
+- [x] 3.6 Update `src/layouts/base/index.astro` — replace `bg-black/95` with `bg-background`; update container classes to new width tokens
+- [x] 3.7 Update `src/components/scrolling-progress-bar/index.tsx` — change `bg-teal-700` to `bg-accent`
 - [ ] 3.8 Verify: navigate through all existing pages and confirm header/footer render correctly with new design; test keyboard navigation through nav
 
 ## 4. URL Redirects & Routing

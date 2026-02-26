@@ -1,92 +1,132 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { version } from "../../../../../../package.json";
 import { navItems } from "../constants";
 
 export default function Mobile() {
-  const [navShow, setNavShow] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const firstLinkRef = useRef<HTMLAnchorElement>(null);
 
-  const onToggleNav = () => {
-    setNavShow((status) => {
-      if (status) document.body.style.overflow = "auto";
-      else document.body.style.overflow = "hidden";
-      return !status;
-    });
+  const onOpen = () => {
+    setIsOpen(true);
+    document.body.style.overflow = "hidden";
   };
+
+  const onClose = () => {
+    setIsOpen(false);
+    document.body.style.overflow = "auto";
+  };
+
+  // Focus first link when drawer opens
+  useEffect(() => {
+    if (isOpen && firstLinkRef.current) {
+      firstLinkRef.current.focus();
+    }
+  }, [isOpen]);
+
+  // Focus trap inside drawer
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const focusable = drawerRef.current?.querySelectorAll<HTMLElement>(
+        'a, button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable || focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
 
   return (
     <>
-      <button aria-label="Toggle Menu" aria-expanded={navShow} onClick={onToggleNav} className="sm:hidden">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="h-8 w-8 text-gray-100"
-        >
-          <path
-            fillRule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clipRule="evenodd"
-          />
+      {/* Hamburger button — only on mobile */}
+      <button
+        aria-label="Abrir menú de navegación"
+        aria-expanded={isOpen}
+        aria-controls="mobile-nav-drawer"
+        onClick={onOpen}
+        className="sm:hidden flex items-center justify-center w-8 h-8 text-text-secondary hover:text-text-primary transition-colors duration-200"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
         </svg>
       </button>
 
+      {/* Overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm sm:hidden"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Drawer */}
       <div
-        className={`fixed left-0 top-0 z-10 h-full w-full transform opacity-95 duration-300 ease-in-out bg-black ${
-          navShow ? "translate-x-0" : "translate-x-full"
+        id="mobile-nav-drawer"
+        ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menú de navegación"
+        className={`fixed top-0 right-0 z-50 h-full w-72 bg-surface border-l border-surface-border transform transition-transform duration-300 ease-in-out sm:hidden ${
+          isOpen ? "translate-x-0" : "translate-x-full"
         }`}
-        aria-hidden={!navShow}
-        inert={!!navShow}
       >
-        <button
-          className="absolute h-8 w-8 top-11 right-5 z-20"
-          aria-label="Close Menu"
-          onClick={onToggleNav}
-          tabIndex={navShow ? 0 : -1}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="text-gray-100">
-            <path
-              fillRule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
+        {/* Drawer header */}
+        <div className="flex items-center justify-between h-nav-height px-6 border-b border-surface-border">
+          <span className="text-text-primary font-semibold text-sm">Menu</span>
+          <button
+            aria-label="Cerrar menú de navegación"
+            onClick={onClose}
+            className="flex items-center justify-center w-8 h-8 text-text-muted hover:text-text-primary transition-colors duration-200"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
 
-        <nav className="relative flex flex-col justify-end items-end text-right w-full h-full pt-40 px-8 pb-12 z-10">
-          <p className="text-gray-100">
-            eduardoalvarez.dev/
-            <span className="text-green-500 font-bold ml-2">v{version}</span>
-          </p>
-
-          <div className="my-2">
-            <p className="text-gray-100">+ astro</p>
-            <p className="text-gray-100">+ react</p>
-            <p className="text-gray-100">+ tailwindcss</p>
-            <p className="text-gray-100">+ typescript</p>
-            <p className="text-gray-100 mt-2">
-              Se encontraron
-              <span className="mx-1 text-green-500 font-bold">0</span>
-              vulnerabilidades
-            </p>
-          </div>
-
-          <p className="text-gray-100 mt-4">A continuación la lista de comandos que puedes usar:</p>
-
-          <ul className="mt-8 flex flex-col items-end">
-            {navItems
-              .filter((item) => item.show)
-              .map((link) => (
-                <li key={link.name} className="py-2">
-                  <a href={link.href} className="text-gray-100" tabIndex={navShow ? 0 : -1}>
-                    <p className="flex items-baseline text-gray-300">
-                      cd
-                      <span className="ml-4 text-gray-100">{link.name}</span>
-                    </p>
-                  </a>
-                </li>
-              ))}
-          </ul>
+        {/* Nav links */}
+        <nav className="flex flex-col p-6 gap-1" aria-label="Mobile navigation">
+          {navItems
+            .filter((item) => item.show)
+            .map((item, index) => (
+              <a
+                key={item.name}
+                href={item.href}
+                ref={index === 0 ? firstLinkRef : undefined}
+                onClick={onClose}
+                className="flex items-center h-11 px-3 text-text-secondary hover:text-text-primary hover:bg-surface-raised rounded-md text-sm font-medium transition-colors duration-200"
+              >
+                {item.name}
+              </a>
+            ))}
         </nav>
       </div>
     </>

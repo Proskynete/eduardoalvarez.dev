@@ -28,23 +28,23 @@ const { seo } = Astro.props;
 
   <ClientRouter />
 
-  <body class="antialiased bg-black/95 text-white">
+  <body class="antialiased bg-background text-text-primary">
     <!-- Skip Navigation Links -->
     <a href="#main-content" class="skip-to-content">Saltar al contenido principal</a>
 
     <ScrollingProgressBar client:visible />
 
-    <section class="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-7xl px-4 sm:px-6 xl:px-0">
-      <div class="flex flex-col justify-between font-sans">
-        <Header algolia={algolia} />
+    <Header algolia={algolia} />
 
-        <main id="main-content" tabindex="-1" class="mb-auto">
+    <div class="mx-auto max-w-full px-4 sm:px-6 xl:px-8">
+      <div class="mx-auto max-w-[1280px]">
+        <main id="main-content" tabindex="-1" class="mb-auto py-12">
           <slot />
         </main>
 
         <Footer />
       </div>
-    </section>
+    </div>
 
     <SpeedInsights />
   </body>
