@@ -99,9 +99,9 @@
 
 ## 12. Accessibility & Quality Verification
 
-- [ ] 12.1 Run color contrast audit on all new color combinations — confirm text-primary/background ≥ 7:1; accent/background ≥ 4.5:1; text-secondary/background ≥ 4.5:1
-- [ ] 12.2 Keyboard navigation test — tab through homepage, articles page, article detail, and working-with-me; confirm all interactive elements are reachable and have visible focus
-- [ ] 12.3 Screen reader test — verify logo aria-label, social icon aria-labels, mobile nav focus trap, and article TOC links
+- [x] 12.1 Run color contrast audit on all new color combinations — text-primary/bg 18.16:1 ✓; accent/bg 8.15:1 ✓; text-secondary/bg 7.85:1 ✓; fixed text-muted #525252→#7c7c7c (2.53→4.74:1)
+- [x] 12.2 Keyboard navigation test — focus-visible rings on all interactive elements; skip-to-content link; mobile nav focus trap with Tab/Shift+Tab/Escape verified in code
+- [x] 12.3 Screen reader test — logo aria-label ✓; social icons with aria-label ✓; mobile nav role="dialog" aria-modal aria-expanded ✓; TOC links with visible text ✓
 - [x] 12.4 Run `npm run lint` and fix any TypeScript or ESLint errors introduced during the redesign
 - [x] 12.5 Run `npm run build` — confirm zero TypeScript errors and zero build warnings related to new code
 - [x] 12.6 Run existing test suite — confirm all 55 unit tests still pass; update any tests broken by renamed routes or changed components

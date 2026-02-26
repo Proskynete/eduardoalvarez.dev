@@ -22,7 +22,7 @@ export default {
         text: {
           primary: "#f5f5f5",
           secondary: "#a3a3a3",
-          muted: "#525252",
+          muted: "#7c7c7c",
         },
         accent: {
           DEFAULT: "#06b6d4",
