@@ -1,19 +1,19 @@
 ---
 import { Icon } from "../../../assets/icons";
-import type { CategoryAllowed } from "../../../interfaces";
-import { CategoryMap } from "../../../utils/categories";
+import type { CategoryAllowed, TagsAllowed } from "../../../interfaces";
+import { CategoryMap, TagMap } from "../../../utils/categories";
 
-const { content, timeToRead, nextArticle, previousArticle } = Astro.props;
+const { content, timeToRead } = Astro.props;
 const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
 ---
 
-<aside class="xl:sticky pt-10 top-3 col-span-4 xl:col-span-1">
-  <div class="text-sm font-medium leading-5 divide-gray-700 divide-y">
+<aside class="col-span-4 pt-10 xl:sticky top-3 xl:col-span-1">
+  <div class="text-sm font-medium leading-5 divide-y divide-gray-700">
     <div
-      class="flex flex-col xl:flex-row md:gap-y-0 sm:flex-row xl:block xl:space-y-8 divide-y divide-gray-700 sm:divide-y-0 xl:divide-y"
+      class="flex flex-col divide-y divide-gray-700 xl:flex-row md:gap-y-0 sm:flex-row xl:block xl:space-y-8 sm:divide-y-0 xl:divide-y"
     >
-      <div class="pb-4 w-full">
-        <p class="text-xs uppercase tracking-wide mb-2">Categorías</p>
+      <div class="w-full pb-4">
+        <p class="mb-2 text-xs tracking-wide uppercase">Categorías</p>
         <div class="flex flex-wrap">
           {
             content.categories.map((category: CategoryAllowed) => (
@@ -24,7 +24,14 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
       </div>
 
       <div class="py-4 sm:pt-0 xl:pt-4 w-full !mt-0">
-        <h3 class="text-xs uppercase tracking-wide mb-2">Tiempo de lectura</h3>
+        <p class="mb-2 text-xs tracking-wide uppercase">Tags</p>
+        <div class="flex flex-wrap">
+          {content.tags.map((tag: TagsAllowed) => <p class="mr-3 text-gray-400">{TagMap.get(tag)}</p>)}
+        </div>
+      </div>
+
+      <div class="py-4 sm:pt-0 xl:pt-4 w-full !mt-0">
+        <h3 class="mb-2 text-xs tracking-wide uppercase">Tiempo de lectura</h3>
         <div class="flex flex-wrap text-gray-400">
           {timeToRead}
           {prettyTimeToReadText}
@@ -32,14 +39,14 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
       </div>
     </div>
 
-    <div class="py-4 hidden xl:block">
-      <p class="text-xs uppercase tracking-wide mb-2">Secciones</p>
+    <div class="hidden py-4 xl:block">
+      <p class="mb-2 text-xs tracking-wide uppercase">Secciones</p>
 
       {
         content.sections.map((section: { anchor: string; title: string }) => (
           <a
             href={`#${section.anchor}`}
-            class="flex w-fit text-primary-400 hover:text-primary-500 transition ease-in-out duration-300"
+            class="flex transition duration-300 ease-in-out w-fit text-primary-400 hover:text-primary-500"
           >
             {section.title}
           </a>
@@ -47,40 +54,10 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
       }
     </div>
 
-    <div class="py-4 flex flex-col gap-4">
-      {
-        nextArticle && (
-          <div class="flex flex-col">
-            <p class="flex items-center text-xs uppercase tracking-wide">Siguiete artículo</p>
-            <a
-              href={`/articulos/${nextArticle.frontmatter.slug}`}
-              class="flex w-fit text-primary-400 hover:text-primary-500 transition ease-in-out duration-300"
-            >
-              <p class="text-md">{nextArticle.frontmatter.title}</p>
-            </a>
-          </div>
-        )
-      }
-
-      {
-        previousArticle && (
-          <div class="flex flex-col">
-            <p class="flex items-center text-xs uppercase tracking-wide">Artículo anterior</p>
-            <a
-              href={`/articulos/${previousArticle.frontmatter.slug}`}
-              class="flex w-fit text-primary-400 hover:text-primary-500 transition ease-in-out duration-300"
-            >
-              <p class="text-md">{previousArticle.frontmatter.title}</p>
-            </a>
-          </div>
-        )
-      }
-    </div>
-
     <div class="py-4">
       <a
         href="/"
-        class="flex text-primary-400 hover:text-primary-500 transition ease-in-out duration-300"
+        class="flex transition duration-300 ease-in-out text-primary-400 hover:text-primary-500"
         aria-label="Volver al inicio"
       >
         <Icon.ArrowLeft width={18} /> Volver a la raíz
