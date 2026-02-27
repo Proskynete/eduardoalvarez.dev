@@ -37,6 +37,6 @@ export const projects: Project[] = [
     githubLink: "https://github.com/Proskynete/node-api-skeleton",
     description: "Starter project for a Node API with TypeScript, testing, and CI/CD setup.",
     techStack: ["Express", "TypeScript", "Jest", "SuperTest", "Swagger", "Docker", "GitHub Actions"],
-    status: "archived",
+    status: "maintained",
   },
 ];

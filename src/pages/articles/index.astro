@@ -9,8 +9,8 @@ export const prerender = true;
 type Frontmatter = IArticle;
 
 const seo = {
-  title: "Articles",
-  description: "Writing about engineering leadership, platform architecture, and the AI era.",
+  title: "Artículos",
+  description: "Escribiendo acerca de liderazgo de ingeniería, arquitectura de plataformas y la era de la IA.",
 };
 
 const rawPosts = import.meta.glob<{ frontmatter: Frontmatter }>("./*.mdx", { eager: true });
@@ -21,48 +21,42 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
 ---
 
 <Layout seo={seo}>
-  <div class="mx-auto max-w-content">
+  <div class="mx-auto max-w-full">
     <!-- Page header -->
     <header class="mb-12">
-      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Articles</h1>
+      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Artículos</h1>
       <p class="text-text-secondary text-lg">
-        Writing about engineering leadership, platform architecture, and the AI era.
+        Escribiendo acerca de liderazgo de ingeniería, arquitectura de plataformas y la era de la IA.
       </p>
     </header>
 
     <!-- Category filter -->
-    <div
-      class="flex flex-wrap gap-2 mb-10"
-      id="category-filter"
-      role="group"
-      aria-label="Filtrar por categoría"
-    >
+    <div class="flex flex-wrap gap-2 mb-10" id="category-filter" role="group" aria-label="Filtrar por categoría">
       <button
         class="category-btn px-3 py-1.5 text-xs font-medium rounded-full border transition-colors duration-200 bg-accent text-background border-accent"
         data-category="all"
         aria-pressed="true"
       >
-        All
+        Todos
       </button>
-      {categories.map((cat) => (
-        <button
-          class="category-btn px-3 py-1.5 text-xs font-medium rounded-full border transition-colors duration-200 bg-surface text-text-secondary border-surface-border hover:text-text-primary"
-          data-category={cat}
-          aria-pressed="false"
-        >
-          {cat}
-        </button>
-      ))}
+      {
+        categories.map((cat) => (
+          <button
+            class="category-btn px-3 py-1.5 text-xs font-medium rounded-full border transition-colors duration-200 bg-surface text-text-secondary border-surface-border hover:text-text-primary"
+            data-category={cat}
+            aria-pressed="false"
+          >
+            {cat}
+          </button>
+        ))
+      }
     </div>
 
     <!-- Articles list -->
     <div id="articles-list" class="divide-y divide-surface-border">
       {
         posts.map((post) => (
-          <div
-            class="article-item"
-            data-categories={JSON.stringify(post.frontmatter.categories ?? [])}
-          >
+          <div class="article-item" data-categories={JSON.stringify(post.frontmatter.categories ?? [])}>
             <Article article={post.frontmatter} />
           </div>
         ))
@@ -70,9 +64,7 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
     </div>
 
     <!-- No results -->
-    <p id="no-results" class="hidden text-text-muted text-sm py-8">
-      No articles in this category yet.
-    </p>
+    <p id="no-results" class="hidden text-text-muted text-sm py-8">No articles in this category yet.</p>
   </div>
 </Layout>
 

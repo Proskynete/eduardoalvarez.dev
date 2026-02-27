@@ -6,13 +6,13 @@ import type { NowItem } from "../../settings/now";
 export const prerender = true;
 
 const seo = {
-  title: "Now",
-  description: "What I'm currently working on, learning, and thinking about.",
+  title: "Ahora",
+  description: "Qué estoy haciendo, aprendiendo y pensando ahora.",
 };
 
 const categories = [...new Set(nowItems.map((item: NowItem) => item.category))];
 const byCategory = Object.fromEntries(
-  categories.map((cat) => [cat, nowItems.filter((item: NowItem) => item.category === cat)])
+  categories.map((cat) => [cat, nowItems.filter((item: NowItem) => item.category === cat)]),
 );
 
 const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
@@ -23,13 +23,11 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
 ---
 
 <Layout seo={seo}>
-  <div class="mx-auto max-w-content">
+  <div class="mx-auto max-w-full">
     <!-- Page header -->
     <header class="mb-12">
-      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Now</h1>
-      <p class="text-text-secondary text-lg mb-2">
-        What I'm working on, learning, and thinking about right now.
-      </p>
+      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Ahora</h1>
+      <p class="text-text-secondary text-lg mb-2">Qué estoy haciendo, aprendiendo y pensando ahora.</p>
       <p class="text-text-muted text-sm">
         Última actualización: {formattedDate} · Inspirado en <a
           href="https://nownownow.com/about"
@@ -50,9 +48,7 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
               {byCategory[category].map((item: NowItem) => (
                 <div class="border-l-2 border-surface-border pl-5 hover:border-accent transition-colors duration-200">
                   <p class="font-semibold text-text-primary mb-1">{item.label}</p>
-                  {item.description && (
-                    <p class="text-text-secondary text-sm leading-relaxed">{item.description}</p>
-                  )}
+                  {item.description && <p class="text-text-secondary text-sm leading-relaxed">{item.description}</p>}
                 </div>
               ))}
             </div>

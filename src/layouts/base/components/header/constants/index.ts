@@ -31,13 +31,13 @@ export const navItems: NavItem[] = [
     show: true,
   },
   {
-    name: "Trabajar conmigo",
+    name: "Trabajemos",
     href: "/working-with-me",
     show: true,
   },
   {
     name: "Podcast",
-    href: "/podcast",
-    show: false,
+    href: "/podcasts",
+    show: true,
   },
 ];

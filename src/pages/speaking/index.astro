@@ -6,8 +6,8 @@ import type { Talk } from "../../settings/talks";
 export const prerender = true;
 
 const seo = {
-  title: "Speaking",
-  description: "Talks and workshops on engineering leadership, platform architecture, and building with AI.",
+  title: "Charlas",
+  description: "Charlas y talleres sobre liderazgo de ingeniería, arquitectura de plataformas y construcción con IA.",
 };
 
 const visibleTalks = talks.filter((t: Talk) => t.show);
@@ -26,20 +26,20 @@ const years = Object.keys(byYear)
 ---
 
 <Layout seo={seo}>
-  <div class="mx-auto max-w-content">
+  <div class="mx-auto max-w-full">
     <!-- Page header -->
     <header class="mb-12">
-      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Speaking</h1>
-      <p class="text-text-secondary text-lg mb-4">
-        Talks and workshops on engineering leadership, platform architecture, and building with AI.
+      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Charlas</h1>
+      <p class="text-text-secondary text-lg mb-2">
+        Charlas y talleres sobre liderazgo de ingeniería, arquitectura de plataformas y construcción con IA.
       </p>
       <p class="text-text-secondary text-sm">
-        Want me to speak at your event?{" "}
+        ¿Quieres que hable en tu evento?{" "}
         <a
           href="mailto:soy@eduardoalvarez.dev"
           class="text-accent hover:underline"
         >
-          Get in touch →
+          Hablemos →
         </a>
       </p>
     </header>

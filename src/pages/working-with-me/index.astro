@@ -4,8 +4,8 @@ import Layout from "../../layouts/main/index.astro";
 export const prerender = true;
 
 const seo = {
-  title: "Working with Me",
-  description: "Ways to work together — consulting, workshops, and mentoring for engineering teams and leaders.",
+  title: "Trabajemos",
+  description: "Formas de trabajar juntos — consulting, workshops, y mentoring para equipos y líderes de ingeniería.",
 };
 
 const engagements = [
@@ -55,12 +55,12 @@ const engagements = [
 ---
 
 <Layout seo={seo}>
-  <div class="mx-auto max-w-content">
+  <div class="mx-auto max-w-full">
     <!-- Page header -->
     <header class="mb-12">
-      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Working with Me</h1>
+      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Trabajemos</h1>
       <p class="text-text-secondary text-lg">
-        Formas de trabajar juntos — consulting, talleres, y mentoring para equipos y líderes de ingeniería.
+        Formas de trabajar juntos — consulting, workshops, y mentoring para equipos y líderes de ingeniería.
       </p>
     </header>
 
@@ -100,13 +100,11 @@ const engagements = [
       <h2 class="text-xl font-bold text-text-primary mb-4">Cómo empezamos</h2>
       <p class="text-text-secondary leading-relaxed mb-6">
         No hay formularios ni procesos complicados. Escríbeme directamente a{" "}
-        <a href="mailto:soy@eduardoalvarez.dev" class="text-accent hover:underline">soy@eduardoalvarez.dev</a> contando
-        qué estás enfrentando y qué tipo de apoyo buscas. Si encaja con lo que puedo ofrecer, coordinamos una primera
-        conversación sin compromiso.
+        <a href="mailto:soy@eduardoalvarez.dev" class="text-accent hover:underline">soy@eduardoalvarez.dev</a> contando qué
+        estás enfrentando y qué tipo de apoyo buscas. Si encaja con lo que puedo ofrecer, coordinamos una primera conversación
+        sin compromiso.
       </p>
-      <p class="text-text-muted text-sm">
-        Respondo todos los emails en un plazo de 48–72 horas hábiles.
-      </p>
+      <p class="text-text-muted text-sm">Respondo todos los emails en un plazo de 48–72 horas hábiles.</p>
     </section>
   </div>
 </Layout>
