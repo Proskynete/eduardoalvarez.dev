@@ -2,6 +2,7 @@ export interface NavItem {
   name: string;
   href: string;
   show: boolean;
+  description?: string;
 }
 
 export const navItems: NavItem[] = [
@@ -9,35 +10,42 @@ export const navItems: NavItem[] = [
     name: "Artículos",
     href: "/articles",
     show: true,
+    description: "Posts sobre ingeniería y liderazgo técnico",
   },
   {
     name: "Charlas",
     href: "/speaking",
     show: true,
+    description: "Talks y workshops en conferencias",
   },
   {
     name: "Ahora",
     href: "/now",
-    show: false,
+    show: true,
+    description: "En qué estoy trabajando hoy",
   },
   {
     name: "Stack",
     href: "/stack",
-    show: false,
+    show: true,
+    description: "Herramientas y tecnologías que uso",
   },
   {
     name: "Sobre mí",
     href: "/about",
-    show: false,
+    show: true,
+    description: "Quién soy y qué hago",
   },
   {
     name: "Trabajemos",
     href: "/working-with-me",
-    show: false,
+    show: true,
+    description: "Cómo podemos colaborar",
   },
   {
     name: "Podcast",
     href: "/podcasts",
-    show: false,
+    show: true,
+    description: "Episodios y charlas en audio",
   },
 ];
