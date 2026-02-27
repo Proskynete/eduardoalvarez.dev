@@ -3,40 +3,41 @@ export interface NavItem {
   href: string;
   show: boolean;
 }
+
 export const navItems: NavItem[] = [
   {
-    name: "~/eduardoalvarez.dev",
-    href: "/",
+    name: "Artículos",
+    href: "/articles",
     show: true,
   },
   {
-    name: "./artículos",
-    href: "/articulos",
+    name: "Charlas",
+    href: "/speaking",
     show: true,
   },
   {
-    name: "./retos",
-    href: "/retos",
+    name: "Ahora",
+    href: "/now",
     show: false,
   },
   {
-    name: "./charlas-talleres",
-    href: "/charlas-talleres",
-    show: true,
+    name: "Stack",
+    href: "/stack",
+    show: false,
   },
   {
-    name: "./podcasts",
+    name: "Sobre mí",
+    href: "/about",
+    show: false,
+  },
+  {
+    name: "Trabajemos",
+    href: "/working-with-me",
+    show: false,
+  },
+  {
+    name: "Podcast",
     href: "/podcasts",
-    show: true,
-  },
-  {
-    name: "./cursos",
-    href: "/cursos",
-    show: false,
-  },
-  {
-    name: "./libros",
-    href: "/libros",
     show: false,
   },
 ];

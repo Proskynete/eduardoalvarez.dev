@@ -4,15 +4,85 @@ export interface Section {
 }
 
 export type CategoryAllowed =
-  | 'web-development'
-  | 'javascript'
-  | 'react'
-  | 'vue'
-  | 'astro'
-  | 'node'
-  | 'express'
-  | 'sql'
-  | 'no-sql';
+  | "engineering-leadership"
+  | "platform-engineering"
+  | "ai-native-engineering"
+  | "career-strategy"
+  | "engineering-culture"
+  | "developer-experience"
+  | "technical-decisions"
+  | "learning-in-tech";
+
+export type TagsAllowed =
+  | "microfrontends"
+  | "design-systems"
+  | "single-spa"
+  | "frontend-architecture"
+  | "platform-thinking"
+  | "technical-standards"
+  | "governance"
+  | "scalability"
+  | "modular-architecture"
+  | "monorepo"
+  | "frontend-platform"
+  | "system-design"
+  | "event-driven-architecture"
+  | "documentation"
+  | "open-spec"
+  | "ai-assisted-development"
+  | "llm"
+  | "codex"
+  | "openai"
+  | "cloud-ai"
+  | "opencode"
+  | "automation"
+  | "prompt-engineering"
+  | "ai-workflows"
+  | "developer-productivity"
+  | "ai-integration"
+  | "ai-culture"
+  | "engineering-management"
+  | "technical-leadership"
+  | "team-growth"
+  | "mentorship"
+  | "trust-building"
+  | "decision-making"
+  | "stakeholder-management"
+  | "feedback-culture"
+  | "psychological-safety"
+  | "ownership"
+  | "accountability"
+  | "organizational-maturity"
+  | "career-growth"
+  | "tech-career"
+  | "promotion"
+  | "tl-to-em"
+  | "career-transition"
+  | "professional-identity"
+  | "impostor-syndrome"
+  | "burnout"
+  | "tech-fatigue"
+  | "continuous-learning"
+  | "skill-development"
+  | "technical-decisions"
+  | "trade-offs"
+  | "business-alignment"
+  | "long-term-thinking"
+  | "risk-management"
+  | "prioritization"
+  | "strategy"
+  | "focus"
+  | "complexity"
+  | "tech-debt"
+  | "developer-experience"
+  | "tooling"
+  | "ci-cd"
+  | "documentation-culture"
+  | "engineering-velocity"
+  | "code-quality"
+  | "maintainability"
+  | "onboarding"
+  | "knowledge-sharing";
 
 export interface Article {
   title: string;
@@ -20,6 +90,7 @@ export interface Article {
   description: string;
   date: string;
   categories: CategoryAllowed[];
+  tags: TagsAllowed[];
   seo_image: string;
   sections: Section[];
 }

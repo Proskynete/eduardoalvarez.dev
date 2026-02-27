@@ -1,0 +1,60 @@
+---
+import Layout from "../../layouts/main/index.astro";
+import { nowItems, lastUpdated } from "../../settings/now";
+import type { NowItem } from "../../settings/now";
+
+export const prerender = true;
+
+const seo = {
+  title: "Ahora",
+  description: "Qué estoy haciendo, aprendiendo y pensando ahora.",
+};
+
+const categories = [...new Set(nowItems.map((item: NowItem) => item.category))];
+const byCategory = Object.fromEntries(
+  categories.map((cat) => [cat, nowItems.filter((item: NowItem) => item.category === cat)]),
+);
+
+const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<Layout seo={seo}>
+  <div class="mx-auto max-w-full">
+    <!-- Page header -->
+    <header class="mb-12">
+      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Ahora</h1>
+      <p class="text-text-secondary text-lg mb-2">Qué estoy haciendo, aprendiendo y pensando ahora.</p>
+      <p class="text-text-muted text-sm">
+        Última actualización: {formattedDate} · Inspirado en <a
+          href="https://nownownow.com/about"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-accent hover:underline">nownownow.com</a
+        >
+      </p>
+    </header>
+
+    <!-- Items grouped by category -->
+    <div class="space-y-12">
+      {
+        categories.map((category) => (
+          <section>
+            <h2 class="text-xs font-semibold uppercase tracking-widest text-accent mb-6">{category}</h2>
+            <div class="space-y-6">
+              {byCategory[category].map((item: NowItem) => (
+                <div class="border-l-2 border-surface-border pl-5 hover:border-accent transition-colors duration-200">
+                  <p class="font-semibold text-text-primary mb-1">{item.label}</p>
+                  {item.description && <p class="text-text-secondary text-sm leading-relaxed">{item.description}</p>}
+                </div>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</Layout>

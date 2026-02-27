@@ -2,7 +2,10 @@ import client from "@mailchimp/mailchimp_marketing";
 import type { APIRoute } from "astro";
 import { z } from "zod";
 
+import { rateLimit } from "../../middleware/rate-limit";
 import { ApiResponseBuilder } from "../../utils/api-response";
+
+const subscribeRateLimiter = rateLimit({ windowMs: 60_000, maxRequests: 5 });
 
 // Schema de validación
 const SubscribeSchema = z.object({
@@ -35,6 +38,9 @@ const TAGS = {
 };
 
 export const POST: APIRoute = async ({ request }) => {
+  const rateLimitResponse = subscribeRateLimiter(request);
+  if (rateLimitResponse) return rateLimitResponse;
+
   try {
     // Parse body
     const body = await request.json();

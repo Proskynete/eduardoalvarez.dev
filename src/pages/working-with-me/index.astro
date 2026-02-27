@@ -1,0 +1,110 @@
+---
+import Layout from "../../layouts/main/index.astro";
+
+export const prerender = true;
+
+const seo = {
+  title: "Trabajemos",
+  description: "Formas de trabajar juntos — consulting, workshops, y mentoring para equipos y líderes de ingeniería.",
+};
+
+const engagements = [
+  {
+    type: "Advisory & Consulting",
+    description:
+      "Trabajo con líderes de ingeniería y CTOs en desafíos de plataforma, arquitectura y organización de equipos. Enfocado en decisiones técnicas con impacto organizacional real.",
+    forWhom: [
+      "Engineering Managers y CTOs que necesitan una perspectiva externa en decisiones de arquitectura",
+      "Empresas en transición de startup a scale-up construyendo su primera plataforma interna",
+      "Equipos que quieren reducir deuda técnica sin paralizar el desarrollo de producto",
+    ],
+    cta: {
+      label: "Conversemos por email",
+      href: "mailto:soy@eduardoalvarez.dev?subject=Advisory",
+    },
+  },
+  {
+    type: "Workshops & Formación",
+    description:
+      "Talleres prácticos y sesiones de formación para equipos de ingeniería sobre platform engineering, AI-native development, y engineering leadership.",
+    forWhom: [
+      "Equipos de ingeniería que quieren adoptar prácticas de plataforma con criterio",
+      "Tech leads que quieren desarrollar habilidades de liderazgo más allá del código",
+      "Organizaciones que quieren preparar a sus equipos para el desarrollo asistido por IA",
+    ],
+    cta: {
+      label: "Ver agenda disponible",
+      href: "mailto:soy@eduardoalvarez.dev?subject=Workshop",
+    },
+  },
+  {
+    type: "Mentoring 1:1",
+    description:
+      "Sesiones personales para ingenieros y tech leads que quieren crecer en su carrera con acompañamiento directo y feedback honesto.",
+    forWhom: [
+      "Senior engineers que quieren dar el salto a roles de liderazgo técnico",
+      "Tech leads que se sienten solos en sus decisiones y quieren un espacio para pensar",
+      "Engineering Managers en los primeros años del rol que buscan orientación práctica",
+    ],
+    cta: {
+      label: "Agendar una sesión",
+      href: "mailto:soy@eduardoalvarez.dev?subject=Mentoring",
+    },
+  },
+];
+---
+
+<Layout seo={seo}>
+  <div class="mx-auto max-w-full">
+    <!-- Page header -->
+    <header class="mb-12">
+      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Trabajemos</h1>
+      <p class="text-text-secondary text-lg">
+        Formas de trabajar juntos — consulting, workshops, y mentoring para equipos y líderes de ingeniería.
+      </p>
+    </header>
+
+    <!-- Engagement types -->
+    <div class="space-y-12 mb-16">
+      {
+        engagements.map((engagement) => (
+          <section class="border border-surface-border rounded-xl p-6 sm:p-8">
+            <h2 class="text-xl font-bold text-text-primary mb-3">{engagement.type}</h2>
+            <p class="text-text-secondary leading-relaxed mb-6">{engagement.description}</p>
+
+            <div class="mb-6">
+              <p class="text-xs font-semibold uppercase tracking-widest text-text-muted mb-3">Para quién</p>
+              <ul class="space-y-2">
+                {engagement.forWhom.map((item) => (
+                  <li class="flex gap-3 text-text-secondary text-sm leading-relaxed">
+                    <span class="text-accent flex-shrink-0 mt-0.5">→</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <a
+              href={engagement.cta.href}
+              class="inline-flex items-center px-5 py-2.5 bg-accent text-background text-sm font-semibold rounded-lg hover:bg-accent-hover transition-colors duration-200"
+            >
+              {engagement.cta.label}
+            </a>
+          </section>
+        ))
+      }
+    </div>
+
+    <!-- How to start -->
+    <section class="border-t border-surface-border pt-10">
+      <h2 class="text-xl font-bold text-text-primary mb-4">Cómo empezamos</h2>
+      <p class="text-text-secondary leading-relaxed mb-6">
+        No hay formularios ni procesos complicados. Escríbeme directamente a{" "}
+        <a href="mailto:soy@eduardoalvarez.dev" class="text-accent hover:underline">soy@eduardoalvarez.dev</a> contando qué
+        estás enfrentando y qué tipo de apoyo buscas. Si encaja con lo que puedo ofrecer, coordinamos una primera conversación
+        sin compromiso.
+      </p>
+      <p class="text-text-muted text-sm">Respondo todos los emails en un plazo de 48–72 horas hábiles.</p>
+    </section>
+  </div>
+</Layout>

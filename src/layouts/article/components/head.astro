@@ -1,38 +1,44 @@
 ---
 import { Icon } from "../../../assets/icons";
+import type { CategoryAllowed } from "../../../interfaces";
+import { CategoryMap } from "../../../utils/categories";
 import { githubArticlePath } from "../../../utils/articles";
+import { prettyDate } from "../../../utils/date";
+
 const { content } = Astro.props;
 ---
 
-<header class="xl:pb-6">
-  <div class="space-y-1 text-center">
-    <dl class="space-y-10">
-      <div>
-        <dt class="sr-only">Publicado el</dt>
-        <dd class="text-base font-avenir leading-6 text-gray-400">
-          <time date-time={content.date}>
-            {new Date(content.date).toLocaleDateString()}
-          </time>
-        </dd>
-      </div>
-    </dl>
-
-    <div>
-      <h1
-        class="text-3xl font-hero leading-9 tracking-tight text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14"
-      >
-        {content.title}
-      </h1>
+<header class="pb-10 border-b border-surface-border">
+  <!-- Category badges -->
+  {content.categories && content.categories.length > 0 && (
+    <div class="flex flex-wrap gap-2 mb-5">
+      {content.categories.map((category: CategoryAllowed) => (
+        <span class="px-2.5 py-0.5 text-xs font-medium rounded bg-accent-subtle text-accent uppercase tracking-wider">
+          {CategoryMap.get(category) ?? category}
+        </span>
+      ))}
     </div>
+  )}
 
-    <p class="flex gap-1 justify-center">
-      ¿Ves alguna errata?
-      <a
-        class="flex gap-1 text-primary-400 hover:text-primary-600 transition ease-in-out duration-300"
-        href={githubArticlePath(content.slug)}
-      >
-        Haz una pull request <Icon.Github width={25} />
-      </a>
-    </p>
+  <!-- Title -->
+  <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary leading-tight tracking-tight mb-5">
+    {content.title}
+  </h1>
+
+  <!-- Meta -->
+  <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-text-muted">
+    <time datetime={content.date}>
+      {prettyDate(content.date)}
+    </time>
+    <span class="text-surface-border">·</span>
+    <a
+      class="flex items-center gap-1 text-accent hover:underline transition-colors duration-200"
+      href={githubArticlePath(content.slug)}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      ¿Ves una errata? Edita en GitHub
+      <Icon.Github width={14} />
+    </a>
   </div>
 </header>

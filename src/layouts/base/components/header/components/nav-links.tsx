@@ -6,26 +6,43 @@ interface NavLinksProps {
 
 export default function NavLinks({ pathname }: NavLinksProps) {
   return (
-    <nav aria-label="Main navigation" className="flex gap-3 items-center">
-      <span className="text-gray-100" aria-hidden="true">
-        cd
-      </span>
+    <nav aria-label="Main navigation" className="flex items-center gap-1 font-mono text-sm">
+      <span className="text-text-muted select-none mr-2">cd ~/eduardoalvarez.dev</span>
       {navItems
         .filter((item) => item.show)
-        .map((item) => (
-          <a
-            key={item.name}
-            className={`font-medium sm:block transition ease-in-out duration-300 ${
-              pathname === item.href
-                ? "text-gray-100 cursor-default pointer-events-none focus:outline-dashed"
-                : "text-gray-300 hover:text-gray-100 focus:text-gray-100"
-            }`}
-            href={item.href}
-            aria-current={pathname === item.href ? "page" : undefined}
-          >
-            {item.name}
-          </a>
-        ))}
+        .map((item) => {
+          const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+          const label = item.name.toLowerCase();
+
+          return (
+            <a
+              key={item.name}
+              href={item.href}
+              aria-current={isActive ? "page" : undefined}
+              className={`group px-1 transition-colors duration-150 ${
+                isActive
+                  ? "text-accent pointer-events-none cursor-default"
+                  : "text-text-secondary hover:text-text-primary"
+              }`}
+            >
+              <span
+                className={`select-none transition-opacity duration-150 ${
+                  isActive ? "opacity-0" : "opacity-0 group-hover:opacity-100"
+                }`}
+              >
+                [
+              </span>
+              ./{label}
+              <span
+                className={`select-none transition-opacity duration-150 ${
+                  isActive ? "opacity-0" : "opacity-0 group-hover:opacity-100"
+                }`}
+              >
+                ]
+              </span>
+            </a>
+          );
+        })}
     </nav>
   );
 }

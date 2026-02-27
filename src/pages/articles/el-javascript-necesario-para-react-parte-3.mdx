@@ -1,0 +1,182 @@
+---
+layout: ../../layouts/article/index.astro
+title: "El Javascript necesario para React - Parte 3"
+slug: "el-javascript-necesario-para-react-parte-3"
+description: "Descubre cómo usar 'template literals' en JavaScript para concatenar strings y variables de forma intuitiva. Aprende sobre 'asincronía', 'callbacks', 'promesas' y 'async/await' para manejar operaciones que tardan en completarse sin bloquear tu código. ¡Simplifica tu código JavaScript!"
+date: 2024-09-29T01:35:00-03:00
+categories: ["platform-engineering"]
+tags: ["frontend-platform"]
+seo_image: /images/articulos/el-javascript-necesario-para-react/parte-3/el-javascript-necesario-para-react-parte-3.webp
+sections:
+  [
+    { title: "Templates literal", anchor: "templates-literal" },
+    { title: "Asincronía", anchor: "asynchrony" },
+    { title: "Callbacks", anchor: "callbacks" },
+    { title: "Promesas", anchor: "promises" },
+    { title: "Async/Await", anchor: "async-await" },
+  ]
+---
+
+<h2 id="templates-literal">Templates literal</h2>
+
+Las **templates literals** 🎨 son una característica dentro de JavaScript que nos permite hacer dos cosas super concretas con una **sintaxis súper simple**, usando **tildes invertidas** **\`** o también llamados [**grave accent**](https://en.wikipedia.org/wiki/Grave_accent). Primero: Nos permite **dar saltos de línea** dentro del string y la segunda: **poder interpolar variables** dentro de una cade de texto o string.
+
+_Lector: No entiendo nada de lo que estás diciendo. 🙃_
+
+_Yo: Mmmh... mejor, veamos algunos ejemplos, porque no me está ayudando el explicar usando solo texto. 🫣_
+
+```javascript
+const 🥺 = "Soy un texto que no le
+permiten dar saltos de linea"
+```
+
+Si vemos en este ejemplo, estamos declarando una variable con un texto usando comillas dobles (para efectos de este ejemplo usé comillas dobles, pero el resultado será el mismo si usamos comillas simples).
+
+_👀 Si nos damos cuenta, el mismo ejemplo nos está marcando de distinto color las letras que están en la segunda línea._
+
+En el ejemplo que veremos a continuación, al estar usando las tildes invertidas, no nos está generando ningún error, es más, se ve como que el color no cambia (no como en el ejemplo anterior).
+
+```javascript
+const 💪 = `Yo si puedo
+muajajajaja 😈`;
+```
+
+Ojo ⚠️, que esto no es lo único que se puede hacer con las templates literals, ya que también podemos concatenar variables dentro del mismo string, sin necesidad de hacer cosas extrañas como sumar variables y cosas así. _**Pero Wait!**_ 🛑, necesitamos utilizar una nueva forma de decirle al string que lo que va a continuación es una variable.
+
+_Lector: pff otra cosa más por aprender... 😓_
+
+_Yo: Tranquilidad, que con los ejemplos que vamos a ver ahora, lo vas a aprender súper rápido. 🚀_
+
+### Sin templates literal
+
+```javascript
+const usuario = {
+  nombre: "Arthur",
+  edad: 30,
+};
+
+console.log("Hola! mi nombre es " + usuario.nombre + " y tengo " + usuario.edad + " años.");
+
+// output: Hola! mi nombre es Arthur y tengo 30 años
+```
+
+### Con templates literal
+
+```javascript
+const usuario = {
+  nombre: "Arthur",
+  edad: 30,
+};
+
+console.log(`Hola! mi nombre es ${usuario.nombre} y tengo ${usuario.edad} años.`);
+// output: Hola! mi nombre es Arthur y tengo 30 años
+```
+
+En ambos ejemplos tenemos exactamente el mismo resultado. Queríamos poder **concatenar/unir texto con variables** y esto se pudo lograr **de dos maneras**, lo cual no está tan malo. Ahora, no te pasa que al ver ambos ejemplos, sientes que uno es más... **intuitivo**? o por lo menos, más **sencillo de leer** 📖, y lo único que tuvimos que aprender fue saber cómo envolver las variables dentro del mismo string.
+
+Ahora, siendo un poco más formal con la explicación, para poder **interpolar variables**, necesitamos _"envolver"_ esta misma entre **llaves**, anteponiendo el símbolo dólar **($)** quedando la siguiente estructura: `${...}`.
+
+<h2 id="asynchrony">Asincronía</h2>
+
+En **JavaScript**, muchas veces necesitamos ejecutar tareas que no se **completan de inmediato**, como solicitar datos de una **API** 🌐 o **leer un archivo** 📂. Estas tareas son conocidas como operaciones asincrónicas ⏳, y nos permiten continuar ejecutando el resto del código sin esperar a que esas tareas se terminen. A esto se le llama asincronía.
+
+_Lector: ¿Qué? ¡No entiendo nada!_
+
+_Yo: Tranquilo, lo explicaré con un ejemplo simple._
+
+Imagínate que tienes una función que espera 2 segundos ⏱️ para darte un resultado. Mientras esperas, ¿qué haces? Pues, sigues trabajando en otras cosas 🛠️, y cuando el resultado llega, lo utilizas. Así es como funciona la asincronía en JavaScript.
+
+```javascript
+console.log("Inicio de la tarea");
+
+setTimeout(() => {
+  console.log("Esto se ejecuta después de 2 segundos");
+}, 2000);
+
+console.log("Fin de la tarea");
+```
+
+En este ejemplo, setTimeout es una función asincrónica que espera 2 segundos antes de ejecutar su código. Mientras tanto, el resto del código sigue ejecutándose sin detenerse. ¡Eso es la magia de la asincronía! ✨
+
+<h2 id="callbacks">Callbacks</h2>
+
+Antes de que existieran las **promesas** (de las que hablaremos más adelante), las operaciones _asincrónicas en JavaScript_ usaban _**funciones callback**_ para manejar los resultados. Un **callback** es simplemente una _**función que se pasa como argumento a otra función**_ y se ejecuta cuando la operación asincrónica ha finalizado.
+
+Veamos un ejemplo clásico:
+
+```javascript
+function pedirDatos(callback) {
+  setTimeout(() => {
+    const datos = { nombre: "Bruce Banner", edad: 56 };
+    callback(datos);
+  }, 3000);
+}
+
+pedirDatos((resultado) => {
+  console.log("Datos recibidos:", resultado);
+});
+```
+
+Aquí estamos usando un callback para procesar los datos una vez que han sido obtenidos después de 3 segundos. Esta era una de las primeras maneras de manejar la asincronía, pero como veremos más adelante, tiene algunos inconvenientes cuando las operaciones se complican, lo que da lugar a algo llamado **Callback Hell 😱**.
+
+![Elmo in the hell](https://media.giphy.com/media/11qCjC856PSmnm/giphy.gif)
+
+<h2 id="promises">Promesas</h2>
+
+**Una promesa** 📜 es un **objeto** que representa el eventual resultado (o fallo) de una _**operación asincrónica**_. En lugar de pasar un **callback como argumento**, las promesas te permiten trabajar con la asincronía de una manera mucho **más legible**, utilizando los métodos _**.then()**_, _**.catch()**_ y _**.finally()**_.
+
+### Veamos cómo funciona:
+
+```javascript
+const promesaDeDatos = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const exito = true; // Cambia esto a false para ver el catch
+
+    if (exito) {
+      resolve({ nombre: "Bruce Banner", edad: 56 });
+    } else {
+      reject("Hubo un error al obtener los datos");
+    }
+  }, 3000);
+});
+
+promesaDeDatos
+  .then((resultado) => {
+    console.log("Datos recibidos:", resultado);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  })
+  .finally(() => {
+    console.log("Operación completada");
+  });
+```
+
+Con las promesas podemos gestionar más fácilmente los resultados exitosos o los errores, evitando el **Callback Hell**. En este ejemplo, si todo va bien, **resolve** se ejecuta, y si hay un error, se ejecuta **reject**. ¡Súper útil! 🚀
+
+<h2 id="async-await">Async/Await</h2>
+
+Si pensabas que las promesas ya hacían la asincronía más sencilla ¡espera a conocer **async/await!** 🚀 Esta característica permite que escribamos código asíncrono de una manera aún más limpia y directa. Parece que todo sucede de manera síncrona, pero en realidad está manejando promesas en el fondo.
+
+Para usar _**async/await**_, solo necesitas declarar una función como async y usar await para esperar los resultados de las promesas.
+
+Veamos un ejemplo:
+
+```javascript
+async function obtenerDatos() {
+  try {
+    const resultado = await promesaDeDatos;
+    console.log("Datos recibidos:", resultado);
+  } catch (error) {
+    console.error("Error:", error);
+  } finally {
+    console.log("Operación completada");
+  }
+}
+
+obtenerDatos();
+```
+
+Con **async/await**, el código parece más _**lineal y fácil de seguir**_ 👣. En lugar de usar **.then()** y **.catch()**, simplemente usamos **await** para _"esperar"_ el resultado de la promesa. Si algo sale mal, lo manejamos con _**try/catch**_, como lo haríamos con código síncrono.
+
+![Confused Cat](https://media.giphy.com/media/l2RsBhyCSu5Y5XU3Zf/giphy.gif)

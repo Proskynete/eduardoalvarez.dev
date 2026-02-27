@@ -1,9 +1,9 @@
 export default {
-  title: "eduardoalvarez.dev",
+  title: "Eduardo Álvarez",
   description:
-    "Artículos, Videos, Podcasts, Tutoriales y Recursos sobre Desarrollo Web, Frontend, HTML, CSS, Javascript, Typescript, React, Node y MongoDB",
+    "Engineering Leadership & Platform Thinking in the AI Era. Artículos, charlas y recursos sobre liderazgo de ingeniería, arquitectura de plataformas y desarrollo de software.",
   keywords:
-    "frontend, front-end, react, reactjs, mongo, mongodb, ts, typescript, js, javascript, nosql, express, node, nodejs, html, css",
+    "engineering leadership, platform architecture, platform thinking, AI era, engineering culture, software architecture, engineering management, staff engineer, typescript, react, node, astro",
   url: "https://eduardoalvarez.dev",
   repo_url: "https://github.com/proskynete/website",
   domain: "eduardoalvarez.dev",

@@ -45,5 +45,26 @@
     }
   ],
   "rewrites": [],
-  "redirects": []
+  "redirects": [
+    {
+      "source": "/articulos",
+      "destination": "/articles",
+      "permanent": true
+    },
+    {
+      "source": "/articulos/:path*",
+      "destination": "/articles/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/charlas-talleres",
+      "destination": "/speaking",
+      "permanent": true
+    },
+    {
+      "source": "/donaciones",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
 }

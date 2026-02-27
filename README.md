@@ -1,63 +1,85 @@
 <div align="center">
 
-  <h1>Bienvenido a <a href="https://eduardoalvarez.dev">mi sitio web</a></h1>
+  <h1><a href="https://eduardoalvarez.dev">eduardoalvarez.dev</a></h1>
 
-![Astro](https://img.shields.io/badge/Developed%20with-Astro-e73bba?logo=astro) ![Vercel](https://img.shields.io/badge/Hosted%20in-Vercel-000000?logo=vercel) ![!PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+  <p>Engineering Leadership & Platform Thinking in the AI Era</p>
+
+![Astro](https://img.shields.io/badge/Developed%20with-Astro-e73bba?logo=astro) ![Vercel](https://img.shields.io/badge/Hosted%20in-Vercel-000000?logo=vercel) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript) ![!PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 </div>
 
 ---
 
-<img   align="right" src="https://eduardoalvarez.dev/images/eduardoalvarez.gif?raw=true" width="400" />
+Sitio personal de Eduardo Álvarez: artículos, charlas, stack, podcasts y recursos sobre liderazgo de ingeniería, arquitectura de plataformas y desarrollo de software en la era de la IA.
 
-### Roadmap
+## Stack principal
 
-#### Completado ✅
+| Tecnología | Uso |
+|---|---|
+| **Astro 5** | SSG + rutas serverless |
+| **React 19** | Componentes interactivos (búsqueda, audio player, nav mobile) |
+| **TypeScript 5** | Strict mode, sin `any` |
+| **Tailwind CSS** | Design system con tokens personalizados (Geist, cyan/dark) |
+| **MDX** | Artículos con componentes embebidos |
+| **Algolia v5** | Búsqueda full-text, indexada en build |
+| **Giscus** | Comentarios via GitHub Discussions |
+| **Mailchimp** | Newsletter |
+| **Vercel** | Deploy, serverless functions |
+| **Vitest + Playwright** | Unit + E2E tests |
 
-- [x] Agregar iconos
-- [x] Agregar proyectos en la vista principal
-- [x] Agregar y configurar linters, prettier & husky
-- [x] Mostrar botón para compartir artículo
-- [x] Crear vista - Charlas y talleres
-- [x] **Fase 1: Seguridad y Estabilidad** (5/5 Steps - 100%)
-  - [x] Migración a API keys de solo lectura para Algolia
-  - [x] Mover secretos de Giscus a variables de entorno
-  - [x] Agregar estados de error al hook de búsqueda
-  - [x] Validación de inputs con Zod en API Subscribe
-  - [x] Manejo de errores en formulario de suscripción
-- [x] **Fase 2: Testing y Type Safety** (4/4 Steps - 100%)
-  - [x] Infraestructura de testing con Vitest + React Testing Library
-  - [x] Tests para hook useAlgoliaSearch (18 tests)
-  - [x] Mejorar definiciones TypeScript (eliminar `any` types)
-  - [x] Tests para utility functions (37 tests)
-  - [x] **Métricas**: 55/55 tests pasando, coverage >93%
+## Comandos
 
-- [x] **Fase 3: Performance y Optimización** (1/3 Steps - Completa ✅)
-  - [x] Optimización de imágenes (Fases 1 y 2 completadas)
-    - [x] Homepage + 404 con responsive widths y formato WebP
-    - [x] Charlas images + logos con soporte retina
-    - [~] Article component + MDX images (DEPRECATED - optimización actual suficiente)
-  - [x] Validación de variables de entorno con Zod
-  - [~] Rate limiting para API endpoints (SKIPPED - Cloudflare lo maneja)
-- [x] **Fase 4: Accesibilidad y UX** (6/6 Steps - 100% ✅)
-  - [x] Skip navigation links
-  - [x] Mejorar navegación por teclado en búsqueda (ArrowUp, ArrowDown, Enter, Escape)
-  - [x] Auditoría de contraste de colores (WCAG 2.1 AA)
-  - [x] Crear utilidad de respuestas API (ApiResponseBuilder)
-  - [x] Tests E2E con Playwright (search & subscribe flows)
-  - [x] Documentación de componentes con JSDoc
+```bash
+npm run dev        # Servidor de desarrollo
+npm run build      # Build de producción
+npm run preview    # Preview del build local
+npm run lint       # Lint TypeScript/JSX
+npm run lint:fix   # Auto-fix lint
+npm test           # Tests en modo watch
+npm run test:run   # Tests una vez (CI)
+npm run test:coverage  # Coverage report
+```
 
-#### Pendiente ⏸️
+## Páginas
 
-- [ ] Crear nueva vista - Podcast
-- [ ] Crear nueva vista - Cursos
+| Ruta | Descripción |
+|---|---|
+| `/` | Home con hero, últimos artículos y charlas recientes |
+| `/articles` | Listado de artículos con filtro por categoría |
+| `/articles/[slug]` | Detalle de artículo con TOC, comentarios y compartir |
+| `/speaking` | Charlas y talleres agrupados por año |
+| `/now` | Qué estoy haciendo ahora |
+| `/stack` | Herramientas y tecnologías que uso |
+| `/about` | Sobre mí |
+| `/working-with-me` | Formas de trabajar juntos |
+| `/newsletter` | Suscripción al newsletter |
+| `/projects` | Proyectos con filtro por estado |
+| `/podcasts` | Episodios de podcast con reproductor integrado |
+| `/podcasts/[slug]` | Detalle de episodio |
 
----
+## Variables de entorno
 
-**Progreso Total del Plan**: 15/16 Steps completados (93.75%) 🎉
+```bash
+# Algolia (búsqueda)
+PUBLIC_ALGOLIA_APPLICATION_ID=
+PUBLIC_ALGOLIA_INDEX_NAME=
+PUBLIC_ALGOLIA_SEARCH_API_KEY=   # Solo lectura, cliente
+ALGOLIA_ADMIN_API_KEY=           # Admin, solo servidor/build
 
-**Métricas de Calidad**:
-- ✅ 55 unit tests + 11 E2E tests pasando (100%)
-- ✅ Coverage: >93% statements, 86.95% branches, 100% functions
-- ✅ 0 errores de TypeScript (strict mode)
-- ✅ Todas las fases críticas completadas
+# Giscus (comentarios)
+PUBLIC_GISCUS_REPO=
+PUBLIC_GISCUS_REPO_ID=
+PUBLIC_GISCUS_CATEGORY_ID=
+
+# Mailchimp (newsletter)
+MAILCHIMP_API_KEY=
+MAILCHIMP_LIST_ID=
+```
+
+## Métricas de calidad
+
+- ✅ 55 unit tests + 11 E2E tests (100% passing)
+- ✅ Coverage: >93% statements, >86% branches, 100% functions
+- ✅ 0 errores TypeScript (strict mode)
+- ✅ WCAG 2.1 AA (contraste verificado)
+- ✅ Lighthouse: performance, a11y, SEO
