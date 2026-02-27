@@ -19,7 +19,8 @@ const { content } = Astro.props;
 const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
 
 const tags = content.categories.map((tag) => tag.replaceAll(/(-)/g, "")).join(",");
-const toShare = `https://twitter.com/intent/tweet?text=${content.title}&url=https://www.eduardoalvarez.dev/articles/${content.slug}&via=proskynete&hashtags=${tags}`;
+const twitterShare = `https://twitter.com/intent/tweet?text=${content.title}&url=https://www.eduardoalvarez.dev/articles/${content.slug}&via=proskynete&hashtags=${tags}`;
+const linkedInShare = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://www.eduardoalvarez.dev/articles/${content.slug}`)}&title=${encodeURIComponent(content.title)}`;
 
 const articleKeywords = content.keywords ?? content.categories;
 
@@ -58,7 +59,7 @@ const seo: BaseHeadProps = {
     <Head content={content} />
 
     <div class="mt-10 grid grid-cols-1 xl:grid-cols-[220px_1fr] xl:gap-x-12">
-      <Aside content={content} timeToRead={timeToRead} toShare={toShare} />
+      <Aside content={content} timeToRead={timeToRead} twitterShare={twitterShare} linkedInShare={linkedInShare} />
 
       <div class="min-w-0">
         <div id="article-body" class="pb-12 max-w-none prose-invert">
