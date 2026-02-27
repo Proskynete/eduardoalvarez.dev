@@ -63,12 +63,6 @@ export default function Navigation({ pathname: initialPathname = "", algolia }: 
     setSelectedIndex(-1);
   };
 
-  const handleClearSearch = () => {
-    setSearchQuery("");
-    setIsSearchOpen(false);
-    setSelectedIndex(-1);
-  };
-
   const handleToggleSearch = () => {
     setIsInputVisible((prev) => !prev);
     if (isInputVisible) {
@@ -129,7 +123,6 @@ export default function Navigation({ pathname: initialPathname = "", algolia }: 
             searchQuery={searchQuery}
             onSearchChange={handleSearch}
             onFocus={handleInputFocus}
-            onClear={handleClearSearch}
             isSearchOpen={isSearchOpen}
             selectedIndex={selectedIndex}
           />
