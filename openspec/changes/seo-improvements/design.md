@@ -1,6 +1,8 @@
 ## Context
 
-El sitio `eduardoalvarez.dev` es un blog personal construido con Astro 5 (SSR via Vercel adapter). Las páginas se renderizan en servidor pero los artículos están marcados como `prerender = true`. El SEO actual se genera íntegramente en `src/layouts/base/components/head.astro` (shared para todas las páginas) y `src/layouts/article/index.astro` (layout de artículos).
+El sitio `eduardoalvarez.dev` es un sitio personal de liderazgo de ingeniería construido con Astro 5 (SSR via Vercel adapter). Las páginas se renderizan en servidor pero los artículos están marcados como `prerender = true`. El SEO actual se genera íntegramente en `src/layouts/base/components/head.astro` (shared para todas las páginas) y `src/layouts/article/index.astro` (layout de artículos).
+
+Las secciones del sitio post-rebranding son: `/` (home), `/articles` (listado con filtro client-side), `/articles/*.mdx` (artículos individuales), `/speaking` (charlas agrupadas por año), `/podcasts`, `/projects`, `/stack`, `/now`, `/about`, `/working-with-me` y `/newsletter`.
 
 Estado actual problemático:
 - `public/robots.txt` solo contiene comentarios de AI-signals (sin User-agent/Sitemap).
@@ -23,7 +25,7 @@ Estado actual problemático:
 **Non-Goals:**
 - Link building o estrategia de contenido.
 - Optimización de Core Web Vitals (ya manejado por la arquitectura de Astro/Vercel).
-- Implementar OpenGraph para páginas que no son artículos (charlas, podcasts) — fuera de scope en esta iteración.
+- Implementar OpenGraph para páginas que no son artículos (`/speaking`, `/podcasts`, `/projects`, etc.) — fuera de scope en esta iteración.
 - Rate limiting de crawlers en robots.txt — se delega a Cloudflare/Vercel.
 
 ## Decisions

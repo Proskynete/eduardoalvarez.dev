@@ -9,7 +9,7 @@ El sitio carece de señales SEO técnicas fundamentales: sin schema markup, robo
 - **og:type en artículos**: Cambiar de `"website"` a `"article"` e incluir `article:published_time`, `article:author` y `article:tag` en el `<head>` del layout de artículo.
 - **Meta description truncation**: Truncar automáticamente descriptions > 160 caracteres antes de renderizarlas en `<meta>`.
 - **Keywords por artículo**: Añadir campo `keywords` opcional al frontmatter de artículos y usarlo en `<meta name="keywords">`.
-- **Alt text descriptivo**: Corregir el alt text genérico `"stacks"` de imágenes en artículos MDX existentes.
+- **Alt text descriptivo**: Corregir el alt text genérico `"stacks"` de imágenes en artículos MDX existentes en `src/pages/articles/`.
 - **lang attribute**: Alinear `<html lang>` con el valor configurado en settings (`es-ES`).
 - **Favicon**: Corregir la referencia rota a `favicon.ico` (actualmente 404).
 - **Sitemap con lastmod**: Añadir `<lastmod>` a las URLs del sitemap usando la fecha de publicación de los artículos.
@@ -34,7 +34,7 @@ _(Sin capabilities existentes con cambio de requerimientos)_
 - `src/layouts/base/components/head.astro` — schema JSON-LD, lang fix, description truncation, keywords dinámicas
 - `src/layouts/article/index.astro` — og:type article, article meta tags
 - `src/interfaces/index.ts` — añadir campo `keywords?: string[]` al tipo `Article`
-- `src/pages/articulos/*.mdx` — corregir alt text en imágenes
+- `src/pages/articles/*.mdx` — corregir alt text en imágenes
 - `src/pages/rss.xml.ts` — potencial uso de `keywords` por artículo
 - `astro.config.mjs` — verificar configuración de sitemap para `lastmod`
 

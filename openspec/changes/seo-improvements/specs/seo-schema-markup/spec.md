@@ -33,7 +33,7 @@ La homepage SHALL emitir un schema `Person` en el mismo bloque JSON-LD (o en un 
 Cada página de artículo SHALL emitir un schema `BlogPosting` con los campos: `headline`, `description`, `datePublished`, `author` (objeto `Person`), `url`, `image` y `keywords`.
 
 #### Scenario: Artículo renderiza BlogPosting schema
-- **WHEN** un crawler accede a una URL de artículo (ej. `/articulos/empezando-en-el-desarrollo-web`)
+- **WHEN** un crawler accede a una URL de artículo (ej. `/articles/empezando-en-el-desarrollo-web`)
 - **THEN** el HTML SHALL contener `<script type="application/ld+json">` con `"@type": "BlogPosting"` y `"headline"` igual al título del artículo
 
 #### Scenario: BlogPosting incluye fecha de publicación

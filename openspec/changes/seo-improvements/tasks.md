@@ -43,10 +43,10 @@
 
 ## 6. Alt text en artículos MDX
 
-- [ ] 6.1 En `src/pages/articulos/empezando-en-el-desarrollo-web.mdx`, reemplazar `alt="stacks"` en la imagen `front-back.webp` por texto descriptivo (ej. `"Diagrama comparativo entre Frontend y Backend"`)
+- [ ] 6.1 En `src/pages/articles/empezando-en-el-desarrollo-web.mdx`, reemplazar `alt="stacks"` en la imagen `front-back.webp` por texto descriptivo (ej. `"Diagrama comparativo entre Frontend y Backend"`)
 - [ ] 6.2 En el mismo artículo, actualizar `alt="stacks"` en `api.webp` (ej. `"Diagrama de comunicación entre aplicaciones mediante una API"`)
 - [ ] 6.3 En el mismo artículo, actualizar `alt="stacks"` en `git-github.webp` (ej. `"Flujo de trabajo con Git y repositorios en GitHub"`)
-- [ ] 6.4 Revisar los demás artículos MDX en busca de imágenes con alt text genérico o vacío y corregirlas
+- [ ] 6.4 Revisar los demás artículos MDX en `src/pages/articles/` en busca de imágenes con alt text genérico o vacío y corregirlas
 
 ## 7. Sitemap con lastmod
 
@@ -59,5 +59,5 @@
 - [ ] 8.2 Ejecutar `npm run lint` sin errores
 - [ ] 8.3 Ejecutar `npm run test:run` — todos los tests deben pasar
 - [ ] 8.4 Abrir la homepage en DevTools y confirmar: `<html lang="es-ES">`, JSON-LD con WebSite + Person, `og:type="website"`, description ≤ 160 chars
-- [ ] 8.5 Abrir un artículo en DevTools y confirmar: JSON-LD con BlogPosting, `og:type="article"`, meta tags `article:*`, description ≤ 160 chars, alt text descriptivo en imágenes
+- [ ] 8.5 Abrir un artículo (ej. `/articles/empezando-en-el-desarrollo-web`) en DevTools y confirmar: JSON-LD con BlogPosting, `og:type="article"`, meta tags `article:*`, description ≤ 160 chars, alt text descriptivo en imágenes
 - [ ] 8.6 Verificar `robots.txt` en producción referencia el sitemap correcto

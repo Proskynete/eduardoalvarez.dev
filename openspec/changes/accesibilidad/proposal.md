@@ -28,19 +28,22 @@ Reestructurar el HTML semántico, implementar landmarks ARIA, corregir la jerarq
 
 ## What Changes
 
-Se modificarán componentes base (`Layout`, `Header`, `Footer`) y páginas específicas (`Home`, `Artículos`, `Charlas`, `Artículo`) para mejorar su estructura HTML y atributos ARIA.
+Se modificarán componentes base (`Layout`, `Header`, `Footer`) y páginas específicas (`Home`, `Artículos`, `Charlas`, `Proyectos`, `Stack`, `Now`, `Podcasts`, `Artículo`) para mejorar su estructura HTML y atributos ARIA.
+
+> **Contexto post-rebranding**: El sitio fue completamente rediseñado. Las URLs cambiaron (`/articulos` → `/articles`, `/charlas-talleres` → `/speaking`). La página de charlas ahora usa una lista agrupada por año sin dropdown. No hay paginación en la lista de artículos (reemplazada por filtro client-side). El skip link ya está implementado en `src/layouts/base/index.astro`. Se añadieron nuevas páginas: `/now`, `/stack`, `/about`, `/working-with-me`, `/newsletter`, `/projects`.
 
 ## Capabilities
 
 ### New Capabilities
 
-- `screen-reader-nav`: Navegación optimizada mediante landmarks (banner, main, navigation, contentinfo) y headings jerárquicos.
+- `screen-reader-nav`: Navegación optimizada mediante landmarks (banner, main, navigation, contentinfo) y headings jerárquicos en todas las páginas existentes y las nuevas (`/now`, `/stack`, `/about`, `/working-with-me`, `/newsletter`, `/projects`).
 - `keyboard-nav`: Flujo de foco lógico y visible en todos los elementos interactivos.
 
 ### Modified Capabilities
 
 - `layout-structure`: Modificación de layouts para incluir landmarks semánticos.
 - `article-components`: Actualización de tarjetas de artículos para incluir contexto semántico.
+- `article-aside`: El sidebar del artículo (`aside.astro`) ya tiene `<nav>` para secciones pero le falta `aria-label="Tabla de contenidos"` y estructura ARIA en las tarjetas de categorías/tags.
 
 ## Impact
 
