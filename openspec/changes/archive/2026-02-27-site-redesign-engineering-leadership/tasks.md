@@ -19,7 +19,7 @@
 - [x] 2.5 Create OG default image (`public/images/og-default.png`, 1200×630px) — dark background, isotipo left, wordmark right, tagline below
 - [x] 2.6 Update `src/layouts/base/components/head.astro` — update favicon meta tags to reference new SVG favicon and PNG fallbacks
 - [x] 2.7 Update `src/settings/index.ts` — update site title, description, and keywords to reflect new positioning
-- [ ] 2.8 Verify: open browser and confirm favicon shows isotype in tab; share a URL and confirm OG image renders correctly
+- [x] 2.8 Verify: open browser and confirm favicon shows isotype in tab; share a URL and confirm OG image renders correctly
 
 ## 3. Base Layout & Navigation
 
