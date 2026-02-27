@@ -6,6 +6,7 @@ import Subscribe from "../components/subscribe/index.astro";
 import { talks } from "../settings/talks";
 import type { Talk } from "../settings/talks";
 import { articlesSort } from "../utils/articles";
+import settings from "../settings";
 
 export const prerender = true;
 
@@ -20,9 +21,38 @@ posts.sort(articlesSort).splice(_MAX_ARTICLES);
 
 const featuredTalks = talks.filter((t: Talk) => t.show).slice(0, 3);
 
+const githubLink = settings.social_network.find((s) => s.name === "Github")?.link ?? "";
+const linkedinLink = settings.social_network.find((s) => s.name === "LinkedIn")?.link ?? "";
+const twitterLink = settings.contacts.find((c) => c.name === "Twitter")?.href ?? "";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: settings.title,
+      url: settings.url,
+      potentialAction: {
+        "@type": "SearchAction",
+        target: `${settings.url}/articles?q={search_term_string}`,
+        "query-input": "required name=search_term_string",
+      },
+    },
+    {
+      "@type": "Person",
+      name: settings.author.name,
+      url: settings.url,
+      email: settings.email,
+      jobTitle: "Engineering Leader",
+      sameAs: [githubLink, linkedinLink, twitterLink].filter(Boolean),
+    },
+  ],
+};
+
 const seo = {
   title: "Eduardo Álvarez — Engineering Leadership & Platform Thinking",
   description: "Engineering Leadership & Platform Thinking in the AI Era.",
+  schema,
 };
 ---
 
