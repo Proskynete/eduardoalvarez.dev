@@ -65,7 +65,7 @@ const years = Object.keys(byYear)
                 <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-text-muted">
                   <span>
                     <time datetime={talk.date[0]}>
-                      {new Date(talk.date[0]).toLocaleDateString("en-US", {
+                      {new Date(talk.date[0]).toLocaleDateString("es-CL", {
                         month: "long",
                         day: "numeric",
                       })}
