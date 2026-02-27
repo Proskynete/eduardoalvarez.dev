@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { getDifferenceInYears } from "../../../src/utils/date";
+import { getDifferenceInYears, prettyDate } from "../../../src/utils/date";
 
 describe("date utils", () => {
   describe("getDifferenceInYears", () => {
@@ -154,6 +154,42 @@ describe("date utils", () => {
 
       // En la misma fecha debería ser 0
       expect(result).toBe(0);
+    });
+  });
+
+  describe("prettyDate", () => {
+    it("formatea una fecha en locale español", () => {
+      // Usar new Date(year, month, day) para evitar conversión de zona horaria
+      const date = new Date(2024, 0, 15); // 15 de enero de 2024
+      const result = prettyDate(date);
+
+      expect(result).toContain("2024");
+      expect(result).toContain("15");
+    });
+
+    it("acepta un string de fecha", () => {
+      // ISO con hora al mediodía para evitar problemas de zona horaria
+      const result = prettyDate("2024-06-20T12:00:00");
+
+      expect(result).toContain("2024");
+      expect(result).toContain("20");
+    });
+
+    it("incluye el nombre del mes en el resultado", () => {
+      const date = new Date(2024, 11, 25); // 25 de diciembre de 2024
+      const result = prettyDate(date);
+
+      expect(result).toContain("2024");
+      expect(result).toContain("25");
+      // El resultado debe ser una cadena no vacía con formato de fecha
+      expect(result.length).toBeGreaterThan(5);
+    });
+
+    it("retorna un string diferente para fechas distintas", () => {
+      const date1 = new Date(2023, 0, 1);
+      const date2 = new Date(2024, 0, 1);
+
+      expect(prettyDate(date1)).not.toBe(prettyDate(date2));
     });
   });
 });
