@@ -2,28 +2,71 @@
 import Layout from "../layouts/main/index.astro";
 
 export const prerender = true;
+
+const suggestions = [
+  { href: "/", label: "Inicio", description: "Volver a la página principal" },
+  { href: "/articles", label: "Artículos", description: "Lecturas sobre ingeniería y liderazgo" },
+  { href: "/speaking", label: "Charlas", description: "Charlas y talleres" },
+  { href: "/stack", label: "Stack", description: "Herramientas y tecnologías" },
+];
 ---
 
 <Layout>
-  <div class="mx-auto max-w-content py-20 text-center">
-    <p class="text-accent text-xs font-semibold uppercase tracking-widest mb-4">404</p>
-    <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-4">Página no encontrada</h1>
-    <p class="text-text-secondary text-lg mb-10">
+  <div class="mx-auto max-w-content py-24 flex flex-col items-center text-center">
+
+    <!-- Disconnected graph — brand motif, third node missing -->
+    <div class="mb-10">
+      <svg width="88" height="78" viewBox="0 0 88 78" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Solid connection: top → bottom-left -->
+        <line x1="10" y1="70" x2="44" y2="8" stroke="#06b6d4" stroke-width="1.5"/>
+        <!-- Fading dashed connections to missing node -->
+        <line x1="10" y1="70" x2="78" y2="70" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.25"/>
+        <line x1="44" y1="8" x2="78" y2="70" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.25"/>
+        <!-- Connected nodes -->
+        <circle cx="44" cy="8" r="5" fill="#06b6d4"/>
+        <circle cx="10" cy="70" r="4" fill="#06b6d4"/>
+        <!-- Missing node — pulses -->
+        <circle cx="78" cy="70" r="4" stroke="#06b6d4" stroke-width="1.5" fill="none" class="node-missing"/>
+      </svg>
+    </div>
+
+    <!-- Error label -->
+    <p class="text-accent text-xs font-semibold uppercase tracking-widest mb-4">Error 404</p>
+
+    <!-- Heading -->
+    <h1 class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-3">
+      Página no encontrada
+    </h1>
+    <p class="text-text-secondary text-base sm:text-lg mb-12 max-w-sm">
       Esta página no existe o fue movida. Puede que lo que buscas esté en otro lugar.
     </p>
-    <div class="flex flex-wrap justify-center gap-4">
-      <a
-        href="/"
-        class="px-6 py-3 bg-accent text-background text-sm font-semibold rounded-lg hover:bg-accent-hover transition-colors duration-200"
-      >
-        Inicio
-      </a>
-      <a
-        href="/articles"
-        class="px-6 py-3 border border-surface-border text-text-primary text-sm font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors duration-200"
-      >
-        Ver artículos
-      </a>
+
+    <!-- Destination grid -->
+    <div class="w-full grid grid-cols-2 gap-3">
+      {
+        suggestions.map(({ href, label, description }) => (
+          <a
+            href={href}
+            class="group p-4 text-left rounded-xl border border-surface-border bg-surface hover:border-accent transition-colors duration-200"
+          >
+            <p class="text-sm font-semibold text-text-primary group-hover:text-accent transition-colors duration-200 mb-1">
+              {label}
+            </p>
+            <p class="text-xs text-text-muted leading-relaxed">{description}</p>
+          </a>
+        ))
+      }
     </div>
   </div>
 </Layout>
+
+<style>
+  .node-missing {
+    animation: pulse-node 2.8s ease-in-out infinite;
+  }
+
+  @keyframes pulse-node {
+    0%, 100% { opacity: 0.18; }
+    50%       { opacity: 0.55; }
+  }
+</style>
