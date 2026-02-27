@@ -36,8 +36,8 @@ export default {
 
       // ─── Container widths ─────────────────────────────────────────
       maxWidth: {
-        content: "672px",
-        wide: "960px",
+        content: "760px",
+        wide: "1100px",
         full: "1280px",
       },
 

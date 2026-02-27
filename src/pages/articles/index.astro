@@ -77,36 +77,40 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
 </Layout>
 
 <script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>(".category-btn");
-  const items = document.querySelectorAll<HTMLElement>(".article-item");
-  const noResults = document.getElementById("no-results");
+  function initFilter() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>(".category-btn");
+    const items = document.querySelectorAll<HTMLElement>(".article-item");
+    const noResults = document.getElementById("no-results");
 
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const selected = btn.dataset.category ?? "all";
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const selected = btn.dataset.category ?? "all";
 
-      // Update button states
-      buttons.forEach((b) => {
-        const isActive = b.dataset.category === selected;
-        b.setAttribute("aria-pressed", String(isActive));
-        b.classList.toggle("bg-accent", isActive);
-        b.classList.toggle("text-background", isActive);
-        b.classList.toggle("border-accent", isActive);
-        b.classList.toggle("bg-surface", !isActive);
-        b.classList.toggle("text-text-secondary", !isActive);
-        b.classList.toggle("border-surface-border", !isActive);
+        // Update button states
+        buttons.forEach((b) => {
+          const isActive = b.dataset.category === selected;
+          b.setAttribute("aria-pressed", String(isActive));
+          b.classList.toggle("bg-accent", isActive);
+          b.classList.toggle("text-background", isActive);
+          b.classList.toggle("border-accent", isActive);
+          b.classList.toggle("bg-surface", !isActive);
+          b.classList.toggle("text-text-secondary", !isActive);
+          b.classList.toggle("border-surface-border", !isActive);
+        });
+
+        // Filter articles
+        let visible = 0;
+        items.forEach((item) => {
+          const cats: string[] = JSON.parse(item.dataset.categories ?? "[]");
+          const show = selected === "all" || cats.includes(selected);
+          item.style.display = show ? "" : "none";
+          if (show) visible++;
+        });
+
+        if (noResults) noResults.classList.toggle("hidden", visible > 0);
       });
-
-      // Filter articles
-      let visible = 0;
-      items.forEach((item) => {
-        const cats: string[] = JSON.parse(item.dataset.categories ?? "[]");
-        const show = selected === "all" || cats.includes(selected);
-        item.style.display = show ? "" : "none";
-        if (show) visible++;
-      });
-
-      if (noResults) noResults.classList.toggle("hidden", visible > 0);
     });
-  });
+  }
+
+  document.addEventListener("astro:page-load", initFilter);
 </script>

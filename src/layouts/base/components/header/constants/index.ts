@@ -6,17 +6,17 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   {
-    name: "Articles",
+    name: "Artículos",
     href: "/articles",
     show: true,
   },
   {
-    name: "Speaking",
+    name: "Charlas",
     href: "/speaking",
     show: true,
   },
   {
-    name: "Now",
+    name: "Ahora",
     href: "/now",
     show: true,
   },
@@ -26,12 +26,12 @@ export const navItems: NavItem[] = [
     show: true,
   },
   {
-    name: "About",
+    name: "Sobre mí",
     href: "/about",
     show: true,
   },
   {
-    name: "Working with Me",
+    name: "Trabajar conmigo",
     href: "/working-with-me",
     show: true,
   },

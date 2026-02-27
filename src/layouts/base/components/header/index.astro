@@ -14,33 +14,35 @@ const { algolia } = Astro.props;
 ---
 
 <header
-  class="sticky top-0 z-50 flex items-center justify-between h-nav-height px-4 sm:px-6 xl:px-0 bg-surface border-b border-surface-border transition-all duration-200"
+  class="sticky top-0 z-50 h-nav-height bg-surface border-b border-surface-border transition-all duration-200"
   id="site-header"
 >
-  <div role="banner">
-    <a
-      href="/"
-      aria-label="Eduardo Álvarez — Ir al inicio"
-      class="flex items-center gap-2.5 group"
-    >
-      <img
-        src="/images/logo-mark.svg"
-        alt="Logo mark"
-        class="h-7 w-7"
-        width="28"
-        height="28"
-        loading="eager"
-        decoding="async"
-      />
-      <span class="text-text-primary font-bold text-base tracking-tight group-hover:text-accent transition-colors duration-200">
-        Eduardo Álvarez
-      </span>
-    </a>
-  </div>
+  <div class="max-w-full mx-auto h-full px-4 sm:px-6 xl:px-8 flex items-center justify-between">
+    <div role="banner">
+      <a
+        href="/"
+        aria-label="Eduardo Álvarez — Ir al inicio"
+        class="flex items-center gap-2.5 group"
+      >
+        <img
+          src="/images/logo-mark.svg"
+          alt="Logo mark"
+          class="h-7 w-7"
+          width="28"
+          height="28"
+          loading="eager"
+          decoding="async"
+        />
+        <span class="text-text-primary font-bold text-base tracking-tight group-hover:text-accent transition-colors duration-200">
+          Eduardo Álvarez
+        </span>
+      </a>
+    </div>
 
-  <div class="flex items-center gap-4">
-    <Navigation client:load algolia={algolia} />
-    <MobileNav client:visible />
+    <div class="flex items-center gap-4">
+      <Navigation client:load algolia={algolia} />
+      <MobileNav client:visible />
+    </div>
   </div>
 </header>
 

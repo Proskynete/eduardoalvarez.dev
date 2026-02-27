@@ -99,7 +99,7 @@ export default function Mobile() {
       >
         {/* Drawer header */}
         <div className="flex items-center justify-between h-nav-height px-6 border-b border-surface-border">
-          <span className="text-text-primary font-semibold text-sm">Menu</span>
+          <span className="text-text-primary font-semibold text-sm">Menú</span>
           <button
             aria-label="Cerrar menú de navegación"
             onClick={onClose}
