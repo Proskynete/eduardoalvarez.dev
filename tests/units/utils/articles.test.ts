@@ -88,7 +88,7 @@ describe("articles utils", () => {
   describe("githubArticlePath", () => {
     it("debe generar la URL correcta para editar un artículo en GitHub", () => {
       const path = "mi-articulo";
-      const expected = "https://github.com/proskynete/website/edit/main/src/pages/articulos/mi-articulo.mdx";
+      const expected = "https://github.com/proskynete/website/edit/main/src/pages/articles/mi-articulo.mdx";
 
       const result = githubArticlePath(path);
 
@@ -101,16 +101,16 @@ describe("articles utils", () => {
       const results = paths.map(githubArticlePath);
 
       expect(results).toEqual([
-        "https://github.com/proskynete/website/edit/main/src/pages/articulos/como-usar-react-hooks.mdx",
-        "https://github.com/proskynete/website/edit/main/src/pages/articulos/typescript-para-principiantes.mdx",
-        "https://github.com/proskynete/website/edit/main/src/pages/articulos/introduccion-a-astro.mdx",
+        "https://github.com/proskynete/website/edit/main/src/pages/articles/como-usar-react-hooks.mdx",
+        "https://github.com/proskynete/website/edit/main/src/pages/articles/typescript-para-principiantes.mdx",
+        "https://github.com/proskynete/website/edit/main/src/pages/articles/introduccion-a-astro.mdx",
       ]);
     });
 
     it("debe manejar paths con caracteres especiales", () => {
       const path = "mi-articulo-con-números-123";
       const expected =
-        "https://github.com/proskynete/website/edit/main/src/pages/articulos/mi-articulo-con-números-123.mdx";
+        "https://github.com/proskynete/website/edit/main/src/pages/articles/mi-articulo-con-números-123.mdx";
 
       const result = githubArticlePath(path);
 
@@ -119,7 +119,7 @@ describe("articles utils", () => {
 
     it("debe manejar path vacío", () => {
       const path = "";
-      const expected = "https://github.com/proskynete/website/edit/main/src/pages/articulos/.mdx";
+      const expected = "https://github.com/proskynete/website/edit/main/src/pages/articles/.mdx";
 
       const result = githubArticlePath(path);
 

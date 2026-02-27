@@ -5,17 +5,18 @@ test.describe("Newsletter Subscription", () => {
     await page.goto("/");
 
     // Scroll al formulario de suscripción
-    const subscribeButton = page.getByRole("button", { name: /suscribirme/i });
-    await subscribeButton.scrollIntoViewIfNeeded();
+    const form = page.locator("#subscribe-form");
+    await form.scrollIntoViewIfNeeded();
   });
 
   test("debe mostrar formulario de suscripción", async ({ page }) => {
     const form = page.locator("#subscribe-form");
     await expect(form).toBeVisible();
 
-    const nameInput = page.getByLabel(/nombre/i);
-    const emailInput = page.getByLabel(/email/i);
-    const submitButton = page.getByRole("button", { name: /suscribirme/i });
+    // Scope selectors to the form to avoid matching the footer email link
+    const nameInput = form.getByLabel(/nombre/i);
+    const emailInput = form.getByLabel(/email/i);
+    const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     await expect(nameInput).toBeVisible();
     await expect(emailInput).toBeVisible();
@@ -23,18 +24,20 @@ test.describe("Newsletter Subscription", () => {
   });
 
   test("debe validar campos requeridos", async ({ page }) => {
-    const submitButton = page.getByRole("button", { name: /suscribirme/i });
+    const form = page.locator("#subscribe-form");
+    const submitButton = form.getByRole("button", { name: /suscribirme/i });
     await submitButton.click();
 
     // Validación HTML5 debe prevenir submit
-    const nameInput = page.getByLabel(/nombre/i);
+    const nameInput = form.getByLabel(/nombre/i);
     await expect(nameInput).toHaveAttribute("required");
   });
 
   test("debe validar formato de email", async ({ page }) => {
-    const nameInput = page.getByLabel(/nombre/i);
-    const emailInput = page.getByLabel(/email/i);
-    const submitButton = page.getByRole("button", { name: /suscribirme/i });
+    const form = page.locator("#subscribe-form");
+    const nameInput = form.getByLabel(/nombre/i);
+    const emailInput = form.getByLabel(/email/i);
+    const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     await nameInput.fill("Test User");
     await emailInput.fill("invalid-email");
@@ -57,9 +60,10 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const nameInput = page.getByLabel(/nombre/i);
-    const emailInput = page.getByLabel(/email/i);
-    const submitButton = page.getByRole("button", { name: /suscribirme/i });
+    const form = page.locator("#subscribe-form");
+    const nameInput = form.getByLabel(/nombre/i);
+    const emailInput = form.getByLabel(/email/i);
+    const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     await nameInput.fill("Test User");
     await emailInput.fill("test@example.com");
@@ -86,9 +90,10 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const nameInput = page.getByLabel(/nombre/i);
-    const emailInput = page.getByLabel(/email/i);
-    const submitButton = page.getByRole("button", { name: /suscribirme/i });
+    const form = page.locator("#subscribe-form");
+    const nameInput = form.getByLabel(/nombre/i);
+    const emailInput = form.getByLabel(/email/i);
+    const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     await nameInput.fill("Test User");
     await emailInput.fill("existing@example.com");
@@ -109,9 +114,10 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const nameInput = page.getByLabel(/nombre/i);
-    const emailInput = page.getByLabel(/email/i);
-    const submitButton = page.getByRole("button", { name: /suscribirme/i });
+    const form = page.locator("#subscribe-form");
+    const nameInput = form.getByLabel(/nombre/i);
+    const emailInput = form.getByLabel(/email/i);
+    const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     await nameInput.fill("Test User");
     await emailInput.fill("test@example.com");
@@ -120,9 +126,8 @@ test.describe("Newsletter Subscription", () => {
     // Esperar un poco para que el estado de loading se active
     await page.waitForTimeout(100);
 
-    // Verificar que el texto cambia o que el botón muestra algún estado de loading
+    // El texto del botón debería cambiar durante el loading
     const buttonText = await submitButton.textContent();
-    // El texto debería cambiar de "Suscribirme" a algo relacionado con loading
     expect(buttonText).not.toBe("Suscribirme");
   });
 });
