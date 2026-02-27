@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a personal blog and portfolio site built with **Astro 5**, React, and TypeScript. It features a content management system for MDX blog posts, full-text search via Algolia, comments via Giscus, and newsletter integration with Mailchimp. The site is deployed to Vercel with static site generation and serverless API routes.
+Personal site of Eduardo Álvarez — **Engineering Leadership & Platform Thinking in the AI Era** — built with **Astro 5**, React, and TypeScript. Features MDX articles, full-text search via Algolia, comments via Giscus, newsletter via Mailchimp, podcast player with custom AudioPlayer component, and a complete design system (Geist + cyan/dark palette). Deployed to Vercel with static site generation and serverless API routes.
 
 ## Development Commands
 
@@ -47,29 +47,40 @@ npm run astro -- [command]
 ### Directory Structure
 
 **`src/pages/`** - File-based routing following Astro conventions
-- `articulos/` - Blog articles as MDX files with dynamic pagination via `[...page].astro`
-- `articulos/*.mdx` - Individual blog articles
-- `charlas-talleres/` - Talks and workshops page
-- `api/` - Serverless endpoints with Zod validation
-  - `subscribe.ts` - Newsletter subscription with robust input validation (email, name)
-- `admin/` - Admin dashboard UI for creating new blog posts
-  - `index.astro` - Admin UI
-  - `template.mdx.tpl` - Template for new articles
+- `index.astro` - Homepage (hero, latest articles, recent talks, newsletter CTA)
+- `404.astro` - Custom 404 with branded disconnected-node SVG animation
+- `articles/` - Articles section
+  - `index.astro` - Listing with client-side category filter
+  - `*.mdx` - Individual MDX articles
+- `speaking/index.astro` - Talks grouped by year (replaces `/charlas-talleres/`)
+- `now/index.astro` - Now page: what I'm currently working on
+- `stack/index.astro` - Tools and technologies by category
+- `about/index.astro` - About page
+- `working-with-me/index.astro` - Engagement types and contact info
+- `newsletter/index.astro` - Newsletter subscription page
+- `projects/index.astro` - Projects with client-side status filter
+- `podcasts/` - Podcast section
+  - `index.astro` - Episode listing with inline AudioPlayer
+  - `[slug].astro` - Episode detail with notes, guests, platforms
+- `api/subscribe.ts` - Newsletter subscription endpoint with Zod validation
 - `rss.xml.ts` - RSS feed generation
 
+> **URL redirects**: `/articulos` → `/articles`, `/articulos/:path*` → `/articles/:path*`, `/charlas-talleres` → `/speaking` (configured in `vercel.json`)
+
 **`src/layouts/`** - Page layout templates
-- `base/index.astro` - Main wrapper with header, footer, SEO, and Algolia config
-- `article/index.astro` - Blog article layout with sidebar, TOC, Giscus comments, and share button
-- `admin/index.astro` - Admin dashboard layout
-- `main/index.astro` - Main page layout
+- `base/index.astro` - Root wrapper with SEO head, sticky header (search + mobile nav), and footer
+- `main/index.astro` - General page layout (wraps `base`, provides content container)
+- `article/index.astro` - Article layout with card-based sidebar (TOC, share), Giscus, scroll progress bar
 
 **`src/components/`** - Reusable React and Astro components
 - `article/` - Article card component
-- `pagination/` - Pagination controls
+- `audio-player/` - Custom audio player (React) with play/pause, skip ±15s, speed, volume, progress bar
 - `dropdown/` - Dropdown menu (React)
+- `pagination/` - Pagination controls
+- `project/` - Project card component
 - `scrolling-progress-bar/` - Reading progress indicator (React)
 - `subscribe/` - Newsletter subscription form with error handling, loading states, and field validation
-- `project/` - Project card component (currently hidden from display)
+- `ui/image/` - Image wrapper component
 
 **`src/utils/`** - Pure utility functions
 - `articles.ts` - Sort articles by date, generate GitHub edit links
@@ -79,10 +90,18 @@ npm run astro -- [command]
 - `strings.ts` - String manipulation
 
 **`src/settings/`** - Configuration and data
-- `index.ts` - Main site config (title, social links, SEO defaults, contacts)
+- `index.ts` - Main site config (title, description, social links, SEO defaults, contacts)
 - `manifest-config.ts` - PWA web manifest
 - `talks.ts` - Talks/workshops data
-- `projects.ts` - Project data (currently hidden from display)
+- `projects.ts` - Projects data with `status` field (active/maintained/archived)
+- `now.ts` - "Now" page content (what I'm currently working on)
+- `stack.ts` - Stack items by category (Languages, Frameworks, Infrastructure, AI Tools, Hardware, Apps)
+- `podcasts.ts` - Podcast episodes with guests, platforms, topics, and audio URLs
+
+**`src/assets/`** - Static assets
+- `styles/base.css` - Global CSS (focus-visible ring in accent color)
+- `styles/article.css` - Article prose typography overrides
+- `icons/` - SVG icon components (ArrowLeft, Close, GitHub, Mail, Menu, Resources, Search)
 
 **`src/interfaces/index.ts`** - TypeScript type definitions
 - Core types: `Article`, `CategoryAllowed`, `ArticleLayout`, `Section`, `Heading`, `HeadingDepth`
@@ -120,9 +139,18 @@ npm run astro -- [command]
 
 ### Design Patterns
 
-**Layout Composition**: Nested layouts inherit from `BaseLayout` (src/layouts/base/index.astro), which includes SEO head, header with Algolia search, and footer. Article layout extends base layout and adds sidebar with TOC, Giscus comments, and share functionality.
+**Layout Composition**: Nested layouts inherit from `BaseLayout` (`src/layouts/base/index.astro`), which includes SEO head, sticky header with Algolia search, and footer. `MainLayout` (`src/layouts/main/index.astro`) wraps `BaseLayout` for general pages. `ArticleLayout` extends `MainLayout` and adds card-based sidebar (reading time, TOC, share), Giscus comments, and scroll progress bar.
 
-**Component Organization**: Feature-based grouping. Astro components use `.astro` extension, React components use `.tsx`. Interactive components (search, dropdown, progress bar) are React; static components are Astro.
+**Design System**: Custom Tailwind tokens defined in `tailwind.config.mjs`:
+- **Colors**: `background` (#0a0a0a), `surface` / `surface-raised` / `surface-border`, `text-primary` / `text-secondary` / `text-muted`, `accent` (#06b6d4) / `accent-hover` / `accent-subtle`, `error`, `success`, `warning`
+- **Typography**: Geist (sans) + Geist Mono
+- **Widths**: `max-w-content` (760px), `max-w-wide` (1100px), `max-w-full` (1280px)
+- **Spacing**: `section-gap` (96px), `card-pad` (24px), `nav-height` (64px)
+- **Gradients**: `hero-gradient`, `accent-glow`
+
+**View Transitions**: `ClientRouter` (Astro View Transitions) is enabled. Filter scripts on `/articles` and `/projects` are wrapped in an `initFilter()` function subscribed to `document.addEventListener('astro:page-load', initFilter)` so they re-initialize after each navigation.
+
+**Component Organization**: Feature-based grouping. Astro components use `.astro` extension, React components use `.tsx`. Interactive components (search, audio player, dropdown, progress bar, mobile nav) are React with appropriate client directives (`client:load` for above-fold, `client:visible` for below-fold). Static components are Astro.
 
 **Data Structure**: Article metadata in MDX frontmatter with these required fields:
 - `layout`: Path to layout file (e.g., `../../layouts/article/index.astro`)
@@ -172,7 +200,7 @@ npm run astro -- [command]
 
 ### Adding a Blog Article
 
-1. Create new file in `src/pages/articulos/my-article.mdx`
+1. Create new file in `src/pages/articles/my-article.mdx`
 2. Add frontmatter with required fields:
    ```yaml
    ---
@@ -182,7 +210,7 @@ npm run astro -- [command]
    description: "Brief summary for SEO"
    date: 2025-11-04T12:00:00-03:00
    categories: ["web-development", "javascript"]
-   seo_image: /images/articulos/my-article/cover.webp
+   seo_image: /images/articles/my-article/cover.webp
    sections:
      [
        { title: 'Section 1', anchor: 'section-1' },
@@ -191,14 +219,9 @@ npm run astro -- [command]
    ---
    ```
 3. Write content in MDX format with heading IDs matching section anchors
-4. On build, the article is automatically indexed in Algolia (via src/scripts/algolia.ts)
+4. On build, the article is automatically indexed in Algolia (via `src/scripts/algolia.ts`)
 
 **Note**: Categories must be one of the allowed types defined in `src/interfaces/index.ts`: `web-development`, `javascript`, `react`, `vue`, `astro`, `node`, `express`, `sql`, `no-sql`.
-
-### Using the Admin Dashboard
-
-The admin dashboard (src/pages/admin/index.astro) provides a UI for creating new blog posts. It uses:
-- `src/pages/admin/template.mdx.tpl` - Template for new articles
 
 ### Working with API Endpoints
 
@@ -424,47 +447,23 @@ Current coverage: 93.84% statements, 86.95% branches, 100% functions
 
 6. **Layout System**: BaseLayout provides common structure (header with search, footer); ArticleLayout extends it with article-specific features (sidebar, TOC from sections, Giscus, share button).
 
-## Implementation Plan Status
+## Design System Reference
 
-**Overall Progress**: 15/16 steps completed (93.75%) 🎉
+Use these token classes throughout the codebase — never use raw hex colors or arbitrary Tailwind values:
 
-### ✅ Phase 1: Security & Stability (5/5 - 100%)
-- Algolia read-only API keys migration
-- Giscus secrets moved to environment variables
-- Error states in search hook
-- Zod validation in API Subscribe
-- Error handling in subscription form
-
-### ✅ Phase 2: Testing & Type Safety (4/4 - 100%)
-- Testing infrastructure (Vitest + React Testing Library)
-- Tests for useAlgoliaSearch hook (18 tests)
-- Improved TypeScript definitions (no `any` types)
-- Tests for utility functions (37 tests)
-- **Metrics**: 55/55 tests passing, coverage >93%
-
-### ✅ Phase 3: Performance & Optimization (1/3 - Completed)
-- ⚠️ Step 10: Image optimization (DEPRECATED - current optimization sufficient)
-- ✅ Step 11: Environment variable validation with Zod
-- ⚠️ Step 12: Rate limiting (SKIPPED - Cloudflare handles this)
-
-### ✅ Phase 4: Accessibility & UX (6/6 - 100%)
-- Skip navigation links with keyboard accessibility
-- Improved keyboard navigation in search (ArrowUp, ArrowDown, Enter, Escape)
-- Color contrast audit completed
-- API response utility (ApiResponseBuilder class)
-- E2E tests with Playwright (search & subscribe flows)
-- JSDoc documentation for key components:
-  - `useAlgoliaSearch` - Full documentation with examples
-  - `useKeyboardNavigation` - Complete parameter documentation
-  - `ApiResponseBuilder` - Method documentation with examples
-  - Environment validation utilities - Complete JSDoc
-
-### Key Features Implemented
-- **Accessibility**: Skip to content, keyboard navigation, ARIA attributes, focus management
-- **Documentation**: JSDoc on hooks, utilities, and API builders
-- **Testing**: 55 unit tests + 11 E2E tests (search & subscribe)
-- **Type Safety**: Strict TypeScript with Zod validation
-- **Performance**: Image optimization, lazy loading, code splitting
+| Token | Class | Value |
+|---|---|---|
+| Page background | `bg-background` | `#0a0a0a` |
+| Card / section bg | `bg-surface` | `#111111` |
+| Elevated surface | `bg-surface-raised` | `#161616` |
+| Borders | `border-surface-border` | `#1f1f1f` |
+| Primary text | `text-text-primary` | `#f5f5f5` |
+| Secondary text | `text-text-secondary` | `#a3a3a3` |
+| Muted text | `text-text-muted` | `#7c7c7c` |
+| Accent (cyan) | `text-accent` / `bg-accent` | `#06b6d4` |
+| Accent hover | `hover:bg-accent-hover` | `#0891b2` |
+| Error | `bg-error` / `text-error` | `#ef4444` |
+| Success | `bg-success` | `#22c55e` |
 
 ## Performance Considerations
 
