@@ -6,12 +6,22 @@ export interface Props {
   description?: string;
   image?: string;
   slug?: string;
+  keywords?: string[];
+  ogType?: "website" | "article";
+  articlePublishedTime?: string;
+  articleAuthor?: string;
+  articleTags?: string[];
+  schema?: Record<string, unknown>;
 }
 
 const title = Astro.props.title ? `${Astro.props.title} | ${settings.title}` : settings.title;
-const description = Astro.props.description || settings.description;
+const rawDescription = Astro.props.description || settings.description;
+const description = rawDescription.slice(0, 160);
 const image = Astro.props.image ? Astro.props.image : new URL("/images/og-default.png", Astro.site);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogType = Astro.props.ogType ?? "website";
+const keywords = Astro.props.keywords?.join(", ") ?? settings.keywords;
+const { articlePublishedTime, articleAuthor, articleTags, schema } = Astro.props;
 ---
 
 <head>
@@ -31,7 +41,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
   <meta name="robots" content="index, follow" />
 
-  <meta name="keywords" content={settings.keywords} />
+  <meta name="keywords" content={keywords} />
   <meta name="author" content={settings.author.name} />
   <meta name="copyright" content={settings.author.name} />
   <meta name="application-name" content={`Blog de ${settings.author.name}`} />
@@ -43,17 +53,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="theme-color" content="#0d0d0d" />
   <meta name="image" content={image} />
 
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={ogType} />
   <meta property="og:url" content={Astro.url} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={image} />
+
+  {
+    ogType === "article" && (
+      <>
+        {articlePublishedTime && <meta property="article:published_time" content={articlePublishedTime} />}
+        {articleAuthor && <meta property="article:author" content={articleAuthor} />}
+        {articleTags?.map((tag) => <meta property="article:tag" content={tag} />)}
+      </>
+    )
+  }
 
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content={Astro.url} />
   <meta property="twitter:title" content={title} />
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content={image} />
+
+  {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 </head>
 
 <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-YP2WF7DHFM" is:inline></script>

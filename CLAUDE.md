@@ -156,7 +156,7 @@ npm run astro -- [command]
 - `layout`: Path to layout file (e.g., `../../layouts/article/index.astro`)
 - `title`: Article title
 - `slug`: URL-friendly identifier
-- `description`: SEO description
+- `description`: SEO description (máximo 160 caracteres — el sitio trunca automáticamente, pero es mejor escribirla dentro del límite)
 - `date`: Publication date (ISO format)
 - `categories`: Array of `CategoryAllowed` types
 - `seo_image`: Path to social media image

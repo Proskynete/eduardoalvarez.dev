@@ -93,6 +93,7 @@ export interface Article {
   tags: TagsAllowed[];
   seo_image: string;
   sections: Section[];
+  keywords?: string[];
 }
 
 export type HeadingDepth = 1 | 2 | 3 | 4 | 5 | 6;

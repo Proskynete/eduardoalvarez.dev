@@ -8,6 +8,7 @@ import { GiscusWrapper } from "./components/giscus";
 import { calculateReadingTime } from "../../utils/reading-time";
 import type { Props as BaseHeadProps } from "../base/components/head.astro";
 import type { Article } from "../../interfaces";
+import settings from "../../settings";
 
 type Props = {
   content: Article;
@@ -18,13 +19,38 @@ const { content } = Astro.props;
 const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
 
 const tags = content.categories.map((tag) => tag.replaceAll(/(-)/g, "")).join(",");
-const toShare = `https://twitter.com/intent/tweet?text=${content.title}&url=https://www.eduardoalvarez.dev/articles/${content.slug}&via=proskynete&hashtags=${tags}`;
+const twitterShare = `https://twitter.com/intent/tweet?text=${content.title}&url=https://www.eduardoalvarez.dev/articles/${content.slug}&via=proskynete&hashtags=${tags}`;
+const linkedInShare = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://www.eduardoalvarez.dev/articles/${content.slug}`)}&title=${encodeURIComponent(content.title)}`;
+
+const articleKeywords = content.keywords ?? content.categories;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: content.title,
+  description: content.description.slice(0, 160),
+  datePublished: content.date,
+  url: `${settings.url}/articles/${content.slug}`,
+  image: content.seo_image,
+  author: {
+    "@type": "Person",
+    name: settings.author.name,
+    url: settings.url,
+  },
+  keywords: articleKeywords,
+};
 
 const seo: BaseHeadProps = {
   title: content.title,
   description: content.description,
   image: content.seo_image,
   slug: `/articles/${content.slug}`,
+  keywords: content.keywords,
+  ogType: "article",
+  articlePublishedTime: content.date,
+  articleAuthor: settings.author.name,
+  articleTags: content.categories,
+  schema,
 };
 ---
 
@@ -33,7 +59,7 @@ const seo: BaseHeadProps = {
     <Head content={content} />
 
     <div class="mt-10 grid grid-cols-1 xl:grid-cols-[220px_1fr] xl:gap-x-12">
-      <Aside content={content} timeToRead={timeToRead} toShare={toShare} />
+      <Aside content={content} timeToRead={timeToRead} twitterShare={twitterShare} linkedInShare={linkedInShare} />
 
       <div class="min-w-0">
         <div id="article-body" class="pb-12 max-w-none prose-invert">
