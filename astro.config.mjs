@@ -30,6 +30,13 @@ if (process.env.SKIP_ENV_VALIDATION !== "true") {
 
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
+  redirects: {
+    "/now": "/",
+    "/stack": "/",
+    "/about": "/",
+    "/working-with-me": "/",
+    "/podcasts": "/",
+  },
   build: {
     inlineStylesheets: "always",
   },
