@@ -71,4 +71,28 @@ test.describe("Search Functionality", () => {
     await expect(errorMessage).toBeVisible();
     await expect(errorMessage).toContainText(/error/i);
   });
+
+  test("debe limpiar los resultados al vaciar el campo de búsqueda", async ({ page }) => {
+    const searchInput = page.getByRole("combobox");
+    await expect(searchInput).toBeVisible({ timeout: 10000 });
+
+    // Escribir una query
+    await searchInput.fill("javascript");
+    await page.waitForTimeout(1500);
+
+    // Vaciar el campo — sin importar si aparecieron resultados, al limpiar no debe haber listbox
+    await searchInput.fill("");
+
+    const results = page.getByRole("listbox");
+    await expect(results).not.toBeVisible();
+  });
+
+  test("debe mostrar el input sin resultados si la búsqueda está vacía", async ({ page }) => {
+    const searchInput = page.getByRole("combobox");
+    await expect(searchInput).toBeVisible({ timeout: 10000 });
+
+    // El listbox no debe estar visible con campo vacío
+    const results = page.getByRole("listbox");
+    await expect(results).not.toBeVisible();
+  });
 });
