@@ -40,7 +40,7 @@ const { algolia } = Astro.props;
     </div>
 
     <div class="flex items-center gap-4">
-      <Navigation client:load algolia={algolia} />
+      <Navigation client:load pathname={Astro.url.pathname} algolia={algolia} />
       <MobileNav client:visible />
     </div>
   </div>

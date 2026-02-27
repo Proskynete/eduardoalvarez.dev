@@ -9,6 +9,7 @@ import { useKeyboardNavigation } from "./use-keyboard-navigation";
 import { getArticleUrl, renderHighlightedText } from "./utils";
 
 interface NavigationProps {
+  pathname?: string;
   algolia?: {
     ALGOLIA_APPLICATION_ID?: string;
     ALGOLIA_INDEX_NAME?: string;
@@ -16,8 +17,8 @@ interface NavigationProps {
   };
 }
 
-export default function Navigation({ algolia }: NavigationProps) {
-  const [pathname, setPathname] = useState("");
+export default function Navigation({ pathname: initialPathname = "", algolia }: NavigationProps) {
+  const [pathname, setPathname] = useState(initialPathname);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
