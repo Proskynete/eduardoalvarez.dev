@@ -63,6 +63,12 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
     audio.addEventListener("error", handleError);
     audio.addEventListener("playing", handlePlaying);
 
+    // Race condition fix: if metadata loaded before listener was attached
+    // (common with client:visible when preload="metadata" resolves fast)
+    if (audio.readyState >= HTMLMediaElement.HAVE_METADATA) {
+      setDuration(audio.duration);
+    }
+
     return () => {
       audio.removeEventListener("timeupdate", handleTimeUpdate);
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
@@ -145,24 +151,27 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
     setPlaybackRate(newRate);
   }, [playbackRate]);
 
-  const skip = useCallback((seconds: number) => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    audio.currentTime = Math.max(0, Math.min(audio.currentTime + seconds, duration));
-  }, [duration]);
+  const skip = useCallback(
+    (seconds: number) => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      audio.currentTime = Math.max(0, Math.min(audio.currentTime + seconds, duration));
+    },
+    [duration]
+  );
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className="w-full bg-neutral-900 rounded-lg p-4 border border-neutral-800">
+    <div className="w-full bg-surface rounded-lg p-4 border border-surface-border">
       <audio ref={audioRef} src={src} preload="metadata" />
 
-      {title && <p className="text-sm text-gray-400 mb-3 truncate">{title}</p>}
+      {title && <p className="text-sm text-text-secondary mb-3 truncate">{title}</p>}
 
       {/* Barra de progreso */}
       <div
         ref={progressRef}
-        className="relative h-2 bg-neutral-700 rounded-full cursor-pointer mb-3 group"
+        className="relative h-2 bg-surface-raised rounded-full cursor-pointer mb-3 group"
         onClick={handleProgressClick}
         role="slider"
         aria-label="Progreso del audio"
@@ -171,18 +180,15 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
         aria-valuenow={Math.round(progress)}
         tabIndex={0}
       >
+        <div className="absolute h-full bg-accent rounded-full transition-all" style={{ width: `${progress}%` }} />
         <div
-          className="absolute h-full bg-primary-500 rounded-full transition-all"
-          style={{ width: `${progress}%` }}
-        />
-        <div
-          className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-text-primary rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200"
           style={{ left: `calc(${progress}% - 8px)` }}
         />
       </div>
 
       {/* Tiempo */}
-      <div className="flex justify-between text-xs text-gray-500 mb-3">
+      <div className="flex justify-between text-xs text-text-muted mb-3">
         <span>{formatTime(currentTime)}</span>
         <span>{formatTime(duration)}</span>
       </div>
@@ -193,22 +199,25 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
           {/* Retroceder 15s */}
           <button
             onClick={() => skip(-15)}
-            className="p-2 text-gray-400 hover:text-white transition"
+            className="p-2 text-text-muted hover:text-text-primary transition-colors duration-200"
             aria-label="Retroceder 15 segundos"
             title="Retroceder 15s"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.334 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.334 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"
+              />
             </svg>
           </button>
 
           {/* Play/Pause */}
           <button
             onClick={togglePlay}
-            className={`p-3 rounded-full text-white transition ${
-              hasError
-                ? "bg-red-500 hover:bg-red-600"
-                : "bg-primary-500 hover:bg-primary-600"
+            className={`p-3 rounded-full text-background transition-colors duration-200 ${
+              hasError ? "bg-error hover:bg-error/80" : "bg-accent hover:bg-accent-hover"
             }`}
             aria-label={hasError ? "Reintentar" : isPlaying ? "Pausar" : "Reproducir"}
             title={hasError ? "Error al cargar. Click para reintentar" : undefined}
@@ -224,7 +233,12 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
               </svg>
             ) : hasError ? (
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
               </svg>
             ) : isPlaying ? (
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -240,12 +254,17 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
           {/* Adelantar 15s */}
           <button
             onClick={() => skip(15)}
-            className="p-2 text-gray-400 hover:text-white transition"
+            className="p-2 text-text-muted hover:text-text-primary transition-colors duration-200"
             aria-label="Adelantar 15 segundos"
             title="Adelantar 15s"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"
+              />
             </svg>
           </button>
         </div>
@@ -254,7 +273,7 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
           {/* Velocidad de reproducción */}
           <button
             onClick={handlePlaybackRateChange}
-            className="px-2 py-1 text-xs text-gray-400 hover:text-white bg-neutral-800 rounded transition"
+            className="px-2 py-1 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors duration-200"
             aria-label="Cambiar velocidad de reproducción"
             title="Velocidad de reproducción"
           >
@@ -265,7 +284,7 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
           <div className="hidden sm:flex items-center gap-2">
             <button
               onClick={toggleMute}
-              className="p-1 text-gray-400 hover:text-white transition"
+              className="p-1 text-text-muted hover:text-text-primary transition-colors duration-200"
               aria-label={isMuted ? "Activar sonido" : "Silenciar"}
             >
               {isMuted || volume === 0 ? (
@@ -285,7 +304,7 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
               step="0.1"
               value={isMuted ? 0 : volume}
               onChange={handleVolumeChange}
-              className="w-20 h-1 bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-primary-500"
+              className="w-20 h-1 bg-surface-raised rounded-lg appearance-none cursor-pointer accent-[#06b6d4]"
               aria-label="Volumen"
             />
           </div>
