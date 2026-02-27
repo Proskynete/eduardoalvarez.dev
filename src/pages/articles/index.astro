@@ -13,7 +13,8 @@ const seo = {
   description: "Writing about engineering leadership, platform architecture, and the AI era.",
 };
 
-const posts = await Astro.glob<Frontmatter>("./*.mdx");
+const rawPosts = import.meta.glob<{ frontmatter: Frontmatter }>("./*.mdx", { eager: true });
+const posts = Object.values(rawPosts);
 posts.sort(articlesSort);
 
 const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? []))];

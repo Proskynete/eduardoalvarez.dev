@@ -14,7 +14,8 @@ interface Post {
 }
 
 const _MAX_ARTICLES = 3;
-const posts: Post[] = await Astro.glob<IArticle>("./articles/*.mdx");
+const rawPosts = import.meta.glob<{ frontmatter: IArticle }>("./articles/*.mdx", { eager: true });
+const posts: Post[] = Object.values(rawPosts);
 posts.sort(articlesSort).splice(_MAX_ARTICLES);
 
 const featuredTalks = talks.filter((t: Talk) => t.show).slice(0, 3);

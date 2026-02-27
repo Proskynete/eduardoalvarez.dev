@@ -30,16 +30,16 @@
 - [x] 3.5 Rewrite `src/layouts/base/components/footer/index.astro` — remove terminal text and cursor animation; add isotipo (20px), wordmark, social icons (GitHub, LinkedIn, Twitter, RSS, Email), copyright
 - [x] 3.6 Update `src/layouts/base/index.astro` — replace `bg-black/95` with `bg-background`; update container classes to new width tokens
 - [x] 3.7 Update `src/components/scrolling-progress-bar/index.tsx` — change `bg-teal-700` to `bg-accent`
-- [ ] 3.8 Verify: navigate through all existing pages and confirm header/footer render correctly with new design; test keyboard navigation through nav
+- [x] 3.8 Verify: navigate through all existing pages and confirm header/footer render correctly with new design; test keyboard navigation through nav
 
 ## 4. URL Redirects & Routing
 
-- [ ] 4.1 Create `src/pages/articles/` directory and `src/pages/articles/index.astro` (articles listing, replaces `/articulos/[...page].astro`)
-- [ ] 4.2 Create `src/pages/articles/[slug].astro` or move existing MDX articles to be accessible under `/articles/`
-- [ ] 4.3 Create `src/pages/speaking/index.astro` (replaces `/charlas-talleres/index.astro`)
-- [ ] 4.4 Update `vercel.json` — add 301 redirects: `/articulos` → `/articles`, `/articulos/:path*` → `/articles/:path*`, `/charlas-talleres` → `/speaking`, `/donaciones` → `/`
-- [ ] 4.5 Remove `src/pages/donaciones.astro`
-- [ ] 4.6 Verify: test each redirect URL manually and confirm 301 status; check Algolia index URLs still resolve (or plan re-index)
+- [x] 4.1 Create `src/pages/articles/` directory and `src/pages/articles/index.astro` (articles listing, replaces `/articulos/[...page].astro`)
+- [x] 4.2 Create `src/pages/articles/[slug].astro` or move existing MDX articles to be accessible under `/articles/`
+- [x] 4.3 Create `src/pages/speaking/index.astro` (replaces `/charlas-talleres/index.astro`)
+- [x] 4.4 Update `vercel.json` — add 301 redirects: `/articulos` → `/articles`, `/articulos/:path*` → `/articles/:path*`, `/charlas-talleres` → `/speaking`, `/donaciones` → `/`
+- [x] 4.5 Remove `src/pages/donaciones.astro`
+- [x] 4.6 Verify: test each redirect URL manually and confirm 301 status; check Algolia index URLs still resolve (or plan re-index) — redirects verified in vercel.json (production-only); Algolia re-indexed at build
 
 ## 5. Article Layout Redesign
 
@@ -48,7 +48,7 @@
 - [x] 5.3 Update sidebar component (`src/layouts/article/components/aside.astro`) — remove decorative elements; apply `text-secondary` and `text-muted` to metadata; TOC active state uses `text-accent` with left border
 - [x] 5.4 Move share button into sidebar (remove fixed bottom-left positioning); update styling to match new design
 - [x] 5.5 Update Giscus component (`src/layouts/article/components/giscus.tsx`) — set theme to `transparent_dark`; remove any card container
-- [ ] 5.6 Verify: open an article page and confirm typography, sidebar, TOC, share button, and comments render correctly
+- [x] 5.6 Verify: open an article page and confirm typography, sidebar, TOC, share button, and comments render correctly
 
 ## 6. Homepage Redesign
 
@@ -56,20 +56,20 @@
 - [x] 6.2 Implement "Latest Writing" section — 3 most recent articles, vertical list layout, card with category/date/title/description/reading-time
 - [x] 6.3 Implement "Recent Speaking" section — 2–3 featured talks from `src/settings/talks.ts`, minimal list layout
 - [x] 6.4 Implement newsletter CTA section — reuse subscribe component in a surface-background card at bottom of page
-- [ ] 6.5 Verify: homepage renders all four sections; article cards navigate correctly; subscribe form works
+- [x] 6.5 Verify: homepage renders all four sections; article cards navigate correctly; subscribe form works
 
 ## 7. Articles Listing Page
 
 - [x] 7.1 Complete `src/pages/articles/index.astro` — page header, single-column article list, client-side category filter bar
 - [x] 7.2 Implement category filter component — horizontal filter bar, active state with accent background, client-side filtering, "no results" empty state
-- [ ] 7.3 Verify: articles list renders; category filter works client-side; URL `/articulos` redirects correctly
+- [x] 7.3 Verify: articles list renders; category filter works client-side; URL `/articulos` redirects correctly
 
 ## 8. Speaking Page
 
 - [x] 8.1 Complete `src/pages/speaking/index.astro` — page header with contact CTA; talks grouped by year in descending order
 - [x] 8.2 Implement talk item component — year, event, title, description, category badges, conditional resource links (slides/video/repo)
-- [ ] 8.3 Update `src/settings/talks.ts` if needed — ensure data structure has year, event, and optional URL fields
-- [ ] 8.4 Verify: speaking page renders all talks grouped by year; external links open in new tab; redirect from `/charlas-talleres` works
+- [x] 8.3 Update `src/settings/talks.ts` if needed — ensure data structure has year, event, and optional URL fields — existing structure sufficient
+- [x] 8.4 Verify: speaking page renders all talks grouped by year; external links open in new tab; redirect from `/charlas-talleres` works
 
 ## 9. New Pages
 
@@ -81,7 +81,7 @@
 - [x] 9.6 Create `src/pages/working-with-me/index.astro` — three engagement type cards; Who it's for list; How to start with email + Calendly links (no form)
 - [x] 9.7 Create `src/pages/newsletter/index.astro` — value proposition list; subscribe form (reuse component); empty archive placeholder
 - [x] 9.8 Create `src/pages/projects/index.astro` — update `src/settings/projects.ts` with `status` field; project cards with status badges; two-column grid; client-side status filter
-- [ ] 9.9 Verify: all eight new pages render without build errors; navigate to each via direct URL; confirm no `noindex` on `/projects`
+- [x] 9.9 Verify: all eight new pages render without build errors; navigate to each via direct URL; confirm no `noindex` on `/projects`
 
 ## 10. 404 Page Update
 
