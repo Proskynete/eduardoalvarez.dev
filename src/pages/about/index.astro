@@ -7,120 +7,233 @@ const seo = {
   title: "Sobre mí",
   description: "Líder de ingeniería, pensador de plataformas y mentor técnico trabajando en la era de la IA.",
 };
+
+const experience = [
+  {
+    date: "2026 → hoy",
+    role: "Technical Lead",
+    company: "Zenta Group · Cliente CMPC",
+    description: "",
+    current: true,
+    show: false
+  },
+  {
+    date: "2025 → hoy",
+    role: "CTO & CoFounder",
+    company: "Amipet",
+    description: "Co-fundando una plataforma en el espacio pet-tech. Definiendo arquitectura, stack y roadmap técnico desde cero, con foco en validar product-market fit.",
+    current: true,
+    show: true
+  },
+  {
+    date: "2024",
+    role: "Experienced consultant → Senior consultant",
+    company: "Amaris Consulting · cliente CMPC",
+    description: "Liderazgo de arquitectura frontend para plataformas enterprise. Diseño e implementación de arquitectura microfrontend con React, TypeScript y Single-SPA, reduciendo time-to-market en ~35%.",
+    current: false,
+    show: true
+  },
+  {
+    date: "2023",
+    role: "Front End Lead",
+    company: "ETpay",
+    description: "Dirección técnica frontend para plataforma data-driven. Design system, arquitectura de componentes y cultura de calidad en un equipo en crecimiento.",
+    current: false,
+    show: true
+  },
+  {
+    date: "2022",
+    role: "Technical Lead",
+    company: "DEUNA",
+    description: "Productos fintech en pagos y servicios financieros. Mejoras arquitectónicas y modernización de codebase en un ambiente ágil cross-functional.",
+    current: false,
+    show: true
+  },
+  {
+    date: "2021",
+    role: "CTO",
+    company: "Wited",
+    description: "Transformación digital de plataforma educativa. Estrategia técnica, roadmap de modernización y rebuild frontend con foco en performance y escalabilidad.",
+    current: false,
+    show: true
+  },
+  {
+    date: "— 2021",
+    role: "Software Engineer → Tech Lead",
+    company: "Globant, Penta Financiero, Cardumen Latam y otros",
+    description: "Trayectoria progresiva en startups y empresas digitales en Chile y Latinoamérica — fintech, ecommerce y plataformas digitales.",
+    current: false,
+    show: true
+  },
+];
 ---
 
 <Layout seo={seo}>
-  <div class="mx-auto max-w-full">
-    <header class="mb-12">
-      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Sobre mí</h1>
-    </header>
+  <div class="mx-auto max-w-full space-y-16">
 
-    <div class="prose prose-invert max-w-none space-y-14">
-      <!-- Intro -->
-      <section>
+    <!-- Hero: texto + foto -->
+    <section class="flex flex-col-reverse sm:flex-row items-start gap-10 sm:gap-16">
+      <div class="flex-1 space-y-4">
+        <p class="text-text-muted font-mono text-sm">/about</p>
+        <h1 class="text-4xl font-bold text-text-primary tracking-tight leading-tight">
+          Hola, soy Eduardo.<br />
+          <span class="text-accent">Ingeniero y líder técnico</span><br />
+          con más de 10 años construyendo en internet.
+        </h1>
         <p class="text-text-secondary text-lg leading-relaxed">
-          Soy Eduardo Álvarez — ingeniero de software con más de una década construyendo productos digitales y liderando
-          equipos de ingeniería en Latinoamérica. Trabajo en la intersección de la arquitectura de plataforma, el
-          liderazgo técnico, y el impacto que la IA está teniendo en cómo construimos software hoy.
+          Trabajo en la intersección de arquitectura de plataforma, liderazgo técnico y los flujos de trabajo que la IA
+          está transformando. He pasado por startups y empresas digitales en Chile y Latinoamérica — desde ingeniero
+          individual hasta CTO.
         </p>
-        <p class="text-text-secondary text-lg leading-relaxed mt-4">
-          Este sitio es donde comparto lo que pienso, aprendo y experimento. No es un blog de tutoriales — es un espacio
-          para pensar en voz alta sobre ingeniería con criterio.
-        </p>
-      </section>
-
-      <!-- What I work on -->
-      <section>
-        <h2 class="text-2xl font-bold text-text-primary mb-5">En qué trabajo</h2>
-        <p class="text-text-secondary leading-relaxed mb-4">La mayor parte de mi trabajo gira en torno a tres ejes:</p>
-        <ul class="space-y-3">
-          <li class="flex gap-3">
-            <span class="text-accent mt-1 flex-shrink-0">→</span>
-            <span class="text-text-secondary leading-relaxed">
-              <strong class="text-text-primary">Platform Engineering</strong> — diseñar las plataformas internas que permiten
-              a los equipos de producto moverse más rápido con menos fricción técnica.
-            </span>
-          </li>
-          <li class="flex gap-3">
-            <span class="text-accent mt-1 flex-shrink-0">→</span>
-            <span class="text-text-secondary leading-relaxed">
-              <strong class="text-text-primary">Engineering Leadership</strong> — acompañar a managers y tech leads en su
-              evolución: cómo tomar decisiones con criterio, cómo construir contexto en lugar de control, y cómo escalar impacto.
-            </span>
-          </li>
-          <li class="flex gap-3">
-            <span class="text-accent mt-1 flex-shrink-0">→</span>
-            <span class="text-text-secondary leading-relaxed">
-              <strong class="text-text-primary">AI-native Engineering</strong> — entender y documentar cómo los flujos de
-              trabajo de desarrollo están cambiando con los agentes de IA, y qué significa esto para los equipos y sus líderes.
-            </span>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Where I've been -->
-      <section>
-        <h2 class="text-2xl font-bold text-text-primary mb-5">Por dónde he pasado</h2>
         <p class="text-text-secondary leading-relaxed">
-          He trabajado en startups y empresas medianas en Chile y América Latina, desde equipos de 3 personas hasta
-          organizaciones con múltiples squads distribuidos. He pasado por roles de contribuidor individual, tech lead y
-          engineering manager — y esa amplitud es lo que más valoro: entiendo el trabajo desde adentro y lo lidero desde
-          una perspectiva sistémica.
+          Mi foco es transformar equipos desde la entrega de features al pensamiento de plataforma: construir con
+          criterio, escalar con intención y liderar con contexto en lugar de control.
         </p>
-        <p class="text-text-secondary leading-relaxed mt-4">
-          También he dado charlas en conferencias, talleres en instituciones académicas, y mentorías a decenas de
-          ingenieros en distintos momentos de su carrera.
-        </p>
-      </section>
-
-      <!-- How I think -->
-      <section>
-        <h2 class="text-2xl font-bold text-text-primary mb-5">Cómo pienso</h2>
-
-        <blockquote class="border-l-4 border-accent pl-5 my-6">
-          <p class="text-text-secondary text-lg leading-relaxed italic">
-            El trabajo de un líder técnico no es tener las respuestas — es construir el contexto para que el equipo
-            llegue a mejores respuestas que las que tú tendrías solo.
-          </p>
-        </blockquote>
-
         <p class="text-text-secondary leading-relaxed">
-          Creo en la ingeniería con criterio: no seguir tendencias por inercia, sino entender el costo real de cada
-          decisión técnica y organizacional. Creo que la documentación, la cultura de feedback y los sistemas de
-          plataforma son multiplicadores de impacto. Y creo que el liderazgo técnico efectivo requiere tanto de empatía
-          como de estructura.
+          Este sitio es donde pienso en voz alta sobre ingeniería. No es un blog de tutoriales — es un espacio para
+          ideas con criterio.
         </p>
+      </div>
 
-        <blockquote class="border-l-4 border-accent pl-5 my-6">
-          <p class="text-text-secondary text-lg leading-relaxed italic">
-            Simple no es lo mismo que fácil. Las mejores arquitecturas son las que nadie nota porque simplemente
-            funcionan.
+      <div class="w-48 sm:w-64 flex-shrink-0">
+        <img
+          src="/images/eduardo_alvarez_2.png"
+          alt="Eduardo Álvarez"
+          width="512"
+          height="680"
+          class="w-full aspect-[3/4] object-cover object-top rounded-2xl border border-surface-border"
+          loading="eager"
+        />
+      </div>
+    </section>
+
+    <!-- En qué trabajo -->
+    <section>
+      <h2 class="text-2xl font-bold text-text-primary mb-6">En qué trabajo</h2>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div class="p-5 rounded-xl border border-surface-border bg-surface space-y-2">
+          <span class="text-accent text-xl">⬡</span>
+          <h3 class="font-semibold text-text-primary">Platform Engineering</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">
+            Plataformas internas que permiten a los equipos moverse más rápido con menos fricción técnica.
           </p>
-        </blockquote>
-      </section>
-
-      <!-- Connect -->
-      <section>
-        <h2 class="text-2xl font-bold text-text-primary mb-5">Conectemos</h2>
-        <p class="text-text-secondary leading-relaxed mb-6">
-          Si estás trabajando en un desafío de plataforma, liderazgo o arquitectura — o simplemente quieres comentar
-          algo que leíste aquí — escríbeme.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a
-            href="mailto:soy@eduardoalvarez.dev"
-            class="px-5 py-2.5 bg-accent text-background text-sm font-semibold rounded-lg hover:bg-accent-hover transition-colors duration-200"
-          >
-            Escríbeme →
-          </a>
-          <a
-            href="/working-with-me"
-            class="px-5 py-2.5 border border-surface-border text-text-primary text-sm font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors duration-200"
-          >
-            Trabajemos
-          </a>
         </div>
-      </section>
-    </div>
+        <div class="p-5 rounded-xl border border-surface-border bg-surface space-y-2">
+          <span class="text-accent text-xl">⬡</span>
+          <h3 class="font-semibold text-text-primary">Engineering Leadership</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">
+            Acompañar a managers y tech leads en su evolución hacia un liderazgo con criterio y escala.
+          </p>
+        </div>
+        <div class="p-5 rounded-xl border border-surface-border bg-surface space-y-2">
+          <span class="text-accent text-xl">⬡</span>
+          <h3 class="font-semibold text-text-primary">AI-native Engineering</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">
+            Entender cómo los agentes de IA están cambiando los flujos de trabajo y qué significa para los equipos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experiencia -->
+    <section>
+      <h2 class="text-2xl font-bold text-text-primary mb-8">Experiencia</h2>
+      <div class="relative">
+        <!-- Línea vertical -->
+        <div class="absolute left-[7.5rem] top-0 bottom-0 w-px bg-surface-border hidden sm:block"></div>
+
+        <div class="space-y-8">
+          {experience.map((item) => item.show && (
+            <div class="flex flex-col sm:flex-row gap-2 sm:gap-8">
+              <!-- Fecha -->
+              <div class="sm:w-28 flex-shrink-0 flex sm:justify-end items-start pt-0.5">
+                <span class={`font-mono text-xs ${item.current ? "text-accent" : "text-text-muted"}`}>
+                  {item.date}
+                </span>
+              </div>
+
+              <!-- Punto en la línea -->
+              <div class="hidden sm:flex items-start justify-center w-4 flex-shrink-0 pt-1.5">
+                <div class={`w-2 h-2 rounded-full border-2 ${item.current ? "border-accent bg-accent" : "border-surface-border bg-background"}`}></div>
+              </div>
+
+              <!-- Contenido -->
+              <div class={`flex-1 pb-8 ${item.current ? "border-l-2 border-accent sm:border-none pl-4 sm:pl-0" : ""}`}>
+                <p class={`font-semibold ${item.current ? "text-text-primary" : "text-text-primary"}`}>{item.role}</p>
+                <p class="text-accent text-sm mb-2">{item.company}</p>
+                <p class="text-text-secondary text-sm leading-relaxed">{item.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Cómo pienso -->
+    <section>
+      <h2 class="text-2xl font-bold text-text-primary mb-6">Cómo pienso</h2>
+
+      <blockquote class="border-l-4 border-accent pl-6 mb-6">
+        <p class="text-text-secondary text-lg leading-relaxed italic">
+          La cosa más valiosa que un líder de ingeniería puede hacer es reducir complejidad — en el código, el proceso
+          y en cómo los equipos piensan sobre los problemas.
+        </p>
+      </blockquote>
+
+      <p class="text-text-secondary leading-relaxed mb-4">
+        Creo en la ingeniería con criterio: no seguir tendencias por inercia, sino entender el costo real de cada
+        decisión técnica y organizacional. Creo que la documentación, la cultura de feedback y los sistemas de
+        plataforma son multiplicadores de impacto.
+      </p>
+
+      <blockquote class="border-l-4 border-accent pl-6 mt-6">
+        <p class="text-text-secondary text-lg leading-relaxed italic">
+          El trabajo de un líder técnico no es tener las respuestas — es construir el contexto para que el equipo
+          llegue a mejores respuestas que las que tú tendrías solo.
+        </p>
+      </blockquote>
+    </section>
+
+    <!-- Comunidad -->
+    <section>
+      <h2 class="text-2xl font-bold text-text-primary mb-4">Comunidad</h2>
+      <p class="text-text-secondary leading-relaxed">
+        He dado charlas en conferencias técnicas, talleres en instituciones académicas y mentorías a decenas de
+        ingenieros en distintos momentos de su carrera. Fui staff volunteer en <strong class="text-text-primary">JSConf Chile</strong>,
+        mentor en <strong class="text-text-primary">Laboratoria</strong> y en <strong class="text-text-primary">JavaScript Chile</strong>.
+      </p>
+    </section>
+
+    <!-- CTA contacto -->
+    <section class="rounded-2xl border border-surface-border bg-surface p-8 sm:p-10">
+      <h2 class="text-2xl font-bold text-text-primary mb-3">¿Hablamos?</h2>
+      <p class="text-text-secondary leading-relaxed mb-8 max-w-xl">
+        Si estás trabajando en un desafío de plataforma, liderazgo o arquitectura — o simplemente quieres comentar
+        algo que leíste aquí — escríbeme.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a
+          href="mailto:soy@eduardoalvarez.dev"
+          class="px-5 py-2.5 bg-accent text-background text-sm font-semibold rounded-lg hover:bg-accent-hover transition-colors duration-200"
+        >
+          Escríbeme →
+        </a>
+        <a
+          href="/working-with-me"
+          class="px-5 py-2.5 border border-surface-border text-text-primary text-sm font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors duration-200"
+        >
+          Trabajemos
+        </a>
+        <a
+          href="https://www.linkedin.com/in/eduardoalvarezc"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-5 py-2.5 border border-surface-border text-text-primary text-sm font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors duration-200"
+        >
+          LinkedIn
+        </a>
+      </div>
+    </section>
+
   </div>
 </Layout>
