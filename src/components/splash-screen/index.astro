@@ -1,0 +1,254 @@
+---
+// Animated PWA splash screen — shows only in standalone mode (iOS & Android PWA)
+// The isotope assembles path by path, then glows and fades out in 3s total.
+---
+
+<div id="pwa-splash" aria-hidden="true" role="presentation">
+  <div class="splash-inner">
+    <svg
+      viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg"
+      width="160"
+      height="160"
+      aria-hidden="true"
+    >
+      <!-- Outer diamond -->
+      <path
+        class="p p-outer"
+        d="M 100 18 L 182 100 L 100 182 L 18 100 Z"
+        fill="none"
+        stroke="#06b6d4"
+        stroke-width="1.5"
+        pathLength="100"
+      />
+
+      <!-- Inner diamond -->
+      <path
+        class="p p-inner"
+        d="M 100 50 L 150 100 L 100 150 L 50 100 Z"
+        fill="none"
+        stroke="#06b6d4"
+        stroke-width="1.5"
+        pathLength="100"
+      />
+
+      <!-- Vertical spine: center → up -->
+      <path
+        class="p p-spine-up"
+        d="M 100 100 L 100 3"
+        fill="none"
+        stroke="#06b6d4"
+        stroke-width="1.5"
+        pathLength="100"
+      />
+
+      <!-- Vertical spine: center → down -->
+      <path
+        class="p p-spine-down"
+        d="M 100 100 L 100 197"
+        fill="none"
+        stroke="#06b6d4"
+        stroke-width="1.5"
+        pathLength="100"
+      />
+
+      <!-- Arrow head: up -->
+      <path
+        class="p p-arrow-up"
+        d="M 93 20 L 100 3 L 107 20"
+        fill="none"
+        stroke="#06b6d4"
+        stroke-width="1.5"
+        pathLength="100"
+      />
+
+      <!-- Arrow head: down -->
+      <path
+        class="p p-arrow-down"
+        d="M 93 180 L 100 197 L 107 180"
+        fill="none"
+        stroke="#06b6d4"
+        stroke-width="1.5"
+        pathLength="100"
+      />
+
+      <!-- Circuit trace: top → left -->
+      <path class="p p-ct-tl" d="M 100 18 L 77 18 L 77 40" fill="none" stroke="#06b6d4" stroke-width="1.5" pathLength="100" />
+
+      <!-- Circuit trace: top → right -->
+      <path class="p p-ct-tr" d="M 100 18 L 123 18 L 123 40" fill="none" stroke="#06b6d4" stroke-width="1.5" pathLength="100" />
+
+      <!-- Circuit trace: bottom → left -->
+      <path class="p p-ct-bl" d="M 100 182 L 77 182 L 77 160" fill="none" stroke="#06b6d4" stroke-width="1.5" pathLength="100" />
+
+      <!-- Circuit trace: bottom → right -->
+      <path class="p p-ct-br" d="M 100 182 L 123 182 L 123 160" fill="none" stroke="#06b6d4" stroke-width="1.5" pathLength="100" />
+
+      <!-- Circuit trace: left → up -->
+      <path class="p p-ct-lu" d="M 18 100 L 18 77 L 40 77" fill="none" stroke="#06b6d4" stroke-width="1.5" pathLength="100" />
+
+      <!-- Circuit trace: left → down -->
+      <path class="p p-ct-ld" d="M 18 100 L 18 123 L 40 123" fill="none" stroke="#06b6d4" stroke-width="1.5" pathLength="100" />
+
+      <!-- Circuit trace: right → up -->
+      <path class="p p-ct-ru" d="M 182 100 L 182 77 L 160 77" fill="none" stroke="#06b6d4" stroke-width="1.5" pathLength="100" />
+
+      <!-- Circuit trace: right → down -->
+      <path class="p p-ct-rd" d="M 182 100 L 182 123 L 160 123" fill="none" stroke="#06b6d4" stroke-width="1.5" pathLength="100" />
+
+      <!-- Endpoint dots (circuit trace terminations) -->
+      <circle class="c c-dot" cx="77"  cy="40"  r="3" fill="#06b6d4" />
+      <circle class="c c-dot" cx="123" cy="40"  r="3" fill="#06b6d4" />
+      <circle class="c c-dot" cx="77"  cy="160" r="3" fill="#06b6d4" />
+      <circle class="c c-dot" cx="123" cy="160" r="3" fill="#06b6d4" />
+      <circle class="c c-dot" cx="40"  cy="77"  r="3" fill="#06b6d4" />
+      <circle class="c c-dot" cx="40"  cy="123" r="3" fill="#06b6d4" />
+      <circle class="c c-dot" cx="160" cy="77"  r="3" fill="#06b6d4" />
+      <circle class="c c-dot" cx="160" cy="123" r="3" fill="#06b6d4" />
+
+      <!-- Center dot -->
+      <circle class="c c-center" cx="100" cy="100" r="5" fill="#06b6d4" />
+    </svg>
+  </div>
+</div>
+
+<style is:global>
+  #pwa-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #0a0a0a;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #pwa-splash.is-active {
+    display: flex;
+  }
+
+  #pwa-splash.is-exit {
+    animation: splash-exit 0.5s ease-out forwards;
+    pointer-events: none;
+  }
+
+  /* All stroke paths start invisible */
+  #pwa-splash .p {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+
+  /* All circles start invisible */
+  #pwa-splash .c {
+    opacity: 0;
+  }
+
+  /* ─── Keyframes ─── */
+
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes appear {
+    to { opacity: 1; }
+  }
+
+  @keyframes glow-on {
+    0%   { filter: drop-shadow(0 0 2px #06b6d4); }
+    100% {
+      filter:
+        drop-shadow(0 0 6px #06b6d4)
+        drop-shadow(0 0 16px rgba(6, 182, 212, 0.6))
+        drop-shadow(0 0 32px rgba(6, 182, 212, 0.25));
+    }
+  }
+
+  @keyframes splash-exit {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+
+  /* ─── Animation sequence (class .is-drawing triggers everything via CSS) ─── */
+
+  /* 1. Center dot — instantly */
+  #pwa-splash.is-drawing .c-center {
+    animation: appear 0.2s ease-out 0.05s forwards;
+  }
+
+  /* 2. Inner diamond */
+  #pwa-splash.is-drawing .p-inner {
+    animation: draw 0.5s ease-in-out 0.1s forwards;
+  }
+
+  /* 3. Outer diamond */
+  #pwa-splash.is-drawing .p-outer {
+    animation: draw 0.6s ease-in-out 0.45s forwards;
+  }
+
+  /* 4. Spine draws outward from center simultaneously */
+  #pwa-splash.is-drawing .p-spine-up,
+  #pwa-splash.is-drawing .p-spine-down {
+    animation: draw 0.35s ease-in-out 0.85s forwards;
+  }
+
+  /* 5. Arrow heads */
+  #pwa-splash.is-drawing .p-arrow-up,
+  #pwa-splash.is-drawing .p-arrow-down {
+    animation: draw 0.2s ease-out 1.15s forwards;
+  }
+
+  /* 6. Circuit traces — top */
+  #pwa-splash.is-drawing .p-ct-tl { animation: draw 0.22s ease-out 1.30s forwards; }
+  #pwa-splash.is-drawing .p-ct-tr { animation: draw 0.22s ease-out 1.38s forwards; }
+
+  /* 7. Circuit traces — left & right (simultaneous) */
+  #pwa-splash.is-drawing .p-ct-lu,
+  #pwa-splash.is-drawing .p-ct-ru { animation: draw 0.22s ease-out 1.44s forwards; }
+
+  #pwa-splash.is-drawing .p-ct-ld,
+  #pwa-splash.is-drawing .p-ct-rd { animation: draw 0.22s ease-out 1.52s forwards; }
+
+  /* 8. Circuit traces — bottom */
+  #pwa-splash.is-drawing .p-ct-bl { animation: draw 0.22s ease-out 1.60s forwards; }
+  #pwa-splash.is-drawing .p-ct-br { animation: draw 0.22s ease-out 1.68s forwards; }
+
+  /* 9. Endpoint dots pop in */
+  #pwa-splash.is-drawing .c-dot {
+    animation: appear 0.15s ease-out 1.78s forwards;
+  }
+
+  /* 10. Glow intensifies — "powers on" */
+  #pwa-splash.is-drawing .splash-inner {
+    animation: glow-on 0.9s ease-in 2.0s forwards;
+  }
+</style>
+
+<script>
+  const splash = document.getElementById("pwa-splash");
+  if (splash) {
+    const isStandalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      (window.navigator as unknown as { standalone?: boolean }).standalone === true;
+
+    const alreadyShown = sessionStorage.getItem("pwa-splash-shown");
+
+    if (isStandalone && !alreadyShown) {
+      sessionStorage.setItem("pwa-splash-shown", "true");
+
+      splash.classList.add("is-active");
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          splash.classList.add("is-drawing");
+        });
+      });
+
+      setTimeout(() => {
+        splash.classList.add("is-exit");
+        setTimeout(() => splash.remove(), 500);
+      }, 3000);
+    } else {
+      splash.remove();
+    }
+  }
+</script>
