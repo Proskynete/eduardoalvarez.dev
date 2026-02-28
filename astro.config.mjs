@@ -1,3 +1,7 @@
+import { readdirSync, readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
 import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import react from "@astrojs/react";
@@ -7,9 +11,6 @@ import vercel from "@astrojs/vercel";
 import { defineConfig } from "astro/config";
 import webmanifest from "astro-webmanifest";
 import serviceWorker from "astrojs-service-worker";
-import { readdirSync, readFileSync } from "node:fs";
-import { resolve, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
 
 import { publishAlgoliaRSS } from "./src/scripts/algolia.ts";
 import config from "./src/settings/manifest-config.ts";
@@ -47,10 +48,6 @@ if (process.env.SKIP_ENV_VALIDATION !== "true") {
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
   redirects: {
-    "/now": "/",
-    "/stack": "/",
-    "/about": "/",
-    "/working-with-me": "/",
     "/podcasts": "/",
   },
   build: {

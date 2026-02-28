@@ -21,25 +21,25 @@ export const navItems: NavItem[] = [
   {
     name: "Ahora",
     href: "/now",
-    show: false,
+    show: true,
     description: "En qué estoy trabajando hoy",
   },
   {
     name: "Stack",
     href: "/stack",
-    show: false,
+    show: true,
     description: "Herramientas y tecnologías que uso",
   },
   {
     name: "Sobre mí",
     href: "/about",
-    show: false,
+    show: true,
     description: "Quién soy y qué hago",
   },
   {
     name: "Trabajemos",
     href: "/working-with-me",
-    show: false,
+    show: true,
     description: "Cómo podemos colaborar",
   },
   {
