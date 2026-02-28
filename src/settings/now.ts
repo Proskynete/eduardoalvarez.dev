@@ -4,46 +4,47 @@ export interface NowItem {
   description?: string;
 }
 
-export const lastUpdated = "2026-02-01";
+export const lastUpdated = "2026-02-28";
 
 export const nowItems: NowItem[] = [
   {
     category: "Trabajando en",
-    label: "Platform Engineering",
-    description:
-      "Diseñando la estrategia de plataforma interna para reducir la carga cognitiva de los equipos de producto y acelerar los ciclos de entrega.",
+    label: "Technical Lead en ZentaGroup",
+    description: "Liderando el equipo de ingeniería para el cliente CMPC, coordinando decisiones técnicas, arquitectura y entrega de valor.",
   },
   {
     category: "Trabajando en",
-    label: "Engineering Leadership",
-    description:
-      "Acompañando a managers y tech leads en su evolución hacia un liderazgo más estratégico — menos microgestión, más contexto y criterio.",
+    label: "CTO y CoFounder en AmiPet",
+    description: "Construyendo amipet.app, una app para dueños de mascotas. Liderando la visión técnica y la estrategia de producto desde el inicio.",
   },
   {
     category: "Aprendiendo",
-    label: "AI-native development workflows",
-    description:
-      "Explorando cómo integrar agentes de IA en el ciclo de desarrollo de software sin perder calidad de código ni velocidad de equipo.",
+    label: "Patrones de arquitectura con LLMs",
+    description: "Explorando cómo diseñar sistemas que integren modelos de lenguaje de forma robusta, escalable y mantenible.",
   },
   {
     category: "Aprendiendo",
-    label: "eBPF para observabilidad",
-    description: "Profundizando en cómo eBPF permite visibilidad a nivel de kernel sin instrumentación en el código de aplicación.",
+    label: "Spec Driven Development",
+    description: "Adoptando un flujo de desarrollo orientado a especificaciones para mejorar la alineación entre producto e ingeniería.",
   },
   {
-    category: "Escribiendo",
-    label: "Serie sobre Technical Leadership",
-    description:
-      "Una serie de artículos sobre cómo hacer la transición de contribuidor individual a líder técnico sin perder la esencia de lo que te hizo bueno.",
-  },
-  {
-    category: "Leyendo",
-    label: "Staff Engineer — Will Larson",
-    description: "Revisitando este libro con ojos de alguien que acompaña a otros en ese camino.",
+    category: "Aprendiendo",
+    label: "Management de equipos con IA",
+    description: "Investigando cómo los líderes de ingeniería pueden apoyarse en herramientas de IA para tomar mejores decisiones y reducir fricción operacional.",
   },
   {
     category: "Leyendo",
-    label: "The Architecture of Trust — varias fuentes",
-    description: "Recopilando ensayos y posts sobre cómo se construye confianza técnica dentro de organizaciones de ingeniería.",
+    label: "El arte de pensar — Rolf Dobelli",
+    description: "Un recorrido por los sesgos cognitivos más comunes y cómo evitarlos para tomar mejores decisiones.",
+  },
+  {
+    category: "Leyendo",
+    label: "Hábitos atómicos — James Clear",
+    description: "Cómo los pequeños cambios de comportamiento generan resultados extraordinarios en el largo plazo.",
+  },
+  {
+    category: "Leyendo",
+    label: "Trust & Inspire — Stephen R. Covey",
+    description: "Un nuevo modelo de liderazgo centrado en inspirar a las personas en lugar de controlarlas.",
   },
 ];
