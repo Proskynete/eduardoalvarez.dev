@@ -16,22 +16,16 @@ const { algolia } = Astro.props;
 ---
 
 <header
-  class="sticky top-0 z-50 h-nav-height bg-surface border-b border-surface-border transition-all duration-200"
+  class="sticky top-0 z-50 h-20 bg-surface border-b border-surface-border transition-all duration-200"
   id="site-header"
 >
   <div class="max-w-screen-2xl mx-auto h-full px-4 sm:px-6 xl:px-8 flex items-center justify-between">
     <div role="banner">
       <a href="/" aria-label="Eduardo Álvarez — Ir al inicio" class="flex items-center gap-3 group">
         <!-- Mobile: solo diamantes (reconocible a cualquier tamaño) -->
-        <Isotipo
-          variant="mark"
-          class="h-9 w-auto flex-shrink-0 sm:hidden transition-[filter] duration-300 group-hover:[filter:drop-shadow(0_0_8px_rgba(6,182,212,0.55))]"
-        />
-        <!-- Desktop: isotipo completo EA-01 -->
-        <Isotipo
-          variant="full"
-          class="h-9 w-auto flex-shrink-0 hidden sm:block transition-[filter] duration-300 group-hover:[filter:drop-shadow(0_0_8px_rgba(6,182,212,0.55))]"
-        />
+        <Isotipo variant="full" class="isotipo-glow h-16 w-auto flex-shrink-0 sm:hidden" />
+        <!-- Desktop: isotipo completo -->
+        <Isotipo variant="full" class="isotipo-glow h-16 w-auto flex-shrink-0 hidden sm:block" />
 
         <!-- Separator -->
         <div class="h-8 w-px bg-accent opacity-50 flex-shrink-0"></div>
@@ -43,7 +37,7 @@ const { algolia } = Astro.props;
           >
             Eduardo Álvarez
           </span>
-          <span class="text-text-muted text-[10px] uppercase tracking-widest hidden sm:block">
+          <span class="text-text-muted text-xs uppercase tracking-widest hidden sm:block">
             Engineering Leadership · Platform Thinking
           </span>
         </div>
@@ -56,6 +50,35 @@ const { algolia } = Astro.props;
     </div>
   </div>
 </header>
+
+<style is:global>
+  @keyframes isotipo-breathe {
+    0%, 100% {
+      filter:
+        drop-shadow(0 0 6px rgba(6, 182, 212, 0.7))
+        drop-shadow(0 0 16px rgba(6, 182, 212, 0.35));
+    }
+    50% {
+      filter:
+        drop-shadow(0 0 14px rgba(6, 182, 212, 1))
+        drop-shadow(0 0 32px rgba(6, 182, 212, 0.7))
+        drop-shadow(0 0 60px rgba(6, 182, 212, 0.35));
+    }
+  }
+
+  .isotipo-glow {
+    animation: isotipo-breathe 3s ease-in-out 1s infinite both;
+  }
+
+  .group:hover .isotipo-glow {
+    animation: none;
+    filter:
+      drop-shadow(0 0 16px rgba(6, 182, 212, 1))
+      drop-shadow(0 0 40px rgba(6, 182, 212, 0.8))
+      drop-shadow(0 0 70px rgba(6, 182, 212, 0.4));
+    transition: filter 0.25s ease-out;
+  }
+</style>
 
 <script>
   const header = document.getElementById("site-header");
