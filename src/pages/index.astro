@@ -3,7 +3,6 @@ import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
 import Article from "../components/article/index.astro";
 import Subscribe from "../components/subscribe/index.astro";
-import SplashPreview from "../components/splash-preview/index.astro";
 import { talks } from "../settings/talks";
 import type { Talk } from "../settings/talks";
 import { articlesSort } from "../utils/articles";
@@ -134,9 +133,6 @@ const seo = {
       </section>
     )
   }
-
-  <!-- Splash Screen Preview (WIP — remove before final deploy) -->
-  <SplashPreview />
 
   <!-- Newsletter CTA -->
   <section class="mx-auto max-w-content bg-surface rounded-xl border border-surface-border p-8 sm:p-10">
