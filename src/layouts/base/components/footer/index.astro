@@ -2,24 +2,8 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="mt-20 border-t border-surface-border pt-10 pb-12">
-  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
-    <!-- Brand -->
-    <a href="/" aria-label="Eduardo Álvarez — Ir al inicio" class="flex items-center gap-2 group">
-      <img
-        src="/images/logo-mark.svg"
-        alt="Logo mark"
-        class="h-5 w-5 opacity-60 group-hover:opacity-100 transition-opacity duration-200"
-        width="20"
-        height="20"
-        loading="lazy"
-        decoding="async"
-      />
-      <span class="text-text-muted text-sm font-medium group-hover:text-text-primary transition-colors duration-200">
-        Eduardo Álvarez
-      </span>
-    </a>
-
+<footer id="site-footer" class="mt-20 border-t border-surface-border pt-10 pb-12">
+  <div class="flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-end gap-8">
     <!-- Social links -->
     <nav aria-label="Social media links" class="flex items-center gap-5">
       <a
@@ -113,8 +97,6 @@ const currentYear = new Date().getFullYear();
   </div>
 
   <!-- Copyright -->
-  <p class="mt-3 text-text-muted text-xs">
-    <pre
-      class="font-mono text-xs text-text-muted">$ cd ~/<a href="https://eduardoalvarez.dev" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent-hover transition-colors">eduardoalvarez.dev</a>/{currentYear}<span class="w-1 h-3 inline-block bg-accent ml-1 rounded-sm motion-safe:animate-ping motion-safe:duration-75" /></pre>
-  </p>
+  <pre
+    class="mt-3 font-mono text-xs text-text-muted text-center sm:text-right">$ cd ~/<a href="https://eduardoalvarez.dev" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent-hover transition-colors">eduardoalvarez.dev</a>/{currentYear}<span class="w-1 h-3 inline-block bg-accent ml-1 rounded-sm motion-safe:animate-ping motion-safe:duration-75" /></pre>
 </footer>

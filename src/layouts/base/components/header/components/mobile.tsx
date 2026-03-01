@@ -100,17 +100,35 @@ export default function Mobile({ version }: MobileProps) {
         role="dialog"
         aria-modal="true"
         aria-label="Menú de navegación"
-        className={`fixed inset-0 z-50 bg-background flex flex-col sm:hidden transition-all duration-300 ease-in-out ${
+        className={`fixed inset-0 z-[200] bg-background flex flex-col sm:hidden transition-all duration-300 ease-in-out ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between h-nav-height px-5 border-b border-surface-border flex-shrink-0">
+        <div className="flex items-center justify-between h-20 px-5 border-b border-surface-border flex-shrink-0">
           <a href="/" onClick={onClose} className="flex items-center gap-2.5 group">
-            <img src="/images/logo-mark.svg" alt="Logo mark" className="h-6 w-6" width="24" height="24" />
-            <span className="text-text-primary font-bold text-sm tracking-tight group-hover:text-accent transition-colors duration-200">
-              Eduardo Álvarez
-            </span>
+            <svg
+              viewBox="117 167 154 154"
+              xmlns="http://www.w3.org/2000/svg"
+              className={`svg-isotype-mark breath-animation h-10 w-auto flex-shrink-0`}
+              aria-hidden="true"
+            >
+              <style>{".svg-isotype-mark * { vector-effect: non-scaling-stroke; }"}</style>
+              <path
+                fill="#06b6d4"
+                stroke="#06b6d4"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M194.1,188.1l56.1,56.1l-56.1,56.1l-56.1-56.1L194.1,188.1 M194.1,171.1l-73,73l73,73l73-73L194.1,171.1z"
+              />
+            </svg>
+            <div className="h-8 w-px bg-accent opacity-50 flex-shrink-0"></div>
+            <div className="flex flex-col leading-tight">
+              <span className="text-text-primary font-bold text-base tracking-tight group-hover:text-accent transition-colors duration-200">
+                Eduardo Álvarez
+              </span>
+            </div>
           </a>
           <button
             aria-label="Cerrar menú de navegación"
@@ -198,7 +216,7 @@ export default function Mobile({ version }: MobileProps) {
           {/* Blinking cursor */}
           <div className="mt-8 flex items-center gap-1.5 text-sm text-accent">
             <span>❯</span>
-            <span className="animate-pulse leading-none">▌</span>
+            <span className="w-1 h-3 inline-block bg-accent ml-1 rounded-sm motion-safe:animate-ping motion-safe:duration-75" />
           </div>
         </div>
 
