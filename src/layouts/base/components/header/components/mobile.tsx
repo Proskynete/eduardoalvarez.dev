@@ -100,12 +100,12 @@ export default function Mobile({ version }: MobileProps) {
         role="dialog"
         aria-modal="true"
         aria-label="Menú de navegación"
-        className={`fixed inset-0 z-50 bg-background flex flex-col sm:hidden transition-all duration-300 ease-in-out ${
+        className={`fixed inset-0 z-[200] bg-background flex flex-col sm:hidden transition-all duration-300 ease-in-out ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between h-nav-height px-5 border-b border-surface-border flex-shrink-0">
+        <div className="flex items-center justify-between h-20 px-5 border-b border-surface-border flex-shrink-0">
           <a href="/" onClick={onClose} className="flex items-center gap-2.5 group">
             <img src="/images/logo-mark.svg" alt="Logo mark" className="h-6 w-6" width="24" height="24" />
             <span className="text-text-primary font-bold text-sm tracking-tight group-hover:text-accent transition-colors duration-200">
