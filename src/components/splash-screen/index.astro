@@ -218,29 +218,32 @@
 
   .splash-inner {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 28px;
   }
 
   .splash-logotype {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 8px;
     opacity: 0;
   }
 
   .splash-separator {
-    width: 1px;
-    height: 36px;
+    width: 32px;
+    height: 1px;
     background: rgba(6, 182, 212, 0.5);
-    flex-shrink: 0;
   }
 
   .splash-text {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 3px;
+    text-align: center;
   }
 
   .splash-name {
@@ -355,8 +358,8 @@
     animation: appear 0.2s ease-out 2.2s forwards;
   }
 
-  /* 6. Glow intensifies — "powers on" */
-  #pwa-splash.is-drawing .splash-inner {
+  /* 6. Glow intensifies — "powers on" (solo SVG, no el texto) */
+  #pwa-splash.is-drawing .splash-inner svg {
     animation: glow-on 0.9s ease-in 2.4s forwards;
   }
 
