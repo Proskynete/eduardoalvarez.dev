@@ -1,19 +1,17 @@
 ---
+import Isotipo from "../../../../components/isotipo/index.astro";
+
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="mt-20 border-t border-surface-border pt-10 pb-12">
+<footer id="site-footer" class="mt-20 border-t border-surface-border pt-10 pb-12">
   <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
     <!-- Brand -->
     <a href="/" aria-label="Eduardo Álvarez — Ir al inicio" class="flex items-center gap-2 group">
-      <img
-        src="/images/logo-mark.svg"
-        alt="Logo mark"
-        class="h-5 w-5 opacity-60 group-hover:opacity-100 transition-opacity duration-200"
-        width="20"
-        height="20"
-        loading="lazy"
-        decoding="async"
+      <!-- Footer usa el mark (pequeño, legible al 20px) -->
+      <Isotipo
+        variant="full"
+        class="h-20 w-auto flex-shrink-0 opacity-50 group-hover:opacity-100 transition-[opacity,filter] duration-300 group-hover:[filter:drop-shadow(0_0_5px_rgba(6,182,212,0.4))]"
       />
       <span class="text-text-muted text-sm font-medium group-hover:text-text-primary transition-colors duration-200">
         Eduardo Álvarez
