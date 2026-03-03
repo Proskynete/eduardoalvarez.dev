@@ -25,12 +25,6 @@ export const navItems: NavItem[] = [
     description: "En qué estoy trabajando hoy",
   },
   {
-    name: "Stack",
-    href: "/stack",
-    show: true,
-    description: "Herramientas y tecnologías que uso",
-  },
-  {
     name: "Sobre mí",
     href: "/about",
     show: true,
