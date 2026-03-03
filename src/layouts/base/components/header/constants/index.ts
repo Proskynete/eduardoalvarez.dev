@@ -31,7 +31,7 @@ export const navItems: NavItem[] = [
     description: "Quién soy y qué hago",
   },
   {
-    name: "Trabajemos",
+    name: "Hablemos",
     href: "/working-with-me",
     show: true,
     description: "Cómo podemos colaborar",
