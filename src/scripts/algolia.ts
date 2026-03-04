@@ -37,18 +37,18 @@ export const publishAlgoliaRSS = () => {
         }
 
         try {
-          const articles = await glob("src/pages/articulos/**/*.mdx");
+          const articles = await glob("src/pages/articles/**/*.mdx");
           const objects = articles.map((article) => {
             const fileContent = readFileSync(article, "utf-8");
             const { data } = matter(fileContent);
 
             return {
-              objectID: `${config.url}/articulos/${data.slug}`,
+              objectID: `${config.url}/articles/${data.slug}`,
               title: data.title,
               description: data.description,
               pubDate: new Date(data.date).toISOString(),
-              link: `${config.url}/articulos/${data.slug}`,
-              guid: `${config.url}/articulos/${data.slug}`,
+              link: `${config.url}/articles/${data.slug}`,
+              guid: `${config.url}/articles/${data.slug}`,
               slug: data.slug,
               author: config.author.name,
               image: data.image || `${config.url}/${data.seo_image}`,
