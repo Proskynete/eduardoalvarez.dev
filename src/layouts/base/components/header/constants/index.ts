@@ -19,12 +19,6 @@ export const navItems: NavItem[] = [
     description: "Talks y workshops en conferencias",
   },
   {
-    name: "Ahora",
-    href: "/now",
-    show: true,
-    description: "En qué estoy trabajando hoy",
-  },
-  {
     name: "Sobre_mí",
     href: "/about",
     show: true,

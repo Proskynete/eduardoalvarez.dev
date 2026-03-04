@@ -1,6 +1,8 @@
 ---
 import Layout from "../../layouts/main/index.astro";
 import { experience } from "../../settings/about";
+import { nowItems, lastUpdated } from "../../settings/now";
+import type { NowItem } from "../../settings/now";
 
 export const prerender = true;
 
@@ -8,6 +10,17 @@ const seo = {
   title: "Sobre mí",
   description: "Líder de ingeniería, pensador de plataformas y mentor técnico trabajando en la era de la IA.",
 };
+
+const nowCategories = [...new Set(nowItems.map((item: NowItem) => item.category))];
+const nowByCategory = Object.fromEntries(
+  nowCategories.map((cat) => [cat, nowItems.filter((item: NowItem) => item.category === cat)]),
+);
+
+const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 ---
 
 <Layout seo={seo}>
@@ -73,6 +86,41 @@ const seo = {
             Entender cómo los agentes de IA están cambiando los flujos de trabajo y qué significa para los equipos.
           </p>
         </div>
+      </div>
+    </section>
+
+    <!-- Ahora -->
+    <section id="ahora">
+      <div class="flex items-baseline justify-between mb-8">
+        <h2 class="text-2xl font-bold text-text-primary">Ahora</h2>
+        <p class="text-xs text-text-muted">
+          Actualizado: {formattedDate} · <a
+            href="https://nownownow.com/about"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-accent hover:underline">¿Qué es esto?</a
+          >
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-8">
+        {
+          nowCategories.map((category) => (
+            <div>
+              <h3 class="text-xs font-semibold uppercase tracking-widest text-accent mb-4">{category}</h3>
+              <div class="space-y-4">
+                {nowByCategory[category].map((item: NowItem) => (
+                  <div class="border-l-2 border-surface-border pl-4 hover:border-accent transition-colors duration-200">
+                    <p class="font-semibold text-text-primary text-sm mb-1">{item.label}</p>
+                    {item.description && (
+                      <p class="text-text-secondary text-sm leading-relaxed">{item.description}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        }
       </div>
     </section>
 

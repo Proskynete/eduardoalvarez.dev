@@ -65,6 +65,11 @@
       "source": "/donaciones",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/now",
+      "destination": "/about",
+      "permanent": true
     }
   ]
 }
