@@ -28,8 +28,7 @@ const { articlePublishedTime, articleAuthor, articleTags, schema } = Astro.props
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="/images/logo-mark.svg" type="image/svg+xml" />
-  <link rel="icon" href="/images/favicon/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/images/favicon/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" sizes="180x180" href="/images/manifest/apple-touch-icon.png" />
   <meta name="generator" content={Astro.generator} />
 
@@ -64,7 +63,9 @@ const { articlePublishedTime, articleAuthor, articleTags, schema } = Astro.props
       <>
         {articlePublishedTime && <meta property="article:published_time" content={articlePublishedTime} />}
         {articleAuthor && <meta property="article:author" content={articleAuthor} />}
-        {articleTags?.map((tag) => <meta property="article:tag" content={tag} />)}
+        {articleTags?.map((tag) => (
+          <meta property="article:tag" content={tag} />
+        ))}
       </>
     )
   }
@@ -75,7 +76,7 @@ const { articlePublishedTime, articleAuthor, articleTags, schema } = Astro.props
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content={image} />
 
-  {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  {schema && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}
 </head>
 
 <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-YP2WF7DHFM" is:inline></script>
