@@ -138,7 +138,6 @@ theme: {
 
 **Archivos a generar:**
 ```
-public/images/logo.svg           — wordmark completo (horizontal)
 public/images/logo-mark.svg      — solo isotipo
 public/images/favicon/           — set completo (16, 32, 180, 192, 512)
 public/images/manifest/          — PWA icons actualizados

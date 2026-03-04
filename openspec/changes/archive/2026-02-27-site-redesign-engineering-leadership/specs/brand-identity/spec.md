@@ -1,17 +1,16 @@
 ## ADDED Requirements
 
 ### Requirement: Wordmark logo
-The system SHALL display a typographic wordmark "Eduardo Álvarez" as the primary brand mark in the header. The wordmark SHALL be an SVG file at `public/images/logo.svg` using Geist Sans Bold.
+The system SHALL display the typographic wordmark "Eduardo Álvarez" as the primary brand mark in the header. The wordmark is rendered as inline HTML text using Tailwind classes inside the header component — not a standalone SVG file.
 
 **Specs:**
-- Text: "Eduardo Álvarez" in Geist Bold (700)
-- Color: `#f5f5f5` (text-primary) — invertible to `#0a0a0a` on light backgrounds
-- Size in header: max height 28px
+- Text: "Eduardo Álvarez" in Geist Bold (700), `text-text-primary`
+- Tagline below (desktop only): "Engineering Leadership · Platform Thinking", `text-text-muted`, uppercase, `text-xs`, wide tracking
 - No background, no border, no shadow
 
 #### Scenario: Logo renders in header
 - **WHEN** any page loads
-- **THEN** the header SHALL display the wordmark SVG linked to `/`
+- **THEN** the header SHALL display the wordmark text linked to `/`
 
 #### Scenario: Logo is accessible
 - **WHEN** a screen reader encounters the logo

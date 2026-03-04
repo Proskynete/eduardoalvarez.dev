@@ -13,7 +13,7 @@
 ## 2. Brand Identity Assets
 
 - [x] 2.1 Create isotype SVG (`public/images/logo-mark.svg`) — three-node network graph, cyan accent color, 64×64 viewBox, stroke-only, asymmetric triangle layout
-- [x] 2.2 Create wordmark SVG (`public/images/logo.svg`) — "Eduardo Álvarez" in Geist Bold, `#f5f5f5`, horizontal layout, max-height 28px when rendered
+- [x] 2.2 ~~Create wordmark SVG (`public/images/logo.svg`)~~ — implemented as inline HTML text (`<span>`) with Tailwind classes inside the header component; `logo.svg` was removed as unnecessary
 - [x] 2.3 Generate favicon set from isotype SVG: `favicon.ico` (16+32px), `favicon-32x32.png` — place in `public/images/favicon/`
 - [x] 2.4 Generate PWA icon set from isotype: `apple-touch-icon.png` (180px), `android-chrome-192x192.png`, `android-chrome-512x512.png` — place in `public/images/manifest/`
 - [x] 2.5 Create OG default image (`public/images/og-default.png`, 1200×630px) — dark background, isotipo left, wordmark right, tagline below
@@ -27,7 +27,7 @@
 - [x] 3.2 Update header navigation links — replace old routes with: Articles (`/articles`), Speaking (`/speaking`), Now (`/now`), Stack (`/stack`), About (`/about`), Working with Me (`/working-with-me`)
 - [x] 3.3 Implement mobile nav — hamburger button, slide-in drawer with all nav items, focus trap when open, close on nav or ✕
 - [x] 3.4 Implement active link highlighting — apply `text-accent` to the nav item matching the current pathname
-- [x] 3.5 Rewrite `src/layouts/base/components/footer/index.astro` — remove terminal text and cursor animation; add isotipo (20px), wordmark, social icons (GitHub, LinkedIn, Twitter, RSS, Email), copyright
+- [x] 3.5 Rewrite `src/layouts/base/components/footer/index.astro` — ~~remove terminal text and cursor animation; add isotipo (20px), wordmark~~ implemented without isotipo or wordmark; social icons (GitHub, LinkedIn, Twitter, Instagram, RSS, Email); terminal-style copyright with cursor animation kept
 - [x] 3.6 Update `src/layouts/base/index.astro` — replace `bg-black/95` with `bg-background`; update container classes to new width tokens
 - [x] 3.7 Update `src/components/scrolling-progress-bar/index.tsx` — change `bg-teal-700` to `bg-accent`
 - [x] 3.8 Verify: navigate through all existing pages and confirm header/footer render correctly with new design; test keyboard navigation through nav
