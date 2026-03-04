@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/main/index.astro";
+import { experience } from "../../settings/about";
 
 export const prerender = true;
 
@@ -7,74 +8,14 @@ const seo = {
   title: "Sobre mí",
   description: "Líder de ingeniería, pensador de plataformas y mentor técnico trabajando en la era de la IA.",
 };
-
-const experience = [
-  {
-    date: "2026 → hoy",
-    role: "Technical Lead",
-    company: "CMPC",
-    description: "Desarrollando estándares de desarrollo de software con IA.",
-    current: true,
-    show: true
-  },
-  {
-    date: "2025 → hoy",
-    role: "CTO & CoFounder",
-    company: "Amipet",
-    description: "Co-fundando una plataforma en el espacio pet-tech. Definiendo arquitectura, stack y roadmap técnico desde cero, con foco en validar product-market fit.",
-    current: true,
-    show: true
-  },
-  {
-    date: "2024",
-    role: "Experienced consultant → Senior consultant",
-    company: "Amaris Consulting",
-    description: "Liderazgo de arquitectura frontend para plataformas enterprise. Diseño e implementación de arquitectura microfrontend con React, TypeScript y Single-SPA, reduciendo time-to-market en ~35%.",
-    current: false,
-    show: true
-  },
-  {
-    date: "2023",
-    role: "Front End Lead",
-    company: "ETpay",
-    description: "Dirección técnica frontend para plataforma data-driven. Design system, arquitectura de componentes y cultura de calidad en un equipo en crecimiento.",
-    current: false,
-    show: true
-  },
-  {
-    date: "2022",
-    role: "Technical Lead",
-    company: "DEUNA",
-    description: "Productos fintech en pagos y servicios financieros. Mejoras arquitectónicas y modernización de codebase en un ambiente ágil cross-functional.",
-    current: false,
-    show: true
-  },
-  {
-    date: "2021",
-    role: "CTO",
-    company: "Wited",
-    description: "Transformación digital de plataforma educativa. Estrategia técnica, roadmap de modernización y rebuild frontend con foco en performance y escalabilidad.",
-    current: false,
-    show: true
-  },
-  {
-    date: "— 2021",
-    role: "Software Engineer → Tech Lead",
-    company: "Globant, Penta Financiero, Cardumen Latam y otros",
-    description: "Trayectoria progresiva en startups y empresas digitales en Chile y Latinoamérica — fintech, ecommerce y plataformas digitales.",
-    current: false,
-    show: true
-  },
-];
 ---
 
 <Layout seo={seo}>
   <div class="mx-auto max-w-full space-y-16">
-
     <!-- Hero: texto + foto -->
     <section class="flex flex-col-reverse sm:flex-row items-start gap-10 sm:gap-16">
       <div class="flex-1 space-y-4">
-        <p class="text-text-muted font-mono text-sm">/about</p>
+        <p class="text-text-muted font-mono text-sm">/sobre_mi</p>
         <h1 class="text-4xl font-bold text-text-primary tracking-tight leading-tight">
           Hola, soy Eduardo.<br />
           <span class="text-accent">Ingeniero y líder técnico</span><br />
@@ -143,28 +84,31 @@ const experience = [
         <div class="absolute left-[7.5rem] top-0 bottom-0 w-px bg-surface-border hidden sm:block"></div>
 
         <div class="space-y-8">
-          {experience.map((item) => item.show && (
-            <div class="flex flex-col sm:flex-row gap-2 sm:gap-8">
-              <!-- Fecha -->
-              <div class="sm:w-28 flex-shrink-0 flex sm:justify-end items-start pt-0.5">
-                <span class={`font-mono text-xs ${item.current ? "text-accent" : "text-text-muted"}`}>
-                  {item.date}
-                </span>
-              </div>
+          {
+            experience.map((item) => (
+              <div class="flex flex-col sm:flex-row gap-2 sm:gap-8">
+                <div class="sm:w-28 flex-shrink-0 flex sm:justify-end items-start pt-0.5">
+                  <span class={`font-mono text-xs ${item.current ? "text-accent" : "text-text-muted"}`}>
+                    {item.date}
+                  </span>
+                </div>
 
-              <!-- Punto en la línea -->
-              <div class="hidden sm:flex items-start justify-center w-4 flex-shrink-0 pt-1.5">
-                <div class={`w-2 h-2 rounded-full border-2 ${item.current ? "border-accent bg-accent" : "border-surface-border bg-background"}`}></div>
-              </div>
+                <div class="hidden sm:flex items-start justify-center w-4 flex-shrink-0 pt-1.5">
+                  <div
+                    class={`w-2 h-2 rounded-full border-2 ${item.current ? "border-accent bg-accent" : "border-surface-border bg-background"}`}
+                  />
+                </div>
 
-              <!-- Contenido -->
-              <div class={`flex-1 pb-8 ${item.current ? "border-l-2 border-accent sm:border-none pl-4 sm:pl-0" : ""}`}>
-                <p class={`font-semibold ${item.current ? "text-text-primary" : "text-text-primary"}`}>{item.role}</p>
-                <p class="text-accent text-sm mb-2">{item.company}</p>
-                <p class="text-text-secondary text-sm leading-relaxed">{item.description}</p>
+                <div
+                  class={`flex-1 pb-8 ${item.current ? "border-l-2 border-accent sm:border-none pl-4 sm:pl-0" : ""}`}
+                >
+                  <p class={`font-semibold ${item.current ? "text-text-primary" : "text-text-primary"}`}>{item.role}</p>
+                  <p class="text-accent text-sm mb-2">{item.company}</p>
+                  <p class="text-text-secondary text-sm leading-relaxed">{item.description}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
     </section>
@@ -175,8 +119,8 @@ const experience = [
 
       <blockquote class="border-l-4 border-accent pl-6 mb-6">
         <p class="text-text-secondary text-lg leading-relaxed italic">
-          La cosa más valiosa que un líder de ingeniería puede hacer es reducir complejidad — en el código, el proceso
-          y en cómo los equipos piensan sobre los problemas.
+          La cosa más valiosa que un líder de ingeniería puede hacer es reducir complejidad — en el código, el proceso y
+          en cómo los equipos piensan sobre los problemas.
         </p>
       </blockquote>
 
@@ -188,8 +132,8 @@ const experience = [
 
       <blockquote class="border-l-4 border-accent pl-6 mt-6">
         <p class="text-text-secondary text-lg leading-relaxed italic">
-          El trabajo de un líder técnico no es tener las respuestas — es construir el contexto para que el equipo
-          llegue a mejores respuestas que las que tú tendrías solo.
+          El trabajo de un líder técnico no es tener las respuestas — es construir el contexto para que el equipo llegue
+          a mejores respuestas que las que tú tendrías solo.
         </p>
       </blockquote>
     </section>
@@ -199,8 +143,11 @@ const experience = [
       <h2 class="text-2xl font-bold text-text-primary mb-4">Comunidad</h2>
       <p class="text-text-secondary leading-relaxed">
         He dado charlas en conferencias técnicas, talleres en instituciones académicas y mentorías a decenas de
-        ingenieros en distintos momentos de su carrera. Fui staff volunteer en <strong class="text-text-primary">JSConf Chile</strong>,
-        mentor en <strong class="text-text-primary">Laboratoria</strong> y en <strong class="text-text-primary">TechSchool</strong>.
+        ingenieros en distintos momentos de su carrera. Fui staff volunteer en <strong class="text-text-primary"
+          >JSConf Chile</strong
+        >, mentor en <strong class="text-text-primary">Laboratoria</strong> y en <strong class="text-text-primary"
+          >TechSchool</strong
+        >.
       </p>
     </section>
 
@@ -208,8 +155,8 @@ const experience = [
     <section class="rounded-2xl border border-surface-border bg-surface p-8 sm:p-10">
       <h2 class="text-2xl font-bold text-text-primary mb-3">¿Hablamos?</h2>
       <p class="text-text-secondary leading-relaxed mb-8 max-w-xl">
-        Si estás trabajando en un desafío de plataforma, liderazgo o arquitectura — o simplemente quieres comentar
-        algo que leíste aquí — escríbeme.
+        Si estás trabajando en un desafío de plataforma, liderazgo o arquitectura — o simplemente quieres comentar algo
+        que leíste aquí — escríbeme.
       </p>
       <div class="flex flex-wrap gap-4">
         <a
@@ -234,6 +181,5 @@ const experience = [
         </a>
       </div>
     </section>
-
   </div>
 </Layout>
