@@ -42,3 +42,6 @@ src/pages/api/create-new-post.ts
 
 # skills
 skills-lock.json
+
+# Python
+**/__pycache__/
