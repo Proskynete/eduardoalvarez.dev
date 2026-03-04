@@ -2,9 +2,9 @@
  * Generates manifest icons from isotipo-solid.svg using sharp.
  * Run: node scripts/generate-manifest-icons.mjs
  */
-import sharp from "sharp";
 import { readFileSync, writeFileSync } from "fs";
-import { resolve, dirname } from "path";
+import { dirname, resolve } from "path";
+import sharp from "sharp";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -102,9 +102,7 @@ const mstileSvg = `<svg width="${mstileSize}" height="${mstileSize}" viewBox="0 
     ${innerContent}
   </g>
 </svg>`;
-await sharp(Buffer.from(mstileSvg))
-  .png()
-  .toFile(resolve(manifestDir, "mstile-150x150.png"));
+await sharp(Buffer.from(mstileSvg)).png().toFile(resolve(manifestDir, "mstile-150x150.png"));
 console.log("✓ mstile-150x150.png");
 
 console.log("\nAll manifest icons updated.");
