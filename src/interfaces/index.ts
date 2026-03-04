@@ -94,6 +94,7 @@ export interface Article {
   seo_image: string;
   sections: Section[];
   keywords?: string[];
+  audio_narration?: string;
 }
 
 export type HeadingDepth = 1 | 2 | 3 | 4 | 5 | 6;

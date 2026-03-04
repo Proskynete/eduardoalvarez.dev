@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 interface AudioPlayerProps {
   src: string;
   title?: string;
+  compact?: boolean;
 }
 
 /**
@@ -18,9 +19,10 @@ function formatTime(seconds: number): string {
 /**
  * Componente reproductor de audio con controles personalizados
  */
-export default function AudioPlayer({ src, title }: AudioPlayerProps) {
+export default function AudioPlayer({ src, title, compact = false }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -102,18 +104,39 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
     }
   }, [isPlaying]);
 
-  const handleProgressClick = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+  const seekTo = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
       const audio = audioRef.current;
       const progressBar = progressRef.current;
       if (!audio || !progressBar) return;
-
       const rect = progressBar.getBoundingClientRect();
-      const clickPosition = (e.clientX - rect.left) / rect.width;
-      audio.currentTime = clickPosition * duration;
+      const position = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      audio.currentTime = position * duration;
     },
     [duration]
   );
+
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      e.currentTarget.setPointerCapture(e.pointerId);
+      isDragging.current = true;
+      seekTo(e);
+    },
+    [seekTo]
+  );
+
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      if (!isDragging.current) return;
+      seekTo(e);
+    },
+    [seekTo]
+  );
+
+  const handlePointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    e.currentTarget.releasePointerCapture(e.pointerId);
+    isDragging.current = false;
+  }, []);
 
   const handleVolumeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const audio = audioRef.current;
@@ -162,6 +185,129 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
+  // Compact layout for narrow containers (e.g., aside/sidebar)
+  if (compact) {
+    return (
+      <div className="w-full">
+        <audio ref={audioRef} src={src} preload="metadata" />
+
+        {/* Barra de progreso */}
+        <div
+          ref={progressRef}
+          className="relative h-1.5 bg-surface-raised rounded-full cursor-pointer mb-2 group"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          role="slider"
+          aria-label="Progreso del audio"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(progress)}
+          tabIndex={0}
+        >
+          <div className="absolute h-full bg-accent rounded-full transition-all" style={{ width: `${progress}%` }} />
+          <div
+            className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-text-primary rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+            style={{ left: `calc(${progress}% - 6px)` }}
+          />
+        </div>
+
+        {/* Tiempo */}
+        <div className="flex justify-between text-xs text-text-muted mb-2.5">
+          <span>{formatTime(currentTime)}</span>
+          <span>{formatTime(duration)}</span>
+        </div>
+
+        {/* Controles */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            {/* Retroceder 15s */}
+            <button
+              onClick={() => skip(-15)}
+              className="p-1.5 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
+              aria-label="Retroceder 15 segundos"
+              title="Retroceder 15s"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.334 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"
+                />
+              </svg>
+            </button>
+
+            {/* Play/Pause */}
+            <button
+              onClick={togglePlay}
+              className={`p-2 rounded-full text-background transition-colors duration-200 cursor-pointer ${
+                hasError ? "bg-error hover:bg-error/80" : "bg-accent hover:bg-accent-hover"
+              }`}
+              aria-label={hasError ? "Reintentar" : isPlaying ? "Pausar" : "Reproducir"}
+              title={hasError ? "Error al cargar. Click para reintentar" : undefined}
+            >
+              {isLoading ? (
+                <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
+                </svg>
+              ) : hasError ? (
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
+              ) : isPlaying ? (
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                </svg>
+              ) : (
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              )}
+            </button>
+
+            {/* Adelantar 15s */}
+            <button
+              onClick={() => skip(15)}
+              className="p-1.5 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
+              aria-label="Adelantar 15 segundos"
+              title="Adelantar 15s"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {/* Velocidad */}
+          <button
+            onClick={handlePlaybackRateChange}
+            className="px-1.5 py-0.5 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors duration-200 cursor-pointer"
+            aria-label="Cambiar velocidad de reproducción"
+            title="Velocidad de reproducción"
+          >
+            {playbackRate}x
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full bg-surface rounded-lg p-4 border border-surface-border">
       <audio ref={audioRef} src={src} preload="metadata" />
@@ -172,7 +318,9 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
       <div
         ref={progressRef}
         className="relative h-2 bg-surface-raised rounded-full cursor-pointer mb-3 group"
-        onClick={handleProgressClick}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
         role="slider"
         aria-label="Progreso del audio"
         aria-valuemin={0}
@@ -199,7 +347,7 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
           {/* Retroceder 15s */}
           <button
             onClick={() => skip(-15)}
-            className="p-2 text-text-muted hover:text-text-primary transition-colors duration-200"
+            className="p-2 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
             aria-label="Retroceder 15 segundos"
             title="Retroceder 15s"
           >
@@ -216,7 +364,7 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
           {/* Play/Pause */}
           <button
             onClick={togglePlay}
-            className={`p-3 rounded-full text-background transition-colors duration-200 ${
+            className={`p-3 rounded-full text-background transition-colors duration-200 cursor-pointer ${
               hasError ? "bg-error hover:bg-error/80" : "bg-accent hover:bg-accent-hover"
             }`}
             aria-label={hasError ? "Reintentar" : isPlaying ? "Pausar" : "Reproducir"}
@@ -254,7 +402,7 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
           {/* Adelantar 15s */}
           <button
             onClick={() => skip(15)}
-            className="p-2 text-text-muted hover:text-text-primary transition-colors duration-200"
+            className="p-2 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
             aria-label="Adelantar 15 segundos"
             title="Adelantar 15s"
           >
@@ -273,7 +421,7 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
           {/* Velocidad de reproducción */}
           <button
             onClick={handlePlaybackRateChange}
-            className="px-2 py-1 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors duration-200"
+            className="px-2 py-1 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors duration-200 cursor-pointer"
             aria-label="Cambiar velocidad de reproducción"
             title="Velocidad de reproducción"
           >
@@ -284,7 +432,7 @@ export default function AudioPlayer({ src, title }: AudioPlayerProps) {
           <div className="hidden sm:flex items-center gap-2">
             <button
               onClick={toggleMute}
-              className="p-1 text-text-muted hover:text-text-primary transition-colors duration-200"
+              className="p-1 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
               aria-label={isMuted ? "Activar sonido" : "Silenciar"}
             >
               {isMuted || volume === 0 ? (
