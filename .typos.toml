@@ -7,13 +7,11 @@ extend-exclude = [
   "node_modules/",
 ]
 
-# Word fragments from bold-formatted acronyms in MDX articles (e.g., **A**pplication, **L**anguage)
 [default.extend-words]
+# Word fragments from bold-formatted acronyms in MDX articles (e.g., **A**pplication, **L**anguage)
 "pplication" = "pplication"
 "anguage" = "anguage"
 
-# Spanish words incorrectly flagged as English typos
-[default.extend-words]
 # Common Spanish verbs and words
 "hace" = "hace"
 "Hace" = "Hace"
