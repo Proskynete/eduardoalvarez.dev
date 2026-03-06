@@ -77,8 +77,8 @@ export const POST: APIRoute = async ({ request }) => {
     // Error de validación de Zod
     if (error instanceof z.ZodError) {
       return ApiResponseBuilder.badRequest(
-        error.errors[0].message,
-        error.errors.map((err) => ({
+        error.issues[0].message,
+        error.issues.map((err) => ({
           field: err.path[0]?.toString(),
           message: err.message,
         })),
