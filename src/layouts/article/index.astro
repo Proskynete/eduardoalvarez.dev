@@ -54,6 +54,57 @@ const seo: BaseHeadProps = {
 };
 ---
 
+<script>
+  function initCodeBlocks() {
+    const pres = document.querySelectorAll<HTMLElement>("#article-body pre[data-language]");
+    pres.forEach((pre) => {
+      if (pre.closest(".code-block-wrapper")) return;
+
+      const lang = pre.getAttribute("data-language") ?? "";
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "code-block-wrapper";
+
+      const header = document.createElement("div");
+      header.className = "code-block-header";
+
+      const lights = document.createElement("div");
+      lights.className = "code-traffic-lights";
+      lights.innerHTML = "<span></span><span></span><span></span>";
+
+      const label = document.createElement("span");
+      label.className = "code-language-label";
+      label.textContent = lang;
+
+      const copyBtn = document.createElement("button");
+      copyBtn.className = "code-copy-btn";
+      copyBtn.textContent = "Copiar";
+      copyBtn.addEventListener("click", () => {
+        const code = pre.querySelector("code");
+        const text = code ? code.innerText : pre.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+          copyBtn.textContent = "Copiado";
+          copyBtn.classList.add("copied");
+          setTimeout(() => {
+            copyBtn.textContent = "Copiar";
+            copyBtn.classList.remove("copied");
+          }, 2000);
+        });
+      });
+
+      header.appendChild(lights);
+      header.appendChild(label);
+      header.appendChild(copyBtn);
+
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.appendChild(header);
+      wrapper.appendChild(pre);
+    });
+  }
+
+  document.addEventListener("astro:page-load", initCodeBlocks);
+</script>
+
 <Layout seo={seo}>
   <article class="mx-auto max-w-full">
     <Head content={content} />
