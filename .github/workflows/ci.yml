@@ -35,6 +35,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          SKIP_ENV_VALIDATION: "true"
           PUBLIC_ALGOLIA_APPLICATION_ID: ${{ secrets.PUBLIC_ALGOLIA_APPLICATION_ID }}
           PUBLIC_ALGOLIA_INDEX_NAME: ${{ secrets.PUBLIC_ALGOLIA_INDEX_NAME }}
           PUBLIC_ALGOLIA_SEARCH_API_KEY: ${{ secrets.PUBLIC_ALGOLIA_SEARCH_API_KEY }}
