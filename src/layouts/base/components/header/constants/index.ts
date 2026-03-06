@@ -31,12 +31,6 @@ export const navItems: NavItem[] = [
     description: "Cómo podemos colaborar",
   },
   {
-    name: "Newsletter",
-    href: "/newsletter",
-    show: true,
-    description: "Artículos directo en tu correo",
-  },
-  {
     name: "Podcast",
     href: "/podcasts",
     show: false,
