@@ -87,11 +87,12 @@ export type TagsAllowed =
 export interface Article {
   title: string;
   slug: string;
-  description: string;
+  excerpt: string;
+  seo_description: string;
+  seo_image: string;
   date: string;
   categories: CategoryAllowed[];
   tags: TagsAllowed[];
-  seo_image: string;
   sections: Section[];
   keywords?: string[];
   audio_narration?: string;
