@@ -74,7 +74,8 @@
   },
   "overrides": {
     "fast-xml-parser": "^5.4.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "svgo": "^4.0.1"
   },
   "devDependencies": {
     "@axe-core/cli": "^4.11.0",

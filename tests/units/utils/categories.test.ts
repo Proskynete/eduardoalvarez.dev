@@ -22,14 +22,14 @@ describe("categories utils", () => {
     });
 
     it("debe mapear correctamente cada categoría a su nombre legible", () => {
-      expect(CategoryMap.get("engineering-leadership")).toBe("Engineering Leadership");
+      expect(CategoryMap.get("engineering-leadership")).toBe("Liderazgo de Ingeniería");
       expect(CategoryMap.get("platform-engineering")).toBe("Platform Engineering");
-      expect(CategoryMap.get("ai-native-engineering")).toBe("AI Native Engineering");
-      expect(CategoryMap.get("career-strategy")).toBe("Career Strategy");
-      expect(CategoryMap.get("engineering-culture")).toBe("Engineering Culture");
+      expect(CategoryMap.get("ai-native-engineering")).toBe("Ingeniería AI-Native");
+      expect(CategoryMap.get("career-strategy")).toBe("Estrategia de Carrera");
+      expect(CategoryMap.get("engineering-culture")).toBe("Cultura de Ingeniería");
       expect(CategoryMap.get("developer-experience")).toBe("Developer Experience");
-      expect(CategoryMap.get("technical-decisions")).toBe("Technical Decisions");
-      expect(CategoryMap.get("learning-in-tech")).toBe("Learning in Tech");
+      expect(CategoryMap.get("technical-decisions")).toBe("Decisiones Técnicas");
+      expect(CategoryMap.get("learning-in-tech")).toBe("Aprendizaje en Tecnología");
     });
 
     it("debe retornar undefined para una categoría desconocida", () => {
@@ -53,40 +53,40 @@ describe("categories utils", () => {
       expect(TagMap.get("microfrontends")).toBe("Microfrontends");
       expect(TagMap.get("design-systems")).toBe("Design Systems");
       expect(TagMap.get("single-spa")).toBe("Single SPA");
-      expect(TagMap.get("frontend-architecture")).toBe("Frontend Architecture");
-      expect(TagMap.get("frontend-platform")).toBe("Frontend Platform");
+      expect(TagMap.get("frontend-architecture")).toBe("Arquitectura Frontend");
+      expect(TagMap.get("frontend-platform")).toBe("Plataforma Frontend");
     });
 
     it("debe contener tags de liderazgo", () => {
-      expect(TagMap.get("engineering-management")).toBe("Engineering Management");
-      expect(TagMap.get("technical-leadership")).toBe("Technical Leadership");
-      expect(TagMap.get("team-growth")).toBe("Team Growth");
-      expect(TagMap.get("mentorship")).toBe("Mentorship");
-      expect(TagMap.get("stakeholder-management")).toBe("Stakeholder Management");
+      expect(TagMap.get("engineering-management")).toBe("Gestión de Ingeniería");
+      expect(TagMap.get("technical-leadership")).toBe("Liderazgo Técnico");
+      expect(TagMap.get("team-growth")).toBe("Crecimiento del Equipo");
+      expect(TagMap.get("mentorship")).toBe("Mentoría");
+      expect(TagMap.get("stakeholder-management")).toBe("Gestión de Stakeholders");
     });
 
     it("debe contener tags de IA", () => {
-      expect(TagMap.get("ai-assisted-development")).toBe("AI Assisted Development");
+      expect(TagMap.get("ai-assisted-development")).toBe("Desarrollo Asistido por IA");
       expect(TagMap.get("llm")).toBe("LLM");
       expect(TagMap.get("prompt-engineering")).toBe("Prompt Engineering");
-      expect(TagMap.get("ai-workflows")).toBe("AI Workflows");
-      expect(TagMap.get("ai-integration")).toBe("AI Integration");
+      expect(TagMap.get("ai-workflows")).toBe("Flujos de Trabajo con IA");
+      expect(TagMap.get("ai-integration")).toBe("Integración de IA");
     });
 
     it("debe contener tags de carrera profesional", () => {
-      expect(TagMap.get("career-growth")).toBe("Career Growth");
-      expect(TagMap.get("tech-career")).toBe("Tech Career");
-      expect(TagMap.get("career-transition")).toBe("Career Transition");
-      expect(TagMap.get("impostor-syndrome")).toBe("Impostor Syndrome");
+      expect(TagMap.get("career-growth")).toBe("Crecimiento Profesional");
+      expect(TagMap.get("tech-career")).toBe("Carrera en Tecnología");
+      expect(TagMap.get("career-transition")).toBe("Transición de Carrera");
+      expect(TagMap.get("impostor-syndrome")).toBe("Síndrome del Impostor");
       expect(TagMap.get("burnout")).toBe("Burnout");
     });
 
     it("debe contener tags de decisiones técnicas", () => {
       expect(TagMap.get("trade-offs")).toBe("Trade-offs");
-      expect(TagMap.get("tech-debt")).toBe("Tech Debt");
-      expect(TagMap.get("maintainability")).toBe("Maintainability");
-      expect(TagMap.get("risk-management")).toBe("Risk Management");
-      expect(TagMap.get("prioritization")).toBe("Prioritization");
+      expect(TagMap.get("tech-debt")).toBe("Deuda Técnica");
+      expect(TagMap.get("maintainability")).toBe("Mantenibilidad");
+      expect(TagMap.get("risk-management")).toBe("Gestión de Riesgos");
+      expect(TagMap.get("prioritization")).toBe("Priorización");
     });
 
     it("debe retornar undefined para un tag desconocido", () => {
