@@ -10,6 +10,7 @@
   line-height: 1.2;
   margin-bottom: 1rem;
   padding-top: 3rem;
+  scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
   color: #f5f5f5; /* text-primary */
 }
 
@@ -19,6 +20,7 @@
   line-height: 1.6;
   margin-bottom: 0.75rem;
   margin-top: 2rem;
+  scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
   color: #f5f5f5; /* text-primary */
 }
 
@@ -116,10 +118,75 @@
   font-weight: 700;
 }
 
-#article-body pre {
-  background-color: #161616; /* surface-raised */
-  border-radius: 6px;
+#article-body .code-block-wrapper {
+  border-radius: 8px;
   margin-bottom: 1.5rem;
+  overflow: hidden;
+  border: 1px solid #1f1f1f; /* surface-border */
+}
+
+#article-body .code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #161616; /* surface-raised */
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid #1f1f1f; /* surface-border */
+}
+
+#article-body .code-traffic-lights {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+#article-body .code-traffic-lights span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+}
+
+#article-body .code-traffic-lights span:nth-child(1) { background-color: #ff5f57; }
+#article-body .code-traffic-lights span:nth-child(2) { background-color: #febc2e; }
+#article-body .code-traffic-lights span:nth-child(3) { background-color: #28c840; }
+
+#article-body .code-language-label {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.7rem;
+  color: #7c7c7c; /* text-muted */
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+#article-body .code-copy-btn {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: #7c7c7c; /* text-muted */
+  background: transparent;
+  border: 1px solid #1f1f1f; /* surface-border */
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+#article-body .code-copy-btn:hover {
+  color: #f5f5f5; /* text-primary */
+  border-color: #a3a3a3; /* text-secondary */
+}
+
+#article-body .code-copy-btn.copied {
+  color: #22c55e; /* success */
+  border-color: #22c55e;
+}
+
+#article-body pre {
+  background-color: #111111; /* surface */
+  border-radius: 0;
+  margin-bottom: 0;
   padding: 1.25rem;
   overflow-x: auto;
 }
