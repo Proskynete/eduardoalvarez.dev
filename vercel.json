@@ -65,6 +65,16 @@
       "source": "/donaciones",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/stack",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/projects",
+      "destination": "/about",
+      "permanent": true
     }
   ]
 }

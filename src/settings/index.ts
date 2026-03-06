@@ -7,7 +7,7 @@ export default {
   url: "https://eduardoalvarez.dev",
   repo_url: "https://github.com/proskynete/website",
   domain: "eduardoalvarez.dev",
-  languaje: "es-ES",
+  language: "es-ES",
   email: "soy@eduardoalvarez.dev",
   author: {
     name: "Eduardo Álvarez Castañeda",
