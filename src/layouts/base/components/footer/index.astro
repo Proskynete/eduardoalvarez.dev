@@ -3,7 +3,7 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer id="site-footer" class="mt-20 border-t border-surface-border pt-10 pb-12">
-  <div class="flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-end gap-8">
+  <div class="flex flex-col sm:flex-row items-center sm:justify-between gap-4">
     <!-- Social links -->
     <nav aria-label="Social media links" class="flex items-center gap-5">
       <a
@@ -114,9 +114,9 @@ const currentYear = new Date().getFullYear();
         </svg>
       </a>
     </nav>
-  </div>
 
-  <!-- Copyright -->
-  <pre
-    class="mt-3 font-mono text-xs text-text-muted text-center sm:text-right">$ cd ~/<a href="https://eduardoalvarez.dev" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent-hover transition-colors">eduardoalvarez.dev</a>/{currentYear}<span class="w-1 h-3 inline-block bg-accent ml-1 rounded-sm motion-safe:animate-ping motion-safe:duration-75" /></pre>
+    <!-- Copyright -->
+    <pre
+      class="font-mono text-xs text-text-muted text-center sm:text-right">$ cd ~/<a href="https://eduardoalvarez.dev" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent-hover transition-colors">eduardoalvarez.dev</a>/{currentYear}<span class="w-1 h-3 inline-block bg-accent ml-1 rounded-sm motion-safe:animate-ping motion-safe:duration-75" /></pre>
+  </div>
 </footer>
