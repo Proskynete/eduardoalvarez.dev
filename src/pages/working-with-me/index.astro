@@ -1,0 +1,67 @@
+---
+import Layout from "../../layouts/main/index.astro";
+import { engagements } from "../../settings/working-with-me";
+
+export const prerender = true;
+
+const seo = {
+  title: "Trabajemos",
+  description: "Formas de trabajar juntos — consulting, workshops, y mentoring para equipos y líderes de ingeniería.",
+};
+---
+
+<Layout seo={seo}>
+  <div class="mx-auto max-w-full">
+    <!-- Page header -->
+    <header class="mb-12">
+      <p class="text-text-muted font-mono text-sm">/hablemos</p>
+      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Hablemos</h1>
+      <p class="text-text-secondary text-lg">
+        Formas de trabajar juntos — consulting, workshops, y mentoring para equipos y líderes de ingeniería.
+      </p>
+    </header>
+
+    <!-- Engagement types -->
+    <div class="space-y-12 mb-16">
+      {
+        engagements.map((engagement) => (
+          <section class="border border-surface-border rounded-xl p-6 sm:p-8">
+            <h2 class="text-xl font-bold text-text-primary mb-3">{engagement.type}</h2>
+            <p class="text-text-secondary leading-relaxed mb-6">{engagement.description}</p>
+
+            <div class="mb-6">
+              <p class="text-xs font-semibold uppercase tracking-widest text-text-muted mb-3">Para quién</p>
+              <ul class="space-y-2">
+                {engagement.forWhom.map((item) => (
+                  <li class="flex gap-3 text-text-secondary text-sm leading-relaxed">
+                    <span class="text-accent flex-shrink-0 mt-0.5">→</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <a
+              href={engagement.cta.href}
+              class="inline-flex items-center px-5 py-2.5 bg-accent text-background text-sm font-semibold rounded-lg hover:bg-accent-hover transition-colors duration-200"
+            >
+              {engagement.cta.label}
+            </a>
+          </section>
+        ))
+      }
+    </div>
+
+    <!-- How to start -->
+    <section class="border-t border-surface-border pt-10">
+      <h2 class="text-xl font-bold text-text-primary mb-4">Cómo empezamos</h2>
+      <p class="text-text-secondary leading-relaxed mb-6">
+        No hay formularios ni procesos complicados. Escríbeme directamente a{" "}
+        <a href="mailto:soy@eduardoalvarez.dev" class="text-accent hover:underline">soy@eduardoalvarez.dev</a> contando qué
+        estás enfrentando y qué tipo de apoyo buscas. Si encaja con lo que puedo ofrecer, coordinamos una primera conversación
+        sin compromiso.
+      </p>
+      <p class="text-text-muted text-sm">Respondo todos los emails en un plazo de 48–72 horas hábiles.</p>
+    </section>
+  </div>
+</Layout>

@@ -1,0 +1,109 @@
+---
+import Article from "../../components/article/index.astro";
+import type { Article as IArticle } from "../../interfaces";
+import Layout from "../../layouts/main/index.astro";
+import { articlesSort } from "../../utils/articles";
+
+export const prerender = true;
+
+type Frontmatter = IArticle;
+
+const seo = {
+  title: "Artículos",
+  description: "Escribiendo acerca de liderazgo de ingeniería, arquitectura de plataformas y la era de la IA.",
+};
+
+const rawPosts = import.meta.glob<{ frontmatter: Frontmatter }>("./*.mdx", { eager: true });
+const posts = Object.values(rawPosts);
+posts.sort(articlesSort);
+
+const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? []))];
+---
+
+<Layout seo={seo}>
+  <div class="mx-auto max-w-full">
+    <!-- Page header -->
+    <header class="mb-12">
+      <p class="text-text-muted font-mono text-sm">/artículos</p>
+      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Artículos</h1>
+      <p class="text-text-secondary text-lg">
+        Escribiendo acerca de liderazgo de ingeniería, arquitectura de plataformas y la era de la IA.
+      </p>
+    </header>
+
+    <!-- Category filter -->
+    <div class="flex flex-wrap gap-2 mb-10" id="category-filter" role="group" aria-label="Filtrar por categoría">
+      <button
+        class="category-btn px-3 py-1.5 text-xs font-medium rounded-full border transition-colors duration-200 bg-accent text-background border-accent"
+        data-category="all"
+        aria-pressed="true"
+      >
+        Todos
+      </button>
+      {
+        categories.map((cat) => (
+          <button
+            class="category-btn px-3 py-1.5 text-xs font-medium rounded-full border transition-colors duration-200 bg-surface text-text-secondary border-surface-border hover:text-text-primary"
+            data-category={cat}
+            aria-pressed="false"
+          >
+            {cat}
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Articles list -->
+    <div id="articles-list" class="divide-y divide-surface-border">
+      {
+        posts.map((post) => (
+          <div class="article-item" data-categories={JSON.stringify(post.frontmatter.categories ?? [])}>
+            <Article article={post.frontmatter} />
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- No results -->
+    <p id="no-results" class="hidden text-text-muted text-sm py-8">No articles in this category yet.</p>
+  </div>
+</Layout>
+
+<script>
+  function initFilter() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>(".category-btn");
+    const items = document.querySelectorAll<HTMLElement>(".article-item");
+    const noResults = document.getElementById("no-results");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const selected = btn.dataset.category ?? "all";
+
+        // Update button states
+        buttons.forEach((b) => {
+          const isActive = b.dataset.category === selected;
+          b.setAttribute("aria-pressed", String(isActive));
+          b.classList.toggle("bg-accent", isActive);
+          b.classList.toggle("text-background", isActive);
+          b.classList.toggle("border-accent", isActive);
+          b.classList.toggle("bg-surface", !isActive);
+          b.classList.toggle("text-text-secondary", !isActive);
+          b.classList.toggle("border-surface-border", !isActive);
+        });
+
+        // Filter articles
+        let visible = 0;
+        items.forEach((item) => {
+          const cats: string[] = JSON.parse(item.dataset.categories ?? "[]");
+          const show = selected === "all" || cats.includes(selected);
+          item.style.display = show ? "" : "none";
+          if (show) visible++;
+        });
+
+        if (noResults) noResults.classList.toggle("hidden", visible > 0);
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", initFilter);
+</script>

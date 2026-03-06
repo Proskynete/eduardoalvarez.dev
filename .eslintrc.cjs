@@ -29,8 +29,16 @@ module.exports = {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        prefer: "type-imports",
+        disallowTypeAnnotations: true,
+        fixStyle: "separate-type-imports",
+      },
+    ],
     "no-duplicate-imports": "error",
     "@typescript-eslint/ban-ts-comment": "off",
   },

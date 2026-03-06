@@ -12,5 +12,4 @@ export const articlesSort = (a: Article, b: Article) => {
   return dateB - dateA;
 };
 
-export const githubArticlePath = (path: string) =>
-  `${config.repo_url}/edit/main/src/pages/articulos/${path}.mdx`;
+export const githubArticlePath = (path: string) => `${config.repo_url}/edit/main/src/pages/articles/${path}.mdx`;

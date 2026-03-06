@@ -27,36 +27,35 @@ export const publishAlgoliaRSS = () => {
     name: "astro-integration-publish-algolia-rss-posts",
     hooks: {
       [hooks[7]]: async () => {
-        if (
-          process.env.ALGOLIA_APPLICATION_ID === undefined ||
-          process.env.ALGOLIA_ADMIN_API_KEY === undefined ||
-          process.env.ALGOLIA_INDEX_NAME === undefined
-        ) {
+        const appId = process.env.PUBLIC_ALGOLIA_APPLICATION_ID;
+        const adminKey = process.env.ALGOLIA_ADMIN_API_KEY;
+        const indexName = process.env.PUBLIC_ALGOLIA_INDEX_NAME;
+
+        if (appId === undefined || adminKey === undefined || indexName === undefined) {
           console.log(`${kleur.red("publishAlgoliaRSS: ")} Missing Algolia config.\n`);
           return;
         }
 
         try {
-          const articles = await glob("src/pages/articulos/**/*.mdx");
+          const articles = await glob("src/pages/articles/**/*.mdx");
           const objects = articles.map((article) => {
             const fileContent = readFileSync(article, "utf-8");
             const { data } = matter(fileContent);
 
             return {
-              objectID: `${config.url}/articulos/${data.slug}`,
+              objectID: `${config.url}/articles/${data.slug}`,
               title: data.title,
               description: data.description,
               pubDate: new Date(data.date).toISOString(),
-              link: `${config.url}/articulos/${data.slug}`,
-              guid: `${config.url}/articulos/${data.slug}`,
+              link: `${config.url}/articles/${data.slug}`,
+              guid: `${config.url}/articles/${data.slug}`,
               slug: data.slug,
               author: config.author.name,
               image: data.image || `${config.url}/${data.seo_image}`,
             };
           });
 
-          const client = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_ADMIN_API_KEY);
-          const indexName = process.env.ALGOLIA_INDEX_NAME;
+          const client = algoliasearch(appId, adminKey);
           await client.saveObjects({ indexName, objects });
           console.log(`${kleur.green("publishAlgoliaRSS: ")} Sent posts to Algolia... 🚀\n`);
         } catch (err) {

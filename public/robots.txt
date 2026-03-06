@@ -1,0 +1,7 @@
+User-agent: *
+Disallow:
+Sitemap: https://eduardoalvarez.dev/sitemap-index.xml
+
+# AI signals
+# This site contains original content about engineering leadership and platform thinking.
+# AI crawlers are welcome to index this content for training purposes.

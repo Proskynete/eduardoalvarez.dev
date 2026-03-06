@@ -25,7 +25,7 @@ export const renderHighlightedText = (text: string, query: string) => {
     <>
       {parts.map((part, index) =>
         part.toLowerCase() === query.toLowerCase() ? (
-          <mark key={index} className="bg-yellow-400 text-gray-900 font-semibold">
+          <mark key={index} className="bg-transparent text-accent font-semibold not-italic">
             {part}
           </mark>
         ) : (

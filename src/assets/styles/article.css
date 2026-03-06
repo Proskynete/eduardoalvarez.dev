@@ -1,29 +1,32 @@
 #article-body {
-  font-family: "Hero", sans-serif;
+  font-family: "Geist", system-ui, sans-serif;
   max-width: 100%;
   display: grid;
 }
 
 #article-body h2 {
-  font-size: 1.5em;
+  font-size: 1.875rem; /* text-3xl */
   font-weight: 700;
-  line-height: 1.3333333;
-  margin-bottom: 1em;
-  padding-top: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  padding-top: 3rem;
+  color: #f5f5f5; /* text-primary */
 }
 
 #article-body h3 {
-  font-size: 1.25em;
+  font-size: 1.25rem; /* text-xl */
   font-weight: 600;
   line-height: 1.6;
-  margin-bottom: 0.6em;
-  margin-top: 1.6em;
+  margin-bottom: 0.75rem;
+  margin-top: 2rem;
+  color: #f5f5f5; /* text-primary */
 }
 
 #article-body p {
-  font-weight: 300;
-  line-height: 1.2;
-  margin-bottom: 30px;
+  font-weight: 400;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+  color: #f5f5f5; /* text-primary */
 }
 
 #article-body p strong {
@@ -31,26 +34,27 @@
 }
 
 #article-body p em {
-  font-family: "Avenir", sans-serif;
   font-style: italic;
 }
 
 #article-body p a {
-  font-weight: 400;
+  color: #06b6d4; /* accent */
   text-decoration: none;
 }
 
 #article-body p a:hover {
-  text-decoration: none;
+  color: #0891b2; /* accent-hover */
+  text-decoration: underline;
 }
 
 #article-body p img {
-  box-shadow: 5px 5px 10px 5px #aaa;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 50px;
+  margin-top: 2rem;
   max-width: 100%;
+  border-radius: 6px;
 
   @media (min-width: 1200px) {
     max-width: 80%;
@@ -59,108 +63,95 @@
 }
 
 #article-body p code {
-  background-color: #f4f4f4;
-  border-radius: 3px;
-  color: #0a3f66;
-  font-family: "Avenir", sans-serif;
-  font-style: italic;
-  padding-left: 5px;
-  padding-right: 5px;
+  background-color: #161616; /* surface-raised */
+  border-radius: 4px;
+  color: #f5f5f5; /* text-primary */
+  font-family: "Geist Mono", "Fira Code", monospace;
+  font-style: normal;
+  padding: 2px 6px;
+  font-size: 0.875em;
 }
 
 #article-body blockquote {
-  background-color: #f0db4f;
-  border-radius: 5px;
-  box-shadow: 5px 5px 10px 5px #aaa;
-  color: rgb(44, 52, 53);
-  margin-bottom: 30px;
-  margin-top: 50px;
-  padding: 15px 15px 25px;
+  border-left: 3px solid #06b6d4; /* accent */
+  background-color: transparent;
+  color: #a3a3a3; /* text-secondary */
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+  padding: 0.75rem 0 0.75rem 1rem;
 }
 
 #article-body blockquote p {
-  font-size: 16px;
-  line-height: 1.2;
+  font-size: 1rem;
+  line-height: 1.6;
   margin: 0;
+  color: #a3a3a3; /* text-secondary */
 }
 
 #article-body blockquote p strong {
   font-weight: 700;
+  color: #f5f5f5;
 }
 
 #article-body blockquote p a {
-  font-weight: bolder;
+  font-weight: 500;
+  color: #06b6d4;
 }
 
 #article-body blockquote p code {
+  background-color: #1f1f1f; /* surface-border */
   border-radius: 3px;
-  display: contents;
-  font-style: italic;
-  font-weight: bolder;
-  padding-left: 3px;
-  padding-right: 3px;
+  font-style: normal;
+  padding: 2px 5px;
 }
 
 #article-body blockquote ul li {
-  font-size: 16px;
-  line-height: 1.2;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #a3a3a3;
 }
 
 #article-body blockquote ul li strong {
   font-weight: 700;
 }
 
-#article-body blockquote ul li:not(:first-child) {
-  @media (min-width: 720px) {
-    margin-top: 5px;
-  }
-}
-
-#article-body blockquote ul li:last-child {
-  margin-bottom: 0px;
-}
-
-#article-body blockquote ul li::before {
-  align-items: center;
-  content: "•";
-  display: flex;
-  font-size: 20px;
-  font-weight: 700;
-  justify-content: center;
-  top: 40%;
-}
-
 #article-body pre {
-  border-radius: 5px;
-  margin-bottom: 30px;
-  padding: 20px;
+  background-color: #161616; /* surface-raised */
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  overflow-x: auto;
 }
 
 #article-body ul {
   display: flex;
   flex-direction: column;
-  font-weight: 300;
+  font-weight: 400;
   height: max-content;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 1.25rem;
+  margin-top: 1.25rem;
 }
 
 #article-body ul li {
   display: block;
   line-height: 1.8;
-  padding-left: 15px;
+  padding-left: 1.25rem;
   position: relative;
+  color: #f5f5f5;
 }
 
 #article-body ul li::before {
   content: "•";
+  color: #06b6d4; /* accent */
   font-weight: 700;
   left: 0;
   position: absolute;
 }
+
 #article-body ul li strong {
   display: contents;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 #article-body ul li em {
@@ -171,15 +162,18 @@
 #article-body ul li a {
   display: contents;
   text-decoration: none;
+  color: #06b6d4;
 }
-#article-body ul li a &:hover {
-  text-decoration: none;
+
+#article-body ul li a:hover {
+  text-decoration: underline;
 }
 
 #article-body ul li code {
+  background-color: #161616;
   border-radius: 3px;
-  font-style: italic;
-  font-weight: bolder;
-  padding-left: 5px;
-  padding-right: 5px;
+  font-family: "Geist Mono", monospace;
+  font-style: normal;
+  font-size: 0.875em;
+  padding: 2px 5px;
 }

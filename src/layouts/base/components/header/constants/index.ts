@@ -2,41 +2,38 @@ export interface NavItem {
   name: string;
   href: string;
   show: boolean;
+  description?: string;
 }
+
 export const navItems: NavItem[] = [
   {
-    name: "~/eduardoalvarez.dev",
-    href: "/",
+    name: "Artículos",
+    href: "/articles",
     show: true,
+    description: "Posts sobre ingeniería y liderazgo técnico",
   },
   {
-    name: "./artículos",
-    href: "/articulos",
+    name: "Charlas",
+    href: "/speaking",
     show: true,
+    description: "Talks y workshops en conferencias",
   },
   {
-    name: "./retos",
-    href: "/retos",
-    show: false,
-  },
-  {
-    name: "./charlas-talleres",
-    href: "/charlas-talleres",
+    name: "Sobre_mí",
+    href: "/about",
     show: true,
+    description: "Quién soy y qué hago",
   },
   {
-    name: "./podcast",
-    href: "/podcast",
-    show: false,
+    name: "Hablemos",
+    href: "/working-with-me",
+    show: true,
+    description: "Cómo podemos colaborar",
   },
   {
-    name: "./cursos",
-    href: "/cursos",
+    name: "Podcast",
+    href: "/podcasts",
     show: false,
-  },
-  {
-    name: "./libros",
-    href: "/libros",
-    show: false,
+    description: "Episodios y charlas en audio",
   },
 ];

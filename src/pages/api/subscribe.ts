@@ -1,63 +1,98 @@
 import client from "@mailchimp/mailchimp_marketing";
 import type { APIRoute } from "astro";
+import { z } from "zod";
 
-const TAGS = {
-  SEND_POST_MAIL: "SendPostMail",
-  FROM_WEB_PAGE: "FromWebPage",
-};
+import { rateLimit } from "../../middleware/rate-limit";
+import { ApiResponseBuilder } from "../../utils/api-response";
 
+const subscribeRateLimiter = rateLimit({ windowMs: 60_000, maxRequests: 5 });
+
+// Schema de validación
+const SubscribeSchema = z.object({
+  email: z
+    .string()
+    .min(1, "El email es requerido")
+    .email("Email inválido")
+    .max(100, "Email demasiado largo")
+    .toLowerCase()
+    .trim(),
+  name: z
+    .string()
+    .min(2, "El nombre debe tener al menos 2 caracteres")
+    .max(50, "El nombre es demasiado largo")
+    .regex(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, "El nombre solo puede contener letras")
+    .trim(),
+});
+
+type SubscribeInput = z.infer<typeof SubscribeSchema>;
+
+// Configurar Mailchimp
 client.setConfig({
   apiKey: import.meta.env.MAILCHIMP_API_KEY,
   server: import.meta.env.MAILCHIMP_API_KEY.split("-")[1],
 });
 
-const StatusCodeMap = new Map<number, string>([
-  [419, "Los campos son requeridos. 😅"],
-  [420, "Este correo ya está registrado. 🙄"],
-  [500, "Error de comunicación, intenta nuevamente más tarde. 😢"],
-  [200, "Registro realizado con éxito! 🎉"],
-]);
-
-const res = (status: number) =>
-  new Response(JSON.stringify({ message: StatusCodeMap.get(status), status }), { status });
+const TAGS = {
+  SEND_POST_MAIL: "send-post-mail",
+  FROM_WEB_PAGE: "from-web-page",
+};
 
 export const POST: APIRoute = async ({ request }) => {
-  const body = await request.json();
-  const { email, name } = body;
-
-  if (!email || !name) return res(419);
+  const rateLimitResponse = subscribeRateLimiter(request);
+  if (rateLimitResponse) return rateLimitResponse;
 
   try {
-    const usersList = await client.lists.getListMembersInfo(import.meta.env.MAILCHIMP_LIST_ID);
+    // Parse body
+    const body = await request.json();
 
-    if (usersList.members && usersList.members.length > 0) {
-      if (usersList.members.some((member) => member.email_address === email)) {
-        return res(420);
-      } else {
-        await client.lists.addListMember(import.meta.env.MAILCHIMP_LIST_ID, {
-          email_address: email,
-          status: "subscribed",
-          tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
-          merge_fields: {
-            FNAME: name,
-          },
-        });
+    // Validar con Zod
+    const validatedData: SubscribeInput = SubscribeSchema.parse(body);
 
-        return res(200);
+    // Verificar si el usuario ya existe (O(1) lookup)
+    try {
+      const member = await client.lists.getListMember(import.meta.env.MAILCHIMP_LIST_ID, validatedData.email);
+
+      if (member) {
+        return ApiResponseBuilder.conflict("Este correo ya está registrado en nuestra lista");
       }
-    } else {
-      await client.lists.addListMember(import.meta.env.MAILCHIMP_LIST_ID, {
-        email_address: email,
-        status: "subscribed",
-        tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
-        merge_fields: {
-          FNAME: name,
-        },
-      });
-
-      return res(200);
+    } catch (error: unknown) {
+      // Error 404 significa que no existe (proceder con registro)
+      if (error && typeof error === 'object' && 'status' in error && error.status !== 404) {
+        throw error;
+      }
     }
+
+    // Agregar nuevo suscriptor
+    await client.lists.addListMember(import.meta.env.MAILCHIMP_LIST_ID, {
+      email_address: validatedData.email,
+      status: "subscribed",
+      tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
+      merge_fields: {
+        FNAME: validatedData.name,
+      },
+    });
+
+    return ApiResponseBuilder.success("¡Registro exitoso! Revisa tu correo para confirmar la suscripción");
   } catch (error) {
-    return res(500);
+    // Error de validación de Zod
+    if (error instanceof z.ZodError) {
+      return ApiResponseBuilder.badRequest(
+        error.errors[0].message,
+        error.errors.map((err) => ({
+          field: err.path[0]?.toString(),
+          message: err.message,
+        })),
+      );
+    }
+
+    // Errores de Mailchimp
+    if (error instanceof Error && "status" in error) {
+      console.error("Mailchimp error:", error);
+      return ApiResponseBuilder.internalError("Error al procesar la suscripción. Intenta de nuevo más tarde.");
+    }
+
+    // Error genérico
+    console.error("Unexpected error:", error);
+    return ApiResponseBuilder.internalError();
   }
 };

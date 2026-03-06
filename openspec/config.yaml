@@ -1,0 +1,44 @@
+schema: spec-driven
+
+# Project context
+# This is shown to AI when creating artifacts.
+context: |
+  Project: eduardoalvarez.dev (Personal Website & Blog)
+  Tech Stack:
+    - Framework: Astro 5
+    - UI Library: React 19
+    - Styling: Tailwind CSS
+    - Language: TypeScript 5.3+
+    - Search: Algolia
+    - Comments: Giscus
+    - Deployment: Vercel
+
+  Architecture:
+    - Content Collections for Blog and Talks
+    - Component-driven development (src/components)
+    - Layout-based structure (src/layouts)
+    - Server-side rendering (SSR) via Vercel adapter
+
+  Conventions:
+    - Use "src/components/ui" for reusable primitives
+    - Prefer "astro:assets" for image optimization
+    - Use Zod for all data validation (Env vars, API inputs)
+    - Semantic HTML and ARIA for accessibility (A11y is a priority)
+
+# Per-artifact rules
+# Add custom rules for specific artifacts.
+rules:
+  proposal:
+    - Clearly define the "Why" and "What" but avoid technical "How" details
+    - Always include Success Criteria
+  design:
+    - Prefer existing patterns over new abstractions
+    - Mention specific files to be created or modified
+    - Address security and performance implications
+  specs:
+    - Use Gherkin-like syntax (Scenario/Given/When/Then) for complex logic
+    - Focus on user-facing behavior
+  tasks:
+    - Break down tasks into atomic, committable units
+    - Start with high-risk/high-complexity items
+    - verifying steps must be included

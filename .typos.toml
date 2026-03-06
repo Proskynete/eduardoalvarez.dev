@@ -1,0 +1,103 @@
+[files]
+extend-exclude = [
+  "*.lock",
+  "package-lock.json",
+  "dist/",
+  ".astro/",
+  "node_modules/",
+]
+
+[default.extend-words]
+# Word fragments from bold-formatted acronyms in MDX articles (e.g., **A**pplication, **L**anguage)
+"pplication" = "pplication"
+"anguage" = "anguage"
+
+# Common Spanish verbs and words
+"hace" = "hace"
+"Hace" = "Hace"
+"ser" = "ser"
+"Ser" = "Ser"
+"vas" = "vas"
+"mis" = "mis"
+"pase" = "pase"
+"foto" = "foto"
+"clase" = "clase"
+
+# Spanish nouns flagged as English words
+"cliente" = "cliente"
+"Cliente" = "Cliente"
+"clientes" = "clientes"
+"producto" = "producto"
+"Producto" = "Producto"
+"productos" = "productos"
+"Productos" = "Productos"
+"componentes" = "componentes"
+"Componentes" = "Componentes"
+"conceptos" = "conceptos"
+"versiones" = "versiones"
+"decisiones" = "decisiones"
+"Decisiones" = "Decisiones"
+"dimensiones" = "dimensiones"
+"columnas" = "columnas"
+"dobles" = "dobles"
+"controles" = "controles"
+"Controles" = "Controles"
+"revisiones" = "revisiones"
+"problemas" = "problemas"
+"tendencias" = "tendencias"
+"variantes" = "variantes"
+"argumentos" = "argumentos"
+"caracteres" = "caracteres"
+"momentos" = "momentos"
+"momento" = "momento"
+"presentes" = "presentes"
+"tutoriales" = "tutoriales"
+"expertos" = "expertos"
+"secretos" = "secretos"
+"serie" = "serie"
+"curso" = "curso"
+
+# Spanish adjectives
+"profesional" = "profesional"
+"Profesional" = "Profesional"
+"organizacional" = "organizacional"
+"Organizacional" = "Organizacional"
+"operacional" = "operacional"
+"tradicional" = "tradicional"
+"interactivo" = "interactivo"
+"importante" = "importante"
+"accesible" = "accesible"
+"imposible" = "imposible"
+"inicial" = "inicial"
+
+# Spanish verbs
+"calcular" = "calcular"
+"contener" = "contener"
+"requiere" = "requiere"
+"proceder" = "proceder"
+"interpolar" = "interpolar"
+"convertirme" = "convertirme"
+"comparte" = "comparte"
+"Comparte" = "Comparte"
+"excede" = "excede"
+
+# Spanish nouns (technical / domain)
+"funcion" = "funcion"
+"Funcion" = "Funcion"
+"introduccion" = "introduccion"
+"parentesis" = "parentesis"
+"historial" = "historial"
+"Informacion" = "Informacion"
+"avance" = "avance"
+"inercia" = "inercia"
+"confort" = "confort"
+"aprox" = "aprox"
+
+# Spanish proper nouns / display labels
+"Patrones" = "Patrones"
+"Tema" = "Tema"
+"Diagrama" = "Diagrama"
+"Perspectivas" = "Perspectivas"
+"Parametros" = "Parametros"
+"Simular" = "Simular"
+"inconveniente" = "inconveniente"

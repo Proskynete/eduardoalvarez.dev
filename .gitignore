@@ -7,6 +7,14 @@ dist/
 # Vercel
 .vercel
 
+# Tests
+coverage/
+playwright-report/
+test-results/
+
+# Playwright
+.playwright-mcp/
+
 # dependencies
 node_modules/
 
@@ -18,6 +26,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+.zsh_history_project
 
 # admin section
 src/layouts/admin*
@@ -30,3 +39,9 @@ src/pages/api/create-new-post.ts
 
 # macOS-specific files
 .DS_Store
+
+# skills
+skills-lock.json
+
+# Python
+**/__pycache__/

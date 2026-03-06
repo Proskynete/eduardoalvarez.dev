@@ -1,40 +1,39 @@
 ---
 import type { Article } from "../../interfaces";
+import { prettyDate } from "../../utils/date";
 
 export const prerender = true;
 
 export interface Props {
   article: Article;
+  showReadingTime?: boolean;
 }
 
 const { article } = Astro.props;
 ---
 
-<article>
-  <div>
-    <dl>
-      <dt class="sr-only">Publicado el</dt>
-      <dd class="text-base font-hero leading-6 text-gray-400">
-        <time date-time={article.date}>{new Date(article.date).toLocaleDateString()}</time>
-      </dd>
-    </dl>
-    <div class="space-y-3 xl:col-span-3">
-      <div class="space-y-2">
-        <div>
-          <h3 class="text-2xl font-hero leading-8 tracking-tight">
-            <a
-              href={`/articulos/${article.slug}`}
-              class="text-gray-100 hover:text-gray-300 transition ease-in-out duration-300"
-            >
-              {article.title}
-            </a>
-          </h3>
-        </div>
-
-        <div class="prose font-hero max-w-none text-gray-400">
-          {article.description}
-        </div>
-      </div>
+<article class="group py-6">
+  <a href={`/articles/${article.slug}`} class="block space-y-2">
+    <div class="flex items-center gap-3">
+      {article.categories && article.categories.length > 0 && (
+        <span class="text-xs font-medium uppercase tracking-wider text-accent">
+          {article.categories[0]}
+        </span>
+      )}
+      <time
+        datetime={article.date}
+        class="text-xs text-text-muted"
+      >
+        {prettyDate(article.date)}
+      </time>
     </div>
-  </div>
+
+    <h3 class="text-xl font-semibold text-text-primary group-hover:text-accent transition-colors duration-200 leading-snug">
+      {article.title}
+    </h3>
+
+    <p class="text-text-secondary text-sm leading-relaxed line-clamp-2">
+      {article.description}
+    </p>
+  </a>
 </article>

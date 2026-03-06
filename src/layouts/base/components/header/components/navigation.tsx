@@ -9,22 +9,23 @@ import { useKeyboardNavigation } from "./use-keyboard-navigation";
 import { getArticleUrl, renderHighlightedText } from "./utils";
 
 interface NavigationProps {
+  pathname?: string;
   algolia?: {
     ALGOLIA_APPLICATION_ID?: string;
     ALGOLIA_INDEX_NAME?: string;
-    ALGOLIA_ADMIN_API_KEY?: string;
+    ALGOLIA_SEARCH_API_KEY?: string; // Search-Only API Key (read-only)
   };
 }
 
-export default function Navigation({ algolia }: NavigationProps) {
-  const [pathname, setPathname] = useState("");
+export default function Navigation({ pathname: initialPathname = "", algolia }: NavigationProps) {
+  const [pathname, setPathname] = useState(initialPathname);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [isInputVisible, setIsInputVisible] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
-  const { searchResults, search } = useAlgoliaSearch(algolia);
+  const { searchResults, search, isSearching, error, hasSearched } = useAlgoliaSearch(algolia);
 
   useEffect(() => {
     setPathname(window.location.pathname);
@@ -48,19 +49,17 @@ export default function Navigation({ algolia }: NavigationProps) {
     setSearchQuery(query);
     setSelectedIndex(-1);
 
-    const hasResults = await search(query);
-    setIsSearchOpen(hasResults ?? false);
+    if (query.trim()) {
+      await search(query);
+      setIsSearchOpen(true);
+    } else {
+      setIsSearchOpen(false);
+    }
   };
 
   const handleResultClick = () => {
     setIsSearchOpen(false);
     setSearchQuery("");
-    setSelectedIndex(-1);
-  };
-
-  const handleClearSearch = () => {
-    setSearchQuery("");
-    setIsSearchOpen(false);
     setSelectedIndex(-1);
   };
 
@@ -118,19 +117,37 @@ export default function Navigation({ algolia }: NavigationProps) {
     <div className="hidden sm:flex gap-3 items-center relative" ref={searchContainerRef}>
       {!isInputVisible && <NavLinks pathname={pathname} />}
 
-      <div className="relative ml-1 flex items-center">
+      <div className="relative ml-1 flex items-center" role="search">
         {isInputVisible && (
           <SearchInput
             searchQuery={searchQuery}
             onSearchChange={handleSearch}
             onFocus={handleInputFocus}
-            onClear={handleClearSearch}
+            isSearchOpen={isSearchOpen}
+            selectedIndex={selectedIndex}
           />
         )}
 
         <SearchToggleButton isInputVisible={isInputVisible} onToggle={handleToggleSearch} />
 
-        {isSearchOpen && searchResults.length > 0 && (
+        {/* Live region para lectores de pantalla */}
+        <div
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+        >
+          {isSearching && 'Buscando...'}
+          {!isSearching && searchResults.length > 0 && (
+            `${searchResults.length} resultado${searchResults.length !== 1 ? 's' : ''} encontrado${searchResults.length !== 1 ? 's' : ''}`
+          )}
+          {!isSearching && searchQuery && searchResults.length === 0 && hasSearched && (
+            'No se encontraron resultados'
+          )}
+          {error && `Error: ${error}`}
+        </div>
+
+        {isSearchOpen && (error || isSearching || searchResults.length > 0 || hasSearched) && (
           <SearchResults
             results={searchResults}
             searchQuery={searchQuery}
@@ -138,6 +155,9 @@ export default function Navigation({ algolia }: NavigationProps) {
             onResultClick={handleResultClick}
             getArticleUrl={getArticleUrl}
             renderHighlightedText={renderHighlightedText}
+            error={error}
+            isSearching={isSearching}
+            hasSearched={hasSearched}
           />
         )}
       </div>

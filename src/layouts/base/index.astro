@@ -6,38 +6,49 @@ import BaseHead, { type Props as BaseHeadProps } from "./components/head.astro";
 import Footer from "./components/footer/index.astro";
 import Header from "./components/header/index.astro";
 import ScrollingProgressBar from "../../components/scrolling-progress-bar/index";
+import SplashScreen from "../../components/splash-screen/index.astro";
+
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 export interface Props {
   seo?: BaseHeadProps;
 }
 
+// Usar Search-Only API Key para el cliente (solo lectura)
 const algolia = {
-  ALGOLIA_ADMIN_API_KEY: import.meta.env.ALGOLIA_ADMIN_API_KEY,
-  ALGOLIA_APPLICATION_ID: import.meta.env.ALGOLIA_APPLICATION_ID,
-  ALGOLIA_INDEX_NAME: import.meta.env.ALGOLIA_INDEX_NAME,
+  ALGOLIA_SEARCH_API_KEY: import.meta.env.PUBLIC_ALGOLIA_SEARCH_API_KEY,
+  ALGOLIA_APPLICATION_ID: import.meta.env.PUBLIC_ALGOLIA_APPLICATION_ID,
+  ALGOLIA_INDEX_NAME: import.meta.env.PUBLIC_ALGOLIA_INDEX_NAME,
 } as const;
 
 const { seo } = Astro.props;
 ---
 
-<html lang="es">
+<html lang="es-ES">
   <BaseHead {...seo} />
 
   <ClientRouter />
 
-  <body class="antialiased bg-black/95 text-white">
+  <body class="antialiased bg-background text-text-primary">
+    <SplashScreen />
+
+    <!-- Skip Navigation Links -->
+    <a href="#main-content" class="skip-to-content">Saltar al contenido principal</a>
+
     <ScrollingProgressBar client:visible />
 
-    <section class="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-7xl px-4 sm:px-6 xl:px-0">
-      <div class="flex flex-col justify-between font-sans">
-        <main class="mb-auto">
-          <Header algolia={algolia} />
+    <Header algolia={algolia} />
 
+    <div class="mx-auto max-w-full px-4 sm:px-6 xl:px-8">
+      <div class="mx-auto max-w-wide">
+        <main id="main-content" tabindex="-1" class="mb-auto py-12">
           <slot />
-
-          <Footer />
         </main>
+
+        <Footer />
       </div>
-    </section>
+    </div>
+
+    <SpeedInsights />
   </body>
 </html>
