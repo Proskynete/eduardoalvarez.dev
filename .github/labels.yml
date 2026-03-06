@@ -1,0 +1,148 @@
+---
+# Issue Types
+- name: "🐛 bug"
+  color: "d73a4a"
+  description: "Something isn't working"
+
+- name: "✨ enhancement"
+  color: "a2eeef"
+  description: "New feature or request"
+
+- name: "📝 documentation"
+  color: "0075ca"
+  description: "Improvements or additions to documentation"
+
+- name: "📄 content"
+  color: "0075ca"
+  description: "New or updated articles, talks, projects"
+
+- name: "🎨 design"
+  color: "e4e669"
+  description: "UI/UX or visual changes"
+
+- name: "🚀 performance"
+  color: "ff9800"
+  description: "Performance improvements"
+
+- name: "🔒 security"
+  color: "d93f0b"
+  description: "Security-related issues"
+
+# Priority Labels
+- name: "🔥 priority: critical"
+  color: "b60205"
+  description: "Critical priority - needs immediate attention"
+
+- name: "⚡ priority: high"
+  color: "d93f0b"
+  description: "High priority"
+
+- name: "➡️ priority: medium"
+  color: "fbca04"
+  description: "Medium priority"
+
+- name: "⬇️ priority: low"
+  color: "0e8a16"
+  description: "Low priority"
+
+# Workflow Status
+- name: "🚧 work-in-progress"
+  color: "fbca04"
+  description: "Work in progress, not ready for review"
+
+- name: "👀 needs review"
+  color: "0e8a16"
+  description: "Waiting for code review"
+
+- name: "🔄 needs changes"
+  color: "d93f0b"
+  description: "Changes requested during review"
+
+- name: "✅ ready to merge"
+  color: "0e8a16"
+  description: "Approved and ready to merge"
+
+- name: "⏸️ on hold"
+  color: "fbca04"
+  description: "Temporarily paused"
+
+- name: "stale"
+  color: "ededed"
+  description: "Inactive for 30+ days"
+
+# Dependencies & DevOps
+- name: "📦 Dependencies"
+  color: "0366d6"
+  description: "Pull requests that update a dependency file"
+
+- name: "🚀 CI/CD"
+  color: "28a745"
+  description: "Continuous integration and deployment"
+
+# PR Size Labels
+- name: "🤩 size/xs"
+  color: "00ff00"
+  description: "Extra small PR (0-10 lines)"
+
+- name: "🥳 size/s"
+  color: "7fff00"
+  description: "Small PR (11-100 lines)"
+
+- name: "😎 size/m"
+  color: "ffff00"
+  description: "Medium PR (101-500 lines)"
+
+- name: "😖 size/l"
+  color: "ff7f00"
+  description: "Large PR (501-1000 lines)"
+
+- name: "🤯 size/xl"
+  color: "ff0000"
+  description: "Extra large PR (1000+ lines)"
+
+# Code Quality
+- name: "♻️ refactor"
+  color: "fbca04"
+  description: "Code refactoring"
+
+- name: "🧪 test"
+  color: "1d76db"
+  description: "Testing-related changes"
+
+- name: "🔧 config"
+  color: "bfdadc"
+  description: "Configuration changes"
+
+# Conventional Commit Types
+- name: "feat"
+  color: "0e8a16"
+  description: "New feature"
+
+- name: "fix"
+  color: "d73a4a"
+  description: "Bug fix"
+
+- name: "chore"
+  color: "fef2c0"
+  description: "Chore/maintenance task"
+
+# Special
+- name: "pinned"
+  color: "0052cc"
+  description: "Pinned item - won't be marked as stale"
+
+- name: "good first issue"
+  color: "7057ff"
+  description: "Good for newcomers"
+
+- name: "question"
+  color: "d876e3"
+  description: "Further information is requested"
+
+- name: "duplicate"
+  color: "cfd3d7"
+  description: "This issue or pull request already exists"
+
+- name: "wontfix"
+  color: "ffffff"
+  description: "This will not be worked on"

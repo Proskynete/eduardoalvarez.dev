@@ -1,0 +1,52 @@
+name: "Lint PR Title"
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  lint-pr-title:
+    name: Validate Conventional Commits Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR Title
+        id: lint_pr_title
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          ignoreLabels: |
+            bot
+            dependabot
+
+      - name: Post error comment
+        if: failure()
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: pr-title-lint-error
+          message: |
+            ## PR Title Validation Failed
+
+            Your PR title doesn't follow [Conventional Commits](https://www.conventionalcommits.org/) format.
+
+            **Expected format**: `type(scope): description`
+
+            **Examples**:
+            - `feat(articles): add new post about platform engineering`
+            - `fix(404): resolve animation on iOS`
+            - `chore(deps): update astro to v5.1`
+            - `style(footer): align social links on desktop`
+
+            **Valid types**: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `ci`
+
+            **Error details**: ${{ steps.lint_pr_title.outputs.error_message }}
+
+      - name: Delete error comment on success
+        if: success()
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: pr-title-lint-error
+          delete: true

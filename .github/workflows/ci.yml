@@ -1,0 +1,46 @@
+name: "CI"
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    name: Lint, Test & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm run test:unit
+
+      - name: Build
+        run: npm run build
+        env:
+          PUBLIC_ALGOLIA_APPLICATION_ID: ${{ secrets.PUBLIC_ALGOLIA_APPLICATION_ID }}
+          PUBLIC_ALGOLIA_INDEX_NAME: ${{ secrets.PUBLIC_ALGOLIA_INDEX_NAME }}
+          PUBLIC_ALGOLIA_SEARCH_API_KEY: ${{ secrets.PUBLIC_ALGOLIA_SEARCH_API_KEY }}
+          ALGOLIA_ADMIN_API_KEY: ${{ secrets.ALGOLIA_ADMIN_API_KEY }}
+          PUBLIC_GISCUS_REPO: ${{ secrets.PUBLIC_GISCUS_REPO }}
+          PUBLIC_GISCUS_REPO_ID: ${{ secrets.PUBLIC_GISCUS_REPO_ID }}
+          PUBLIC_GISCUS_CATEGORY_ID: ${{ secrets.PUBLIC_GISCUS_CATEGORY_ID }}
+          MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+          MAILCHIMP_LIST_ID: ${{ secrets.MAILCHIMP_LIST_ID }}
