@@ -1,0 +1,12 @@
+[files]
+extend-exclude = [
+  "*.lock",
+  "package-lock.json",
+  "dist/",
+  ".astro/",
+  "node_modules/",
+]
+
+[default.extend-words]
+# Spanish words incorrectly flagged as typos
+"Roas" = "Roas"
