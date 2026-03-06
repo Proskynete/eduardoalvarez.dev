@@ -94,7 +94,7 @@ export interface Article {
   categories: CategoryAllowed[];
   tags: TagsAllowed[];
   sections: Section[];
-  keywords?: string[];
+  keywords: string[];
   audio_narration?: string;
 }
 
