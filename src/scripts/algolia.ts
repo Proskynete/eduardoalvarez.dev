@@ -45,7 +45,7 @@ export const publishAlgoliaRSS = () => {
             return {
               objectID: `${config.url}/articles/${data.slug}`,
               title: data.title,
-              description: data.description,
+              description: data.excerpt,
               pubDate: new Date(data.date).toISOString(),
               link: `${config.url}/articles/${data.slug}`,
               guid: `${config.url}/articles/${data.slug}`,

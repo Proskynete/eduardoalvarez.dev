@@ -28,7 +28,7 @@ const schema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: content.title,
-  description: content.description.slice(0, 160),
+  description: content.seo_description.slice(0, 160),
   datePublished: content.date,
   url: `${settings.url}/articles/${content.slug}`,
   image: content.seo_image,
@@ -42,7 +42,7 @@ const schema = {
 
 const seo: BaseHeadProps = {
   title: content.title,
-  description: content.description,
+  description: content.seo_description,
   image: content.seo_image,
   slug: `/articles/${content.slug}`,
   keywords: content.keywords,
