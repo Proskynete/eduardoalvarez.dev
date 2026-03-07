@@ -5,6 +5,7 @@ extend-exclude = [
   "dist/",
   ".astro/",
   "node_modules/",
+  "src/pages/articles/",
 ]
 
 [default.extend-words]
