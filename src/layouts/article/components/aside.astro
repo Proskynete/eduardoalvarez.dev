@@ -2,7 +2,6 @@
 import { Icon } from "../../../assets/icons";
 import type { CategoryAllowed, TagsAllowed } from "../../../interfaces";
 import { CategoryMap, TagMap } from "../../../utils/categories";
-import AudioPlayer from "../../../components/audio-player/index";
 
 const { content, timeToRead, twitterShare, linkedInShare } = Astro.props;
 const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
@@ -10,14 +9,6 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
 
 <aside class="xl:sticky xl:top-24 xl:self-start mb-10 xl:mb-0">
   <div class="flex flex-col gap-4">
-    <!-- Audio narration card (optional) -->
-    {content.audio_narration && (
-      <div class="bg-surface rounded-xl p-4 border border-accent/30">
-        <p class="text-xs font-medium uppercase tracking-widest text-accent mb-3">Narración</p>
-        <AudioPlayer client:load src={content.audio_narration} title={content.title} compact={true} />
-      </div>
-    )}
-
     <!-- Info card: reading time -->
     <div class="bg-surface rounded-xl p-4 border border-surface-border">
       <!-- Reading time -->
