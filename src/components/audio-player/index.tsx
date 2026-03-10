@@ -22,6 +22,7 @@ function formatTime(seconds: number): string {
 export default function AudioPlayer({ src, title, compact = false }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const staticRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -32,6 +33,7 @@ export default function AudioPlayer({ src, title, compact = false }: AudioPlayer
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1);
+  const [isStaticVisible, setIsStaticVisible] = useState(true);
 
   // Actualiza el tiempo actual durante la reproducción
   useEffect(() => {
@@ -82,6 +84,16 @@ export default function AudioPlayer({ src, title, compact = false }: AudioPlayer
     };
   }, []);
 
+  // IntersectionObserver: detecta cuando el player estático sale de la vista (solo en modo compact)
+  useEffect(() => {
+    if (!compact || !staticRef.current) return;
+    const observer = new IntersectionObserver(([entry]) => setIsStaticVisible(entry.isIntersecting), {
+      threshold: 0.1,
+    });
+    observer.observe(staticRef.current);
+    return () => observer.disconnect();
+  }, [compact]);
+
   const togglePlay = useCallback(async () => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -107,7 +119,7 @@ export default function AudioPlayer({ src, title, compact = false }: AudioPlayer
   const seekTo = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
       const audio = audioRef.current;
-      const progressBar = progressRef.current;
+      const progressBar = e.currentTarget;
       if (!audio || !progressBar) return;
       const rect = progressBar.getBoundingClientRect();
       const position = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
@@ -185,126 +197,258 @@ export default function AudioPlayer({ src, title, compact = false }: AudioPlayer
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
+  const PlayPauseIcon = () => {
+    if (isLoading) {
+      return (
+        <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          />
+        </svg>
+      );
+    }
+    if (hasError) {
+      return (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
+        </svg>
+      );
+    }
+    if (isPlaying) {
+      return (
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+        </svg>
+      );
+    }
+    return (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+    );
+  };
+
   // Compact layout for narrow containers (e.g., aside/sidebar)
   if (compact) {
     return (
-      <div className="w-full">
+      <>
         <audio ref={audioRef} src={src} preload="metadata" />
 
-        {/* Barra de progreso */}
-        <div
-          ref={progressRef}
-          className="relative h-1.5 bg-surface-raised rounded-full cursor-pointer mb-2 group"
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          role="slider"
-          aria-label="Progreso del audio"
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-valuenow={Math.round(progress)}
-          tabIndex={0}
-        >
-          <div className="absolute h-full bg-accent rounded-full transition-all" style={{ width: `${progress}%` }} />
+        {/* Static compact player */}
+        <div ref={staticRef} className="w-full">
+          {/* Barra de progreso */}
           <div
-            className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-text-primary rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-            style={{ left: `calc(${progress}% - 6px)` }}
-          />
-        </div>
+            ref={progressRef}
+            className="relative h-1.5 bg-surface-raised rounded-full cursor-pointer mb-2 group"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            role="slider"
+            aria-label="Progreso del audio"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(progress)}
+            tabIndex={0}
+          >
+            <div className="absolute h-full bg-accent rounded-full transition-all" style={{ width: `${progress}%` }} />
+            <div
+              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-text-primary rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              style={{ left: `calc(${progress}% - 6px)` }}
+            />
+          </div>
 
-        {/* Tiempo */}
-        <div className="flex justify-between text-xs text-text-muted mb-2.5">
-          <span>{formatTime(currentTime)}</span>
-          <span>{formatTime(duration)}</span>
-        </div>
+          {/* Tiempo */}
+          <div className="flex justify-between text-xs text-text-muted mb-2.5">
+            <span>{formatTime(currentTime)}</span>
+            <span>{formatTime(duration)}</span>
+          </div>
 
-        {/* Controles */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1">
-            {/* Retroceder 15s */}
-            <button
-              onClick={() => skip(-15)}
-              className="p-1.5 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
-              aria-label="Retroceder 15 segundos"
-              title="Retroceder 15s"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.334 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"
-                />
-              </svg>
-            </button>
-
-            {/* Play/Pause */}
-            <button
-              onClick={togglePlay}
-              className={`p-2 rounded-full text-background transition-colors duration-200 cursor-pointer ${
-                hasError ? "bg-error hover:bg-error/80" : "bg-accent hover:bg-accent-hover"
-              }`}
-              aria-label={hasError ? "Reintentar" : isPlaying ? "Pausar" : "Reproducir"}
-              title={hasError ? "Error al cargar. Click para reintentar" : undefined}
-            >
-              {isLoading ? (
-                <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  />
-                </svg>
-              ) : hasError ? (
+          {/* Controles */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              {/* Retroceder 15s */}
+              <button
+                onClick={() => skip(-15)}
+                className="p-1.5 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
+                aria-label="Retroceder 15 segundos"
+                title="Retroceder 15s"
+              >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.334 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"
                   />
                 </svg>
-              ) : isPlaying ? (
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                </svg>
-              ) : (
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              )}
-            </button>
+              </button>
 
-            {/* Adelantar 15s */}
+              {/* Play/Pause */}
+              <button
+                onClick={togglePlay}
+                className={`p-2 rounded-full text-background transition-colors duration-200 cursor-pointer ${
+                  hasError ? "bg-error hover:bg-error/80" : "bg-accent hover:bg-accent-hover"
+                }`}
+                aria-label={hasError ? "Reintentar" : isPlaying ? "Pausar" : "Reproducir"}
+                title={hasError ? "Error al cargar. Click para reintentar" : undefined}
+              >
+                {isLoading ? (
+                  <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
+                  </svg>
+                ) : hasError ? (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                ) : isPlaying ? (
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                )}
+              </button>
+
+              {/* Adelantar 15s */}
+              <button
+                onClick={() => skip(15)}
+                className="p-1.5 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
+                aria-label="Adelantar 15 segundos"
+                title="Adelantar 15s"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            {/* Velocidad */}
             <button
-              onClick={() => skip(15)}
-              className="p-1.5 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
-              aria-label="Adelantar 15 segundos"
-              title="Adelantar 15s"
+              onClick={handlePlaybackRateChange}
+              className="px-1.5 py-0.5 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors duration-200 cursor-pointer"
+              aria-label="Cambiar velocidad de reproducción"
+              title="Velocidad de reproducción"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"
-                />
-              </svg>
+              {playbackRate}x
             </button>
           </div>
-
-          {/* Velocidad */}
-          <button
-            onClick={handlePlaybackRateChange}
-            className="px-1.5 py-0.5 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors duration-200 cursor-pointer"
-            aria-label="Cambiar velocidad de reproducción"
-            title="Velocidad de reproducción"
-          >
-            {playbackRate}x
-          </button>
         </div>
-      </div>
+
+        {/* Floating player — móvil únicamente, visible cuando el player estático sale de la vista */}
+        <div
+          aria-hidden={isStaticVisible}
+          className={`fixed bottom-0 inset-x-0 xl:hidden z-40 bg-surface/95 backdrop-blur-md border-t border-accent/20 transition-transform duration-300 ease-in-out ${
+            isStaticVisible ? "translate-y-full" : "translate-y-0"
+          }`}
+        >
+          {/* Barra de progreso flotante */}
+          <div
+            className="relative h-1 bg-surface-raised cursor-pointer group"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            role="slider"
+            aria-label="Progreso del audio"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(progress)}
+            tabIndex={-1}
+          >
+            <div className="absolute h-full bg-accent transition-all" style={{ width: `${progress}%` }} />
+          </div>
+
+          <div className="flex items-center gap-3 px-4 py-3">
+            {/* Icono de audio */}
+            <svg className="w-4 h-4 text-accent shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+            </svg>
+
+            {/* Título + tiempo */}
+            <div className="flex-1 min-w-0">
+              {title && <p className="text-xs text-text-secondary truncate leading-tight">{title}</p>}
+              <p className="text-xs text-text-muted">
+                {formatTime(currentTime)} / {formatTime(duration)}
+              </p>
+            </div>
+
+            {/* Controles */}
+            <div className="flex items-center gap-1 shrink-0">
+              <button
+                onClick={() => skip(-15)}
+                className="p-1.5 text-text-muted hover:text-text-primary transition-colors cursor-pointer"
+                aria-label="Retroceder 15 segundos"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.334 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"
+                  />
+                </svg>
+              </button>
+
+              <button
+                onClick={togglePlay}
+                className={`p-2 rounded-full text-background transition-colors cursor-pointer ${
+                  hasError ? "bg-error hover:bg-error/80" : "bg-accent hover:bg-accent-hover"
+                }`}
+                aria-label={hasError ? "Reintentar" : isPlaying ? "Pausar" : "Reproducir"}
+              >
+                <PlayPauseIcon />
+              </button>
+
+              <button
+                onClick={() => skip(15)}
+                className="p-1.5 text-text-muted hover:text-text-primary transition-colors cursor-pointer"
+                aria-label="Adelantar 15 segundos"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"
+                  />
+                </svg>
+              </button>
+
+              <button
+                onClick={handlePlaybackRateChange}
+                className="px-1.5 py-0.5 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors cursor-pointer ml-1"
+                aria-label="Cambiar velocidad"
+              >
+                {playbackRate}x
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
     );
   }
 

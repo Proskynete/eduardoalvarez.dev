@@ -12,9 +12,9 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
   <div class="flex flex-col gap-4">
     <!-- Audio narration card (optional) -->
     {content.audio_narration && (
-      <div class="bg-surface rounded-xl p-4 border border-surface-border">
-        <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-3">Narración</p>
-        <AudioPlayer client:load src={content.audio_narration} compact={true} />
+      <div class="bg-surface rounded-xl p-4 border border-accent/30">
+        <p class="text-xs font-medium uppercase tracking-widest text-accent mb-3">Narración</p>
+        <AudioPlayer client:load src={content.audio_narration} title={content.title} compact={true} />
       </div>
     )}
 
