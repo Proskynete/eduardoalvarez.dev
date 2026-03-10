@@ -24,3 +24,5 @@ export function MailIcon({ width = 16, height = 16, className }: IconProps) {
     </svg>
   );
 }
+
+export const MailIcon_compat = MailIcon;

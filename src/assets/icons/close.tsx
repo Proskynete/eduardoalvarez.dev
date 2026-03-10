@@ -22,3 +22,5 @@ export function CloseIcon({ width = 16, height = 16, className }: IconProps) {
     </svg>
   );
 }
+
+export const CloseIcon_compat = CloseIcon;

@@ -4,7 +4,7 @@ interface IconProps {
   className?: string;
 }
 
-export function GithubIcon({ width = 20, height = 20, className }: IconProps) {
+export function GitHubIcon({ width = 20, height = 20, className }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,3 +18,5 @@ export function GithubIcon({ width = 20, height = 20, className }: IconProps) {
     </svg>
   );
 }
+
+export const GitHubIcon_compat = GitHubIcon;

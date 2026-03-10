@@ -23,3 +23,5 @@ export function SearchIcon({ width = 16, height = 16, className }: IconProps) {
     </svg>
   );
 }
+
+export const SearchIcon_compat = SearchIcon;

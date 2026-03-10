@@ -10,15 +10,17 @@ const { content } = Astro.props;
 
 <header class="pb-10 border-b border-surface-border">
   <!-- Category badges -->
-  {content.categories && content.categories.length > 0 && (
-    <div class="flex flex-wrap gap-2 mb-5">
-      {content.categories.map((category: CategoryAllowed) => (
-        <span class="px-2.5 py-0.5 text-xs font-medium rounded bg-accent-subtle text-accent uppercase tracking-wider">
-          {CategoryMap.get(category) ?? category}
-        </span>
-      ))}
-    </div>
-  )}
+  {
+    content.categories && content.categories.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-5">
+        {content.categories.map((category: CategoryAllowed) => (
+          <span class="px-2.5 py-0.5 text-xs font-medium rounded bg-accent-subtle text-accent uppercase tracking-wider">
+            {CategoryMap.get(category) ?? category}
+          </span>
+        ))}
+      </div>
+    )
+  }
 
   <!-- Title -->
   <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary leading-tight tracking-tight mb-5">
@@ -38,8 +40,7 @@ const { content } = Astro.props;
       rel="noopener noreferrer"
     >
       ¿Ves una errata? Edita en GitHub
-      <Icon.Github width={14} />
+      <Icon.GitHub />
     </a>
   </div>
-
 </header>

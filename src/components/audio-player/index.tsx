@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { Icon } from "../../assets/icons";
+
 interface AudioPlayerProps {
   src: string;
   title?: string;
@@ -183,59 +185,11 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
-  const SkipBackIcon = () => (
-    <span className="flex flex-col items-center gap-0">
-      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6a8 8 0 1 0 7.94 7" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 4l-4-2-1 4" />
-      </svg>
-      <span className="text-[9px] font-bold leading-none mt-1">15s</span>
-    </span>
-  );
-
-  const SkipForwardIcon = () => (
-    <span className="flex flex-col items-center gap-0">
-      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6a8 8 0 1 1-7.94 7" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 4l4-2 1 4" />
-      </svg>
-      <span className="text-[9px] font-bold leading-none mt-1">15s</span>
-    </span>
-  );
-
   const PlayPauseIconSm = () => {
-    if (isLoading)
-      return (
-        <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          />
-        </svg>
-      );
-    if (hasError)
-      return (
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-          />
-        </svg>
-      );
-    if (isPlaying)
-      return (
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-        </svg>
-      );
-    return (
-      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M8 5v14l11-7z" />
-      </svg>
-    );
+    if (isLoading) return <Icon.Spinner className="animate-spin w-4 h-4" />;
+    if (hasError) return <Icon.Retry className="w-4 h-4" />;
+    if (isPlaying) return <Icon.Pause className="w-4 h-4" />;
+    return <Icon.Play className="w-4 h-4" />;
   };
 
   // ─── Floating player (shared by banner + compact modes) ───────────────────
@@ -304,7 +258,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
               className="p-1.5 text-text-muted hover:text-text-primary transition-colors cursor-pointer"
               aria-label="Retroceder 15 segundos"
             >
-              <SkipBackIcon />
+              <Icon.GoBackSeconds width={20} height={20} />
             </button>
 
             {/* Botón play — mismo estilo pill que el banner */}
@@ -324,7 +278,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
               className="p-1.5 text-text-muted hover:text-text-primary transition-colors cursor-pointer"
               aria-label="Adelantar 15 segundos"
             >
-              <SkipForwardIcon />
+              <Icon.AdvanceSeconds width={20} height={20} />
             </button>
 
             <button
@@ -332,7 +286,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
               className="px-1.5 py-0.5 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors cursor-pointer ml-0.5"
               aria-label="Cambiar velocidad"
             >
-              {playbackRate}x
+              {playbackRate}
             </button>
           </div>
         </div>
@@ -396,7 +350,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
               aria-label="Retroceder 15 segundos"
               title="Retroceder 15s"
             >
-              <SkipBackIcon />
+              <Icon.GoBackSeconds width={25} height={25} />
             </button>
 
             {/* Botón play — protagonista */}
@@ -409,30 +363,13 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
               title={hasError ? "Error al cargar. Click para reintentar" : undefined}
             >
               {isLoading ? (
-                <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  />
-                </svg>
+                <Icon.Spinner className="animate-spin w-4 h-4" />
               ) : hasError ? (
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                  />
-                </svg>
+                <Icon.Retry className="w-4 h-4" />
               ) : isPlaying ? (
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                </svg>
+                <Icon.Pause className="w-4 h-4" />
               ) : (
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
+                <Icon.Play className="w-4 h-4" />
               )}
               <span>{hasError ? "Reintentar" : isPlaying ? "Pausar" : "Reproducir"}</span>
             </button>
@@ -443,7 +380,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
               aria-label="Adelantar 15 segundos"
               title="Adelantar 15s"
             >
-              <SkipForwardIcon />
+              <Icon.AdvanceSeconds width={25} height={25} />
             </button>
 
             <div className="ml-auto flex items-center gap-3">
@@ -463,13 +400,9 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
                   aria-label={isMuted ? "Activar sonido" : "Silenciar"}
                 >
                   {isMuted || volume === 0 ? (
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
-                    </svg>
+                    <Icon.VolumeMuted className="w-4 h-4" />
                   ) : (
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                    </svg>
+                    <Icon.VolumeOn className="w-4 h-4" />
                   )}
                 </button>
                 <input
@@ -530,7 +463,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
                 className="p-1.5 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
                 aria-label="Retroceder 15 segundos"
               >
-                <SkipBackIcon />
+                <Icon.GoBackSeconds width={20} height={20} />
               </button>
 
               <button
@@ -541,30 +474,13 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
                 aria-label={hasError ? "Reintentar" : isPlaying ? "Pausar" : "Reproducir"}
               >
                 {isLoading ? (
-                  <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
-                  </svg>
+                  <Icon.Spinner className="animate-spin w-4 h-4" />
                 ) : hasError ? (
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
+                  <Icon.Retry className="w-4 h-4" />
                 ) : isPlaying ? (
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                  </svg>
+                  <Icon.Pause className="w-4 h-4" />
                 ) : (
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
+                  <Icon.Play className="w-4 h-4" />
                 )}
               </button>
 
@@ -573,7 +489,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
                 className="p-1.5 text-text-muted hover:text-text-primary transition-colors duration-200 cursor-pointer"
                 aria-label="Adelantar 15 segundos"
               >
-                <SkipForwardIcon />
+                <Icon.AdvanceSeconds width={20} height={20} />
               </button>
             </div>
 
@@ -631,14 +547,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
             aria-label="Retroceder 15 segundos"
             title="Retroceder 15s"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.334 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"
-              />
-            </svg>
+            <Icon.GoBackSeconds className="w-5 h-5" />
           </button>
 
           <button
@@ -650,30 +559,13 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
             title={hasError ? "Error al cargar. Click para reintentar" : undefined}
           >
             {isLoading ? (
-              <svg className="animate-spin w-6 h-6" viewBox="0 0 24 24" fill="none">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                />
-              </svg>
+              <Icon.Spinner className="animate-spin w-6 h-6" />
             ) : hasError ? (
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                />
-              </svg>
+              <Icon.Retry className="w-6 h-6" />
             ) : isPlaying ? (
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-              </svg>
+              <Icon.Pause className="w-6 h-6" />
             ) : (
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 5v14l11-7z" />
-              </svg>
+              <Icon.Play className="w-6 h-6" />
             )}
           </button>
 
@@ -683,14 +575,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
             aria-label="Adelantar 15 segundos"
             title="Adelantar 15s"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"
-              />
-            </svg>
+            <Icon.AdvanceSeconds className="w-5 h-5" />
           </button>
         </div>
 
@@ -711,13 +596,9 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
               aria-label={isMuted ? "Activar sonido" : "Silenciar"}
             >
               {isMuted || volume === 0 ? (
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
-                </svg>
+                <Icon.VolumeMuted className="w-5 h-5" />
               ) : (
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                </svg>
+                <Icon.VolumeOn className="w-5 h-5" />
               )}
             </button>
             <input

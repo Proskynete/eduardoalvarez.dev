@@ -24,3 +24,5 @@ export function MenuIcon({ width = 16, height = 16, className }: IconProps) {
     </svg>
   );
 }
+
+export const MenuIcon_compat = MenuIcon;
