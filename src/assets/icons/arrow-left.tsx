@@ -1,12 +1,20 @@
-import type { SVGProps } from "react";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const ArrowLeftIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    {...props}
-  >
-    <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
-  </svg>
-);
+interface IconProps {
+  width?: number;
+  height?: number;
+  className?: string;
+}
+
+export function ArrowLeftIcon({ width, height, className }: IconProps) {
+  return (
+    <FontAwesomeIcon
+      icon={faArrowLeft}
+      className={className}
+      style={!className ? { width: width ?? 16, height: height ?? 16 } : undefined}
+    />
+  );
+}
+
+export const ArrowLeftIcon_compat = ArrowLeftIcon;
