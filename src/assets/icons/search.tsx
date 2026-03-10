@@ -1,18 +1,25 @@
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 interface IconProps {
   width?: number;
   height?: number;
   className?: string;
 }
 
-export function SearchIcon({ width, height, className }: IconProps) {
+export function SearchIcon({ width = 16, height = 16, className }: IconProps) {
   return (
-    <FontAwesomeIcon
-      icon={faMagnifyingGlass}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={className}
-      style={!className ? { width: width ?? 16, height: height ?? 16 } : undefined}
-    />
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.35-4.35" />
+    </svg>
   );
 }

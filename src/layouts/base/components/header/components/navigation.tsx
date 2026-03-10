@@ -131,19 +131,12 @@ export default function Navigation({ pathname: initialPathname = "", algolia }: 
         <SearchToggleButton isInputVisible={isInputVisible} onToggle={handleToggleSearch} />
 
         {/* Live region para lectores de pantalla */}
-        <div
-          role="status"
-          aria-live="polite"
-          aria-atomic="true"
-          className="sr-only"
-        >
-          {isSearching && 'Buscando...'}
-          {!isSearching && searchResults.length > 0 && (
-            `${searchResults.length} resultado${searchResults.length !== 1 ? 's' : ''} encontrado${searchResults.length !== 1 ? 's' : ''}`
-          )}
-          {!isSearching && searchQuery && searchResults.length === 0 && hasSearched && (
-            'No se encontraron resultados'
-          )}
+        <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+          {isSearching && "Buscando..."}
+          {!isSearching &&
+            searchResults.length > 0 &&
+            `${searchResults.length} resultado${searchResults.length !== 1 ? "s" : ""} encontrado${searchResults.length !== 1 ? "s" : ""}`}
+          {!isSearching && searchQuery && searchResults.length === 0 && hasSearched && "No se encontraron resultados"}
           {error && `Error: ${error}`}
         </div>
 

@@ -1,5 +1,3 @@
-import { faPause, faPlay, faRotateLeft, faSpinner, faVolumeHigh, faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface AudioPlayerProps {
@@ -206,10 +204,38 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
   );
 
   const PlayPauseIconSm = () => {
-    if (isLoading) return <FontAwesomeIcon icon={faSpinner} className="w-4 h-4" spin={true} />;
-    if (hasError) return <FontAwesomeIcon icon={faRotateLeft} className="w-4 h-4" />;
-    if (isPlaying) return <FontAwesomeIcon icon={faPause} className="w-4 h-4" />;
-    return <FontAwesomeIcon icon={faPlay} className="w-4 h-4" />;
+    if (isLoading)
+      return (
+        <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          />
+        </svg>
+      );
+    if (hasError)
+      return (
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
+        </svg>
+      );
+    if (isPlaying)
+      return (
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+        </svg>
+      );
+    return (
+      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+    );
   };
 
   // ─── Floating player (shared by banner + compact modes) ───────────────────
@@ -383,13 +409,30 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
               title={hasError ? "Error al cargar. Click para reintentar" : undefined}
             >
               {isLoading ? (
-                <FontAwesomeIcon icon={faSpinner} className="w-4 h-4" spin={true} />
+                <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
+                </svg>
               ) : hasError ? (
-                <FontAwesomeIcon icon={faRotateLeft} className="w-4 h-4" />
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
               ) : isPlaying ? (
-                <FontAwesomeIcon icon={faPause} className="w-4 h-4" />
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                </svg>
               ) : (
-                <FontAwesomeIcon icon={faPlay} className="w-4 h-4" />
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
               )}
               <span>{hasError ? "Reintentar" : isPlaying ? "Pausar" : "Reproducir"}</span>
             </button>
@@ -420,9 +463,13 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
                   aria-label={isMuted ? "Activar sonido" : "Silenciar"}
                 >
                   {isMuted || volume === 0 ? (
-                    <FontAwesomeIcon icon={faVolumeXmark} className="w-4 h-4" />
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+                    </svg>
                   ) : (
-                    <FontAwesomeIcon icon={faVolumeHigh} className="w-4 h-4" />
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                    </svg>
                   )}
                 </button>
                 <input
@@ -494,13 +541,30 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
                 aria-label={hasError ? "Reintentar" : isPlaying ? "Pausar" : "Reproducir"}
               >
                 {isLoading ? (
-                  <FontAwesomeIcon icon={faSpinner} className="w-4 h-4" spin={true} />
+                  <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
+                  </svg>
                 ) : hasError ? (
-                  <FontAwesomeIcon icon={faRotateLeft} className="w-4 h-4" />
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
                 ) : isPlaying ? (
-                  <FontAwesomeIcon icon={faPause} className="w-4 h-4" />
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                  </svg>
                 ) : (
-                  <FontAwesomeIcon icon={faPlay} className="w-4 h-4" />
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
                 )}
               </button>
 
@@ -586,13 +650,30 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
             title={hasError ? "Error al cargar. Click para reintentar" : undefined}
           >
             {isLoading ? (
-              <FontAwesomeIcon icon={faSpinner} className="w-6 h-6" spin={true} />
+              <svg className="animate-spin w-6 h-6" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
             ) : hasError ? (
-              <FontAwesomeIcon icon={faRotateLeft} className="w-6 h-6" />
+              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
             ) : isPlaying ? (
-              <FontAwesomeIcon icon={faPause} className="w-6 h-6" />
+              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+              </svg>
             ) : (
-              <FontAwesomeIcon icon={faPlay} className="w-6 h-6" />
+              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
             )}
           </button>
 
@@ -630,9 +711,13 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
               aria-label={isMuted ? "Activar sonido" : "Silenciar"}
             >
               {isMuted || volume === 0 ? (
-                <FontAwesomeIcon icon={faVolumeXmark} className="w-5 h-5" />
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+                </svg>
               ) : (
-                <FontAwesomeIcon icon={faVolumeHigh} className="w-5 h-5" />
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                </svg>
               )}
             </button>
             <input

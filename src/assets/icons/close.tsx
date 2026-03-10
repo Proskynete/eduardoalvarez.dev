@@ -1,18 +1,24 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 interface IconProps {
   width?: number;
   height?: number;
   className?: string;
 }
 
-export function CloseIcon({ width, height, className }: IconProps) {
+export function CloseIcon({ width = 16, height = 16, className }: IconProps) {
   return (
-    <FontAwesomeIcon
-      icon={faXmark}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={className}
-      style={!className ? { width: width ?? 16, height: height ?? 16 } : undefined}
-    />
+    >
+      <path d="M18 6L6 18M6 6l12 12" />
+    </svg>
   );
 }
