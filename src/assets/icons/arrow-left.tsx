@@ -1,12 +1,26 @@
-import type { SVGProps } from "react";
+interface IconProps {
+  width?: number;
+  height?: number;
+  className?: string;
+}
 
-export const ArrowLeftIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    {...props}
-  >
-    <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
-  </svg>
-);
+export function ArrowLeftIcon({ width = 16, height = 16, className }: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M19 12H5M12 5l-7 7 7 7" />
+    </svg>
+  );
+}
+
+export const ArrowLeftIcon_compat = ArrowLeftIcon;

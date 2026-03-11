@@ -4,6 +4,7 @@ import "../../assets/styles/article.css";
 import Layout from "../base/index.astro";
 import Head from "./components/head.astro";
 import Aside from "./components/aside.astro";
+import AudioPlayer from "../../components/audio-player/index";
 import { GiscusWrapper } from "./components/giscus";
 import { calculateReadingTime } from "../../utils/reading-time";
 import type { Props as BaseHeadProps } from "../base/components/head.astro";
@@ -108,6 +109,12 @@ const seo: BaseHeadProps = {
 <Layout seo={seo}>
   <article class="mx-auto max-w-full">
     <Head content={content} />
+
+    {content.audio_narration && (
+      <div class="mt-6 rounded-xl border border-accent/25 bg-gradient-to-r from-accent/[0.08] via-accent/[0.04] to-transparent px-5 py-4">
+        <AudioPlayer client:load src={content.audio_narration} title={content.title} banner={true} />
+      </div>
+    )}
 
     <div class="mt-10 grid grid-cols-1 xl:grid-cols-[220px_1fr] xl:gap-x-12">
       <Aside content={content} timeToRead={timeToRead} twitterShare={twitterShare} linkedInShare={linkedInShare} />

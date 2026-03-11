@@ -142,6 +142,31 @@ a[aria-label*="Logo"]:focus-visible {
   border-radius: 0.5rem !important;
 }
 
+/* Waveform bars para el reproductor de narración */
+@keyframes wave-bar {
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wave-bar {
+    transform-origin: bottom;
+    animation: wave-bar 1s ease-in-out infinite;
+  }
+}
+
+/* Terminal cursor ping — usa box-shadow para no afectar el layout */
+@keyframes cursor-ping {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
+  50% { box-shadow: 0 0 0 5px rgba(6, 182, 212, 0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-cursor-ping {
+    animation: cursor-ping 1.5s ease-in-out infinite;
+  }
+}
+
 /* Footer links */
 footer a:focus-visible {
   outline: 3px solid #06b6d4; /* accent */
