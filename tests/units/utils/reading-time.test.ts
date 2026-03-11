@@ -5,8 +5,8 @@ import { calculateReadingTime } from "../../../src/utils/reading-time";
 describe("reading-time utils", () => {
   describe("calculateReadingTime", () => {
     it("debe calcular correctamente el tiempo de lectura para un texto corto", () => {
-      // 240 palabras = 1 minuto (según la constante _wordsPerMinute)
-      const text = Array(240).fill("palabra").join(" ");
+      // 200 palabras = 1 minuto (según la constante _wordsPerMinute)
+      const text = Array(200).fill("palabra").join(" ");
 
       const result = calculateReadingTime(text);
 
@@ -14,8 +14,8 @@ describe("reading-time utils", () => {
     });
 
     it("debe redondear hacia arriba el tiempo de lectura", () => {
-      // 241 palabras debería dar 2 minutos (ceil de 241/240 = 1.004)
-      const text = Array(241).fill("palabra").join(" ");
+      // 201 palabras debería dar 2 minutos (ceil de 201/200 = 1.005)
+      const text = Array(201).fill("palabra").join(" ");
 
       const result = calculateReadingTime(text);
 
@@ -28,7 +28,7 @@ describe("reading-time utils", () => {
       const result = calculateReadingTime(text);
 
       // ''.split(' ') retorna [''] con length 1
-      // 1 / 240 = 0.004, Math.ceil(0.004) = 1
+      // 1 / 200 = 0.005, Math.ceil(0.005) = 1
       expect(result).toBe(1);
     });
 
@@ -38,17 +38,17 @@ describe("reading-time utils", () => {
       const result = calculateReadingTime(text);
 
       // "     ".split(" ") da ["", "", "", "", "", ""] = 6 elementos
-      // 6 / 240 = 0.025, Math.ceil(0.025) = 1
+      // 6 / 200 = 0.03, Math.ceil(0.03) = 1
       expect(result).toBe(1);
     });
 
     it("debe calcular correctamente para un artículo largo", () => {
-      // 1200 palabras = 5 minutos
+      // 1200 palabras / 200 wpm = 6 minutos
       const text = Array(1200).fill("palabra").join(" ");
 
       const result = calculateReadingTime(text);
 
-      expect(result).toBe(5);
+      expect(result).toBe(6);
     });
 
     it("debe manejar una sola palabra", () => {
@@ -56,7 +56,7 @@ describe("reading-time utils", () => {
 
       const result = calculateReadingTime(text);
 
-      // 1 / 240 = 0.004, Math.ceil(0.004) = 1
+      // 1 / 200 = 0.005, Math.ceil(0.005) = 1
       expect(result).toBe(1);
     });
 
@@ -68,7 +68,7 @@ describe("reading-time utils", () => {
       // El split por espacio dará más elementos debido a los espacios múltiples
       // Esto es un comportamiento conocido de la implementación actual
       const wordCount = text.split(" ").length;
-      const expected = Math.ceil(wordCount / 240);
+      const expected = Math.ceil(wordCount / 200);
 
       expect(result).toBe(expected);
     });
@@ -83,15 +83,15 @@ describe("reading-time utils", () => {
       const result = calculateReadingTime(realText);
 
       const wordCount = realText.split(" ").length;
-      const expected = Math.ceil(wordCount / 240);
+      const expected = Math.ceil(wordCount / 200);
 
       expect(result).toBe(expected);
       expect(result).toBeGreaterThan(0);
     });
 
-    it("debe usar 240 palabras por minuto como velocidad de lectura", () => {
-      // 480 palabras a 240 palabras/minuto = 2 minutos exactos
-      const text = Array(480).fill("palabra").join(" ");
+    it("debe usar 200 palabras por minuto como velocidad de lectura", () => {
+      // 400 palabras a 200 palabras/minuto = 2 minutos exactos
+      const text = Array(400).fill("palabra").join(" ");
 
       const result = calculateReadingTime(text);
 
@@ -99,7 +99,7 @@ describe("reading-time utils", () => {
     });
 
     it("debe calcular tiempo para texto con saltos de línea", () => {
-      const text = Array(240).fill("palabra").join("\n");
+      const text = Array(200).fill("palabra").join("\n");
 
       const result = calculateReadingTime(text);
 
@@ -123,7 +123,7 @@ describe("reading-time utils", () => {
 
       const result = calculateReadingTime(text);
 
-      // 600 / 240 = 2.5, Math.ceil(2.5) = 3
+      // 600 / 200 = 3, Math.ceil(3) = 3
       expect(result).toBe(3);
     });
 
@@ -133,8 +133,8 @@ describe("reading-time utils", () => {
 
       const result = calculateReadingTime(text);
 
-      // 2000 / 240 = 8.33, Math.ceil(8.33) = 9
-      expect(result).toBe(9);
+      // 2000 / 200 = 10, Math.ceil(10) = 10
+      expect(result).toBe(10);
     });
   });
 });

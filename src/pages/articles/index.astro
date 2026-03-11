@@ -54,18 +54,18 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
     </div>
 
     <!-- Articles list -->
-    <div id="articles-list" class="divide-y divide-surface-border">
+    <div id="articles-list" class="divide-y divide-surface-border" role="list">
       {
         posts.map((post) => (
-          <div class="article-item" data-categories={JSON.stringify(post.frontmatter.categories ?? [])}>
-            <Article article={post.frontmatter} />
+          <div class="article-item" role="listitem" data-categories={JSON.stringify(post.frontmatter.categories ?? [])}>
+            <Article article={post.frontmatter} headingLevel={2} />
           </div>
         ))
       }
     </div>
 
     <!-- No results -->
-    <p id="no-results" class="hidden text-text-muted text-sm py-8">No articles in this category yet.</p>
+    <p id="no-results" class="hidden text-text-muted text-sm py-8" aria-live="polite">No articles in this category yet.</p>
   </div>
 </Layout>
 

@@ -8,7 +8,7 @@ export default function NavLinks({ pathname }: NavLinksProps) {
   return (
     <>
       <span className="text-text-muted font-mono text-xs select-none">~/</span>
-      <nav aria-label="Main navigation" className="flex items-center gap-1 font-mono text-sm">
+      <nav aria-label="Navegación principal" className="flex items-center gap-1 font-mono text-sm">
         {navItems
           .filter((item) => item.show)
           .map((item) => {

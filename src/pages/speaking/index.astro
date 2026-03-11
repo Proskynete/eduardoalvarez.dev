@@ -38,7 +38,7 @@ const years = Object.keys(byYear)
        Me encantaría participar en tu evento, si quieres que hable en tu evento, escríbeme a{" "}
         <a
           href="mailto:soy@eduardoalvarez.dev"
-          class="text-accent hover:underline"
+          class="text-accent underline"
         >
           Hablemos →
         </a>
@@ -99,6 +99,7 @@ const years = Object.keys(byYear)
                         target="_blank"
                         rel="noopener noreferrer"
                         class="text-accent text-sm hover:underline inline-flex items-center gap-1"
+                        aria-label={`Ver slides de ${talk.title}`}
                       >
                         Slides ↗
                       </a>
@@ -109,6 +110,7 @@ const years = Object.keys(byYear)
                         target="_blank"
                         rel="noopener noreferrer"
                         class="text-accent text-sm hover:underline inline-flex items-center gap-1"
+                        aria-label={`Ver repositorio de ${talk.title}`}
                       >
                         Repo ↗
                       </a>
@@ -119,6 +121,7 @@ const years = Object.keys(byYear)
                         target="_blank"
                         rel="noopener noreferrer"
                         class="text-accent text-sm hover:underline inline-flex items-center gap-1"
+                        aria-label={`${r.label} de ${talk.title}`}
                       >
                         {r.label} ↗
                       </a>
