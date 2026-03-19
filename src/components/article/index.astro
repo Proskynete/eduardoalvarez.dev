@@ -7,9 +7,11 @@ export const prerender = true;
 export interface Props {
   article: Article;
   showReadingTime?: boolean;
+  headingLevel?: 2 | 3;
 }
 
-const { article } = Astro.props;
+const { article, headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as "h2" | "h3";
 ---
 
 <article class="group py-6">
@@ -25,11 +27,11 @@ const { article } = Astro.props;
       </time>
     </div>
 
-    <h3
+    <Heading
       class="text-xl font-semibold text-text-primary group-hover:text-accent transition-colors duration-200 leading-snug"
     >
       {article.title}
-    </h3>
+    </Heading>
 
     <p class="text-text-secondary text-sm leading-relaxed line-clamp-2">
       {article.excerpt}

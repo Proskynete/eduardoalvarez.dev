@@ -7,7 +7,7 @@ const { content, timeToRead, twitterShare, linkedInShare } = Astro.props;
 const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
 ---
 
-<aside class="xl:sticky xl:top-24 xl:self-start mb-10 xl:mb-0">
+<aside aria-label="Información del artículo" class="xl:sticky xl:top-24 xl:self-start mb-10 xl:mb-0">
   <div class="flex flex-col gap-4">
     <!-- Info card: reading time -->
     <div class="bg-surface rounded-xl p-4 border border-surface-border">
@@ -54,7 +54,7 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
           <div class="px-4 pt-4 pb-2">
             <p class="text-xs font-medium uppercase tracking-widest text-text-muted">Secciones</p>
           </div>
-          <nav>
+          <nav aria-label="Tabla de contenidos">
             {content.sections.map((section: { anchor: string; title: string }) => (
               <a
                 href={`#${section.anchor}`}
