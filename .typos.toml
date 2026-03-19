@@ -32,6 +32,8 @@ extend-exclude = [
 "Producto" = "Producto"
 "productos" = "productos"
 "Productos" = "Productos"
+"componente" = "componente"
+"Componente" = "Componente"
 "componentes" = "componentes"
 "Componentes" = "Componentes"
 "conceptos" = "conceptos"
@@ -58,7 +60,12 @@ extend-exclude = [
 "serie" = "serie"
 "curso" = "curso"
 
-# Spanish adjectives
+# Spanish adjectives and quantifiers
+"varios" = "varios"
+"Varios" = "Varios"
+
+# Tool/brand names that typos misidentifies
+"Canva" = "Canva"
 "profesional" = "profesional"
 "Profesional" = "Profesional"
 "organizacional" = "organizacional"
