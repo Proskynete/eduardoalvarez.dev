@@ -24,7 +24,7 @@ jobs:
 
       - name: Post error comment
         if: failure()
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: pr-title-lint-error
           message: |
@@ -46,7 +46,7 @@ jobs:
 
       - name: Delete error comment on success
         if: success()
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: pr-title-lint-error
           delete: true

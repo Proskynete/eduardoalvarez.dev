@@ -58,7 +58,9 @@ extend-exclude = [
 "serie" = "serie"
 "curso" = "curso"
 
-# Spanish adjectives
+# Spanish adjectives and quantifiers
+"varios" = "varios"
+"Varios" = "Varios"
 "profesional" = "profesional"
 "Profesional" = "Profesional"
 "organizacional" = "organizacional"
