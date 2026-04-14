@@ -1,12 +1,29 @@
 ---
 import Layout from "../../layouts/main/index.astro";
 import { engagements } from "../../settings/working-with-me";
+import settings from "../../settings";
 
 export const prerender = true;
+
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@graph": engagements.map((engagement) => ({
+    "@type": "Service",
+    name: engagement.type,
+    description: engagement.description,
+    url: `${settings.url}/working-with-me`,
+    provider: {
+      "@type": "Person",
+      name: settings.author.name,
+      url: settings.url,
+    },
+  })),
+};
 
 const seo = {
   title: "Trabajemos",
   description: "Formas de trabajar juntos — consulting, workshops, y mentoring para equipos y líderes de ingeniería.",
+  schema: servicesSchema,
 };
 ---
 

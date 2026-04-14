@@ -47,6 +47,29 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
       }
     </div>
 
+    <!-- Sections card (mobile: collapsible) -->
+    {
+      content.sections && content.sections.length > 0 && (
+        <details class="xl:hidden bg-surface rounded-xl border border-surface-border overflow-hidden">
+          <summary class="px-4 py-3 text-xs font-medium uppercase tracking-widest text-text-muted cursor-pointer select-none list-none flex items-center justify-between hover:text-text-primary transition-colors duration-200">
+            Secciones del artículo
+            <span class="text-accent text-base leading-none">›</span>
+          </summary>
+          <nav aria-label="Tabla de contenidos">
+            {content.sections.map((section: { anchor: string; title: string }) => (
+              <a
+                href={`#${section.anchor}`}
+                class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-surface-raised transition-colors duration-200"
+              >
+                <span class="w-1 h-1 rounded-full bg-accent flex-shrink-0" />
+                {section.title}
+              </a>
+            ))}
+          </nav>
+        </details>
+      )
+    }
+
     <!-- Sections card (desktop only) -->
     {
       content.sections && content.sections.length > 0 && (

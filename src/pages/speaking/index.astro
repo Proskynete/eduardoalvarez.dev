@@ -5,11 +5,6 @@ import type { Talk } from "../../settings/talks";
 
 export const prerender = true;
 
-const seo = {
-  title: "Charlas",
-  description: "Charlas y talleres sobre liderazgo de ingeniería, arquitectura de plataformas y construcción con IA.",
-};
-
 const visibleTalks = talks.filter((t: Talk) => t.show);
 
 // Group by year descending
@@ -23,6 +18,32 @@ const byYear = visibleTalks.reduce<Record<number, Talk[]>>((acc, talk) => {
 const years = Object.keys(byYear)
   .map(Number)
   .sort((a, b) => b - a);
+
+const eventsSchema = {
+  "@context": "https://schema.org",
+  "@graph": visibleTalks.map((talk: Talk) => ({
+    "@type": "Event",
+    name: talk.title,
+    startDate: new Date(talk.date[0]).toISOString(),
+    ...(talk.description ? { description: talk.description } : {}),
+    location: {
+      "@type": "Place",
+      name: talk.location.name,
+      url: talk.location.url,
+    },
+    organizer: talk.organizations.map((org) => ({
+      "@type": "Organization",
+      name: org.name,
+      url: org.url,
+    })),
+  })),
+};
+
+const seo = {
+  title: "Charlas",
+  description: "Charlas y talleres sobre liderazgo de ingeniería, arquitectura de plataformas y construcción con IA.",
+  schema: eventsSchema,
+};
 ---
 
 <Layout seo={seo}>

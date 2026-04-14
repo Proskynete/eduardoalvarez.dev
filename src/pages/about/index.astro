@@ -3,12 +3,42 @@ import Layout from "../../layouts/main/index.astro";
 import { experience } from "../../settings/about";
 import { nowItems, lastUpdated } from "../../settings/now";
 import type { NowItem } from "../../settings/now";
+import settings from "../../settings";
 
 export const prerender = true;
+
+const sameAs = [
+  ...settings.social_network.filter((s) => s.link).map((s) => s.link),
+  ...settings.contacts.filter((c) => c.href && c.href.startsWith("http")).map((c) => c.href),
+].filter((url, idx, arr) => arr.indexOf(url) === idx);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: settings.author.name,
+  url: settings.url,
+  email: settings.email,
+  jobTitle: "Engineering Leader",
+  knowsAbout: [
+    "Engineering Leadership",
+    "Platform Engineering",
+    "AI-native Engineering",
+    "Technical Leadership",
+    "Staff Engineering",
+    "Software Architecture",
+    "Developer Experience",
+  ],
+  hasOccupation: {
+    "@type": "Role",
+    roleName: "Engineering Leader & Platform Thinking",
+  },
+  sameAs,
+};
 
 const seo = {
   title: "Sobre mí",
   description: "Líder de ingeniería, pensador de plataformas y mentor técnico trabajando en la era de la IA.",
+  schema,
 };
 
 const nowCategories = [...new Set(nowItems.map((item: NowItem) => item.category))];

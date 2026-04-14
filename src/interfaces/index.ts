@@ -3,6 +3,11 @@ export interface Section {
   anchor: string;
 }
 
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
 export type CategoryAllowed =
   | "engineering-leadership"
   | "platform-engineering"
@@ -91,10 +96,12 @@ export interface Article {
   seo_description: string;
   seo_image: string;
   date: string;
+  date_modified?: string;
   categories: CategoryAllowed[];
   tags: TagsAllowed[];
   sections: Section[];
   keywords: string[];
+  faq?: FAQItem[];
   audio_narration?: string;
 }
 

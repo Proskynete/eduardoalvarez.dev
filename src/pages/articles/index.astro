@@ -3,19 +3,39 @@ import Article from "../../components/article/index.astro";
 import type { Article as IArticle } from "../../interfaces";
 import Layout from "../../layouts/main/index.astro";
 import { articlesSort } from "../../utils/articles";
+import settings from "../../settings";
 
 export const prerender = true;
 
 type Frontmatter = IArticle;
 
-const seo = {
-  title: "Artículos",
-  description: "Escribiendo acerca de liderazgo de ingeniería, arquitectura de plataformas y la era de la IA.",
-};
-
 const rawPosts = import.meta.glob<{ frontmatter: Frontmatter }>("./*.mdx", { eager: true });
 const posts = Object.values(rawPosts);
 posts.sort(articlesSort);
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Artículos — Eduardo Álvarez",
+  url: `${settings.url}/articles`,
+  author: {
+    "@type": "Person",
+    name: settings.author.name,
+    url: settings.url,
+  },
+  hasPart: posts.map(({ frontmatter }) => ({
+    "@type": "BlogPosting",
+    headline: frontmatter.title,
+    url: `${settings.url}/articles/${frontmatter.slug}`,
+    datePublished: frontmatter.date,
+  })),
+};
+
+const seo = {
+  title: "Artículos",
+  description: "Escribiendo acerca de liderazgo de ingeniería, arquitectura de plataformas y la era de la IA.",
+  schema: collectionSchema,
+};
 
 const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? []))];
 ---
