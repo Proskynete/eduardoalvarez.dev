@@ -30,7 +30,7 @@
 - [x] 5.1 En `src/pages/about/index.astro`, construir objeto `schema` de tipo `Person` con campos: `@context`, `@type`, `name`, `url`, `email`, `jobTitle`, `knowsAbout`, `hasOccupation`, `sameAs`
 - [x] 5.2 Derivar el array `sameAs` desde `src/settings/index.ts` (social_network + contacts con URLs externas)
 - [x] 5.3 Pasar el schema a `Layout` vía `seo={{ ..., schema }}` para que `BaseHead` lo emita como JSON-LD
-- [ ] 5.4 Verificar que el JSON-LD es válido con la herramienta Rich Results Test (o `JSON.parse` en consola)
+- [x] 5.4 Verificar que el JSON-LD es válido con la herramienta Rich Results Test (o `JSON.parse` en consola)
 
 ## 6. Schema Event en /speaking
 
@@ -77,4 +77,4 @@
 - [x] 12.3 Verificar que el TOC mobile es visible y funcional en viewport < 768px
 - [x] 12.4 Verificar que los artículos con `faq` muestran la sección HTML y el schema `FAQPage`
 - [x] 12.5 Verificar que ningún `seo_description` en los MDX modificados supera 155 chars
-- [ ] 12.6 Validar al menos una página en Google Rich Results Test (https://search.google.com/test/rich-results)
+- [x] 12.6 Validar al menos una página en Google Rich Results Test (https://search.google.com/test/rich-results)
