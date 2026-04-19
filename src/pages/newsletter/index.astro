@@ -1,11 +1,12 @@
 ---
 import Layout from "../../layouts/main/index.astro";
 import Subscribe from "../../components/subscribe/index.astro";
+import settings from "../../settings";
 
 export const prerender = true;
 
 const seo = {
-  title: "Newsletter",
+  title: "Newsletter de liderazgo de ingeniería e IA",
   description: "Artículos sobre liderazgo de ingeniería, arquitectura de plataformas y la era de la IA — en tu correo.",
 };
 
@@ -23,9 +24,18 @@ const valueProps = [
     <header class="mb-12">
       <p class="text-text-muted font-mono text-sm">/newsletter</p>
       <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Newsletter</h1>
-      <p class="text-text-secondary text-lg">
+      <p class="text-text-secondary text-lg mb-4">
         Artículos sobre liderazgo de ingeniería, arquitectura de plataformas y la era de la IA — directamente en tu
         correo.
+      </p>
+      <p class="text-text-secondary text-base leading-relaxed mb-4">
+        Una edición mensual con ensayos originales sobre cómo los equipos de ingeniería están evolucionando en la era
+        de la IA, reflexiones sobre liderazgo técnico y recomendaciones de lectura. Dirigida a Staff Engineers,
+        Engineering Managers y Tech Leads que quieren profundidad, no titulares. Sin spam, cancelas cuando quieras.
+      </p>
+      <p class="text-text-muted text-sm">
+        {settings.authorInlineBio.text}{" "}
+        <a href={settings.authorInlineBio.href} class="text-accent underline">{settings.authorInlineBio.cta}</a>
       </p>
     </header>
 

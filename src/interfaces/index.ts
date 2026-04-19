@@ -101,7 +101,6 @@ export interface Article {
   tags: TagsAllowed[];
   sections: Section[];
   keywords: string[];
-  faq?: FAQItem[];
   audio_narration?: string;
 }
 

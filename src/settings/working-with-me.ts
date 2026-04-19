@@ -1,3 +1,5 @@
+import type { FAQItem } from "../interfaces";
+
 interface Engagement {
   type: string;
   description: string;
@@ -50,5 +52,33 @@ export const engagements: Engagement[] = [
       label: "Agendar una sesión",
       href: "mailto:soy@eduardoalvarez.dev?subject=Mentoring",
     },
+  },
+];
+
+export const faq: FAQItem[] = [
+  {
+    question: "¿Cuál es el tiempo mínimo de engagement para consulting?",
+    answer:
+      "Para consulting y advisory suelo partir con un sprint exploratorio de dos a cuatro semanas para entender el contexto, los stakeholders y los problemas reales. A partir de ahí defino el alcance del trabajo con el cliente. No acepto engagements que requieran respuestas definitivas en menos de dos semanas porque las decisiones de plataforma necesitan observar al equipo en acción.",
+  },
+  {
+    question: "¿Trabajas con equipos remotos y fuera de Chile?",
+    answer:
+      "Sí, trabajo con equipos distribuidos en Latinoamérica, España y Estados Unidos. La mayoría de las sesiones son remotas sobre Google Meet o Zoom, con documentación asincrónica en Notion o Linear entre reuniones. Puedo viajar para workshops presenciales u offsite si el engagement lo justifica y los gastos están cubiertos por el cliente.",
+  },
+  {
+    question: "¿Qué incluye un workshop privado?",
+    answer:
+      "Un workshop privado incluye sesiones de diagnóstico previas con los organizadores para entender la madurez del equipo, un bloque formativo de medio día o un día completo con material adaptado, ejercicios prácticos en vivo y una guía de próximos pasos. Los temas habituales son platform engineering, AI-native development y transición a roles de liderazgo técnico.",
+  },
+  {
+    question: "¿Cómo se factura el trabajo?",
+    answer:
+      "Para mentoring 1:1 facturo por sesión o paquete mensual. Para advisory y consulting facturo por sprint o por retainer mensual, nunca por hora suelta porque distorsiona los incentivos. Workshops se facturan como fee cerrado por evento. Acepto transferencia internacional, Wise, y para clientes en Chile también emito factura electrónica. Los precios los conversamos por email según el alcance.",
+  },
+  {
+    question: "¿Cuánto tardas en responder una consulta inicial?",
+    answer:
+      "Respondo todos los emails de trabajo dentro de 48 a 72 horas hábiles desde Chile, zona horaria America/Santiago. Si tu contexto requiere urgencia, avísame en el asunto del correo y priorizo la respuesta. No uso formularios de contacto ni calendarios automáticos para la primera conversación porque prefiero entender el problema antes de agendar tiempo en tu calendario.",
   },
 ];

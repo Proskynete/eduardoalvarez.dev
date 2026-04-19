@@ -12,6 +12,11 @@ export default {
   author: {
     name: "Eduardo Álvarez Castañeda",
   },
+  authorInlineBio: {
+    text: "Escrito por Eduardo Álvarez, Engineering Leader con foco en liderazgo técnico, plataformas y la era de la IA.",
+    href: "/about",
+    cta: "Conoce más →",
+  },
   social_network: [
     {
       name: "Github",

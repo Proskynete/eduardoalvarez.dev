@@ -3,9 +3,10 @@ import type { FAQItem } from "../../interfaces";
 
 export interface Props {
   faq?: FAQItem[];
+  title?: string;
 }
 
-const { faq } = Astro.props;
+const { faq, title = "Preguntas frecuentes" } = Astro.props;
 
 const hasItems = faq && faq.length > 0;
 
@@ -27,9 +28,9 @@ const schema = hasItems
 
 {
   hasItems && (
-    <section class="mt-12 pt-10 border-t border-surface-border">
-      <h2 class="text-2xl font-bold text-text-primary mb-6">Preguntas frecuentes</h2>
-      <dl class="space-y-6">
+    <section class="mt-16 pt-12 border-t border-surface-border">
+      <h2 class="text-2xl font-bold text-text-primary mb-6">{title}</h2>
+      <dl class="space-y-4">
         {faq!.map((item) => (
           <div class="rounded-xl border border-surface-border bg-surface p-5">
             <dt class="font-semibold text-text-primary mb-2">{item.question}</dt>

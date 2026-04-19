@@ -14,7 +14,9 @@ export interface Props {
   schema?: Record<string, unknown>;
 }
 
-const title = Astro.props.title ? `${Astro.props.title} | ${settings.title}` : settings.title;
+const MAX_TITLE_LENGTH = 60;
+const candidateTitle = Astro.props.title ? `${Astro.props.title} | ${settings.title}` : settings.title;
+const title = Astro.props.title && candidateTitle.length > MAX_TITLE_LENGTH ? Astro.props.title : candidateTitle;
 const rawDescription = Astro.props.description || settings.description;
 const description = rawDescription.slice(0, 160);
 const image = Astro.props.image ? Astro.props.image : new URL("/images/og-default.png", Astro.site);

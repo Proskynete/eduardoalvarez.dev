@@ -32,7 +32,7 @@ const collectionSchema = {
 };
 
 const seo = {
-  title: "Artículos",
+  title: "Artículos sobre ingeniería, liderazgo e IA",
   description: "Escribiendo acerca de liderazgo de ingeniería, arquitectura de plataformas y la era de la IA.",
   schema: collectionSchema,
 };
@@ -46,8 +46,13 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
     <header class="mb-12">
       <p class="text-text-muted font-mono text-sm">/artículos</p>
       <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Artículos</h1>
-      <p class="text-text-secondary text-lg">
+      <p class="text-text-secondary text-lg mb-4">
         Escribiendo acerca de liderazgo de ingeniería, arquitectura de plataformas y la era de la IA.
+      </p>
+      <p class="text-text-secondary text-base leading-relaxed max-w-3xl">
+        Acá encontrarás deep-dives técnicos sobre JavaScript, React y frontend moderno, ensayos de opinión sobre cómo
+        la IA está cambiando la forma en que escribimos software, y reflexiones prácticas sobre liderar equipos de
+        ingeniería. Todo escrito desde la trinchera, no desde la teoría de libro.
       </p>
     </header>
 

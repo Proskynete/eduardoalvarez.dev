@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/main/index.astro";
+import settings from "../../settings";
 import { talks } from "../../settings/talks";
 import type { Talk } from "../../settings/talks";
 
@@ -40,7 +41,7 @@ const eventsSchema = {
 };
 
 const seo = {
-  title: "Charlas",
+  title: "Charlas y talleres técnicos",
   description: "Charlas y talleres sobre liderazgo de ingeniería, arquitectura de plataformas y construcción con IA.",
   schema: eventsSchema,
 };
@@ -52,22 +53,26 @@ const seo = {
     <header class="mb-12">
       <p class="text-text-muted font-mono text-sm">/charlas</p>
       <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Charlas</h1>
-      <p class="text-text-secondary text-lg mb-2">
+      <p class="text-text-secondary text-lg mb-4">
         Charlas y talleres sobre liderazgo de ingeniería, arquitectura de plataformas y construcción con IA.
       </p>
-      <p class="text-text-secondary text-sm">
-       Me encantaría participar en tu evento, si quieres que hable en tu evento, escríbeme a{" "}
-        <a
-          href="mailto:soy@eduardoalvarez.dev"
-          class="text-accent underline"
-        >
-          Hablemos →
-        </a>
+      <p class="text-text-secondary text-base leading-relaxed max-w-3xl mb-4">
+        Participo regularmente en conferencias, meetups y workshops privados hablando sobre liderazgo técnico,
+        plataformas internas, Developer Experience y el impacto real de la IA en equipos de ingeniería. Los formatos
+        incluyen keynotes, charlas de 30-45 minutos, paneles y workshops intensivos presenciales o remotos.
+      </p>
+      <p class="text-text-secondary text-sm mb-4">
+        Me encantaría participar en tu evento. Si quieres que hable, escríbeme a{" "}
+        <a href="mailto:soy@eduardoalvarez.dev" class="text-accent underline">Hablemos →</a>
+      </p>
+      <p class="text-text-muted text-sm">
+        {settings.authorInlineBio.text}{" "}
+        <a href={settings.authorInlineBio.href} class="text-accent underline">{settings.authorInlineBio.cta}</a>
       </p>
     </header>
 
     <!-- Talks grouped by year -->
-    {years.map((year) => (
+    {years.map((year: number) => (
       <section class="mb-14">
         <h2 class="text-sm font-medium text-text-muted uppercase tracking-widest mb-6 flex items-center gap-3">
           {year}

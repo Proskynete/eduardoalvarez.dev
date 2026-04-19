@@ -5,7 +5,6 @@ import Layout from "../base/index.astro";
 import Head from "./components/head.astro";
 import Aside from "./components/aside.astro";
 import AudioPlayer from "../../components/audio-player/index";
-import ArticleFAQ from "../../components/article-faq/index.astro";
 import { GiscusWrapper } from "./components/giscus";
 import { calculateReadingTime } from "../../utils/reading-time";
 import type { Props as BaseHeadProps } from "../base/components/head.astro";
@@ -141,8 +140,6 @@ const seo: BaseHeadProps = {
         <div id="article-body" class="pb-12 max-w-none prose-invert">
           <slot />
         </div>
-
-        <ArticleFAQ faq={content.faq} />
 
         <div class="border-t border-surface-border pt-10">
           <GiscusWrapper client:load slug={content.slug} />
