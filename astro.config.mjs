@@ -75,6 +75,10 @@ export default defineConfig({
     react(),
     tailwind(),
     sitemap({
+      filter(page) {
+        const pathname = new URL(page).pathname;
+        return !pathname.startsWith("/resources") && !pathname.startsWith("/cdn-cgi");
+      },
       serialize(item) {
         const pathname = new URL(item.url).pathname.replace(/\/$/, "");
         const lastmod = articleDates[pathname];
