@@ -109,3 +109,9 @@ extend-exclude = [
 "Parametros" = "Parametros"
 "Simular" = "Simular"
 "inconveniente" = "inconveniente"
+
+# Spanish words flagged by the typos v1.47.2 dictionary update
+"originales" = "originales"
+"cancelas" = "cancelas"
+"incentivos" = "incentivos"
+"internacional" = "internacional"
