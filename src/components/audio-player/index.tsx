@@ -1,7 +1,7 @@
-import { track } from "@vercel/analytics";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Icon } from "../../assets/icons";
+import { trackEvent } from "../../utils/analytics";
 
 interface AudioPlayerProps {
   src: string;
@@ -107,7 +107,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
         setIsPlaying(true);
         if (!hasTrackedPlay.current) {
           hasTrackedPlay.current = true;
-          track("audio_play", title ? { episode: title } : undefined);
+          trackEvent("audio_play", title ? { episode: title } : {});
         }
       } catch {
         setHasError(true);

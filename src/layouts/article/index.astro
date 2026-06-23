@@ -57,7 +57,7 @@ const seo: BaseHeadProps = {
 ---
 
 <script>
-  import { track } from "@vercel/analytics";
+  import { trackEvent } from "../../utils/analytics";
 
   function initCodeBlocks() {
     const pres = document.querySelectorAll<HTMLElement>("#article-body pre[data-language]");
@@ -133,7 +133,7 @@ const seo: BaseHeadProps = {
       if (scrollable <= 0) return;
       if ((window.scrollY / scrollable) * 100 >= 90) {
         tracked = true;
-        track("article_read", { slug });
+        trackEvent("article_read", { slug });
         window.removeEventListener("scroll", onScroll);
       }
     };

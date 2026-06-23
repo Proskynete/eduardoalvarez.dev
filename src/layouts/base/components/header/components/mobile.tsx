@@ -1,8 +1,8 @@
-import { track } from "@vercel/analytics";
 import { useEffect, useRef, useState } from "react";
 
 import { Icon } from "../../../../../assets/icons";
 import { navItems } from "../constants";
+import { trackEvent } from "../../../../../utils/analytics";
 
 interface MobileProps {
   version?: string;
@@ -164,7 +164,7 @@ export default function Mobile({ version }: MobileProps) {
                   href={item.href}
                   ref={index === 0 ? firstLinkRef : undefined}
                   onClick={() => {
-                    track("navigation_click", { link: item.name });
+                    trackEvent("navigation_click", { link: item.name });
                     onClose();
                   }}
                   aria-current={isActive ? "page" : undefined}

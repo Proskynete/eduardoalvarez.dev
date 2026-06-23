@@ -6,7 +6,6 @@ import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel";
 import sentry from "@sentry/astro";
 import { defineConfig } from "astro/config";
@@ -83,7 +82,6 @@ export default defineConfig({
     }),
     mdx(),
     react(),
-    tailwind(),
     sitemap({
       filter(page) {
         const pathname = new URL(page).pathname;
@@ -96,7 +94,11 @@ export default defineConfig({
         return item;
       },
     }),
-    partytown(),
+    partytown({
+      // Reenvía gtag/dataLayer al worker para poder emitir eventos custom de
+      // GA4 desde el hilo principal (ver src/utils/analytics.ts).
+      config: { forward: ["dataLayer.push", "gtag"] },
+    }),
     webmanifest(config),
     publishAlgoliaRSS(),
     serviceWorker(),
