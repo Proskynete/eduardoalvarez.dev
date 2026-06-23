@@ -1,3 +1,5 @@
+import { track } from "@vercel/analytics";
+
 import { navItems } from "../constants";
 
 interface NavLinksProps {
@@ -19,6 +21,7 @@ export default function NavLinks({ pathname }: NavLinksProps) {
               <a
                 key={item.name}
                 href={item.href}
+                onClick={() => track("navigation_click", { link: item.name })}
                 aria-current={isActive ? "page" : undefined}
                 className={`group px-1 transition-colors duration-150 ${
                   isActive

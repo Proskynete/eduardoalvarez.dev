@@ -1,3 +1,4 @@
+import { track } from "@vercel/analytics";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Icon } from "../../assets/icons";
@@ -23,6 +24,8 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
   const audioRef = useRef<HTMLAudioElement>(null);
   const staticRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
+  // Una sola medición de reproducción por carga (no por cada play/pausa).
+  const hasTrackedPlay = useRef(false);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -102,6 +105,10 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
       try {
         await audio.play();
         setIsPlaying(true);
+        if (!hasTrackedPlay.current) {
+          hasTrackedPlay.current = true;
+          track("audio_play", title ? { episode: title } : undefined);
+        }
       } catch {
         setHasError(true);
         setIsPlaying(false);

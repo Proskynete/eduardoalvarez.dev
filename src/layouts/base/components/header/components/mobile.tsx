@@ -1,3 +1,4 @@
+import { track } from "@vercel/analytics";
 import { useEffect, useRef, useState } from "react";
 
 import { Icon } from "../../../../../assets/icons";
@@ -162,7 +163,10 @@ export default function Mobile({ version }: MobileProps) {
                   key={item.name}
                   href={item.href}
                   ref={index === 0 ? firstLinkRef : undefined}
-                  onClick={onClose}
+                  onClick={() => {
+                    track("navigation_click", { link: item.name });
+                    onClose();
+                  }}
                   aria-current={isActive ? "page" : undefined}
                   className={`group flex items-start gap-3 px-3 py-3 rounded-md transition-colors duration-150 ${
                     isActive
