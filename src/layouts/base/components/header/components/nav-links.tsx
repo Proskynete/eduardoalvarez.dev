@@ -1,5 +1,5 @@
-import { navItems } from "../constants";
 import { trackEvent } from "../../../../../utils/analytics";
+import { navItems } from "../constants";
 
 interface NavLinksProps {
   pathname: string;
