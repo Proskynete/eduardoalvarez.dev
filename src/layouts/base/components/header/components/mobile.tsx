@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
 import { Icon } from "../../../../../assets/icons";
-import { navItems } from "../constants";
 import { trackEvent } from "../../../../../utils/analytics";
+import { navItems } from "../constants";
 
 interface MobileProps {
   version?: string;
