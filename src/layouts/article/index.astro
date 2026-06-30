@@ -31,6 +31,7 @@ const schema = {
   headline: content.title,
   description: content.seo_description.slice(0, 160),
   datePublished: content.date,
+  ...(content.date_modified ? { dateModified: content.date_modified } : {}),
   url: `${settings.url}/articles/${content.slug}`,
   image: content.seo_image,
   author: {
@@ -56,6 +57,8 @@ const seo: BaseHeadProps = {
 ---
 
 <script>
+  import { trackEvent } from "../../utils/analytics";
+
   function initCodeBlocks() {
     const pres = document.querySelectorAll<HTMLElement>("#article-body pre[data-language]");
     pres.forEach((pre) => {
@@ -103,11 +106,47 @@ const seo: BaseHeadProps = {
     });
   }
 
+  function initSmoothScroll() {
+    const tocLinks = document.querySelectorAll<HTMLAnchorElement>('nav[aria-label="Tabla de contenidos"] a[href^="#"]');
+    tocLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const href = link.getAttribute("href");
+        if (!href) return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.pushState(null, "", href);
+      });
+    });
+  }
+
+  // Mide lectura real: dispara una vez al superar el 90% del scroll del artículo.
+  function initArticleReadTracking() {
+    const article = document.querySelector<HTMLElement>("[data-article-slug]");
+    const slug = article?.dataset.articleSlug;
+    if (!slug) return;
+    let tracked = false;
+    const onScroll = () => {
+      if (tracked) return;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      if ((window.scrollY / scrollable) * 100 >= 90) {
+        tracked = true;
+        trackEvent("article_read", { slug });
+        window.removeEventListener("scroll", onScroll);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
   document.addEventListener("astro:page-load", initCodeBlocks);
+  document.addEventListener("astro:page-load", initSmoothScroll);
+  document.addEventListener("astro:page-load", initArticleReadTracking);
 </script>
 
 <Layout seo={seo}>
-  <article class="mx-auto max-w-full" aria-labelledby="article-title">
+  <article class="mx-auto max-w-full" aria-labelledby="article-title" data-article-slug={content.slug}>
     <Head content={content} />
 
     {content.audio_narration && (

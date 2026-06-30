@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Icon } from "../../assets/icons";
+import { trackEvent } from "../../utils/analytics";
 
 interface AudioPlayerProps {
   src: string;
@@ -23,6 +24,8 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
   const audioRef = useRef<HTMLAudioElement>(null);
   const staticRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
+  // Una sola medición de reproducción por carga (no por cada play/pausa).
+  const hasTrackedPlay = useRef(false);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -102,6 +105,10 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
       try {
         await audio.play();
         setIsPlaying(true);
+        if (!hasTrackedPlay.current) {
+          hasTrackedPlay.current = true;
+          trackEvent("audio_play", title ? { episode: title } : {});
+        }
       } catch {
         setHasError(true);
         setIsPlaying(false);

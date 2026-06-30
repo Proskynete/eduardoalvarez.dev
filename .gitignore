@@ -45,3 +45,6 @@ skills-lock.json
 
 # Python
 **/__pycache__/
+
+# playwright
+.playwright-cli

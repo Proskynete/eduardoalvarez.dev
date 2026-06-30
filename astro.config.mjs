@@ -6,8 +6,8 @@ import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel";
+import sentry from "@sentry/astro";
 import { defineConfig } from "astro/config";
 import webmanifest from "astro-webmanifest";
 import serviceWorker from "astrojs-service-worker";
@@ -71,10 +71,22 @@ export default defineConfig({
     },
   },
   integrations: [
+    // Sentry primero para instrumentar el resto del pipeline. La subida de
+    // source maps solo ocurre si hay SENTRY_AUTH_TOKEN (configurado en Vercel).
+    sentry({
+      sourceMapsUploadOptions: {
+        org: "eduardoalvarezdev",
+        project: "blog-eduardoalvarez",
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+      },
+    }),
     mdx(),
     react(),
-    tailwind(),
     sitemap({
+      filter(page) {
+        const pathname = new URL(page).pathname;
+        return !pathname.startsWith("/resources") && !pathname.startsWith("/cdn-cgi");
+      },
       serialize(item) {
         const pathname = new URL(item.url).pathname.replace(/\/$/, "");
         const lastmod = articleDates[pathname];
@@ -82,7 +94,11 @@ export default defineConfig({
         return item;
       },
     }),
-    partytown(),
+    partytown({
+      // Reenvía gtag/dataLayer al worker para poder emitir eventos custom de
+      // GA4 desde el hilo principal (ver src/utils/analytics.ts).
+      config: { forward: ["dataLayer.push", "gtag"] },
+    }),
     webmanifest(config),
     publishAlgoliaRSS(),
     serviceWorker(),

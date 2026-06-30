@@ -1,5 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /resources/
+Disallow: /cdn-cgi/
 Sitemap: https://eduardoalvarez.dev/sitemap-index.xml
 
 # AI signals

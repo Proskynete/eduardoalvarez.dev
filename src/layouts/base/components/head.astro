@@ -14,7 +14,9 @@ export interface Props {
   schema?: Record<string, unknown>;
 }
 
-const title = Astro.props.title ? `${Astro.props.title} | ${settings.title}` : settings.title;
+const MAX_TITLE_LENGTH = 60;
+const candidateTitle = Astro.props.title ? `${Astro.props.title} | ${settings.title}` : settings.title;
+const title = Astro.props.title && candidateTitle.length > MAX_TITLE_LENGTH ? Astro.props.title : candidateTitle;
 const rawDescription = Astro.props.description || settings.description;
 const description = rawDescription.slice(0, 160);
 const image = Astro.props.image ? Astro.props.image : new URL("/images/og-default.png", Astro.site);
@@ -83,9 +85,11 @@ const { articlePublishedTime, articleAuthor, articleTags, schema } = Astro.props
 
 <script type="text/partytown" is:inline>
   window.dataLayer = window.dataLayer || [];
-  function gtag() {
+  // Asignar a window.gtag (no una función local) para que Partytown pueda
+  // reenviar eventos custom del hilo principal vía `forward: ["gtag"]`.
+  window.gtag = function gtag() {
     dataLayer.push(arguments);
-  }
+  };
   gtag("js", new Date());
 
   gtag("config", "G-YP2WF7DHFM");

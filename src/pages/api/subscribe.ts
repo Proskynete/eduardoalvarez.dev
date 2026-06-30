@@ -1,4 +1,5 @@
 import client from "@mailchimp/mailchimp_marketing";
+import * as Sentry from "@sentry/astro";
 import type { APIRoute } from "astro";
 import { z } from "zod";
 
@@ -88,11 +89,13 @@ export const POST: APIRoute = async ({ request }) => {
     // Errores de Mailchimp
     if (error instanceof Error && "status" in error) {
       console.error("Mailchimp error:", error);
+      Sentry.captureException(error, { tags: { context: "newsletter.subscribe" } });
       return ApiResponseBuilder.internalError("Error al procesar la suscripción. Intenta de nuevo más tarde.");
     }
 
     // Error genérico
     console.error("Unexpected error:", error);
+    Sentry.captureException(error, { tags: { context: "newsletter.subscribe" } });
     return ApiResponseBuilder.internalError();
   }
 };
