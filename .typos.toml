@@ -116,3 +116,5 @@ extend-exclude = [
 "incentivos" = "incentivos"
 "internacional" = "internacional"
 "corporativo" = "corporativo"
+"cursos" = "cursos"
+"Cursos" = "Cursos"
