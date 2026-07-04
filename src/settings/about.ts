@@ -11,23 +11,24 @@ export const experience: Experience[] = [
     date: "2026 → hoy",
     role: "Technical Lead",
     company: "CMPC",
-    description: "Desarrollando estándares de desarrollo de software con IA.",
+    description:
+      "Liderando la evolución del ecosistema frontend corporativo (Design System y MicroFrontends) y el marco de Spec-Driven Development adoptado a nivel de toda la empresa, impulsando la adopción de IA en la forma de trabajar de los equipos de ingeniería.",
     current: true,
   },
   {
     date: "2025 → hoy",
     role: "CTO & CoFounder",
-    company: "Amipet",
+    company: "AmiPet",
     description:
       "Co-fundando una plataforma en el espacio pet-tech. Definiendo arquitectura, stack y roadmap técnico desde cero, con foco en validar product-market fit.",
     current: true,
   },
   {
-    date: "2024",
-    role: "Experienced consultant → Senior consultant",
+    date: "2024 → 2026",
+    role: "Senior Consultant / Technical Lead",
     company: "Amaris Consulting",
     description:
-      "Liderazgo de arquitectura frontend para plataformas enterprise. Diseño e implementación de arquitectura microfrontend con React, TypeScript y Single-SPA, reduciendo time-to-market en ~35%.",
+      "Liderazgo de arquitectura frontend para plataformas enterprise. Diseño e implementación de la arquitectura de MicroFrontends y el Design System corporativo (base técnica de más de 10 proyectos), con CLI y templates internos que redujeron el time-to-market en un 95%.",
     current: false,
   },
   {
@@ -39,7 +40,7 @@ export const experience: Experience[] = [
     current: false,
   },
   {
-    date: "2022",
+    date: "2021 → 2022",
     role: "Technical Lead",
     company: "DEUNA",
     description:
