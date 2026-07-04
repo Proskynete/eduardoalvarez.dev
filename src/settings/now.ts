@@ -4,14 +4,14 @@ export interface NowItem {
   description?: string;
 }
 
-export const lastUpdated = "2026-03-04";
+export const lastUpdated = "2026-07-04";
 
 export const nowItems: NowItem[] = [
   {
     category: "Trabajando en",
     label: "Technical Lead en CMPC",
     description:
-      "Liderando el equipo de ingeniería para el cliente CMPC, coordinando decisiones técnicas, arquitectura y entrega de valor.",
+      "Liderando la evolución del ecosistema frontend corporativo y la adopción de IA en los equipos de ingeniería, con un marco de Spec-Driven Development adoptado a nivel de empresa.",
   },
   {
     category: "Trabajando en",

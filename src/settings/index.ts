@@ -5,7 +5,7 @@ export default {
   keywords:
     "engineering leadership, platform architecture, platform thinking, AI era, engineering culture, software architecture, engineering management, staff engineer, typescript, react, node, astro",
   url: "https://eduardoalvarez.dev",
-  repo_url: "https://github.com/proskynete/website",
+  repo_url: "https://github.com/Proskynete/eduardoalvarez.dev",
   domain: "eduardoalvarez.dev",
   language: "es-ES",
   email: "soy@eduardoalvarez.dev",

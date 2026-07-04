@@ -43,6 +43,18 @@ export interface Talk {
 
 export const talks: Talk[] = [
   {
+    title: "Microfrontends sin dolor: cómo escalar React (y tu equipo) sin romperlo todo",
+    description:
+      "Cómo unificamos 12 aplicaciones separadas bajo una sola experiencia con microfrontends: React + Vite orquestados con single-spa, un design system compartido sobre shadcn/ui, librerías comunes y despliegue en GCP. Un marco de decisión honesto —basado en cicatrices propias— sobre cuándo SÍ y cuándo NO usar microfrontends.",
+    date: ["2026-08-14T14:00:00.000Z", "2026-08-15T22:00:00.000Z"],
+    show: true,
+    location: {
+      name: "CaribeConf — Barranquilla, Colombia",
+      url: "https://sessionize.com/caribeconf-2026/",
+    },
+    organizations: [],
+  },
+  {
     title: "Taller de Astro: Crea tu portafolio",
     description:
       "Aprenderemos de astro mientras creamos un sitio web donde podamos mostrar nuestras redes sociales, habilidades y proyectos. Este taller es ideal para quienes quieren aprender a crear un sitio web de forma rápida y sencilla, sin necesidad de tener experiencia previa en desarrollo web.",
