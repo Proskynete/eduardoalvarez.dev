@@ -19,6 +19,12 @@ export const navItems: NavItem[] = [
     description: "Talks y workshops en conferencias",
   },
   {
+    name: "Cursos",
+    href: "https://cursos.eduardoalvarez.dev",
+    show: true,
+    description: "Cursos y formación técnica",
+  },
+  {
     name: "Sobre_mí",
     href: "/about",
     show: true,
