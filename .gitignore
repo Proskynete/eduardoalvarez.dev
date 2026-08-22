@@ -21,6 +21,11 @@ node_modules/
 # NPM
 .npmrc
 
+# pnpm
+.pnpmfile.cjs
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
 # logs
 npm-debug.log*
 yarn-debug.log*
