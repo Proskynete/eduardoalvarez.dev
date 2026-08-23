@@ -72,10 +72,14 @@ const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
     if (hasSearched && results.length === 0) {
       return (
         <div ref={ref} id="search-results" className={containerClass} role="status" aria-live="polite">
-          <div className="px-4 py-3 border-l-2 border-warning">
-            <p className="text-sm text-text-secondary font-medium">No se encontraron resultados</p>
-            <p className="text-xs text-text-muted mt-1">
-              No hay artículos que coincidan con &quot;{searchQuery}&quot;
+          {/* Estado vacío del sistema: una cara a 66px + título 15/500 +
+              explicación 13.5 muted. Es uno de los pocos lugares donde el
+              contrato de humor permite una cara expresiva. */}
+          <div className="flex flex-col items-center gap-3 px-6 py-12 text-center">
+            <img src="/brand/face-waiting.png" alt="" aria-hidden="true" width={123} height={121} />
+            <p className="titulo">Sin resultados</p>
+            <p className="detalle">
+              No encontré nada con &quot;{searchQuery}&quot;. Prueba con menos palabras.
             </p>
           </div>
         </div>

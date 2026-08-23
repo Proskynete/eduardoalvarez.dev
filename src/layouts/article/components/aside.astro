@@ -55,13 +55,12 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
             Secciones del artículo
             <span class="text-accent text-base leading-none">›</span>
           </summary>
-          <nav aria-label="Tabla de contenidos">
+          <nav aria-label="Tabla de contenidos" class="flex flex-col px-4 pb-4">
             {content.sections.map((section: { anchor: string; title: string }) => (
               <a
                 href={`#${section.anchor}`}
-                class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-surface-raised transition-colors duration-200"
+                class="border-l-2 border-surface-border py-1 pl-3 text-sm text-text-secondary transition-colors duration-200 hover:text-text-primary aria-[current=true]:border-accent aria-[current=true]:text-accent"
               >
-                <span class="w-1 h-1 rounded-full bg-accent flex-shrink-0" />
                 {section.title}
               </a>
             ))}
@@ -75,15 +74,14 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
       content.sections && content.sections.length > 0 && (
         <div class="hidden xl:block bg-surface rounded-xl border border-surface-border overflow-hidden">
           <div class="px-4 pt-4 pb-2">
-            <p class="text-xs font-medium uppercase tracking-widest text-text-muted">Secciones</p>
+            <p class="font-mono text-xs uppercase tracking-[0.12em] text-text-muted">En esta página</p>
           </div>
-          <nav aria-label="Tabla de contenidos">
+          <nav aria-label="Tabla de contenidos" class="flex flex-col px-4 pb-4">
             {content.sections.map((section: { anchor: string; title: string }) => (
               <a
                 href={`#${section.anchor}`}
-                class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-surface-raised transition-colors duration-200"
+                class="border-l-2 border-surface-border py-1 pl-3 text-sm text-text-secondary transition-colors duration-200 hover:text-text-primary aria-[current=true]:border-accent aria-[current=true]:text-accent"
               >
-                <span class="w-1 h-1 rounded-full bg-accent flex-shrink-0" />
                 {section.title}
               </a>
             ))}

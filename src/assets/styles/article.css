@@ -11,7 +11,7 @@
   margin-bottom: 1rem;
   padding-top: 3rem;
   scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
-  color: #f5f5f5; /* text-primary */
+  color: #edf4f3; /* text-primary */
 }
 
 #article-body h3 {
@@ -21,14 +21,14 @@
   margin-bottom: 0.75rem;
   margin-top: 2rem;
   scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
-  color: #f5f5f5; /* text-primary */
+  color: #edf4f3; /* text-primary */
 }
 
 #article-body p {
   font-weight: 400;
   line-height: 1.75;
   margin-bottom: 1.5rem;
-  color: #f5f5f5; /* text-primary */
+  color: #edf4f3; /* text-primary */
 }
 
 #article-body p strong {
@@ -40,12 +40,12 @@
 }
 
 #article-body p a {
-  color: #06b6d4; /* accent */
+  color: #35d6c0; /* accent */
   text-decoration: none;
 }
 
 #article-body p a:hover {
-  color: #0891b2; /* accent-hover */
+  color: #5fe3d1; /* accent-hover */
   text-decoration: underline;
 }
 
@@ -65,19 +65,19 @@
 }
 
 #article-body p code {
-  background-color: #161616; /* surface-raised */
+  background-color: #17303e; /* surface-raised */
   border-radius: 4px;
-  color: #f5f5f5; /* text-primary */
-  font-family: "Geist Mono", "Fira Code", monospace;
+  color: #edf4f3; /* text-primary */
+  font-family: "JetBrains Mono Variable", ui-monospace, monospace;
   font-style: normal;
   padding: 2px 6px;
   font-size: 0.875em;
 }
 
 #article-body blockquote {
-  border-left: 3px solid #06b6d4; /* accent */
+  border-left: 3px solid #35d6c0; /* accent */
   background-color: transparent;
-  color: #a3a3a3; /* text-secondary */
+  color: #a7bcc4; /* text-secondary */
   font-style: italic;
   margin-bottom: 1.5rem;
   margin-top: 2rem;
@@ -88,21 +88,21 @@
   font-size: 1rem;
   line-height: 1.6;
   margin: 0;
-  color: #a3a3a3; /* text-secondary */
+  color: #a7bcc4; /* text-secondary */
 }
 
 #article-body blockquote p strong {
   font-weight: 700;
-  color: #f5f5f5;
+  color: #edf4f3;
 }
 
 #article-body blockquote p a {
   font-weight: 500;
-  color: #06b6d4;
+  color: #35d6c0;
 }
 
 #article-body blockquote p code {
-  background-color: #1f1f1f; /* surface-border */
+  background-color: #22414f; /* surface-border */
   border-radius: 3px;
   font-style: normal;
   padding: 2px 5px;
@@ -111,7 +111,7 @@
 #article-body blockquote ul li {
   font-size: 1rem;
   line-height: 1.6;
-  color: #a3a3a3;
+  color: #a7bcc4;
 }
 
 #article-body blockquote ul li strong {
@@ -122,50 +122,43 @@
   border-radius: 8px;
   margin-bottom: 1.5rem;
   overflow: hidden;
-  border: 1px solid #1f1f1f; /* surface-border */
+  border: 1px solid #22414f; /* surface-border */
 }
 
 #article-body .code-block-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #161616; /* surface-raised */
+  background-color: #17303e; /* surface-raised */
   padding: 0.55rem 1rem;
-  border-bottom: 1px solid #1f1f1f; /* surface-border */
+  border-bottom: 1px solid #22414f; /* surface-border */
 }
 
-#article-body .code-traffic-lights {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-#article-body .code-traffic-lights span {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+/* La aleta reemplaza a las luces de semáforo de macOS: el handoff pide la
+   marca en la barra del bloque, y las luces eran un idioma prestado. */
+#article-body .code-block-fin {
   display: block;
+  width: 18px;
+  height: auto;
+  flex: none;
+  opacity: 0.9;
 }
-
-#article-body .code-traffic-lights span:nth-child(1) { background-color: #ff5f57; }
-#article-body .code-traffic-lights span:nth-child(2) { background-color: #febc2e; }
-#article-body .code-traffic-lights span:nth-child(3) { background-color: #28c840; }
 
 #article-body .code-language-label {
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono Variable", ui-monospace, monospace;
   font-size: 0.7rem;
-  color: #7c7c7c; /* text-muted */
+  color: #71919c; /* text-muted */
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 #article-body .code-copy-btn {
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono Variable", ui-monospace, monospace;
   font-size: 0.65rem;
   letter-spacing: 0.1em;
-  color: #7c7c7c; /* text-muted */
+  color: #71919c; /* text-muted */
   background: transparent;
-  border: 1px solid #1f1f1f; /* surface-border */
+  border: 1px solid #22414f; /* surface-border */
   border-radius: 4px;
   padding: 2px 8px;
   cursor: pointer;
@@ -174,8 +167,8 @@
 }
 
 #article-body .code-copy-btn:hover {
-  color: #f5f5f5; /* text-primary */
-  border-color: #a3a3a3; /* text-secondary */
+  color: #edf4f3; /* text-primary */
+  border-color: #a7bcc4; /* text-secondary */
 }
 
 #article-body .code-copy-btn.copied {
@@ -183,9 +176,11 @@
   border-color: #22c55e;
 }
 
+/* Bloque de código — fondo casco (#0B1524, el contorno de la mascota).
+   La barra de título la inyecta el script del layout de artículo. */
 #article-body pre {
-  background-color: #111111; /* surface */
-  border-radius: 0;
+  background-color: #0b1524;
+  border-radius: 0 0 12px 12px;
   margin-bottom: 0;
   padding: 1.25rem;
   overflow-x: auto;
@@ -205,12 +200,12 @@
   line-height: 1.8;
   padding-left: 1.25rem;
   position: relative;
-  color: #f5f5f5;
+  color: #edf4f3;
 }
 
 #article-body ul li::before {
   content: "•";
-  color: #06b6d4; /* accent */
+  color: #35d6c0; /* accent */
   font-weight: 700;
   left: 0;
   position: absolute;
@@ -229,7 +224,7 @@
 #article-body ul li a {
   display: contents;
   text-decoration: none;
-  color: #06b6d4;
+  color: #35d6c0;
 }
 
 #article-body ul li a:hover {
@@ -237,10 +232,52 @@
 }
 
 #article-body ul li code {
-  background-color: #161616;
+  background-color: #17303e;
   border-radius: 3px;
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono Variable", ui-monospace, monospace;
   font-style: normal;
   font-size: 0.875em;
   padding: 2px 5px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Contenido del artículo · Design System v1
+   prose 18/1.75 bruma · máx 68ch · h2 y h3 en display · cita con borde arena
+   de 3px, cursiva y SIN fondo · código inline sobre corriente r4 pad 2px 6px.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+#article-body p,
+#article-body ul,
+#article-body ol {
+  font-size: 18px;
+  line-height: 1.75;
+  color: rgb(var(--c-text-secondary));
+  max-width: 68ch;
+}
+
+#article-body h2,
+#article-body h3 {
+  font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
+}
+
+/* La cita lleva borde arena y NO fondo: el sistema es explícito en eso. */
+#article-body blockquote {
+  margin: 0 0 22px;
+  border-left: 3px solid #f2a65a;
+  padding-left: 22px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgb(var(--c-text-secondary));
+  font-style: italic;
+  background: none;
+}
+
+/* Código inline — sobre corriente, no sobre el fondo del bloque. */
+#article-body :not(pre) > code {
+  font-family: "JetBrains Mono Variable", ui-monospace, monospace;
+  font-size: 0.9em;
+  color: rgb(var(--c-text-primary));
+  background: rgb(var(--c-surface-raised));
+  border-radius: 4px;
+  padding: 2px 6px;
 }

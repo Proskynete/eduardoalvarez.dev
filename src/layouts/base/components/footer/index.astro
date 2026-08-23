@@ -1,86 +1,46 @@
 ---
-import { Icon } from "../../../../assets/icons";
+import BrandFin from "../../../../components/brand-fin/index.astro";
+import settings from "../../../../settings";
 
 const currentYear = new Date().getFullYear();
+
+/**
+ * Pie del sistema de identidad v1.
+ *
+ * El sistema usa enlaces de TEXTO en mono, no iconos: la fila de iconos
+ * anterior no pertenecía a esta voz. Estructura de dos filas —
+ * aleta + nombre arriba, enlaces y prompt abajo.
+ */
+const enlaces = [
+  ...settings.social_network.filter((s) => s.show).map((s) => ({ nombre: s.name.toLowerCase(), href: s.link })),
+  { nombre: "rss", href: "/rss.xml" },
+];
 ---
 
 <footer id="site-footer" class="mt-20 border-t border-surface-border pt-10 pb-12">
-  <div class="flex flex-col sm:flex-row items-center sm:justify-between gap-4">
-    <nav aria-label="Social media links" class="flex items-center gap-5">
-      <!-- GitHub -->
-      <a
-        href="https://github.com/Proskynete"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="GitHub"
-        class="text-text-muted hover:text-text-primary transition-colors duration-200"
-      >
-        <Icon.GitHub />
-      </a>
+  <div class="flex items-center gap-3">
+    <BrandFin class="h-6 w-auto flex-none" />
+    <span class="font-display text-[15px] font-bold text-text-primary">Eduardo Álvarez</span>
+  </div>
 
-      <!-- LinkedIn -->
-      <a
-        href="https://www.linkedin.com/in/eduardoalvarezc/"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="LinkedIn"
-        class="text-text-muted hover:text-text-primary transition-colors duration-200"
-      >
-        <Icon.LinkedIn />
-      </a>
-
-      <!-- Twitter/X -->
-      <a
-        href="https://twitter.com/proskynete"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Twitter / X"
-        class="text-text-muted hover:text-text-primary transition-colors duration-200"
-      >
-        <Icon.X />
-      </a>
-
-      <!-- Instagram -->
-      <a
-        href="https://www.instagram.com/eduardoalvarez.dev"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Instagram"
-        class="text-text-muted hover:text-text-primary transition-colors duration-200"
-      >
-        <Icon.Instagram />
-      </a>
-
-      <!-- RSS -->
-      <a
-        href="/rss.xml"
-        aria-label="RSS Feed"
-        class="text-text-muted hover:text-text-primary transition-colors duration-200"
-      >
-        <Icon.RSS />
-      </a>
-
-      <!-- Email -->
-      <a
-        href="mailto:soy@eduardoalvarez.dev"
-        aria-label="Email"
-        class="text-text-muted hover:text-text-primary transition-colors duration-200"
-      >
-        <Icon.Mail />
-      </a>
-
-      <!-- Newsletter -->
-      <a
-        href="/newsletter"
-        aria-label="Newsletter"
-        class="text-text-muted hover:text-text-primary transition-colors duration-200"
-      >
-        <Icon.Newsletter />
-      </a>
+  <div class="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <nav aria-label="Enlaces y redes" class="flex flex-wrap gap-5 font-mono text-[12.5px] text-text-muted">
+      {
+        enlaces.map(({ nombre, href }) => (
+          <a
+            href={href}
+            target={href.startsWith("http") ? "_blank" : undefined}
+            rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+            class="transition-colors duration-200"
+          >
+            {nombre}
+          </a>
+        ))
+      }
     </nav>
 
-    <!-- Copyright -->
-    <pre
-      class="font-mono text-xs text-text-muted text-center sm:text-right">$ cd ~/<a href="https://eduardoalvarez.dev" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent-hover transition-colors">eduardoalvarez.dev</a>/{currentYear}<span class="w-0.5 h-3 inline-block bg-accent ml-1 rounded-sm animate-cursor-ping" /></pre>
+    <p class="font-mono text-[13px] text-text-muted">
+      <span class="simbolo">$</span> cd ~/eduardoalvarez.dev/{currentYear}
+    </p>
   </div>
 </footer>

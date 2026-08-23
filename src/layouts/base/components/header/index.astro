@@ -1,6 +1,7 @@
 ---
 import pkg from "../../../../../package.json";
-import Isotipo from "../../../../components/isotipo/index.astro";
+import BrandFin from "../../../../components/brand-fin/index.astro";
+import ThemeToggle from "../../../../components/theme-toggle/index.astro";
 import MobileNav from "./components/mobile";
 import Navigation from "./components/navigation";
 
@@ -16,16 +17,14 @@ const { algolia } = Astro.props;
 ---
 
 <header
-  class="sticky top-0 z-50 h-20 bg-surface border-b border-surface-border transition-all duration-200"
+  class="sticky top-0 z-50 h-nav-height border-b border-surface-border bg-background/[.86] backdrop-blur-[14px] transition-colors duration-200"
   id="site-header"
 >
   <div class="max-w-screen-2xl mx-auto h-full px-4 sm:px-6 xl:px-8 flex items-center justify-between">
     <div role="banner">
       <a href="/" aria-label="Eduardo Álvarez — Ir al inicio" class="flex items-center gap-3 group">
-        <!-- Mobile: solo diamantes (compacto) -->
-        <Isotipo variant="mark" class="h-10 w-auto flex-shrink-0 sm:hidden" />
-        <!-- Desktop: isotipo completo EA-01 -->
-        <Isotipo variant="full" class="h-16 w-auto flex-shrink-0 hidden sm:block" />
+        <!-- La aleta sobre el abismo: variante espuma, una tinta -->
+        <BrandFin class="h-9 w-auto flex-shrink-0 sm:h-10" />
 
         <!-- Separator -->
         <div class="h-8 w-px bg-accent opacity-50 flex-shrink-0"></div>
@@ -37,7 +36,7 @@ const { algolia } = Astro.props;
           >
             Eduardo Álvarez
           </span>
-          <span class="text-text-muted text-xs uppercase tracking-widest hidden sm:block">
+          <span class="font-mono text-xs uppercase tracking-[0.12em] text-text-muted hidden whitespace-nowrap lg:block">
             Engineering Leadership · Platform Thinking
           </span>
         </div>
@@ -46,6 +45,7 @@ const { algolia } = Astro.props;
 
     <div class="flex items-center gap-4">
       <Navigation client:load pathname={Astro.url.pathname} algolia={algolia} />
+      <ThemeToggle />
       <MobileNav client:visible version={pkg.version} />
     </div>
   </div>

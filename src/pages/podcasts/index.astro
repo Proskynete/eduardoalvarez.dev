@@ -27,9 +27,9 @@ function formatDuration(minutes: number): string {
   <div class="mx-auto max-w-full">
     <!-- Page header -->
     <header class="mb-12">
-      <p class="text-text-muted font-mono text-sm">/podcasts</p>
-      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Podcasts</h1>
-      <p class="text-text-secondary text-lg">
+      <p class="mb-[10px] font-mono text-[12.5px] text-text-muted">/podcasts</p>
+      <h1 class="mb-[14px] font-display text-[clamp(2.1rem,5vw,44px)] font-bold leading-[1.05] tracking-[-0.03em] text-text-primary">Podcasts</h1>
+      <p class="mb-3 max-w-[62ch] text-[17px] leading-relaxed text-text-secondary">
         Conversaciones sobre desarrollo web, tecnología y carrera profesional con invitados de la industria.
       </p>
     </header>
@@ -69,7 +69,7 @@ function formatDuration(minutes: number): string {
                       </span>
                       <span class="text-sm text-text-secondary">{formatDuration(podcast.duration)}</span>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-text-primary line-clamp-2 group-hover:text-accent transition-colors duration-200">
+                    <h2 class="text-text-primary line-clamp-2 group-hover:text-accent transition-colors duration-200">
                       {podcast.title}
                     </h2>
                   </div>

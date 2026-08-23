@@ -14,6 +14,7 @@ import serviceWorker from "astrojs-service-worker";
 
 import { publishAlgoliaRSS } from "./src/scripts/algolia.ts";
 import config from "./src/settings/manifest-config.ts";
+import { arrecife } from "./src/settings/shiki-reef.ts";
 import { validateEnvAtStartup } from "./src/utils/env.ts";
 
 // Build a map of article slug → ISO date from MDX frontmatter for sitemap lastmod
@@ -67,7 +68,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {
-      theme: "monokai",
+      theme: arrecife,
     },
   },
   integrations: [

@@ -44,12 +44,12 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
   <div class="mx-auto max-w-full">
     <!-- Page header -->
     <header class="mb-12">
-      <p class="text-text-muted font-mono text-sm">/artículos</p>
-      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Artículos</h1>
-      <p class="text-text-secondary text-lg mb-4">
+      <p class="mb-[10px] font-mono text-[12.5px] text-text-muted">/artículos</p>
+      <h1 class="mb-[14px] font-display text-[clamp(2.1rem,5vw,44px)] font-bold leading-[1.05] tracking-[-0.03em] text-text-primary">Artículos</h1>
+      <p class="mb-3 max-w-[62ch] text-[17px] leading-relaxed text-text-secondary">
         Escribiendo acerca de liderazgo de ingeniería, arquitectura de plataformas y la era de la IA.
       </p>
-      <p class="text-text-secondary text-base leading-relaxed max-w-3xl">
+      <p class="max-w-[66ch] text-[15px] leading-[1.65] text-text-secondary">
         Acá encontrarás deep-dives técnicos sobre JavaScript, React y frontend moderno, ensayos de opinión sobre cómo
         la IA está cambiando la forma en que escribimos software, y reflexiones prácticas sobre liderar equipos de
         ingeniería. Todo escrito desde la trinchera, no desde la teoría de libro.
@@ -57,9 +57,9 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
     </header>
 
     <!-- Category filter -->
-    <div class="flex flex-wrap gap-2 mb-10" id="category-filter" role="group" aria-label="Filtrar por categoría">
+    <div class="flex overflow-hidden rounded-[10px] border border-surface-border mb-10 w-fit max-w-full overflow-x-auto" id="category-filter" role="group" aria-label="Filtrar por categoría">
       <button
-        class="category-btn px-3 py-1.5 text-xs font-medium rounded-full border transition-colors duration-200 bg-accent text-background border-accent"
+        class="category-btn px-[18px] py-[9px] text-[13.5px] text-text-secondary transition-colors duration-200 hover:text-text-primary aria-[pressed=true]:bg-surface-raised aria-[pressed=true]:text-text-primary"
         data-category="all"
         aria-pressed="true"
       >
@@ -68,7 +68,7 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
       {
         categories.map((cat) => (
           <button
-            class="category-btn px-3 py-1.5 text-xs font-medium rounded-full border transition-colors duration-200 bg-surface text-text-secondary border-surface-border hover:text-text-primary"
+            class="category-btn px-[18px] py-[9px] text-[13.5px] text-text-secondary transition-colors duration-200 hover:text-text-primary aria-[pressed=true]:bg-surface-raised aria-[pressed=true]:text-text-primary"
             data-category={cat}
             aria-pressed="false"
           >
@@ -79,7 +79,7 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
     </div>
 
     <!-- Articles list -->
-    <div id="articles-list" class="divide-y divide-surface-border" role="list">
+    <div id="articles-list" class="grid gap-4 sm:grid-cols-2" role="list">
       {
         posts.map((post) => (
           <div class="article-item" role="listitem" data-categories={JSON.stringify(post.frontmatter.categories ?? [])}>
@@ -108,12 +108,8 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
         buttons.forEach((b) => {
           const isActive = b.dataset.category === selected;
           b.setAttribute("aria-pressed", String(isActive));
-          b.classList.toggle("bg-accent", isActive);
-          b.classList.toggle("text-background", isActive);
-          b.classList.toggle("border-accent", isActive);
-          b.classList.toggle("bg-surface", !isActive);
-          b.classList.toggle("text-text-secondary", !isActive);
-          b.classList.toggle("border-surface-border", !isActive);
+          // El grupo de flex overflow-hidden rounded-[10px] border border-surface-border del sistema marca el activo con una sola clase.
+          b.classList.toggle("activo", isActive);
         });
 
         // Filter articles
