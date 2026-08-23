@@ -51,7 +51,7 @@ puente cromático y la ilustración se veía pegada encima. Los neutros v1 está
 | --- | --- | --- | --- |
 | `eduardoalvarez.dev` | Astro · Tailwind **v3** | `tailwind.config.mjs` | oscuro |
 | `links` | Astro · Tailwind **v4** | `src/assets/css/styles.css` (`@theme`) | oscuro |
-| `cursos.eduardoalvarez.dev` | Next · Tailwind v4 · shadcn | `app/globals.css` (`:root` + `.dark`) | **claro** ⚠ ver §4 |
+| `cursos.eduardoalvarez.dev` | Next · Tailwind v4 · shadcn | `app/globals.css` (`:root` + `.dark`) | **oscuro** — ver §5 |
 | `blog-content-manager` | Next · Tailwind v4 · shadcn | `src/app/globals.css` | oscuro |
 | `resume` | Vite · Tailwind v4 | `src/assets/styles/index.css` (`@theme`) | **claro** (es un documento) |
 
@@ -131,13 +131,20 @@ su tamaño. La escala es jerarquía, no un martillo.
 
 ## 5. Modo por proyecto
 
-`cursos` está **en claro**, como asigna el handoff. Al conmutarlo aparecieron dos defectos
-que solo se ven ejecutando, y quedan documentados porque se repetirán en cualquier
-superficie que cambie de modo:
+`cursos` está **en oscuro**. El design system le asigna el modo claro, pero la decisión
+fue mantenerlo oscuro para que quede consistente con el resto de la marca. Las dos ramas de
+tokens quedan completas en `globals.css`, así que conmutar es quitar o poner la clase `dark`
+en `app/layout.tsx`.
+
+Al probar el modo claro aparecieron dos defectos que solo se ven ejecutando, y quedan
+documentados porque se repetirán en cualquier superficie que cambie de modo:
 
 1. **La aleta espuma es invisible sobre fondo claro.** Es la «regla crítica de la aleta» del
-   propio handoff: fondo oscuro → `fin-espuma.png`; fondo claro → `fin.png` (dos azules).
-   El componente `Logo` tiene la prop `sobre` y en cursos su default es `"claro"`.
+   propio sistema: fondo oscuro → `fin-foam.png`; fondo claro → `fin.png` (dos azules).
+   El `Logo` ya no acepta una prop para elegir: renderiza las dos variantes y el CSS decide.
+   Esa prop se equivocó una vez al conmutar el modo, y el fallo es **silencioso** — la marca
+   simplemente desaparece. Resolverlo en el componente significa que ningún sitio de uso
+   puede volver a equivocarse.
 2. **Arena tiene dos roles que no se pueden mezclar.** Como **relleno** (botón, píldora)
    es `#f2a65a` en ambos modos, con tinta `#2a1605` encima. Como **texto sobre fondo claro**
    es `#a65b27`, porque `#f2a65a` sobre paper no llega al mínimo AA. El token `gold` de
@@ -336,7 +343,7 @@ localizaban por `.tarjeta`, `.pill-categoria` y demás. Ahora usan locators sem�
 | `eduardoalvarez.dev` | ✅ | 2 (keyframes) | ✅ con conmutador | ✅ conmuta sola | ✅ |
 | `links` | ✅ | 0 | ✅ con conmutador | ✅ conmuta sola | ✅ |
 | `resume` | ✅ | 0 | documento claro | ✅ dos azules | — |
-| `cursos` | ✅ | shadcn | ✅ es su modo | ✅ default claro | ✅ multicolumna |
+| `cursos` | ✅ | shadcn | ambas ramas listas | ✅ conmuta sola | ✅ multicolumna |
 | `blog-content-manager` | ✅ | shadcn | oscuro | ✅ en el sidebar | — |
 
 Notas por proyecto:
