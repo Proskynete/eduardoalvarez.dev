@@ -9,7 +9,7 @@ const currentYear = new Date().getFullYear();
  *
  * El sistema usa enlaces de TEXTO en mono, no iconos: la fila de iconos
  * anterior no pertenecía a esta voz. Estructura de dos filas —
- * aleta + nombre arriba, enlaces y prompt abajo.
+ * fin plus wordmark on top, links and prompt below.
  */
 const enlaces = [
   ...settings.social_network.filter((s) => s.show).map((s) => ({ nombre: s.name.toLowerCase(), href: s.link })),

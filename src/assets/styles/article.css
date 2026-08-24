@@ -134,8 +134,8 @@
   border-bottom: 1px solid #22414f; /* surface-border */
 }
 
-/* La aleta reemplaza a las luces de semáforo de macOS: el handoff pide la
-   marca en la barra del bloque, y las luces eran un idioma prestado. */
+/* The fin replaces the macOS traffic lights: the system asks for the brand in
+   the block's title bar, and the lights were a borrowed idiom. */
 #article-body .code-block-fin {
   display: block;
   width: 18px;
@@ -176,8 +176,8 @@
   border-color: #22c55e;
 }
 
-/* Bloque de código — fondo casco (#0B1524, el contorno de la mascota).
-   La barra de título la inyecta el script del layout de artículo. */
+/* Code block — hull ground (#0B1524, the mascot's outline).
+   The title bar is injected by the article layout script. */
 #article-body pre {
   background-color: #0b1524;
   border-radius: 0 0 12px 12px;
@@ -260,7 +260,7 @@
   font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
 }
 
-/* La cita lleva borde arena y NO fondo: el sistema es explícito en eso. */
+/* Quotes take an arena border and NO background: the system is explicit. */
 #article-body blockquote {
   margin: 0 0 22px;
   border-left: 3px solid #f2a65a;
@@ -272,7 +272,7 @@
   background: none;
 }
 
-/* Código inline — sobre corriente, no sobre el fondo del bloque. */
+/* Inline code — on current, not on the block's ground. */
 #article-body :not(pre) > code {
   font-family: "JetBrains Mono Variable", ui-monospace, monospace;
   font-size: 0.9em;
