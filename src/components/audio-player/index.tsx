@@ -419,7 +419,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
                   step="0.1"
                   value={isMuted ? 0 : volume}
                   onChange={handleVolumeChange}
-                  className="w-16 h-1 bg-surface-raised rounded-lg appearance-none cursor-pointer accent-[#06b6d4]"
+                  className="w-16 h-1 bg-surface-raised rounded-lg appearance-none cursor-pointer accent-[#35d6c0]"
                   aria-label="Volumen"
                 />
               </div>
@@ -615,7 +615,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
               step="0.1"
               value={isMuted ? 0 : volume}
               onChange={handleVolumeChange}
-              className="w-20 h-1 bg-surface-raised rounded-lg appearance-none cursor-pointer accent-[#06b6d4]"
+              className="w-20 h-1 bg-surface-raised rounded-lg appearance-none cursor-pointer accent-[#35d6c0]"
               aria-label="Volumen"
             />
           </div>

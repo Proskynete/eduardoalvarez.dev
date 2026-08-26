@@ -59,6 +59,53 @@ const seo: BaseHeadProps = {
 <script>
   import { trackEvent } from "../../utils/analytics";
 
+  /**
+   * Resalta en el índice la sección en la que está el lector.
+   *
+   * Marca el ÚLTIMO encabezado que ya pasó la línea de lectura, no el que esté
+   * dentro de una franja. Con IntersectionObserver y una franja estrecha, una
+   * sección larga deja la franja vacía y el resaltado desaparece a media
+   * lectura — que es justo cuando más sirve.
+   */
+  function initIndice() {
+    const enlaces = Array.from(document.querySelectorAll<HTMLAnchorElement>('nav[aria-label="Tabla de contenidos"] a[href^="#"]'));
+    if (!enlaces.length) return;
+
+    const pares = enlaces
+      .map((a) => ({ a, el: document.getElementById(decodeURIComponent(a.hash.slice(1))) }))
+      .filter((x): x is { a: HTMLAnchorElement; el: HTMLElement } => Boolean(x.el));
+    if (!pares.length) return;
+
+    const LINEA = 140; // px desde arriba: bajo la nav pegajosa de 64px
+    let ultimo: HTMLAnchorElement | null = null;
+
+    const marcar = () => {
+      let activo = pares[0];
+      for (const par of pares) {
+        if (par.el.getBoundingClientRect().top <= LINEA) activo = par;
+        else break;
+      }
+      if (activo.a === ultimo) return; // no tocar el DOM si no cambió
+      enlaces.forEach((a) => a.removeAttribute("aria-current"));
+      activo.a.setAttribute("aria-current", "true");
+      ultimo = activo.a;
+    };
+
+    let pendiente = false;
+    const alHacerScroll = () => {
+      if (pendiente) return;
+      pendiente = true;
+      requestAnimationFrame(() => {
+        pendiente = false;
+        marcar();
+      });
+    };
+
+    marcar();
+    window.addEventListener("scroll", alHacerScroll, { passive: true });
+    window.addEventListener("resize", alHacerScroll, { passive: true });
+  }
+
   function initCodeBlocks() {
     const pres = document.querySelectorAll<HTMLElement>("#article-body pre[data-language]");
     pres.forEach((pre) => {
@@ -72,9 +119,15 @@ const seo: BaseHeadProps = {
       const header = document.createElement("div");
       header.className = "code-block-header";
 
-      const lights = document.createElement("div");
-      lights.className = "code-traffic-lights";
-      lights.innerHTML = "<span></span><span></span><span></span>";
+      // The fin as the block's mark. Decorative: the language label beside it
+      // already names the content.
+      const fin = document.createElement("img");
+      fin.className = "code-block-fin";
+      fin.src = "/brand/fin-foam.png";
+      fin.alt = "";
+      fin.setAttribute("aria-hidden", "true");
+      fin.width = 147;
+      fin.height = 111;
 
       const label = document.createElement("span");
       label.className = "code-language-label";
@@ -96,7 +149,7 @@ const seo: BaseHeadProps = {
         });
       });
 
-      header.appendChild(lights);
+      header.appendChild(fin);
       header.appendChild(label);
       header.appendChild(copyBtn);
 
@@ -140,6 +193,8 @@ const seo: BaseHeadProps = {
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
+  initIndice();
+  document.addEventListener("astro:page-load", initIndice);
   document.addEventListener("astro:page-load", initCodeBlocks);
   document.addEventListener("astro:page-load", initSmoothScroll);
   document.addEventListener("astro:page-load", initArticleReadTracking);

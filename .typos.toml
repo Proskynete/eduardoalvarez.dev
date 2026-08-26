@@ -118,3 +118,36 @@ extend-exclude = [
 "corporativo" = "corporativo"
 "cursos" = "cursos"
 "Cursos" = "Cursos"
+
+# Identificadores en español del sistema de diseño v1 (clases CSS y props).
+# `typos` los estaba "corrigiendo" dentro del CSS y rompía los selectores en
+# silencio: `hero-portada` quedó como `hero-portad` y `seccion-newsletter`
+# como `section-newsletter`, así que las reglas dejaban de aplicar sin ningún
+# error visible. Si se añade una clase nueva en español, va también acá.
+"portada" = "portada"
+"Portada" = "Portada"
+"seccion" = "seccion"
+"Seccion" = "Seccion"
+"categoria" = "categoria"
+"Categoria" = "Categoria"
+"pagina" = "pagina"
+"Pagina" = "Pagina"
+"bajada" = "bajada"
+"titular" = "titular"
+"migas" = "migas"
+"indice" = "indice"
+"promesa" = "promesa"
+"ilustracion" = "ilustracion"
+"escritorio" = "escritorio"
+"espuma" = "espuma"
+"aleta" = "aleta"
+"casco" = "casco"
+"tema" = "tema"
+"claro" = "claro"
+"oscuro" = "oscuro"
+"marca" = "marca"
+"encabezado" = "encabezado"
+"tarjeta" = "tarjeta"
+"campo" = "campo"
+"aviso" = "aviso"
+"arena" = "arena"

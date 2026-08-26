@@ -2,6 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   Tokens como variables CSS · sistema v1
+   En tripletas R G B para que Tailwind pueda aplicarles opacidad
+   (`bg-surface/40`). El bloque de `html[data-theme="light"]` los conmuta y con
+   eso cambia TODO el sitio, no solo los componentes propios.
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --c-background: 9 19 25; /* abismo  #091319 */
+  --c-surface: 16 32 43; /* fosa    #10202b */
+  --c-surface-raised: 23 48 62; /* corriente #17303e */
+  --c-surface-border: 34 65 79; /* #22414f */
+  --c-text-primary: 237 244 243; /* espuma  #edf4f3 */
+  --c-text-secondary: 167 188 196; /* bruma #a7bcc4 */
+  --c-text-muted: 113 145 156; /* plancton #71919c */
+  --c-accent: 53 214 192; /* bioluz  #35d6c0 */
+  --c-accent-hover: 95 227 209; /* #5fe3d1 */
+  --c-warm: 242 166 90; /* arena   #f2a65a */
+  --c-warm-hover: 247 187 125; /* #f7bb7d */
+
+  --g-hero: linear-gradient(160deg, #091319 60%, #0d2129 100%);
+  --g-accent-glow: radial-gradient(ellipse 70% 60% at 72% 10%, rgba(53, 214, 192, 0.1) 0%, transparent 65%);
+}
+
+html[data-theme="light"] {
+  --c-background: 246 242 234; /* paper   #f6f2ea */
+  --c-surface: 255 255 255;
+  --c-surface-raised: 237 231 219;
+  --c-surface-border: 230 223 210;
+  --c-text-primary: 11 21 36; /* casco   #0b1524 */
+  --c-text-secondary: 61 75 88;
+  --c-text-muted: 107 116 128;
+  /* En claro los acentos viven en sus variantes oscuras: bioluz y arena plenos
+     no dan contraste sobre papel. Ver la regla del sistema. */
+  --c-accent: 13 124 111; /* #0d7c6f — 4.55:1 */
+  --c-accent-hover: 15 143 128;
+  --c-warm: 166 91 39; /* #a65b27 — 4.54:1 */
+  --c-warm-hover: 180 99 42;
+
+  --g-hero: linear-gradient(160deg, #f6f2ea 55%, #e9eeea 100%);
+  --g-accent-glow: radial-gradient(ellipse 70% 60% at 72% 10%, rgba(13, 124, 111, 0.08) 0%, transparent 65%);
+}
+
 @layer base {
   @font-face {
     font-family: "Geist";
@@ -11,12 +53,22 @@
     src: url("/fonts/Geist.woff2") format("woff2");
   }
 
+  /* Display — solo titulares y números grandes. Nunca cuerpo. */
   @font-face {
-    font-family: "Geist Mono";
+    font-family: "Bricolage Grotesque Variable";
     font-style: normal;
-    font-weight: 100 900;
+    font-weight: 200 800;
     font-display: swap;
-    src: url("/fonts/GeistMono.woff2") format("woff2");
+    src: url("/fonts/BricolageGrotesque.woff2") format("woff2");
+  }
+
+  /* Mono — reemplaza a Geist Mono: código, rutas, etiquetas, metadatos, firma CLI. */
+  @font-face {
+    font-family: "JetBrains Mono Variable";
+    font-style: normal;
+    font-weight: 100 800;
+    font-display: swap;
+    src: url("/fonts/JetBrainsMono.woff2") format("woff2");
   }
 
   html,
@@ -25,7 +77,47 @@
     text-rendering: geometricPrecision;
     scrollbar-gutter: stable;
   }
-}
+
+  /* Display en todos los titulares. El handoff la restringe a titulares y
+     números grandes — nunca cuerpo — así que se aplica acá y no en utilidades
+     sueltas, para que no se escape a párrafos por descuido.
+     Escala del handoff: h1 44/700 −0.03em · h2 30/600 −0.02em · h3 25/600 −0.02em */
+  h1,
+  h2,
+  h3 {
+    font-family: "Bricolage Grotesque Variable", "Geist", system-ui, sans-serif;
+    letter-spacing: -0.03em;
+  }
+
+  /* ─── Escala tipográfica · sistema v1 ──────────────────────────────────────
+     Máximos del handoff: display 76 · h1 44 · h2 30 · h3 25 · body 18 · ui 15
+     · label 13 · mono/eyebrow 12. Se envuelven en clamp() porque el handoff
+     especifica la escala de escritorio y el móvil necesita bajar; el máximo de
+     cada clamp es exactamente el valor del handoff.
+     Mínimos que no se negocian: 13px en pantalla, 12pt impreso. */
+
+  h1 {
+    font-size: clamp(2.1rem, 5vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 3.4vw, 30px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  h3 {
+    font-size: clamp(1.35rem, 2.6vw, 25px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  }
 
 /* ================================
    FOCUS STYLES - Accessibility
@@ -38,8 +130,8 @@
   left: 0;
   z-index: 9999;
   padding: 1rem 1.5rem;
-  background-color: #06b6d4; /* accent */
-  color: #0a0a0a;
+  background-color: #35d6c0; /* accent */
+  color: #091319;
   text-decoration: none;
   font-weight: 600;
   transition: top 0.3s;
@@ -47,7 +139,7 @@
 
 .skip-to-content:focus {
   top: 0;
-  outline: 3px solid #06b6d4;
+  outline: 3px solid #35d6c0;
   outline-offset: 2px;
 }
 
@@ -61,21 +153,21 @@
 }
 
 *:focus-visible {
-  outline: 2px solid #06b6d4; /* accent */
+  outline: 2px solid #35d6c0; /* accent */
   outline-offset: 3px;
   border-radius: 0.25rem;
 }
 
 /* Links */
 a:focus-visible {
-  outline: 3px solid #06b6d4; /* accent */
+  outline: 3px solid #35d6c0; /* accent */
   outline-offset: 4px;
   border-radius: 0.375rem;
 }
 
 /* Buttons */
 button:focus-visible {
-  outline: 3px solid #06b6d4; /* accent */
+  outline: 3px solid #35d6c0; /* accent */
   outline-offset: 3px;
   border-radius: 0.375rem;
 }
@@ -84,14 +176,14 @@ button:focus-visible {
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid #06b6d4; /* accent */
+  outline: 2px solid #35d6c0; /* accent */
   outline-offset: 2px;
-  border-color: #06b6d4;
+  border-color: #35d6c0;
 }
 
 /* Labels */
 label:focus-visible {
-  outline: 2px dashed #06b6d4; /* accent dashed */
+  outline: 2px dashed #35d6c0; /* accent dashed */
   outline-offset: 2px;
   border-radius: 0.25rem;
 }
@@ -99,7 +191,7 @@ label:focus-visible {
 /* Images */
 img:focus-visible,
 picture:focus-visible {
-  outline: 3px solid #06b6d4; /* accent */
+  outline: 3px solid #35d6c0; /* accent */
   outline-offset: 4px;
   border-radius: 0.5rem;
 }
@@ -111,7 +203,7 @@ h3:focus-visible,
 h4:focus-visible,
 h5:focus-visible,
 h6:focus-visible {
-  outline: 2px solid #06b6d4; /* accent */
+  outline: 2px solid #35d6c0; /* accent */
   outline-offset: 3px;
   border-radius: 0.25rem;
 }
@@ -129,7 +221,7 @@ a h6 {
 
 /* Links containing headings */
 a:has(h1, h2, h3, h4, h5, h6):focus-visible {
-  outline: 3px solid #06b6d4; /* accent */
+  outline: 3px solid #35d6c0; /* accent */
   outline-offset: 4px;
   border-radius: 0.5rem;
 }
@@ -137,15 +229,20 @@ a:has(h1, h2, h3, h4, h5, h6):focus-visible {
 /* Logo */
 a[aria-label*="logo"]:focus-visible,
 a[aria-label*="Logo"]:focus-visible {
-  outline: 3px solid #06b6d4 !important; /* accent */
+  outline: 3px solid #35d6c0 !important; /* accent */
   outline-offset: 6px !important;
   border-radius: 0.5rem !important;
 }
 
 /* Waveform bars para el reproductor de narración */
 @keyframes wave-bar {
-  0%, 100% { transform: scaleY(0.25); }
-  50% { transform: scaleY(1); }
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -157,8 +254,13 @@ a[aria-label*="Logo"]:focus-visible {
 
 /* Terminal cursor ping — usa box-shadow para no afectar el layout */
 @keyframes cursor-ping {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
-  50% { box-shadow: 0 0 0 5px rgba(6, 182, 212, 0); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(53, 214, 192, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(53, 214, 192, 0);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -169,7 +271,46 @@ a[aria-label*="Logo"]:focus-visible {
 
 /* Footer links */
 footer a:focus-visible {
-  outline: 3px solid #06b6d4; /* accent */
+  outline: 3px solid #35d6c0; /* accent */
   outline-offset: 4px;
   text-decoration: underline;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Librería de componentes · Design System v1.0.0
+   Valores tomados literalmente de `Design System.dc.html`. Si algo no está
+   ahí, no se inventa acá.
+
+   Excepción documentada: el modo claro del design system especifica #0F8F80
+   (bioluz) y #B4632A (arena) como texto sobre paper. Medidos dan 3.57:1 y
+   3.95:1, bajo el mínimo AA de 4.5 para texto. Se usan #0D7C6F y #A65B27,
+   que conservan tono y llegan a 4.55:1 y 4.54:1.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Modo claro
+   Regla que manda: en claro el acento NO se usa como fondo de botón primario.
+   Bioluz y arena no dan contraste con texto oscuro encima, así que el primario
+   pasa a casco sólido y los acentos viven en sus variantes oscuras.
+
+   Se activa con data-theme="light" en <html>. El toggle vive en el header.
+   ═══════════════════════════════════════════════════════════════════════════ */
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+html[data-theme="light"] body {
+  background-color: #f6f2ea;
+  color: #0b1524;
+}
+
+/* Giscus — el widget es un custom element y los custom elements son `display:
+   inline` por defecto, así que el host colapsaba a 21px alrededor de un iframe
+   de 372px. Los comentarios cargaban bien; simplemente no se veían.
+   Preflight de Tailwind no cubre elementos desconocidos, así que va explícito. */
+giscus-widget {
+  display: block;
+  width: 100%;
+  min-height: 150px;
+}
+

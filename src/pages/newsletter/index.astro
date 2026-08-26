@@ -19,12 +19,12 @@ const valueProps = [
 ---
 
 <Layout seo={seo}>
-  <div class="mx-auto max-w-content">
+  <div class="mx-auto max-w-wide">
     <!-- Page header -->
     <header class="mb-12">
-      <p class="text-text-muted font-mono text-sm">/newsletter</p>
-      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Newsletter</h1>
-      <p class="text-text-secondary text-lg mb-4">
+      <p class="mb-[10px] font-mono text-[12.5px] text-text-muted">/newsletter</p>
+      <h1 class="mb-[14px] font-display text-[clamp(2.1rem,5vw,44px)] font-bold leading-[1.05] tracking-[-0.03em] text-text-primary">Newsletter</h1>
+      <p class="mb-3 max-w-[62ch] text-[17px] leading-relaxed text-text-secondary">
         Artículos sobre liderazgo de ingeniería, arquitectura de plataformas y la era de la IA — directamente en tu
         correo.
       </p>
@@ -53,12 +53,9 @@ const valueProps = [
       </ul>
     </section>
 
-    <!-- Subscribe form -->
-    <section class="bg-surface rounded-xl border border-surface-border p-8">
-      <h2 class="text-lg font-bold text-text-primary mb-1">Suscríbete</h2>
-      <p class="text-text-muted text-sm mb-6">Mensual. Sin spam.</p>
-      <Subscribe />
-    </section>
+    <!-- Subscribe: rompe el contenedor de lectura porque es un panel de dos
+         columnas y a 760px la rejilla se ahoga. -->
+    <Subscribe />
 
     <!-- Archive placeholder -->
     <section class="mt-16 border-t border-surface-border pt-10">

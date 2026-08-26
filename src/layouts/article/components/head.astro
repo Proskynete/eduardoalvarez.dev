@@ -14,7 +14,7 @@ const { content } = Astro.props;
     content.categories && content.categories.length > 0 && (
       <div class="flex flex-wrap gap-2 mb-5">
         {content.categories.map((category: CategoryAllowed) => (
-          <span class="px-2.5 py-0.5 text-xs font-medium rounded bg-accent-subtle text-accent uppercase tracking-wider">
+          <span class="px-2.5 py-0.5 text-xs font-medium rounded-control bg-warm/10 text-warm border border-warm/25 uppercase tracking-wider">
             {CategoryMap.get(category) ?? category}
           </span>
         ))}
@@ -23,7 +23,7 @@ const { content } = Astro.props;
   }
 
   <!-- Title -->
-  <h1 id="article-title" class="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary leading-tight tracking-tight mb-5">
+  <h1 id="article-title" class="text-text-primary mb-5">
     {content.title}
   </h1>
 

@@ -1,195 +1,46 @@
 ---
 // Animated PWA splash screen — shows only in standalone mode (iOS & Android PWA)
-// The isotopo assembles, then glows and fades out in ~3.5s total.
+// The fin draws in one stroke, fills, grows its spots and powers on. ~3.5s total.
+const FIN =
+  "M12 52 C16 38 24 18 40 8 C44 5.5 47 8 45.5 13 C40 30 42 42 54 51 C56 52.5 55 55 52 55 L15 55 C11.5 55 11 54 12 52 Z";
+
+/** Same spots as the brand mark. They stagger in, bottom to top. */
+const SPOTS = [
+  { cx: 26, cy: 43, r: 2.4 },
+  { cx: 35, cy: 45, r: 2.1 },
+  { cx: 44, cy: 47, r: 1.8 },
+  { cx: 33, cy: 33, r: 2.2 },
+  { cx: 24, cy: 33, r: 1.8 },
+  { cx: 38, cy: 22, r: 1.7 },
+];
 ---
 
 <div id="pwa-splash" aria-hidden="true" role="presentation">
   <div class="splash-inner">
-    <svg viewBox="35 28 320 432" xmlns="http://www.w3.org/2000/svg" width="120" height="162" aria-hidden="true">
-      <style>
-        #pwa-splash svg * {
-          vector-effect: non-scaling-stroke;
-        }
-      </style>
-      <!-- Diamond (inner + outer) — draws with stroke-dash -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="140" height="140" aria-hidden="true">
+      <!-- 1. The outline draws in a single stroke -->
       <path
-        class="p p-diamond"
-        d="M194.1,188.1l56.1,56.1l-56.1,56.1l-56.1-56.1L194.1,188.1 M194.1,171.1l-73,73l73,73l73-73L194.1,171.1z"
+        class="fin-stroke"
+        d={FIN}
         fill="none"
-        stroke="#06b6d4"
-        stroke-width="1.5"
+        stroke="#35d6c0"
+        stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
         pathLength="100"></path>
-      <!-- Vertical arrows (top + bottom) — fade in as group -->
-      <g class="p-group p-arrows">
-        <polygon
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          points="225.7,66.6 192.8,34.1 159.9,66.6 170.7,74.6 170.4,176.3 180.8,165.9 180.8,59.3 204.8,59.3 204.8,165.9 215.2,176.3 214.9,74.6"
-        ></polygon>
-        <rect fill="none" stroke="#ffffff" stroke-width="1.5" x="189.2" y="61.8" width="7.5" height="157.6"></rect>
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="192.9" cy="55.7" r="7.2"></circle>
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="192.9" cy="225.6" r="7.2"></circle>
-        <polygon
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          points="161.7,422.1 194.5,454.6 227.4,422.1 216.7,414.1 216.9,312.3 206.5,322.7 206.5,429.3 182.6,429.3 182.6,322.7 172.2,312.3 172.4,414.1"
-        ></polygon>
-        <rect
-          fill="none"
-          stroke="#ffffff"
-          stroke-width="1.5"
-          x="190.7"
-          y="269.3"
-          transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 388.8 696.1362)"
-          width="7.5"
-          height="157.6"></rect>
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="194.4" cy="433" r="7.2"></circle>
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="194.4" cy="263.1" r="7.2"></circle>
-      </g>
-      <!-- Diagonal arms — fade in as group -->
-      <g class="p-group p-arms">
-        <rect
-          fill="none"
-          stroke="#ffffff"
-          stroke-width="1.5"
-          x="38.4"
-          y="154.2"
-          transform="matrix(0.7071 -0.7071 0.7071 0.7071 -83.4618 111.1727)"
-          width="108"
-          height="4.3"></rect>
-        <rect
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          x="35.4"
-          y="151.1"
-          transform="matrix(0.7071 -0.7071 0.7071 0.7071 -82.1987 108.1233)"
-          width="108"
-          height="4.3"></rect>
-        <rect
-          fill="none"
-          stroke="#ffffff"
-          stroke-width="1.5"
-          x="292.7"
-          y="102.3"
-          transform="matrix(0.7071 -0.7071 0.7071 0.7071 -24.18 254.2915)"
-          width="4.3"
-          height="108"></rect>
-        <rect
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          x="295.8"
-          y="99.3"
-          transform="matrix(0.7071 -0.7071 0.7071 0.7071 -21.1306 255.5546)"
-          width="4.3"
-          height="108"></rect>
-        <rect
-          fill="none"
-          stroke="#ffffff"
-          stroke-width="1.5"
-          x="240.8"
-          y="330.2"
-          transform="matrix(0.7071 -0.7071 0.7071 0.7071 -148.6304 305.8405)"
-          width="108"
-          height="4.3"></rect>
-        <rect
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          x="243.9"
-          y="333.2"
-          transform="matrix(0.7071 -0.7071 0.7071 0.7071 -149.8935 308.8899)"
-          width="108"
-          height="4.3"></rect>
-        <rect
-          fill="none"
-          stroke="#ffffff"
-          stroke-width="1.5"
-          x="90.3"
-          y="278.3"
-          transform="matrix(0.7071 -0.7071 0.7071 0.7071 -207.9122 162.7217)"
-          width="4.3"
-          height="108"></rect>
-        <rect
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          x="87.3"
-          y="281.4"
-          transform="matrix(0.7071 -0.7071 0.7071 0.7071 -210.9616 161.4586)"
-          width="4.3"
-          height="108"></rect>
-      </g>
-      <!-- Corner brackets — fade in as group -->
-      <g class="p-group p-brackets">
-        <polygon
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          points="139.8,208.8 150.4,198.6 150.3,169.4 123.3,142.4 115.9,150 139.8,172.3"></polygon>
-        <polygon
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          points="98.3,244.1 120.5,221.9 136.2,220.4 120.5,204.7 81.1,244.1 120.5,283.5 136.2,267.9 120.5,266.3"
-        ></polygon>
-        <polygon
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          points="247.5,208.8 236.9,198.6 237.1,169.4 264,142.4 271.5,150 247.5,172.3"></polygon>
-        <polygon
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          points="289,244.1 266.8,221.9 251.1,220.4 266.8,204.7 306.2,244.1 266.8,283.5 251.1,267.9 266.8,266.3"
-        ></polygon>
-        <polygon
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          points="139.8,279.8 150.4,290.1 150.3,319.2 123.3,346.2 115.9,338.7 139.8,316.4"></polygon>
-        <polygon
-          fill="none"
-          stroke="#06b6d4"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          points="247.5,279.8 236.9,290.1 237.1,319.2 264,346.2 271.5,338.7 247.5,316.4"></polygon>
-      </g>
-      <!-- Endpoint circles — pop in last -->
-      <g class="c-group c-dots">
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="134.2" cy="111.6" r="8.3"></circle>
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="47.7" cy="198" r="8.3"></circle>
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="253.1" cy="111.6" r="8.3"></circle>
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="339.6" cy="198" r="8.3"></circle>
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="253.1" cy="377.1" r="8.3"></circle>
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="339.6" cy="290.6" r="8.3"></circle>
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="134.2" cy="377.1" r="8.3"></circle>
-        <circle fill="none" stroke="#ffffff" stroke-width="1.5" cx="47.7" cy="290.6" r="8.3"></circle>
+      <!-- 2. The fill comes in behind the stroke -->
+      <path class="fin-fill" d={FIN} fill="#35d6c0"></path>
+      <!-- 3. The spots stagger in -->
+      <g class="fin-spots">
+        {
+          SPOTS.map((m, i) => (
+            <circle cx={m.cx} cy={m.cy} r={m.r} fill="#091319" opacity="0.45" style={`--i:${i}`} />
+          ))
+        }
       </g>
     </svg>
 
-    <!-- Logotype: fades in after the isotipo drawing completes -->
+    <!-- Wordmark: fades in after the fin finishes drawing -->
     <div class="splash-logotype">
       <div class="splash-separator"></div>
       <div class="splash-text">
@@ -205,7 +56,7 @@
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: #0a0a0a;
+    background: #091319;
     display: none;
     flex-direction: column;
     align-items: center;
@@ -235,7 +86,7 @@
   .splash-separator {
     width: 32px;
     height: 1px;
-    background: rgba(6, 182, 212, 0.5);
+    background: rgba(53, 214, 192, 0.5);
   }
 
   .splash-text {
@@ -247,7 +98,7 @@
   }
 
   .splash-name {
-    color: #f5f5f5;
+    color: #edf4f3;
     font-family:
       system-ui,
       -apple-system,
@@ -259,7 +110,7 @@
   }
 
   .splash-tagline {
-    color: #7c7c7c;
+    color: #71919c;
     font-family:
       system-ui,
       -apple-system,
@@ -275,15 +126,14 @@
     pointer-events: none;
   }
 
-  /* ── Diamond starts hidden ── */
-  #pwa-splash .p-diamond {
+  /* ── Initial state: only the stroke exists, undrawn ── */
+  #pwa-splash .fin-stroke {
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
   }
 
-  /* ── All other groups start hidden ── */
-  #pwa-splash .p-group,
-  #pwa-splash .c-group {
+  #pwa-splash .fin-fill,
+  #pwa-splash .fin-spots circle {
     opacity: 0;
   }
 
@@ -295,19 +145,31 @@
     }
   }
 
-  @keyframes appear {
+  @keyframes fill-in {
     to {
       opacity: 1;
     }
   }
 
+  /* The spots pop in slightly rather than fading flat */
+  @keyframes spot-in {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    to {
+      opacity: 0.45;
+      transform: scale(1);
+    }
+  }
+
   @keyframes glow-on {
     0% {
-      filter: drop-shadow(0 0 2px #06b6d4);
+      filter: drop-shadow(0 0 2px #35d6c0);
     }
     100% {
-      filter: drop-shadow(0 0 6px #06b6d4) drop-shadow(0 0 16px rgba(6, 182, 212, 0.6))
-        drop-shadow(0 0 32px rgba(6, 182, 212, 0.25));
+      filter: drop-shadow(0 0 6px #35d6c0) drop-shadow(0 0 16px rgba(53, 214, 192, 0.6))
+        drop-shadow(0 0 32px rgba(53, 214, 192, 0.25));
     }
   }
 
@@ -331,41 +193,58 @@
     }
   }
 
-  /* ─── Animation sequence (class .is-drawing triggers everything) ─── */
+  /* ─── Sequence (.is-drawing fires everything) ─── */
 
-  /* 1. Diamond draws */
-  #pwa-splash.is-drawing .p-diamond {
-    animation: draw 1s ease-in-out 0.1s forwards;
+  /* 1. The outline draws */
+  #pwa-splash.is-drawing .fin-stroke {
+    animation: draw 1.2s ease-in-out 0.1s forwards;
   }
 
-  /* 2. Arrows fade in */
-  #pwa-splash.is-drawing .p-arrows {
-    animation: appear 0.4s ease-out 1s forwards;
+  /* 2. The fill rises behind it */
+  #pwa-splash.is-drawing .fin-fill {
+    animation: fill-in 0.5s ease-out 1.3s forwards;
   }
 
-  /* 3. Arms fade in */
-  #pwa-splash.is-drawing .p-arms {
-    animation: appear 0.4s ease-out 1.4s forwards;
+  /* 3. Staggered spots — 70ms apart */
+  #pwa-splash.is-drawing .fin-spots circle {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: spot-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: calc(1.8s + var(--i) * 70ms);
   }
 
-  /* 4. Brackets fade in */
-  #pwa-splash.is-drawing .p-brackets {
-    animation: appear 0.4s ease-out 1.8s forwards;
-  }
-
-  /* 5. Circles pop in */
-  #pwa-splash.is-drawing .c-dots {
-    animation: appear 0.2s ease-out 2.2s forwards;
-  }
-
-  /* 6. Glow intensifies — "powers on" (solo SVG, no el texto) */
+  /* 4. Powers on */
   #pwa-splash.is-drawing .splash-inner svg {
-    animation: glow-on 0.9s ease-in 2.4s forwards;
+    animation: glow-on 0.9s ease-in 2.3s forwards;
   }
 
-  /* 7. Logotype slides up and fades in */
+  /* 5. The wordmark enters */
   #pwa-splash.is-drawing .splash-logotype {
-    animation: logotype-in 0.5s ease-out 2.8s forwards;
+    animation: logotype-in 0.5s ease-out 2.7s forwards;
+  }
+
+  /* No animation: jump straight to the finished state */
+  @media (prefers-reduced-motion: reduce) {
+    #pwa-splash.is-drawing .fin-stroke {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+    #pwa-splash.is-drawing .fin-fill {
+      animation: none;
+      opacity: 1;
+    }
+    #pwa-splash.is-drawing .fin-spots circle {
+      animation: none;
+      opacity: 0.45;
+    }
+    #pwa-splash.is-drawing .splash-inner svg {
+      animation: none;
+      filter: drop-shadow(0 0 6px #35d6c0) drop-shadow(0 0 16px rgba(53, 214, 192, 0.6));
+    }
+    #pwa-splash.is-drawing .splash-logotype {
+      animation: none;
+      opacity: 1;
+    }
   }
 </style>
 

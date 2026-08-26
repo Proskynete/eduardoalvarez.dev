@@ -14,7 +14,14 @@ const PAGES = [
 for (const { name, path } of PAGES) {
   test(`accesibilidad: ${name} (${path}) — sin violaciones críticas`, async ({ page }) => {
     await page.goto(path);
-    await page.waitForLoadState("networkidle");
+    // `networkidle` es inestable acá: el dev server mantiene actividad de red
+    // (HMR, prefetch de enlaces) y el estado nunca se asienta, así que el
+    // timeout salta antes de que axe llegue a correr — y la página que falla
+    // va rotando entre corridas. Se espera una condición real del DOM.
+    // Ancla visible y presente en todas las páginas. `body > *` no sirve: el
+    // primer hijo es el enlace de salto al contenido, oculto a propósito.
+    await page.locator("#site-header").waitFor({ state: "visible" });
+    await page.waitForLoadState("domcontentloaded");
 
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])

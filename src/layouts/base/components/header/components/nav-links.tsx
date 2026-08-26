@@ -22,15 +22,15 @@ export default function NavLinks({ pathname }: NavLinksProps) {
                 href={item.href}
                 onClick={() => trackEvent("navigation_click", { link: item.name })}
                 aria-current={isActive ? "page" : undefined}
-                className={`group px-1 transition-colors duration-150 ${
-                  isActive
-                    ? "text-accent pointer-events-none cursor-default"
-                    : "text-text-secondary hover:text-text-primary"
+                className={`group border-b border-transparent px-1 pb-[3px] font-mono text-[12.5px] text-text-secondary transition-colors duration-200 hover:text-text-primary aria-[current=page]:border-accent aria-[current=page]:text-accent ${
+                  isActive ? "pointer-events-none cursor-default" : ""
                 }`}
               >
+                {/* Los corchetes se quedan: son parte de la voz de la marca.
+                    Aparecen en hover, y el activo suma el subrayado bioluz. */}
                 <span
                   className={`select-none transition-opacity duration-150 ${
-                    isActive ? "opacity-0" : "opacity-0 group-hover:opacity-100"
+                    isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                   }`}
                 >
                   [
@@ -38,7 +38,7 @@ export default function NavLinks({ pathname }: NavLinksProps) {
                 ./{label}
                 <span
                   className={`select-none transition-opacity duration-150 ${
-                    isActive ? "opacity-0" : "opacity-0 group-hover:opacity-100"
+                    isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                   }`}
                 >
                   ]

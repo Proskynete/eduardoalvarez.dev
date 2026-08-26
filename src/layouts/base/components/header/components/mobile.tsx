@@ -104,8 +104,8 @@ export default function Mobile({ version }: MobileProps) {
             >
               <style>{".svg-isotype-mark * { vector-effect: non-scaling-stroke; }"}</style>
               <path
-                fill="#06b6d4"
-                stroke="#06b6d4"
+                fill="#35d6c0"
+                stroke="#35d6c0"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
