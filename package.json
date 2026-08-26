@@ -3,6 +3,9 @@
   "description": "My personal website",
   "version": "5.0.1",
   "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
   "keywords": [
     "react",
     "typescript",
