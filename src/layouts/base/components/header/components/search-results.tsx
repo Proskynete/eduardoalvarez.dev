@@ -126,7 +126,7 @@ const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
                     {result.categories.slice(0, 3).map((category) => (
                       <span
                         key={category}
-                        className="text-xs px-2 py-0.5 bg-surface-raised border border-surface-border text-text-muted rounded"
+                        className="text-xs px-2 py-0.5 bg-surface-raised border border-surface-border text-text-muted rounded-sm"
                       >
                         {category}
                       </span>
