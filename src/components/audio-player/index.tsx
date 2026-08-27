@@ -290,7 +290,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
 
             <button
               onClick={handlePlaybackRateChange}
-              className="px-1.5 py-0.5 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors cursor-pointer ml-0.5"
+              className="px-1.5 py-0.5 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded-sm transition-colors cursor-pointer ml-0.5"
               aria-label="Cambiar velocidad"
             >
               {playbackRate}
@@ -393,7 +393,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
             <div className="ml-auto flex items-center gap-3">
               <button
                 onClick={handlePlaybackRateChange}
-                className="px-2 py-1 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors duration-200 cursor-pointer"
+                className="px-2 py-1 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded-sm transition-colors duration-200 cursor-pointer"
                 aria-label="Cambiar velocidad de reproducción"
                 title="Velocidad de reproducción"
               >
@@ -502,7 +502,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
 
             <button
               onClick={handlePlaybackRateChange}
-              className="px-1.5 py-0.5 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors duration-200 cursor-pointer"
+              className="px-1.5 py-0.5 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded-sm transition-colors duration-200 cursor-pointer"
               aria-label="Cambiar velocidad de reproducción"
             >
               {playbackRate}x
@@ -589,7 +589,7 @@ export default function AudioPlayer({ src, title, compact = false, banner = fals
         <div className="flex items-center gap-3">
           <button
             onClick={handlePlaybackRateChange}
-            className="px-2 py-1 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded transition-colors duration-200 cursor-pointer"
+            className="px-2 py-1 text-xs text-text-muted hover:text-text-primary bg-surface-raised rounded-sm transition-colors duration-200 cursor-pointer"
             aria-label="Cambiar velocidad de reproducción"
             title="Velocidad de reproducción"
           >

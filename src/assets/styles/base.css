@@ -1,6 +1,165 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+/* The `light:` variant. Lets the rules that swap tokens between themes — the
+   primary button turning solid hull, for one — be written as utilities instead
+   of loose CSS. In v3 this was an addVariant plugin; v4 declares it here. */
+@custom-variant light (html[data-theme="light"] &);
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Theme · migrated from tailwind.config.mjs
+   Source of truth: the design handoff + BRAND.md. Do not invent values here.
+
+   Colours point at the `--c-*` triplets defined below rather than fixed hex
+   values: that is what lets `data-theme="light"` swap EVERY Tailwind utility
+   and not just the hand-written components. Opacity modifiers such as
+   `bg-surface/40` still work — v4 resolves them with color-mix().
+   ═══════════════════════════════════════════════════════════════════════════ */
+@theme {
+  /* ─── Typography ─────────────────────────────────────────────── */
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+
+  /* ─── Colour ─────────────────────────────────────────────────── */
+  --color-background: rgb(var(--c-background));
+  --color-surface: rgb(var(--c-surface));
+  --color-surface-raised: rgb(var(--c-surface-raised));
+  --color-surface-border: rgb(var(--c-surface-border));
+  --color-text-primary: rgb(var(--c-text-primary));
+  --color-text-secondary: rgb(var(--c-text-secondary));
+  --color-text-muted: rgb(var(--c-text-muted));
+  --color-accent: rgb(var(--c-accent));
+  --color-accent-hover: rgb(var(--c-accent-hover));
+  --color-accent-dark: #0d7c6f;
+  --color-warm: rgb(var(--c-warm));
+  --color-warm-hover: rgb(var(--c-warm-hover));
+  --color-warm-dark: #a65b27;
+
+  --color-paper: #f6f2ea;
+  --color-paper-raised: #ffffff;
+  --color-paper-border: #e6dfd2;
+  --color-paper-text: #0b1524;
+  --color-paper-secondary: #3d4b58;
+  --color-paper-muted: #6b7480;
+
+  --color-mascota-cuerpo: #3e7cb1;
+  --color-mascota-manchas: #c2d7e7;
+  --color-mascota-casco: #0b1524;
+
+  --color-error: #e05252;
+  --color-success: #4fb477;
+  --color-warning: #e8a33d;
+
+  /* ─── Gradients ──────────────────────────────────────────────── */
+  --background-image-hero-gradient: var(--g-hero);
+  --background-image-slide-cover: linear-gradient(150deg, #091319 55%, #0e2a30 100%);
+  --background-image-accent-glow: var(--g-accent-glow);
+
+  /* ─── Layout ─────────────────────────────────────────────────── */
+  --container-content: 760px;
+  --container-wide: 1180px;
+
+  --spacing-section-gap: 96px;
+  --spacing-card-pad: 26px;
+  --spacing-nav-height: 64px;
+
+  --radius-control: 10px;
+  --radius-card: 14px;
+  --radius-panel: 16px;
+
+  --tracking-display: -0.035em;
+  --tracking-tight: -0.03em;
+  --tracking-eyebrow: 0.14em;
+
+  /* ─── Motion ─────────────────────────────────────────────────── */
+  /* Slow vertical drift for the hero mascot: reads as floating, not bouncing.
+     Only applied under `motion-safe`. */
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Typography · migrated from the `typography` block of tailwind.config.mjs
+   v3 configured it in JS through the theme() function; v4 customises the plugin
+   by overriding its variables and rules from CSS.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.prose {
+  --tw-prose-body: var(--color-text-secondary);
+  --tw-prose-headings: var(--color-text-primary);
+  --tw-prose-links: var(--color-accent);
+  --tw-prose-code: var(--color-text-primary);
+  --tw-prose-pre-bg: var(--color-mascota-casco);
+  --tw-prose-quotes: var(--color-text-secondary);
+  --tw-prose-counters: var(--color-text-muted);
+  --tw-prose-bullets: var(--color-accent);
+
+  max-width: 68ch;
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+.prose a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.prose a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+.prose :is(h1, h2, h3) {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-tight);
+}
+
+.prose :is(h1, h2) {
+  font-weight: 700;
+}
+
+.prose h3 {
+  font-weight: 600;
+}
+
+.prose code {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-raised);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-weight: 400;
+}
+
+/* The plugin adds typographic quotes around inline code. */
+.prose code::before,
+.prose code::after {
+  content: "";
+}
+
+.prose pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+.prose blockquote {
+  border-left-color: var(--color-warm);
+  border-left-width: 3px;
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  padding-left: 1rem;
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Tokens como variables CSS · sistema v1
@@ -137,101 +296,111 @@ html[data-theme="light"] {
   transition: top 0.3s;
 }
 
-.skip-to-content:focus {
-  top: 0;
-  outline: 3px solid #35d6c0;
-  outline-offset: 2px;
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   Focus rings · inside @layer base on purpose
+   In v3 these rules sat outside any layer and competed with utilities on
+   specificity, so `focus-visible:outline-2` on a given element beat
+   `a:focus-visible`. In v4 utilities live in @layer utilities, and UNLAYERED
+   CSS always wins over layered CSS regardless of specificity: leaving these
+   out meant they overrode every bespoke focus ring on the site.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer base {
+  .skip-to-content:focus {
+    top: 0;
+    outline: 3px solid #35d6c0;
+    outline-offset: 2px;
+  }
 
-.skip-to-content:focus-visible {
-  border-radius: 0 0 0.5rem 0;
-}
+  .skip-to-content:focus-visible {
+    border-radius: 0 0 0.5rem 0;
+  }
 
-/* Global focus outline */
-*:focus {
-  outline: none;
-}
+  /* Global focus outline */
+  *:focus {
+    outline: none;
+  }
 
-*:focus-visible {
-  outline: 2px solid #35d6c0; /* accent */
-  outline-offset: 3px;
-  border-radius: 0.25rem;
-}
+  *:focus-visible {
+    outline: 2px solid #35d6c0; /* accent */
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
 
-/* Links */
-a:focus-visible {
-  outline: 3px solid #35d6c0; /* accent */
-  outline-offset: 4px;
-  border-radius: 0.375rem;
-}
+  /* Links */
+  a:focus-visible {
+    outline: 3px solid #35d6c0; /* accent */
+    outline-offset: 4px;
+    border-radius: 0.375rem;
+  }
 
-/* Buttons */
-button:focus-visible {
-  outline: 3px solid #35d6c0; /* accent */
-  outline-offset: 3px;
-  border-radius: 0.375rem;
-}
+  /* Buttons */
+  button:focus-visible {
+    outline: 3px solid #35d6c0; /* accent */
+    outline-offset: 3px;
+    border-radius: 0.375rem;
+  }
 
-/* Inputs */
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  outline: 2px solid #35d6c0; /* accent */
-  outline-offset: 2px;
-  border-color: #35d6c0;
-}
+  /* Inputs */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid #35d6c0; /* accent */
+    outline-offset: 2px;
+    border-color: #35d6c0;
+  }
 
-/* Labels */
-label:focus-visible {
-  outline: 2px dashed #35d6c0; /* accent dashed */
-  outline-offset: 2px;
-  border-radius: 0.25rem;
-}
+  /* Labels */
+  label:focus-visible {
+    outline: 2px dashed #35d6c0; /* accent dashed */
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
 
-/* Images */
-img:focus-visible,
-picture:focus-visible {
-  outline: 3px solid #35d6c0; /* accent */
-  outline-offset: 4px;
-  border-radius: 0.5rem;
-}
+  /* Images */
+  img:focus-visible,
+  picture:focus-visible {
+    outline: 3px solid #35d6c0; /* accent */
+    outline-offset: 4px;
+    border-radius: 0.5rem;
+  }
 
-/* Headings */
-h1:focus-visible,
-h2:focus-visible,
-h3:focus-visible,
-h4:focus-visible,
-h5:focus-visible,
-h6:focus-visible {
-  outline: 2px solid #35d6c0; /* accent */
-  outline-offset: 3px;
-  border-radius: 0.25rem;
-}
+  /* Headings */
+  h1:focus-visible,
+  h2:focus-visible,
+  h3:focus-visible,
+  h4:focus-visible,
+  h5:focus-visible,
+  h6:focus-visible {
+    outline: 2px solid #35d6c0; /* accent */
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
 
-/* Headings inside links - not focusable */
-a h1,
-a h2,
-a h3,
-a h4,
-a h5,
-a h6 {
-  pointer-events: none;
-  outline: none !important;
-}
+  /* Headings inside links - not focusable */
+  a h1,
+  a h2,
+  a h3,
+  a h4,
+  a h5,
+  a h6 {
+    pointer-events: none;
+    outline: none !important;
+  }
 
-/* Links containing headings */
-a:has(h1, h2, h3, h4, h5, h6):focus-visible {
-  outline: 3px solid #35d6c0; /* accent */
-  outline-offset: 4px;
-  border-radius: 0.5rem;
-}
+  /* Links containing headings */
+  a:has(h1, h2, h3, h4, h5, h6):focus-visible {
+    outline: 3px solid #35d6c0; /* accent */
+    outline-offset: 4px;
+    border-radius: 0.5rem;
+  }
 
-/* Logo */
-a[aria-label*="logo"]:focus-visible,
-a[aria-label*="Logo"]:focus-visible {
-  outline: 3px solid #35d6c0 !important; /* accent */
-  outline-offset: 6px !important;
-  border-radius: 0.5rem !important;
+  /* Logo */
+  a[aria-label*="logo"]:focus-visible,
+  a[aria-label*="Logo"]:focus-visible {
+    outline: 3px solid #35d6c0 !important; /* accent */
+    outline-offset: 6px !important;
+    border-radius: 0.5rem !important;
+  }
 }
 
 /* Waveform bars para el reproductor de narración */

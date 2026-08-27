@@ -37,7 +37,7 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
             <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Tags</p>
             <div class="flex flex-wrap gap-1.5">
               {content.tags.map((tag: TagsAllowed) => (
-                <span class="px-2 py-0.5 text-xs rounded bg-surface-raised text-text-muted">
+                <span class="px-2 py-0.5 text-xs rounded-sm bg-surface-raised text-text-muted">
                   {TagMap.get(tag) ?? tag}
                 </span>
               ))}

@@ -1,3 +1,4 @@
+import type { Page } from "@playwright/test";
 import { expect, test } from "@playwright/test";
 
 /**
@@ -16,6 +17,33 @@ const rgb = (hex: string) => {
   const n = parseInt(hex.replace("#", ""), 16);
   return `rgb(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255})`;
 };
+
+/**
+  * Resolves a colour property to sRGB using the browser's own canvas.
+  *
+  * Tailwind v4 applies opacity modifiers with color-mix() in oklab, so
+  * `bg-background/[.86]` no longer reads back as "rgba(...)" but as "oklab(...)".
+  * The painted colour is identical; only the notation changed. Comparing the
+  * string would tie this test to the CSS engine instead of the design value.
+  */
+const resolveColor = (page: Page, selector: string, property: string) =>
+  page.evaluate(
+    ([sel, prop]) => {
+      const el = document.querySelector(sel);
+      if (!el) return null;
+      const value = getComputedStyle(el).getPropertyValue(prop);
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas.height = 1;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return null;
+      ctx.clearRect(0, 0, 1, 1);
+      ctx.fillStyle = value;
+      ctx.fillRect(0, 0, 1, 1);
+      const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+      return { r, g, b, a: Math.round((a / 255) * 100) / 100 };
+    },
+    [selector, property] as const,
+  );
 
 const TOKEN = {
   abyss: "#091319",
@@ -131,7 +159,11 @@ test.describe("Design System · article card", () => {
     await expect(pill).toBeVisible();
     await expect(pill).toHaveCSS("color", rgb(TOKEN.arena));
     await expect(pill).toHaveCSS("border-top-color", rgb(TOKEN.pillBorder));
-    await expect(pill).toHaveCSS("border-radius", "9999px");
+    // Tailwind v3 emitted 9999px for `rounded-full`; v4 uses calc(infinity * 1px),
+    // which computes to 3.3e7px. The intent is the same — fully rounded — so
+    // that is what gets checked, not the exact figure.
+    const radius = await pill.evaluate((el) => parseFloat(getComputedStyle(el).borderTopLeftRadius));
+    expect(radius).toBeGreaterThan(500);
   });
 
   test("articles are objects, not table rows", async ({ page }) => {
@@ -225,8 +257,10 @@ test.describe("Design System · theme", () => {
   test("the navbar follows the theme instead of staying dark", async ({ page }) => {
     await page.goto("/");
     await page.locator("#theme-toggle").click();
-    // Retrying assertion: the header has a colour transition, so a single
-    // read can land mid-interpolation.
-    await expect(page.locator("#site-header")).toHaveCSS("background-color", "rgba(246, 242, 234, 0.86)");
+    // The header has a colour transition, so a single read can land mid
+    // interpolation: expect.poll retries until it settles.
+    await expect
+      .poll(() => resolveColor(page, "#site-header", "background-color"))
+      .toEqual({ r: 246, g: 242, b: 234, a: 0.86 });
   });
 });
