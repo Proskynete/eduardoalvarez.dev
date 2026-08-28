@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "@axe-core/cli": "^4.11.0",
-    "@axe-core/playwright": "^4.12.1",
+    "@axe-core/playwright": "^4.13.0",
     "@commitlint/cli": "^20.4.4",
     "@commitlint/config-conventional": "^19.0.0",
     "@eslint/js": "^10.0.1",
