@@ -1,46 +1,43 @@
 ---
+import { Footer, FooterLink } from "@eduardoalvarez/arrecife";
+
 import BrandFin from "../../../../components/brand-fin/index.astro";
 import settings from "../../../../settings";
 
-const currentYear = new Date().getFullYear();
-
 /**
- * Pie del sistema de identidad v1.
+ * The footer is the library's now. It brings the top hairline, the width cap
+ * and the CLI signature — `$ cd ~/eduardoalvarez.dev/<year>` — which this file
+ * used to spell out, domain included.
  *
- * El sistema usa enlaces de TEXTO en mono, no iconos: la fila de iconos
- * anterior no pertenecía a esta voz. Estructura de dos filas —
- * fin plus wordmark on top, links and prompt below.
+ * Text links rather than the icon row: `social` renders icons, and this site's
+ * voice is mono text. The library supports both, and `children` is the text one.
+ *
+ * The brand row (fin plus wordmark) goes through `children` as well, because the
+ * component has no slot for it. It wraps onto its own line at this size, so the
+ * two-row reading survives — but it is a gap in the component, logged in
+ * ARRECIFE-BACKLOG.md rather than worked around silently.
  */
-const enlaces = [
-  ...settings.social_network.filter((s) => s.show).map((s) => ({ nombre: s.name.toLowerCase(), href: s.link })),
-  { nombre: "rss", href: "/rss.xml" },
+const links = [
+  ...settings.social_network.filter((s) => s.show).map((s) => ({ name: s.name.toLowerCase(), href: s.link })),
+  { name: "rss", href: "/rss.xml" },
 ];
 ---
 
-<footer id="site-footer" class="mt-20 border-t border-surface-border pt-10 pb-12">
-  <div class="flex items-center gap-3">
+<Footer id="site-footer" className="mt-20">
+  <div class="gap-step-sm flex w-full items-center">
     <BrandFin class="h-6 w-auto flex-none" />
-    <span class="font-display text-[15px] font-bold text-text-primary">Eduardo Álvarez</span>
+    <span class="text-ui font-display font-bold text-text-primary">Eduardo Álvarez</span>
   </div>
 
-  <div class="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-    <nav aria-label="Enlaces y redes" class="flex flex-wrap gap-5 font-mono text-[12.5px] text-text-muted">
-      {
-        enlaces.map(({ nombre, href }) => (
-          <a
-            href={href}
-            target={href.startsWith("http") ? "_blank" : undefined}
-            rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-            class="transition-colors duration-200"
-          >
-            {nombre}
-          </a>
-        ))
-      }
-    </nav>
-
-    <p class="font-mono text-[13px] text-text-muted">
-      <span class="simbolo">$</span> cd ~/eduardoalvarez.dev/{currentYear}
-    </p>
-  </div>
-</footer>
+  {
+    links.map(({ name, href }) => (
+      <FooterLink
+        href={href}
+        target={href.startsWith("http") ? "_blank" : undefined}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+      >
+        {name}
+      </FooterLink>
+    ))
+  }
+</Footer>
