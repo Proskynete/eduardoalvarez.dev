@@ -208,11 +208,19 @@ test.describe("Design System · brand", () => {
   test("the table of contents highlights the section being read", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(ARTICLE);
-    const links = page.locator('nav[aria-label="Tabla de contenidos"] a');
+    // The nav is named by its title, which the library uses as the aria-label.
+    // Two are rendered — one collapsible for narrow screens, one card for wide —
+    // so the visible one is the subject, not the first in the DOM.
+    const toc = page.locator('nav[aria-label="En esta página"]').filter({ visible: true });
+    // Asserted before the skip guard on purpose: with only the guard, renaming
+    // the label turned a broken table of contents into a silent skip and the
+    // suite stayed green.
+    await expect(toc).toBeVisible();
+    const links = toc.locator("a");
     if ((await links.count()) < 2) test.skip(true, "article has too few sections");
     await page.locator("#article-body h2").nth(1).scrollIntoViewIfNeeded();
     await page.waitForTimeout(600);
-    await expect(page.locator('nav[aria-label="Tabla de contenidos"] a[aria-current="true"]')).toHaveCount(1);
+    await expect(toc.locator('a[aria-current="true"]')).toHaveCount(1);
   });
 
   test("comments load and take real height", async ({ page }) => {
