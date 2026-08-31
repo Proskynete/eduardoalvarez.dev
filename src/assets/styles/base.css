@@ -7,6 +7,14 @@
    library does that itself with its own `[data-theme]` blocks. */
 @import "@eduardoalvarez/arrecife/tokens/theme.css";
 
+/* Tailwind does not scan node_modules, so the classes the library's components
+   emit at runtime would never be generated: `border-hairline`, `rounded-pill`,
+   `p-step-lg` and the rest would simply not exist in the stylesheet. Nothing
+   fails loudly — the components render with class names that resolve to
+   nothing, which is how a card ends up with a currentColor border. The library
+   documents this directive in its llms.txt. */
+@source "../../../node_modules/@eduardoalvarez/arrecife/dist";
+
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 

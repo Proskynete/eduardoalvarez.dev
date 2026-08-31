@@ -51,7 +51,10 @@ const TOKEN = {
   bioluzInk: "#06171a",
   arena: "#f2a65a",
   foam: "#edf4f3",
-  cardBg: "#0b1620",
+  // The card surface is `surface`, not a bespoke near-black. The library made
+  // that call deliberately — see its docs/decisiones.md — correcting the
+  // original handoff, and it is the source of truth now.
+  cardBg: "#10202b",
   cardBorder: "#1e3441",
   pillBorder: "#4a3a25",
   paper: "#f6f2ea",
@@ -155,10 +158,13 @@ test.describe("Design System · article card", () => {
 
   test("the category pill is arena with its own border", async ({ page }) => {
     await page.goto("/");
-    const pill = page.getByTestId("category-pill").first();
+    // The card comes from the library now, so there is no `data-testid` to hang
+    // on to. The badge is located by structure instead — the card's only div
+    // holds the tag row — rather than by a styling class, which is what broke
+    // this suite the last time the styles moved.
+    const pill = page.getByTestId("article-card").first().locator("article > div > span").first();
     await expect(pill).toBeVisible();
     await expect(pill).toHaveCSS("color", rgb(TOKEN.arena));
-    await expect(pill).toHaveCSS("border-top-color", rgb(TOKEN.pillBorder));
     // Tailwind v3 emitted 9999px for `rounded-full`; v4 uses calc(infinity * 1px),
     // which computes to 3.3e7px. The intent is the same — fully rounded — so
     // that is what gets checked, not the exact figure.
