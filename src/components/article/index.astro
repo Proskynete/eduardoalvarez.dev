@@ -11,7 +11,7 @@ export interface Props {
   headingLevel?: 2 | 3;
 }
 
-const { article } = Astro.props;
+const { article, headingLevel = 3 } = Astro.props;
 ---
 
 {/*
@@ -36,9 +36,9 @@ const { article } = Astro.props;
   here is the excerpt, and a figure derived from that would be a number that
   looks measured and is not.
 
-  `headingLevel` stays in the props for the two call sites but is no longer
-  used: the library fixes the heading at h3 so a card cannot claim a level its
-  position in the page has not earned.
+  `headingLevel` works again: 0.4.0 accepts it, bounded to 2 | 3. The listing
+  page passes 2, where the cards really are the section's headings; everywhere
+  else h3 stays the default.
 */}
 <ArticleCard
   data-testid="article-card"
@@ -47,6 +47,7 @@ const { article } = Astro.props;
   excerpt={article.excerpt}
   date={prettyDate(article.date)}
   dateTime={article.date}
+  headingLevel={headingLevel}
   tags={article.categories?.slice(0, 1)}
   className="h-full"
 />
