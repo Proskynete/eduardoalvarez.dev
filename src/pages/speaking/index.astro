@@ -76,10 +76,10 @@ const seo = {
       <section class="mb-14">
         <h2 class="text-sm font-medium text-text-muted uppercase tracking-widest mb-6 flex items-center gap-3">
           {year}
-          <span class="flex-1 h-px bg-surface-border"></span>
+          <span class="flex-1 h-px bg-border"></span>
         </h2>
 
-        <div class="divide-y divide-surface-border">
+        <div class="divide-y divide-border">
           {byYear[year].map((talk: Talk) => (
             <article class="py-6 first:pt-0">
               <div class="flex flex-col gap-3">
@@ -98,7 +98,7 @@ const seo = {
                       })}
                     </time>
                   </span>
-                  <span class="text-surface-border">·</span>
+                  <span class="text-border">·</span>
                   <a
                     href={talk.location.url}
                     target="_blank"

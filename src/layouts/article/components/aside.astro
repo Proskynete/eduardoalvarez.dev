@@ -10,14 +10,14 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
 <aside aria-label="Información del artículo" class="xl:sticky xl:top-24 xl:self-start mb-10 xl:mb-0">
   <div class="flex flex-col gap-4">
     <!-- Info card: reading time -->
-    <div class="bg-surface rounded-xl p-4 border border-surface-border">
+    <div class="bg-surface rounded-xl p-4 border border-border">
       <!-- Reading time -->
       <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Lectura</p>
       <p class="text-sm font-semibold text-text-primary">{timeToRead} {prettyTimeToReadText} aprox.</p>
     </div>
 
     <!-- Info card: categories + tags -->
-    <div class="bg-surface rounded-xl p-4 border border-surface-border divide-y divide-surface-border">
+    <div class="bg-surface rounded-xl p-4 border border-border divide-y divide-border">
       <!-- Categories -->
       <div class:list={[content.tags && content.tags.length > 0 ? "pb-4" : ""]}>
         <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Categorías</p>
@@ -50,7 +50,7 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
     <!-- Sections card (mobile: collapsible) -->
     {
       content.sections && content.sections.length > 0 && (
-        <details class="xl:hidden bg-surface rounded-xl border border-surface-border overflow-hidden">
+        <details class="xl:hidden bg-surface rounded-xl border border-border overflow-hidden">
           <summary class="px-4 py-3 text-xs font-medium uppercase tracking-widest text-text-muted cursor-pointer select-none list-none flex items-center justify-between hover:text-text-primary transition-colors duration-200">
             Secciones del artículo
             <span class="text-accent text-base leading-none">›</span>
@@ -59,7 +59,7 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
             {content.sections.map((section: { anchor: string; title: string }) => (
               <a
                 href={`#${section.anchor}`}
-                class="border-l-2 border-surface-border py-1 pl-3 text-sm text-text-secondary transition-colors duration-200 hover:text-text-primary aria-[current=true]:border-accent aria-[current=true]:text-accent"
+                class="border-l-2 border-border py-1 pl-3 text-sm text-text-secondary transition-colors duration-200 hover:text-text-primary aria-[current=true]:border-accent aria-[current=true]:text-accent"
               >
                 {section.title}
               </a>
@@ -72,7 +72,7 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
     <!-- Sections card (desktop only) -->
     {
       content.sections && content.sections.length > 0 && (
-        <div class="hidden xl:block bg-surface rounded-xl border border-surface-border overflow-hidden">
+        <div class="hidden xl:block bg-surface rounded-xl border border-border overflow-hidden">
           <div class="px-4 pt-4 pb-2">
             <p class="font-mono text-xs uppercase tracking-[0.12em] text-text-muted">En esta página</p>
           </div>
@@ -80,7 +80,7 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
             {content.sections.map((section: { anchor: string; title: string }) => (
               <a
                 href={`#${section.anchor}`}
-                class="border-l-2 border-surface-border py-1 pl-3 text-sm text-text-secondary transition-colors duration-200 hover:text-text-primary aria-[current=true]:border-accent aria-[current=true]:text-accent"
+                class="border-l-2 border-border py-1 pl-3 text-sm text-text-secondary transition-colors duration-200 hover:text-text-primary aria-[current=true]:border-accent aria-[current=true]:text-accent"
               >
                 {section.title}
               </a>
@@ -91,14 +91,14 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
     }
 
     <!-- Share card -->
-    <div class="bg-surface rounded-xl p-4 border border-surface-border">
+    <div class="bg-surface rounded-xl p-4 border border-border">
       <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-3">Compartir</p>
       <div class="flex gap-2">
         <a
           href={twitterShare}
           target="_blank"
           rel="nofollow noopener noreferrer"
-          class="flex-1 flex items-center justify-center px-3 py-2 rounded-lg bg-surface-raised hover:bg-surface-border/40 text-text-muted hover:text-text-primary transition-colors duration-200"
+          class="flex-1 flex items-center justify-center px-3 py-2 rounded-lg bg-surface-raised hover:bg-border/40 text-text-muted hover:text-text-primary transition-colors duration-200"
           aria-label="Compartir en Twitter"
         >
           <Icon.X />
@@ -107,7 +107,7 @@ const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
           href={linkedInShare}
           target="_blank"
           rel="nofollow noopener noreferrer"
-          class="flex-1 flex items-center justify-center px-3 py-2 rounded-lg bg-surface-raised hover:bg-surface-border/40 text-text-muted hover:text-text-primary transition-colors duration-200"
+          class="flex-1 flex items-center justify-center px-3 py-2 rounded-lg bg-surface-raised hover:bg-border/40 text-text-muted hover:text-text-primary transition-colors duration-200"
           aria-label="Compartir en LinkedIn"
         >
           <Icon.LinkedIn />

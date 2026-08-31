@@ -96,7 +96,7 @@ function formatDuration(minutes: number): string {
       </div>
 
       {/* Reproductor de audio destacado */}
-      <div class="bg-surface rounded-xl p-6 border border-surface-border">
+      <div class="bg-surface rounded-xl p-6 border border-border">
         <h2 class="text-lg font-semibold text-text-primary mb-4">Escuchar episodio</h2>
         <AudioPlayer client:load src={podcast.audioUrl} title={podcast.title} />
       </div>
@@ -135,7 +135,7 @@ function formatDuration(minutes: number): string {
                    prose-li:marker:text-accent
                    prose-blockquote:border-accent
                    prose-code:text-accent prose-code:bg-surface-raised prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-                   prose-pre:bg-surface prose-pre:border prose-pre:border-surface-border"
+                   prose-pre:bg-surface prose-pre:border prose-pre:border-border"
             set:html={contentHtml}
           />
         </section>
@@ -146,7 +146,7 @@ function formatDuration(minutes: number): string {
         {/* Invitados */}
         {
           podcast.guests.length > 0 && (
-            <section class="mb-8 bg-surface rounded-xl p-6 border border-surface-border">
+            <section class="mb-8 bg-surface rounded-xl p-6 border border-border">
               <h2 class="text-lg font-semibold text-text-primary mb-4">
                 {podcast.guests.length === 1 ? "Invitado" : "Invitados"}
               </h2>
@@ -202,7 +202,7 @@ function formatDuration(minutes: number): string {
         }
 
         {/* Plataformas */}
-        <section class="bg-surface rounded-xl p-6 border border-surface-border">
+        <section class="bg-surface rounded-xl p-6 border border-border">
           <h2 class="text-lg font-semibold text-text-primary mb-4">Escuchar en</h2>
           <div class="flex flex-col gap-2">
             {
@@ -222,7 +222,7 @@ function formatDuration(minutes: number): string {
         </section>
 
         {/* Compartir */}
-        <section class="mt-6 bg-surface rounded-xl p-6 border border-surface-border">
+        <section class="mt-6 bg-surface rounded-xl p-6 border border-border">
           <h2 class="text-lg font-semibold text-text-primary mb-4">Compartir</h2>
           <div class="flex gap-2">
             <a
@@ -249,7 +249,7 @@ function formatDuration(minutes: number): string {
     </div>
 
     {/* Volver a podcasts */}
-    <div class="mt-12 pt-8 border-t border-surface-border">
+    <div class="mt-12 pt-8 border-t border-border">
       <a href="/podcasts" class="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors duration-200">
         <Icon.ArrowLeft className="w-5 h-5" />
         Volver a todos los episodios

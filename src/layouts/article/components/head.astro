@@ -8,7 +8,7 @@ import { prettyDate } from "../../../utils/date";
 const { content } = Astro.props;
 ---
 
-<header class="pb-10 border-b border-surface-border">
+<header class="pb-10 border-b border-border">
   <!-- Category badges -->
   {
     content.categories && content.categories.length > 0 && (
@@ -32,7 +32,7 @@ const { content } = Astro.props;
     <time datetime={content.date}>
       {prettyDate(content.date)}
     </time>
-    <span class="text-surface-border">·</span>
+    <span class="text-border">·</span>
     <a
       class="flex items-center gap-1 text-accent hover:underline transition-colors duration-200"
       href={githubArticlePath(content.slug)}

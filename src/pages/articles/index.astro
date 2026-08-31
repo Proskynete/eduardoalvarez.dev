@@ -57,7 +57,7 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
     </header>
 
     <!-- Category filter -->
-    <div class="flex overflow-hidden rounded-[10px] border border-surface-border mb-10 w-fit max-w-full overflow-x-auto" id="category-filter" role="group" aria-label="Filtrar por categoría">
+    <div class="flex overflow-hidden rounded-[10px] border border-border mb-10 w-fit max-w-full overflow-x-auto" id="category-filter" role="group" aria-label="Filtrar por categoría">
       <button
         class="category-btn px-[18px] py-[9px] text-[13.5px] text-text-secondary transition-colors duration-200 hover:text-text-primary aria-[pressed=true]:bg-surface-raised aria-[pressed=true]:text-text-primary"
         data-category="all"
@@ -108,7 +108,7 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
         buttons.forEach((b) => {
           const isActive = b.dataset.category === selected;
           b.setAttribute("aria-pressed", String(isActive));
-          // El grupo de flex overflow-hidden rounded-[10px] border border-surface-border del sistema marca el activo con una sola clase.
+          // El grupo de flex overflow-hidden rounded-[10px] border border-border del sistema marca el activo con una sola clase.
           b.classList.toggle("activo", isActive);
         });
 
