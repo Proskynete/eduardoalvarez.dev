@@ -1,82 +1,20 @@
 @import "tailwindcss";
 
+/* The design system's tokens now come from the published package. This replaces
+   the colour scale, the light-mode block, the container/radius/spacing scales
+   and the type scale, all of which the library ships — plus the `--c-*` triplet
+   indirection, which existed only so `data-theme` could swap the palette. The
+   library does that itself with its own `[data-theme]` blocks. */
+@import "@eduardoalvarez/arrecife/tokens/theme.css";
+
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
-/* The `light:` variant. Lets the rules that swap tokens between themes — the
-   primary button turning solid hull, for one — be written as utilities instead
-   of loose CSS. In v3 this was an addVariant plugin; v4 declares it here. */
-@custom-variant light (html[data-theme="light"] &);
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   Theme · migrated from tailwind.config.mjs
-   Source of truth: the design handoff + BRAND.md. Do not invent values here.
-
-   Colours point at the `--c-*` triplets defined below rather than fixed hex
-   values: that is what lets `data-theme="light"` swap EVERY Tailwind utility
-   and not just the hand-written components. Opacity modifiers such as
-   `bg-surface/40` still work — v4 resolves them with color-mix().
-   ═══════════════════════════════════════════════════════════════════════════ */
 @theme {
-  /* ─── Typography ─────────────────────────────────────────────── */
-  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
-
-  /* ─── Colour ─────────────────────────────────────────────────── */
-  --color-background: rgb(var(--c-background));
-  --color-surface: rgb(var(--c-surface));
-  --color-surface-raised: rgb(var(--c-surface-raised));
-  --color-surface-border: rgb(var(--c-surface-border));
-  --color-text-primary: rgb(var(--c-text-primary));
-  --color-text-secondary: rgb(var(--c-text-secondary));
-  --color-text-muted: rgb(var(--c-text-muted));
-  --color-accent: rgb(var(--c-accent));
-  --color-accent-hover: rgb(var(--c-accent-hover));
-  --color-accent-dark: #0d7c6f;
-  --color-warm: rgb(var(--c-warm));
-  --color-warm-hover: rgb(var(--c-warm-hover));
-  --color-warm-dark: #a65b27;
-
-  --color-paper: #f6f2ea;
-  --color-paper-raised: #ffffff;
-  --color-paper-border: #e6dfd2;
-  --color-paper-text: #0b1524;
-  --color-paper-secondary: #3d4b58;
-  --color-paper-muted: #6b7480;
-
-  --color-mascota-cuerpo: #3e7cb1;
-  --color-mascota-manchas: #c2d7e7;
-  --color-mascota-casco: #0b1524;
-
-  --color-error: #e05252;
-  --color-success: #4fb477;
-  --color-warning: #e8a33d;
-
-  /* ─── Gradients ──────────────────────────────────────────────── */
-  --background-image-hero-gradient: var(--g-hero);
-  --background-image-slide-cover: linear-gradient(150deg, #091319 55%, #0e2a30 100%);
-  --background-image-accent-glow: var(--g-accent-glow);
-
-  /* ─── Layout ─────────────────────────────────────────────────── */
-  --container-content: 760px;
-  --container-wide: 1180px;
-
-  --spacing-section-gap: 96px;
-  --spacing-card-pad: 26px;
-  --spacing-nav-height: 64px;
-
-  --radius-control: 10px;
-  --radius-card: 14px;
-  --radius-panel: 16px;
-
-  --tracking-display: -0.035em;
+  /* Everything else now comes from the library. What is left is genuinely this
+     project's: a heading tracking step the scale does not expose as a standalone
+     token, and the hero drift, which belongs to a page where the mascot floats. */
   --tracking-tight: -0.03em;
-  --tracking-eyebrow: 0.14em;
-
-  /* ─── Motion ─────────────────────────────────────────────────── */
-  /* Slow vertical drift for the hero mascot: reads as floating, not bouncing.
-     Only applied under `motion-safe`. */
   --animate-float: float 6s ease-in-out infinite;
 }
 
@@ -89,6 +27,7 @@
     transform: translateY(-14px);
   }
 }
+
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Typography · migrated from the `typography` block of tailwind.config.mjs
@@ -161,48 +100,6 @@
   padding-left: 1rem;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   Tokens como variables CSS · sistema v1
-   En tripletas R G B para que Tailwind pueda aplicarles opacidad
-   (`bg-surface/40`). El bloque de `html[data-theme="light"]` los conmuta y con
-   eso cambia TODO el sitio, no solo los componentes propios.
-   ═══════════════════════════════════════════════════════════════════════════ */
-:root {
-  --c-background: 9 19 25; /* abismo  #091319 */
-  --c-surface: 16 32 43; /* fosa    #10202b */
-  --c-surface-raised: 23 48 62; /* corriente #17303e */
-  --c-surface-border: 34 65 79; /* #22414f */
-  --c-text-primary: 237 244 243; /* espuma  #edf4f3 */
-  --c-text-secondary: 167 188 196; /* bruma #a7bcc4 */
-  --c-text-muted: 113 145 156; /* plancton #71919c */
-  --c-accent: 53 214 192; /* bioluz  #35d6c0 */
-  --c-accent-hover: 95 227 209; /* #5fe3d1 */
-  --c-warm: 242 166 90; /* arena   #f2a65a */
-  --c-warm-hover: 247 187 125; /* #f7bb7d */
-
-  --g-hero: linear-gradient(160deg, #091319 60%, #0d2129 100%);
-  --g-accent-glow: radial-gradient(ellipse 70% 60% at 72% 10%, rgba(53, 214, 192, 0.1) 0%, transparent 65%);
-}
-
-html[data-theme="light"] {
-  --c-background: 246 242 234; /* paper   #f6f2ea */
-  --c-surface: 255 255 255;
-  --c-surface-raised: 237 231 219;
-  --c-surface-border: 230 223 210;
-  --c-text-primary: 11 21 36; /* casco   #0b1524 */
-  --c-text-secondary: 61 75 88;
-  --c-text-muted: 107 116 128;
-  /* En claro los acentos viven en sus variantes oscuras: bioluz y arena plenos
-     no dan contraste sobre papel. Ver la regla del sistema. */
-  --c-accent: 13 124 111; /* #0d7c6f — 4.55:1 */
-  --c-accent-hover: 15 143 128;
-  --c-warm: 166 91 39; /* #a65b27 — 4.54:1 */
-  --c-warm-hover: 180 99 42;
-
-  --g-hero: linear-gradient(160deg, #f6f2ea 55%, #e9eeea 100%);
-  --g-accent-glow: radial-gradient(ellipse 70% 60% at 72% 10%, rgba(13, 124, 111, 0.08) 0%, transparent 65%);
-}
-
 @layer base {
   @font-face {
     font-family: "Geist";
@@ -214,7 +111,7 @@ html[data-theme="light"] {
 
   /* Display — solo titulares y números grandes. Nunca cuerpo. */
   @font-face {
-    font-family: "Bricolage Grotesque Variable";
+    font-family: "Bricolage Grotesque";
     font-style: normal;
     font-weight: 200 800;
     font-display: swap;
@@ -223,7 +120,7 @@ html[data-theme="light"] {
 
   /* Mono — reemplaza a Geist Mono: código, rutas, etiquetas, metadatos, firma CLI. */
   @font-face {
-    font-family: "JetBrains Mono Variable";
+    font-family: "JetBrains Mono";
     font-style: normal;
     font-weight: 100 800;
     font-display: swap;
@@ -469,8 +366,8 @@ html[data-theme="light"] {
 }
 
 html[data-theme="light"] body {
-  background-color: #f6f2ea;
-  color: #0b1524;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
 }
 
 /* Giscus — el widget es un custom element y los custom elements son `display:
