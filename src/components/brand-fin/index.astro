@@ -1,16 +1,18 @@
 ---
+import { Isotipo } from "@eduardoalvarez/arrecife/brand";
+
 /**
- * Brand fin — level 3 of the mark system, and the only level allowed to stand
- * alone below 120px. Minimum 16px.
+ * The fin is the library's Isotipo now, which owns the file names, the
+ * dimensions and the rule that the two-blue variant is for light grounds and
+ * the foam one for dark.
  *
- * CRITICAL RULE from the design system: the two-blue fin has a #0B1524 body and
- * DISAPPEARS on dark grounds; the foam one disappears on light grounds. Both are
- * rendered and CSS picks — solved here rather than at every call site, which is
- * exactly where it gets forgotten.
+ * Both are rendered and CSS picks, because `sobre` is resolved at render time
+ * and this site switches theme at runtime: a single Isotipo would be right on
+ * one theme and invisible on the other. Composing them here keeps the decision
+ * in one file instead of at every call site, which is where it gets forgotten.
  *
- * PROVISIONAL: PNG files cropped from the sticker sheet (147×111). Once the vector
- * exists these must be replaced — a crisp favicon, embroidery and print over
- * 200mm all need it.
+ * The assets stay in this project's public/brand — the library's default
+ * basePath points there and the file names already match.
  */
 interface Props {
   class?: string;
@@ -19,26 +21,7 @@ interface Props {
 }
 
 const { class: className = "", alt = "" } = Astro.props;
-const shared = `object-contain ${className}`;
 ---
 
-<img
-  src="/brand/fin-foam.png"
-  alt={alt}
-  width="147"
-  height="111"
-  loading="eager"
-  decoding="async"
-  class={`block light:hidden ${shared}`}
-  aria-hidden={alt === "" ? "true" : undefined}
-/>
-<img
-  src="/brand/fin.png"
-  alt={alt}
-  width="147"
-  height="111"
-  loading="eager"
-  decoding="async"
-  class={`hidden light:block ${shared}`}
-  aria-hidden={alt === "" ? "true" : undefined}
-/>
+<Isotipo sobre="oscuro" alt={alt} className={`block light:hidden ${className}`} />
+<Isotipo sobre="claro" alt={alt} className={`hidden light:block ${className}`} />
