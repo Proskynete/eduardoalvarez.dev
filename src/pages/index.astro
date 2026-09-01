@@ -2,6 +2,7 @@
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
 import Article from "../components/article/index.astro";
+import HomeHero from "../components/home-hero/index";
 import Subscribe from "../components/subscribe/index.astro";
 import { talks } from "../settings/talks";
 import type { Talk } from "../settings/talks";
@@ -57,65 +58,20 @@ const seo = {
 ---
 
 <Layout seo={seo}>
-  <!-- Hero -->
-  {/* Hero. No wrapper: the mascot floats free instead of sitting inside a
-      gradient panel, so the page opens on the character and not on a box. */}
-  <section aria-label="Introduction" class="mb-20 pt-6 sm:pt-10">
-    <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
-      <div>
-        <p class="mb-4 font-mono text-[11.5px] uppercase tracking-[0.12em] text-accent">
-          Engineering Leadership &amp; Platform Thinking
-        </p>
-        <h1
-          class="mb-[18px] font-display text-[clamp(2.6rem,6.4vw,64px)] font-extrabold leading-[0.96] tracking-[-0.035em] text-text-primary"
-        >
-          Eduardo<br />Álvarez
-        </h1>
-        <p class="mb-[14px] max-w-[52ch] text-base leading-relaxed text-text-secondary">
-          Ayudo a equipos de ingeniería a escalar con criterio — desde la arquitectura de plataforma hasta la cultura de
-          liderazgo técnico en la era de la IA.
-        </p>
-        <p class="mb-[26px] max-w-[62ch] text-sm leading-relaxed text-text-secondary">
-          Este sitio reúne mis artículos sobre liderazgo técnico, arquitectura de plataformas y el impacto de la IA en
-          los equipos de software. También encontrarás un resumen de mis charlas, los servicios de consultoría y
-          mentoring que ofrezco, y la newsletter mensual donde profundizo en estos temas sin spam.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a
-            href="/articles"
-            class="inline-flex items-center justify-center rounded-[10px] bg-accent px-[22px] py-3 text-[15px] font-medium text-[#06171a] transition-colors duration-200 hover:bg-accent-hover light:bg-brand-hull light:text-background light:hover:bg-[#1e3441] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
-          >
-            Leer artículos
-          </a>
-          <a
-            href="/working-with-me"
-            class="inline-flex items-center justify-center rounded-[10px] border border-[#2c4d5d] px-[22px] py-3 text-[15px] font-medium text-text-primary transition-colors duration-200 hover:border-accent hover:text-accent light:border-[#ccc2b0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
-          >
-            Trabajar juntos
-          </a>
-        </div>
-      </div>
+  <HomeHero
+    eyebrow="Engineering Leadership & Platform Thinking"
+    name="Eduardo Álvarez"
+    tagline="Ayudo a equipos de ingeniería a escalar con criterio — desde la arquitectura de plataforma hasta la cultura de liderazgo técnico en la era de la IA."
+    keywords={["liderazgo", "plataforma", "ia", "arquitectura"]}
+    redes={settings.social_network.filter((s) => s.show)}
+    photo="/images/eduardo_alvarez_2.png"
+    mascot="/brand/pose-laptop-coffee.png"
+    correo={settings.contacts.find((c) => c.name === "Correo")?.href}
+  />
 
-      {/* Centred and floating. The animation is a slow vertical drift — it
-          reads as buoyancy, not as a bounce. Disabled under reduced motion. */}
-      <div class="order-first flex justify-center lg:order-none">
-        <img
-          data-testid="hero-mascot"
-          src="/brand/pose-laptop-coffee.png"
-          alt=""
-          aria-hidden="true"
-          width="346"
-          height="276"
-          fetchpriority="high"
-          decoding="async"
-          class="w-[260px] max-w-full select-none motion-safe:animate-float sm:w-[300px] lg:w-full"
-        />
-      </div>
-    </div>
-  </section>
 
   <!-- Latest Writing -->
-  <section aria-label="Últimos artículos" class="mb-20 mx-auto max-w-full">
+  <section aria-label="Últimos artículos" class="mb-20 mt-step-xl mx-auto max-w-full">
     <div class="flex items-center justify-between mb-8">
       <h2 class="text-text-primary">Últimos artículos</h2>
       <a href="/articles" class="font-mono text-sm text-text-secondary transition-colors duration-200 hover:text-accent hover:underline hover:underline-offset-4">./ver_todos →</a>

@@ -116,9 +116,12 @@ test.describe("Design System · navigation", () => {
 });
 
 test.describe("Design System · buttons", () => {
+  // The home hero no longer carries buttons — it opens on the person and the
+  // content instead. /about still has the primary and secondary pair, and these
+  // tests are about the system's values, not about any one page.
   test("the primary button matches bg, ink, padding and radius", async ({ page }) => {
-    await page.goto("/");
-    const btn = page.getByRole("link", { name: "Leer artículos" }).first();
+    await page.goto("/about");
+    const btn = page.getByRole("link", { name: /Escríbeme/ }).first();
     await expect(btn).toBeVisible();
     await expect(btn).toHaveCSS("background-color", rgb(TOKEN.bioluz));
     await expect(btn).toHaveCSS("color", rgb(TOKEN.bioluzInk));
@@ -128,20 +131,22 @@ test.describe("Design System · buttons", () => {
   });
 
   test("the secondary button never fills its background", async ({ page }) => {
-    await page.goto("/");
-    const btn = page.getByRole("link", { name: "Trabajar juntos" }).first();
+    await page.goto("/about");
+    const btn = page.getByRole("link", { name: "Trabajemos" }).first();
     await expect(btn).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
     await btn.hover();
     await expect(btn).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
   });
 
   test("focus draws a bioluz ring with 3px offset", async ({ page }) => {
-    await page.goto("/");
-    const btn = page.getByRole("link", { name: "Leer artículos" }).first();
+    await page.goto("/about");
+    const btn = page.getByRole("link", { name: /Escríbeme/ }).first();
     await btn.focus();
     await expect(btn).toHaveCSS("outline-color", rgb(TOKEN.bioluz));
     await expect(btn).toHaveCSS("outline-width", "2px");
-    await expect(btn).toHaveCSS("outline-offset", "3px");
+    // 2px, not the 3px the hand-written button used. The library's Button is the
+    // canonical one now and it offsets by 2.
+    await expect(btn).toHaveCSS("outline-offset", "2px");
   });
 });
 
@@ -199,7 +204,7 @@ test.describe("Design System · brand", () => {
     await expect(mascot).toBeVisible();
     // No wrapper: the hero section must not paint a gradient panel behind it.
     const heroBg = await page
-      .locator('section[aria-label="Introduction"]')
+      .locator('section[aria-label="Presentación"]')
       .evaluate((el) => getComputedStyle(el).backgroundImage);
     expect(heroBg).toBe("none");
     await expect(mascot).toHaveCSS("animation-name", "float");
@@ -261,11 +266,14 @@ test.describe("Design System · theme", () => {
   });
 
   test("in light mode the primary button is solid hull, not bioluz", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/about");
     await page.locator("#theme-toggle").click();
-    const btn = page.getByRole("link", { name: "Leer artículos" }).first();
+    const btn = page.getByRole("link", { name: /Escríbeme/ }).first();
     await expect(btn).toHaveCSS("background-color", rgb(TOKEN.hull));
-    await expect(btn).toHaveCSS("color", rgb(TOKEN.paper));
+    // The ink on the light primary is `accent-on`, which is white on paper —
+    // not the page background. The bespoke button used `text-background` and
+    // that is one of the two ways it drifted from the system.
+    await expect(btn).toHaveCSS("color", "rgb(255, 255, 255)");
   });
 
   test("the navbar follows the theme instead of staying dark", async ({ page }) => {
