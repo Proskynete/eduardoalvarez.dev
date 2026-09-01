@@ -1,4 +1,6 @@
 ---
+import { buttonVariants } from "@eduardoalvarez/arrecife";
+
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
 import Article from "../components/article/index.astro";
@@ -81,18 +83,11 @@ const seo = {
           mentoring que ofrezco, y la newsletter mensual donde profundizo en estos temas sin spam.
         </p>
         <div class="flex flex-wrap gap-4">
-          <a
-            href="/articles"
-            class="inline-flex items-center justify-center rounded-[10px] bg-accent px-[22px] py-3 text-[15px] font-medium text-[#06171a] transition-colors duration-200 hover:bg-accent-hover light:bg-brand-hull light:text-background light:hover:bg-[#1e3441] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
-          >
-            Leer artículos
-          </a>
-          <a
-            href="/working-with-me"
-            class="inline-flex items-center justify-center rounded-[10px] border border-[#2c4d5d] px-[22px] py-3 text-[15px] font-medium text-text-primary transition-colors duration-200 hover:border-accent hover:text-accent light:border-[#ccc2b0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
-          >
-            Trabajar juntos
-          </a>
+          {/* `buttonVariants` en vez de `<Button asChild>`: esto son dos enlaces
+              estáticos y montar una isla de React para pintarlos sería pagar
+              hidratación por nada. La CVA se evalúa al construir. */}
+          <a href="/articles" class={buttonVariants({ variant: "primary" })}>Leer artículos</a>
+          <a href="/working-with-me" class={buttonVariants({ variant: "secondary" })}>Trabajar juntos</a>
         </div>
       </div>
 

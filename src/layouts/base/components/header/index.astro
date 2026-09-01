@@ -36,7 +36,10 @@ const { algolia } = Astro.props;
           >
             Eduardo Álvarez
           </span>
-          <span class="font-mono text-xs uppercase tracking-[0.12em] text-text-muted hidden whitespace-nowrap lg:block">
+          {/* A 1024 justo —el `lg` de Tailwind— la bajada entra y la cabecera se
+              pasa 2px del viewport, que es scroll horizontal en toda la página.
+              Cabe a partir de 1060. */}
+          <span class="font-mono text-xs uppercase tracking-[0.12em] text-text-muted hidden whitespace-nowrap min-[1060px]:block">
             Engineering Leadership · Platform Thinking
           </span>
         </div>
