@@ -1,4 +1,5 @@
 ---
+import { PageHeader } from "@eduardoalvarez/arrecife";
 import Layout from "../../layouts/main/index.astro";
 import settings from "../../settings";
 import { talks } from "../../settings/talks";
@@ -50,26 +51,16 @@ const seo = {
 <Layout seo={seo}>
   <div class="mx-auto max-w-full">
     <!-- Page header -->
-    <header class="mb-12">
-      <p class="mb-[10px] font-mono text-[12.5px] text-text-muted">/charlas</p>
-      <h1 class="mb-[14px] font-display text-[clamp(2.1rem,5vw,44px)] font-bold leading-[1.05] tracking-[-0.03em] text-text-primary">Charlas</h1>
-      <p class="mb-3 max-w-[62ch] text-[17px] leading-relaxed text-text-secondary">
-        Charlas y talleres sobre liderazgo de ingeniería, arquitectura de plataformas y construcción con IA.
-      </p>
-      <p class="max-w-[66ch] text-[15px] leading-[1.65] text-text-secondary">
-        Participo regularmente en conferencias, meetups y workshops privados hablando sobre liderazgo técnico,
-        plataformas internas, Developer Experience y el impacto real de la IA en equipos de ingeniería. Los formatos
-        incluyen keynotes, charlas de 30-45 minutos, paneles y workshops intensivos presenciales o remotos.
-      </p>
-      <p class="text-text-secondary text-sm mb-4">
-        Me encantaría participar en tu evento. Si quieres que hable, escríbeme a{" "}
+      <PageHeader
+        eyebrow="/charlas"
+        title="Charlas"
+        description="Conferencias, meetups y workshops sobre liderazgo técnico, plataformas internas y el impacto real de la IA en equipos de ingeniería. Keynotes, charlas de 30-45 minutos, paneles y talleres intensivos."
+      />
+
+      <p class="text-meta mb-step-lg font-mono text-text-muted">
+        ¿Quieres que hable en tu evento?{" "}
         <a href="mailto:soy@eduardoalvarez.dev" class="text-accent underline">Hablemos →</a>
       </p>
-      <p class="text-text-muted text-sm">
-        {settings.authorInlineBio.text}{" "}
-        <a href={settings.authorInlineBio.href} class="text-accent underline">{settings.authorInlineBio.cta}</a>
-      </p>
-    </header>
 
     <!-- Talks grouped by year -->
     {years.map((year: number) => (

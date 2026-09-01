@@ -1,4 +1,5 @@
 ---
+import { PageHeader } from "@eduardoalvarez/arrecife";
 import Article from "../../components/article/index.astro";
 import type { Article as IArticle } from "../../interfaces";
 import Layout from "../../layouts/main/index.astro";
@@ -42,19 +43,11 @@ const categories = [...new Set(posts.flatMap((p) => p.frontmatter.categories ?? 
 
 <Layout seo={seo}>
   <div class="mx-auto max-w-full">
-    <!-- Page header -->
-    <header class="mb-12">
-      <p class="mb-[10px] font-mono text-[12.5px] text-text-muted">/artículos</p>
-      <h1 class="mb-[14px] font-display text-[clamp(2.1rem,5vw,44px)] font-bold leading-[1.05] tracking-[-0.03em] text-text-primary">Artículos</h1>
-      <p class="mb-3 max-w-[62ch] text-[17px] leading-relaxed text-text-secondary">
-        Escribiendo acerca de liderazgo de ingeniería, arquitectura de plataformas y la era de la IA.
-      </p>
-      <p class="max-w-[66ch] text-[15px] leading-[1.65] text-text-secondary">
-        Acá encontrarás deep-dives técnicos sobre JavaScript, React y frontend moderno, ensayos de opinión sobre cómo
-        la IA está cambiando la forma en que escribimos software, y reflexiones prácticas sobre liderar equipos de
-        ingeniería. Todo escrito desde la trinchera, no desde la teoría de libro.
-      </p>
-    </header>
+    <PageHeader
+        eyebrow="/artículos"
+        title="Artículos"
+        description="Deep-dives sobre JavaScript, React y frontend moderno, ensayos sobre cómo la IA cambia la forma en que escribimos software, y reflexiones sobre liderar equipos. Escrito desde la trinchera, no desde la teoría."
+      />
 
     <!-- Category filter -->
     <div class="flex overflow-hidden rounded-[10px] border border-border mb-10 w-fit max-w-full overflow-x-auto" id="category-filter" role="group" aria-label="Filtrar por categoría">

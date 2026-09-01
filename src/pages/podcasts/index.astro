@@ -1,4 +1,5 @@
 ---
+import { PageHeader } from "@eduardoalvarez/arrecife";
 import Layout from "../../layouts/main/index.astro";
 import { podcasts, topicColors, platformIcons } from "../../settings/podcasts";
 import type { PodcastEpisode } from "../../settings/podcasts";
@@ -25,14 +26,11 @@ function formatDuration(minutes: number): string {
 
 <Layout seo={seo}>
   <div class="mx-auto max-w-full">
-    <!-- Page header -->
-    <header class="mb-12">
-      <p class="mb-[10px] font-mono text-[12.5px] text-text-muted">/podcasts</p>
-      <h1 class="mb-[14px] font-display text-[clamp(2.1rem,5vw,44px)] font-bold leading-[1.05] tracking-[-0.03em] text-text-primary">Podcasts</h1>
-      <p class="mb-3 max-w-[62ch] text-[17px] leading-relaxed text-text-secondary">
-        Conversaciones sobre desarrollo web, tecnología y carrera profesional con invitados de la industria.
-      </p>
-    </header>
+    <PageHeader
+        eyebrow="/podcasts"
+        title="Podcasts"
+        description="Conversaciones sobre desarrollo web, tecnología y carrera profesional con invitados de la industria."
+      />
 
     <!-- Episodes list -->
     <div class="grid grid-cols-1 gap-6">

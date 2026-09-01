@@ -1,4 +1,5 @@
 ---
+import { PageHeader } from "@eduardoalvarez/arrecife";
 import Layout from "../../layouts/main/index.astro";
 import Subscribe from "../../components/subscribe/index.astro";
 import settings from "../../settings";
@@ -21,23 +22,11 @@ const valueProps = [
 <Layout seo={seo}>
   <div class="mx-auto max-w-wide">
     <!-- Page header -->
-    <header class="mb-12">
-      <p class="mb-[10px] font-mono text-[12.5px] text-text-muted">/newsletter</p>
-      <h1 class="mb-[14px] font-display text-[clamp(2.1rem,5vw,44px)] font-bold leading-[1.05] tracking-[-0.03em] text-text-primary">Newsletter</h1>
-      <p class="mb-3 max-w-[62ch] text-[17px] leading-relaxed text-text-secondary">
-        Artículos sobre liderazgo de ingeniería, arquitectura de plataformas y la era de la IA — directamente en tu
-        correo.
-      </p>
-      <p class="text-text-secondary text-base leading-relaxed mb-4">
-        Una edición mensual con ensayos originales sobre cómo los equipos de ingeniería están evolucionando en la era
-        de la IA, reflexiones sobre liderazgo técnico y recomendaciones de lectura. Dirigida a Staff Engineers,
-        Engineering Managers y Tech Leads que quieren profundidad, no titulares. Sin spam, cancelas cuando quieras.
-      </p>
-      <p class="text-text-muted text-sm">
-        {settings.authorInlineBio.text}{" "}
-        <a href={settings.authorInlineBio.href} class="text-accent underline">{settings.authorInlineBio.cta}</a>
-      </p>
-    </header>
+      <PageHeader
+        eyebrow="/newsletter"
+        title="Newsletter"
+        description="Una edición mensual sobre cómo los equipos de ingeniería evolucionan en la era de la IA, liderazgo técnico y recomendaciones de lectura. Para quienes quieren profundidad, no titulares. Sin spam."
+      />
 
     <!-- Value proposition -->
     <section class="mb-10">
