@@ -76,14 +76,17 @@ function formatDuration(minutes: number): string {
         )}
 
         <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+        {/* El velo es negro en los dos temas, así que el texto que va encima
+            se fija en blanco. Seguía a `text-primary` y en claro salía oscuro
+            sobre oscuro: el título del episodio no se leía. */}
           <div class="flex items-center gap-3 mb-3">
-            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-accent/10 text-accent border border-accent/20">
+            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-white/15 text-white border border-white/25">
               Episodio {podcast.episode}
             </span>
-            <span class="text-text-secondary">{formatDuration(podcast.duration)}</span>
+            <span class="text-white/80">{formatDuration(podcast.duration)}</span>
           </div>
-          <h1 class="text-text-primary">{podcast.title}</h1>
-          <time datetime={podcast.date} class="text-text-secondary mt-2">
+          <h1 class="text-white">{podcast.title}</h1>
+          <time datetime={podcast.date} class="text-white/80 mt-2">
             {
               new Date(podcast.date).toLocaleDateString("es-ES", {
                 year: "numeric",
@@ -128,7 +131,7 @@ function formatDuration(minutes: number): string {
         <section class="mb-8">
           <h2 class="text-xl font-semibold text-text-primary mb-4">Notas del episodio</h2>
           <div
-            class="prose prose-invert max-w-none
+            class="prose max-w-none
                    prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4
                    prose-h3:text-lg prose-h3:mt-6 prose-h3:mb-3
                    prose-a:text-accent prose-a:no-underline hover:prose-a:text-accent-hover

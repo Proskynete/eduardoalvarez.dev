@@ -11,7 +11,7 @@
   margin-bottom: 1rem;
   padding-top: 3rem;
   scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
-  color: #edf4f3; /* text-primary */
+  color: var(--color-text-primary); /* text-primary */
 }
 
 #article-body h3 {
@@ -21,14 +21,14 @@
   margin-bottom: 0.75rem;
   margin-top: 2rem;
   scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
-  color: #edf4f3; /* text-primary */
+  color: var(--color-text-primary); /* text-primary */
 }
 
 #article-body p {
   font-weight: 400;
   line-height: 1.75;
   margin-bottom: 1.5rem;
-  color: #edf4f3; /* text-primary */
+  color: var(--color-text-primary); /* text-primary */
 }
 
 #article-body p strong {
@@ -39,14 +39,20 @@
   font-style: italic;
 }
 
+/* Subrayado permanente, no solo en hover: el acento contra el color del
+   cuerpo da 1.63:1 y el mínimo para distinguir un enlace únicamente por
+   color es 3:1. Sin subrayado el enlace es invisible para quien no
+   distingue ese contraste. */
 #article-body p a {
-  color: #35d6c0; /* accent */
-  text-decoration: none;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
 
 #article-body p a:hover {
-  color: #5fe3d1; /* accent-hover */
-  text-decoration: underline;
+  color: var(--color-accent-hover);
+  text-decoration-thickness: 2px;
 }
 
 #article-body p img {
@@ -65,9 +71,9 @@
 }
 
 #article-body p code {
-  background-color: #17303e; /* surface-raised */
+  background-color: var(--color-surface-raised); /* surface-raised */
   border-radius: 4px;
-  color: #edf4f3; /* text-primary */
+  color: var(--color-text-primary); /* text-primary */
   font-family: "JetBrains Mono Variable", ui-monospace, monospace;
   font-style: normal;
   padding: 2px 6px;
@@ -75,9 +81,9 @@
 }
 
 #article-body blockquote {
-  border-left: 3px solid #35d6c0; /* accent */
+  border-left: 3px solid var(--color-accent); /* accent */
   background-color: transparent;
-  color: #a7bcc4; /* text-secondary */
+  color: var(--color-text-secondary); /* text-secondary */
   font-style: italic;
   margin-bottom: 1.5rem;
   margin-top: 2rem;
@@ -88,21 +94,21 @@
   font-size: 1rem;
   line-height: 1.6;
   margin: 0;
-  color: #a7bcc4; /* text-secondary */
+  color: var(--color-text-secondary); /* text-secondary */
 }
 
 #article-body blockquote p strong {
   font-weight: 700;
-  color: #edf4f3;
+  color: var(--color-text-primary);
 }
 
 #article-body blockquote p a {
   font-weight: 500;
-  color: #35d6c0;
+  color: var(--color-accent);
 }
 
 #article-body blockquote p code {
-  background-color: #22414f; /* surface-border */
+  background-color: var(--color-border); /* surface-border */
   border-radius: 3px;
   font-style: normal;
   padding: 2px 5px;
@@ -111,7 +117,7 @@
 #article-body blockquote ul li {
   font-size: 1rem;
   line-height: 1.6;
-  color: #a7bcc4;
+  color: var(--color-text-secondary);
 }
 
 #article-body blockquote ul li strong {
@@ -122,16 +128,16 @@
   border-radius: 8px;
   margin-bottom: 1.5rem;
   overflow: hidden;
-  border: 1px solid #22414f; /* surface-border */
+  border: 1px solid var(--color-border); /* surface-border */
 }
 
 #article-body .code-block-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #17303e; /* surface-raised */
+  background-color: var(--color-surface-raised); /* surface-raised */
   padding: 0.55rem 1rem;
-  border-bottom: 1px solid #22414f; /* surface-border */
+  border-bottom: 1px solid var(--color-border); /* surface-border */
 }
 
 /* The fin replaces the macOS traffic lights: the system asks for the brand in
@@ -147,7 +153,9 @@
 #article-body .code-language-label {
   font-family: "JetBrains Mono Variable", ui-monospace, monospace;
   font-size: 0.7rem;
-  color: #71919c; /* text-muted */
+  /* Mismo caso que el botón de copiar: `muted` sobre surface-raised se
+     queda en 4.07:1. */
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -156,9 +164,11 @@
   font-family: "JetBrains Mono Variable", ui-monospace, monospace;
   font-size: 0.65rem;
   letter-spacing: 0.1em;
-  color: #71919c; /* text-muted */
+  /* `muted` daba 4.07:1 sobre surface-raised, justo bajo el 4.5 de AA.
+     `secondary` es el mismo papel visual y sí llega. */
+  color: var(--color-text-secondary);
   background: transparent;
-  border: 1px solid #22414f; /* surface-border */
+  border: 1px solid var(--color-border); /* surface-border */
   border-radius: 4px;
   padding: 2px 8px;
   cursor: pointer;
@@ -167,19 +177,19 @@
 }
 
 #article-body .code-copy-btn:hover {
-  color: #edf4f3; /* text-primary */
-  border-color: #a7bcc4; /* text-secondary */
+  color: var(--color-text-primary); /* text-primary */
+  border-color: var(--color-text-secondary); /* text-secondary */
 }
 
 #article-body .code-copy-btn.copied {
-  color: #22c55e; /* success */
-  border-color: #22c55e;
+  color: var(--color-success); /* success */
+  border-color: var(--color-success);
 }
 
 /* Code block — hull ground (#0B1524, the mascot's outline).
    The title bar is injected by the article layout script. */
 #article-body pre {
-  background-color: #0b1524;
+  background-color: var(--color-brand-hull);
   border-radius: 0 0 12px 12px;
   margin-bottom: 0;
   padding: 1.25rem;
@@ -200,12 +210,12 @@
   line-height: 1.8;
   padding-left: 1.25rem;
   position: relative;
-  color: #edf4f3;
+  color: var(--color-text-primary);
 }
 
 #article-body ul li::before {
   content: "•";
-  color: #35d6c0; /* accent */
+  color: var(--color-accent); /* accent */
   font-weight: 700;
   left: 0;
   position: absolute;
@@ -224,7 +234,7 @@
 #article-body ul li a {
   display: contents;
   text-decoration: none;
-  color: #35d6c0;
+  color: var(--color-accent);
 }
 
 #article-body ul li a:hover {
@@ -232,7 +242,7 @@
 }
 
 #article-body ul li code {
-  background-color: #17303e;
+  background-color: var(--color-surface-raised);
   border-radius: 3px;
   font-family: "JetBrains Mono Variable", ui-monospace, monospace;
   font-style: normal;
@@ -263,7 +273,7 @@
 /* Quotes take an arena border and NO background: the system is explicit. */
 #article-body blockquote {
   margin: 0 0 22px;
-  border-left: 3px solid #f2a65a;
+  border-left: 3px solid var(--color-warm);
   padding-left: 22px;
   font-size: 18px;
   line-height: 1.7;
