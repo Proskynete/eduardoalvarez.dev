@@ -268,6 +268,25 @@ test.describe("Design System · theme", () => {
     await expect(btn).toHaveCSS("color", rgb(TOKEN.paper));
   });
 
+  test("the toggle's own border follows the theme", async ({ page }) => {
+    // It used to hardcode #2c4d5d, the DARK value of hairline-hover. The button
+    // therefore kept a dark slate outline on the cream light background, the one
+    // hard-edged control on the page. A hardcoded hex cannot fail a build or a
+    // type check, so nothing caught it — this test does.
+    await page.goto("/");
+    await expect
+      .poll(() => resolveColor(page, "#theme-toggle", "border-color"))
+      .toEqual({ r: 44, g: 77, b: 93, a: 1 });
+
+    await page.locator("#theme-toggle").click();
+    // The click leaves the pointer on the button and `hover:border-accent` wins,
+    // so the reading has to happen with the mouse somewhere else.
+    await page.mouse.move(0, 0);
+    await expect
+      .poll(() => resolveColor(page, "#theme-toggle", "border-color"))
+      .toEqual({ r: 211, g: 200, b: 178, a: 1 });
+  });
+
   test("the navbar follows the theme instead of staying dark", async ({ page }) => {
     await page.goto("/");
     await page.locator("#theme-toggle").click();
