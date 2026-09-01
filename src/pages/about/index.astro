@@ -1,4 +1,5 @@
 ---
+import { PageHeader } from "@eduardoalvarez/arrecife";
 import LinkButton from "../../components/link-button/index";
 import Layout from "../../layouts/main/index.astro";
 import { experience } from "../../settings/about";
@@ -59,24 +60,17 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
     <!-- Hero: texto + foto -->
     <section class="flex flex-col-reverse sm:flex-row items-start gap-10 sm:gap-16">
       <div class="flex-1 space-y-4">
-        <p class="mb-[10px] font-mono text-[12.5px] text-text-muted">/sobre_mí</p>
-        <h1 class="mb-[14px] font-display text-[clamp(2.1rem,5vw,44px)] font-bold leading-[1.05] tracking-[-0.03em] text-text-primary">
-          Hola, soy Eduardo.<br />
-          <span class="text-accent">Ingeniero y líder técnico</span><br />
-          con más de 10 años construyendo en internet.
-        </h1>
-        <p class="text-text-secondary text-lg leading-relaxed">
+        <PageHeader
+          eyebrow="/sobre_mí"
+          title="Hola, soy Eduardo."
+          description="Ingeniero y líder técnico con más de 10 años construyendo en internet."
+        />
+
+        <p class="text-body text-text-secondary">
           Trabajo en la intersección de arquitectura de plataforma, liderazgo técnico y los flujos de trabajo que la IA
           está transformando. He pasado por startups y empresas digitales en Chile y Latinoamérica — desde ingeniero
-          individual hasta CTO.
-        </p>
-        <p class="text-text-secondary leading-relaxed">
-          Mi foco es transformar equipos desde la entrega de features al pensamiento de plataforma: construir con
-          criterio, escalar con intención y liderar con contexto en lugar de control.
-        </p>
-        <p class="text-text-secondary leading-relaxed">
-          Este sitio es donde pienso en voz alta sobre ingeniería. No es un blog de tutoriales — es un espacio para
-          ideas con criterio.
+          individual hasta CTO. Mi foco es llevar equipos desde la entrega de features al pensamiento de plataforma:
+          construir con criterio, escalar con intención y liderar con contexto en lugar de control.
         </p>
       </div>
 
