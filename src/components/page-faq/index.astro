@@ -1,5 +1,6 @@
 ---
 import type { FAQItem } from "../../interfaces";
+import FaqAccordion from "./faq-accordion";
 
 export interface Props {
   faq?: FAQItem[];
@@ -30,14 +31,13 @@ const schema = hasItems
   hasItems && (
     <section class="mt-16 pt-12 border-t border-border">
       <h2 class="text-text-primary mb-6">{title}</h2>
-      <dl class="space-y-4">
-        {faq!.map((item) => (
-          <div class="rounded-xl border border-border bg-surface p-5">
-            <dt class="font-semibold text-text-primary mb-2">{item.question}</dt>
-            <dd class="text-text-secondary text-sm leading-relaxed">{item.answer}</dd>
-          </div>
-        ))}
-      </dl>
+      {/*
+        Hydrated on purpose, and only here: the accordion has to track which item
+        is open. `client:visible` keeps it off the critical path — the FAQ sits at
+        the foot of the page — and this is one route, not the base layout, which
+        is where hydrating the library once cost 332 KB.
+      */}
+      <FaqAccordion client:visible items={faq!} />
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     </section>
   )
