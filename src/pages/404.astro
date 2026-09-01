@@ -32,52 +32,38 @@ const suggestions = [
       es una licencia gráfica sino lo que el animal hace. Para un 404 encaja
       además con lo que pasó — la página se la tragó algo.
 
-      Antes había una aleta dibujándose que se rompía a medio trazo. Se cambia
+      Antes había una aleta dibujándose que se rompía a medio trazo. Se cambió
       entera: aquella no era la aleta canónica de la marca, y una animación de
       «error de dibujo» compite con el mensaje en vez de acompañarlo.
 
-      Todo el color sale de tokens. La versión anterior llevaba `#35d6c0` escrito
-      seis veces, que es el valor OSCURO del acento: en modo claro se quedaba
-      turquesa brillante sobre crema.
+      La protagonista es la mascota, no un dibujo nuevo. Un intento anterior la
+      dibujaba en SVG y salía una cuña geométrica plana que no se parecía en nada
+      al sistema, que es ilustración de trazo grueso y formas redondeadas. Lo
+      único dibujado acá es el krill.
+
+      El sistema reserva `laughing` para «Éxito, suscripción confirmada» y manda
+      `confused` para el 404. Se usa `laughing` a propósito: es la única cara con
+      la boca abierta, y sin boca abierta no hay nada que comer. Queda anotado.
     */}
-    <div class="mb-10" aria-hidden="true">
-      <svg class="krill-scene rounded-panel" width="260" height="150" viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg">
-        {/* Primer plano de la boca, recortada por los bordes: el sujeto es la
-            boca, no el animal entero. Dibujar la cabeza completa a este tamaño
-            la convertía en un óvalo azul con un ojo.
+    <div class="escena mb-10" aria-hidden="true">
+      <img
+        class="mascota"
+        src="/brand/face-laughing.png"
+        alt=""
+        width="121"
+        height="121"
+        loading="eager"
+        decoding="async"
+      />
 
-            La comisura está a la izquierda (8, 70) y la boca abre hacia la
-            derecha, que es por donde entra el krill. La mandíbula de abajo gira
-            sobre esa comisura: cerrada sube a juntarse con el labio de arriba,
-            abierta cae hasta dejar el hueco entero. */}
-
-        {/* El hueco. Siempre está; lo tapa la mandíbula cuando se cierra. */}
-        <path class="interior" d="M8 70 C70 54 160 34 260 26 L260 114 C160 106 70 86 8 70 Z" />
-
-        {/* Mandíbula de arriba, fija. Se extiende fuera del lienzo para que el
-            recorte sea del encuadre y no un borde dibujado. */}
-        <path class="quijada-sup" d="M-400 -400 H420 V26 C160 34 70 54 8 70 L-400 70 Z" />
-
-        {/* Mandíbula de abajo, la que se mueve. */}
-        <path class="quijada-inf" d="M-400 900 L420 900 L420 300 L260 114 C160 106 70 86 8 70 L-400 70 Z" />
-
-        {/* Las manchas van sobre la quijada de arriba, que es la única
-            superficie de piel que se ve entera. */}
-        <circle class="mancha" cx="34" cy="26" r="4" />
-        <circle class="mancha" cx="72" cy="16" r="3.4" />
-        <circle class="mancha" cx="104" cy="30" r="3.6" />
-        <circle class="mancha" cx="146" cy="14" r="3" />
-        <circle class="mancha" cx="182" cy="12" r="2.6" />
-        <circle class="mancha" cx="58" cy="42" r="2.8" />
-
-        {/* Cuatro krill, desfasados un segundo — el mismo compás del bocado —
-            así entra uno por cada vez que la boca se cierra. */}
+      <svg class="krill-scene" viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg">
         <g class="krill k1"><path d="M0 0 c3 -2.6 8 -2.6 11 0" /><circle cx="13.5" cy="0.6" r="1.2" /></g>
         <g class="krill k2"><path d="M0 0 c3 -2.6 8 -2.6 11 0" /><circle cx="13.5" cy="0.6" r="1.2" /></g>
         <g class="krill k3"><path d="M0 0 c3 -2.6 8 -2.6 11 0" /><circle cx="13.5" cy="0.6" r="1.2" /></g>
         <g class="krill k4"><path d="M0 0 c3 -2.6 8 -2.6 11 0" /><circle cx="13.5" cy="0.6" r="1.2" /></g>
       </svg>
     </div>
+
 
     <!-- Error label -->
     <p class="font-mono text-xs uppercase tracking-[0.12em] text-accent mb-4">404 · aguas desconocidas</p>
@@ -110,36 +96,31 @@ const suggestions = [
 </Layout>
 
 <style define:vars={{ krill: KRILL }}>
-  /* Todo el color sale de tokens de marca, así que la escena sigue al tema sin
-     una sola regla duplicada. La versión anterior llevaba `#35d6c0` escrito seis
-     veces —el valor OSCURO del acento— y en claro se quedaba turquesa brillante
-     sobre crema. */
-  .krill-scene {
-    overflow: hidden;
+  /* La cara y el krill comparten caja: el krill se posiciona sobre ella. */
+  .escena {
+    position: relative;
+    width: 260px;
+    height: 150px;
   }
 
-  .quijada-sup,
-  .quijada-inf {
-    fill: var(--color-brand-body);
-  }
-
-  /* El hueco va del color del casco, que es el mismo en los dos temas: por eso
-     lee como interior tanto sobre fondo oscuro como sobre crema. */
-  .interior {
-    fill: var(--color-brand-hull);
-  }
-
-  .mancha {
-    fill: var(--color-brand-spots);
-    opacity: 0.85;
-  }
-
-  /* Gira sobre la comisura. Cerrada (-23°) el labio de abajo alcanza al de
-     arriba; abierta (0°) deja el hueco entero. */
-  .quijada-inf {
-    transform-box: view-box;
-    transform-origin: 8px 70px;
+  .mascota {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 120px;
+    height: auto;
+    /* Bocado: un tirón corto al tragar, no un balanceo continuo. Es lo único
+       que se mueve de la mascota, y va al compás del krill que llega. */
     animation: bocado 1.6s ease-in-out infinite;
+    transform-origin: 50% 70%;
+  }
+
+  .krill-scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
   }
 
   .krill path {
@@ -158,53 +139,55 @@ const suggestions = [
     animation: deriva 6.4s linear infinite;
   }
 
-  .k1 { --y: 64px; animation-delay: 0s; }
-  .k2 { --y: 76px; animation-delay: -1.6s; }
-  .k3 { --y: 58px; animation-delay: -3.2s; }
-  .k4 { --y: 70px; animation-delay: -4.8s; }
+  /* Cada uno entra a su altura y a un compás de distancia, así llega uno por
+     bocado. La boca de la mascota cae sobre y≈88. */
+  .k1 { --y: 84px; animation-delay: 0s; }
+  .k2 { --y: 94px; animation-delay: -1.6s; }
+  .k3 { --y: 78px; animation-delay: -3.2s; }
+  .k4 { --y: 90px; animation-delay: -4.8s; }
 
   @keyframes bocado {
-    /* Cerrada la mayor parte del ciclo. El bocado es breve a propósito: una boca
-       entreabierta todo el rato no se ve tragar. */
     0%,
-    46% {
-      transform: rotate(-23deg);
+    52% {
+      transform: scale(1);
     }
-    62%,
-    74% {
-      transform: rotate(0deg);
+    /* El tirón: se encoge un pelo al cerrar y vuelve. */
+    64% {
+      transform: scale(1.06, 0.95);
+    }
+    78% {
+      transform: scale(0.98, 1.03);
     }
     92%,
     100% {
-      transform: rotate(-23deg);
+      transform: scale(1);
     }
   }
 
   @keyframes deriva {
-    /* Entra por la derecha y se apaga dentro, ya pasada la comisura. */
+    /* Entra por la derecha y se apaga en la boca. */
     0% {
-      transform: translate(236px, var(--y));
+      transform: translate(258px, var(--y));
       opacity: 0;
     }
-    8% {
+    10% {
       opacity: 1;
     }
-    82% {
-      transform: translate(104px, var(--y));
+    88% {
+      transform: translate(74px, var(--y));
       opacity: 1;
     }
     100% {
-      transform: translate(72px, var(--y));
+      transform: translate(58px, var(--y));
       opacity: 0;
     }
   }
 
-  /* Sin movimiento: la boca se queda abierta a medias y el krill repartido en
-     el camino. Cuenta lo mismo sin animar nada. */
+  /* Sin movimiento: la mascota quieta y el krill repartido por el camino.
+     Cuenta lo mismo sin animar nada. */
   @media (prefers-reduced-motion: reduce) {
-    .quijada-inf {
+    .mascota {
       animation: none;
-      transform: rotate(-9deg);
     }
 
     .krill {
@@ -212,9 +195,9 @@ const suggestions = [
       opacity: 1;
     }
 
-    .k1 { transform: translate(96px, 64px); }
-    .k2 { transform: translate(140px, 76px); }
-    .k3 { transform: translate(180px, 58px); }
-    .k4 { transform: translate(216px, 70px); }
+    .k1 { transform: translate(140px, 84px); }
+    .k2 { transform: translate(178px, 94px); }
+    .k3 { transform: translate(212px, 78px); }
+    .k4 { transform: translate(244px, 90px); }
   }
 </style>
