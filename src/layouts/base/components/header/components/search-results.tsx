@@ -76,9 +76,9 @@ const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
               explicación 13.5 muted. Es uno de los pocos lugares donde el
               contrato de humor permite una cara expresiva. */}
           <div className="flex flex-col items-center gap-3 px-6 py-12 text-center">
-            <img src="/brand/face-waiting.png" alt="" aria-hidden="true" width={123} height={121} />
-            <p className="titulo">Sin resultados</p>
-            <p className="detalle">
+            <img src="/brand/face-waiting.png" alt="" aria-hidden="true" width={123} height={121} className="w-[66px]" />
+            <p className="text-ui font-medium text-text-primary">Sin resultados</p>
+            <p className="text-meta text-text-muted">
               No encontré nada con &quot;{searchQuery}&quot;. Prueba con menos palabras.
             </p>
           </div>
