@@ -1,5 +1,5 @@
 ---
-import { PageHeader, categoryBadgeVariants } from "@eduardoalvarez/arrecife";
+import { PageHeader } from "@eduardoalvarez/arrecife";
 import type { GetStaticPaths, Page } from "astro";
 
 import Article from "../../components/article/index.astro";
@@ -8,12 +8,11 @@ import type { Article as IArticle } from "../../interfaces";
 import Layout from "../../layouts/main/index.astro";
 import settings from "../../settings";
 import { articlesSort } from "../../utils/articles";
-import { CategoryMap } from "../../utils/categories";
 
 export const prerender = true;
 
 /** Con cuántos artículos se parte una página. */
-export const POR_PAGINA = 5;
+export const POR_PAGINA = 10;
 
 type Frontmatter = IArticle;
 
@@ -25,8 +24,6 @@ export const getStaticPaths = (({ paginate }) => {
 
 const { page } = Astro.props as { page: Page<{ frontmatter: Frontmatter }> };
 
-const todos = Object.values(import.meta.glob<{ frontmatter: Frontmatter }>("./*.mdx", { eager: true }));
-const categorias = [...new Set(todos.flatMap((p) => p.frontmatter.categories ?? []))];
 
 const collectionSchema = {
   "@context": "https://schema.org",
@@ -61,24 +58,6 @@ const seo = {
       description="Escribiendo acerca de liderazgo de ingeniería, arquitectura de plataformas y la era de la IA. Deep-dives técnicos, ensayos sobre cómo la IA está cambiando la forma en que escribimos software, y reflexiones prácticas sobre liderar equipos — desde la trinchera, no desde la teoría de libro."
     />
 
-    {/*
-      Antes era una barra segmentada hecha a mano con `rounded-[10px]`,
-      `px-[18px]` y `text-[13.5px]`, y los nombres se apretaban tanto que
-      `engineering-culture` se partía en dos líneas. Ahora son las píldoras del
-      sistema, y son enlaces en vez de botones: el filtro por JavaScript escondía
-      artículos de la página actual, que con paginación deja de tener sentido —
-      filtraría cinco de nueve. Cada categoría tiene su propia ruta.
-    */}
-    <nav class="mb-step-xl gap-step-xs flex flex-wrap" aria-label="Filtrar por categoría">
-      <a href="/articles" class={categoryBadgeVariants({ active: true })} aria-current="page">Todos</a>
-      {
-        categorias.map((cat) => (
-          <a href={`/articles/categoria/${cat}`} class={categoryBadgeVariants()}>
-            {CategoryMap.get(cat) ?? cat}
-          </a>
-        ))
-      }
-    </nav>
 
     <div class="gap-step-md grid sm:grid-cols-2" role="list">
       {

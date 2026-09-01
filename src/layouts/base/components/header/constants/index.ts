@@ -30,13 +30,7 @@ export const navItems: NavItem[] = [
     show: true,
     description: "Quién soy y qué hago",
   },
-  {
-    name: "Hablemos",
-    href: "/working-with-me",
-    show: true,
-    description: "Cómo podemos colaborar",
-  },
-  {
+    {
     name: "Podcast",
     href: "/podcasts",
     show: false,

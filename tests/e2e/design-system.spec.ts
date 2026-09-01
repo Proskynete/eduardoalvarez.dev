@@ -132,7 +132,7 @@ test.describe("Design System · buttons", () => {
 
   test("the secondary button never fills its background", async ({ page }) => {
     await page.goto("/");
-    const btn = page.getByRole("link", { name: "Trabajar juntos" }).first();
+    const btn = page.getByRole("link", { name: "Sobre mí" }).first();
     await expect(btn).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
     await btn.hover();
     await expect(btn).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");

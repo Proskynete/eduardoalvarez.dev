@@ -11,7 +11,6 @@ const PAGES = [
   { name: "Article", path: "/articles/el-javascript-necesario-para-react-parte-1" },
   { name: "About", path: "/about" },
   { name: "Newsletter", path: "/newsletter" },
-  { name: "Working With Me", path: "/working-with-me" },
 ];
 
 // Las dos caras. Todo esto corría solo en oscuro, que es el tema por defecto, y
