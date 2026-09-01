@@ -1,4 +1,4 @@
-import { Footer, FooterLink } from "@eduardoalvarez/arrecife";
+import { Footer, FooterLink, social } from "@eduardoalvarez/arrecife";
 import { Isotipo } from "@eduardoalvarez/arrecife/brand";
 
 export interface SiteFooterLink {
@@ -22,11 +22,41 @@ export interface SiteFooterLink {
  * The fin is the library's Isotipo, both variants with CSS picking, because
  * `sobre` resolves at render time and this site switches theme at runtime.
  */
+
+/**
+ * Las redes van a la fila de iconos; lo demás se queda como enlace de texto.
+ *
+ * La librería trae glifo para GitHub, LinkedIn, X, Instagram, Discord, YouTube,
+ * RSS y correo. No trae para npm ni para el currículum, así que esos dos siguen
+ * en texto en vez de inventarles un icono fuera del sistema.
+ */
+const ICONO: Record<string, keyof typeof social> = {
+  github: "GitHub",
+  linkedin: "LinkedIn",
+  youtube: "YouTube",
+  instagram: "Instagram",
+  discord: "Discord",
+  x: "X",
+};
+
 export default function SiteFooter({ links }: { links: readonly SiteFooterLink[] }) {
+  const conIcono = links.filter((l) => ICONO[l.name]);
+  const soloTexto = links.filter((l) => !ICONO[l.name] && l.name !== "rss");
+
+  const redes = [
+    ...conIcono.map(({ name, href }) => {
+      const Glifo = social[ICONO[name]];
+      return { label: name, href, icon: <Glifo /> };
+    }),
+    { label: "RSS", href: "/rss.xml", icon: <social.Rss /> },
+    { label: "Correo", href: "mailto:soy@eduardoalvarez.dev", icon: <social.Correo /> },
+  ];
+
   return (
     <Footer
       id="site-footer"
       className="mt-20"
+      social={redes}
       brand={
         <span className="gap-step-sm flex items-center">
           <Isotipo sobre="oscuro" className="block h-6 w-auto flex-none light:hidden" />
@@ -35,19 +65,11 @@ export default function SiteFooter({ links }: { links: readonly SiteFooterLink[]
         </span>
       }
     >
-      {links.map(({ name, href }) => {
-        const external = href.startsWith("http");
-        return (
-          <FooterLink
-            key={href}
-            href={href}
-            target={external ? "_blank" : undefined}
-            rel={external ? "noopener noreferrer" : undefined}
-          >
-            {name}
-          </FooterLink>
-        );
-      })}
+      {soloTexto.map(({ name, href }) => (
+        <FooterLink key={href} href={href} target="_blank" rel="noopener noreferrer">
+          ./{name}
+        </FooterLink>
+      ))}
     </Footer>
   );
 }

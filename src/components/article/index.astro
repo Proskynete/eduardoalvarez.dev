@@ -2,6 +2,7 @@
 import { ArticleCard } from "@eduardoalvarez/arrecife";
 
 import type { Article } from "../../interfaces";
+import { CategoryMap } from "../../utils/categories";
 import { prettyDate } from "../../utils/date";
 
 export const prerender = true;
@@ -48,6 +49,6 @@ const { article, headingLevel = 3 } = Astro.props;
   date={prettyDate(article.date)}
   dateTime={article.date}
   headingLevel={headingLevel}
-  tags={article.categories?.slice(0, 1)}
+  tags={article.categories?.slice(0, 1).map((c) => CategoryMap.get(c) ?? c)}
   className="h-full"
 />

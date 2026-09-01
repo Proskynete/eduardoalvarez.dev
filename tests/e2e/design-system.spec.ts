@@ -107,7 +107,10 @@ test.describe("Design System · navigation", () => {
 
   test("the active item keeps its brackets and gains the underline", async ({ page }) => {
     await page.goto("/articles");
-    const active = page.locator('nav a[aria-current="page"]');
+    // Acotado a la cabecera: /articles tiene ahora otras dos navegaciones con
+    // `aria-current` —las píldoras de categoría y la paginación— y el selector
+    // suelto casaba con las tres.
+    const active = page.locator('#site-header nav a[aria-current="page"]');
     await expect(active).toBeVisible();
     await expect(active).toContainText("[");
     await expect(active).toContainText("]");

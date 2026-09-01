@@ -54,9 +54,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  redirects: {
-    "/podcasts": "/",
-  },
   build: {
     inlineStylesheets: "always",
   },

@@ -1,126 +1,109 @@
 ---
-import { badgeVariants } from "@eduardoalvarez/arrecife";
-import { TableOfContents } from "@eduardoalvarez/arrecife";
+import { TableOfContents, badgeVariants, buttonVariants, social } from "@eduardoalvarez/arrecife";
 
-import { Icon } from "../../../assets/icons";
-import type { CategoryAllowed, TagsAllowed } from "../../../interfaces";
-import { CategoryMap, TagMap } from "../../../utils/categories";
+import TextLink from "../../../components/text-link/index.astro";
+import type { TagsAllowed } from "../../../interfaces";
+import { TagMap } from "../../../utils/categories";
 
 const { content, timeToRead, twitterShare, linkedInShare } = Astro.props;
 const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
+
+/**
+ * Cuántos tags entran en la barra lateral.
+ *
+ * Los artículos traen entre 1 y 10, con 8 de media en los largos, y a esa
+ * cantidad la lista deja de ser una señal del tema y pasa a ser ruido: nadie lee
+ * diez etiquetas. Cuatro alcanzan para situar el artículo y caben en dos líneas.
+ * Los que sobran siguen en el frontmatter, que es lo que indexa la búsqueda.
+ */
+const MAX_TAGS = 4;
+const tags: TagsAllowed[] = (content.tags ?? []).slice(0, MAX_TAGS);
+const sobran = (content.tags?.length ?? 0) - tags.length;
+
+const secciones = (content.sections ?? []).map((section: { anchor: string; title: string }) => ({
+  href: `#${section.anchor}`,
+  label: section.title,
+}));
 ---
 
 <aside aria-label="Información del artículo" class="xl:sticky xl:top-24 xl:self-start mb-10 xl:mb-0">
   <div class="flex flex-col gap-4">
-    <!-- Info card: reading time -->
     <div class="bg-surface rounded-xl p-4 border border-border">
-      <!-- Reading time -->
       <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Lectura</p>
       <p class="text-sm font-semibold text-text-primary">{timeToRead} {prettyTimeToReadText} aprox.</p>
     </div>
 
-    <!-- Info card: categories + tags -->
-    <div class="bg-surface rounded-xl p-4 border border-border divide-y divide-border">
-      <!-- Categories -->
-      <div class:list={[content.tags && content.tags.length > 0 ? "pb-4" : ""]}>
-        <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Categorías</p>
-        <div class="flex flex-col gap-1">
-          {
-            content.categories.map((category: CategoryAllowed) => (
-              <span class="text-sm text-text-secondary">{CategoryMap.get(category) ?? category}</span>
-            ))
-          }
-        </div>
-      </div>
-
-      <!-- Tags -->
-      {
-        content.tags && content.tags.length > 0 && (
-          <div class="pt-4">
-            <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Tags</p>
-            <div class="flex flex-wrap gap-1.5">
-              {content.tags.map((tag: TagsAllowed) => (
-                <span class={badgeVariants({ variant: "neutral" })}>
-                  {TagMap.get(tag) ?? tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        )
-      }
-    </div>
-
-    <!-- Sections card (mobile: collapsible) -->
+    {/*
+      La tarjeta de categorías se fue: la cabecera del artículo ya las muestra
+      justo encima del título, y repetirlas en la barra no añadía nada.
+    */}
     {
-      content.sections && content.sections.length > 0 && (
+      tags.length > 0 && (
+        <div class="bg-surface rounded-xl p-4 border border-border">
+          <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Tags</p>
+          <div class="flex flex-wrap gap-1.5">
+            {tags.map((tag) => (
+              <span class={badgeVariants({ variant: "neutral" })}>{TagMap.get(tag) ?? tag}</span>
+            ))}
+            {sobran > 0 && <span class="text-chip text-text-muted self-center">+{sobran}</span>}
+          </div>
+        </div>
+      )
+    }
+
+    {
+      secciones.length > 0 && (
         <details class="xl:hidden bg-surface rounded-xl border border-border overflow-hidden">
           <summary class="px-4 py-3 text-xs font-medium uppercase tracking-widest text-text-muted cursor-pointer select-none list-none flex items-center justify-between hover:text-text-primary transition-colors duration-200">
             Secciones del artículo
             <span class="text-accent text-base leading-none">›</span>
           </summary>
-          <TableOfContents
-              title="En esta página"
-              items={content.sections.map((section: { anchor: string; title: string }) => ({
-                href: `#${section.anchor}`,
-                label: section.title,
-              }))}
-              className="px-4 pb-4"
-            />
+          <TableOfContents title="En esta página" items={secciones} className="px-4 pb-4" />
         </details>
       )
     }
 
-    <!-- Sections card (desktop only) -->
+    {/*
+      El título lo pone `TableOfContents`. Antes había además un `<p>` escrito a
+      mano encima con el mismo texto, así que «En esta página» salía dos veces.
+    */}
     {
-      content.sections && content.sections.length > 0 && (
+      secciones.length > 0 && (
         <div class="hidden xl:block bg-surface rounded-xl border border-border overflow-hidden">
-          <div class="px-4 pt-4 pb-2">
-            <p class="font-mono text-xs uppercase tracking-[0.12em] text-text-muted">En esta página</p>
-          </div>
-          <TableOfContents
-              title="En esta página"
-              items={content.sections.map((section: { anchor: string; title: string }) => ({
-                href: `#${section.anchor}`,
-                label: section.title,
-              }))}
-              className="px-4 pb-4"
-            />
+          <TableOfContents title="En esta página" items={secciones} className="p-4" />
         </div>
       )
     }
 
-    <!-- Share card -->
     <div class="bg-surface rounded-xl p-4 border border-border">
       <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-3">Compartir</p>
       <div class="flex gap-2">
+        {/*
+          Los iconos vienen de la librería. Los de `assets/icons` salían en
+          `text-text-muted` sobre `surface-raised` y casi no se veían; estos son
+          los mismos glifos del footer, sobre el botón secundario del sistema.
+        */}
         <a
           href={twitterShare}
           target="_blank"
           rel="nofollow noopener noreferrer"
-          class="flex-1 flex items-center justify-center px-3 py-2 rounded-lg bg-surface-raised hover:bg-border/40 text-text-muted hover:text-text-primary transition-colors duration-200"
-          aria-label="Compartir en Twitter"
+          class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
+          aria-label="Compartir en X"
         >
-          <Icon.X />
+          <social.X />
         </a>
         <a
           href={linkedInShare}
           target="_blank"
           rel="nofollow noopener noreferrer"
-          class="flex-1 flex items-center justify-center px-3 py-2 rounded-lg bg-surface-raised hover:bg-border/40 text-text-muted hover:text-text-primary transition-colors duration-200"
+          class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
           aria-label="Compartir en LinkedIn"
         >
-          <Icon.LinkedIn />
+          <social.LinkedIn />
         </a>
       </div>
     </div>
 
-    <!-- Back to articles -->
-    <a
-      href="/articles"
-      class="flex items-center gap-1.5 text-sm text-text-secondary hover:text-accent transition-colors duration-200"
-      aria-label="Volver a artículos"
-    >
-      <Icon.ArrowLeft width={14} /> Artículos
-    </a>
+    <TextLink href="/articles" atras>./artículos</TextLink>
   </div>
 </aside>

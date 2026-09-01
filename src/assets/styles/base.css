@@ -155,7 +155,7 @@
   h1,
   h2,
   h3 {
-    font-family: "Bricolage Grotesque Variable", "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     letter-spacing: -0.03em;
   }
 
