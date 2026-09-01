@@ -1,4 +1,4 @@
-import { Footer, FooterLink, social } from "@eduardoalvarez/arrecife";
+import { Footer, social } from "@eduardoalvarez/arrecife";
 import { Isotipo } from "@eduardoalvarez/arrecife/brand";
 
 export interface SiteFooterLink {
@@ -24,32 +24,41 @@ export interface SiteFooterLink {
  */
 
 /**
- * Las redes van a la fila de iconos; lo demás se queda como enlace de texto.
- *
- * La librería trae glifo para GitHub, LinkedIn, X, Instagram, Discord, YouTube,
- * RSS y correo. No trae para npm ni para el currículum, así que esos dos siguen
- * en texto en vez de inventarles un icono fuera del sistema.
+ * La campana lleva a la newsletter y es el único glifo que no sale de la
+ * librería: `social` trae Correo, Discord, GitHub, Instagram, LinkedIn, Rss, X y
+ * YouTube, pero no una campana. Sigue el mismo contrato que los demás iconos
+ * funcionales del sistema — trazo de 1.6, `currentColor`, 19px por el contenedor
+ * — para que no desentone mientras arrecife no la publique.
  */
-const ICONO: Record<string, keyof typeof social> = {
-  github: "GitHub",
-  linkedin: "LinkedIn",
-  youtube: "YouTube",
-  instagram: "Instagram",
-  discord: "Discord",
-  x: "X",
-};
+function Campana() {
+  return (
+    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M18 8.4a6 6 0 1 0-12 0c0 5.2-1.8 6.7-1.8 6.7h15.6S18 13.6 18 8.4Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M13.7 19a2 2 0 0 1-3.4 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
 
-export default function SiteFooter({ links }: { links: readonly SiteFooterLink[] }) {
-  const conIcono = links.filter((l) => ICONO[l.name]);
-  const soloTexto = links.filter((l) => !ICONO[l.name] && l.name !== "rss");
-
+export default function SiteFooter() {
+  /**
+   * El orden es el del documento de marca: las plataformas donde escribo, luego
+   * las formas de seguirme. `links` trae lo que queda fuera de la fila — npm y el
+   * currículum, que no tienen glifo — y se quedan como enlaces de texto.
+   */
   const redes = [
-    ...conIcono.map(({ name, href }) => {
-      const Glifo = social[ICONO[name]];
-      return { label: name, href, icon: <Glifo /> };
-    }),
+    { label: "GitHub", href: "https://github.com/Proskynete", icon: <social.GitHub /> },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/eduardoalvarezc/", icon: <social.LinkedIn /> },
+    { label: "X", href: "https://twitter.com/proskynete", icon: <social.X /> },
+    { label: "Instagram", href: "https://www.instagram.com/eduardoalvarez.dev", icon: <social.Instagram /> },
     { label: "RSS", href: "/rss.xml", icon: <social.Rss /> },
     { label: "Correo", href: "mailto:soy@eduardoalvarez.dev", icon: <social.Correo /> },
+    { label: "Newsletter", href: "/newsletter", icon: <Campana /> },
   ];
 
   return (
@@ -64,12 +73,6 @@ export default function SiteFooter({ links }: { links: readonly SiteFooterLink[]
           <span className="text-ui font-display font-bold text-text-primary">Eduardo Álvarez</span>
         </span>
       }
-    >
-      {soloTexto.map(({ name, href }) => (
-        <FooterLink key={href} href={href} target="_blank" rel="noopener noreferrer">
-          ./{name}
-        </FooterLink>
-      ))}
-    </Footer>
+    />
   );
 }

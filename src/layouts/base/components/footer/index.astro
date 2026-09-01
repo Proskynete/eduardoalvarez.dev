@@ -1,19 +1,5 @@
 ---
-import settings from "../../../../settings";
 import SiteFooter from "./site-footer";
-
-/**
- * The footer itself lives in site-footer.tsx. It has to: `brand` is a React
- * prop, and markup written here would reach it as an Astro template result
- * rather than a React element.
- *
- * This file is left with what it is good at — reading the project's settings —
- * and passes them as plain data.
- */
-const links = [
-  ...settings.social_network.filter((s) => s.show).map((s) => ({ name: s.name.toLowerCase(), href: s.link })),
-  { name: "rss", href: "/rss.xml" },
-];
 ---
 
-<SiteFooter links={links} />
+<SiteFooter />
