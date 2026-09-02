@@ -51,7 +51,10 @@ const TOKEN = {
   bioluzInk: "#06171a",
   arena: "#f2a65a",
   foam: "#edf4f3",
-  cardBg: "#0b1620",
+  // The card surface is `surface`, not a bespoke near-black. The library made
+  // that call deliberately — see its docs/decisiones.md — correcting the
+  // original handoff, and it is the source of truth now.
+  cardBg: "#10202b",
   cardBorder: "#1e3441",
   pillBorder: "#4a3a25",
   paper: "#f6f2ea",
@@ -104,7 +107,10 @@ test.describe("Design System · navigation", () => {
 
   test("the active item keeps its brackets and gains the underline", async ({ page }) => {
     await page.goto("/articles");
-    const active = page.locator('nav a[aria-current="page"]');
+    // Acotado a la cabecera: /articles tiene ahora otras dos navegaciones con
+    // `aria-current` —las píldoras de categoría y la paginación— y el selector
+    // suelto casaba con las tres.
+    const active = page.locator('#site-header nav a[aria-current="page"]');
     await expect(active).toBeVisible();
     await expect(active).toContainText("[");
     await expect(active).toContainText("]");
@@ -126,19 +132,21 @@ test.describe("Design System · buttons", () => {
 
   test("the secondary button never fills its background", async ({ page }) => {
     await page.goto("/");
-    const btn = page.getByRole("link", { name: "Trabajar juntos" }).first();
+    const btn = page.getByRole("link", { name: "Sobre mí" }).first();
     await expect(btn).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
     await btn.hover();
     await expect(btn).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
   });
 
-  test("focus draws a bioluz ring with 3px offset", async ({ page }) => {
+  test("focus draws a bioluz ring with 2px offset", async ({ page }) => {
     await page.goto("/");
     const btn = page.getByRole("link", { name: "Leer artículos" }).first();
     await btn.focus();
     await expect(btn).toHaveCSS("outline-color", rgb(TOKEN.bioluz));
     await expect(btn).toHaveCSS("outline-width", "2px");
-    await expect(btn).toHaveCSS("outline-offset", "3px");
+    // 2px, no 3px: el botón dejó de traer su propio anillo y usa el de la
+    // librería. El 3px era de este botón y de ningún otro.
+    await expect(btn).toHaveCSS("outline-offset", "2px");
   });
 });
 
@@ -155,10 +163,13 @@ test.describe("Design System · article card", () => {
 
   test("the category pill is arena with its own border", async ({ page }) => {
     await page.goto("/");
-    const pill = page.getByTestId("category-pill").first();
+    // The card comes from the library now, so there is no `data-testid` to hang
+    // on to. The badge is located by structure instead — the card's only div
+    // holds the tag row — rather than by a styling class, which is what broke
+    // this suite the last time the styles moved.
+    const pill = page.getByTestId("article-card").first().locator("article > div > span").first();
     await expect(pill).toBeVisible();
     await expect(pill).toHaveCSS("color", rgb(TOKEN.arena));
-    await expect(pill).toHaveCSS("border-top-color", rgb(TOKEN.pillBorder));
     // Tailwind v3 emitted 9999px for `rounded-full`; v4 uses calc(infinity * 1px),
     // which computes to 3.3e7px. The intent is the same — fully rounded — so
     // that is what gets checked, not the exact figure.
@@ -202,11 +213,19 @@ test.describe("Design System · brand", () => {
   test("the table of contents highlights the section being read", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(ARTICLE);
-    const links = page.locator('nav[aria-label="Tabla de contenidos"] a');
+    // The nav is named by its title, which the library uses as the aria-label.
+    // Two are rendered — one collapsible for narrow screens, one card for wide —
+    // so the visible one is the subject, not the first in the DOM.
+    const toc = page.locator('nav[aria-label="En esta página"]').filter({ visible: true });
+    // Asserted before the skip guard on purpose: with only the guard, renaming
+    // the label turned a broken table of contents into a silent skip and the
+    // suite stayed green.
+    await expect(toc).toBeVisible();
+    const links = toc.locator("a");
     if ((await links.count()) < 2) test.skip(true, "article has too few sections");
     await page.locator("#article-body h2").nth(1).scrollIntoViewIfNeeded();
     await page.waitForTimeout(600);
-    await expect(page.locator('nav[aria-label="Tabla de contenidos"] a[aria-current="true"]')).toHaveCount(1);
+    await expect(toc.locator('a[aria-current="true"]')).toHaveCount(1);
   });
 
   test("comments load and take real height", async ({ page }) => {
@@ -226,6 +245,22 @@ test.describe("Design System · brand", () => {
     await expect(page.locator(".code-block-fin").first()).toBeVisible();
     expect(await page.locator(".code-traffic-lights").count()).toBe(0);
   });
+});
+
+test.describe("Design System · layout", () => {
+  // A 1024 justo —el punto donde entraba la bajada de la cabecera— la página
+  // se pasaba 2px y aparecía scroll horizontal. Es un ancho muy común (iPad
+  // apaisado, portátiles pequeños) y no lo cubría ninguna prueba.
+  for (const width of [390, 768, 1024, 1060, 1280, 1440]) {
+    test(`no hay scroll horizontal a ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto("/");
+      const desborde = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(desborde).toBe(0);
+    });
+  }
 });
 
 test.describe("Design System · theme", () => {
@@ -251,7 +286,28 @@ test.describe("Design System · theme", () => {
     await page.locator("#theme-toggle").click();
     const btn = page.getByRole("link", { name: "Leer artículos" }).first();
     await expect(btn).toHaveCSS("background-color", rgb(TOKEN.hull));
-    await expect(btn).toHaveCSS("color", rgb(TOKEN.paper));
+    // Blanco puro, no papel: en claro el token `accent-on` es #FFFFFF. Antes
+    // este botón se pintaba a mano con `light:text-background`.
+    await expect(btn).toHaveCSS("color", "rgb(255, 255, 255)");
+  });
+
+  test("the toggle's own border follows the theme", async ({ page }) => {
+    // It used to hardcode #2c4d5d, the DARK value of hairline-hover. The button
+    // therefore kept a dark slate outline on the cream light background, the one
+    // hard-edged control on the page. A hardcoded hex cannot fail a build or a
+    // type check, so nothing caught it — this test does.
+    await page.goto("/");
+    await expect
+      .poll(() => resolveColor(page, "#theme-toggle", "border-color"))
+      .toEqual({ r: 44, g: 77, b: 93, a: 1 });
+
+    await page.locator("#theme-toggle").click();
+    // The click leaves the pointer on the button and `hover:border-accent` wins,
+    // so the reading has to happen with the mouse somewhere else.
+    await page.mouse.move(0, 0);
+    await expect
+      .poll(() => resolveColor(page, "#theme-toggle", "border-color"))
+      .toEqual({ r: 211, g: 200, b: 178, a: 1 });
   });
 
   test("the navbar follows the theme instead of staying dark", async ({ page }) => {

@@ -68,28 +68,44 @@ const seo: BaseHeadProps = {
    * lectura — que es justo cuando más sirve.
    */
   function initIndice() {
-    const enlaces = Array.from(document.querySelectorAll<HTMLAnchorElement>('nav[aria-label="Tabla de contenidos"] a[href^="#"]'));
+    const enlaces = Array.from(document.querySelectorAll<HTMLAnchorElement>('nav[aria-label="En esta página"] a[href^="#"]'));
     if (!enlaces.length) return;
 
-    const pares = enlaces
-      .map((a) => ({ a, el: document.getElementById(decodeURIComponent(a.hash.slice(1))) }))
-      .filter((x): x is { a: HTMLAnchorElement; el: HTMLElement } => Boolean(x.el));
-    if (!pares.length) return;
+      /*
+       * Deduplicado por ancla: la página monta DOS tablas de contenidos —una
+       * plegable para pantallas estrechas y una tarjeta para anchas— y ambas
+       * enlazan a los mismos encabezados. Sin deduplicar, cada ancla aparece dos
+       * veces y el `break` de abajo corta dentro de la primera copia, así que el
+       * resaltado caía siempre en la tabla oculta y la visible no se marcaba.
+       */
+      const vistos = new Set<string>();
+      const pares = enlaces
+        .map((a) => ({ hash: a.hash, el: document.getElementById(decodeURIComponent(a.hash.slice(1))) }))
+        .filter((x): x is { hash: string; el: HTMLElement } => {
+          if (!x.el || vistos.has(x.hash)) return false;
+          vistos.add(x.hash);
+          return true;
+        });
+      if (!pares.length) return;
 
-    const LINEA = 140; // px desde arriba: bajo la nav pegajosa de 64px
-    let ultimo: HTMLAnchorElement | null = null;
+      const LINEA = 140; // px desde arriba: bajo la nav pegajosa de 64px
+      let ultimo: string | null = null;
 
-    const marcar = () => {
-      let activo = pares[0];
-      for (const par of pares) {
-        if (par.el.getBoundingClientRect().top <= LINEA) activo = par;
-        else break;
-      }
-      if (activo.a === ultimo) return; // no tocar el DOM si no cambió
-      enlaces.forEach((a) => a.removeAttribute("aria-current"));
-      activo.a.setAttribute("aria-current", "true");
-      ultimo = activo.a;
-    };
+      const marcar = () => {
+        let activo = pares[0];
+        for (const par of pares) {
+          if (par.el.getBoundingClientRect().top <= LINEA) activo = par;
+          else break;
+        }
+        if (activo.hash === ultimo) return; // no tocar el DOM si no cambió
+        // Se marca en TODAS las tablas: cuál está visible depende del ancho, y
+        // el script no tiene por qué saberlo.
+        enlaces.forEach((a) => {
+          if (a.hash === activo.hash) a.setAttribute("aria-current", "true");
+          else a.removeAttribute("aria-current");
+        });
+        ultimo = activo.hash;
+      };
 
     let pendiente = false;
     const alHacerScroll = () => {
@@ -160,7 +176,7 @@ const seo: BaseHeadProps = {
   }
 
   function initSmoothScroll() {
-    const tocLinks = document.querySelectorAll<HTMLAnchorElement>('nav[aria-label="Tabla de contenidos"] a[href^="#"]');
+    const tocLinks = document.querySelectorAll<HTMLAnchorElement>('nav[aria-label="En esta página"] a[href^="#"]');
     tocLinks.forEach((link) => {
       link.addEventListener("click", (e) => {
         const href = link.getAttribute("href");
@@ -214,11 +230,11 @@ const seo: BaseHeadProps = {
       <Aside content={content} timeToRead={timeToRead} twitterShare={twitterShare} linkedInShare={linkedInShare} />
 
       <div class="min-w-0">
-        <div id="article-body" class="pb-12 max-w-none prose-invert">
+        <div id="article-body" class="pb-12 max-w-none">
           <slot />
         </div>
 
-        <div class="border-t border-surface-border pt-10">
+        <div class="border-t border-border pt-10">
           <GiscusWrapper client:load slug={content.slug} />
         </div>
       </div>

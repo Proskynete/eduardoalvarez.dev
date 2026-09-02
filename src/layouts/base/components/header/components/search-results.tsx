@@ -22,7 +22,7 @@ interface SearchResultsProps {
 }
 
 const containerClass =
-  "absolute top-full right-7 mt-2 w-96 bg-surface border border-surface-border rounded-md shadow-lg z-50";
+  "absolute top-full right-7 mt-2 w-96 bg-surface border border-border rounded-md shadow-lg z-50";
 
 const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
   (
@@ -76,9 +76,9 @@ const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
               explicación 13.5 muted. Es uno de los pocos lugares donde el
               contrato de humor permite una cara expresiva. */}
           <div className="flex flex-col items-center gap-3 px-6 py-12 text-center">
-            <img src="/brand/face-waiting.png" alt="" aria-hidden="true" width={123} height={121} />
-            <p className="titulo">Sin resultados</p>
-            <p className="detalle">
+            <img src="/brand/face-waiting.png" alt="" aria-hidden="true" width={123} height={121} className="w-[66px]" />
+            <p className="text-ui font-medium text-text-primary">Sin resultados</p>
+            <p className="text-meta text-text-muted">
               No encontré nada con &quot;{searchQuery}&quot;. Prueba con menos palabras.
             </p>
           </div>
@@ -106,7 +106,7 @@ const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
                 id={`result-${index}`}
                 href={articleUrl}
                 onClick={onResultClick}
-                className={`block w-full text-left px-4 py-3 border-b border-surface-border last:border-b-0 cursor-pointer transition-colors duration-150 ${
+                className={`block w-full text-left px-4 py-3 border-b border-border last:border-b-0 cursor-pointer transition-colors duration-150 ${
                   isSelected ? "bg-surface-raised" : "hover:bg-surface-raised"
                 }`}
                 role="option"
@@ -126,7 +126,7 @@ const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
                     {result.categories.slice(0, 3).map((category) => (
                       <span
                         key={category}
-                        className="text-xs px-2 py-0.5 bg-surface-raised border border-surface-border text-text-muted rounded-sm"
+                        className="text-xs px-2 py-0.5 bg-surface-raised border border-border text-text-muted rounded-sm"
                       >
                         {category}
                       </span>

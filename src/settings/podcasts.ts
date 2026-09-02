@@ -1,3 +1,4 @@
+import { badgeVariants } from "@eduardoalvarez/arrecife";
 import type { ImageMetadata } from "astro";
 
 /**
@@ -64,13 +65,26 @@ export interface PodcastEpisode {
 /**
  * Colores para los tópicos/tags
  */
+/**
+ * Los temas usaban la paleta de serie de Tailwind — `pink-400` sobre
+ * `pink-500/20`, y así los seis — que no es del sistema y no cambia con el
+ * tema. Medían 1.9:1, ilegibles.
+ *
+ * El sistema no tiene seis tintes decorativos: sus variantes de `Badge` son
+ * semánticas (accent, warm, success, warning, error) y usarlas para decorar
+ * haría que un tema llamado «Motivación» se pintara como un error. Todos van
+ * a `neutral`, que es la respuesta del sistema para una etiqueta sin carga
+ * semántica. El campo `color` de cada tema queda sin efecto por ahora.
+ */
+const NEUTRAL = badgeVariants({ variant: "neutral" });
+
 export const topicColors: Record<Topic["color"], string> = {
-  blue: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  green: "bg-green-500/20 text-green-400 border-green-500/30",
-  purple: "bg-purple-500/20 text-purple-400 border-purple-500/30",
-  orange: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-  pink: "bg-pink-500/20 text-pink-400 border-pink-500/30",
-  cyan: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
+  blue: NEUTRAL,
+  green: NEUTRAL,
+  purple: NEUTRAL,
+  orange: NEUTRAL,
+  pink: NEUTRAL,
+  cyan: NEUTRAL,
 };
 
 /**

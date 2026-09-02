@@ -1,7 +1,10 @@
 ---
+import { TalkCard, buttonVariants } from "@eduardoalvarez/arrecife";
+
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
 import Article from "../components/article/index.astro";
+import TextLink from "../components/text-link/index.astro";
 import Subscribe from "../components/subscribe/index.astro";
 import { talks } from "../settings/talks";
 import type { Talk } from "../settings/talks";
@@ -81,18 +84,11 @@ const seo = {
           mentoring que ofrezco, y la newsletter mensual donde profundizo en estos temas sin spam.
         </p>
         <div class="flex flex-wrap gap-4">
-          <a
-            href="/articles"
-            class="inline-flex items-center justify-center rounded-[10px] bg-accent px-[22px] py-3 text-[15px] font-medium text-[#06171a] transition-colors duration-200 hover:bg-accent-hover light:bg-mascota-casco light:text-paper light:hover:bg-[#1e3441] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
-          >
-            Leer artículos
-          </a>
-          <a
-            href="/working-with-me"
-            class="inline-flex items-center justify-center rounded-[10px] border border-[#2c4d5d] px-[22px] py-3 text-[15px] font-medium text-text-primary transition-colors duration-200 hover:border-accent hover:text-accent light:border-[#ccc2b0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
-          >
-            Trabajar juntos
-          </a>
+          {/* `buttonVariants` en vez de `<Button asChild>`: esto son dos enlaces
+              estáticos y montar una isla de React para pintarlos sería pagar
+              hidratación por nada. La CVA se evalúa al construir. */}
+          <a href="/articles" class={buttonVariants({ variant: "primary" })}>Leer artículos</a>
+          <a href="/about" class={buttonVariants({ variant: "secondary" })}>Sobre mí</a>
         </div>
       </div>
 
@@ -118,7 +114,7 @@ const seo = {
   <section aria-label="Últimos artículos" class="mb-20 mx-auto max-w-full">
     <div class="flex items-center justify-between mb-8">
       <h2 class="text-text-primary">Últimos artículos</h2>
-      <a href="/articles" class="font-mono text-sm text-text-secondary transition-colors duration-200 hover:text-accent hover:underline hover:underline-offset-4">./ver_todos →</a>
+      <TextLink href="/articles">./ver_todos</TextLink>
     </div>
     <div class="grid gap-4 sm:grid-cols-2">
       {posts.map(({ frontmatter }) => <Article article={frontmatter} />)}
@@ -131,32 +127,22 @@ const seo = {
       <section aria-label="Charlas recientes" class="mb-20 mx-auto max-w-full">
         <div class="flex items-center justify-between mb-8">
           <h2 class="text-text-primary">Charlas recientes</h2>
-          <a href="/speaking" class="font-mono text-sm text-text-secondary transition-colors duration-200 hover:text-accent hover:underline hover:underline-offset-4">
-            Ver todas →
-          </a>
+          <TextLink href="/speaking">./ver_todas</TextLink>
         </div>
-        <div class="grid gap-4 sm:grid-cols-2">
+        <div class="gap-step-md grid sm:grid-cols-2">
           {featuredTalks.map((talk: Talk) => (
-            <div class="py-6 first:pt-0">
-              <div class="flex items-center gap-2 text-xs text-text-muted mb-2">
-                <time datetime={talk.date[0]}>
-                  {new Date(talk.date[0]).toLocaleDateString("es-CL", { year: "numeric", month: "long" })}
-                </time>
-                <span class="text-surface-border">·</span>
-                <a
-                  href={talk.location.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="hover:text-text-secondary transition-colors duration-200"
-                >
-                  {talk.location.name}
-                </a>
-              </div>
-              <p class="font-semibold text-text-primary">{talk.title}</p>
-              {talk.description && (
-                <p class="text-text-secondary text-sm mt-1 leading-relaxed line-clamp-2">{talk.description}</p>
-              )}
-            </div>
+            <TalkCard
+              href={talk.options?.presentation ?? talk.options?.repo ?? talk.location.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={talk.title}
+              event={talk.organizations[0]?.name ?? talk.location.name}
+              date={new Date(talk.date[0]).toLocaleDateString("es-CL", { year: "numeric", month: "long" })}
+              dateTime={talk.date[0]}
+              location={talk.location.name}
+              description={talk.description}
+              className="h-full"
+            />
           ))}
         </div>
       </section>
