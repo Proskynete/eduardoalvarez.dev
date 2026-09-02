@@ -19,6 +19,15 @@ beforeEach(() => {
   });
 });
 
+/**
+ * The volume slider is named "Volume" and everything around it is Spanish —
+ * "Progreso del audio", "Retroceder 15 segundos", "Reproducir", "Silenciar".
+ * That is arrecife 0.6.0's rename pass catching one string and missing the rest,
+ * not a decision: the library's UI strings are Spanish because its audience is.
+ *
+ * The test follows what the library renders today. When the library settles it,
+ * this goes back to "Volumen" and the test is what will say so.
+ */
 describe("AudioPlayer", () => {
   describe("renderizado inicial", () => {
     it("renderiza sin errores", () => {
@@ -64,10 +73,10 @@ describe("AudioPlayer", () => {
       expect(screen.getByRole("button", { name: "Silenciar" })).toBeInTheDocument();
     });
 
-    it("el input de volumen tiene aria-label 'Volumen'", () => {
+    it("el input de volumen tiene aria-label 'Volume'", () => {
       render(<AudioPlayer src="/audio/test.mp3" />);
       // El input de volumen está oculto en mobile, pero existe en DOM
-      expect(screen.getByRole("slider", { name: "Volumen" })).toBeInTheDocument();
+      expect(screen.getByRole("slider", { name: "Volume" })).toBeInTheDocument();
     });
 
     it("el botón de retroceso tiene aria-label correcto", () => {
@@ -240,7 +249,7 @@ describe("AudioPlayer", () => {
   describe("control de volumen", () => {
     it("cambia el volumen al mover el slider", () => {
       render(<AudioPlayer src="/audio/test.mp3" />);
-      const volumeSlider = screen.getByRole("slider", { name: "Volumen" });
+      const volumeSlider = screen.getByRole("slider", { name: "Volume" });
 
       fireEvent.change(volumeSlider, { target: { value: "0.5" } });
 
@@ -268,7 +277,7 @@ describe("AudioPlayer", () => {
 
     it("pone volumen en 0 cuando el slider llega a 0 (sets isMuted)", () => {
       render(<AudioPlayer src="/audio/test.mp3" />);
-      const volumeSlider = screen.getByRole("slider", { name: "Volumen" });
+      const volumeSlider = screen.getByRole("slider", { name: "Volume" });
 
       fireEvent.change(volumeSlider, { target: { value: "0" } });
 

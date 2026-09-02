@@ -1,13 +1,13 @@
 ---
-import { Isotipo } from "@eduardoalvarez/arrecife/brand";
+import { Isotype } from "@eduardoalvarez/arrecife/brand";
 
 /**
- * The fin is the library's Isotipo now, which owns the file names, the
+ * The fin is the library's Isotype now, which owns the file names, the
  * dimensions and the rule that the two-blue variant is for light grounds and
  * the foam one for dark.
  *
  * Both are rendered and CSS picks, because `sobre` is resolved at render time
- * and this site switches theme at runtime: a single Isotipo would be right on
+ * and this site switches theme at runtime: a single Isotype would be right on
  * one theme and invisible on the other. Composing them here keeps the decision
  * in one file instead of at every call site, which is where it gets forgotten.
  *
@@ -23,5 +23,5 @@ interface Props {
 const { class: className = "", alt = "" } = Astro.props;
 ---
 
-<Isotipo sobre="oscuro" alt={alt} className={`block light:hidden ${className}`} />
-<Isotipo sobre="claro" alt={alt} className={`hidden light:block ${className}`} />
+<Isotype background="dark" alt={alt} className={`block light:hidden ${className}`} />
+<Isotype background="light" alt={alt} className={`hidden light:block ${className}`} />

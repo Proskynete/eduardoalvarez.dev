@@ -17,20 +17,20 @@ type ApiResponse = {
  * text on a near-black box. The library uses tokens and that disappears.
  */
 export function SubscribeForm() {
-  const [state, setState] = useState<NewsletterState>("reposo");
+  const [state, setState] = useState<NewsletterState>("idle");
   const [message, setMessage] = useState<string>();
   const container = useRef<HTMLDivElement>(null);
 
   // Success clears itself after 5 seconds, as before: the panel becomes
   // available again instead of pinning the notice to the page.
   useEffect(() => {
-    if (state !== "exito") return;
-    const t = setTimeout(() => setState("reposo"), 5000);
+    if (state !== "success") return;
+    const t = setTimeout(() => setState("idle"), 5000);
     return () => clearTimeout(t);
   }, [state]);
 
   async function subscribe(email: string, name?: string) {
-    setState("enviando");
+    setState("sending");
     setMessage(undefined);
 
     try {
@@ -43,7 +43,7 @@ export function SubscribeForm() {
 
       if (response.ok && data.success) {
         setMessage(data.message);
-        setState("exito");
+        setState("success");
         // Clear the fields, as the previous version did: leaving them filled
         // after confirming invites sending the same address twice.
         // `NewsletterForm` does not expose the <form>, so it is found in the tree.
@@ -76,12 +76,12 @@ export function SubscribeForm() {
         successMessage={message}
         errorMessage={message}
         disclaimer="Sin spam. Solo cuando tengo algo que vale."
-        expresion="wink"
+        expression="wink"
         // The error notice goes as soon as the person edits a field, which the
         // previous version did with a listener per input. `NewsletterForm`
         // exposes no onChange, but it does spread the rest of its props onto
         // its <section>, so the event is caught where it bubbles.
-        onInput={() => setState((current) => (current === "error" ? "reposo" : current))}
+        onInput={() => setState((current) => (current === "error" ? "idle" : current))}
         className="md:pr-[330px]"
       />
     </div>

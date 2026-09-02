@@ -8,7 +8,7 @@
 <button
   type="button"
   id="theme-toggle"
-  aria-label="Switch between light and dark mode"
+  aria-label="Cambiar entre modo claro y oscuro"
   class="flex size-control-icon flex-none items-center justify-center rounded-control border border-hairline-hover text-text-primary transition-colors duration-200 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
 >
   <svg class="block dark:block" data-icon="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -41,6 +41,8 @@
 </style>
 
 <script>
+  import { toggleTheme } from "@eduardoalvarez/arrecife/theme";
+
   function initThemeToggle() {
     const btn = document.getElementById("theme-toggle");
     if (!btn) return;
@@ -50,16 +52,9 @@
     if (btn.dataset.ready === "1") return;
     btn.dataset.ready = "1";
 
-    btn.addEventListener("click", () => {
-      const current = document.documentElement.getAttribute("data-theme");
-      const next = current === "light" ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", next);
-      try {
-        localStorage.setItem("theme", next);
-      } catch {
-        // Private mode or blocked storage: the theme lasts the session.
-      }
-    });
+    // `toggleTheme` sets the attribute, persists the choice and notifies other
+    // tabs. That last part is what the hand-written version never did.
+    btn.addEventListener("click", () => toggleTheme());
   }
 
   initThemeToggle();
