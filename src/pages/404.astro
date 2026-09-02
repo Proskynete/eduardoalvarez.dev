@@ -1,20 +1,7 @@
 ---
-import { dark } from "@eduardoalvarez/arrecife";
-
 import Layout from "../layouts/main/index.astro";
 
 export const prerender = true;
-
-/**
- * The krill are drawn over the mascot's art, which does not change with the
- * theme. Following `--color-accent` dimmed them in light mode — measured at
- * 3.60:1 against 10.05:1 in dark — because the accent darkens with the theme
- * while the surface underneath does not.
- *
- * So they are pinned to the dark accent, read from the library's own palette
- * rather than written out as a hex value.
- */
-const KRILL = dark.accent;
 
 const suggestions = [
   { href: "/", label: "Inicio", description: "Volver a la página principal" },
@@ -25,153 +12,52 @@ const suggestions = [
 ---
 
 <Layout seo={{ title: "Página no encontrada" }}>
-  <div class="mx-auto max-w-content py-24 flex flex-col items-center text-center">
+  <div class="mx-auto max-w-content pt-step-xl flex flex-col items-center text-center">
+    {
+      /*
+      Just the face. The page went through a fin that drew itself and broke, a
+      mouth drawn in SVG that came out a flat geometric wedge, and a krill scene
+      animated in CSS — each one more machinery than a page nobody visits on
+      purpose can justify. The mascot's own art says it on its own.
 
-    {/*
-      Whale sharks are filter feeders: they eat krill. That is where the motif
-      comes from, and for a 404 the scene is the krill GETTING AWAY — the mascot
-      watching what you came for swim off.
+      `annoyed` and not `confused`: `usoDeCara` assigns `confused` to the 404 and
+      `annoyed` to a server error, but the library's own EmptyState story labels
+      an `annoyed` example "404". The catalogue and the story disagree; worth
+      settling on the library side.
+    */
+    }
+    <img
+      src="/brand/face-annoyed.png"
+      alt=""
+      aria-hidden="true"
+      width="121"
+      height="121"
+      class="mb-step-lg h-auto w-33"
+      loading="eager"
+      decoding="async"
+    />
 
-      An earlier take ran it the other way, feeding, and that needs an open
-      mouth. The only face with one is `laughing`, which the catalogue reserves
-      for a confirmed subscription, and a delighted face on an error page does
-      not hold up. Reversing the motion made the right face the one the system
-      prescribed all along: `confused`, which already carries the question mark.
+    <p class="mb-4 font-mono text-xs uppercase tracking-[0.12em] text-accent">404 · aguas desconocidas</p>
 
-      Before that there was a fin that drew itself and broke halfway, then an
-      attempt to draw the mouth in SVG that came out a flat geometric wedge —
-      nothing like a system built from thick-outlined illustration. The mascot's
-      own art is the subject here; the only thing drawn is the krill.
-    */}
-    <div class="scene mb-10" aria-hidden="true">
-      <img
-        class="mascot"
-        src="/brand/face-confused.png"
-        alt=""
-        width="121"
-        height="121"
-        loading="eager"
-        decoding="async"
-      />
-
-      <svg class="krill-scene" viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg">
-        <g class="krill k1"><path d="M0 0 c3 -2.6 8 -2.6 11 0" /><circle cx="13.5" cy="0.6" r="1.2" /></g>
-        <g class="krill k2"><path d="M0 0 c3 -2.6 8 -2.6 11 0" /><circle cx="13.5" cy="0.6" r="1.2" /></g>
-        <g class="krill k3"><path d="M0 0 c3 -2.6 8 -2.6 11 0" /><circle cx="13.5" cy="0.6" r="1.2" /></g>
-        <g class="krill k4"><path d="M0 0 c3 -2.6 8 -2.6 11 0" /><circle cx="13.5" cy="0.6" r="1.2" /></g>
-      </svg>
-    </div>
-
-
-    <!-- Error label -->
-    <p class="font-mono text-xs uppercase tracking-[0.12em] text-accent mb-4">404 · aguas desconocidas</p>
-
-    <!-- Heading -->
-    <h1 class="text-text-primary mb-3">
-      Página no encontrada
-    </h1>
-    <p class="text-text-secondary text-base sm:text-lg mb-12 max-w-sm">
+    <h1 class="mb-3 text-text-primary">Página no encontrada</h1>
+    <p class="mb-step-xl max-w-sm text-base text-text-secondary sm:text-lg">
       Nadaste fuera del mapa. Volvamos a la superficie.
     </p>
 
-    <!-- Destination grid -->
-    <div class="w-full grid grid-cols-2 gap-3">
+    <div class="grid w-full grid-cols-2 gap-3">
       {
         suggestions.map(({ href, label, description }) => (
           <a
             href={href}
-            class="group p-4 text-left rounded-xl border border-border bg-surface hover:border-accent transition-colors duration-200"
+            class="group rounded-xl border border-border bg-surface p-4 text-left transition-colors duration-200 hover:border-accent"
           >
-            <p class="text-sm font-semibold text-text-primary group-hover:text-accent transition-colors duration-200 mb-1">
+            <p class="mb-1 text-sm font-semibold text-text-primary transition-colors duration-200 group-hover:text-accent">
               {label}
             </p>
-            <p class="text-xs text-text-muted leading-relaxed">{description}</p>
+            <p class="text-xs leading-relaxed text-text-muted">{description}</p>
           </a>
         ))
       }
     </div>
   </div>
 </Layout>
-
-<style define:vars={{ krill: KRILL }}>
-  /* Face and krill share one box, so the krill can be placed over it. */
-  .scene {
-    position: relative;
-    width: 260px;
-    height: 150px;
-  }
-
-  .mascot {
-    position: absolute;
-    top: 15px;
-    left: 0;
-    width: 120px;
-    height: auto;
-    /* Still. The question mark is drawn into the art and the krill are what
-       move; a bob on the face as well would compete with both. */
-  }
-
-  .krill-scene {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-
-  .krill path {
-    fill: none;
-    stroke: var(--krill);
-    stroke-width: 1.8;
-    stroke-linecap: round;
-  }
-
-  .krill circle {
-    fill: var(--krill);
-  }
-
-  .krill {
-    transform-box: view-box;
-    animation: drift 5.6s linear infinite;
-  }
-
-  /* Each leaves at its own height and slightly later than the last, so they
-     get away in single file rather than as a block. The mouth sits at y≈88. */
-  .k1 { --y: 84px; animation-delay: 0s; }
-  .k2 { --y: 96px; animation-delay: -1.4s; }
-  .k3 { --y: 74px; animation-delay: -2.8s; }
-  .k4 { --y: 90px; animation-delay: -4.2s; }
-
-  @keyframes drift {
-    /* Leaves from in front of the mouth, moves right, and fades out. */
-    0% {
-      transform: translate(86px, var(--y));
-      opacity: 0;
-    }
-    14% {
-      opacity: 1;
-    }
-    74% {
-      transform: translate(214px, var(--y));
-      opacity: 1;
-    }
-    100% {
-      transform: translate(256px, var(--y));
-      opacity: 0;
-    }
-  }
-
-  /* Reduced motion: the mascot still and the krill spread along the path. It
-     says the same thing without moving. */
-  @media (prefers-reduced-motion: reduce) {
-    .krill {
-      animation: none;
-      opacity: 1;
-    }
-
-    .k1 { transform: translate(108px, 84px); }
-    .k2 { transform: translate(150px, 96px); }
-    .k3 { transform: translate(192px, 74px); }
-    .k4 { transform: translate(232px, 90px); }
-  }
-</style>
