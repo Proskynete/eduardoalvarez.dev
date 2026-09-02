@@ -155,7 +155,7 @@ export default function Mobile({ version }: MobileProps) {
           </div>
 
           {/* Nav options */}
-          <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
+          <nav className="flex flex-col gap-1" aria-label="Navegación móvil">
             {visibleItems.map((item, index) => {
               const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
               return (

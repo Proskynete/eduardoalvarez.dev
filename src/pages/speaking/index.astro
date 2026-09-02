@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/main/index.astro";
-import { TalkCard } from "@eduardoalvarez/arrecife";
+import TalkCard from "../../components/talk-card/index";
 
 import settings from "../../settings";
 import { talks } from "../../settings/talks";
@@ -74,14 +74,11 @@ const seo = {
     </header>
 
     {/*
-      Antes era una lista con `divide-y` escrita a mano. `TalkCard` es la tarjeta
-      del sistema para esto y ya trae el orden que tenía este bloque: organizador
-      en antetítulo, título, resumen a dos líneas y, al pie, fecha y lugar.
-
-      La tarjeta es un enlace, y las charlas no tienen página propia, así que
-      apunta al material: las slides si las hay, si no el repo, y si tampoco al
-      sitio del evento. Los enlaces sueltos de «Slides ↗ / Repo ↗» desaparecen
-      porque `TalkCard` no tiene ranura para ellos — queda anotado para arrecife.
+      `TalkCard` from the library. 0.6.0 added `resources`, so the slides and
+      repo links are back: before it the card had nowhere to put them, became a
+      link to whichever one existed, and the rest vanished. With resources
+      present the library stops making the card a link — several destinations
+      cannot be one.
     */}
     {years.map((year: number) => (
       <section class="mb-14">
@@ -93,16 +90,17 @@ const seo = {
         <div class="gap-step-md grid sm:grid-cols-2">
           {byYear[year].map((talk: Talk) => (
             <TalkCard
-              href={talk.options?.presentation ?? talk.options?.repo ?? talk.location.url}
-              target="_blank"
-              rel="noopener noreferrer"
               title={talk.title}
               event={talk.organizations[0]?.name ?? talk.location.name}
               date={new Date(talk.date[0]).toLocaleDateString("es-CL", { month: "long", day: "numeric" })}
               dateTime={talk.date[0]}
               location={talk.location.name}
               description={talk.description}
-              className="h-full"
+              resources={[
+                ...(talk.options?.presentation ? [{ label: "Slides", url: talk.options.presentation }] : []),
+                ...(talk.options?.repo ? [{ label: "Repo", url: talk.options.repo }] : []),
+                ...(talk.options?.resources ?? []).map((r) => ({ label: r.label, url: r.url })),
+              ]}
             />
           ))}
         </div>

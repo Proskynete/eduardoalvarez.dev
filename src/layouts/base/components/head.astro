@@ -1,4 +1,5 @@
 ---
+import { themeScript } from "@eduardoalvarez/arrecife/theme";
 import settings from "../../../settings";
 
 export interface Props {
@@ -87,7 +88,13 @@ const { articlePublishedTime, articleAuthor, articleTags, schema } = Astro.props
   <meta property="twitter:image" content={image} />
 
   {schema && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}
-  <script is:inline src="/theme.js"></script>
+  {/*
+    The theme, before the first paint. 0.6.0 made the base mode declarable, which
+    is what kept this project on a hand-written copy: the library used to follow
+    `prefers-color-scheme`, and dark is this brand's primary mode, not a
+    preference to be asked about.
+  */}
+  <script is:inline set:html={themeScript({ base: "dark" })} />
 </head>
 
 <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-YP2WF7DHFM" is:inline></script>
