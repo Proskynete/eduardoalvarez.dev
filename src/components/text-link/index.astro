@@ -1,0 +1,29 @@
+---
+/**
+ * El enlace de texto en mono que remata las secciones: `./ver_todos →`.
+ *
+ * Estaba escrito tres veces con las mismas siete clases y ya había derivado —
+ * artículos decía `./ver_todos →` y charlas `Ver todas →`, con la misma pinta
+ * pero distinta voz.
+ */
+export interface Props {
+  href: string;
+  /** Va delante del texto en vez de detrás. Para «volver». */
+  atras?: boolean;
+  class?: string;
+}
+
+const { href, atras = false, class: clase = "" } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    "font-mono text-sm text-text-secondary transition-colors duration-200 hover:text-accent hover:underline hover:underline-offset-4",
+    clase,
+  ]}
+>
+  {atras && <span aria-hidden="true">←&nbsp;</span>}
+  <slot />
+  {!atras && <span aria-hidden="true">&nbsp;→</span>}
+</a>

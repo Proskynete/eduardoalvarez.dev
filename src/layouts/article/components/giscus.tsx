@@ -28,7 +28,7 @@ const GiscusWrapper = ({ slug }: GiscusProps) => {
 
   if (isMissingConfig) {
     return (
-      <div className="rounded-sm border border-surface-border bg-surface p-6">
+      <div className="rounded-sm border border-border bg-surface p-6">
         <h3 className="mb-2 text-sm font-medium text-text-secondary">Comentarios no disponibles</h3>
         <p className="text-sm text-text-muted">
           La configuración de Giscus no está completa. Variables de entorno faltantes:

@@ -94,7 +94,7 @@ export default function Mobile({ version }: MobileProps) {
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between h-20 px-5 border-b border-surface-border shrink-0">
+        <div className="flex items-center justify-between h-20 px-5 border-b border-border shrink-0">
           <a href="/" onClick={onClose} className="flex items-center gap-2.5 group">
             <svg
               viewBox="117 167 154 154"
@@ -143,7 +143,7 @@ export default function Mobile({ version }: MobileProps) {
           </div>
 
           {/* CLI flags — easter egg */}
-          <div className="mb-6 flex flex-col gap-1.5 text-xs border-l-2 border-surface-border pl-4">
+          <div className="mb-6 flex flex-col gap-1.5 text-xs border-l-2 border-border pl-4">
             <div className="flex items-center gap-3">
               <span className="text-accent w-24 shrink-0">--help</span>
               <span className="text-text-muted">Ver las secciones del sitio</span>
@@ -201,7 +201,7 @@ export default function Mobile({ version }: MobileProps) {
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-surface-border shrink-0">
+        <div className="px-6 py-4 border-t border-border shrink-0">
           <span className="font-mono text-xs text-text-muted select-none">cd ~/eduardoalvarez.dev</span>
         </div>
       </div>

@@ -17,7 +17,7 @@ const { algolia } = Astro.props;
 ---
 
 <header
-  class="sticky top-0 z-50 h-nav border-b border-surface-border bg-background/[.86] backdrop-blur-[14px] transition-colors duration-200"
+  class="sticky top-0 z-50 h-nav border-b border-border bg-background/[.86] backdrop-blur-[14px] transition-colors duration-200"
   id="site-header"
 >
   <div class="max-w-screen-2xl mx-auto h-full px-4 sm:px-6 xl:px-8 flex items-center justify-between">
@@ -36,7 +36,10 @@ const { algolia } = Astro.props;
           >
             Eduardo Álvarez
           </span>
-          <span class="font-mono text-xs uppercase tracking-[0.12em] text-text-muted hidden whitespace-nowrap lg:block">
+          {/* A 1024 justo —el `lg` de Tailwind— la bajada entra y la cabecera se
+              pasa 2px del viewport, que es scroll horizontal en toda la página.
+              Cabe a partir de 1060. */}
+          <span class="font-mono text-xs uppercase tracking-[0.12em] text-text-muted hidden whitespace-nowrap min-[1060px]:block">
             Engineering Leadership · Platform Thinking
           </span>
         </div>
