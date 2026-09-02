@@ -28,27 +28,26 @@ const suggestions = [
   <div class="mx-auto max-w-content py-24 flex flex-col items-center text-center">
 
     {/*
-      El tiburón ballena es filtrador: se alimenta de krill, así que la escena no
-      es una licencia gráfica sino lo que el animal hace. Para un 404 encaja
-      además con lo que pasó — la página se la tragó algo.
+      El tiburón ballena es filtrador: come krill. De ahí sale el motivo, y para
+      un 404 la escena es que el krill SE ESCAPA — la mascota se queda mirando
+      cómo se va lo que venías a buscar.
 
-      Antes había una aleta dibujándose que se rompía a medio trazo. Se cambió
-      entera: aquella no era la aleta canónica de la marca, y una animación de
-      «error de dibujo» compite con el mensaje en vez de acompañarlo.
+      Una versión anterior lo contaba al revés, comiendo, y para eso hacía falta
+      una boca abierta: la única cara que la tiene es `laughing`, que el catálogo
+      reserva para «suscripción confirmada». Una cara de felicidad en una página
+      de error no se sostiene. Dándole la vuelta al movimiento, la cara correcta
+      es la que el sistema ya mandaba para esto: `confused`, que además trae el
+      interrogante dibujado.
 
-      La protagonista es la mascota, no un dibujo nuevo. Un intento anterior la
-      dibujaba en SVG y salía una cuña geométrica plana que no se parecía en nada
-      al sistema, que es ilustración de trazo grueso y formas redondeadas. Lo
-      único dibujado acá es el krill.
-
-      El sistema reserva `laughing` para «Éxito, suscripción confirmada» y manda
-      `confused` para el 404. Se usa `laughing` a propósito: es la única cara con
-      la boca abierta, y sin boca abierta no hay nada que comer. Queda anotado.
+      Antes de esto había una aleta que se dibujaba y se rompía a medio trazo, y
+      después un intento de dibujar la boca en SVG que salió una cuña geométrica
+      plana, sin nada que ver con un sistema hecho de ilustración de trazo grueso.
+      La protagonista es el arte de la mascota; lo único dibujado acá es el krill.
     */}
     <div class="escena mb-10" aria-hidden="true">
       <img
         class="mascota"
-        src="/brand/face-laughing.png"
+        src="/brand/face-confused.png"
         alt=""
         width="121"
         height="121"
@@ -109,10 +108,8 @@ const suggestions = [
     left: 0;
     width: 120px;
     height: auto;
-    /* Bocado: un tirón corto al tragar, no un balanceo continuo. Es lo único
-       que se mueve de la mascota, y va al compás del krill que llega. */
-    animation: bocado 1.6s ease-in-out infinite;
-    transform-origin: 50% 70%;
+    /* Quieta. El interrogante ya está dibujado en la cara y lo que se mueve es
+       el krill: si además se moviera ella, competirían. */
   }
 
   .krill-scene {
@@ -136,49 +133,31 @@ const suggestions = [
 
   .krill {
     transform-box: view-box;
-    animation: deriva 6.4s linear infinite;
+    animation: deriva 5.6s linear infinite;
   }
 
-  /* Cada uno entra a su altura y a un compás de distancia, así llega uno por
-     bocado. La boca de la mascota cae sobre y≈88. */
+  /* Cada uno sale a su altura y con algo de retraso, para que se escapen en
+     fila y no en bloque. La boca de la mascota cae sobre y≈88. */
   .k1 { --y: 84px; animation-delay: 0s; }
-  .k2 { --y: 94px; animation-delay: -1.6s; }
-  .k3 { --y: 78px; animation-delay: -3.2s; }
-  .k4 { --y: 90px; animation-delay: -4.8s; }
-
-  @keyframes bocado {
-    0%,
-    52% {
-      transform: scale(1);
-    }
-    /* El tirón: se encoge un pelo al cerrar y vuelve. */
-    64% {
-      transform: scale(1.06, 0.95);
-    }
-    78% {
-      transform: scale(0.98, 1.03);
-    }
-    92%,
-    100% {
-      transform: scale(1);
-    }
-  }
+  .k2 { --y: 96px; animation-delay: -1.4s; }
+  .k3 { --y: 74px; animation-delay: -2.8s; }
+  .k4 { --y: 90px; animation-delay: -4.2s; }
 
   @keyframes deriva {
-    /* Entra por la derecha y se apaga en la boca. */
+    /* Sale de delante de la boca y se aleja hacia la derecha, apagándose. */
     0% {
-      transform: translate(258px, var(--y));
+      transform: translate(86px, var(--y));
       opacity: 0;
     }
-    10% {
+    14% {
       opacity: 1;
     }
-    88% {
-      transform: translate(74px, var(--y));
+    74% {
+      transform: translate(214px, var(--y));
       opacity: 1;
     }
     100% {
-      transform: translate(58px, var(--y));
+      transform: translate(256px, var(--y));
       opacity: 0;
     }
   }
@@ -186,18 +165,14 @@ const suggestions = [
   /* Sin movimiento: la mascota quieta y el krill repartido por el camino.
      Cuenta lo mismo sin animar nada. */
   @media (prefers-reduced-motion: reduce) {
-    .mascota {
-      animation: none;
-    }
-
     .krill {
       animation: none;
       opacity: 1;
     }
 
-    .k1 { transform: translate(140px, 84px); }
-    .k2 { transform: translate(178px, 94px); }
-    .k3 { transform: translate(212px, 78px); }
-    .k4 { transform: translate(244px, 90px); }
+    .k1 { transform: translate(108px, 84px); }
+    .k2 { transform: translate(150px, 96px); }
+    .k3 { transform: translate(192px, 74px); }
+    .k4 { transform: translate(232px, 90px); }
   }
 </style>
