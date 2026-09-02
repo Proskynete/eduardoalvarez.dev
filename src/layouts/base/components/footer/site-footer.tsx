@@ -24,13 +24,13 @@ export interface SiteFooterLink {
  */
 
 /**
- * La campana lleva a la newsletter y es el único glifo que no sale de la
- * librería: `social` trae Correo, Discord, GitHub, Instagram, LinkedIn, Rss, X y
- * YouTube, pero no una campana. Sigue el mismo contrato que los demás iconos
- * funcionales del sistema — trazo de 1.6, `currentColor`, 19px por el contenedor
- * — para que no desentone mientras arrecife no la publique.
+ * The bell links to the newsletter and is the one glyph that does not come from
+ * the library: `social` carries Correo, Discord, GitHub, Instagram, LinkedIn,
+ * Rss, X and YouTube, but no bell. It follows the same contract as the system's
+ * other functional icons — 1.6 stroke, `currentColor`, sized by its container —
+ * so it does not stand out until arrecife publishes one.
  */
-function Campana() {
+function Bell() {
   return (
     <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
@@ -47,25 +47,25 @@ function Campana() {
 
 export default function SiteFooter() {
   /**
-   * El orden es el del documento de marca: las plataformas donde escribo, luego
-   * las formas de seguirme. `links` trae lo que queda fuera de la fila — npm y el
-   * currículum, que no tienen glifo — y se quedan como enlaces de texto.
+   * The order is the brand document's: the platforms I publish on, then the ways
+   * to follow. `links` carries what stays out of the row — npm and the CV, which
+   * have no glyph — and those remain text links.
    */
-  const redes = [
+  const networks = [
     { label: "GitHub", href: "https://github.com/Proskynete", icon: <social.GitHub /> },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/eduardoalvarezc/", icon: <social.LinkedIn /> },
     { label: "X", href: "https://twitter.com/proskynete", icon: <social.X /> },
     { label: "Instagram", href: "https://www.instagram.com/eduardoalvarez.dev", icon: <social.Instagram /> },
     { label: "RSS", href: "/rss.xml", icon: <social.Rss /> },
     { label: "Correo", href: "mailto:soy@eduardoalvarez.dev", icon: <social.Correo /> },
-    { label: "Newsletter", href: "/newsletter", icon: <Campana /> },
+    { label: "Newsletter", href: "/newsletter", icon: <Bell /> },
   ];
 
   return (
     <Footer
       id="site-footer"
       className="mt-20"
-      social={redes}
+      social={networks}
       brand={
         <span className="gap-step-sm flex items-center">
           <Isotipo sobre="oscuro" className="block h-6 w-auto flex-none light:hidden" />

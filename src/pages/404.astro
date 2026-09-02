@@ -6,13 +6,13 @@ import Layout from "../layouts/main/index.astro";
 export const prerender = true;
 
 /**
- * El krill se pinta sobre el interior de la boca, que va de `brand-hull` y es el
- * MISMO color en los dos temas. Si el krill siguiera a `--color-accent` se
- * apagaría en claro —medido: 3.60:1 contra los 10.05:1 de oscuro— porque el
- * acento se oscurece con el tema pero la superficie de debajo no.
+ * The krill are drawn over the mascot's art, which does not change with the
+ * theme. Following `--color-accent` dimmed them in light mode — measured at
+ * 3.60:1 against 10.05:1 in dark — because the accent darkens with the theme
+ * while the surface underneath does not.
  *
- * Se fija al acento del tema oscuro, y se toma del propio catálogo de la
- * librería en vez de escribir el hexadecimal a mano.
+ * So they are pinned to the dark accent, read from the library's own palette
+ * rather than written out as a hex value.
  */
 const KRILL = dark.accent;
 
@@ -28,25 +28,24 @@ const suggestions = [
   <div class="mx-auto max-w-content py-24 flex flex-col items-center text-center">
 
     {/*
-      El tiburón ballena es filtrador: come krill. De ahí sale el motivo, y para
-      un 404 la escena es que el krill SE ESCAPA — la mascota se queda mirando
-      cómo se va lo que venías a buscar.
+      Whale sharks are filter feeders: they eat krill. That is where the motif
+      comes from, and for a 404 the scene is the krill GETTING AWAY — the mascot
+      watching what you came for swim off.
 
-      Una versión anterior lo contaba al revés, comiendo, y para eso hacía falta
-      una boca abierta: la única cara que la tiene es `laughing`, que el catálogo
-      reserva para «suscripción confirmada». Una cara de felicidad en una página
-      de error no se sostiene. Dándole la vuelta al movimiento, la cara correcta
-      es la que el sistema ya mandaba para esto: `confused`, que además trae el
-      interrogante dibujado.
+      An earlier take ran it the other way, feeding, and that needs an open
+      mouth. The only face with one is `laughing`, which the catalogue reserves
+      for a confirmed subscription, and a delighted face on an error page does
+      not hold up. Reversing the motion made the right face the one the system
+      prescribed all along: `confused`, which already carries the question mark.
 
-      Antes de esto había una aleta que se dibujaba y se rompía a medio trazo, y
-      después un intento de dibujar la boca en SVG que salió una cuña geométrica
-      plana, sin nada que ver con un sistema hecho de ilustración de trazo grueso.
-      La protagonista es el arte de la mascota; lo único dibujado acá es el krill.
+      Before that there was a fin that drew itself and broke halfway, then an
+      attempt to draw the mouth in SVG that came out a flat geometric wedge —
+      nothing like a system built from thick-outlined illustration. The mascot's
+      own art is the subject here; the only thing drawn is the krill.
     */}
-    <div class="escena mb-10" aria-hidden="true">
+    <div class="scene mb-10" aria-hidden="true">
       <img
-        class="mascota"
+        class="mascot"
         src="/brand/face-confused.png"
         alt=""
         width="121"
@@ -95,21 +94,21 @@ const suggestions = [
 </Layout>
 
 <style define:vars={{ krill: KRILL }}>
-  /* La cara y el krill comparten caja: el krill se posiciona sobre ella. */
-  .escena {
+  /* Face and krill share one box, so the krill can be placed over it. */
+  .scene {
     position: relative;
     width: 260px;
     height: 150px;
   }
 
-  .mascota {
+  .mascot {
     position: absolute;
     top: 15px;
     left: 0;
     width: 120px;
     height: auto;
-    /* Quieta. El interrogante ya está dibujado en la cara y lo que se mueve es
-       el krill: si además se moviera ella, competirían. */
+    /* Still. The question mark is drawn into the art and the krill are what
+       move; a bob on the face as well would compete with both. */
   }
 
   .krill-scene {
@@ -133,18 +132,18 @@ const suggestions = [
 
   .krill {
     transform-box: view-box;
-    animation: deriva 5.6s linear infinite;
+    animation: drift 5.6s linear infinite;
   }
 
-  /* Cada uno sale a su altura y con algo de retraso, para que se escapen en
-     fila y no en bloque. La boca de la mascota cae sobre y≈88. */
+  /* Each leaves at its own height and slightly later than the last, so they
+     get away in single file rather than as a block. The mouth sits at y≈88. */
   .k1 { --y: 84px; animation-delay: 0s; }
   .k2 { --y: 96px; animation-delay: -1.4s; }
   .k3 { --y: 74px; animation-delay: -2.8s; }
   .k4 { --y: 90px; animation-delay: -4.2s; }
 
-  @keyframes deriva {
-    /* Sale de delante de la boca y se aleja hacia la derecha, apagándose. */
+  @keyframes drift {
+    /* Leaves from in front of the mouth, moves right, and fades out. */
     0% {
       transform: translate(86px, var(--y));
       opacity: 0;
@@ -162,8 +161,8 @@ const suggestions = [
     }
   }
 
-  /* Sin movimiento: la mascota quieta y el krill repartido por el camino.
-     Cuenta lo mismo sin animar nada. */
+  /* Reduced motion: the mascot still and the krill spread along the path. It
+     says the same thing without moving. */
   @media (prefers-reduced-motion: reduce) {
     .krill {
       animation: none;

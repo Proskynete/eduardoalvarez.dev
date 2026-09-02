@@ -9,68 +9,70 @@ import {
 } from "@eduardoalvarez/arrecife";
 
 /**
- * Compuesta en React y no en el `.astro` porque las piezas de `Pagination` son
- * componentes de la librería anidados unos dentro de otros, y desde Astro solo
- * cruza `children`: cualquier marcado escrito en un `.astro` llega como
- * resultado de plantilla y React lo rechaza.
+ * Composed in React rather than in the `.astro` file because `Pagination` is
+ * built from library components nested inside one another, and only `children`
+ * crosses the Astro boundary: markup written in a `.astro` file arrives as a
+ * template result and React rejects it.
  *
- * No se hidrata: Astro la renderiza a HTML estático y el bundle no se toca.
+ * Nothing hydrates — Astro renders this to static HTML and the bundle is
+ * untouched.
  */
 export interface Props {
-  /** Página actual, empezando en 1. */
-  actual: number;
+  /** Current page, starting at 1. */
+  current: number;
   total: number;
-  /** `/articles` o `/articles/categoria/x`. La página 1 no lleva sufijo. */
+  /** `/articles`. Page 1 carries no suffix. */
   base: string;
 }
 
 const url = (base: string, n: number) => (n === 1 ? base : `${base}/${n}`);
 
 /**
- * Ventana de páginas alrededor de la actual. Con pocas páginas se ven todas;
- * cuando crezcan, los extremos siempre están y el resto se resume con puntos.
+ * A window of pages around the current one. With few pages they all show; once
+ * there are many, the ends are always present and the middle collapses to an
+ * ellipsis.
  */
-function ventana(actual: number, total: number): (number | "…")[] {
+function window_(current: number, total: number): (number | "…")[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
-  const cerca = [actual - 1, actual, actual + 1].filter((n) => n > 1 && n < total);
-  const paginas = [1, ...cerca, total];
-  const salida: (number | "…")[] = [];
-  for (let i = 0; i < paginas.length; i++) {
-    if (i > 0 && paginas[i] - paginas[i - 1] > 1) salida.push("…");
-    salida.push(paginas[i]);
+  const near = [current - 1, current, current + 1].filter((n) => n > 1 && n < total);
+  const pages = [1, ...near, total];
+  const out: (number | "…")[] = [];
+  for (let i = 0; i < pages.length; i++) {
+    if (i > 0 && pages[i] - pages[i - 1] > 1) out.push("…");
+    out.push(pages[i]);
   }
-  return salida;
+  return out;
 }
 
-export default function Paginacion({ actual, total, base }: Props) {
+export default function Pager({ current, total, base }: Props) {
   if (total <= 1) return null;
 
   return (
     <Pagination className="mt-step-xl">
       <PaginationContent>
-        {actual > 1 && (
+        {current > 1 && (
           <PaginationItem>
-            <PaginationPrevious href={url(base, actual - 1)} />
+            <PaginationPrevious href={url(base, current - 1)} />
           </PaginationItem>
         )}
 
-        {ventana(actual, total).map((n, i) =>
+        {window_(current, total).map((n, i) =>
           n === "…" ? (
             <PaginationItem key={`e${i}`}>
               <PaginationEllipsis />
             </PaginationItem>
           ) : (
             <PaginationItem key={n}>
-              <PaginationLink href={url(base, n)} isActive={n === actual}>
+              <PaginationLink href={url(base, n)} isActive={n === current}>
                 {n}
               </PaginationLink>
             </PaginationItem>
           ),
         )}
 
-        {actual < total && (
+        {current < total && (
           <PaginationItem>
-            <PaginationNext href={url(base, actual + 1)} />
+            <PaginationNext href={url(base, current + 1)} />
           </PaginationItem>
         )}
       </PaginationContent>

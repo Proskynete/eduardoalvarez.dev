@@ -1,34 +1,34 @@
 import { expect, type Page, test } from "@playwright/test";
 
-// `NewsletterForm` genera los id de sus campos con `useId`, así que no hay
-// `#subscribe-form` al que agarrarse. Se localiza por el botón que contiene,
-// que es además como lo encuentra quien usa la página.
-const formulario = (page: Page) =>
+// `NewsletterForm` generates its field ids with `useId`, so there is no
+// `#subscribe-form` to hold on to. It is located by the button it contains,
+// which is also how someone using the page finds it.
+const subscribeForm = (page: Page) =>
   page.locator("form").filter({ has: page.getByRole("button", { name: /suscribirme/i }) });
 
 /**
- * El panel se monta con `client:visible` porque en la home queda muy por debajo
- * del pliegue. Eso abre una carrera que la versión anterior no tenía: su script
- * era inline y estaba listo con el HTML, mientras que aquí un click que llegue
- * antes de la hidratación no lo escucha nadie y el test falla sin motivo.
+ * The panel mounts with `client:visible` because on the home page it sits well
+ * below the fold. That opens a race the previous version did not have: its
+ * script was inline and ready with the HTML, whereas here a click landing
+ * before hydration is heard by nobody and the test fails for no reason.
  *
- * Astro quita el atributo `ssr` de <astro-island> justo al hidratar, así que es
- * la señal exacta y no un timeout al azar.
+ * Astro removes the `ssr` attribute from <astro-island> the moment it hydrates,
+ * so that is the exact signal rather than an arbitrary timeout.
  */
-const esperarHidratacion = async (page: Page) => {
-  const isla = page.locator('astro-island[component-export="SubscribeForm"]');
-  await isla.scrollIntoViewIfNeeded();
-  await expect(isla).not.toHaveAttribute("ssr", /.*/);
+const waitForHydration = async (page: Page) => {
+  const island = page.locator('astro-island[component-export="SubscribeForm"]');
+  await island.scrollIntoViewIfNeeded();
+  await expect(island).not.toHaveAttribute("ssr", /.*/);
 };
 
 test.describe("Newsletter Subscription", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    await esperarHidratacion(page);
+    await waitForHydration(page);
   });
 
   test("debe mostrar formulario de suscripción", async ({ page }) => {
-    const form = formulario(page);
+    const form = subscribeForm(page);
     await expect(form).toBeVisible();
 
     // Scope selectors to the form to avoid matching the footer email link
@@ -42,7 +42,7 @@ test.describe("Newsletter Subscription", () => {
   });
 
   test("debe validar campos requeridos", async ({ page }) => {
-    const form = formulario(page);
+    const form = subscribeForm(page);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
     await submitButton.click();
 
@@ -52,7 +52,7 @@ test.describe("Newsletter Subscription", () => {
   });
 
   test("debe validar formato de email", async ({ page }) => {
-    const form = formulario(page);
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
@@ -78,7 +78,7 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const form = formulario(page);
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
@@ -108,7 +108,7 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const form = formulario(page);
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
@@ -132,7 +132,7 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const form = formulario(page);
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
@@ -141,9 +141,9 @@ test.describe("Newsletter Subscription", () => {
     await emailInput.fill("test@example.com");
     await submitButton.click();
 
-    // El botón de la librería no cambia de texto durante el envío: mantiene la
-    // etiqueta y añade spinner, `disabled` y `aria-busy`. Para un lector de
-    // pantalla eso es mejor que cambiarle el nombre al control a media acción.
+    // The library's button does not change its text while sending: it keeps the
+    // label and adds a spinner, `disabled` and `aria-busy`. For a screen reader
+    // that beats renaming the control mid-action.
     await expect(submitButton).toHaveAttribute("aria-busy", "true");
     await expect(submitButton).toBeDisabled();
   });
@@ -161,12 +161,12 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const form = formulario(page);
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
-    // Email válido para que pase la validación HTML5 del browser
+    // A valid email so the browser's HTML5 validation lets the submit through
     await nameInput.fill("Test123");
     await emailInput.fill("test@example.com");
     await submitButton.click();
@@ -187,7 +187,7 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const form = formulario(page);
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
@@ -212,7 +212,7 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const form = formulario(page);
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
 
@@ -220,9 +220,9 @@ test.describe("Newsletter Subscription", () => {
     await emailInput.fill("test@example.com");
     await form.getByRole("button", { name: /suscribirme/i }).click();
 
-    // El aviso ya no es un párrafo bajo el campo: es un Alert con role=alert,
-    // y el campo queda marcado aria-invalid. La API manda el mensaje de Zod
-    // como `message`, así que el aviso general dice cuál campo falla.
+    // The notice is no longer a paragraph under the field: it is an Alert with
+    // role=alert, and the field is marked aria-invalid. The API sends the Zod
+    // message as `message`, so the general notice names the field that failed.
     const aviso = page.getByRole("alert");
     await expect(aviso).toContainText(/formato de email inválido/i);
     await expect(emailInput).toHaveAttribute("aria-invalid", "true");

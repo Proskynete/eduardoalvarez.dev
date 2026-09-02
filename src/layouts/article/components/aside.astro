@@ -9,18 +9,18 @@ const { content, timeToRead, twitterShare, linkedInShare } = Astro.props;
 const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
 
 /**
- * Cuántos tags entran en la barra lateral.
+ * How many tags fit in the sidebar.
  *
- * Los artículos traen entre 1 y 10, con 8 de media en los largos, y a esa
- * cantidad la lista deja de ser una señal del tema y pasa a ser ruido: nadie lee
- * diez etiquetas. Cuatro alcanzan para situar el artículo y caben en dos líneas.
- * Los que sobran siguen en el frontmatter, que es lo que indexa la búsqueda.
+ * Articles carry between 1 and 10, averaging 8 on the long ones, and at that
+ * count the list stops signalling the subject and becomes noise — nobody reads
+ * ten labels. Four place the article and fit on two lines. The rest stay in the
+ * frontmatter, which is what search indexes.
  */
 const MAX_TAGS = 4;
 const tags: TagsAllowed[] = (content.tags ?? []).slice(0, MAX_TAGS);
-const sobran = (content.tags?.length ?? 0) - tags.length;
+const remaining = (content.tags?.length ?? 0) - tags.length;
 
-const secciones = (content.sections ?? []).map((section: { anchor: string; title: string }) => ({
+const sections = (content.sections ?? []).map((section: { anchor: string; title: string }) => ({
   href: `#${section.anchor}`,
   label: section.title,
 }));
@@ -34,8 +34,8 @@ const secciones = (content.sections ?? []).map((section: { anchor: string; title
     </div>
 
     {/*
-      La tarjeta de categorías se fue: la cabecera del artículo ya las muestra
-      justo encima del título, y repetirlas en la barra no añadía nada.
+      The categories card is gone: the article header already shows them a few
+      centimetres above the title, and repeating them here added nothing.
     */}
     {
       tags.length > 0 && (
@@ -45,32 +45,32 @@ const secciones = (content.sections ?? []).map((section: { anchor: string; title
             {tags.map((tag) => (
               <span class={badgeVariants({ variant: "neutral" })}>{TagMap.get(tag) ?? tag}</span>
             ))}
-            {sobran > 0 && <span class="text-chip text-text-muted self-center">+{sobran}</span>}
+            {remaining > 0 && <span class="text-chip text-text-muted self-center">+{remaining}</span>}
           </div>
         </div>
       )
     }
 
     {
-      secciones.length > 0 && (
+      sections.length > 0 && (
         <details class="xl:hidden bg-surface rounded-xl border border-border overflow-hidden">
           <summary class="px-4 py-3 text-xs font-medium uppercase tracking-widest text-text-muted cursor-pointer select-none list-none flex items-center justify-between hover:text-text-primary transition-colors duration-200">
             Secciones del artículo
             <span class="text-accent text-base leading-none">›</span>
           </summary>
-          <TableOfContents title="En esta página" items={secciones} className="px-4 pb-4" />
+          <TableOfContents title="En esta página" items={sections} className="px-4 pb-4" />
         </details>
       )
     }
 
     {/*
-      El título lo pone `TableOfContents`. Antes había además un `<p>` escrito a
-      mano encima con el mismo texto, así que «En esta página» salía dos veces.
+      `TableOfContents` renders the heading. There used to be a hand-written
+      `<p>` above it with the same words, so "En esta página" appeared twice.
     */}
     {
-      secciones.length > 0 && (
+      sections.length > 0 && (
         <div class="hidden xl:block bg-surface rounded-xl border border-border overflow-hidden">
-          <TableOfContents title="En esta página" items={secciones} className="p-4" />
+          <TableOfContents title="En esta página" items={sections} className="p-4" />
         </div>
       )
     }
@@ -79,9 +79,9 @@ const secciones = (content.sections ?? []).map((section: { anchor: string; title
       <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-3">Compartir</p>
       <div class="flex gap-2">
         {/*
-          Los iconos vienen de la librería. Los de `assets/icons` salían en
-          `text-text-muted` sobre `surface-raised` y casi no se veían; estos son
-          los mismos glifos del footer, sobre el botón secundario del sistema.
+          The glyphs come from the library. The ones in `assets/icons` rendered
+          `text-text-muted` on `surface-raised` and were barely visible; these
+          are the footer's glyphs on the system's secondary button.
         */}
         <a
           href={twitterShare}
@@ -104,6 +104,6 @@ const secciones = (content.sections ?? []).map((section: { anchor: string; title
       </div>
     </div>
 
-    <TextLink href="/articles" atras>./artículos</TextLink>
+    <TextLink href="/articles" back>./artículos</TextLink>
   </div>
 </aside>

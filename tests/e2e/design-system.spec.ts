@@ -107,9 +107,9 @@ test.describe("Design System · navigation", () => {
 
   test("the active item keeps its brackets and gains the underline", async ({ page }) => {
     await page.goto("/articles");
-    // Acotado a la cabecera: /articles tiene ahora otras dos navegaciones con
-    // `aria-current` —las píldoras de categoría y la paginación— y el selector
-    // suelto casaba con las tres.
+    // Scoped to the header: /articles now has other navigations carrying
+    // `aria-current` — the pagination among them — and the bare selector
+    // matched all of them.
     const active = page.locator('#site-header nav a[aria-current="page"]');
     await expect(active).toBeVisible();
     await expect(active).toContainText("[");
@@ -144,8 +144,8 @@ test.describe("Design System · buttons", () => {
     await btn.focus();
     await expect(btn).toHaveCSS("outline-color", rgb(TOKEN.bioluz));
     await expect(btn).toHaveCSS("outline-width", "2px");
-    // 2px, no 3px: el botón dejó de traer su propio anillo y usa el de la
-    // librería. El 3px era de este botón y de ningún otro.
+    // 2px, not 3px: the button stopped carrying its own ring and takes the
+    // library's. The 3px belonged to this button and to nothing else.
     await expect(btn).toHaveCSS("outline-offset", "2px");
   });
 });
@@ -248,17 +248,17 @@ test.describe("Design System · brand", () => {
 });
 
 test.describe("Design System · layout", () => {
-  // A 1024 justo —el punto donde entraba la bajada de la cabecera— la página
-  // se pasaba 2px y aparecía scroll horizontal. Es un ancho muy común (iPad
-  // apaisado, portátiles pequeños) y no lo cubría ninguna prueba.
+  // At exactly 1024 — where the header tagline switched on — the page ran 2px
+  // over and scrolled sideways. It is a very common width (iPad landscape,
+  // small laptops) and no test covered it.
   for (const width of [390, 768, 1024, 1060, 1280, 1440]) {
-    test(`no hay scroll horizontal a ${width}px`, async ({ page }) => {
+    test(`no horizontal scroll at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 800 });
       await page.goto("/");
-      const desborde = await page.evaluate(
+      const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       );
-      expect(desborde).toBe(0);
+      expect(overflow).toBe(0);
     });
   }
 });
@@ -286,8 +286,8 @@ test.describe("Design System · theme", () => {
     await page.locator("#theme-toggle").click();
     const btn = page.getByRole("link", { name: "Leer artículos" }).first();
     await expect(btn).toHaveCSS("background-color", rgb(TOKEN.hull));
-    // Blanco puro, no papel: en claro el token `accent-on` es #FFFFFF. Antes
-    // este botón se pintaba a mano con `light:text-background`.
+    // Pure white, not paper: in light mode the `accent-on` token is #FFFFFF.
+    // This button used to paint itself with `light:text-background`.
     await expect(btn).toHaveCSS("color", "rgb(255, 255, 255)");
   });
 
