@@ -1,40 +1,54 @@
 ---
+import { ArticleCard } from "@eduardoalvarez/arrecife";
+
 import type { Article } from "../../interfaces";
+import { CategoryMap } from "../../utils/categories";
 import { prettyDate } from "../../utils/date";
 
 export const prerender = true;
 
 export interface Props {
   article: Article;
-  showReadingTime?: boolean;
   headingLevel?: 2 | 3;
 }
 
 const { article, headingLevel = 3 } = Astro.props;
-const Heading = `h${headingLevel}` as "h2" | "h3";
 ---
 
-<article class="group py-6">
-  <a href={`/articles/${article.slug}`} class="block space-y-2">
-    <div class="flex items-center gap-3">
-      {
-        article.categories && article.categories.length > 0 && (
-          <span class="text-xs font-medium uppercase tracking-wider text-accent">{article.categories[0]}</span>
-        )
-      }
-      <time datetime={article.date} class="text-xs text-text-muted">
-        {prettyDate(article.date)}
-      </time>
-    </div>
+{/*
+  The card now comes from @eduardoalvarez/arrecife rather than being rebuilt
+  here. Rendered without a client directive, so Astro emits it as static HTML
+  and the listing still ships no JavaScript.
 
-    <Heading
-      class="text-xl font-semibold text-text-primary group-hover:text-accent transition-colors duration-200 leading-snug"
-    >
-      {article.title}
-    </Heading>
+  The library composes it differently on purpose, and those differences are the
+  design system correcting this file rather than a regression:
 
-    <p class="text-text-secondary text-sm leading-relaxed line-clamp-2">
-      {article.excerpt}
-    </p>
-  </a>
-</article>
+  · The metadata line leads with the date and the category moves to the foot of
+    the card. A slug is a label, not an eyebrow.
+  · The `./leer →` affordance is gone. It moved on hover
+    (`group-hover:translate-x-0.5`), and states are communicated with border and
+    colour, never with movement.
+  · Colours come from tokens. This file had #0b1620, #1e3441, #4a3a25 and
+    #2c4d5d written by hand, which is exactly the drift a published scale ends.
+    The card surface is now `surface`, a correction the library made
+    deliberately against the original handoff.
+
+  Reading time is left out. The library offers it, but the only text available
+  here is the excerpt, and a figure derived from that would be a number that
+  looks measured and is not.
+
+  `headingLevel` works again: 0.4.0 accepts it, bounded to 2 | 3. The listing
+  page passes 2, where the cards really are the section's headings; everywhere
+  else h3 stays the default.
+*/}
+<ArticleCard
+  data-testid="article-card"
+  href={`/articles/${article.slug}`}
+  title={article.title}
+  excerpt={article.excerpt}
+  date={prettyDate(article.date)}
+  dateTime={article.date}
+  headingLevel={headingLevel}
+  tags={article.categories?.slice(0, 1).map((c) => CategoryMap.get(c) ?? c)}
+  className="h-full"
+/>

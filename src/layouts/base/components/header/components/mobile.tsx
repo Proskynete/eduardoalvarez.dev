@@ -94,25 +94,25 @@ export default function Mobile({ version }: MobileProps) {
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between h-20 px-5 border-b border-surface-border flex-shrink-0">
+        <div className="flex items-center justify-between h-20 px-5 border-b border-border shrink-0">
           <a href="/" onClick={onClose} className="flex items-center gap-2.5 group">
             <svg
               viewBox="117 167 154 154"
               xmlns="http://www.w3.org/2000/svg"
-              className={`svg-isotype-mark breath-animation h-10 w-auto flex-shrink-0`}
+              className={`svg-isotype-mark breath-animation h-10 w-auto shrink-0`}
               aria-hidden="true"
             >
               <style>{".svg-isotype-mark * { vector-effect: non-scaling-stroke; }"}</style>
               <path
-                fill="#06b6d4"
-                stroke="#06b6d4"
+                fill="#35d6c0"
+                stroke="#35d6c0"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 d="M194.1,188.1l56.1,56.1l-56.1,56.1l-56.1-56.1L194.1,188.1 M194.1,171.1l-73,73l73,73l73-73L194.1,171.1z"
               />
             </svg>
-            <div className="h-8 w-px bg-accent opacity-50 flex-shrink-0"></div>
+            <div className="h-8 w-px bg-accent opacity-50 shrink-0"></div>
             <div className="flex flex-col leading-tight">
               <span className="text-text-primary font-bold text-base tracking-tight group-hover:text-accent transition-colors duration-200">
                 Eduardo Álvarez
@@ -143,19 +143,19 @@ export default function Mobile({ version }: MobileProps) {
           </div>
 
           {/* CLI flags — easter egg */}
-          <div className="mb-6 flex flex-col gap-1.5 text-xs border-l-2 border-surface-border pl-4">
+          <div className="mb-6 flex flex-col gap-1.5 text-xs border-l-2 border-border pl-4">
             <div className="flex items-center gap-3">
-              <span className="text-accent w-24 flex-shrink-0">--help</span>
+              <span className="text-accent w-24 shrink-0">--help</span>
               <span className="text-text-muted">Ver las secciones del sitio</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-accent w-24 flex-shrink-0">--version</span>
+              <span className="text-accent w-24 shrink-0">--version</span>
               <span className="text-text-muted">v{version ?? "—"}</span>
             </div>
           </div>
 
           {/* Nav options */}
-          <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
+          <nav className="flex flex-col gap-1" aria-label="Navegación móvil">
             {visibleItems.map((item, index) => {
               const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
               return (
@@ -176,7 +176,7 @@ export default function Mobile({ version }: MobileProps) {
                 >
                   {/* Diamond icon */}
                   <span
-                    className={`mt-0.5 text-xs flex-shrink-0 ${isActive ? "text-accent" : "text-text-muted group-hover:text-accent"}`}
+                    className={`mt-0.5 text-xs shrink-0 ${isActive ? "text-accent" : "text-text-muted group-hover:text-accent"}`}
                   >
                     {isActive ? "◆" : "◇"}
                   </span>
@@ -196,12 +196,12 @@ export default function Mobile({ version }: MobileProps) {
           {/* Blinking cursor */}
           <div className="mt-8 flex items-center gap-1.5 text-sm text-accent">
             <span>❯</span>
-            <span className="w-1 h-3 inline-block bg-accent ml-1 rounded-sm motion-safe:animate-ping motion-safe:duration-75" />
+            <span className="w-1 h-3 inline-block bg-accent ml-1 rounded-xs motion-safe:animate-ping motion-safe:duration-75" />
           </div>
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-surface-border flex-shrink-0">
+        <div className="px-6 py-4 border-t border-border shrink-0">
           <span className="font-mono text-xs text-text-muted select-none">cd ~/eduardoalvarez.dev</span>
         </div>
       </div>

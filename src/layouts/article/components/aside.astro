@@ -1,129 +1,109 @@
 ---
-import { Icon } from "../../../assets/icons";
-import type { CategoryAllowed, TagsAllowed } from "../../../interfaces";
-import { CategoryMap, TagMap } from "../../../utils/categories";
+import { TableOfContents, badgeVariants, buttonVariants, social } from "@eduardoalvarez/arrecife";
+
+import TextLink from "../../../components/text-link/index.astro";
+import type { TagsAllowed } from "../../../interfaces";
+import { TagMap } from "../../../utils/categories";
 
 const { content, timeToRead, twitterShare, linkedInShare } = Astro.props;
 const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
+
+/**
+ * How many tags fit in the sidebar.
+ *
+ * Articles carry between 1 and 10, averaging 8 on the long ones, and at that
+ * count the list stops signalling the subject and becomes noise — nobody reads
+ * ten labels. Four place the article and fit on two lines. The rest stay in the
+ * frontmatter, which is what search indexes.
+ */
+const MAX_TAGS = 4;
+const tags: TagsAllowed[] = (content.tags ?? []).slice(0, MAX_TAGS);
+const remaining = (content.tags?.length ?? 0) - tags.length;
+
+const sections = (content.sections ?? []).map((section: { anchor: string; title: string }) => ({
+  href: `#${section.anchor}`,
+  label: section.title,
+}));
 ---
 
 <aside aria-label="Información del artículo" class="xl:sticky xl:top-24 xl:self-start mb-10 xl:mb-0">
   <div class="flex flex-col gap-4">
-    <!-- Info card: reading time -->
-    <div class="bg-surface rounded-xl p-4 border border-surface-border">
-      <!-- Reading time -->
+    <div class="bg-surface rounded-xl p-4 border border-border">
       <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Lectura</p>
       <p class="text-sm font-semibold text-text-primary">{timeToRead} {prettyTimeToReadText} aprox.</p>
     </div>
 
-    <!-- Info card: categories + tags -->
-    <div class="bg-surface rounded-xl p-4 border border-surface-border divide-y divide-surface-border">
-      <!-- Categories -->
-      <div class:list={[content.tags && content.tags.length > 0 ? "pb-4" : ""]}>
-        <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Categorías</p>
-        <div class="flex flex-col gap-1">
-          {
-            content.categories.map((category: CategoryAllowed) => (
-              <span class="text-sm text-text-secondary">{CategoryMap.get(category) ?? category}</span>
-            ))
-          }
-        </div>
-      </div>
-
-      <!-- Tags -->
-      {
-        content.tags && content.tags.length > 0 && (
-          <div class="pt-4">
-            <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Tags</p>
-            <div class="flex flex-wrap gap-1.5">
-              {content.tags.map((tag: TagsAllowed) => (
-                <span class="px-2 py-0.5 text-xs rounded bg-surface-raised text-text-muted">
-                  {TagMap.get(tag) ?? tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        )
-      }
-    </div>
-
-    <!-- Sections card (mobile: collapsible) -->
+    {/*
+      The categories card is gone: the article header already shows them a few
+      centimetres above the title, and repeating them here added nothing.
+    */}
     {
-      content.sections && content.sections.length > 0 && (
-        <details class="xl:hidden bg-surface rounded-xl border border-surface-border overflow-hidden">
+      tags.length > 0 && (
+        <div class="bg-surface rounded-xl p-4 border border-border">
+          <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Tags</p>
+          <div class="flex flex-wrap gap-1.5">
+            {tags.map((tag) => (
+              <span class={badgeVariants({ variant: "neutral" })}>{TagMap.get(tag) ?? tag}</span>
+            ))}
+            {remaining > 0 && <span class="text-chip text-text-muted self-center">+{remaining}</span>}
+          </div>
+        </div>
+      )
+    }
+
+    {
+      sections.length > 0 && (
+        <details class="xl:hidden bg-surface rounded-xl border border-border overflow-hidden">
           <summary class="px-4 py-3 text-xs font-medium uppercase tracking-widest text-text-muted cursor-pointer select-none list-none flex items-center justify-between hover:text-text-primary transition-colors duration-200">
             Secciones del artículo
             <span class="text-accent text-base leading-none">›</span>
           </summary>
-          <nav aria-label="Tabla de contenidos">
-            {content.sections.map((section: { anchor: string; title: string }) => (
-              <a
-                href={`#${section.anchor}`}
-                class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-surface-raised transition-colors duration-200"
-              >
-                <span class="w-1 h-1 rounded-full bg-accent flex-shrink-0" />
-                {section.title}
-              </a>
-            ))}
-          </nav>
+          <TableOfContents title="En esta página" items={sections} className="px-4 pb-4" />
         </details>
       )
     }
 
-    <!-- Sections card (desktop only) -->
+    {/*
+      `TableOfContents` renders the heading. There used to be a hand-written
+      `<p>` above it with the same words, so "En esta página" appeared twice.
+    */}
     {
-      content.sections && content.sections.length > 0 && (
-        <div class="hidden xl:block bg-surface rounded-xl border border-surface-border overflow-hidden">
-          <div class="px-4 pt-4 pb-2">
-            <p class="text-xs font-medium uppercase tracking-widest text-text-muted">Secciones</p>
-          </div>
-          <nav aria-label="Tabla de contenidos">
-            {content.sections.map((section: { anchor: string; title: string }) => (
-              <a
-                href={`#${section.anchor}`}
-                class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-surface-raised transition-colors duration-200"
-              >
-                <span class="w-1 h-1 rounded-full bg-accent flex-shrink-0" />
-                {section.title}
-              </a>
-            ))}
-          </nav>
+      sections.length > 0 && (
+        <div class="hidden xl:block bg-surface rounded-xl border border-border overflow-hidden">
+          <TableOfContents title="En esta página" items={sections} className="p-4" />
         </div>
       )
     }
 
-    <!-- Share card -->
-    <div class="bg-surface rounded-xl p-4 border border-surface-border">
+    <div class="bg-surface rounded-xl p-4 border border-border">
       <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-3">Compartir</p>
       <div class="flex gap-2">
+        {/*
+          The glyphs come from the library. The ones in `assets/icons` rendered
+          `text-text-muted` on `surface-raised` and were barely visible; these
+          are the footer's glyphs on the system's secondary button.
+        */}
         <a
           href={twitterShare}
           target="_blank"
           rel="nofollow noopener noreferrer"
-          class="flex-1 flex items-center justify-center px-3 py-2 rounded-lg bg-surface-raised hover:bg-surface-border/40 text-text-muted hover:text-text-primary transition-colors duration-200"
-          aria-label="Compartir en Twitter"
+          class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
+          aria-label="Compartir en X"
         >
-          <Icon.X />
+          <social.X />
         </a>
         <a
           href={linkedInShare}
           target="_blank"
           rel="nofollow noopener noreferrer"
-          class="flex-1 flex items-center justify-center px-3 py-2 rounded-lg bg-surface-raised hover:bg-surface-border/40 text-text-muted hover:text-text-primary transition-colors duration-200"
+          class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
           aria-label="Compartir en LinkedIn"
         >
-          <Icon.LinkedIn />
+          <social.LinkedIn />
         </a>
       </div>
     </div>
 
-    <!-- Back to articles -->
-    <a
-      href="/articles"
-      class="flex items-center gap-1.5 text-sm text-text-secondary hover:text-accent transition-colors duration-200"
-      aria-label="Volver a artículos"
-    >
-      <Icon.ArrowLeft width={14} /> Artículos
-    </a>
+    <TextLink href="/articles" back>./artículos</TextLink>
   </div>
 </aside>

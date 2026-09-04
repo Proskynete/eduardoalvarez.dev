@@ -1,0 +1,29 @@
+---
+/**
+ * The mono text link that closes a section: `./ver_todos →`.
+ *
+ * It was written three times with the same seven classes and had already
+ * drifted — articles said `./ver_todos →`, talks said `Ver todas →`: same look,
+ * different voice.
+ */
+export interface Props {
+  href: string;
+  /** Arrow before the label instead of after. For "back" links. */
+  back?: boolean;
+  class?: string;
+}
+
+const { href, back = false, class: className = "" } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    "font-mono text-sm text-text-secondary transition-colors duration-200 hover:text-accent hover:underline hover:underline-offset-4",
+    className,
+  ]}
+>
+  {back && <span aria-hidden="true">←&nbsp;</span>}
+  <slot />
+  {!back && <span aria-hidden="true">&nbsp;→</span>}
+</a>

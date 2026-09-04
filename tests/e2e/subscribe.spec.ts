@@ -1,16 +1,34 @@
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
+
+// `NewsletterForm` generates its field ids with `useId`, so there is no
+// `#subscribe-form` to hold on to. It is located by the button it contains,
+// which is also how someone using the page finds it.
+const subscribeForm = (page: Page) =>
+  page.locator("form").filter({ has: page.getByRole("button", { name: /suscribirme/i }) });
+
+/**
+ * The panel mounts with `client:visible` because on the home page it sits well
+ * below the fold. That opens a race the previous version did not have: its
+ * script was inline and ready with the HTML, whereas here a click landing
+ * before hydration is heard by nobody and the test fails for no reason.
+ *
+ * Astro removes the `ssr` attribute from <astro-island> the moment it hydrates,
+ * so that is the exact signal rather than an arbitrary timeout.
+ */
+const waitForHydration = async (page: Page) => {
+  const island = page.locator('astro-island[component-export="SubscribeForm"]');
+  await island.scrollIntoViewIfNeeded();
+  await expect(island).not.toHaveAttribute("ssr", /.*/);
+};
 
 test.describe("Newsletter Subscription", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-
-    // Scroll al formulario de suscripción
-    const form = page.locator("#subscribe-form");
-    await form.scrollIntoViewIfNeeded();
+    await waitForHydration(page);
   });
 
   test("debe mostrar formulario de suscripción", async ({ page }) => {
-    const form = page.locator("#subscribe-form");
+    const form = subscribeForm(page);
     await expect(form).toBeVisible();
 
     // Scope selectors to the form to avoid matching the footer email link
@@ -24,7 +42,7 @@ test.describe("Newsletter Subscription", () => {
   });
 
   test("debe validar campos requeridos", async ({ page }) => {
-    const form = page.locator("#subscribe-form");
+    const form = subscribeForm(page);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
     await submitButton.click();
 
@@ -34,7 +52,7 @@ test.describe("Newsletter Subscription", () => {
   });
 
   test("debe validar formato de email", async ({ page }) => {
-    const form = page.locator("#subscribe-form");
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
@@ -60,7 +78,7 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const form = page.locator("#subscribe-form");
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
@@ -90,7 +108,7 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const form = page.locator("#subscribe-form");
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
@@ -114,7 +132,7 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const form = page.locator("#subscribe-form");
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
@@ -123,12 +141,11 @@ test.describe("Newsletter Subscription", () => {
     await emailInput.fill("test@example.com");
     await submitButton.click();
 
-    // Esperar un poco para que el estado de loading se active
-    await page.waitForTimeout(100);
-
-    // El texto del botón debería cambiar durante el loading
-    const buttonText = await submitButton.textContent();
-    expect(buttonText).not.toBe("Suscribirme");
+    // The library's button does not change its text while sending: it keeps the
+    // label and adds a spinner, `disabled` and `aria-busy`. For a screen reader
+    // that beats renaming the control mid-action.
+    await expect(submitButton).toHaveAttribute("aria-busy", "true");
+    await expect(submitButton).toBeDisabled();
   });
 
   test("debe mostrar error de validación del servidor (400)", async ({ page }) => {
@@ -144,20 +161,18 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const form = page.locator("#subscribe-form");
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
-    // Email válido para que pase la validación HTML5 del browser
+    // A valid email so the browser's HTML5 validation lets the submit through
     await nameInput.fill("Test123");
     await emailInput.fill("test@example.com");
     await submitButton.click();
 
     // Mensaje de error general visible
-    const errorMessage = page.locator("#error-message");
-    await expect(errorMessage).toBeVisible();
-    await expect(page.locator("#error-text")).toContainText(/datos de entrada inválidos/i);
+    await expect(page.getByRole("alert")).toContainText(/datos de entrada inválidos/i);
   });
 
   test("debe mostrar error interno del servidor (500)", async ({ page }) => {
@@ -172,7 +187,7 @@ test.describe("Newsletter Subscription", () => {
       });
     });
 
-    const form = page.locator("#subscribe-form");
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
@@ -181,40 +196,39 @@ test.describe("Newsletter Subscription", () => {
     await emailInput.fill("test@example.com");
     await submitButton.click();
 
-    const errorMessage = page.locator("#error-message");
-    await expect(errorMessage).toBeVisible();
-    await expect(page.locator("#error-text")).toContainText(/error interno/i);
+    await expect(page.getByRole("alert")).toContainText(/error interno/i);
   });
 
-  test("debe limpiar el error de campo al volver a escribir", async ({ page }) => {
+  test("debe limpiar el error al volver a escribir", async ({ page }) => {
     await page.route("**/api/subscribe", async (route) => {
       await route.fulfill({
         status: 400,
         contentType: "application/json",
         body: JSON.stringify({
           success: false,
-          message: "Error de validación",
+          message: "Formato de email inválido",
           errors: [{ path: ["email"], message: "Formato de email inválido" }],
         }),
       });
     });
 
-    const form = page.locator("#subscribe-form");
+    const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
     const emailInput = form.getByLabel(/email/i);
-    const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
-    // Email válido para que pase HTML5 pero el servidor devuelve 400 con error de campo
     await nameInput.fill("Test User");
     await emailInput.fill("test@example.com");
-    await submitButton.click();
+    await form.getByRole("button", { name: /suscribirme/i }).click();
 
-    // Verificar que el error de campo aparece
-    const emailError = page.locator("#email-error");
-    await expect(emailError).toBeVisible();
+    // The notice is no longer a paragraph under the field: it is an Alert with
+    // role=alert, and the field is marked aria-invalid. The API sends the Zod
+    // message as `message`, so the general notice names the field that failed.
+    const aviso = page.getByRole("alert");
+    await expect(aviso).toContainText(/formato de email inválido/i);
+    await expect(emailInput).toHaveAttribute("aria-invalid", "true");
 
-    // Al escribir en el input de email, el error debe ocultarse
     await emailInput.fill("nuevo@email.com");
-    await expect(emailError).not.toBeVisible();
+    await expect(aviso).not.toBeVisible();
+    await expect(emailInput).not.toHaveAttribute("aria-invalid", "true");
   });
 });

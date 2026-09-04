@@ -1,5 +1,7 @@
 ---
 import Layout from "../../layouts/main/index.astro";
+import TalkCard from "../../components/talk-card/index";
+
 import settings from "../../settings";
 import { talks } from "../../settings/talks";
 import type { Talk } from "../../settings/talks";
@@ -51,19 +53,19 @@ const seo = {
   <div class="mx-auto max-w-full">
     <!-- Page header -->
     <header class="mb-12">
-      <p class="text-text-muted font-mono text-sm">/charlas</p>
-      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Charlas</h1>
-      <p class="text-text-secondary text-lg mb-4">
+      <p class="mb-[10px] font-mono text-[12.5px] text-text-muted">/charlas</p>
+      <h1 class="mb-[14px] font-display text-[clamp(2.1rem,5vw,44px)] font-bold leading-[1.05] tracking-[-0.03em] text-text-primary">Charlas</h1>
+      <p class="mb-3 max-w-[62ch] text-[17px] leading-relaxed text-text-secondary">
         Charlas y talleres sobre liderazgo de ingeniería, arquitectura de plataformas y construcción con IA.
       </p>
-      <p class="text-text-secondary text-base leading-relaxed max-w-3xl mb-4">
+      <p class="max-w-[66ch] text-[15px] leading-[1.65] text-text-secondary">
         Participo regularmente en conferencias, meetups y workshops privados hablando sobre liderazgo técnico,
         plataformas internas, Developer Experience y el impacto real de la IA en equipos de ingeniería. Los formatos
         incluyen keynotes, charlas de 30-45 minutos, paneles y workshops intensivos presenciales o remotos.
       </p>
       <p class="text-text-secondary text-sm mb-4">
         Me encantaría participar en tu evento. Si quieres que hable, escríbeme a{" "}
-        <a href="mailto:soy@eduardoalvarez.dev" class="text-accent underline">Hablemos →</a>
+        <a href="mailto:soy@eduardoalvarez.dev" class="text-accent underline">soy@eduardoalvarez.dev</a>
       </p>
       <p class="text-text-muted text-sm">
         {settings.authorInlineBio.text}{" "}
@@ -71,91 +73,35 @@ const seo = {
       </p>
     </header>
 
-    <!-- Talks grouped by year -->
+    {/*
+      `TalkCard` from the library. 0.6.0 added `resources`, so the slides and
+      repo links are back: before it the card had nowhere to put them, became a
+      link to whichever one existed, and the rest vanished. With resources
+      present the library stops making the card a link — several destinations
+      cannot be one.
+    */}
     {years.map((year: number) => (
       <section class="mb-14">
         <h2 class="text-sm font-medium text-text-muted uppercase tracking-widest mb-6 flex items-center gap-3">
           {year}
-          <span class="flex-1 h-px bg-surface-border"></span>
+          <span class="flex-1 h-px bg-border"></span>
         </h2>
 
-        <div class="divide-y divide-surface-border">
+        <div class="gap-step-md grid sm:grid-cols-2">
           {byYear[year].map((talk: Talk) => (
-            <article class="py-6 first:pt-0">
-              <div class="flex flex-col gap-3">
-                <!-- Title -->
-                <h3 class="text-lg font-semibold text-text-primary leading-snug">
-                  {talk.title}
-                </h3>
-
-                <!-- Meta -->
-                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-text-muted">
-                  <span>
-                    <time datetime={talk.date[0]}>
-                      {new Date(talk.date[0]).toLocaleDateString("es-CL", {
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </time>
-                  </span>
-                  <span class="text-surface-border">·</span>
-                  <a
-                    href={talk.location.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="hover:text-text-primary transition-colors duration-200"
-                  >
-                    {talk.location.name}
-                  </a>
-                </div>
-
-                <!-- Description -->
-                {talk.description && (
-                  <p class="text-text-secondary text-sm leading-relaxed line-clamp-2">
-                    {talk.description}
-                  </p>
-                )}
-
-                <!-- Resource links -->
-                {talk.options && (
-                  <div class="flex flex-wrap gap-4 mt-1">
-                    {talk.options.presentation && (
-                      <a
-                        href={talk.options.presentation}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-accent text-sm hover:underline inline-flex items-center gap-1"
-                        aria-label={`Ver slides de ${talk.title}`}
-                      >
-                        Slides ↗
-                      </a>
-                    )}
-                    {talk.options.repo && (
-                      <a
-                        href={talk.options.repo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-accent text-sm hover:underline inline-flex items-center gap-1"
-                        aria-label={`Ver repositorio de ${talk.title}`}
-                      >
-                        Repo ↗
-                      </a>
-                    )}
-                    {talk.options.resources?.map((r) => (
-                      <a
-                        href={r.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-accent text-sm hover:underline inline-flex items-center gap-1"
-                        aria-label={`${r.label} de ${talk.title}`}
-                      >
-                        {r.label} ↗
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </article>
+            <TalkCard
+              title={talk.title}
+              event={talk.organizations[0]?.name ?? talk.location.name}
+              date={new Date(talk.date[0]).toLocaleDateString("es-CL", { month: "long", day: "numeric" })}
+              dateTime={talk.date[0]}
+              location={talk.location.name}
+              description={talk.description}
+              resources={[
+                ...(talk.options?.presentation ? [{ label: "Slides", url: talk.options.presentation }] : []),
+                ...(talk.options?.repo ? [{ label: "Repo", url: talk.options.repo }] : []),
+                ...(talk.options?.resources ?? []).map((r) => ({ label: r.label, url: r.url })),
+              ]}
+            />
           ))}
         </div>
       </section>

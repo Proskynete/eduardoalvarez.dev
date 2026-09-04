@@ -53,6 +53,10 @@ export const talks: Talk[] = [
       url: "https://sessionize.com/caribeconf-2026/",
     },
     organizations: [],
+    options: {
+      presentation:
+        "https://www.canva.com/design/DAHRpQNMyOM/g_qS5cE8udiDqogqWHtyCg/view?utm_content=DAHRpQNMyOM&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hb33e9ca337",
+    },
   },
   {
     title: "Taller de Astro: Crea tu portafolio",

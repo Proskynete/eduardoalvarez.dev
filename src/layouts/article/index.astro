@@ -59,6 +59,69 @@ const seo: BaseHeadProps = {
 <script>
   import { trackEvent } from "../../utils/analytics";
 
+  /**
+   * Resalta en el índice la sección en la que está el lector.
+   *
+   * Marca el ÚLTIMO encabezado que ya pasó la línea de lectura, no el que esté
+   * dentro de una franja. Con IntersectionObserver y una franja estrecha, una
+   * sección larga deja la franja vacía y el resaltado desaparece a media
+   * lectura — que es justo cuando más sirve.
+   */
+  function initIndice() {
+    const enlaces = Array.from(document.querySelectorAll<HTMLAnchorElement>('nav[aria-label="En esta página"] a[href^="#"]'));
+    if (!enlaces.length) return;
+
+      /*
+       * Deduplicado por ancla: la página monta DOS tablas de contenidos —una
+       * plegable para pantallas estrechas y una tarjeta para anchas— y ambas
+       * enlazan a los mismos encabezados. Sin deduplicar, cada ancla aparece dos
+       * veces y el `break` de abajo corta dentro de la primera copia, así que el
+       * resaltado caía siempre en la tabla oculta y la visible no se marcaba.
+       */
+      const vistos = new Set<string>();
+      const pares = enlaces
+        .map((a) => ({ hash: a.hash, el: document.getElementById(decodeURIComponent(a.hash.slice(1))) }))
+        .filter((x): x is { hash: string; el: HTMLElement } => {
+          if (!x.el || vistos.has(x.hash)) return false;
+          vistos.add(x.hash);
+          return true;
+        });
+      if (!pares.length) return;
+
+      const LINEA = 140; // px desde arriba: bajo la nav pegajosa de 64px
+      let ultimo: string | null = null;
+
+      const marcar = () => {
+        let activo = pares[0];
+        for (const par of pares) {
+          if (par.el.getBoundingClientRect().top <= LINEA) activo = par;
+          else break;
+        }
+        if (activo.hash === ultimo) return; // no tocar el DOM si no cambió
+        // Se marca en TODAS las tablas: cuál está visible depende del ancho, y
+        // el script no tiene por qué saberlo.
+        enlaces.forEach((a) => {
+          if (a.hash === activo.hash) a.setAttribute("aria-current", "true");
+          else a.removeAttribute("aria-current");
+        });
+        ultimo = activo.hash;
+      };
+
+    let pendiente = false;
+    const alHacerScroll = () => {
+      if (pendiente) return;
+      pendiente = true;
+      requestAnimationFrame(() => {
+        pendiente = false;
+        marcar();
+      });
+    };
+
+    marcar();
+    window.addEventListener("scroll", alHacerScroll, { passive: true });
+    window.addEventListener("resize", alHacerScroll, { passive: true });
+  }
+
   function initCodeBlocks() {
     const pres = document.querySelectorAll<HTMLElement>("#article-body pre[data-language]");
     pres.forEach((pre) => {
@@ -72,9 +135,15 @@ const seo: BaseHeadProps = {
       const header = document.createElement("div");
       header.className = "code-block-header";
 
-      const lights = document.createElement("div");
-      lights.className = "code-traffic-lights";
-      lights.innerHTML = "<span></span><span></span><span></span>";
+      // The fin as the block's mark. Decorative: the language label beside it
+      // already names the content.
+      const fin = document.createElement("img");
+      fin.className = "code-block-fin";
+      fin.src = "/brand/fin-foam.png";
+      fin.alt = "";
+      fin.setAttribute("aria-hidden", "true");
+      fin.width = 147;
+      fin.height = 111;
 
       const label = document.createElement("span");
       label.className = "code-language-label";
@@ -96,7 +165,7 @@ const seo: BaseHeadProps = {
         });
       });
 
-      header.appendChild(lights);
+      header.appendChild(fin);
       header.appendChild(label);
       header.appendChild(copyBtn);
 
@@ -107,7 +176,7 @@ const seo: BaseHeadProps = {
   }
 
   function initSmoothScroll() {
-    const tocLinks = document.querySelectorAll<HTMLAnchorElement>('nav[aria-label="Tabla de contenidos"] a[href^="#"]');
+    const tocLinks = document.querySelectorAll<HTMLAnchorElement>('nav[aria-label="En esta página"] a[href^="#"]');
     tocLinks.forEach((link) => {
       link.addEventListener("click", (e) => {
         const href = link.getAttribute("href");
@@ -140,6 +209,8 @@ const seo: BaseHeadProps = {
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
+  initIndice();
+  document.addEventListener("astro:page-load", initIndice);
   document.addEventListener("astro:page-load", initCodeBlocks);
   document.addEventListener("astro:page-load", initSmoothScroll);
   document.addEventListener("astro:page-load", initArticleReadTracking);
@@ -159,11 +230,11 @@ const seo: BaseHeadProps = {
       <Aside content={content} timeToRead={timeToRead} twitterShare={twitterShare} linkedInShare={linkedInShare} />
 
       <div class="min-w-0">
-        <div id="article-body" class="pb-12 max-w-none prose-invert">
+        <div id="article-body" class="pb-12 max-w-none">
           <slot />
         </div>
 
-        <div class="border-t border-surface-border pt-10">
+        <div class="border-t border-border pt-10">
           <GiscusWrapper client:load slug={content.slug} />
         </div>
       </div>

@@ -1,7 +1,10 @@
 ---
+import { TalkCard, buttonVariants } from "@eduardoalvarez/arrecife";
+
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
 import Article from "../components/article/index.astro";
+import TextLink from "../components/text-link/index.astro";
 import Subscribe from "../components/subscribe/index.astro";
 import { talks } from "../settings/talks";
 import type { Talk } from "../settings/talks";
@@ -58,45 +61,62 @@ const seo = {
 
 <Layout seo={seo}>
   <!-- Hero -->
-  <section aria-label="Presentación" class="pt-16 pb-20 mb-20 bg-hero-gradient rounded-2xl px-8 sm:px-12">
-    <p class="text-accent text-xs font-semibold uppercase tracking-widest mb-5">
-      Engineering Leadership & Platform Thinking
-    </p>
-    <h1 class="text-5xl sm:text-6xl font-bold text-text-primary tracking-tight leading-none mb-6">
-      Eduardo<br />Álvarez
-    </h1>
-    <p class="text-text-secondary text-lg leading-relaxed max-w-lg mb-6">
-      Ayudo a equipos de ingeniería a escalar con criterio — desde la arquitectura de plataforma hasta la cultura de
-      liderazgo técnico en la era de la IA.
-    </p>
-    <p class="text-text-secondary text-base leading-relaxed max-w-2xl mb-10">
-      Este sitio reúne mis artículos sobre liderazgo técnico, arquitectura de plataformas y el impacto de la IA en los
-      equipos de software. También encontrarás un resumen de mis charlas, los servicios de consultoría y mentoring que
-      ofrezco, y la newsletter mensual donde profundizo en estos temas sin spam.
-    </p>
-    <div class="flex flex-wrap gap-4">
-      <a
-        href="/articles"
-        class="px-6 py-3 bg-accent text-background text-sm font-semibold rounded-lg hover:bg-accent-hover transition-colors duration-200"
-      >
-        Leer artículos
-      </a>
-      <a
-        href="/working-with-me"
-        class="px-6 py-3 border border-surface-border text-text-primary text-sm font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors duration-200"
-      >
-        Trabajar juntos
-      </a>
+  {/* Hero. No wrapper: the mascot floats free instead of sitting inside a
+      gradient panel, so the page opens on the character and not on a box. */}
+  <section aria-label="Introduction" class="mb-20 pt-6 sm:pt-10">
+    <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
+      <div>
+        <p class="mb-4 font-mono text-[11.5px] uppercase tracking-[0.12em] text-accent">
+          Engineering Leadership &amp; Platform Thinking
+        </p>
+        <h1
+          class="mb-[18px] font-display text-[clamp(2.6rem,6.4vw,64px)] font-extrabold leading-[0.96] tracking-[-0.035em] text-text-primary"
+        >
+          Eduardo<br />Álvarez
+        </h1>
+        <p class="mb-[14px] max-w-[52ch] text-base leading-relaxed text-text-secondary">
+          Ayudo a equipos de ingeniería a escalar con criterio — desde la arquitectura de plataforma hasta la cultura de
+          liderazgo técnico en la era de la IA.
+        </p>
+        <p class="mb-[26px] max-w-[62ch] text-sm leading-relaxed text-text-secondary">
+          Este sitio reúne mis artículos sobre liderazgo técnico, arquitectura de plataformas y el impacto de la IA en
+          los equipos de software. También encontrarás un resumen de mis charlas, los servicios de consultoría y
+          mentoring que ofrezco, y la newsletter mensual donde profundizo en estos temas sin spam.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          {/* `buttonVariants` en vez de `<Button asChild>`: esto son dos enlaces
+              estáticos y montar una isla de React para pintarlos sería pagar
+              hidratación por nada. La CVA se evalúa al construir. */}
+          <a href="/articles" class={buttonVariants({ variant: "primary" })}>Leer artículos</a>
+          <a href="/about" class={buttonVariants({ variant: "secondary" })}>Sobre mí</a>
+        </div>
+      </div>
+
+      {/* Centred and floating. The animation is a slow vertical drift — it
+          reads as buoyancy, not as a bounce. Disabled under reduced motion. */}
+      <div class="order-first flex justify-center lg:order-none">
+        <img
+          data-testid="hero-mascot"
+          src="/brand/pose-laptop-coffee.png"
+          alt=""
+          aria-hidden="true"
+          width="346"
+          height="276"
+          fetchpriority="high"
+          decoding="async"
+          class="w-[260px] max-w-full select-none motion-safe:animate-float sm:w-[300px] lg:w-full"
+        />
+      </div>
     </div>
   </section>
 
   <!-- Latest Writing -->
   <section aria-label="Últimos artículos" class="mb-20 mx-auto max-w-full">
     <div class="flex items-center justify-between mb-8">
-      <h2 class="text-2xl font-bold text-text-primary">Últimos artículos</h2>
-      <a href="/articles" class="text-accent text-sm hover:underline">Ver todos →</a>
+      <h2 class="text-text-primary">Últimos artículos</h2>
+      <TextLink href="/articles">./ver_todos</TextLink>
     </div>
-    <div class="divide-y divide-surface-border">
+    <div class="grid gap-4 sm:grid-cols-2">
       {posts.map(({ frontmatter }) => <Article article={frontmatter} />)}
     </div>
   </section>
@@ -106,33 +126,23 @@ const seo = {
     featuredTalks.length > 0 && (
       <section aria-label="Charlas recientes" class="mb-20 mx-auto max-w-full">
         <div class="flex items-center justify-between mb-8">
-          <h2 class="text-2xl font-bold text-text-primary">Charlas recientes</h2>
-          <a href="/speaking" class="text-accent text-sm hover:underline">
-            Ver todas →
-          </a>
+          <h2 class="text-text-primary">Charlas recientes</h2>
+          <TextLink href="/speaking">./ver_todas</TextLink>
         </div>
-        <div class="divide-y divide-surface-border">
+        <div class="gap-step-md grid sm:grid-cols-2">
           {featuredTalks.map((talk: Talk) => (
-            <div class="py-6 first:pt-0">
-              <div class="flex items-center gap-2 text-xs text-text-muted mb-2">
-                <time datetime={talk.date[0]}>
-                  {new Date(talk.date[0]).toLocaleDateString("es-CL", { year: "numeric", month: "long" })}
-                </time>
-                <span class="text-surface-border">·</span>
-                <a
-                  href={talk.location.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="hover:text-text-secondary transition-colors duration-200"
-                >
-                  {talk.location.name}
-                </a>
-              </div>
-              <p class="font-semibold text-text-primary">{talk.title}</p>
-              {talk.description && (
-                <p class="text-text-secondary text-sm mt-1 leading-relaxed line-clamp-2">{talk.description}</p>
-              )}
-            </div>
+            <TalkCard
+              href={talk.options?.presentation ?? talk.options?.repo ?? talk.location.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={talk.title}
+              event={talk.organizations[0]?.name ?? talk.location.name}
+              date={new Date(talk.date[0]).toLocaleDateString("es-CL", { year: "numeric", month: "long" })}
+              dateTime={talk.date[0]}
+              location={talk.location.name}
+              description={talk.description}
+              className="h-full"
+            />
           ))}
         </div>
       </section>
@@ -140,11 +150,5 @@ const seo = {
   }
 
   <!-- Newsletter CTA -->
-  <section aria-label="Newsletter" class="mx-auto max-w-content bg-surface rounded-xl border border-surface-border p-8 sm:p-10">
-    <h2 class="text-xl font-bold text-text-primary mb-1">Newsletter</h2>
-    <p class="text-text-secondary text-sm mb-6">
-      Artículos sobre liderazgo, plataforma y la era de la IA — directamente en tu correo.
-    </p>
-    <Subscribe />
-  </section>
+  <Subscribe />
 </Layout>

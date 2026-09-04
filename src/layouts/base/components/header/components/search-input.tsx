@@ -14,7 +14,7 @@ export default function SearchInput({
   selectedIndex = -1,
 }: SearchInputProps) {
   return (
-    <div className="relative flex items-center px-3 rounded-md bg-transparent border border-surface-border focus-within:border-accent transition-colors duration-300">
+    <div className="relative flex items-center px-3 rounded-md bg-transparent border border-border focus-within:border-accent transition-colors duration-300">
       <input
         type="text"
         placeholder="Buscar artículos..."
