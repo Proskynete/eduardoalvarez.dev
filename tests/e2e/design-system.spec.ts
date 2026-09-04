@@ -138,15 +138,18 @@ test.describe("Design System · buttons", () => {
     await expect(btn).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
   });
 
-  test("focus draws a bioluz ring with 2px offset", async ({ page }) => {
+  test("focus draws a bioluz ring with 3px offset", async ({ page }) => {
     await page.goto("/");
     const btn = page.getByRole("link", { name: "Leer artículos" }).first();
     await btn.focus();
     await expect(btn).toHaveCSS("outline-color", rgb(TOKEN.bioluz));
     await expect(btn).toHaveCSS("outline-width", "2px");
-    // 2px, not 3px: the button stopped carrying its own ring and takes the
-    // library's. The 3px belonged to this button and to nothing else.
-    await expect(btn).toHaveCSS("outline-offset", "2px");
+    // 3px, and this button was right the whole time. It carried its own ring
+    // at 3 while the library drew 2, so adopting the library's cost a pixel.
+    // arrecife 0.7.0 read its own design document, found 3 written there and
+    // 2 in twenty-eight call sites, and moved the utility to match the
+    // document. The offset comes back to where this button started.
+    await expect(btn).toHaveCSS("outline-offset", "3px");
   });
 });
 
