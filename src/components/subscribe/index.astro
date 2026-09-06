@@ -1,4 +1,6 @@
 ---
+import { Mascot } from "@eduardoalvarez/arrecife/brand";
+
 import { SubscribeForm } from "./subscribe-form";
 ---
 
@@ -11,14 +13,13 @@ import { SubscribeForm } from "./subscribe-form";
       outside the form because `NewsletterForm` builds its own children; the
       form reserves the room for it with `md:pr-[320px]`. */
   }
-  <img
-    src="/brand/pose-desk.png"
-    alt=""
+  <Mascot
+    pose="desk"
     aria-hidden="true"
-    width="362"
-    height="278"
+    width={362}
+    height={278}
     loading="lazy"
     decoding="async"
-    class="pointer-events-none absolute bottom-0 right-step-lg hidden w-[280px] object-contain object-bottom md:block"
+    className="pointer-events-none absolute bottom-0 right-step-lg hidden w-[280px] max-w-none object-contain object-bottom md:block"
   />
 </div>

@@ -384,6 +384,25 @@ html[data-theme="light"] body {
   color: var(--color-text-primary);
 }
 
+/* La barra del sitio es `Nav` de la librería, que pinta su lista de secciones
+   sin condición de ancho. Por debajo de `sm` el sitio usa el cajón lateral y
+   cuatro elementos en mono más el prompt `~/` no caben en 390px: se desborda a
+   scroll horizontal en toda la página.
+   Se oculta la `ul` y no la `nav` a propósito: la `nav` conserva su `ml-auto`,
+   colapsa a ancho cero y las acciones siguen alineadas a la derecha. Ocultando
+   la `nav` entera, brand y acciones se irían las dos a la izquierda.
+   El selector se ancla al `aria-label`, que es un contrato semántico, no a una
+   clase de estilo — que es lo que la librería pide no usar como gancho. */
+#site-header nav[aria-label="Principal"] > ul {
+  display: none;
+}
+
+@media (min-width: 40rem) {
+  #site-header nav[aria-label="Principal"] > ul {
+    display: flex;
+  }
+}
+
 /* Giscus — el widget es un custom element y los custom elements son `display:
    inline` por defecto, así que el host colapsaba a 21px alrededor de un iframe
    de 372px. Los comentarios cargaban bien; simplemente no se veían.

@@ -1,12 +1,15 @@
 ---
-import { Breadcrumb } from "@eduardoalvarez/arrecife";
-import Layout from "../../layouts/main/index.astro";
-import { podcasts, topicColors, platformIcons } from "../../settings/podcasts";
-import type { PodcastEpisode } from "../../settings/podcasts";
+import { Badge, Breadcrumb, Card, CardContent, CardHeader, CardTitle, Separator, Text, buttonVariants, social } from "@eduardoalvarez/arrecife";
 import { Image } from "astro:assets";
-import AudioPlayer from "../../components/audio-player/index";
 import { marked } from "marked";
+
 import { Icon } from "../../assets/icons";
+import AudioPlayer from "../../components/audio-player/index";
+import PodcastGuest from "../../components/podcast-guest/index";
+import Layout from "../../layouts/main/index.astro";
+import { platformIcons, podcasts } from "../../settings/podcasts";
+import type { PodcastEpisode } from "../../settings/podcasts";
+
 export const prerender = true;
 
 export function getStaticPaths() {
@@ -40,6 +43,18 @@ function formatDuration(minutes: number): string {
   }
   return `${mins} min`;
 }
+
+const episodeUrl = `https://eduardoalvarez.dev/podcasts/${podcast.slug}`;
+const shareLinks = [
+  {
+    label: "X",
+    href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(podcast.title)}&url=${encodeURIComponent(episodeUrl)}`,
+  },
+  {
+    label: "LinkedIn",
+    href: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(episodeUrl)}&title=${encodeURIComponent(podcast.title)}`,
+  },
+];
 ---
 
 <Layout seo={seo}>
@@ -51,210 +66,171 @@ function formatDuration(minutes: number): string {
       unlabelled li.
     */}
     <Breadcrumb
-      className="mb-6"
+      className="mb-step-md"
       homeHref="/"
       homeLabel="Inicio"
       items={[{ label: "Podcasts", href: "/podcasts" }, { label: podcast.title }]}
     />
 
     {/* Header del episodio */}
-    <header class="mb-8">
-      <div class="relative h-64 md:h-80 rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-background to-surface">
-        {podcast.image && (
-          <Image
-            src={podcast.image}
-            alt={podcast.title}
-            class="w-full h-full object-cover opacity-40"
-            width={1200}
-            height={600}
-            widths={[600, 1200]}
-            sizes="(max-width: 768px) 100vw, 1200px"
-            format="webp"
-            loading="eager"
-            decoding="async"
-          />
-        )}
+    <header class="mb-step-xl">
+      <div class="rounded-panel from-background to-surface mb-step-md relative h-64 overflow-hidden bg-gradient-to-br md:h-80">
+        {
+          podcast.image && (
+            <Image
+              src={podcast.image}
+              alt={podcast.title}
+              class="h-full w-full object-cover opacity-40"
+              width={1200}
+              height={600}
+              widths={[600, 1200]}
+              sizes="(max-width: 768px) 100vw, 1200px"
+              format="webp"
+              loading="eager"
+              decoding="async"
+            />
+          )
+        }
 
-        <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
-        {/* El velo es negro en los dos temas, así que el texto que va encima
-            se fija en blanco. Seguía a `text-primary` y en claro salía oscuro
-            sobre oscuro: el título del episodio no se leía. */}
-          <div class="flex items-center gap-3 mb-3">
-            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-white/15 text-white border border-white/25">
+        <div class="p-step-lg absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+          {/* El velo es negro en los dos temas, así que el texto que va encima
+              se fija en blanco. Seguía a `text-primary` y en claro salía oscuro
+              sobre oscuro: el título del episodio no se leía. */}
+          <div class="gap-step-sm mb-step-sm flex items-center">
+            <Badge variant="neutral" className="border border-white/25 bg-white/15 text-white">
               Episodio {podcast.episode}
-            </span>
-            <span class="text-white/80">{formatDuration(podcast.duration)}</span>
+            </Badge>
+            <Text variant="ui" as="span" className="text-white/80">{formatDuration(podcast.duration)}</Text>
           </div>
           <h1 class="text-white">{podcast.title}</h1>
-          <time datetime={podcast.date} class="text-white/80 mt-2">
-            {
-              new Date(podcast.date).toLocaleDateString("es-ES", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })
-            }
+          <time datetime={podcast.date} class="mt-step-xs">
+            <Text variant="meta" as="span" className="text-white/80">
+              {
+                new Date(podcast.date).toLocaleDateString("es-ES", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              }
+            </Text>
           </time>
         </div>
       </div>
 
       {/* Reproductor de audio destacado */}
-      <div class="bg-surface rounded-xl p-6 border border-border">
-        <h2 class="text-lg font-semibold text-text-primary mb-4">Escuchar episodio</h2>
-        <AudioPlayer client:load src={podcast.audioUrl} title={podcast.title} />
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Escuchar episodio</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <AudioPlayer client:load src={podcast.audioUrl} title={podcast.title} />
+        </CardContent>
+      </Card>
     </header>
 
     {/* Contenido principal en dos columnas */}
-    <div class="flex flex-col lg:flex-row gap-8">
+    <div class="gap-step-lg flex flex-col lg:flex-row">
       {/* Columna principal: contenido */}
       <div class="flex-1">
-        {/* Descripción */}
-        <section class="mb-8">
-          <h2 class="text-xl font-semibold text-text-primary mb-4">Sobre este episodio</h2>
-          <p class="text-text-secondary leading-relaxed">{podcast.description}</p>
+        <section class="mb-step-xl">
+          <Text as="h2" variant="h3" className="mb-step-sm">Sobre este episodio</Text>
+          <Text variant="body" tone="secondary">{podcast.description}</Text>
         </section>
 
-        {/* Tópicos */}
-        <section class="mb-8">
-          <h2 class="text-xl font-semibold text-text-primary mb-4">Temas tratados</h2>
-          <div class="flex flex-wrap gap-2">
-            {
-              podcast.topics.map((topic) => (
-                <span class={`px-3 py-1.5 text-sm rounded-lg border ${topicColors[topic.color]}`}>{topic.name}</span>
-              ))
-            }
+        <section class="mb-step-xl">
+          <Text as="h2" variant="h3" className="mb-step-sm">Temas tratados</Text>
+          <div class="gap-step-xs flex flex-wrap">
+            {podcast.topics.map((topic) => <Badge variant="neutral">{topic.name}</Badge>)}
           </div>
         </section>
 
-        {/* Notas del episodio */}
-        <section class="mb-8">
-          <h2 class="text-xl font-semibold text-text-primary mb-4">Notas del episodio</h2>
+        <section class="mb-step-xl">
+          <Text as="h2" variant="h3" className="mb-step-sm">Notas del episodio</Text>
           <div
             class="prose max-w-none
-                   prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4
-                   prose-h3:text-lg prose-h3:mt-6 prose-h3:mb-3
                    prose-a:text-accent prose-a:no-underline hover:prose-a:text-accent-hover
                    prose-li:marker:text-accent
                    prose-blockquote:border-accent
-                   prose-code:text-accent prose-code:bg-surface-raised prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-                   prose-pre:bg-surface prose-pre:border prose-pre:border-border"
+                   prose-code:text-accent prose-code:bg-surface-raised
+                   prose-pre:bg-brand-hull"
             set:html={contentHtml}
           />
         </section>
       </div>
 
       {/* Sidebar */}
-      <aside class="lg:w-80 shrink-0">
-        {/* Invitados */}
+      <aside class="gap-step-md flex shrink-0 flex-col lg:w-80">
         {
           podcast.guests.length > 0 && (
-            <section class="mb-8 bg-surface rounded-xl p-6 border border-border">
-              <h2 class="text-lg font-semibold text-text-primary mb-4">
+            <section class="gap-step-sm flex flex-col">
+              <Text as="h2" variant="h3">
                 {podcast.guests.length === 1 ? "Invitado" : "Invitados"}
-              </h2>
-              <div class="flex flex-col gap-4">
-                {podcast.guests.map((guest) => (
-                  <div class="flex flex-col gap-3">
-                    <div class="flex items-center gap-3">
-                      <div class="w-14 h-14 rounded-full bg-accent flex items-center justify-center text-background font-bold text-lg">
-                        {guest.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")
-                          .slice(0, 2)}
-                      </div>
-                      <div class="flex flex-col">
-                        <span class="font-medium text-text-primary">{guest.name}</span>
-                        <span class="text-sm text-text-muted">
-                          {guest.role}
-                          {guest.company && ` @ ${guest.company}`}
-                        </span>
-                      </div>
-                    </div>
-                    {/* Links sociales */}
-                    <div class="flex gap-2">
-                      {guest.linkedin && (
-                        <a
-                          href={guest.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-raised text-text-secondary hover:text-text-primary hover:bg-surface transition-colors duration-200 text-sm"
-                        >
-                          <Icon.LinkedIn className="w-4 h-4" />
-                          LinkedIn
-                        </a>
-                      )}
-                      {guest.twitter && (
-                        <a
-                          href={guest.twitter}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-raised text-text-secondary hover:text-text-primary hover:bg-surface transition-colors duration-200 text-sm"
-                        >
-                          <Icon.X className="w-4 h-4" />
-                          Twitter
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              </Text>
+              {podcast.guests.map((guest) => (
+                <PodcastGuest
+                  name={guest.name}
+                  role={guest.role}
+                  company={guest.company}
+                  linkedin={guest.linkedin}
+                  twitter={guest.twitter}
+                />
+              ))}
             </section>
           )
         }
 
-        {/* Plataformas */}
-        <section class="bg-surface rounded-xl p-6 border border-border">
-          <h2 class="text-lg font-semibold text-text-primary mb-4">Escuchar en</h2>
-          <div class="flex flex-col gap-2">
+        {/* Plataformas y compartir: dos tarjetas del sistema en vez de
+            `bg-surface rounded-xl p-6 border border-border` escrito tres veces
+            en este archivo. */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Escuchar en</CardTitle>
+          </CardHeader>
+          <CardContent className="gap-step-xs flex flex-col">
             {
               podcast.platforms.map((platform) => (
                 <a
                   href={platform.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex items-center gap-3 px-4 py-3 rounded-lg bg-surface-raised hover:bg-surface text-text-secondary hover:text-text-primary transition-colors duration-200"
+                  class={`${buttonVariants({ variant: "secondary" })} justify-start`}
                 >
-                  <Icon.Platform path={platformIcons[platform.icon]} className="w-5 h-5" />
-                  <span>{platform.name}</span>
+                  <Icon.Platform path={platformIcons[platform.icon]} className="h-5 w-5" />
+                  {platform.name}
                 </a>
               ))
             }
-          </div>
-        </section>
+          </CardContent>
+        </Card>
 
-        {/* Compartir */}
-        <section class="mt-6 bg-surface rounded-xl p-6 border border-border">
-          <h2 class="text-lg font-semibold text-text-primary mb-4">Compartir</h2>
-          <div class="flex gap-2">
-            <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(podcast.title)}&url=${encodeURIComponent(`https://eduardoalvarez.dev/podcasts/${podcast.slug}`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-surface-raised hover:bg-surface text-text-muted hover:text-text-primary transition-colors duration-200"
-              aria-label="Compartir en Twitter"
-            >
-              <Icon.X className="w-5 h-5" />
-            </a>
-            <a
-              href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://eduardoalvarez.dev/podcasts/${podcast.slug}`)}&title=${encodeURIComponent(podcast.title)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-surface-raised hover:bg-surface text-text-muted hover:text-text-primary transition-colors duration-200"
-              aria-label="Compartir en LinkedIn"
-            >
-              <Icon.LinkedIn className="w-5 h-5" />
-            </a>
-          </div>
-        </section>
+        <Card>
+          <CardHeader>
+            <CardTitle>Compartir</CardTitle>
+          </CardHeader>
+          <CardContent className="gap-step-xs flex">
+            {
+              shareLinks.map(({ label, href }) => (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class={`${buttonVariants({ variant: "secondary" })} flex-1`}
+                  aria-label={`Compartir en ${label}`}
+                >
+                  {label === "X" ? <social.X /> : <social.LinkedIn />}
+                </a>
+              ))
+            }
+          </CardContent>
+        </Card>
       </aside>
     </div>
 
     {/* Volver a podcasts */}
-    <div class="mt-12 pt-8 border-t border-border">
-      <a href="/podcasts" class="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors duration-200">
-        <Icon.ArrowLeft className="w-5 h-5" />
+    <Separator className="mt-step-xl" />
+    <div class="pt-step-lg">
+      <a href="/podcasts" class={buttonVariants({ variant: "tertiary" })}>
+        <Icon.ArrowLeft className="h-5 w-5" />
         Volver a todos los episodios
       </a>
     </div>

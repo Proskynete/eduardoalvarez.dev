@@ -1,10 +1,14 @@
 ---
-import Layout from "../../layouts/main/index.astro";
-import { podcasts, topicColors, platformIcons } from "../../settings/podcasts";
-import type { PodcastEpisode } from "../../settings/podcasts";
+import { Badge, Card, CardContent, CardFooter, EmptyState, PageHeader, Text, buttonVariants } from "@eduardoalvarez/arrecife";
 import { Image } from "astro:assets";
-import AudioPlayer from "../../components/audio-player/index";
+
 import { Icon } from "../../assets/icons";
+import AudioPlayer from "../../components/audio-player/index";
+import PodcastGuest from "../../components/podcast-guest/index";
+import Layout from "../../layouts/main/index.astro";
+import { platformIcons, podcasts } from "../../settings/podcasts";
+import type { PodcastEpisode } from "../../settings/podcasts";
+
 export const prerender = true;
 
 const seo = {
@@ -21,182 +25,152 @@ function formatDuration(minutes: number): string {
   }
   return `${mins} min`;
 }
+
+const visible = podcasts.filter((podcast: PodcastEpisode) => podcast.show);
 ---
 
 <Layout seo={seo}>
   <div class="mx-auto max-w-full">
-    <!-- Page header -->
-    <header class="mb-12">
-      <p class="mb-[10px] font-mono text-[12.5px] text-text-muted">/podcasts</p>
-      <h1 class="mb-[14px] font-display text-[clamp(2.1rem,5vw,44px)] font-bold leading-[1.05] tracking-[-0.03em] text-text-primary">Podcasts</h1>
-      <p class="mb-3 max-w-[62ch] text-[17px] leading-relaxed text-text-secondary">
-        Conversaciones sobre desarrollo web, tecnología y carrera profesional con invitados de la industria.
-      </p>
-    </header>
+    {/* La misma cabecera del sistema que el resto de las secciones. */}
+    <PageHeader
+      eyebrow="/podcasts"
+      title="Podcasts"
+      description="Conversaciones sobre desarrollo web, tecnología y carrera profesional con invitados de la industria."
+    />
 
-    <!-- Episodes list -->
-    <div class="grid grid-cols-1 gap-6">
-      {
-        podcasts.map(
-          (podcast: PodcastEpisode) =>
-            podcast.show && (
-              <article class="relative flex flex-col border border-border rounded-xl overflow-hidden hover:border-accent transition-colors duration-200">
-                {/* Header del episodio con imagen de fondo */}
-                <a
-                  href={`/podcasts/${podcast.slug}`}
-                  class="relative h-48 md:h-56 overflow-hidden bg-gradient-to-br from-background to-surface block group"
-                >
-                  {podcast.image && (
-                    <Image
-                      src={podcast.image}
-                      alt={podcast.title}
-                      class="w-full h-full object-cover opacity-40 group-hover:opacity-50 transition-opacity duration-200"
-                      width={800}
-                      height={400}
-                      widths={[400, 800]}
-                      sizes="(max-width: 768px) 100vw, 800px"
-                      format="webp"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  )}
+    {
+      visible.length === 0 ? (
+        /* `EmptyState` en vez de dos párrafos centrados: la sección vacía es
+           una pantalla, así que lleva cara — `waiting`, que es la que el
+           catálogo asigna a «todavía no hay nada». */
+        <EmptyState
+          variant="page"
+          expression="waiting"
+          title="No hay episodios disponibles"
+          description="Vuelve pronto para ver nuevo contenido."
+        />
+      ) : (
+        <div class="gap-step-md grid grid-cols-1">
+          {visible.map((podcast: PodcastEpisode) => (
+            <Card className="overflow-hidden">
+              {/* Cabecera del episodio con imagen de fondo */}
+              <a
+                href={`/podcasts/${podcast.slug}`}
+                class="group from-background to-surface focus-ring relative block h-48 overflow-hidden bg-gradient-to-br md:h-56"
+              >
+                {podcast.image && (
+                  <Image
+                    src={podcast.image}
+                    alt={podcast.title}
+                    class="h-full w-full object-cover opacity-40 transition-opacity duration-200 group-hover:opacity-50"
+                    width={800}
+                    height={400}
+                    widths={[400, 800]}
+                    sizes="(max-width: 768px) 100vw, 800px"
+                    format="webp"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
 
-                  {/* Overlay con info principal */}
-                  <div class="absolute inset-0 flex flex-col justify-end p-5 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
-                    <div class="flex items-center gap-3 mb-2">
-                      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-accent/10 text-accent border border-accent/20">
-                        Episodio {podcast.episode}
-                      </span>
-                      <span class="text-sm text-text-secondary">{formatDuration(podcast.duration)}</span>
-                    </div>
-                    <h2 class="text-text-primary line-clamp-2 group-hover:text-accent transition-colors duration-200">
-                      {podcast.title}
-                    </h2>
+                {/*
+                  El velo es negro en los dos temas, así que el texto que va
+                  encima se fija en blanco. Es el mismo caso que la portada del
+                  episodio: no hay token para «sobre una foto oscurecida».
+                */}
+                <div class="p-step-md absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                  <div class="gap-step-sm mb-step-xs flex items-center">
+                    <Badge variant="neutral" className="border border-white/25 bg-white/15 text-white">
+                      Episodio {podcast.episode}
+                    </Badge>
+                    <Text variant="label" as="span" className="text-white/80">
+                      {formatDuration(podcast.duration)}
+                    </Text>
                   </div>
-                </a>
+                  <Text as="h2" variant="h3" className="group-hover:text-accent transition-standard line-clamp-2 text-white">
+                    {podcast.title}
+                  </Text>
+                </div>
+              </a>
 
-                {/* Contenido del episodio */}
-                <div class="flex flex-col p-5 gap-4">
-                  {/* Reproductor de audio */}
-                  <AudioPlayer client:visible src={podcast.audioUrl} />
+              <CardContent className="gap-step-md pt-step-md flex flex-col">
+                <AudioPlayer client:visible src={podcast.audioUrl} />
 
-                  {/* Fecha y descripción */}
-                  <div class="flex flex-col gap-2">
-                    <time datetime={podcast.date} class="text-sm text-text-muted">
+                <div class="gap-step-xs flex flex-col">
+                  <time datetime={podcast.date}>
+                    <Text variant="meta" tone="muted" as="span">
                       {new Date(podcast.date).toLocaleDateString("es-ES", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
                       })}
-                    </time>
-                    <p class="text-text-secondary text-sm line-clamp-3">{podcast.description}</p>
-                  </div>
+                    </Text>
+                  </time>
+                  <Text variant="ui" tone="secondary" className="line-clamp-3">
+                    {podcast.description}
+                  </Text>
+                </div>
 
-                  {/* Invitados */}
-                  {podcast.guests.length > 0 && (
-                    <div class="flex flex-col gap-2">
-                      <h3 class="text-sm font-semibold text-text-secondary">
-                        {podcast.guests.length === 1 ? "Invitado" : "Invitados"}
-                      </h3>
-                      <div class="flex flex-wrap gap-3">
-                        {podcast.guests.map((guest) => (
-                          <div class="flex items-center gap-3 bg-surface rounded-lg px-3 py-2">
-                            <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-background font-bold text-sm">
-                              {guest.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")
-                                .slice(0, 2)}
-                            </div>
-                            <div class="flex flex-col">
-                              <span class="text-sm font-medium text-text-primary">{guest.name}</span>
-                              <span class="text-xs text-text-muted">
-                                {guest.role}
-                                {guest.company && ` @ ${guest.company}`}
-                              </span>
-                            </div>
-                            {/* Links sociales del invitado */}
-                            <div class="flex gap-1 ml-2">
-                              {guest.linkedin && (
-                                <a
-                                  href={guest.linkedin}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  class="p-1 text-text-muted hover:text-accent transition-colors duration-200"
-                                  aria-label={`LinkedIn de ${guest.name}`}
-                                >
-                                  <Icon.LinkedIn className="w-4 h-4" />
-                                </a>
-                              )}
-                              {guest.twitter && (
-                                <a
-                                  href={guest.twitter}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  class="p-1 text-text-muted hover:text-accent transition-colors duration-200"
-                                  aria-label={`Twitter de ${guest.name}`}
-                                >
-                                  <Icon.X className="w-4 h-4" />
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                {podcast.guests.length > 0 && (
+                  <div class="gap-step-sm flex flex-col">
+                    <Text as="h3" variant="label" tone="secondary" className="font-medium">
+                      {podcast.guests.length === 1 ? "Invitado" : "Invitados"}
+                    </Text>
+                    <div class="gap-step-sm grid sm:grid-cols-2">
+                      {podcast.guests.map((guest) => (
+                        <PodcastGuest
+                          name={guest.name}
+                          role={guest.role}
+                          company={guest.company}
+                          linkedin={guest.linkedin}
+                          twitter={guest.twitter}
+                        />
+                      ))}
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  {/* Tópicos */}
-                  <div class="flex flex-wrap gap-2">
-                    {podcast.topics.map((topic) => (
-                      <span class={`px-2 py-1 text-xs rounded-md border ${topicColors[topic.color]}`}>
-                        {topic.name}
-                      </span>
+                {/* `Badge` del sistema. Antes cada tema traía `px-2 py-1 text-xs
+                    rounded-md border` escrito encima de la variante, que peleaba
+                    con el tamaño y el radio que la variante ya define. */}
+                <div class="gap-step-xs flex flex-wrap">
+                  {podcast.topics.map((topic) => (
+                    <Badge variant="neutral">{topic.name}</Badge>
+                  ))}
+                </div>
+              </CardContent>
+
+              <CardFooter className="flex-col items-stretch sm:flex-row sm:items-center sm:justify-between">
+                <div class="gap-step-sm flex flex-1 flex-col">
+                  <Text as="h3" variant="label" tone="secondary" className="font-medium">
+                    Escuchar en
+                  </Text>
+                  <div class="gap-step-xs flex flex-wrap">
+                    {podcast.platforms.map((platform) => (
+                      <a
+                        href={platform.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class={buttonVariants({ variant: "secondary", size: "sm" })}
+                        aria-label={`Escuchar en ${platform.name}`}
+                      >
+                        <Icon.Platform path={platformIcons[platform.icon]} className="h-4 w-4" />
+                        {platform.name}
+                      </a>
                     ))}
                   </div>
-
-                  {/* Footer: Plataformas + Ver más */}
-                  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-3 border-t border-border">
-                    <div class="flex flex-col gap-2">
-                      <h3 class="text-sm font-semibold text-text-secondary">Escuchar en</h3>
-                      <div class="flex flex-wrap gap-2">
-                        {podcast.platforms.map((platform) => (
-                          <a
-                            href={platform.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-surface hover:bg-surface-raised text-text-secondary hover:text-text-primary transition-colors duration-200"
-                            aria-label={`Escuchar en ${platform.name}`}
-                          >
-                            <Icon.Platform path={platformIcons[platform.icon]} className="w-4 h-4" />
-                            <span class="text-sm">{platform.name}</span>
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Botón ver episodio completo */}
-                    <a
-                      href={`/podcasts/${podcast.slug}`}
-                      class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-accent hover:bg-accent-hover text-background font-medium transition-colors duration-200"
-                    >
-                      <span>Ver episodio</span>
-                      <Icon.ChevronRight className="w-4 h-4" />
-                    </a>
-                  </div>
                 </div>
-              </article>
-            ),
-        )
-      }
-    </div>
 
-    {/* Mensaje si no hay episodios */}
-    {
-      podcasts.filter((p) => p.show).length === 0 && (
-        <div class="text-center py-12">
-          <p class="text-text-muted">No hay episodios disponibles en este momento.</p>
-          <p class="text-text-muted text-sm mt-2">Vuelve pronto para ver nuevo contenido.</p>
+                <a
+                  href={`/podcasts/${podcast.slug}`}
+                  class={buttonVariants({ variant: "primary" })}
+                >
+                  <span>Ver episodio</span>
+                  <Icon.ChevronRight className="h-4 w-4" />
+                </a>
+              </CardFooter>
+            </Card>
+          ))}
         </div>
       )
     }

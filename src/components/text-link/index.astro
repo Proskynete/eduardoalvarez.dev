@@ -1,10 +1,18 @@
 ---
+import { buttonVariants } from "@eduardoalvarez/arrecife";
+
 /**
  * The mono text link that closes a section: `./ver_todos →`.
  *
  * It was written three times with the same seven classes and had already
  * drifted — articles said `./ver_todos →`, talks said `Ver todas →`: same look,
  * different voice.
+ *
+ * The seven classes are now `buttonVariants({ variant: "tertiary" })`, which is
+ * the system's link-shaped control: mono, no box, secondary text and an
+ * underline on hover at 4px of offset. The hand-written version was the same
+ * declaration with `text-sm` and `duration-200` written out instead of the
+ * `text-meta` and `transition-standard` tokens.
  */
 export interface Props {
   href: string;
@@ -18,10 +26,7 @@ const { href, back = false, class: className = "" } = Astro.props;
 
 <a
   href={href}
-  class:list={[
-    "font-mono text-sm text-text-secondary transition-colors duration-200 hover:text-accent hover:underline hover:underline-offset-4",
-    className,
-  ]}
+  class:list={[buttonVariants({ variant: "tertiary", size: "sm" }), className]}
 >
   {back && <span aria-hidden="true">←&nbsp;</span>}
   <slot />

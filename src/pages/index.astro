@@ -1,5 +1,6 @@
 ---
-import { TalkCard, buttonVariants } from "@eduardoalvarez/arrecife";
+import { TalkCard, Text, buttonVariants } from "@eduardoalvarez/arrecife";
+import { Mascot } from "@eduardoalvarez/arrecife/brand";
 
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
@@ -17,12 +18,19 @@ interface Post {
   frontmatter: IArticle;
 }
 
-const _MAX_ARTICLES = 3;
+/**
+ * Cuántos artículos y charlas destacar en la portada.
+ *
+ * Las dos rejillas son de dos columnas en `sm`, así que tres dejaban un hueco
+ * en la segunda fila. Cuatro la completan y siguen siendo una muestra: hay 9
+ * artículos y 7 charlas publicadas.
+ */
+const _MAX_FEATURED = 4;
 const rawPosts = import.meta.glob<{ frontmatter: IArticle }>("./articles/*.mdx", { eager: true });
 const posts: Post[] = Object.values(rawPosts);
-posts.sort(articlesSort).splice(_MAX_ARTICLES);
+posts.sort(articlesSort).splice(_MAX_FEATURED);
 
-const featuredTalks = talks.filter((t: Talk) => t.show).slice(0, 3);
+const featuredTalks = talks.filter((t: Talk) => t.show).slice(0, _MAX_FEATURED);
 
 const githubLink = settings.social_network.find((s) => s.name === "Github")?.link ?? "";
 const linkedinLink = settings.social_network.find((s) => s.name === "LinkedIn")?.link ?? "";
@@ -65,25 +73,28 @@ const seo = {
       gradient panel, so the page opens on the character and not on a box. */}
   <section aria-label="Introduction" class="mb-20 pt-6 sm:pt-10">
     <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
-      <div>
-        <p class="mb-4 font-mono text-[11.5px] uppercase tracking-[0.12em] text-accent">
-          Engineering Leadership &amp; Platform Thinking
-        </p>
-        <h1
-          class="mb-[18px] font-display text-[clamp(2.6rem,6.4vw,64px)] font-extrabold leading-[0.96] tracking-[-0.035em] text-text-primary"
-        >
-          Eduardo<br />Álvarez
-        </h1>
-        <p class="mb-[14px] max-w-[52ch] text-base leading-relaxed text-text-secondary">
+      {/* La escala viene de `Text`. Antes eran cinco valores arbitrarios escritos
+          a mano —`text-[11.5px]`, `clamp(2.6rem,6.4vw,64px)`, `tracking-[0.12em]`,
+          `leading-[0.96]`, `tracking-[-0.035em]`— justo lo que los tokens de la
+          librería existen para evitar. `display` es el escalón mayor de la escala
+          y el que le corresponde a la portada. */}
+      <div class="gap-step-sm flex flex-col items-start">
+        <Text variant="eyebrow" tone="accent" as="p">Engineering Leadership &amp; Platform Thinking</Text>
+
+        <Text as="h1" variant="display">Eduardo<br />Álvarez</Text>
+
+        <Text variant="body" tone="secondary">
           Ayudo a equipos de ingeniería a escalar con criterio — desde la arquitectura de plataforma hasta la cultura de
           liderazgo técnico en la era de la IA.
-        </p>
-        <p class="mb-[26px] max-w-[62ch] text-sm leading-relaxed text-text-secondary">
+        </Text>
+
+        <Text variant="ui" tone="secondary">
           Este sitio reúne mis artículos sobre liderazgo técnico, arquitectura de plataformas y el impacto de la IA en
           los equipos de software. También encontrarás un resumen de mis charlas, los servicios de consultoría y
           mentoring que ofrezco, y la newsletter mensual donde profundizo en estos temas sin spam.
-        </p>
-        <div class="flex flex-wrap gap-4">
+        </Text>
+
+        <div class="gap-step-sm mt-step-xs flex flex-wrap">
           {/* `buttonVariants` en vez de `<Button asChild>`: esto son dos enlaces
               estáticos y montar una isla de React para pintarlos sería pagar
               hidratación por nada. La CVA se evalúa al construir. */}
@@ -95,16 +106,18 @@ const seo = {
       {/* Centred and floating. The animation is a slow vertical drift — it
           reads as buoyancy, not as a bounce. Disabled under reduced motion. */}
       <div class="order-first flex justify-center lg:order-none">
-        <img
+        {/* `Mascot` de la librería: la ruta y el nombre del archivo los resuelve
+            el catálogo de marca, no una cadena escrita aquí. La deriva vertical
+            se queda — es de esta página, no del sistema. */}
+        <Mascot
+          pose="laptop-coffee"
           data-testid="hero-mascot"
-          src="/brand/pose-laptop-coffee.png"
-          alt=""
           aria-hidden="true"
-          width="346"
-          height="276"
-          fetchpriority="high"
+          width={346}
+          height={276}
+          fetchPriority="high"
           decoding="async"
-          class="w-[260px] max-w-full select-none motion-safe:animate-float sm:w-[300px] lg:w-full"
+          className="w-[260px] max-w-full motion-safe:animate-float sm:w-[300px] lg:w-full"
         />
       </div>
     </div>

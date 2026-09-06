@@ -61,6 +61,22 @@ const TOKEN = {
   hull: "#0b1524",
 };
 
+/**
+ * Pulsa el interruptor de tema y espera a que prenda.
+ *
+ * La cabecera es una isla de React desde que adoptó `Nav` y `ThemeToggle` de la
+ * librería, así que el botón no responde hasta que hidrata; antes era HTML
+ * estático con un script suelto y estaba vivo casi de inmediato. El clic va
+ * dentro de `toPass` con su aserción al lado: en cuanto uno prende, el bloque
+ * pasa y no se vuelve a pulsar — un segundo clic devolvería el tema.
+ */
+const toggleTheme = async (page: Page, expected: "light" | "dark") => {
+  await expect(async () => {
+    await page.locator("#theme-toggle").click();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", expected, { timeout: 1000 });
+  }).toPass({ timeout: 15000 });
+};
+
 const ARTICLE = "/articles/el-javascript-necesario-para-react-parte-1";
 
 test.describe("Design System · foundations", () => {
@@ -77,7 +93,11 @@ test.describe("Design System · foundations", () => {
 
   test("navigation uses JetBrains Mono, not Geist Mono", async ({ page }) => {
     await page.goto("/");
-    const nav = page.locator('nav[aria-label="Navegación principal"]');
+    // El `aria-label` lo pone `Nav` de la librería, no este proyecto: la barra
+    // dejó de escribirse a mano y con ella se fue el rótulo local.
+    // Y la fuente se mide en el ítem, no en la `nav`: `NavItem` lleva `font-mono`
+    // y el contenedor no declara familia, así que medirlo a él leía la heredada.
+    const nav = page.locator('nav[aria-label="Principal"] a').first();
     await expect(nav).toBeVisible();
     const family = await nav.evaluate((el) => getComputedStyle(el).fontFamily);
     expect(family).toContain("JetBrains");
@@ -97,7 +117,11 @@ test.describe("Design System · navigation", () => {
   test("is 64px tall and translucent with blur", async ({ page }) => {
     await page.goto("/");
     const header = page.locator("#site-header");
-    expect((await header.boundingBox())?.height).toBe(64);
+    // `Nav` pone los 64px en su fila interior y la regla hairline en el
+    // `<header>`, así que la barra mide 65 por fuera. La altura del sistema es
+    // la de la fila; el píxel extra es el borde inferior.
+    expect((await header.locator("> div").boundingBox())?.height).toBe(64);
+    expect((await header.boundingBox())?.height).toBe(65);
     const blur = await header.evaluate((el) => {
       const s = getComputedStyle(el);
       return s.backdropFilter || s.getPropertyValue("-webkit-backdrop-filter");
@@ -114,7 +138,55 @@ test.describe("Design System · navigation", () => {
     await expect(active).toBeVisible();
     await expect(active).toContainText("[");
     await expect(active).toContainText("]");
-    await expect(active).toHaveCSS("border-bottom-color", rgb(TOKEN.bioluz));
+    // `NavItem` marca la sección actual con subrayado bioluz, no con un borde
+    // inferior. Es un subrayado de verdad —`text-decoration`— y no un borde que
+    // lo imita, que es lo que este archivo dibujaba a mano.
+    await expect(active).toHaveCSS("text-decoration-line", "underline");
+    await expect(active).toHaveCSS("color", rgb(TOKEN.bioluz));
+  });
+});
+
+test.describe("Design System · mobile drawer", () => {
+  /**
+   * El cajón pasó de un `div` con `aria-modal` escrito a mano —trampa de foco
+   * sobre `querySelectorAll`, listener de `Escape` y `body.style.overflow`— a
+   * `Sheet` de la librería, que es Radix por debajo. Nada de esto tenía prueba,
+   * y la trampa de foco vieja no devolvía el foco al disparador al cerrar.
+   */
+  test.use({ viewport: { width: 390, height: 800 } });
+
+  const trigger = (page: Page) => page.locator('#site-header button[aria-label*="men"]');
+
+  test("opens, traps focus and returns it to the trigger", async ({ page }) => {
+    await page.goto("/");
+
+    await expect(trigger(page)).toHaveAttribute("aria-expanded", "false");
+    await expect(async () => {
+      await trigger(page).click();
+      await expect(page.locator("[role=dialog]")).toBeVisible({ timeout: 1000 });
+    }).toPass({ timeout: 15000 });
+
+    await expect(trigger(page)).toHaveAttribute("aria-expanded", "true");
+    // El foco entra al panel: sin esto el lector de pantalla se queda detrás.
+    expect(
+      await page.evaluate(() => document.querySelector("[role=dialog]")?.contains(document.activeElement)),
+    ).toBe(true);
+
+    await page.keyboard.press("Escape");
+    await expect(page.locator("[role=dialog]")).toHaveCount(0);
+    // Y vuelve al disparador. La versión a mano lo dejaba en <body>, así que
+    // tras cerrar el menú el teclado empezaba de nuevo desde arriba.
+    expect(await page.evaluate(() => document.activeElement?.getAttribute("aria-label"))).toBe(
+      "Abrir menú de navegación",
+    );
+  });
+
+  test("the bar shows the drawer instead of the section list", async ({ page }) => {
+    await page.goto("/");
+    // `Nav` pinta su lista sin condición de ancho; el sitio la esconde por
+    // debajo de `sm` porque cuatro elementos en mono más `~/` no caben en 390.
+    await expect(page.locator('nav[aria-label="Principal"] > ul')).toBeHidden();
+    await expect(trigger(page)).toBeVisible();
   });
 });
 
@@ -195,7 +267,7 @@ test.describe("Design System · brand", () => {
     await expect(page.locator('#site-header img[src*="fin-foam"]').first()).toBeVisible();
     await expect(page.locator('#site-header img[src$="/fin.png"]').first()).toBeHidden();
 
-    await page.locator("#theme-toggle").click();
+    await toggleTheme(page, "light");
     await expect(page.locator('#site-header img[src$="/fin.png"]').first()).toBeVisible();
     await expect(page.locator('#site-header img[src*="fin-foam"]').first()).toBeHidden();
   });
@@ -271,7 +343,7 @@ test.describe("Design System · theme", () => {
     await page.goto("/");
     const html = page.locator("html");
 
-    await page.locator("#theme-toggle").click();
+    await toggleTheme(page, "light");
     await expect(html).toHaveAttribute("data-theme", "light");
     await expect(page.locator("body")).toHaveCSS("background-color", rgb(TOKEN.paper));
 
@@ -286,7 +358,7 @@ test.describe("Design System · theme", () => {
 
   test("in light mode the primary button is solid hull, not bioluz", async ({ page }) => {
     await page.goto("/");
-    await page.locator("#theme-toggle").click();
+    await toggleTheme(page, "light");
     const btn = page.getByRole("link", { name: "Leer artículos" }).first();
     await expect(btn).toHaveCSS("background-color", rgb(TOKEN.hull));
     // Pure white, not paper: in light mode the `accent-on` token is #FFFFFF.
@@ -304,7 +376,7 @@ test.describe("Design System · theme", () => {
       .poll(() => resolveColor(page, "#theme-toggle", "border-color"))
       .toEqual({ r: 44, g: 77, b: 93, a: 1 });
 
-    await page.locator("#theme-toggle").click();
+    await toggleTheme(page, "light");
     // The click leaves the pointer on the button and `hover:border-accent` wins,
     // so the reading has to happen with the mouse somewhere else.
     await page.mouse.move(0, 0);
@@ -315,7 +387,7 @@ test.describe("Design System · theme", () => {
 
   test("the navbar follows the theme instead of staying dark", async ({ page }) => {
     await page.goto("/");
-    await page.locator("#theme-toggle").click();
+    await toggleTheme(page, "light");
     // The header has a colour transition, so a single read can land mid
     // interpolation: expect.poll retries until it settles.
     await expect

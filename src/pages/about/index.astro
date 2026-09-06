@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
   PageHeader,
+  Text,
   buttonVariants,
 } from "@eduardoalvarez/arrecife";
 
@@ -74,11 +75,11 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
           description="Ingeniero y líder técnico con más de 10 años construyendo en internet. Trabajo en la intersección de arquitectura de plataforma, liderazgo técnico y los flujos de trabajo que la IA está transformando — desde ingeniero individual hasta CTO, en startups y empresas digitales de Chile y Latinoamérica."
           className="py-0"
         />
-        <p class="text-text-secondary leading-relaxed mt-step-md">
+        <Text variant="body" tone="secondary" className="mt-step-md">
           Mi foco es transformar equipos desde la entrega de features al pensamiento de plataforma: construir con
           criterio, escalar con intención y liderar con contexto en lugar de control. Este sitio es donde pienso en voz
           alta sobre ingeniería — no es un blog de tutoriales, es un espacio para ideas con criterio.
-        </p>
+        </Text>
       </div>
 
       <div class="w-48 sm:w-64 shrink-0">
@@ -87,7 +88,7 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
           alt="Eduardo Álvarez"
           width="512"
           height="680"
-          class="w-full aspect-[3/4] object-cover object-top rounded-panel border border-border"
+          class="w-full aspect-[3/4] object-cover object-top rounded-panel border-hairline border"
           loading="eager"
         />
       </div>
@@ -127,27 +128,29 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
     <section id="ahora">
       <div class="flex items-baseline justify-between mb-8">
         <h2 class="text-text-primary">Ahora</h2>
-        <p class="text-xs text-text-muted">
+        <Text variant="label" tone="muted" as="p" className="font-normal">
           Actualizado: {formattedDate} · <a
             href="https://nownownow.com/about"
             target="_blank"
             rel="noopener noreferrer"
             class="text-accent underline">¿Qué es esto?</a
           >
-        </p>
+        </Text>
       </div>
 
       <div class="grid sm:grid-cols-3 gap-8">
         {
           nowCategories.map((category) => (
             <div>
-              <h3 class="text-xs font-semibold uppercase tracking-widest text-accent mb-4">{category}</h3>
-              <div class="space-y-4">
+              <Text as="h3" variant="eyebrow" tone="accent" className="mb-step-md">{category}</Text>
+              <div class="gap-step-md flex flex-col">
                 {nowByCategory[category].map((item: NowItem) => (
-                  <div class="border-l-2 border-border pl-4 hover:border-accent transition-colors duration-200">
-                    <p class="font-semibold text-text-primary text-sm mb-1">{item.label}</p>
+                  <div class="border-hairline pl-step-md hover:border-accent transition-standard border-l-2">
+                    <Text variant="ui" as="p" className="mb-step-xs font-medium">{item.label}</Text>
                     {item.description && (
-                      <p class="text-text-secondary text-sm leading-relaxed">{item.description}</p>
+                      <Text variant="label" tone="secondary" as="p" className="font-normal">
+                        {item.description}
+                      </Text>
                     )}
                   </div>
                 ))}
@@ -170,23 +173,23 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
             experience.map((item) => (
               <div class="flex flex-col sm:flex-row gap-2 sm:gap-8">
                 <div class="sm:w-28 shrink-0 flex sm:justify-end items-start pt-0.5">
-                  <span class={`font-mono text-xs ${item.current ? "text-accent" : "text-text-muted"}`}>
+                  <Text variant="meta" tone={item.current ? "accent" : "muted"} as="span">
                     {item.date}
-                  </span>
+                  </Text>
                 </div>
 
                 <div class="hidden sm:flex items-start justify-center w-4 shrink-0 pt-1.5">
                   <div
-                    class={`w-2 h-2 rounded-full border-2 ${item.current ? "border-accent bg-accent" : "border-border bg-background"}`}
+                    class={`w-2 h-2 rounded-pill border-2 ${item.current ? "border-accent bg-accent" : "border-border bg-background"}`}
                   />
                 </div>
 
                 <div
                   class={`flex-1 pb-8 ${item.current ? "border-l-2 border-accent sm:border-none pl-4 sm:pl-0" : ""}`}
                 >
-                  <p class={`font-semibold ${item.current ? "text-text-primary" : "text-text-primary"}`}>{item.role}</p>
-                  <p class="text-accent text-sm mb-2">{item.company}</p>
-                  <p class="text-text-secondary text-sm leading-relaxed">{item.description}</p>
+                  <Text variant="ui" as="p" className="font-medium">{item.role}</Text>
+                  <Text variant="label" tone="accent" as="p" className="mb-step-xs font-normal">{item.company}</Text>
+                  <Text variant="label" tone="secondary" as="p" className="font-normal">{item.description}</Text>
                 </div>
               </div>
             ))
@@ -204,11 +207,11 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
         equivocado.
       </Blockquote>
 
-      <p class="text-text-secondary leading-relaxed mb-4">
+      <Text variant="body" tone="secondary" className="mb-step-md">
         Creo en la ingeniería con criterio: no seguir tendencias por inercia, sino entender el costo real de cada
         decisión técnica y organizacional. Creo que la documentación, la cultura de feedback y los sistemas de
         plataforma son multiplicadores de impacto.
-      </p>
+      </Text>
 
       <Blockquote className="mt-6">
         No es tu trabajo tener las respuestas — es instalar en el equipo el hábito de buscar el contexto que les falta
@@ -219,14 +222,14 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
     <!-- Comunidad -->
     <section>
       <h2 class="text-text-primary mb-4">Comunidad</h2>
-      <p class="text-text-secondary leading-relaxed">
+      <Text variant="body" tone="secondary">
         He dado charlas en conferencias técnicas, talleres en instituciones académicas y mentorías a decenas de
         ingenieros en distintos momentos de su carrera. Fui staff volunteer en <strong class="text-text-primary"
           >JSConf Chile</strong
         >, mentor en <strong class="text-text-primary">Laboratoria</strong> y en <strong class="text-text-primary"
           >TechSchool</strong
         >.
-      </p>
+      </Text>
     </section>
 
     {/* La tarjeta y los tres botones son del sistema. El primario venía
@@ -234,10 +237,10 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
         sobre crema — por debajo del mínimo. */}
     <Card className="p-step-xl">
       <h2 class="text-text-primary mb-3">¿Hablamos?</h2>
-      <p class="text-text-secondary leading-relaxed mb-8 max-w-xl">
+      <Text variant="body" tone="secondary" className="mb-step-xl">
         Si estás trabajando en un desafío de plataforma, liderazgo o arquitectura — o simplemente quieres comentar algo
         que leíste aquí — escríbeme.
-      </p>
+      </Text>
       <div class="gap-step-sm flex flex-wrap">
         <a href="mailto:soy@eduardoalvarez.dev" class={buttonVariants({ variant: "primary" })}>Escríbeme</a>
         <a

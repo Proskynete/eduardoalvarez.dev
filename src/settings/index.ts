@@ -6,16 +6,10 @@ export default {
     "engineering leadership, platform architecture, platform thinking, AI era, engineering culture, software architecture, engineering management, staff engineer, typescript, react, node, astro",
   url: "https://eduardoalvarez.dev",
   repo_url: "https://github.com/Proskynete/eduardoalvarez.dev",
-  domain: "eduardoalvarez.dev",
   language: "es-ES",
   email: "soy@eduardoalvarez.dev",
   author: {
     name: "Eduardo Álvarez Castañeda",
-  },
-  authorInlineBio: {
-    text: "Escrito por Eduardo Álvarez, Engineering Leader con foco en liderazgo técnico, plataformas y la era de la IA.",
-    href: "/about",
-    cta: "Conoce más →",
   },
   social_network: [
     {

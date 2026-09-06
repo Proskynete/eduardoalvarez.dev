@@ -1,51 +1,29 @@
-import { AdvanceSecondsIcon } from "./advance-seconds";
 import { ArrowLeftIcon } from "./arrow-left";
-import { CheckCircleIcon } from "./check-circle";
 import { ChevronRightIcon } from "./chevron-right";
 import { CloseIcon } from "./close";
-import { GitHubIcon } from "./github";
-import { GoBackSecondsIcon } from "./go-back-seconds";
-import { InstagramIcon } from "./instagram";
-import { LinkedInIcon } from "./linkedin";
-import { MailIcon } from "./mail";
 import { MenuIcon } from "./menu";
-import { NewsletterIcon } from "./newsletter";
-import { PauseIcon } from "./pause";
 import { PlatformIcon } from "./platform";
-import { PlayIcon } from "./play";
-import { ResourcesIcon } from "./resources";
-import { RetryIcon } from "./retry";
-import { RSSIcon } from "./rss";
 import { SearchIcon } from "./search";
-import { SpinnerIcon } from "./spinner";
-import { VolumeMutedIcon } from "./volume-muted";
-import { VolumeOnIcon } from "./volume-on";
-import { XIcon } from "./x";
-import { XCircleIcon } from "./x-circle";
 
+/**
+ * Los glifos del proyecto.
+ *
+ * La librería no envía set de iconos a propósito — «Icons are yours, the way
+ * they are drawn is not» — así que estos se quedan. Lo que se fue son los
+ * duplicados: GitHub, LinkedIn, X, Instagram, RSS, Mail y Newsletter estaban
+ * dibujados aquí y también en `@eduardoalvarez/arrecife/social`, que es de
+ * donde los toman ahora el footer, la barra de compartir y las tarjetas de
+ * invitados. Y los ocho del reproductor —play, pause, volumen, saltos, spinner,
+ * reintento— murieron con el reproductor propio: `AudioPlayer` de la librería
+ * trae los suyos.
+ *
+ * Quedan seis, y ninguno de los seis existe en el sistema.
+ */
 export const Icon = {
-  AdvanceSeconds: AdvanceSecondsIcon,
   ArrowLeft: ArrowLeftIcon,
-  CheckCircle: CheckCircleIcon,
   ChevronRight: ChevronRightIcon,
   Close: CloseIcon,
-  GitHub: GitHubIcon,
-  GoBackSeconds: GoBackSecondsIcon,
-  Instagram: InstagramIcon,
-  LinkedIn: LinkedInIcon,
-  Mail: MailIcon,
   Menu: MenuIcon,
-  Newsletter: NewsletterIcon,
-  Pause: PauseIcon,
   Platform: PlatformIcon,
-  Play: PlayIcon,
-  Resources: ResourcesIcon,
-  Retry: RetryIcon,
-  RSS: RSSIcon,
   Search: SearchIcon,
-  Spinner: SpinnerIcon,
-  VolumeMuted: VolumeMutedIcon,
-  VolumeOn: VolumeOnIcon,
-  X: XIcon,
-  XCircle: XCircleIcon,
 };

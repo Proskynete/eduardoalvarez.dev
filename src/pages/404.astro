@@ -1,4 +1,6 @@
 ---
+import { EmptyState, LinkRow } from "@eduardoalvarez/arrecife";
+
 import Layout from "../layouts/main/index.astro";
 
 export const prerender = true;
@@ -12,50 +14,34 @@ const suggestions = [
 ---
 
 <Layout seo={{ title: "Página no encontrada" }}>
-  <div class="mx-auto max-w-content pt-step-xl flex flex-col items-center text-center">
+  <div class="mx-auto max-w-content pt-step-xl gap-step-lg flex flex-col">
     {
       /*
-      Just the face. The page went through a fin that drew itself and broke, a
-      mouth drawn in SVG that came out a flat geometric wedge, and a krill scene
-      animated in CSS — each one more machinery than a page nobody visits on
-      purpose can justify. The mascot's own art says it on its own.
+      `EmptyState variant="page"` is the library's shape for a screen that IS an
+      empty state, and the 404 is the canonical one. It brings the face, the
+      surface, the title and the line under it, which this page drew by hand.
 
-      `annoyed` and not `confused`: `usoDeCara` assigns `confused` to the 404 and
-      `annoyed` to a server error, but the library's own EmptyState story labels
-      an `annoyed` example "404". The catalogue and the story disagree; worth
-      settling on the library side.
+      `confused` and not `annoyed`: `faceUsage`, which ships inside the package,
+      reads «404, page not found» for `confused` and reserves `annoyed` for a
+      server error. The old comment here bet on the library's story file instead;
+      the catalogue in code is the one that settles it.
     */
     }
-    <img
-      src="/brand/face-annoyed.png"
-      alt=""
-      aria-hidden="true"
-      width="121"
-      height="121"
-      class="mb-step-lg h-auto w-33"
-      loading="eager"
-      decoding="async"
+    <EmptyState
+      variant="page"
+      expression="confused"
+      title="Página no encontrada"
+      description="Nadaste fuera del mapa. Volvamos a la superficie."
     />
 
-    <p class="mb-4 font-mono text-xs uppercase tracking-[0.12em] text-accent">404 · aguas desconocidas</p>
-
-    <h1 class="mb-3 text-text-primary">Página no encontrada</h1>
-    <p class="mb-step-xl max-w-sm text-base text-text-secondary sm:text-lg">
-      Nadaste fuera del mapa. Volvamos a la superficie.
-    </p>
-
-    <div class="grid w-full grid-cols-2 gap-3">
+    {/* `LinkRow` instead of four hand-built cards: the name, the description and
+        the hover that only changes the border are the component's, and the
+        `rounded-xl border border-border bg-surface p-4` written here was a card
+        rebuilt from scratch. */}
+    <div class="gap-step-sm grid sm:grid-cols-2">
       {
         suggestions.map(({ href, label, description }) => (
-          <a
-            href={href}
-            class="group rounded-xl border border-border bg-surface p-4 text-left transition-colors duration-200 hover:border-accent"
-          >
-            <p class="mb-1 text-sm font-semibold text-text-primary transition-colors duration-200 group-hover:text-accent">
-              {label}
-            </p>
-            <p class="text-xs leading-relaxed text-text-muted">{description}</p>
-          </a>
+          <LinkRow href={href} name={label} description={description} />
         ))
       }
     </div>

@@ -1,4 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  Button,
+  Sheet,
+  SheetBody,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  Text,
+} from "@eduardoalvarez/arrecife";
+import { Logo } from "@eduardoalvarez/arrecife/brand";
+import { useState } from "react";
 
 import { Icon } from "../../../../../assets/icons";
 import { trackEvent } from "../../../../../utils/analytics";
@@ -6,205 +18,133 @@ import { navItems } from "../constants";
 
 interface MobileProps {
   version?: string;
+  pathname: string;
 }
 
-export default function Mobile({ version }: MobileProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [pathname, setPathname] = useState("");
-  const drawerRef = useRef<HTMLDivElement>(null);
-  const firstLinkRef = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    setPathname(window.location.pathname);
-  }, []);
-
-  const onOpen = () => {
-    setIsOpen(true);
-    document.body.style.overflow = "hidden";
-  };
-
-  const onClose = () => {
-    setIsOpen(false);
-    document.body.style.overflow = "auto";
-  };
-
-  useEffect(() => {
-    if (isOpen && firstLinkRef.current) {
-      firstLinkRef.current.focus();
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-        return;
-      }
-      if (e.key !== "Tab") return;
-
-      const focusable = drawerRef.current?.querySelectorAll<HTMLElement>('a, button, [tabindex]:not([tabindex="-1"])');
-      if (!focusable || focusable.length === 0) return;
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
-
+/**
+ * The drawer is the library's `Sheet` now.
+ *
+ * What went with it: the focus trap written by hand over `querySelectorAll`, the
+ * `Escape` listener, the `aria-modal` div pretending to be a dialog, the
+ * `document.body.style.overflow` juggling and the close button. Radix — which is
+ * what `Sheet` sits on — does all five, and does them right: the trap follows the
+ * DOM order instead of a snapshot taken when the drawer opened, and focus returns
+ * to the trigger on close, which the hand-written version never did.
+ *
+ * The CLI content stays: it is this site's voice, not something the system has an
+ * opinion about.
+ */
+export default function Mobile({ version, pathname }: MobileProps) {
+  const [open, setOpen] = useState(false);
   const visibleItems = navItems.filter((item) => item.show);
 
   return (
-    <>
-      {/* Hamburger button */}
-      <button
-        aria-label="Abrir menú de navegación"
-        aria-expanded={isOpen}
-        aria-controls="mobile-nav-drawer"
-        onClick={onOpen}
-        className="sm:hidden flex items-center justify-center w-8 h-8 text-text-secondary hover:text-text-primary transition-colors duration-200"
-      >
-        <Icon.Menu className="w-5 h-5" />
-      </button>
+    <Sheet open={open} onOpenChange={setOpen}>
+      {/* `SheetTrigger asChild` y no un `onClick` propio: envuelto por el
+          disparador, Radix pone `aria-expanded`, `aria-controls` y `data-state`
+          solo, y —lo que importa— devuelve el foco a ESTE botón al cerrar. Con
+          un `onClick` suelto el cajón abría igual, pero al salir el foco caía
+          en `<body>` y el teclado tenía que recorrer la página entera. */}
+      <SheetTrigger asChild>
+        <Button variant="tertiary" size="icon-sm" aria-label="Abrir menú de navegación" className="sm:hidden">
+          <Icon.Menu className="h-5 w-5" />
+        </Button>
+      </SheetTrigger>
 
-      {/* Full-screen overlay */}
-      <div
-        id="mobile-nav-drawer"
-        ref={drawerRef}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Menú de navegación"
-        className={`fixed inset-0 z-[200] bg-background flex flex-col sm:hidden transition-all duration-300 ease-in-out ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between h-20 px-5 border-b border-border shrink-0">
-          <a href="/" onClick={onClose} className="flex items-center gap-2.5 group">
-            <svg
-              viewBox="117 167 154 154"
-              xmlns="http://www.w3.org/2000/svg"
-              className={`svg-isotype-mark breath-animation h-10 w-auto shrink-0`}
-              aria-hidden="true"
-            >
-              <style>{".svg-isotype-mark * { vector-effect: non-scaling-stroke; }"}</style>
-              <path
-                fill="#35d6c0"
-                stroke="#35d6c0"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M194.1,188.1l56.1,56.1l-56.1,56.1l-56.1-56.1L194.1,188.1 M194.1,171.1l-73,73l73,73l73-73L194.1,171.1z"
-              />
-            </svg>
-            <div className="h-8 w-px bg-accent opacity-50 shrink-0"></div>
-            <div className="flex flex-col leading-tight">
-              <span className="text-text-primary font-bold text-base tracking-tight group-hover:text-accent transition-colors duration-200">
-                Eduardo Álvarez
-              </span>
-            </div>
-          </a>
-          <button
-            aria-label="Cerrar menú de navegación"
-            onClick={onClose}
-            className="flex items-center justify-center w-8 h-8 text-text-muted hover:text-text-primary transition-colors duration-200"
-          >
-            <Icon.Close className="w-4 h-4" />
-          </button>
-        </div>
+      <SheetContent side="right" className="sm:hidden">
+        <SheetHeader>
+          {/* The isotype comes from the library instead of the hand-inlined SVG
+              that carried `#35d6c0` written twice — the one literal hex the
+              system forbids, and the reason the mark never followed the theme. */}
+          <SheetTitle className="gap-step-sm flex items-center">
+            <Logo background="dark" className="light:hidden" />
+            <Logo background="light" className="hidden light:inline-flex" />
+          </SheetTitle>
+        </SheetHeader>
 
-        {/* CLI content */}
-        <div className="flex-1 overflow-y-auto px-6 pt-8 pb-6 font-mono">
+        <SheetBody className="font-mono">
           {/* Claude CLI prompt — easter egg */}
-          <div className="mb-1 flex items-center gap-2 text-sm">
+          <div className="gap-step-xs mb-1 flex items-center">
             <span className="text-accent">✻</span>
-            <span className="text-text-muted">~/eduardoalvarez.dev</span>
+            <Text variant="meta" tone="muted" as="span">
+              ~/eduardoalvarez.dev
+            </Text>
           </div>
 
-          {/* Question prompt */}
-          <div className="flex items-start gap-2 text-sm mb-6">
+          <div className="gap-step-xs mb-step-lg flex items-start">
             <span className="text-accent mt-0.5">?</span>
-            <span className="text-text-secondary">¿A dónde quieres navegar?</span>
+            <Text variant="meta" tone="secondary" as="span">
+              ¿A dónde quieres navegar?
+            </Text>
           </div>
 
           {/* CLI flags — easter egg */}
-          <div className="mb-6 flex flex-col gap-1.5 text-xs border-l-2 border-border pl-4">
-            <div className="flex items-center gap-3">
-              <span className="text-accent w-24 shrink-0">--help</span>
-              <span className="text-text-muted">Ver las secciones del sitio</span>
+          <div className="border-hairline mb-step-lg pl-step-md flex flex-col gap-1.5 border-l">
+            <div className="gap-step-sm flex items-center">
+              <span className="text-accent text-label w-24 shrink-0">--help</span>
+              <Text variant="label" tone="muted" as="span">
+                Ver las secciones del sitio
+              </Text>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="text-accent w-24 shrink-0">--version</span>
-              <span className="text-text-muted">v{version ?? "—"}</span>
+            <div className="gap-step-sm flex items-center">
+              <span className="text-accent text-label w-24 shrink-0">--version</span>
+              <Text variant="label" tone="muted" as="span">
+                v{version ?? "—"}
+              </Text>
             </div>
           </div>
 
-          {/* Nav options */}
           <nav className="flex flex-col gap-1" aria-label="Navegación móvil">
-            {visibleItems.map((item, index) => {
+            {visibleItems.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
               return (
                 <a
                   key={item.name}
                   href={item.href}
-                  ref={index === 0 ? firstLinkRef : undefined}
                   onClick={() => {
                     trackEvent("navigation_click", { link: item.name });
-                    onClose();
+                    setOpen(false);
                   }}
                   aria-current={isActive ? "page" : undefined}
-                  className={`group flex items-start gap-3 px-3 py-3 rounded-md transition-colors duration-150 ${
-                    isActive
-                      ? "text-accent pointer-events-none"
-                      : "text-text-secondary hover:text-text-primary hover:bg-surface-raised"
+                  className={`group gap-step-sm px-step-sm py-step-sm rounded-chip transition-standard focus-ring flex items-start ${
+                    isActive ? "text-accent pointer-events-none" : "text-text-secondary hover:bg-surface-raised hover:text-text-primary"
                   }`}
                 >
-                  {/* Diamond icon */}
                   <span
-                    className={`mt-0.5 text-xs shrink-0 ${isActive ? "text-accent" : "text-text-muted group-hover:text-accent"}`}
+                    className={`text-label mt-0.5 shrink-0 ${isActive ? "text-accent" : "text-text-muted group-hover:text-accent"}`}
                   >
                     {isActive ? "◆" : "◇"}
                   </span>
 
-                  <div className="flex flex-col gap-0.5">
-                    <span className="text-sm">
-                      <span className={`${isActive ? "text-accent" : "text-text-muted"}`}>./</span>
+                  <span className="flex flex-col gap-0.5">
+                    <span className="text-ui">
+                      <span className={isActive ? "text-accent" : "text-text-muted"}>./</span>
                       {item.name.toLowerCase()}
                     </span>
-                    {item.description && <span className="text-xs text-text-muted font-mono">{item.description}</span>}
-                  </div>
+                    {item.description && (
+                      <Text variant="label" tone="muted" as="span" className="font-mono">
+                        {item.description}
+                      </Text>
+                    )}
+                  </span>
                 </a>
               );
             })}
           </nav>
 
           {/* Blinking cursor */}
-          <div className="mt-8 flex items-center gap-1.5 text-sm text-accent">
+          <div className="text-accent mt-step-lg gap-step-xs flex items-center">
             <span>❯</span>
-            <span className="w-1 h-3 inline-block bg-accent ml-1 rounded-xs motion-safe:animate-ping motion-safe:duration-75" />
+            <span className="bg-accent rounded-xs ml-1 inline-block h-3 w-1 motion-safe:animate-ping motion-safe:duration-75" />
           </div>
-        </div>
+        </SheetBody>
 
-        {/* Footer */}
-        <div className="px-6 py-4 border-t border-border shrink-0">
-          <span className="font-mono text-xs text-text-muted select-none">cd ~/eduardoalvarez.dev</span>
-        </div>
-      </div>
-    </>
+        <SheetFooter className="justify-start">
+          <Text variant="meta" tone="muted" as="span" className="select-none">
+            cd ~/eduardoalvarez.dev
+          </Text>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 }

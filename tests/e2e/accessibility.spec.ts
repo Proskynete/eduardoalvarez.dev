@@ -40,12 +40,19 @@ for (const { name, path } of PAGES) {
         content: "*,*::before,*::after{transition:none!important;animation:none!important}",
       });
       if (theme === "light") {
-        await page.locator("#theme-toggle").click();
-        // Without this assertion the test lies: if the click lands before the
-        // button's script attaches its listener nothing happens, the page stays
-        // dark, and axe passes the version nobody meant to test. That happened —
-        // the full suite went green while the suite alone failed.
-        await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+        // El clic se reintenta hasta que prende. La cabecera es una isla de
+        // React desde que adoptó `Nav`/`ThemeToggle` de la librería, así que el
+        // control no responde hasta que hidrata; antes era HTML estático con un
+        // script suelto y estaba vivo casi de inmediato.
+        //
+        // La aserción va DENTRO del reintento a propósito: sin ella el test
+        // miente — si el clic cae antes de la hidratación no pasa nada, la
+        // página se queda oscura y axe aprueba la versión que nadie quiso
+        // probar. Eso ya pasó: la suite completa iba en verde y sola fallaba.
+        await expect(async () => {
+          await page.locator("#theme-toggle").click();
+          await expect(page.locator("html")).toHaveAttribute("data-theme", "light", { timeout: 1000 });
+        }).toPass({ timeout: 15000 });
         await page.mouse.move(0, 0);
       }
       // `networkidle` is unstable here: the dev server keeps network activity
