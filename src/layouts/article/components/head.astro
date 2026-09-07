@@ -1,5 +1,6 @@
 ---
-import { CategoryBadge, Text, social } from "@eduardoalvarez/arrecife";
+import { CategoryBadge, Text } from "@eduardoalvarez/arrecife";
+import { socialSvg } from "@eduardoalvarez/arrecife/social/data";
 
 import type { CategoryAllowed } from "../../../interfaces";
 import { CategoryMap } from "../../../utils/categories";
@@ -40,9 +41,16 @@ const { content } = Astro.props;
     </time>
     <Text variant="meta" tone="muted" as="span" aria-hidden="true">·</Text>
     {/*
-      `social.GitHub` instead of the copy in `assets/icons`: the same mark was
+      The GitHub mark instead of the copy in `assets/icons`: the same mark was
       drawn twice in this repo, and the library's is the one the footer and the
       share buttons already use.
+
+      It arrives as markup through `socialSvg` and not as `<social.GitHub />`,
+      which is the React component: this is an .astro template, and the glyph is
+      the one thing here that does not need a React render to exist. `./social/data`
+      is published for exactly that — the same shapes as a string, no `"use client"`,
+      no renderer. The output is byte-identical bar the `xmlns`, which an inline
+      SVG in HTML ignores.
     */}
     <a
       class="gap-step-xs text-meta font-mono text-accent transition-standard focus-ring inline-flex items-center hover:underline"
@@ -51,7 +59,7 @@ const { content } = Astro.props;
       rel="noopener noreferrer"
     >
       ¿Ves una errata? Edita en GitHub
-      <social.GitHub />
+      <Fragment set:html={socialSvg("GitHub")} />
     </a>
   </div>
 </header>

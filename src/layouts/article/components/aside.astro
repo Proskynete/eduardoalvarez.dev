@@ -1,5 +1,6 @@
 ---
-import { Badge, Card, TableOfContents, Text, buttonVariants, social } from "@eduardoalvarez/arrecife";
+import { Badge, Card, TableOfContents, Text, buttonVariants } from "@eduardoalvarez/arrecife";
+import { socialSvg } from "@eduardoalvarez/arrecife/social/data";
 
 import TextLink from "../../../components/text-link/index.astro";
 import type { TagsAllowed } from "../../../interfaces";
@@ -95,6 +96,11 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           The glyphs come from the library. The ones in `assets/icons` rendered
           `text-text-muted` on `surface-raised` and were barely visible; these
           are the footer's glyphs on the system's secondary button.
+
+          As markup through `socialSvg`, not as the React components: this is an
+          .astro template and a glyph is a shape, so `./social/data` hands over
+          the same SVG with no renderer in between. Same output, minus a React
+          render per icon.
         */}
         <a
           href={twitterShare}
@@ -103,7 +109,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
           aria-label="Compartir en X"
         >
-          <social.X />
+          <Fragment set:html={socialSvg("X")} />
         </a>
         <a
           href={linkedInShare}
@@ -112,7 +118,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
           aria-label="Compartir en LinkedIn"
         >
-          <social.LinkedIn />
+          <Fragment set:html={socialSvg("LinkedIn")} />
         </a>
       </div>
     </Card>
