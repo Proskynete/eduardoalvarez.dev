@@ -1,3 +1,4 @@
+import { Alert, Text } from "@eduardoalvarez/arrecife";
 import Giscus from "@giscus/react";
 import { useEffect, useState } from "react";
 
@@ -28,17 +29,31 @@ const GiscusWrapper = ({ slug }: GiscusProps) => {
 
   if (isMissingConfig) {
     return (
-      <div className="rounded-sm border border-border bg-surface p-6">
-        <h3 className="mb-2 text-sm font-medium text-text-secondary">Comentarios no disponibles</h3>
-        <p className="text-sm text-text-muted">
+      /* `Alert variant="warning"` en vez de una caja dibujada a mano: falta
+         configuración, que es exactamente lo que la variante nombra. Trae el
+         glifo, el rol ARIA y el tinte sobre el borde, no sobre el texto. */
+      <Alert variant="warning" title="Comentarios no disponibles">
+        <Text variant="label" tone="secondary" as="p" className="font-normal">
           La configuración de Giscus no está completa. Variables de entorno faltantes:
-        </p>
-        <ul className="mt-2 list-inside list-disc text-sm text-text-muted">
-          {!giscusRepo && <li>PUBLIC_GISCUS_REPO</li>}
-          {!giscusRepoId && <li>PUBLIC_GISCUS_REPO_ID</li>}
-          {!giscusCategoryId && <li>PUBLIC_GISCUS_CATEGORY_ID</li>}
+        </Text>
+        <ul className="mt-step-xs gap-step-xs flex flex-col">
+          {!giscusRepo && (
+            <Text variant="meta" tone="secondary" as="li">
+              PUBLIC_GISCUS_REPO
+            </Text>
+          )}
+          {!giscusRepoId && (
+            <Text variant="meta" tone="secondary" as="li">
+              PUBLIC_GISCUS_REPO_ID
+            </Text>
+          )}
+          {!giscusCategoryId && (
+            <Text variant="meta" tone="secondary" as="li">
+              PUBLIC_GISCUS_CATEGORY_ID
+            </Text>
+          )}
         </ul>
-      </div>
+      </Alert>
     );
   }
 

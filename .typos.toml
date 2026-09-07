@@ -60,6 +60,7 @@ extend-exclude = [
 "problemas" = "problemas"
 "tendencias" = "tendencias"
 "variantes" = "variantes"
+"variante" = "variante"
 "argumentos" = "argumentos"
 "caracteres" = "caracteres"
 "momentos" = "momentos"
@@ -99,6 +100,7 @@ extend-exclude = [
 "comparte" = "comparte"
 "Comparte" = "Comparte"
 "excede" = "excede"
+"responde" = "responde"
 
 # Spanish nouns (technical / domain)
 "funcion" = "funcion"
@@ -111,6 +113,7 @@ extend-exclude = [
 "inercia" = "inercia"
 "confort" = "confort"
 "aprox" = "aprox"
+"manifiesto" = "manifiesto"
 
 # Spanish proper nouns / display labels
 "Patrones" = "Patrones"

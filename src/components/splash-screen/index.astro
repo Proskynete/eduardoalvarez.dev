@@ -23,18 +23,17 @@ const SPOTS = [
         class="fin-stroke"
         d={FIN}
         fill="none"
-        stroke="#35d6c0"
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
         pathLength="100"></path>
       <!-- 2. The fill comes in behind the stroke -->
-      <path class="fin-fill" d={FIN} fill="#35d6c0"></path>
+      <path class="fin-fill" d={FIN}></path>
       <!-- 3. The spots stagger in -->
       <g class="fin-spots">
         {
           SPOTS.map((m, i) => (
-            <circle cx={m.cx} cy={m.cy} r={m.r} fill="#091319" opacity="0.45" style={`--i:${i}`} />
+            <circle cx={m.cx} cy={m.cy} r={m.r} opacity="0.45" style={`--i:${i}`} />
           ))
         }
       </g>
@@ -52,11 +51,32 @@ const SPOTS = [
 </div>
 
 <style is:global>
+  /*
+    Cero hexadecimales literales — regla 1 del sistema. Este archivo tenía seis
+    (#35d6c0 cuatro veces, #091319 dos, #edf4f3 y #71919c) y por eso la pantalla
+    de arranque era la única superficie del sitio que no seguía el tema.
+    El trazo y el relleno de la aleta salen del SVG y pasan a CSS porque un
+    atributo de presentación con `var()` no es fiable en todos los motores.
+  */
+  #pwa-splash .fin-stroke {
+    stroke: var(--color-accent);
+  }
+
+  #pwa-splash .fin-fill {
+    fill: var(--color-accent);
+  }
+
+  #pwa-splash .fin-spots circle {
+    /* `brand-hull` y no `background`: el casco es oscuro en los dos temas, así
+       que las manchas siguen leyéndose sobre la aleta en claro. */
+    fill: var(--color-brand-hull);
+  }
+
   #pwa-splash {
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: #091319;
+    background: var(--color-background);
     display: none;
     flex-direction: column;
     align-items: center;
@@ -86,7 +106,7 @@ const SPOTS = [
   .splash-separator {
     width: 32px;
     height: 1px;
-    background: rgba(53, 214, 192, 0.5);
+    background: color-mix(in oklab, var(--color-accent) 50%, transparent);
   }
 
   .splash-text {
@@ -98,7 +118,7 @@ const SPOTS = [
   }
 
   .splash-name {
-    color: #edf4f3;
+    color: var(--color-text-primary);
     font-family:
       system-ui,
       -apple-system,
@@ -110,7 +130,7 @@ const SPOTS = [
   }
 
   .splash-tagline {
-    color: #71919c;
+    color: var(--color-text-muted);
     font-family:
       system-ui,
       -apple-system,
@@ -165,11 +185,12 @@ const SPOTS = [
 
   @keyframes glow-on {
     0% {
-      filter: drop-shadow(0 0 2px #35d6c0);
+      filter: drop-shadow(0 0 2px var(--color-accent));
     }
     100% {
-      filter: drop-shadow(0 0 6px #35d6c0) drop-shadow(0 0 16px rgba(53, 214, 192, 0.6))
-        drop-shadow(0 0 32px rgba(53, 214, 192, 0.25));
+      filter: drop-shadow(0 0 6px var(--color-accent))
+        drop-shadow(0 0 16px color-mix(in oklab, var(--color-accent) 60%, transparent))
+        drop-shadow(0 0 32px color-mix(in oklab, var(--color-accent) 25%, transparent));
     }
   }
 
@@ -239,7 +260,8 @@ const SPOTS = [
     }
     #pwa-splash.is-drawing .splash-inner svg {
       animation: none;
-      filter: drop-shadow(0 0 6px #35d6c0) drop-shadow(0 0 16px rgba(53, 214, 192, 0.6));
+      filter: drop-shadow(0 0 6px var(--color-accent))
+        drop-shadow(0 0 16px color-mix(in oklab, var(--color-accent) 60%, transparent));
     }
     #pwa-splash.is-drawing .splash-logotype {
       animation: none;

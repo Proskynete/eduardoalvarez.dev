@@ -221,7 +221,7 @@ const seo: BaseHeadProps = {
     <Head content={content} />
 
     {content.audio_narration && (
-      <div class="mt-6 rounded-xl border border-accent/25 bg-gradient-to-r from-accent/[0.08] via-accent/[0.04] to-transparent px-5 py-4">
+      <div class="mt-step-md rounded-card px-step-md py-step-sm border border-accent/25 bg-gradient-to-r from-accent/[0.08] via-accent/[0.04] to-transparent">
         <AudioPlayer client:load src={content.audio_narration} title={content.title} banner={true} />
       </div>
     )}

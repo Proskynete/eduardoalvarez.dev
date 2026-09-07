@@ -1,11 +1,6 @@
 import { Footer, social } from "@eduardoalvarez/arrecife";
 import { Isotype } from "@eduardoalvarez/arrecife/brand";
 
-export interface SiteFooterLink {
-  name: string;
-  href: string;
-}
-
 /**
  * The footer, composed in React rather than in the .astro file.
  *
@@ -26,8 +21,10 @@ export interface SiteFooterLink {
 export default function SiteFooter() {
   /**
    * The order is the brand document's: the platforms I publish on, then the ways
-   * to follow. `links` carries what stays out of the row — npm and the CV, which
-   * have no glyph — and those remain text links.
+   * to follow. Everything that has no glyph — npm, the CV — stays out: `Footer`
+   * takes no `children`, and a row of loose text links stopped compiling in
+   * 0.8.0. The place for those, if they ever come back, is `variant="full"` with
+   * `columns`.
    */
   const networks = [
     { label: "GitHub", href: "https://github.com/Proskynete", icon: <social.GitHub /> },

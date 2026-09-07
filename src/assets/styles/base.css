@@ -314,41 +314,6 @@
   }
 }
 
-/* Waveform bars para el reproductor de narración */
-@keyframes wave-bar {
-  0%,
-  100% {
-    transform: scaleY(0.25);
-  }
-  50% {
-    transform: scaleY(1);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .wave-bar {
-    transform-origin: bottom;
-    animation: wave-bar 1s ease-in-out infinite;
-  }
-}
-
-/* Terminal cursor ping — usa box-shadow para no afectar el layout */
-@keyframes cursor-ping {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(53, 214, 192, 0.7);
-  }
-  50% {
-    box-shadow: 0 0 0 5px rgba(53, 214, 192, 0);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .animate-cursor-ping {
-    animation: cursor-ping 1.5s ease-in-out infinite;
-  }
-}
-
 /* Footer links */
 footer a:focus-visible {
   outline: 3px solid var(--color-accent); /* accent */
@@ -382,6 +347,25 @@ html[data-theme="light"] {
 html[data-theme="light"] body {
   background-color: var(--color-background);
   color: var(--color-text-primary);
+}
+
+/* La barra del sitio es `Nav` de la librería, que pinta su lista de secciones
+   sin condición de ancho. Por debajo de `sm` el sitio usa el cajón lateral y
+   cuatro elementos en mono más el prompt `~/` no caben en 390px: se desborda a
+   scroll horizontal en toda la página.
+   Se oculta la `ul` y no la `nav` a propósito: la `nav` conserva su `ml-auto`,
+   colapsa a ancho cero y las acciones siguen alineadas a la derecha. Ocultando
+   la `nav` entera, brand y acciones se irían las dos a la izquierda.
+   El selector se ancla al `aria-label`, que es un contrato semántico, no a una
+   clase de estilo — que es lo que la librería pide no usar como gancho. */
+#site-header nav[aria-label="Principal"] > ul {
+  display: none;
+}
+
+@media (min-width: 40rem) {
+  #site-header nav[aria-label="Principal"] > ul {
+    display: flex;
+  }
 }
 
 /* Giscus — el widget es un custom element y los custom elements son `display:

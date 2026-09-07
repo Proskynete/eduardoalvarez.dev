@@ -1,3 +1,4 @@
+import { Alert, CategoryBadge, EmptyState, Skeleton, Text } from "@eduardoalvarez/arrecife";
 import { forwardRef, type ReactNode, useEffect, useRef } from "react";
 
 interface SearchResult {
@@ -21,8 +22,16 @@ interface SearchResultsProps {
   hasSearched: boolean;
 }
 
+/**
+ * The panel keeps its own shell — `rounded-panel`, `surface-raised`, the standard
+ * shadow — because a combobox listbox is not a `Popover`: Radix's popover owns
+ * focus, and here focus has to stay in the input while `aria-activedescendant`
+ * moves through the options. What DID come from the library is everything
+ * painted inside it: the error notice, the loading placeholder, the empty state
+ * and the category pills, all of which were hand-drawn.
+ */
 const containerClass =
-  "absolute top-full right-7 mt-2 w-96 bg-surface border border-border rounded-md shadow-lg z-50";
+  "absolute top-full right-7 mt-step-xs w-96 rounded-panel border border-border bg-surface-raised shadow-standard z-50";
 
 const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
   (
@@ -50,11 +59,16 @@ const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
 
     if (error) {
       return (
-        <div ref={ref} id="search-results" className={containerClass} role="alert">
-          <div className="px-4 py-3 border-l-2 border-error">
-            <p className="text-sm text-error font-medium">Error de búsqueda</p>
-            <p className="text-xs text-text-muted mt-1">{error}</p>
-          </div>
+        <div ref={ref} id="search-results" className={containerClass}>
+          {/* `Alert variant="error"` instead of the hand-drawn left bar. The tint
+              stays on the border and the glyph; the text comes from a text
+              token, which is rule 8 of the system.
+              The `role="alert"` is the component's own — `Alert` sets it for the
+              error variant, and repeating it on this wrapper published two alert
+              landmarks for one message. */}
+          <Alert variant="error" title="Error de búsqueda" className="border-0">
+            {error}
+          </Alert>
         </div>
       );
     }
@@ -62,8 +76,16 @@ const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
     if (isSearching) {
       return (
         <div ref={ref} id="search-results" className={containerClass} role="status" aria-live="polite">
-          <div className="px-4 py-3 text-center">
-            <p className="text-sm text-text-muted">Buscando...</p>
+          {/* Three placeholders instead of the word «Buscando…»: the panel keeps
+              the height it will have, so the results do not shove the page. */}
+          <div className="p-step-md gap-step-sm flex flex-col">
+            <span className="sr-only">Buscando…</span>
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="gap-step-xs flex flex-col">
+                <Skeleton className="h-4 w-3/4" />
+                <Skeleton className="h-3 w-full" />
+              </div>
+            ))}
           </div>
         </div>
       );
@@ -72,16 +94,17 @@ const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
     if (hasSearched && results.length === 0) {
       return (
         <div ref={ref} id="search-results" className={containerClass} role="status" aria-live="polite">
-          {/* Estado vacío del sistema: una cara a 66px + título 15/500 +
-              explicación 13.5 muted. Es uno de los pocos lugares donde el
-              contrato de humor permite una cara expresiva. */}
-          <div className="flex flex-col items-center gap-3 px-6 py-12 text-center">
-            <img src="/brand/face-waiting.png" alt="" aria-hidden="true" width={123} height={121} className="w-[66px]" />
-            <p className="text-ui font-medium text-text-primary">Sin resultados</p>
-            <p className="text-meta text-text-muted">
-              No encontré nada con &quot;{searchQuery}&quot;. Prueba con menos palabras.
-            </p>
-          </div>
+          {/* `EmptyState variant="page"` is the one that carries the face, and a
+              search with nothing in it is one of the places the humour contract
+              allows one. The panel already paints a surface, so the component's
+              own card is turned off rather than stacked on top of it. */}
+          <EmptyState
+            variant="page"
+            expression="waiting"
+            title="Sin resultados"
+            description={`No encontré nada con "${searchQuery}". Prueba con menos palabras.`}
+            className="border-0 bg-transparent"
+          />
         </div>
       );
     }
@@ -106,30 +129,25 @@ const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
                 id={`result-${index}`}
                 href={articleUrl}
                 onClick={onResultClick}
-                className={`block w-full text-left px-4 py-3 border-b border-border last:border-b-0 cursor-pointer transition-colors duration-150 ${
-                  isSelected ? "bg-surface-raised" : "hover:bg-surface-raised"
+                className={`border-hairline px-step-md py-step-sm transition-standard block w-full cursor-pointer border-b text-left last:border-b-0 ${
+                  isSelected ? "bg-surface" : "hover:bg-surface"
                 }`}
                 role="option"
                 aria-selected={isSelected}
                 aria-label={`Ir al artículo: ${result.title}`}
               >
-                <div className="font-semibold text-text-primary text-sm mb-1">
+                <Text variant="ui" as="p" className="font-medium">
                   {renderHighlightedText(result.title, searchQuery)}
-                </div>
+                </Text>
                 {result.description && (
-                  <div className="text-xs text-text-muted line-clamp-2">
+                  <Text variant="label" tone="secondary" as="p" className="mt-step-xs line-clamp-2 font-normal">
                     {renderHighlightedText(result.description, searchQuery)}
-                  </div>
+                  </Text>
                 )}
                 {result.categories && result.categories.length > 0 && (
-                  <div className="flex gap-2 mt-2">
+                  <div className="gap-step-xs mt-step-xs flex flex-wrap">
                     {result.categories.slice(0, 3).map((category) => (
-                      <span
-                        key={category}
-                        className="text-xs px-2 py-0.5 bg-surface-raised border border-border text-text-muted rounded-sm"
-                      >
-                        {category}
-                      </span>
+                      <CategoryBadge key={category}>{category}</CategoryBadge>
                     ))}
                   </div>
                 )}

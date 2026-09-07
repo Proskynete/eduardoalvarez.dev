@@ -1,5 +1,6 @@
 ---
-import { TableOfContents, badgeVariants, buttonVariants, social } from "@eduardoalvarez/arrecife";
+import { Badge, Card, TableOfContents, Text, buttonVariants } from "@eduardoalvarez/arrecife";
+import { socialSvg } from "@eduardoalvarez/arrecife/social/data";
 
 import TextLink from "../../../components/text-link/index.astro";
 import type { TagsAllowed } from "../../../interfaces";
@@ -26,12 +27,21 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
 }));
 ---
 
+{/*
+  The four panels are `Card` now. They were `bg-surface rounded-xl p-4 border
+  border-border` written out four times: the same surface the system publishes as
+  one token, with `border` — the token for delimiting a control — where a card
+  wants `hairline`, and `rounded-xl` where the scale says `rounded-card`.
+
+  `p-step-md` and not the card's own `p-step-lg`: this rail is 220px wide and 26
+  of padding on each side leaves the tags nowhere to sit.
+*/}
 <aside aria-label="Información del artículo" class="xl:sticky xl:top-24 xl:self-start mb-10 xl:mb-0">
-  <div class="flex flex-col gap-4">
-    <div class="bg-surface rounded-xl p-4 border border-border">
-      <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Lectura</p>
-      <p class="text-sm font-semibold text-text-primary">{timeToRead} {prettyTimeToReadText} aprox.</p>
-    </div>
+  <div class="gap-step-sm flex flex-col">
+    <Card className="p-step-md">
+      <Text variant="eyebrow" tone="muted" as="p" className="mb-step-xs">Lectura</Text>
+      <Text variant="ui" as="p" className="font-medium">{timeToRead} {prettyTimeToReadText} aprox.</Text>
+    </Card>
 
     {/*
       The categories card is gone: the article header already shows them a few
@@ -39,26 +49,30 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
     */}
     {
       tags.length > 0 && (
-        <div class="bg-surface rounded-xl p-4 border border-border">
-          <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Tags</p>
-          <div class="flex flex-wrap gap-1.5">
+        <Card className="p-step-md">
+          <Text variant="eyebrow" tone="muted" as="p" className="mb-step-xs">Tags</Text>
+          <div class="gap-step-xs flex flex-wrap">
             {tags.map((tag) => (
-              <span class={badgeVariants({ variant: "neutral" })}>{TagMap.get(tag) ?? tag}</span>
+              <Badge variant="neutral">{TagMap.get(tag) ?? tag}</Badge>
             ))}
-            {remaining > 0 && <span class="text-chip text-text-muted self-center">+{remaining}</span>}
+            {remaining > 0 && (
+              <Text variant="chip" tone="muted" as="span" className="self-center">
+                +{remaining}
+              </Text>
+            )}
           </div>
-        </div>
+        </Card>
       )
     }
 
     {
       sections.length > 0 && (
-        <details class="xl:hidden bg-surface rounded-xl border border-border overflow-hidden">
-          <summary class="px-4 py-3 text-xs font-medium uppercase tracking-widest text-text-muted cursor-pointer select-none list-none flex items-center justify-between hover:text-text-primary transition-colors duration-200">
+        <details class="xl:hidden bg-surface rounded-card border-hairline overflow-hidden border">
+          <summary class="px-step-md py-step-sm text-eyebrow font-mono uppercase text-text-muted hover:text-text-primary transition-standard flex cursor-pointer select-none list-none items-center justify-between">
             Secciones del artículo
             <span class="text-accent text-base leading-none">›</span>
           </summary>
-          <TableOfContents title="En esta página" items={sections} className="px-4 pb-4" />
+          <TableOfContents title="En esta página" items={sections} className="px-step-md pb-step-md" />
         </details>
       )
     }
@@ -69,19 +83,24 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
     */}
     {
       sections.length > 0 && (
-        <div class="hidden xl:block bg-surface rounded-xl border border-border overflow-hidden">
-          <TableOfContents title="En esta página" items={sections} className="p-4" />
-        </div>
+        <Card className="hidden overflow-hidden p-step-md xl:block">
+          <TableOfContents title="En esta página" items={sections} />
+        </Card>
       )
     }
 
-    <div class="bg-surface rounded-xl p-4 border border-border">
-      <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-3">Compartir</p>
-      <div class="flex gap-2">
+    <Card className="p-step-md">
+      <Text variant="eyebrow" tone="muted" as="p" className="mb-step-sm">Compartir</Text>
+      <div class="gap-step-xs flex">
         {/*
           The glyphs come from the library. The ones in `assets/icons` rendered
           `text-text-muted` on `surface-raised` and were barely visible; these
           are the footer's glyphs on the system's secondary button.
+
+          As markup through `socialSvg`, not as the React components: this is an
+          .astro template and a glyph is a shape, so `./social/data` hands over
+          the same SVG with no renderer in between. Same output, minus a React
+          render per icon.
         */}
         <a
           href={twitterShare}
@@ -90,7 +109,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
           aria-label="Compartir en X"
         >
-          <social.X />
+          <Fragment set:html={socialSvg("X")} />
         </a>
         <a
           href={linkedInShare}
@@ -99,10 +118,10 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
           aria-label="Compartir en LinkedIn"
         >
-          <social.LinkedIn />
+          <Fragment set:html={socialSvg("LinkedIn")} />
         </a>
       </div>
-    </div>
+    </Card>
 
     <TextLink href="/articles" back>./artículos</TextLink>
   </div>

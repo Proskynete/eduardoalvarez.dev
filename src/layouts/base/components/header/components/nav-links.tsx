@@ -1,3 +1,5 @@
+import { NavItem } from "@eduardoalvarez/arrecife";
+
 import { trackEvent } from "../../../../../utils/analytics";
 import { navItems } from "../constants";
 
@@ -5,48 +7,38 @@ interface NavLinksProps {
   pathname: string;
 }
 
+/**
+ * The items are the library's `NavItem`.
+ *
+ * It draws the `./` prefix itself and puts the brackets on the active one, which
+ * is what this file used to do by hand with two spans and an opacity transition.
+ * The library shows them on the current section only — the hover version was a
+ * local invention — and marks it with a bioluz underline instead of a bottom
+ * border.
+ *
+ * The fragment is deliberate: `Nav` renders the `<ul>` and the `~/` prompt, so
+ * these have to arrive as bare `<li>`s and not wrapped in a nav of their own.
+ */
 export default function NavLinks({ pathname }: NavLinksProps) {
   return (
     <>
-      <span className="text-text-muted font-mono text-xs select-none">~/</span>
-      <nav aria-label="Navegación principal" className="flex items-center gap-1 font-mono text-sm">
-        {navItems
-          .filter((item) => item.show)
-          .map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
-            const label = item.name.toLowerCase();
+      {navItems
+        .filter((item) => item.show)
+        .map((item) => {
+          const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
 
-            return (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={() => trackEvent("navigation_click", { link: item.name })}
-                aria-current={isActive ? "page" : undefined}
-                className={`group border-b border-transparent px-1 pb-[3px] font-mono text-[12.5px] text-text-secondary transition-colors duration-200 hover:text-text-primary aria-[current=page]:border-accent aria-[current=page]:text-accent ${
-                  isActive ? "pointer-events-none cursor-default" : ""
-                }`}
-              >
-                {/* Los corchetes se quedan: son parte de la voz de la marca.
-                    Aparecen en hover, y el activo suma el subrayado bioluz. */}
-                <span
-                  className={`select-none transition-opacity duration-150 ${
-                    isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                  }`}
-                >
-                  [
-                </span>
-                ./{label}
-                <span
-                  className={`select-none transition-opacity duration-150 ${
-                    isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                  }`}
-                >
-                  ]
-                </span>
-              </a>
-            );
-          })}
-      </nav>
+          return (
+            <NavItem
+              key={item.name}
+              href={item.href}
+              active={isActive}
+              onClick={() => trackEvent("navigation_click", { link: item.name })}
+              className={isActive ? "pointer-events-none cursor-default" : undefined}
+            >
+              {item.name.toLowerCase()}
+            </NavItem>
+          );
+        })}
     </>
   );
 }
