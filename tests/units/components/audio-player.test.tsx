@@ -19,6 +19,15 @@ beforeEach(() => {
   });
 });
 
+/**
+ * The volume slider is named "Volumen", like every string around it —
+ * "Progreso del audio", "Retroceder 15 segundos", "Reproducir", "Silenciar".
+ *
+ * It read "Volume" under arrecife 0.6.0, the one string its rename pass caught
+ * that was never meant to move: the library's UI copy is Spanish because its
+ * audience is, and only the API was being translated. 0.7.0 put it back, and
+ * this test is what reported it.
+ */
 describe("AudioPlayer", () => {
   describe("renderizado inicial", () => {
     it("renderiza sin errores", () => {

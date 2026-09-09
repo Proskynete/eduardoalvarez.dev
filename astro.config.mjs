@@ -6,6 +6,7 @@ import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 import sentry from "@sentry/astro";
 import { defineConfig } from "astro/config";
@@ -14,6 +15,7 @@ import serviceWorker from "astrojs-service-worker";
 
 import { publishAlgoliaRSS } from "./src/scripts/algolia.ts";
 import config from "./src/settings/manifest-config.ts";
+import { arrecife } from "@eduardoalvarez/arrecife/shiki";
 import { validateEnvAtStartup } from "./src/utils/env.ts";
 
 // Build a map of article slug → ISO date from MDX frontmatter for sitemap lastmod
@@ -47,8 +49,10 @@ if (process.env.SKIP_ENV_VALIDATION !== "true") {
 
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
-  redirects: {
-    "/podcasts": "/",
+  // Tailwind v4 installs as a Vite plugin. It replaces the postcss.config.mjs
+  // that v3 used: the PostCSS pipeline is no longer involved.
+  vite: {
+    plugins: [tailwindcss()],
   },
   build: {
     inlineStylesheets: "always",
@@ -67,7 +71,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {
-      theme: "monokai",
+      theme: arrecife,
     },
   },
   integrations: [
@@ -85,7 +89,15 @@ export default defineConfig({
     sitemap({
       filter(page) {
         const pathname = new URL(page).pathname;
-        return !pathname.startsWith("/resources") && !pathname.startsWith("/cdn-cgi");
+        // `/podcasts` sale del sitemap mientras `podcastsEnabled` esté en
+        // `false` (ver `src/settings/podcasts.ts`): sus rutas responden 404, y
+        // anunciar una puerta cerrada es pedirle a Google que la empuje. La
+        // condición se va cuando se encienda la sección.
+        return (
+          !pathname.startsWith("/resources") &&
+          !pathname.startsWith("/cdn-cgi") &&
+          !pathname.startsWith("/podcasts")
+        );
       },
       serialize(item) {
         const pathname = new URL(item.url).pathname.replace(/\/$/, "");

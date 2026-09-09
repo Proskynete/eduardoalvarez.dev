@@ -3,8 +3,16 @@ import { expect, test } from "@playwright/test";
 test.describe("Search Functionality", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    // Abrir el input de búsqueda haciendo clic en el botón
-    await page.getByRole("button", { name: /buscar/i }).click();
+    // Abrir el input de búsqueda haciendo clic en el botón.
+    //
+    // Con reintento: la cabecera es una isla de React y el botón no responde
+    // hasta que hidrata. La aserción va dentro del bloque, así que en cuanto un
+    // clic abre el campo el reintento termina y no vuelve a pulsar — un segundo
+    // clic lo cerraría.
+    await expect(async () => {
+      await page.getByRole("button", { name: /buscar/i }).click();
+      await expect(page.getByRole("combobox")).toBeVisible({ timeout: 1000 });
+    }).toPass({ timeout: 15000 });
   });
 
   test("debe mostrar input de búsqueda", async ({ page }) => {

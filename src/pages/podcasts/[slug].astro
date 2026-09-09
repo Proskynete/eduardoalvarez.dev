@@ -1,14 +1,35 @@
 ---
-import Layout from "../../layouts/main/index.astro";
-import { podcasts, topicColors, platformIcons } from "../../settings/podcasts";
-import type { PodcastEpisode } from "../../settings/podcasts";
+import {
+  Badge,
+  Breadcrumb,
+  Card,
+  Separator,
+  Text,
+  buttonVariants,
+} from "@eduardoalvarez/arrecife";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { ArrowLeftIcon, ArrowRightIcon, LinkedinLogoIcon, XLogoIcon } from "@phosphor-icons/react";
 import { Image } from "astro:assets";
-import AudioPlayer from "../../components/audio-player/index";
 import { marked } from "marked";
-import { Icon } from "../../assets/icons";
+
+import AudioPlayer from "../../components/audio-player/index";
+import PodcastGuest from "../../components/podcast-guest/index";
+import PodcastGuestChips from "../../components/podcast-guest-chips/index";
+import Layout from "../../layouts/main/index.astro";
+import { platformIcons, podcasts, podcastsEnabled } from "../../settings/podcasts";
+import type { PodcastEpisode } from "../../settings/podcasts";
+import { formatDuration, withHeadingAnchors } from "../../utils/podcasts";
+
 export const prerender = true;
 
+/**
+ * Sin rutas mientras la sección esté apagada: una ruta dinámica que no declara
+ * ningún camino no existe, así que `/podcasts/lo-que-sea` responde 404 sin
+ * necesidad de comprobar nada en tiempo de ejecución.
+ */
 export function getStaticPaths() {
+  if (!podcastsEnabled) return [];
+
   return podcasts
     .filter((podcast) => podcast.show)
     .map((podcast) => ({
@@ -17,13 +38,30 @@ export function getStaticPaths() {
     }));
 }
 
-interface Props {
-  podcast: PodcastEpisode;
-}
+const { podcast } = Astro.props as { podcast: PodcastEpisode };
 
-const { podcast } = Astro.props;
+/**
+ * Las notas, con ancla en cada `<h2>`, y su índice.
+ *
+ * El markdown ya venía estructurado —introducción, temas discutidos, recursos—
+ * y se renderizaba como un muro sin forma de saltar dentro. Los encabezados no
+ * son un campo nuevo en los datos: estaban escritos desde el principio.
+ */
+const { html: contentHtml, headings } = withHeadingAnchors(await marked(podcast.content));
 
-const contentHtml = await marked(podcast.content);
+/**
+ * El episodio anterior y el siguiente, por fecha.
+ *
+ * Un episodio suelto no es una serie. La navegación entre ellos era un
+ * non-goal del change anterior por YAGNI, y el dato estaba ahí todo el tiempo:
+ * es la misma lista ya ordenada que usa el índice.
+ */
+const ordered = podcasts
+  .filter((item) => item.show)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const position = ordered.findIndex((item) => item.slug === podcast.slug);
+const newer = position > 0 ? ordered[position - 1] : undefined;
+const older = position >= 0 && position < ordered.length - 1 ? ordered[position + 1] : undefined;
 
 const seo = {
   title: `${podcast.title} | Podcast`,
@@ -31,228 +69,343 @@ const seo = {
   image: "/images/podcasts/podcasts-cover.webp",
 };
 
-function formatDuration(minutes: number): string {
-  const hours = Math.floor(minutes / 60);
-  const mins = minutes % 60;
-  if (hours > 0) {
-    return `${hours}h ${mins}min`;
-  }
-  return `${mins} min`;
-}
+const prettyDate = new Date(podcast.date).toLocaleDateString("es-ES", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const episodeUrl = `https://eduardoalvarez.dev/podcasts/${podcast.slug}`;
+const shareLinks = [
+  {
+    label: "X",
+    href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(podcast.title)}&url=${encodeURIComponent(episodeUrl)}`,
+  },
+  {
+    label: "LinkedIn",
+    href: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(episodeUrl)}&title=${encodeURIComponent(podcast.title)}`,
+  },
+];
 ---
 
 <Layout seo={seo}>
   <article class="mx-auto max-w-full">
-    {/* Breadcrumb */}
-    <nav class="mb-6" aria-label="Breadcrumb">
-      <ol class="flex items-center gap-2 text-sm text-text-muted">
-        <li>
-          <a href="/" class="hover:text-accent transition-colors duration-200">Inicio</a>
-        </li>
-        <li><span class="mx-1">/</span></li>
-        <li>
-          <a href="/podcasts" class="hover:text-accent transition-colors duration-200">Podcasts</a>
-        </li>
-        <li><span class="mx-1">/</span></li>
-        <li class="text-text-secondary truncate max-w-[200px]">{podcast.title}</li>
-      </ol>
-    </nav>
+    {/*
+      The library's Breadcrumb replaces the hand-built ol. It leads with `~`
+      rather than the word "Inicio" — the same terminal voice the nav uses — and
+      marks the last item as the current page instead of leaving it an
+      unlabelled li.
+    */}
+    <Breadcrumb
+      className="mb-step-md"
+      homeHref="/"
+      homeLabel="Inicio"
+      items={[{ label: "Podcasts", href: "/podcasts" }, { label: podcast.title }]}
+    />
 
-    {/* Header del episodio */}
-    <header class="mb-8">
-      <div class="relative h-64 md:h-80 rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-background to-surface">
-        {podcast.image && (
-          <Image
-            src={podcast.image}
-            alt={podcast.title}
-            class="w-full h-full object-cover opacity-40"
-            width={1200}
-            height={600}
-            widths={[600, 1200]}
-            sizes="(max-width: 768px) 100vw, 1200px"
-            format="webp"
-            loading="eager"
-            decoding="async"
-          />
-        )}
+    {/*
+      El panel de escucha: la pieza que la página no tenía.
 
-        <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-accent/10 text-accent border border-accent/20">
-              Episodio {podcast.episode}
-            </span>
-            <span class="text-text-secondary">{formatDuration(podcast.duration)}</span>
-          </div>
-          <h1 class="text-2xl md:text-4xl font-bold text-text-primary">{podcast.title}</h1>
-          <time datetime={podcast.date} class="text-text-secondary mt-2">
-            {
-              new Date(podcast.date).toLocaleDateString("es-ES", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })
-            }
-          </time>
+      Antes esto eran tres bloques sueltos —una cabecera de texto, un
+      reproductor y una fila de badges— apilados sin relación entre ellos, y por
+      eso el rediseño anterior «se veía casi igual»: había quitado cosas sin
+      componer nada. Ahora el episodio se presenta y se escucha en la misma
+      unidad, sobre el tinte de acento que este sitio ya usa para decir «aquí
+      hay audio» en la narración de los artículos.
+
+      El número grande en mono es el mismo ancla que marca cada fila del
+      índice: quien llega desde el listado reconoce el `04` que acaba de pulsar.
+    */}
+    <section
+      class="rounded-panel border-accent/25 from-accent/[0.08] via-accent/[0.04] p-step-lg gap-step-md flex flex-col border bg-gradient-to-br to-transparent"
+      aria-labelledby="episode-title"
+    >
+      <div class="gap-step-md flex items-start">
+        {
+          podcast.image && (
+            <Image
+              src={podcast.image}
+              alt={`Portada del episodio ${podcast.episode}`}
+              class="rounded-card border-hairline hidden w-28 shrink-0 border object-cover sm:block"
+              width={224}
+              height={224}
+              widths={[112, 224]}
+              sizes="112px"
+              format="webp"
+              loading="eager"
+              decoding="async"
+            />
+          )
+        }
+
+        {/*
+          Rejilla y no dos columnas fijas: en móvil el número comparte fila con
+          la ruta y el título ocupa el ancho entero, que a 390px son 140px más y
+          dos renglones menos. Desde `sm` el número vuelve a ser la columna de
+          la izquierda, como en las filas del índice.
+        */}
+        <div class="gap-x-step-md gap-y-step-xs grid min-w-0 flex-1 grid-cols-[auto_1fr] items-start">
+          <span
+            aria-hidden="true"
+            class="text-accent/70 font-mono text-4xl leading-none tabular-nums sm:row-span-3 sm:text-5xl"
+          >
+            {String(podcast.episode).padStart(2, "0")}
+          </span>
+
+          <Text variant="eyebrow" tone="muted" as="p" className="self-center">
+            {`/podcasts/${podcast.slug}`}
+          </Text>
+
+          <h1 id="episode-title" class="text-text-primary col-span-2 sm:col-span-1 sm:col-start-2">
+            {podcast.title}
+          </h1>
+
+          <Text variant="meta" tone="muted" as="p" className="col-span-2 sm:col-span-1 sm:col-start-2">
+            <time datetime={podcast.date}>{prettyDate}</time>{` · ${formatDuration(podcast.duration)}`}
+          </Text>
         </div>
       </div>
 
-      {/* Reproductor de audio destacado */}
-      <div class="bg-surface rounded-xl p-6 border border-surface-border">
-        <h2 class="text-lg font-semibold text-text-primary mb-4">Escuchar episodio</h2>
-        <AudioPlayer client:load src={podcast.audioUrl} title={podcast.title} />
-      </div>
-    </header>
+      {/*
+        Los invitados, con cara y en la cabecera. Son la razón de escuchar una
+        entrevista y estaban en una tarjeta del raíl, debajo del pliegue. Aquí
+        identifican; las tarjetas con sus enlaces siguen abajo.
+      */}
+      <PodcastGuestChips guests={podcast.guests} />
 
-    {/* Contenido principal en dos columnas */}
-    <div class="flex flex-col lg:flex-row gap-8">
-      {/* Columna principal: contenido */}
-      <div class="flex-1">
-        {/* Descripción */}
-        <section class="mb-8">
-          <h2 class="text-xl font-semibold text-text-primary mb-4">Sobre este episodio</h2>
-          <p class="text-text-secondary leading-relaxed">{podcast.description}</p>
-        </section>
+      {/*
+        `compact` y no `full`.
 
-        {/* Tópicos */}
-        <section class="mb-8">
-          <h2 class="text-xl font-semibold text-text-primary mb-4">Temas tratados</h2>
-          <div class="flex flex-wrap gap-2">
-            {
-              podcast.topics.map((topic) => (
-                <span class={`px-3 py-1.5 text-sm rounded-lg border ${topicColors[topic.color]}`}>{topic.name}</span>
-              ))
-            }
+        Los tres modos dibujan el mismo reproductor; `compact` y `banner` traen
+        además el flotante que aparece cuando el estático sale de la pantalla.
+        En una página cuyo cuerpo son notas largas, perder el control al tercer
+        scroll era el defecto de fondo: `full` te obliga a volver arriba para
+        pausar.
+
+        `banner` queda descartado porque rotula el bloque «NARRACIÓN DE AUDIO»,
+        que es copy del artículo con voz — aquí el audio no narra el texto, es
+        el episodio. `compact` no rotula nada y su estático tampoco repite el
+        título, que está en el `<h1>` justo encima.
+
+        El `title` sí va, y es para el flotante: cuando aparece, la cabecera ya
+        se fue de la pantalla y es el único sitio donde se dice qué suena.
+      */}
+      <AudioPlayer client:load src={podcast.audioUrl} title={podcast.title} compact={true} />
+
+      {
+        podcast.topics.length > 0 && (
+          <div class="gap-step-xs flex flex-wrap">
+            {podcast.topics.map((topic) => (
+              <Badge variant="neutral">{topic.name}</Badge>
+            ))}
           </div>
+        )
+      }
+    </section>
+
+    {/*
+      Dos órdenes de lectura, un solo árbol en el DOM.
+
+      En móvil los invitados suben entre el reproductor y el cuerpo: es un
+      podcast de entrevistas, quién habla es contenido y no metadato, y estaba a
+      más de tres pantallas de scroll, detrás de las notas completas. Las
+      acciones —dónde escuchar, compartir— se quedan al final, que es cuando se
+      usan. En `lg` el raíl vuelve a la derecha con los tres bloques.
+    */}
+    {/*
+      `lg:grid-rows-[auto_1fr]` y no filas automáticas: el cuerpo ocupa las dos
+      filas de la izquierda y, con las dos en `auto`, la rejilla repartía su
+      altura entre ambas. La fila de arriba crecía con las notas y dejaba 325px
+      de vacío entre los invitados y las acciones. Con `1fr` abajo, el espacio
+      sobrante cae en la segunda fila y el raíl vuelve a ser una columna
+      continua.
+    */}
+    <div class="gap-step-lg mt-step-xl flex flex-col lg:grid lg:grid-cols-[1fr_20rem] lg:grid-rows-[auto_1fr] lg:items-start">
+      {
+        podcast.guests.length > 0 && (
+          <section class="gap-step-sm order-1 flex flex-col lg:col-start-2 lg:row-start-1">
+            <Text as="h2" variant="h3">
+              {podcast.guests.length === 1 ? "Invitado" : "Invitados"}
+            </Text>
+            {podcast.guests.map((guest) => (
+              <PodcastGuest
+                name={guest.name}
+                role={guest.role}
+                company={guest.company}
+                linkedin={guest.linkedin}
+                twitter={guest.twitter}
+              />
+            ))}
+          </section>
+        )
+      }
+
+      <div class="order-2 min-w-0 lg:col-start-1 lg:row-span-2 lg:row-start-1">
+        <section class="mb-step-xl">
+          <Text as="h2" variant="h3" className="mb-step-sm">Sobre este episodio</Text>
+          <Text variant="body" tone="secondary">{podcast.description}</Text>
         </section>
 
-        {/* Notas del episodio */}
-        <section class="mb-8">
-          <h2 class="text-xl font-semibold text-text-primary mb-4">Notas del episodio</h2>
+        {/*
+          El índice de las notas.
+
+          Las notas ya venían con encabezados y se leían como un muro: no había
+          forma de ver de qué habla el episodio sin recorrerlo entero, ni de
+          saltar. Los saltos son anclas normales, así que funcionan sin
+          JavaScript y se pueden enlazar desde fuera.
+        */}
+        {
+          headings.length > 1 && (
+            <section class="mb-step-xl">
+              <Text as="h2" variant="h3" className="mb-step-sm">En este episodio</Text>
+              <ul class="gap-step-xs flex flex-wrap">
+                {headings.map((heading) => (
+                  <li>
+                    <a
+                      href={`#${heading.id}`}
+                      class={`${buttonVariants({ variant: "secondary", size: "sm" })} font-normal`}
+                    >
+                      {heading.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        <section>
+          <Text as="h2" variant="h3" className="mb-step-sm">Notas del episodio</Text>
           <div
-            class="prose prose-invert max-w-none
-                   prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4
-                   prose-h3:text-lg prose-h3:mt-6 prose-h3:mb-3
+            class="prose max-w-none
                    prose-a:text-accent prose-a:no-underline hover:prose-a:text-accent-hover
                    prose-li:marker:text-accent
                    prose-blockquote:border-accent
-                   prose-code:text-accent prose-code:bg-surface-raised prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-                   prose-pre:bg-surface prose-pre:border prose-pre:border-surface-border"
+                   prose-code:text-accent prose-code:bg-surface-raised
+                   prose-pre:bg-brand-hull"
             set:html={contentHtml}
           />
         </section>
       </div>
 
-      {/* Sidebar */}
-      <aside class="lg:w-80 flex-shrink-0">
-        {/* Invitados */}
-        {
-          podcast.guests.length > 0 && (
-            <section class="mb-8 bg-surface rounded-xl p-6 border border-surface-border">
-              <h2 class="text-lg font-semibold text-text-primary mb-4">
-                {podcast.guests.length === 1 ? "Invitado" : "Invitados"}
-              </h2>
-              <div class="flex flex-col gap-4">
-                {podcast.guests.map((guest) => (
-                  <div class="flex flex-col gap-3">
-                    <div class="flex items-center gap-3">
-                      <div class="w-14 h-14 rounded-full bg-accent flex items-center justify-center text-background font-bold text-lg">
-                        {guest.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")
-                          .slice(0, 2)}
-                      </div>
-                      <div class="flex flex-col">
-                        <span class="font-medium text-text-primary">{guest.name}</span>
-                        <span class="text-sm text-text-muted">
-                          {guest.role}
-                          {guest.company && ` @ ${guest.company}`}
-                        </span>
-                      </div>
-                    </div>
-                    {/* Links sociales */}
-                    <div class="flex gap-2">
-                      {guest.linkedin && (
-                        <a
-                          href={guest.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-raised text-text-secondary hover:text-text-primary hover:bg-surface transition-colors duration-200 text-sm"
-                        >
-                          <Icon.LinkedIn className="w-4 h-4" />
-                          LinkedIn
-                        </a>
-                      )}
-                      {guest.twitter && (
-                        <a
-                          href={guest.twitter}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-raised text-text-secondary hover:text-text-primary hover:bg-surface transition-colors duration-200 text-sm"
-                        >
-                          <Icon.X className="w-4 h-4" />
-                          Twitter
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )
-        }
+      {/*
+        El aside se queda con lo que de verdad es complementario. Los invitados
+        salieron de aquí: en un podcast de entrevistas son contenido, y en móvil
+        este bloque caía detrás de las notas completas, a más de tres pantallas.
 
-        {/* Plataformas */}
-        <section class="bg-surface rounded-xl p-6 border border-surface-border">
-          <h2 class="text-lg font-semibold text-text-primary mb-4">Escuchar en</h2>
-          <div class="flex flex-col gap-2">
+        En móvil el contenedor es una columna flex y manda `order`: invitados,
+        cuerpo, acciones. En `lg` es una rejilla de dos columnas y el cuerpo
+        ocupa las dos filas de la izquierda, así que el raíl vuelve a la derecha
+        con los invitados arriba y las acciones debajo. Un solo árbol en el DOM
+        en ambos casos.
+
+        Una tarjeta y no dos. Eran dos `Card` con `CardTitle` cada una —dos
+        titulares del tamaño de «Notas del episodio»— para tres enlaces y dos
+        iconos. Es la misma desproporción que el reproductor tenía con su
+        «Escuchar episodio»: aquí los rótulos bajan a `eyebrow`, que es lo que
+        el sistema usa para nombrar un grupo sin abrir una sección.
+      */}
+      <aside
+        class="order-3 shrink-0 lg:col-start-2 lg:row-start-2"
+        aria-label="Escuchar y compartir"
+      >
+        <Card className="p-step-md gap-step-md flex flex-col">
+          <div class="gap-step-xs flex flex-col">
+            <Text as="h2" variant="eyebrow" tone="muted">Escuchar en</Text>
             {
               podcast.platforms.map((platform) => (
                 <a
                   href={platform.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex items-center gap-3 px-4 py-3 rounded-lg bg-surface-raised hover:bg-surface text-text-secondary hover:text-text-primary transition-colors duration-200"
+                  class={`${buttonVariants({ variant: "secondary", size: "sm" })} justify-start`}
                 >
-                  <Icon.Platform path={platformIcons[platform.icon]} className="w-5 h-5" />
-                  <span>{platform.name}</span>
+                  <Icon as={platformIcons[platform.icon]} />
+                  {platform.name}
                 </a>
               ))
             }
           </div>
-        </section>
 
-        {/* Compartir */}
-        <section class="mt-6 bg-surface rounded-xl p-6 border border-surface-border">
-          <h2 class="text-lg font-semibold text-text-primary mb-4">Compartir</h2>
-          <div class="flex gap-2">
-            <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(podcast.title)}&url=${encodeURIComponent(`https://eduardoalvarez.dev/podcasts/${podcast.slug}`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-surface-raised hover:bg-surface text-text-muted hover:text-text-primary transition-colors duration-200"
-              aria-label="Compartir en Twitter"
-            >
-              <Icon.X className="w-5 h-5" />
-            </a>
-            <a
-              href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://eduardoalvarez.dev/podcasts/${podcast.slug}`)}&title=${encodeURIComponent(podcast.title)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-surface-raised hover:bg-surface text-text-muted hover:text-text-primary transition-colors duration-200"
-              aria-label="Compartir en LinkedIn"
-            >
-              <Icon.LinkedIn className="w-5 h-5" />
-            </a>
+          <Separator />
+
+          <div class="gap-step-sm flex items-center justify-between">
+            <Text as="h2" variant="eyebrow" tone="muted">Compartir</Text>
+            {/*
+              Cuadrados de 32px y no dos botones estirados al 50%: un icono
+              solo en mitad de un botón de 150px de ancho es el mismo defecto
+              que la barra lateral del artículo ya corrigió.
+            */}
+            <div class="gap-step-xs flex">
+              {
+                shareLinks.map(({ label, href }) => (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class={buttonVariants({ variant: "secondary", size: "icon-sm" })}
+                    aria-label={`Compartir en ${label}`}
+                  >
+                    <Icon as={label === "X" ? XLogoIcon : LinkedinLogoIcon} />
+                  </a>
+                ))
+              }
+            </div>
           </div>
-        </section>
+        </Card>
       </aside>
     </div>
 
-    {/* Volver a podcasts */}
-    <div class="mt-12 pt-8 border-t border-surface-border">
-      <a href="/podcasts" class="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors duration-200">
-        <Icon.ArrowLeft className="w-5 h-5" />
+    {/*
+      La serie, no el episodio suelto.
+
+      Aquí sólo había un «volver a todos los episodios». El anterior y el
+      siguiente estaban a un `findIndex` de distancia sobre la misma lista que
+      ordena el índice: sin datos nuevos, un episodio deja de ser un callejón
+      sin salida.
+    */}
+    <Separator className="mt-step-xl" />
+    <nav class="gap-step-sm pt-step-lg grid grid-cols-1 sm:grid-cols-2" aria-label="Más episodios">
+      {
+        older ? (
+          <a
+            href={`/podcasts/${older.slug}`}
+            class="group rounded-card border-hairline p-step-md gap-step-xs focus-ring flex cursor-pointer flex-col border bg-surface transition-standard hover:border-hairline-hover"
+          >
+            <Text variant="eyebrow" tone="muted" as="span" className="gap-step-xs flex items-center">
+              <Icon as={ArrowLeftIcon} />
+              Episodio anterior
+            </Text>
+            <Text variant="ui" as="span" className="group-hover:text-accent transition-standard font-medium">
+              {older.title}
+            </Text>
+          </a>
+        ) : (
+          <span class="hidden sm:block" />
+        )
+      }
+
+      {
+        newer && (
+          <a
+            href={`/podcasts/${newer.slug}`}
+            class="group rounded-card border-hairline p-step-md gap-step-xs focus-ring flex cursor-pointer flex-col border bg-surface transition-standard hover:border-hairline-hover sm:text-right"
+          >
+            <Text variant="eyebrow" tone="muted" as="span" className="gap-step-xs flex items-center sm:justify-end">
+              Episodio siguiente
+              <Icon as={ArrowRightIcon} />
+            </Text>
+            <Text variant="ui" as="span" className="group-hover:text-accent transition-standard font-medium">
+              {newer.title}
+            </Text>
+          </a>
+        )
+      }
+    </nav>
+
+    <div class="pt-step-md">
+      <a href="/podcasts" class={buttonVariants({ variant: "tertiary" })}>
+        <Icon as={ArrowLeftIcon} />
         Volver a todos los episodios
       </a>
     </div>

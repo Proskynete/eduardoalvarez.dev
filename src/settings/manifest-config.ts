@@ -1,3 +1,5 @@
+import { dark } from "@eduardoalvarez/arrecife/tokens";
+
 import config from "./index";
 
 export default {
@@ -9,8 +11,11 @@ export default {
   start_url: "/",
   scope: "/",
   orientation: "portrait",
-  theme_color: "#0a0a0a",
-  background_color: "#0a0a0a",
+  /* Los dos colores del manifiesto salen del paquete de tokens, no de un
+     hexadecimal escrito aquí. `./tokens` no arrastra React, así que se puede
+     importar desde un archivo de configuración sin coste. */
+  theme_color: dark.background,
+  background_color: dark.background,
   display_override: ["standalone", "minimal-ui"],
   display: "standalone",
   categories: ["education", "productivity"],

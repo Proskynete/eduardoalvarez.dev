@@ -1,129 +1,222 @@
 ---
-import { Icon } from "../../../assets/icons";
-import type { CategoryAllowed, TagsAllowed } from "../../../interfaces";
-import { CategoryMap, TagMap } from "../../../utils/categories";
+import { Badge, Card, TableOfContents, Text, buttonVariants } from "@eduardoalvarez/arrecife";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { CaretRightIcon, LinkedinLogoIcon, XLogoIcon } from "@phosphor-icons/react";
+
+import TextLink from "../../../components/text-link/index.astro";
+import type { TagsAllowed } from "../../../interfaces";
+import { TagMap } from "../../../utils/categories";
 
 const { content, timeToRead, twitterShare, linkedInShare } = Astro.props;
-const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
+/**
+ * The whole string, and not `{timeToRead} {unit}` in the template.
+ * `compressHTML` collapses the whitespace BETWEEN two adjacent expressions, so
+ * both the rail and the strip have been reading «5minutos aprox.» — the space
+ * only survives inside the expression.
+ */
+const prettyTimeToRead = `${timeToRead} ${timeToRead <= 1 ? "minuto" : "minutos"}`;
+
+/**
+ * How many tags fit in the sidebar.
+ *
+ * Articles carry between 1 and 10, averaging 8 on the long ones, and at that
+ * count the list stops signalling the subject and becomes noise — nobody reads
+ * ten labels. Four place the article and fit on two lines. The rest stay in the
+ * frontmatter, which is what search indexes.
+ */
+const MAX_TAGS = 4;
+const tags: TagsAllowed[] = (content.tags ?? []).slice(0, MAX_TAGS);
+const remaining = (content.tags?.length ?? 0) - tags.length;
+
+const sections = (content.sections ?? []).map((section: { anchor: string; title: string }) => ({
+  href: `#${section.anchor}`,
+  label: section.title,
+}));
 ---
 
-<aside aria-label="Información del artículo" class="xl:sticky xl:top-24 xl:self-start mb-10 xl:mb-0">
-  <div class="flex flex-col gap-4">
-    <!-- Info card: reading time -->
-    <div class="bg-surface rounded-xl p-4 border border-surface-border">
-      <!-- Reading time -->
-      <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Lectura</p>
-      <p class="text-sm font-semibold text-text-primary">{timeToRead} {prettyTimeToReadText} aprox.</p>
-    </div>
+{/*
+  Two asides, and only one of them is in the document at a time.
 
-    <!-- Info card: categories + tags -->
-    <div class="bg-surface rounded-xl p-4 border border-surface-border divide-y divide-surface-border">
-      <!-- Categories -->
-      <div class:list={[content.tags && content.tags.length > 0 ? "pb-4" : ""]}>
-        <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Categorías</p>
-        <div class="flex flex-col gap-1">
-          {
-            content.categories.map((category: CategoryAllowed) => (
-              <span class="text-sm text-text-secondary">{CategoryMap.get(category) ?? category}</span>
-            ))
-          }
-        </div>
-      </div>
+  Below `xl` the grid collapses to one column, so this stops being a rail and
+  becomes a stack sitting BETWEEN the title and the first paragraph. The rail's
+  five panels measured about 480px there — a whole phone screen of furniture to
+  scroll past before the article starts, with the two share buttons stretched to
+  half the viewport each because `flex-1` was written for a 220px column.
 
-      <!-- Tags -->
-      {
-        content.tags && content.tags.length > 0 && (
-          <div class="pt-4">
-            <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-2">Tags</p>
-            <div class="flex flex-wrap gap-1.5">
-              {content.tags.map((tag: TagsAllowed) => (
-                <span class="px-2 py-0.5 text-xs rounded bg-surface-raised text-text-muted">
-                  {TagMap.get(tag) ?? tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        )
-      }
-    </div>
+  So the phone gets the same information in the shape a phone can afford: one
+  strip — reading time, the two share controls as 32px squares, the tags — and
+  the sections, which were already collapsed here. About 120px, and the article
+  begins.
 
-    <!-- Sections card (mobile: collapsible) -->
-    {
-      content.sections && content.sections.length > 0 && (
-        <details class="xl:hidden bg-surface rounded-xl border border-surface-border overflow-hidden">
-          <summary class="px-4 py-3 text-xs font-medium uppercase tracking-widest text-text-muted cursor-pointer select-none list-none flex items-center justify-between hover:text-text-primary transition-colors duration-200">
-            Secciones del artículo
-            <span class="text-accent text-base leading-none">›</span>
-          </summary>
-          <nav aria-label="Tabla de contenidos">
-            {content.sections.map((section: { anchor: string; title: string }) => (
-              <a
-                href={`#${section.anchor}`}
-                class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-surface-raised transition-colors duration-200"
-              >
-                <span class="w-1 h-1 rounded-full bg-accent flex-shrink-0" />
-                {section.title}
-              </a>
-            ))}
-          </nav>
-        </details>
-      )
-    }
+  What the strip does not carry is «./artículos». A link back is the end of a
+  read, not its opening move; on mobile it now closes the article, in the layout.
 
-    <!-- Sections card (desktop only) -->
-    {
-      content.sections && content.sections.length > 0 && (
-        <div class="hidden xl:block bg-surface rounded-xl border border-surface-border overflow-hidden">
-          <div class="px-4 pt-4 pb-2">
-            <p class="text-xs font-medium uppercase tracking-widest text-text-muted">Secciones</p>
-          </div>
-          <nav aria-label="Tabla de contenidos">
-            {content.sections.map((section: { anchor: string; title: string }) => (
-              <a
-                href={`#${section.anchor}`}
-                class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-surface-raised transition-colors duration-200"
-              >
-                <span class="w-1 h-1 rounded-full bg-accent flex-shrink-0" />
-                {section.title}
-              </a>
-            ))}
-          </nav>
-        </div>
-      )
-    }
+  The file already worked this way for the table of contents — a `<details>`
+  under `xl` and a `Card` over it — because a 220px rail and a 390px column are
+  not the same problem. This extends that to the rest of the rail instead of
+  making one markup serve both badly.
+*/}
 
-    <!-- Share card -->
-    <div class="bg-surface rounded-xl p-4 border border-surface-border">
-      <p class="text-xs font-medium uppercase tracking-widest text-text-muted mb-3">Compartir</p>
-      <div class="flex gap-2">
+<aside aria-label="Información del artículo" class="mb-step-lg gap-step-sm flex flex-col xl:hidden">
+  <Card className="p-step-md gap-step-sm flex flex-col">
+    <div class="gap-step-sm flex flex-wrap items-center justify-between">
+      <Text variant="meta" tone="muted" as="span">
+        {`${prettyTimeToRead} de lectura`}
+      </Text>
+
+      <div class="gap-step-xs flex">
         <a
           href={twitterShare}
           target="_blank"
           rel="nofollow noopener noreferrer"
-          class="flex-1 flex items-center justify-center px-3 py-2 rounded-lg bg-surface-raised hover:bg-surface-border/40 text-text-muted hover:text-text-primary transition-colors duration-200"
-          aria-label="Compartir en Twitter"
+          class={buttonVariants({ variant: "secondary", size: "icon-sm" })}
+          aria-label="Compartir en XIcon"
         >
-          <Icon.X />
+          <Icon as={XLogoIcon} />
         </a>
         <a
           href={linkedInShare}
           target="_blank"
           rel="nofollow noopener noreferrer"
-          class="flex-1 flex items-center justify-center px-3 py-2 rounded-lg bg-surface-raised hover:bg-surface-border/40 text-text-muted hover:text-text-primary transition-colors duration-200"
+          class={buttonVariants({ variant: "secondary", size: "icon-sm" })}
           aria-label="Compartir en LinkedIn"
         >
-          <Icon.LinkedIn />
+          <Icon as={LinkedinLogoIcon} />
         </a>
       </div>
     </div>
 
-    <!-- Back to articles -->
-    <a
-      href="/articles"
-      class="flex items-center gap-1.5 text-sm text-text-secondary hover:text-accent transition-colors duration-200"
-      aria-label="Volver a artículos"
-    >
-      <Icon.ArrowLeft width={14} /> Artículos
-    </a>
+    {
+      tags.length > 0 && (
+        <div class="gap-step-xs flex flex-wrap">
+          {tags.map((tag) => (
+            <Badge variant="neutral">{TagMap.get(tag) ?? tag}</Badge>
+          ))}
+          {remaining > 0 && (
+            <Text variant="chip" tone="muted" as="span" className="self-center">
+              +{remaining}
+            </Text>
+          )}
+        </div>
+      )
+    }
+  </Card>
+
+  {
+    sections.length > 0 && (
+      <details class="group bg-surface rounded-card border-hairline overflow-hidden border">
+        <summary class="px-step-md py-step-sm text-eyebrow font-mono uppercase text-text-muted hover:text-text-primary transition-standard flex cursor-pointer select-none list-none items-center justify-between">
+          Secciones del artículo
+          {/* The caret turns with the disclosure. Pointing right while the list
+              is open said the opposite of what the control had just done. */}
+          <span class="text-accent transition-standard inline-flex group-open:rotate-90">
+            <Icon as={CaretRightIcon} />
+          </span>
+        </summary>
+        {/*
+          An empty `title`, because the `<summary>` above IS this block's
+          heading. With the library's default the panel opened onto «SECCIONES
+          DEL ARTÍCULO» followed by «EN ESTA PÁGINA» — the same list titled
+          twice, which is the duplication this file already removed once on the
+          rail.
+
+          `title` is typed as `string & ReactNode`, so `null` does not typecheck
+          and the empty string is the only way through. It costs the component's
+          own `aria-label`, which it derives from the title — hence the explicit
+          one: the smooth-scroll script binds to `nav[aria-label="En esta
+          página"]` and would stop scrolling the mobile links without it.
+        */}
+        <TableOfContents
+          title=""
+          aria-label="En esta página"
+          items={sections}
+          className="px-step-md pb-step-md"
+        />
+      </details>
+    )
+  }
+</aside>
+
+{/*
+  The four panels are `Card` now. They were `bg-surface rounded-xl p-4 border
+  border-border` written out four times: the same surface the system publishes as
+  one token, with `border` — the token for delimiting a control — where a card
+  wants `hairline`, and `rounded-xl` where the scale says `rounded-card`.
+
+  `p-step-md` and not the card's own `p-step-lg`: this rail is 220px wide and 26
+  of padding on each side leaves the tags nowhere to sit.
+*/}
+<aside aria-label="Información del artículo" class="hidden xl:sticky xl:top-24 xl:block xl:self-start">
+  <div class="gap-step-sm flex flex-col">
+    <Card className="p-step-md">
+      <Text variant="eyebrow" tone="muted" as="p" className="mb-step-xs">Lectura</Text>
+      <Text variant="ui" as="p" className="font-medium">{`${prettyTimeToRead} aprox.`}</Text>
+    </Card>
+
+    {/*
+      The categories card is gone: the article header already shows them a few
+      centimetres above the title, and repeating them here added nothing.
+    */}
+    {
+      tags.length > 0 && (
+        <Card className="p-step-md">
+          <Text variant="eyebrow" tone="muted" as="p" className="mb-step-xs">Tags</Text>
+          <div class="gap-step-xs flex flex-wrap">
+            {tags.map((tag) => (
+              <Badge variant="neutral">{TagMap.get(tag) ?? tag}</Badge>
+            ))}
+            {remaining > 0 && (
+              <Text variant="chip" tone="muted" as="span" className="self-center">
+                +{remaining}
+              </Text>
+            )}
+          </div>
+        </Card>
+      )
+    }
+
+    {/*
+      `TableOfContents` renders the heading. There used to be a hand-written
+      `<p>` above it with the same words, so "En esta página" appeared twice.
+    */}
+    {
+      sections.length > 0 && (
+        <Card className="overflow-hidden p-step-md">
+          <TableOfContents title="En esta página" items={sections} />
+        </Card>
+      )
+    }
+
+    <Card className="p-step-md">
+      <Text variant="eyebrow" tone="muted" as="p" className="mb-step-sm">Compartir</Text>
+      <div class="gap-step-xs flex">
+        {/*
+          Phosphor's marks, drawn through the library's `Icon`: the same two the
+          footer and the episode page carry, at the same weight and at 1em.
+          Rendered on the server with no client directive, so the sidebar still
+          ships no JavaScript.
+        */}
+        <a
+          href={twitterShare}
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+          class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
+          aria-label="Compartir en XIcon"
+        >
+          <Icon as={XLogoIcon} />
+        </a>
+        <a
+          href={linkedInShare}
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+          class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
+          aria-label="Compartir en LinkedIn"
+        >
+          <Icon as={LinkedinLogoIcon} />
+        </a>
+      </div>
+    </Card>
+
+    <TextLink href="/articles" back>./artículos</TextLink>
   </div>
 </aside>

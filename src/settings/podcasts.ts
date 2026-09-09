@@ -1,3 +1,12 @@
+import { badgeVariants } from "@eduardoalvarez/arrecife";
+import {
+  AnchorIcon,
+  ApplePodcastsLogoIcon,
+  GooglePodcastsLogoIcon,
+  type Icon as PhosphorIcon,
+  SpotifyLogoIcon,
+  YoutubeLogoIcon,
+} from "@phosphor-icons/react";
 import type { ImageMetadata } from "astro";
 
 /**
@@ -64,30 +73,67 @@ export interface PodcastEpisode {
 /**
  * Colores para los tópicos/tags
  */
+/**
+ * Los temas usaban la paleta de serie de Tailwind — `pink-400` sobre
+ * `pink-500/20`, y así los seis — que no es del sistema y no cambia con el
+ * tema. Medían 1.9:1, ilegibles.
+ *
+ * El sistema no tiene seis tintes decorativos: sus variantes de `Badge` son
+ * semánticas (accent, warm, success, warning, error) y usarlas para decorar
+ * haría que un tema llamado «Motivación» se pintara como un error. Todos van
+ * a `neutral`, que es la respuesta del sistema para una etiqueta sin carga
+ * semántica. El campo `color` de cada tema queda sin efecto por ahora.
+ */
+const NEUTRAL = badgeVariants({ variant: "neutral" });
+
 export const topicColors: Record<Topic["color"], string> = {
-  blue: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  green: "bg-green-500/20 text-green-400 border-green-500/30",
-  purple: "bg-purple-500/20 text-purple-400 border-purple-500/30",
-  orange: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-  pink: "bg-pink-500/20 text-pink-400 border-pink-500/30",
-  cyan: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
+  blue: NEUTRAL,
+  green: NEUTRAL,
+  purple: NEUTRAL,
+  orange: NEUTRAL,
+  pink: NEUTRAL,
+  cyan: NEUTRAL,
 };
 
 /**
- * Iconos de plataformas (SVG paths)
+ * Iconos de plataformas.
+ *
+ * Eran cinco `<path>` pegados a mano —el logo de Spotify escrito entero, en una
+ * sola línea de 700 caracteres— que nadie podía revisar y que dibujaban a un
+ * trazo que no es el de nadie. Ahora son los de Phosphor, que es el set que la
+ * librería adopta: llegan como componentes y se dibujan con `Icon`, a 1em y al
+ * peso que el sistema fija.
+ *
+ * El mapa vive aquí y no en las páginas porque `Platform["icon"]` es un dato del
+ * episodio: quien añade una plataforma escribe su nombre en este archivo y aquí
+ * mismo está lo que se pinta.
  */
-export const platformIcons: Record<Platform["icon"], string> = {
-  spotify:
-    "M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z",
-  youtube:
-    "M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z",
-  apple:
-    "M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z",
-  google:
-    "M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12c6.627 0 12-5.373 12-12S18.627 0 12 0zm.14 19.018c-3.868 0-7-3.14-7-7.018s3.132-7.018 7-7.018c1.89 0 3.47.697 4.682 1.829l-1.974 1.978v-.004c-.735-.702-1.667-1.062-2.708-1.062-2.31 0-4.187 1.956-4.187 4.273 0 2.315 1.877 4.277 4.187 4.277 2.096 0 3.522-1.202 3.816-2.852H12.14v-2.737h6.585c.088.47.135.96.135 1.474 0 4.01-2.677 6.86-6.72 6.86z",
-  anchor:
-    "M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 4c1.105 0 2 .895 2 2s-.895 2-2 2-2-.895-2-2 .895-2 2-2zm5 14h-3v-4c0-1.105-.895-2-2-2s-2 .895-2 2v4h-3v-4c0-2.761 2.239-5 5-5s5 2.239 5 5v4z",
+export const platformIcons: Record<Platform["icon"], PhosphorIcon> = {
+  spotify: SpotifyLogoIcon,
+  youtube: YoutubeLogoIcon,
+  apple: ApplePodcastsLogoIcon,
+  google: GooglePodcastsLogoIcon,
+  anchor: AnchorIcon,
 };
+
+/**
+ * Si la sección existe para el público.
+ *
+ * En `false` el podcast desaparece por las dos puertas: sale de la navegación
+ * y sus rutas dejan de existir —`/podcasts` responde 404 y no se construye
+ * ninguna página de episodio— así que tampoco se llega escribiendo la URL ni
+ * desde un buscador que la hubiera indexado.
+ *
+ * Está apagada porque los episodios de abajo son datos de prueba: el audio
+ * apunta a `soundhelix.com`, los enlaces de plataforma son `mock1`, y los
+ * invitados son personas inventadas con cargo y empresa reales. Publicar eso
+ * no es una sección a medias, es información falsa sobre gente que existe.
+ *
+ * Para encenderla: poner `true` cuando haya un episodio real, y devolver
+ * `prerender = true` en `src/pages/podcasts/index.astro`, que mientras tanto
+ * se sirve en tiempo de petición para poder responder 404.
+ */
+export const podcastsEnabled = false;
 
 /**
  * Datos mock de episodios de podcast

@@ -24,6 +24,17 @@ extend-exclude = [
 "foto" = "foto"
 "clase" = "clase"
 
+# Palabras en español que el diccionario inglés toma por erratas. El código de
+# este repositorio comenta en español, así que cada una que aparece hay que
+# declararla acá: `typos` no sabe de idiomas, compara contra un diccionario.
+"clases" = "clases"
+"decorativos" = "decorativos"
+"decorativas" = "decorativas"
+"expresion" = "expresion"
+"importan" = "importan"
+"posible" = "posible"
+"posibles" = "posibles"
+
 # Spanish nouns flagged as English words
 "cliente" = "cliente"
 "Cliente" = "Cliente"
@@ -49,6 +60,7 @@ extend-exclude = [
 "problemas" = "problemas"
 "tendencias" = "tendencias"
 "variantes" = "variantes"
+"variante" = "variante"
 "argumentos" = "argumentos"
 "caracteres" = "caracteres"
 "momentos" = "momentos"
@@ -88,6 +100,7 @@ extend-exclude = [
 "comparte" = "comparte"
 "Comparte" = "Comparte"
 "excede" = "excede"
+"responde" = "responde"
 
 # Spanish nouns (technical / domain)
 "funcion" = "funcion"
@@ -100,6 +113,7 @@ extend-exclude = [
 "inercia" = "inercia"
 "confort" = "confort"
 "aprox" = "aprox"
+"manifiesto" = "manifiesto"
 
 # Spanish proper nouns / display labels
 "Patrones" = "Patrones"
@@ -118,3 +132,42 @@ extend-exclude = [
 "corporativo" = "corporativo"
 "cursos" = "cursos"
 "Cursos" = "Cursos"
+
+# Identificadores en español del sistema de diseño v1 (clases CSS y props).
+# `typos` los estaba "corrigiendo" dentro del CSS y rompía los selectores en
+# silencio: `hero-portada` quedó como `hero-portad` y `seccion-newsletter`
+# como `section-newsletter`, así que las reglas dejaban de aplicar sin ningún
+# error visible. Si se añade una clase nueva en español, va también acá.
+"portada" = "portada"
+"Portada" = "Portada"
+"seccion" = "seccion"
+"Seccion" = "Seccion"
+"categoria" = "categoria"
+"Categoria" = "Categoria"
+"pagina" = "pagina"
+"Pagina" = "Pagina"
+"bajada" = "bajada"
+"titular" = "titular"
+"migas" = "migas"
+"indice" = "indice"
+"promesa" = "promesa"
+"ilustracion" = "ilustracion"
+"escritorio" = "escritorio"
+"espuma" = "espuma"
+"aleta" = "aleta"
+"casco" = "casco"
+"tema" = "tema"
+"claro" = "claro"
+"oscuro" = "oscuro"
+"marca" = "marca"
+"encabezado" = "encabezado"
+"tarjeta" = "tarjeta"
+"campo" = "campo"
+"aviso" = "aviso"
+"arena" = "arena"
+
+# Dos más que el diccionario inglés toma por erratas: «normales» por `normals`
+# e «ignora» por `ignore`. La primera está en un comentario de la página de
+# episodio, la segunda en el nombre de un test.
+"normales" = "normales"
+"ignora" = "ignora"

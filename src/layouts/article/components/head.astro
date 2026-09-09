@@ -1,5 +1,8 @@
 ---
-import { Icon } from "../../../assets/icons";
+import { CategoryBadge, Text } from "@eduardoalvarez/arrecife";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { GithubLogoIcon } from "@phosphor-icons/react";
+
 import type { CategoryAllowed } from "../../../interfaces";
 import { CategoryMap } from "../../../utils/categories";
 import { githubArticlePath } from "../../../utils/articles";
@@ -8,39 +11,60 @@ import { prettyDate } from "../../../utils/date";
 const { content } = Astro.props;
 ---
 
-<header class="pb-10 border-b border-surface-border">
-  <!-- Category badges -->
+<header class="pb-step-lg border-hairline border-b">
+  {/*
+    `CategoryBadge`, which is the component the system publishes for exactly
+    this. It was `badgeVariants({ variant: "warm" })` with `uppercase
+    tracking-wider` bolted on: the sand tint was right, but the shape was the
+    status badge's and the transform was invented here. The article cards on
+    /articles already draw their category with `CategoryBadge`, so the same tag
+    had two shapes depending on where you read it.
+  */}
   {
     content.categories && content.categories.length > 0 && (
-      <div class="flex flex-wrap gap-2 mb-5">
+      <div class="gap-step-xs mb-step-md flex flex-wrap">
         {content.categories.map((category: CategoryAllowed) => (
-          <span class="px-2.5 py-0.5 text-xs font-medium rounded bg-accent-subtle text-accent uppercase tracking-wider">
-            {CategoryMap.get(category) ?? category}
-          </span>
+          <CategoryBadge>{CategoryMap.get(category) ?? category}</CategoryBadge>
         ))}
       </div>
     )
   }
 
   <!-- Title -->
-  <h1 id="article-title" class="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary leading-tight tracking-tight mb-5">
+  <h1 id="article-title" class="text-text-primary mb-step-md">
     {content.title}
   </h1>
 
   <!-- Meta -->
-  <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-text-muted">
+  <div class="gap-x-step-md gap-y-step-xs flex flex-wrap items-center">
     <time datetime={content.date}>
-      {prettyDate(content.date)}
+      <Text variant="meta" tone="muted" as="span">{prettyDate(content.date)}</Text>
     </time>
-    <span class="text-surface-border">·</span>
+    {/*
+      The separator only exists while the two items share a line. On a phone the
+      meta wraps and the row's own `gap` does the separating, so the dot was left
+      hanging at the end of the date's line with nothing after it.
+    */}
+    <Text variant="meta" tone="muted" as="span" aria-hidden="true" className="hidden sm:inline">·</Text>
+    {/*
+      Phosphor's `GithubLogoIcon`, drawn through the library's `Icon` — the same mark
+      the footer and the share buttons carry, at the same weight.
+
+      It renders here as a React element and not as markup through `socialSvg`.
+      That was the cheaper path while the glyph was a shape: `./social/data`
+      hands over a string and needs no renderer. Phosphor publishes components
+      and nothing else, and Astro renders this one on the server with no client
+      directive, so the page still ships no JavaScript for it — the cost is a
+      render at build, not a byte in the bundle.
+    */}
     <a
-      class="flex items-center gap-1 text-accent hover:underline transition-colors duration-200"
+      class="gap-step-xs text-meta font-mono text-accent transition-standard focus-ring inline-flex items-center hover:underline"
       href={githubArticlePath(content.slug)}
       target="_blank"
       rel="noopener noreferrer"
     >
       ¿Ves una errata? Edita en GitHub
-      <Icon.GitHub />
+      <Icon as={GithubLogoIcon} />
     </a>
   </div>
 </header>
