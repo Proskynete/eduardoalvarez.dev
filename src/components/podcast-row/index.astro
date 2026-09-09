@@ -1,0 +1,105 @@
+---
+import { Badge, CARD_HOVER, CARD_SURFACE, Text } from "@eduardoalvarez/arrecife";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { CaretRight } from "@phosphor-icons/react";
+
+import type { PodcastEpisode } from "../../settings/podcasts";
+import { formatDuration, formatGuests } from "../../utils/podcasts";
+
+export interface Props {
+  episode: PodcastEpisode;
+  /** Marca el episodio más reciente del listado. Sólo uno la lleva. */
+  latest?: boolean;
+}
+
+const { episode, latest = false } = Astro.props;
+
+const shortDate = new Date(episode.date).toLocaleDateString("es-ES", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+
+/**
+ * La meta se arma como UNA cadena y no como expresiones sueltas separadas por
+ * espacios: `compressHTML` colapsa el espacio entre dos expresiones adyacentes
+ * —el mismo defecto que la barra lateral del artículo arrastraba— y aquí
+ * dejaría «1h 18mincon María González».
+ *
+ * Los segmentos se filtran antes de unirse para que un episodio sin invitados
+ * no se quede con un `·` colgando al final.
+ */
+const meta = [formatDuration(episode.duration), formatGuests(episode.guests)].filter(Boolean).join(" · ");
+
+/** Dos dígitos para que la columna de números quede a plomo: `05` sobre `04`. */
+const number = String(episode.episode).padStart(2, "0");
+---
+
+{/*
+  La fila del índice.
+
+  El contenedor es el `<a>` y no una `Card` con un enlace dentro: el destino es
+  uno solo, así que toda la superficie debe llevar a él. `CARD_SURFACE` y
+  `CARD_HOVER` son los tokens que la librería publica para esto —superficie,
+  hairline, radio y el hover del borde— y se componen aquí en lugar de usar
+  `CARD` entero porque ese incluye `block` y esta fila es `flex`.
+
+  El hover no mueve nada: cambian el borde y el color del número, del título y
+  del caret. Es la regla del sistema, y además evita el salto de layout que
+  provoca desplazar un icono al pasar el ratón.
+*/}
+<a
+  href={`/podcasts/${episode.slug}`}
+  class:list={["group gap-step-md p-step-md focus-ring flex cursor-pointer items-start", CARD_SURFACE, CARD_HOVER]}
+>
+  {/*
+    El número se pinta grande y se oculta al lector de pantalla, que recibe la
+    misma información en palabras al principio del nombre accesible del enlace.
+    Sin esto, un lector anuncia «cero cinco» antes del título.
+  */}
+  <span class="sr-only">Episodio {episode.episode}.</span>
+
+  <span
+    aria-hidden="true"
+    class="border-hairline pr-step-md text-text-muted group-hover:text-accent transition-standard shrink-0 self-stretch border-r font-mono text-xl tabular-nums sm:text-2xl"
+  >
+    {number}
+  </span>
+
+  <span class="gap-step-xs flex min-w-0 flex-1 flex-col">
+    {/*
+      En móvil la marca va ENCIMA del título y no a su derecha. Compartiendo
+      línea le robaba unos 90 de los 250px disponibles y partía el título en
+      tres renglones; arriba ocupa una línea suya, etiqueta la fila y deja el
+      título entero. Desde `sm` vuelve a la derecha, que es donde se lee como
+      un estado y no como un encabezado.
+    */}
+    <span class="gap-step-xs sm:gap-step-sm flex flex-col sm:flex-row sm:items-start sm:justify-between">
+      {latest && (
+        <Badge variant="accent" className="order-first shrink-0 self-start sm:order-last sm:mt-0.5">
+          Último
+        </Badge>
+      )}
+      <Text as="h3" variant="ui" className="group-hover:text-accent transition-standard font-medium">
+        {episode.title}
+      </Text>
+    </span>
+
+    <Text variant="meta" tone="muted" as="span">
+      <time datetime={episode.date}>{shortDate}</time>{` · ${meta}`}
+    </Text>
+
+    {/*
+      El resumen va en `secondary` y no en `muted`: `muted` sobre `surface` mide
+      4.52:1, dos centésimas por encima del mínimo AA, y esta es la línea más
+      larga de la fila. La meta sí se queda en muted — es dato, no prosa.
+    */}
+    <Text variant="label" tone="secondary" as="span" className="line-clamp-1 sm:line-clamp-2">
+      {episode.description}
+    </Text>
+  </span>
+
+  <span class="text-text-muted group-hover:text-accent transition-standard shrink-0 self-center">
+    <Icon as={CaretRight} />
+  </span>
+</a>
