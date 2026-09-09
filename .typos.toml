@@ -165,3 +165,9 @@ extend-exclude = [
 "campo" = "campo"
 "aviso" = "aviso"
 "arena" = "arena"
+
+# Dos más que el diccionario inglés toma por erratas: «normales» por `normals`
+# e «ignora» por `ignore`. La primera está en un comentario de la página de
+# episodio, la segunda en el nombre de un test.
+"normales" = "normales"
+"ignora" = "ignora"
