@@ -2,13 +2,13 @@ import { Footer } from "@eduardoalvarez/arrecife";
 import { Isotype } from "@eduardoalvarez/arrecife/brand";
 import { Icon } from "@eduardoalvarez/arrecife/icons";
 import {
-  BellSimple,
-  EnvelopeSimple,
-  GithubLogo,
-  InstagramLogo,
-  LinkedinLogo,
-  RssSimple,
-  XLogo,
+  BellSimpleIcon,
+  EnvelopeSimpleIcon,
+  GithubLogoIcon,
+  InstagramLogoIcon,
+  LinkedinLogoIcon,
+  RssSimpleIcon,
+  XLogoIcon,
 } from "@phosphor-icons/react";
 
 /**
@@ -43,18 +43,18 @@ export default function SiteFooter() {
    * catches first in a footer. One pen for all seven, at the weight `Icon`
    * fixes.
    *
-   * `BellSimple` is the newsletter for the same reason the library's own
+   * `BellSimpleIcon` is the newsletter for the same reason the library's own
    * `Newsletter` is a bell: it is a way to follow, not a network, and there is
    * no logo to be faithful to.
    */
   const networks = [
-    { label: "GitHub", href: "https://github.com/Proskynete", icon: <Icon as={GithubLogo} /> },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/eduardoalvarezc/", icon: <Icon as={LinkedinLogo} /> },
-    { label: "X", href: "https://twitter.com/proskynete", icon: <Icon as={XLogo} /> },
-    { label: "Instagram", href: "https://www.instagram.com/eduardoalvarez.dev", icon: <Icon as={InstagramLogo} /> },
-    { label: "RSS", href: "/rss.xml", icon: <Icon as={RssSimple} /> },
-    { label: "Correo", href: "mailto:soy@eduardoalvarez.dev", icon: <Icon as={EnvelopeSimple} /> },
-    { label: "Newsletter", href: "/newsletter", icon: <Icon as={BellSimple} /> },
+    { label: "GitHub", href: "https://github.com/Proskynete", icon: <Icon as={GithubLogoIcon} /> },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/eduardoalvarezc/", icon: <Icon as={LinkedinLogoIcon} /> },
+    { label: "X", href: "https://twitter.com/proskynete", icon: <Icon as={XLogoIcon} /> },
+    { label: "Instagram", href: "https://www.instagram.com/eduardoalvarez.dev", icon: <Icon as={InstagramLogoIcon} /> },
+    { label: "RSS", href: "/rss.xml", icon: <Icon as={RssSimpleIcon} /> },
+    { label: "Correo", href: "mailto:soy@eduardoalvarez.dev", icon: <Icon as={EnvelopeSimpleIcon} /> },
+    { label: "Newsletter", href: "/newsletter", icon: <Icon as={BellSimpleIcon} /> },
   ];
 
   return (

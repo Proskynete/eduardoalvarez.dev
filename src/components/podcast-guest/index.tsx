@@ -1,6 +1,6 @@
 import { AuthorCard, buttonVariants } from "@eduardoalvarez/arrecife";
 import { Icon } from "@eduardoalvarez/arrecife/icons";
-import { LinkedinLogo, XLogo } from "@phosphor-icons/react";
+import { LinkedinLogoIcon, XLogoIcon } from "@phosphor-icons/react";
 
 export interface Props {
   name: string;
@@ -28,8 +28,8 @@ export interface Props {
  */
 export default function PodcastGuest({ name, role, company, linkedin, twitter, className }: Props) {
   const links = [
-    ...(linkedin ? [{ label: "LinkedIn", href: linkedin, icon: <Icon as={LinkedinLogo} /> }] : []),
-    ...(twitter ? [{ label: "X", href: twitter, icon: <Icon as={XLogo} /> }] : []),
+    ...(linkedin ? [{ label: "LinkedIn", href: linkedin, icon: <Icon as={LinkedinLogoIcon} /> }] : []),
+    ...(twitter ? [{ label: "X", href: twitter, icon: <Icon as={XLogoIcon} /> }] : []),
   ];
 
   return (

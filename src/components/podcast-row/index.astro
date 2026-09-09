@@ -1,7 +1,7 @@
 ---
 import { Badge, CARD_HOVER, CARD_SURFACE, Text } from "@eduardoalvarez/arrecife";
 import { Icon } from "@eduardoalvarez/arrecife/icons";
-import { CaretRight } from "@phosphor-icons/react";
+import { CaretRightIcon } from "@phosphor-icons/react";
 
 import type { PodcastEpisode } from "../../settings/podcasts";
 import { formatDuration, formatGuests } from "../../utils/podcasts";
@@ -100,6 +100,6 @@ const number = String(episode.episode).padStart(2, "0");
   </span>
 
   <span class="text-text-muted group-hover:text-accent transition-standard shrink-0 self-center">
-    <Icon as={CaretRight} />
+    <Icon as={CaretRightIcon} />
   </span>
 </a>

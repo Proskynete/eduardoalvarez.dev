@@ -1,6 +1,6 @@
 import { Button } from "@eduardoalvarez/arrecife";
 import { Icon } from "@eduardoalvarez/arrecife/icons";
-import { MagnifyingGlass, X } from "@phosphor-icons/react";
+import { MagnifyingGlassIcon, XIcon } from "@phosphor-icons/react";
 
 interface SearchToggleButtonProps {
   isInputVisible: boolean;
@@ -30,7 +30,7 @@ export default function SearchToggleButton({ isInputVisible, onToggle }: SearchT
       aria-label={isInputVisible ? "Cerrar la búsqueda" : "Buscar"}
       aria-expanded={isInputVisible}
     >
-      <Icon as={isInputVisible ? X : MagnifyingGlass} />
+      <Icon as={isInputVisible ? XIcon : MagnifyingGlassIcon} />
     </Button>
   );
 }

@@ -1,3 +1,5 @@
+import { podcastsEnabled } from "../../../../../settings/podcasts";
+
 export interface NavItem {
   name: string;
   href: string;
@@ -32,16 +34,13 @@ export const navItems: NavItem[] = [
   },
   {
     /**
-     * `show` is the section's only switch, and it is on with the episodes in
-     * `settings/podcasts.ts` still being fixtures: SoundHelix demo audio,
-     * `spotify.com/episode/mock1` links and guests who do not exist. That is
-     * deliberate — the section is navigable so it can be reviewed on the
-     * preview — and it is the flag to flip back before this reaches main with
-     * invented people on it.
+     * The podcast follows `podcastsEnabled`, and there is no second switch to
+     * forget: the same flag that takes this link out of the bar and the drawer
+     * makes the routes stop existing. See `settings/podcasts.ts`.
      */
     name: "Podcast",
     href: "/podcasts",
-    show: true,
+    show: podcastsEnabled,
     description: "Episodios y charlas en audio",
   },
 ];

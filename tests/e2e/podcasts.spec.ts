@@ -1,5 +1,40 @@
 import { expect, test } from "@playwright/test";
 
+import { podcastsEnabled } from "../../src/settings/podcasts";
+
+/**
+ * La sección tiene una llave, y estos tests la siguen.
+ *
+ * Con `podcastsEnabled` en `false` lo único que hay que comprobar es que está
+ * cerrada: nada de nav, nada de rutas. El resto de la suite —el índice y la
+ * página de episodio— queda saltada, no borrada, porque describe el diseño que
+ * vuelve entero en cuanto haya un episodio real.
+ */
+test.describe("Sección de podcasts oculta", () => {
+  test.skip(podcastsEnabled, "La sección está publicada: aplican los tests de abajo.");
+
+  test("no hay enlace en la navegación", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("link", { name: /podcast/i })).toHaveCount(0);
+  });
+
+  test("el listado no existe ni escribiendo la URL", async ({ page }) => {
+    const response = await page.goto("/podcasts");
+    expect(response?.status()).toBe(404);
+  });
+
+  test("ningún episodio existe", async ({ page }) => {
+    const response = await page.goto("/podcasts/de-junior-a-senior");
+    expect(response?.status()).toBe(404);
+  });
+
+  test("no queda rastro en el sitemap", async ({ request }) => {
+    const sitemap = await request.get("/sitemap-0.xml");
+    if (!sitemap.ok()) test.skip(true, "El sitemap sólo existe en el build.");
+    expect(await sitemap.text()).not.toContain("/podcasts");
+  });
+});
+
 /**
  * El listado de podcasts es un índice, y estos tests defienden justamente eso:
  * que no vuelva a crecer hasta replicar la página de episodio, que es de donde
@@ -7,6 +42,8 @@ import { expect, test } from "@playwright/test";
  * listado sí hacía antes.
  */
 test.describe("Listado de podcasts", () => {
+  test.skip(!podcastsEnabled, "La sección está oculta hasta que haya un podcast real.");
+
   test.beforeEach(async ({ page }) => {
     await page.goto("/podcasts");
   });
@@ -69,6 +106,8 @@ test.describe("Listado de podcasts", () => {
  * los invitados detrás de las notas.
  */
 test.describe("Episodio de podcast", () => {
+  test.skip(!podcastsEnabled, "La sección está oculta hasta que haya un podcast real.");
+
   test.beforeEach(async ({ page }) => {
     await page.goto("/podcasts/de-junior-a-senior");
   });

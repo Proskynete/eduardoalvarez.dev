@@ -1,3 +1,7 @@
+> **Superseded por `hide-podcast-section`.** Este delta puso el podcast en la
+> navegación; la sección se volvió a apagar mientras sus episodios sigan siendo
+> datos de prueba. Al archivar, manda el delta de `hide-podcast-section`.
+
 ## MODIFIED Requirements
 
 ### Requirement: Primary navigation structure

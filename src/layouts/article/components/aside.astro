@@ -1,7 +1,7 @@
 ---
 import { Badge, Card, TableOfContents, Text, buttonVariants } from "@eduardoalvarez/arrecife";
 import { Icon } from "@eduardoalvarez/arrecife/icons";
-import { CaretRight, LinkedinLogo, XLogo } from "@phosphor-icons/react";
+import { CaretRightIcon, LinkedinLogoIcon, XLogoIcon } from "@phosphor-icons/react";
 
 import TextLink from "../../../components/text-link/index.astro";
 import type { TagsAllowed } from "../../../interfaces";
@@ -70,9 +70,9 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           target="_blank"
           rel="nofollow noopener noreferrer"
           class={buttonVariants({ variant: "secondary", size: "icon-sm" })}
-          aria-label="Compartir en X"
+          aria-label="Compartir en XIcon"
         >
-          <Icon as={XLogo} />
+          <Icon as={XLogoIcon} />
         </a>
         <a
           href={linkedInShare}
@@ -81,7 +81,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           class={buttonVariants({ variant: "secondary", size: "icon-sm" })}
           aria-label="Compartir en LinkedIn"
         >
-          <Icon as={LinkedinLogo} />
+          <Icon as={LinkedinLogoIcon} />
         </a>
       </div>
     </div>
@@ -110,7 +110,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           {/* The caret turns with the disclosure. Pointing right while the list
               is open said the opposite of what the control had just done. */}
           <span class="text-accent transition-standard inline-flex group-open:rotate-90">
-            <Icon as={CaretRight} />
+            <Icon as={CaretRightIcon} />
           </span>
         </summary>
         {/*
@@ -201,9 +201,9 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           target="_blank"
           rel="nofollow noopener noreferrer"
           class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
-          aria-label="Compartir en X"
+          aria-label="Compartir en XIcon"
         >
-          <Icon as={XLogo} />
+          <Icon as={XLogoIcon} />
         </a>
         <a
           href={linkedInShare}
@@ -212,7 +212,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
           aria-label="Compartir en LinkedIn"
         >
-          <Icon as={LinkedinLogo} />
+          <Icon as={LinkedinLogoIcon} />
         </a>
       </div>
     </Card>

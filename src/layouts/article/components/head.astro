@@ -1,7 +1,7 @@
 ---
 import { CategoryBadge, Text } from "@eduardoalvarez/arrecife";
 import { Icon } from "@eduardoalvarez/arrecife/icons";
-import { GithubLogo } from "@phosphor-icons/react";
+import { GithubLogoIcon } from "@phosphor-icons/react";
 
 import type { CategoryAllowed } from "../../../interfaces";
 import { CategoryMap } from "../../../utils/categories";
@@ -47,7 +47,7 @@ const { content } = Astro.props;
     */}
     <Text variant="meta" tone="muted" as="span" aria-hidden="true" className="hidden sm:inline">·</Text>
     {/*
-      Phosphor's `GithubLogo`, drawn through the library's `Icon` — the same mark
+      Phosphor's `GithubLogoIcon`, drawn through the library's `Icon` — the same mark
       the footer and the share buttons carry, at the same weight.
 
       It renders here as a React element and not as markup through `socialSvg`.
@@ -64,7 +64,7 @@ const { content } = Astro.props;
       rel="noopener noreferrer"
     >
       ¿Ves una errata? Edita en GitHub
-      <Icon as={GithubLogo} />
+      <Icon as={GithubLogoIcon} />
     </a>
   </div>
 </header>

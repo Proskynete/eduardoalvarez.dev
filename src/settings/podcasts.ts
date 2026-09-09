@@ -1,11 +1,11 @@
 import { badgeVariants } from "@eduardoalvarez/arrecife";
 import {
-  Anchor,
-  ApplePodcastsLogo,
-  GooglePodcastsLogo,
+  AnchorIcon,
+  ApplePodcastsLogoIcon,
+  GooglePodcastsLogoIcon,
   type Icon as PhosphorIcon,
-  SpotifyLogo,
-  YoutubeLogo,
+  SpotifyLogoIcon,
+  YoutubeLogoIcon,
 } from "@phosphor-icons/react";
 import type { ImageMetadata } from "astro";
 
@@ -109,12 +109,31 @@ export const topicColors: Record<Topic["color"], string> = {
  * mismo está lo que se pinta.
  */
 export const platformIcons: Record<Platform["icon"], PhosphorIcon> = {
-  spotify: SpotifyLogo,
-  youtube: YoutubeLogo,
-  apple: ApplePodcastsLogo,
-  google: GooglePodcastsLogo,
-  anchor: Anchor,
+  spotify: SpotifyLogoIcon,
+  youtube: YoutubeLogoIcon,
+  apple: ApplePodcastsLogoIcon,
+  google: GooglePodcastsLogoIcon,
+  anchor: AnchorIcon,
 };
+
+/**
+ * Si la sección existe para el público.
+ *
+ * En `false` el podcast desaparece por las dos puertas: sale de la navegación
+ * y sus rutas dejan de existir —`/podcasts` responde 404 y no se construye
+ * ninguna página de episodio— así que tampoco se llega escribiendo la URL ni
+ * desde un buscador que la hubiera indexado.
+ *
+ * Está apagada porque los episodios de abajo son datos de prueba: el audio
+ * apunta a `soundhelix.com`, los enlaces de plataforma son `mock1`, y los
+ * invitados son personas inventadas con cargo y empresa reales. Publicar eso
+ * no es una sección a medias, es información falsa sobre gente que existe.
+ *
+ * Para encenderla: poner `true` cuando haya un episodio real, y devolver
+ * `prerender = true` en `src/pages/podcasts/index.astro`, que mientras tanto
+ * se sirve en tiempo de petición para poder responder 404.
+ */
+export const podcastsEnabled = false;
 
 /**
  * Datos mock de episodios de podcast

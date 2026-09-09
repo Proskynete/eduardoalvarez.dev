@@ -1,7 +1,7 @@
 ---
 import { buttonVariants } from "@eduardoalvarez/arrecife";
 import { Icon } from "@eduardoalvarez/arrecife/icons";
-import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 
 /**
  * The mono text link that closes a section: `./ver_todos →`.
@@ -37,7 +37,7 @@ const { href, back = false, class: className = "" } = Astro.props;
   href={href}
   class:list={[buttonVariants({ variant: "tertiary", size: "sm" }), className]}
 >
-  {back && <Icon as={ArrowLeft} />}
+  {back && <Icon as={ArrowLeftIcon} />}
   <slot />
-  {!back && <Icon as={ArrowRight} />}
+  {!back && <Icon as={ArrowRightIcon} />}
 </a>

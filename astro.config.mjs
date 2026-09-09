@@ -89,7 +89,15 @@ export default defineConfig({
     sitemap({
       filter(page) {
         const pathname = new URL(page).pathname;
-        return !pathname.startsWith("/resources") && !pathname.startsWith("/cdn-cgi");
+        // `/podcasts` sale del sitemap mientras `podcastsEnabled` esté en
+        // `false` (ver `src/settings/podcasts.ts`): sus rutas responden 404, y
+        // anunciar una puerta cerrada es pedirle a Google que la empuje. La
+        // condición se va cuando se encienda la sección.
+        return (
+          !pathname.startsWith("/resources") &&
+          !pathname.startsWith("/cdn-cgi") &&
+          !pathname.startsWith("/podcasts")
+        );
       },
       serialize(item) {
         const pathname = new URL(item.url).pathname.replace(/\/$/, "");

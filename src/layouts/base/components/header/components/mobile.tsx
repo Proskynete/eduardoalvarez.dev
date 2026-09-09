@@ -11,7 +11,7 @@ import {
 } from "@eduardoalvarez/arrecife";
 import { Logo } from "@eduardoalvarez/arrecife/brand";
 import { Icon } from "@eduardoalvarez/arrecife/icons";
-import { List } from "@phosphor-icons/react";
+import { ListIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 
 import { trackEvent } from "../../../../../utils/analytics";
@@ -48,7 +48,7 @@ export default function Mobile({ version, pathname }: MobileProps) {
           en `<body>` y el teclado tenía que recorrer la página entera. */}
       <SheetTrigger asChild>
         <Button variant="tertiary" size="icon-sm" aria-label="Abrir menú de navegación" className="sm:hidden">
-          <Icon as={List} />
+          <Icon as={ListIcon} />
         </Button>
       </SheetTrigger>
 

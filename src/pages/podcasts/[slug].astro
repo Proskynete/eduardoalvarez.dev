@@ -8,7 +8,7 @@ import {
   buttonVariants,
 } from "@eduardoalvarez/arrecife";
 import { Icon } from "@eduardoalvarez/arrecife/icons";
-import { ArrowLeft, ArrowRight, LinkedinLogo, XLogo } from "@phosphor-icons/react";
+import { ArrowLeftIcon, ArrowRightIcon, LinkedinLogoIcon, XLogoIcon } from "@phosphor-icons/react";
 import { Image } from "astro:assets";
 import { marked } from "marked";
 
@@ -16,13 +16,20 @@ import AudioPlayer from "../../components/audio-player/index";
 import PodcastGuest from "../../components/podcast-guest/index";
 import PodcastGuestChips from "../../components/podcast-guest-chips/index";
 import Layout from "../../layouts/main/index.astro";
-import { platformIcons, podcasts } from "../../settings/podcasts";
+import { platformIcons, podcasts, podcastsEnabled } from "../../settings/podcasts";
 import type { PodcastEpisode } from "../../settings/podcasts";
-import { formatDuration, formatGuests, withHeadingAnchors } from "../../utils/podcasts";
+import { formatDuration, withHeadingAnchors } from "../../utils/podcasts";
 
 export const prerender = true;
 
+/**
+ * Sin rutas mientras la sección esté apagada: una ruta dinámica que no declara
+ * ningún camino no existe, así que `/podcasts/lo-que-sea` responde 404 sin
+ * necesidad de comprobar nada en tiempo de ejecución.
+ */
 export function getStaticPaths() {
+  if (!podcastsEnabled) return [];
+
   return podcasts
     .filter((podcast) => podcast.show)
     .map((podcast) => ({
@@ -31,11 +38,7 @@ export function getStaticPaths() {
     }));
 }
 
-interface Props {
-  podcast: PodcastEpisode;
-}
-
-const { podcast } = Astro.props;
+const { podcast } = Astro.props as { podcast: PodcastEpisode };
 
 /**
  * Las notas, con ancla en cada `<h2>`, y su índice.
@@ -71,13 +74,6 @@ const prettyDate = new Date(podcast.date).toLocaleDateString("es-ES", {
   month: "long",
   day: "numeric",
 });
-
-/**
- * La meta va como UNA cadena: `compressHTML` colapsa el espacio entre dos
- * expresiones adyacentes. Los segmentos se filtran antes de unirse para que un
- * episodio sin invitados no arrastre un `·` suelto.
- */
-const meta = [prettyDate, formatDuration(podcast.duration), formatGuests(podcast.guests)].filter(Boolean).join(" · ");
 
 const episodeUrl = `https://eduardoalvarez.dev/podcasts/${podcast.slug}`;
 const shareLinks = [
@@ -350,7 +346,7 @@ const shareLinks = [
                     class={buttonVariants({ variant: "secondary", size: "icon-sm" })}
                     aria-label={`Compartir en ${label}`}
                   >
-                    <Icon as={label === "X" ? XLogo : LinkedinLogo} />
+                    <Icon as={label === "X" ? XLogoIcon : LinkedinLogoIcon} />
                   </a>
                 ))
               }
@@ -377,7 +373,7 @@ const shareLinks = [
             class="group rounded-card border-hairline p-step-md gap-step-xs focus-ring flex cursor-pointer flex-col border bg-surface transition-standard hover:border-hairline-hover"
           >
             <Text variant="eyebrow" tone="muted" as="span" className="gap-step-xs flex items-center">
-              <Icon as={ArrowLeft} />
+              <Icon as={ArrowLeftIcon} />
               Episodio anterior
             </Text>
             <Text variant="ui" as="span" className="group-hover:text-accent transition-standard font-medium">
@@ -397,7 +393,7 @@ const shareLinks = [
           >
             <Text variant="eyebrow" tone="muted" as="span" className="gap-step-xs flex items-center sm:justify-end">
               Episodio siguiente
-              <Icon as={ArrowRight} />
+              <Icon as={ArrowRightIcon} />
             </Text>
             <Text variant="ui" as="span" className="group-hover:text-accent transition-standard font-medium">
               {newer.title}
@@ -409,7 +405,7 @@ const shareLinks = [
 
     <div class="pt-step-md">
       <a href="/podcasts" class={buttonVariants({ variant: "tertiary" })}>
-        <Icon as={ArrowLeft} />
+        <Icon as={ArrowLeftIcon} />
         Volver a todos los episodios
       </a>
     </div>

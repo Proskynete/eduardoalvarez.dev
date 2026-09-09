@@ -3,11 +3,21 @@ import { EmptyState, PageHeader, Text } from "@eduardoalvarez/arrecife";
 
 import PodcastRow from "../../components/podcast-row/index.astro";
 import Layout from "../../layouts/main/index.astro";
-import { podcasts } from "../../settings/podcasts";
+import { podcasts, podcastsEnabled } from "../../settings/podcasts";
 import type { PodcastEpisode } from "../../settings/podcasts";
 import { formatDuration, groupByYear, totalDuration } from "../../utils/podcasts";
 
-export const prerender = true;
+/**
+ * En tiempo de petición, no prerenderizada, MIENTRAS la sección esté apagada:
+ * una página estática siempre se emite, y lo que hace falta aquí es que la URL
+ * no exista. Cuando `podcastsEnabled` vuelva a `true` esto vuelve a
+ * `prerender = true` y el 404 de abajo se va con él.
+ */
+export const prerender = false;
+
+if (!podcastsEnabled) {
+  return new Response(null, { status: 404, statusText: "Not Found" });
+}
 
 const seo = {
   title: "Podcasts",
