@@ -1,7 +1,14 @@
 import { describe, expect, it } from "vitest";
 
 import type { PodcastEpisode } from "../../../src/settings/podcasts";
-import { formatDuration, formatGuests, groupByYear, totalDuration } from "../../../src/utils/podcasts";
+import {
+  formatDuration,
+  formatGuests,
+  groupByYear,
+  initials,
+  totalDuration,
+  withHeadingAnchors,
+} from "../../../src/utils/podcasts";
 
 type Guest = PodcastEpisode["guests"][number];
 
@@ -112,6 +119,57 @@ describe("podcasts utils", () => {
 
     it("devuelve lista vacía sin episodios", () => {
       expect(groupByYear([])).toEqual([]);
+    });
+  });
+
+  describe("initials", () => {
+    it("toma la inicial de nombre y apellido", () => {
+      expect(initials("Ana Rodríguez")).toBe("AR");
+    });
+
+    it("se queda en dos aunque haya más nombres", () => {
+      expect(initials("María del Carmen González")).toBe("MD");
+    });
+
+    it("aguanta un solo nombre", () => {
+      expect(initials("Cher")).toBe("C");
+    });
+
+    it("no rompe con espacios de más", () => {
+      expect(initials("  Carlos   Mendoza ")).toBe("CM");
+    });
+  });
+
+  describe("withHeadingAnchors", () => {
+    it("pone ancla en cada h2 y devuelve la lista", () => {
+      const { html, headings } = withHeadingAnchors("<h2>Introducción</h2><p>x</p><h2>Temas discutidos</h2>");
+
+      expect(headings).toEqual([
+        { id: "introduccion", label: "Introducción" },
+        { id: "temas-discutidos", label: "Temas discutidos" },
+      ]);
+      expect(html).toContain('<h2 id="introduccion">Introducción</h2>');
+      expect(html).toContain('<h2 id="temas-discutidos">Temas discutidos</h2>');
+    });
+
+    it("los id de la lista y los del html son los mismos", () => {
+      const { html, headings } = withHeadingAnchors("<h2>Consejos prácticos</h2>");
+      for (const heading of headings) expect(html).toContain(`id="${heading.id}"`);
+    });
+
+    it("respeta un id que ya venía puesto", () => {
+      const { html } = withHeadingAnchors('<h2 id="propio">Título</h2>');
+      expect(html).toBe('<h2 id="propio">Título</h2>');
+    });
+
+    it("ignora los h3 y el resto del contenido", () => {
+      const { headings } = withHeadingAnchors("<h3>Sub</h3><p>texto</p>");
+      expect(headings).toEqual([]);
+    });
+
+    it("limpia el marcado de dentro del encabezado", () => {
+      const { headings } = withHeadingAnchors("<h2><em>Libros</em> recomendados</h2>");
+      expect(headings[0].label).toBe("Libros recomendados");
     });
   });
 });

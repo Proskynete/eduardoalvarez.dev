@@ -41,3 +41,14 @@
 - [x] 6.1 `npm run build` con `astro check` en 0 errores
 - [x] 6.2 Unitarios y e2e en verde
 - [x] 6.3 Commit siguiendo conventional commits, referenciando este change
+
+## 7. Segunda pasada: componer, no sólo quitar
+
+- [x] 7.1 Componer el panel de escucha: número en mono, ruta, `<h1>`, meta, invitados y reproductor sobre el tinte de acento del sistema
+- [x] 7.2 Rejilla en el panel para que en móvil el número comparta fila con la ruta y el título ocupe el ancho entero
+- [x] 7.3 Crear `src/components/podcast-guest-chips/index.tsx` — `Avatar` es de Radix y su contexto no cruza una plantilla `.astro`
+- [x] 7.4 Pasar el reproductor a `compact` con `title`, y verificar que el flotante aparece al dejar atrás el panel
+- [x] 7.5 Añadir `withHeadingAnchors` e `initials` a `src/utils/podcasts.ts`, con tests
+- [x] 7.6 Renderizar el índice "En este episodio" con anclas reales
+- [x] 7.7 Añadir la navegación anterior/siguiente al pie
+- [x] 7.8 Ampliar los e2e: panel, flotante, anclas del índice y navegación entre episodios

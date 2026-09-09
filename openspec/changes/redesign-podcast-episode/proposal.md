@@ -20,6 +20,15 @@ Medido en `/podcasts/de-junior-a-senior` (390px, iPhone 14: 3790px de alto, 4,5 
 - **Los temas bajan a una fila de badges** bajo la meta, sin encabezado propio.
 - **El orden en móvil pasa a ser**: cabecera → reproductor → invitados → sobre el episodio → notas → plataformas → compartir → volver.
 
+## Segunda pasada
+
+La primera entrega quitó cosas —el hueco, la tarjeta del reproductor, la sección de temas— y no compuso ninguna, así que la página "se veía casi igual". Lo que faltaba no era quitar más, sino que el episodio se presentara como una pieza:
+
+- **Panel de escucha**: número de episodio en mono grande —el mismo ancla que marca cada fila del índice—, ruta, título, meta, invitados con cara y el reproductor, todo dentro del tinte de acento que el sitio ya usa para decir "aquí hay audio" en la narración de los artículos. Antes eran tres bloques apilados sin relación.
+- **El reproductor pasa a `compact`**: mismo control, pero con el flotante que la librería trae cuando el estático sale de la pantalla. En una página cuyo cuerpo son notas largas, `full` te obligaba a volver arriba para pausar.
+- **Índice de las notas**: las notas ya traían encabezados y se leían como un muro. Cada `<h2>` recibe ancla y la página lista los saltos. Sin datos nuevos: estaba escrito en el markdown desde el principio.
+- **Anterior y siguiente**: un episodio dejaba de ser una serie al llegar al final. Sale de la misma lista ordenada que usa el índice, a un `findIndex` de distancia.
+
 ## Capabilities
 
 ### New Capabilities

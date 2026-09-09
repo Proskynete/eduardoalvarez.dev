@@ -52,6 +52,36 @@ Ahora es la única vista del episodio, así que la primera pantalla tiene que re
 
 **Razón:** Los tres son features, no arreglos de diseño, y dos de ellos dependen de datos que no existen. La página tiene que ser buena con lo que hay antes de crecer.
 
+### D5 — El panel de escucha, en el tinte de acento del sitio
+
+**Decisión:** Cabecera y reproductor pasan a ser una sola unidad sobre `border-accent/25` y un degradado de acento al 8%.
+
+**Razón:** Es el lenguaje que este sitio ya tiene para el audio: la narración de los artículos usa exactamente ese panel. Reutilizarlo hace que el episodio se lea como audio antes de leer una palabra, sin inventar un componente ni pedir una portada.
+
+**El número grande es deliberado:** es el mismo `04` que ancla la fila del índice. Quien llega desde el listado reconoce lo que acaba de pulsar.
+
+### D6 — `compact` y no `banner`, aunque los dos traigan el flotante
+
+**Decisión:** El reproductor va en modo `compact` con `title`.
+
+**Razón:** `banner` rotula el bloque «NARRACIÓN DE AUDIO», que es copy del artículo con voz: aquí el audio no narra un texto, es el episodio. `compact` no rotula nada y su estático tampoco repite el título. El `title` se pasa igualmente porque el flotante sí lo necesita: cuando aparece, la cabecera ya salió de la pantalla.
+
+**Límite conocido de la librería:** el flotante es común a los dos modos y lleva la palabra «Narración» escrita a fuego, visible entre `sm` y `xl`. Debería ser un prop. Es de `arrecife`, no de este repo.
+
+### D7 — El índice de las notas sale del markdown, no de un campo nuevo
+
+**Decisión:** `withHeadingAnchors` inyecta `id` en cada `<h2>` del html que produce `marked` y devuelve la lista en el mismo recorrido.
+
+**Razón:** Las notas ya venían estructuradas. Pedir un campo `sections` en los datos sería duplicar lo que el markdown dice, y se desincronizaría al primer cambio. Los saltos son anclas normales: funcionan sin JavaScript y se pueden enlazar desde fuera.
+
+**Por qué el mismo recorrido:** si la lista y los `id` se generaran por separado, cualquier diferencia de slug rompe los anclajes en silencio.
+
+### D8 — Anterior y siguiente, que en el change anterior era non-goal
+
+**Decisión:** Se añade navegación entre episodios al pie.
+
+**Razón:** Se descartó por YAGNI cuando la página no era el problema. Ahora es la única vista del episodio, y terminar de escuchar sin nada que hacer después es un callejón. El dato no es nuevo: es la lista que el índice ya ordena.
+
 ## Risks / Trade-offs
 
 - **La página pierde su imagen de cabecera.** Si algún día hay portadas, la forma que las recibe es la de §D1 y no la banda; quien esperara el hero grande verá un cambio. Es el mismo trato que ya recibió el índice.

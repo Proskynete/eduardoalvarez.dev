@@ -1,4 +1,5 @@
 import type { PodcastEpisode } from "../settings/podcasts";
+import { clearString } from "./strings";
 
 /**
  * Lo que el índice de episodios necesita saber calcular.
@@ -63,4 +64,46 @@ export const groupByYear = (episodes: PodcastEpisode[]): EpisodeYear[] => {
       year,
       episodes: [...list].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
     }));
+};
+
+/** Las iniciales del invitado, como las dibuja `AuthorCard`: `Ana Rodríguez` → `AR`. */
+export const initials = (name: string): string =>
+  name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
+
+export interface EpisodeHeading {
+  id: string;
+  label: string;
+}
+
+/**
+ * El índice de las notas, sacado de los `<h2>` que produce `marked`.
+ *
+ * Las notas de un episodio traen su propia estructura —introducción, temas
+ * discutidos, recursos— y hasta ahora se leía como un muro. Esto NO añade un
+ * campo nuevo a los datos: lee lo que ya está escrito en el markdown y le pone
+ * un ancla a cada encabezado para poder saltar.
+ *
+ * Devuelve el html con los `id` inyectados junto a la lista, porque las dos
+ * cosas tienen que salir del mismo recorrido o los anclajes no coinciden.
+ */
+export const withHeadingAnchors = (html: string): { html: string; headings: EpisodeHeading[] } => {
+  const headings: EpisodeHeading[] = [];
+
+  const withIds = html.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/g, (match, attrs: string, inner: string) => {
+    if (attrs.includes("id=")) return match;
+
+    const label = inner.replace(/<[^>]+>/g, "").trim();
+    const id = clearString(label);
+    if (!label || !id) return match;
+
+    headings.push({ id, label });
+    return `<h2${attrs} id="${id}">${inner}</h2>`;
+  });
+
+  return { html: withIds, headings };
 };

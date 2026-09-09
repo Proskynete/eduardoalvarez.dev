@@ -1,16 +1,27 @@
 ---
-import { Badge, Breadcrumb, Card, CardContent, CardHeader, CardTitle, Separator, Text, buttonVariants } from "@eduardoalvarez/arrecife";
+import {
+  Badge,
+  Breadcrumb,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Separator,
+  Text,
+  buttonVariants,
+} from "@eduardoalvarez/arrecife";
 import { Icon } from "@eduardoalvarez/arrecife/icons";
-import { ArrowLeft, LinkedinLogo, XLogo } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight, LinkedinLogo, XLogo } from "@phosphor-icons/react";
 import { Image } from "astro:assets";
 import { marked } from "marked";
 
 import AudioPlayer from "../../components/audio-player/index";
 import PodcastGuest from "../../components/podcast-guest/index";
+import PodcastGuestChips from "../../components/podcast-guest-chips/index";
 import Layout from "../../layouts/main/index.astro";
 import { platformIcons, podcasts } from "../../settings/podcasts";
 import type { PodcastEpisode } from "../../settings/podcasts";
-import { formatDuration, formatGuests } from "../../utils/podcasts";
+import { formatDuration, formatGuests, withHeadingAnchors } from "../../utils/podcasts";
 
 export const prerender = true;
 
@@ -29,7 +40,28 @@ interface Props {
 
 const { podcast } = Astro.props;
 
-const contentHtml = await marked(podcast.content);
+/**
+ * Las notas, con ancla en cada `<h2>`, y su índice.
+ *
+ * El markdown ya venía estructurado —introducción, temas discutidos, recursos—
+ * y se renderizaba como un muro sin forma de saltar dentro. Los encabezados no
+ * son un campo nuevo en los datos: estaban escritos desde el principio.
+ */
+const { html: contentHtml, headings } = withHeadingAnchors(await marked(podcast.content));
+
+/**
+ * El episodio anterior y el siguiente, por fecha.
+ *
+ * Un episodio suelto no es una serie. La navegación entre ellos era un
+ * non-goal del change anterior por YAGNI, y el dato estaba ahí todo el tiempo:
+ * es la misma lista ya ordenada que usa el índice.
+ */
+const ordered = podcasts
+  .filter((item) => item.show)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const position = ordered.findIndex((item) => item.slug === podcast.slug);
+const newer = position > 0 ? ordered[position - 1] : undefined;
+const older = position >= 0 && position < ordered.length - 1 ? ordered[position + 1] : undefined;
 
 const seo = {
   title: `${podcast.title} | Podcast`,
@@ -79,73 +111,104 @@ const shareLinks = [
     />
 
     {/*
-      La cabecera es texto sobre la superficie de la página.
+      El panel de escucha: la pieza que la página no tenía.
 
-      Era una banda de 256px en móvil y 320 en escritorio, degradado de
-      `background` a `surface` con un velo negro encima y el título dentro, a la
-      espera de una portada que ningún episodio tiene. El índice ya se deshizo
-      de ese mismo hueco; dos vistas de la misma sección no pueden responder de
-      forma opuesta al mismo dato ausente.
+      Antes esto eran tres bloques sueltos —una cabecera de texto, un
+      reproductor y una fila de badges— apilados sin relación entre ellos, y por
+      eso el rediseño anterior «se veía casi igual»: había quitado cosas sin
+      componer nada. Ahora el episodio se presenta y se escucha en la misma
+      unidad, sobre el tinte de acento que este sitio ya usa para decir «aquí
+      hay audio» en la narración de los artículos.
 
-      Con el velo se fue la única excepción de color del archivo: el título
-      estaba fijado a blanco porque el degradado era negro en los dos temas, y
-      ahora vuelve a seguir el tema como todo lo demás.
+      El número grande en mono es el mismo ancla que marca cada fila del
+      índice: quien llega desde el listado reconoce el `04` que acaba de pulsar.
     */}
-    <header class="gap-step-lg mb-step-lg flex flex-col sm:flex-row sm:items-start">
-      {
-        podcast.image && (
-          <Image
-            src={podcast.image}
-            alt={`Portada del episodio ${podcast.episode}`}
-            class="rounded-card border-hairline w-full max-w-56 shrink-0 border object-cover"
-            width={448}
-            height={448}
-            widths={[224, 448]}
-            sizes="(max-width: 640px) 100vw, 224px"
-            format="webp"
-            loading="eager"
-            decoding="async"
-          />
-        )
-      }
-
-      <div class="gap-step-sm flex min-w-0 flex-col">
-        <div class="gap-step-sm flex flex-wrap items-center">
-          <Badge variant="accent">Episodio {podcast.episode}</Badge>
-          <Text variant="meta" tone="muted" as="span">
-            <time datetime={podcast.date}>{prettyDate}</time>{meta.slice(prettyDate.length)}
-          </Text>
-        </div>
-
-        <h1 class="text-text-primary">{podcast.title}</h1>
-
-        {/*
-          Los temas eran una sección con `h2` —al mismo nivel que las notas del
-          episodio— para pintar tres badges. Son metadatos del episodio, así que
-          viven donde el resto de sus metadatos.
-        */}
+    <section
+      class="rounded-panel border-accent/25 from-accent/[0.08] via-accent/[0.04] p-step-lg gap-step-md flex flex-col border bg-gradient-to-br to-transparent"
+      aria-labelledby="episode-title"
+    >
+      <div class="gap-step-md flex items-start">
         {
-          podcast.topics.length > 0 && (
-            <div class="gap-step-xs flex flex-wrap">
-              {podcast.topics.map((topic) => (
-                <Badge variant="neutral">{topic.name}</Badge>
-              ))}
-            </div>
+          podcast.image && (
+            <Image
+              src={podcast.image}
+              alt={`Portada del episodio ${podcast.episode}`}
+              class="rounded-card border-hairline hidden w-28 shrink-0 border object-cover sm:block"
+              width={224}
+              height={224}
+              widths={[112, 224]}
+              sizes="112px"
+              format="webp"
+              loading="eager"
+              decoding="async"
+            />
           )
         }
+
+        {/*
+          Rejilla y no dos columnas fijas: en móvil el número comparte fila con
+          la ruta y el título ocupa el ancho entero, que a 390px son 140px más y
+          dos renglones menos. Desde `sm` el número vuelve a ser la columna de
+          la izquierda, como en las filas del índice.
+        */}
+        <div class="gap-x-step-md gap-y-step-xs grid min-w-0 flex-1 grid-cols-[auto_1fr] items-start">
+          <span
+            aria-hidden="true"
+            class="text-accent/70 font-mono text-4xl leading-none tabular-nums sm:row-span-3 sm:text-5xl"
+          >
+            {String(podcast.episode).padStart(2, "0")}
+          </span>
+
+          <Text variant="eyebrow" tone="muted" as="p" className="self-center">
+            {`/podcasts/${podcast.slug}`}
+          </Text>
+
+          <h1 id="episode-title" class="text-text-primary col-span-2 sm:col-span-1 sm:col-start-2">
+            {podcast.title}
+          </h1>
+
+          <Text variant="meta" tone="muted" as="p" className="col-span-2 sm:col-span-1 sm:col-start-2">
+            <time datetime={podcast.date}>{prettyDate}</time>{` · ${formatDuration(podcast.duration)}`}
+          </Text>
+        </div>
       </div>
-    </header>
 
-    {/*
-      El reproductor, desnudo.
+      {/*
+        Los invitados, con cara y en la cabecera. Son la razón de escuchar una
+        entrevista y estaban en una tarjeta del raíl, debajo del pliegue. Aquí
+        identifican; las tarjetas con sus enlaces siguen abajo.
+      */}
+      <PodcastGuestChips guests={podcast.guests} />
 
-      Iba dentro de una `Card` con el encabezado «Escuchar episodio»: una
-      tarjeta y un título para un control que tiene un botón de play. Costaba
-      unos 90px antes de poder pulsarlo y repetía el título del episodio, que
-      ya está en el breadcrumb y en el `<h1>` a doscientos píxeles de ahí — tres
-      veces en la primera pantalla.
-    */}
-    <AudioPlayer client:load src={podcast.audioUrl} />
+      {/*
+        `compact` y no `full`.
+
+        Los tres modos dibujan el mismo reproductor; `compact` y `banner` traen
+        además el flotante que aparece cuando el estático sale de la pantalla.
+        En una página cuyo cuerpo son notas largas, perder el control al tercer
+        scroll era el defecto de fondo: `full` te obliga a volver arriba para
+        pausar.
+
+        `banner` queda descartado porque rotula el bloque «NARRACIÓN DE AUDIO»,
+        que es copy del artículo con voz — aquí el audio no narra el texto, es
+        el episodio. `compact` no rotula nada y su estático tampoco repite el
+        título, que está en el `<h1>` justo encima.
+
+        El `title` sí va, y es para el flotante: cuando aparece, la cabecera ya
+        se fue de la pantalla y es el único sitio donde se dice qué suena.
+      */}
+      <AudioPlayer client:load src={podcast.audioUrl} title={podcast.title} compact={true} />
+
+      {
+        podcast.topics.length > 0 && (
+          <div class="gap-step-xs flex flex-wrap">
+            {podcast.topics.map((topic) => (
+              <Badge variant="neutral">{topic.name}</Badge>
+            ))}
+          </div>
+        )
+      }
+    </section>
 
     {/*
       Dos órdenes de lectura, un solo árbol en el DOM.
@@ -181,6 +244,34 @@ const shareLinks = [
           <Text as="h2" variant="h3" className="mb-step-sm">Sobre este episodio</Text>
           <Text variant="body" tone="secondary">{podcast.description}</Text>
         </section>
+
+        {/*
+          El índice de las notas.
+
+          Las notas ya venían con encabezados y se leían como un muro: no había
+          forma de ver de qué habla el episodio sin recorrerlo entero, ni de
+          saltar. Los saltos son anclas normales, así que funcionan sin
+          JavaScript y se pueden enlazar desde fuera.
+        */}
+        {
+          headings.length > 1 && (
+            <section class="mb-step-xl">
+              <Text as="h2" variant="h3" className="mb-step-sm">En este episodio</Text>
+              <ul class="gap-step-xs flex flex-wrap">
+                {headings.map((heading) => (
+                  <li>
+                    <a
+                      href={`#${heading.id}`}
+                      class={`${buttonVariants({ variant: "secondary", size: "sm" })} font-normal`}
+                    >
+                      {heading.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
 
         <section>
           <Text as="h2" variant="h3" className="mb-step-sm">Notas del episodio</Text>
@@ -255,9 +346,54 @@ const shareLinks = [
       </aside>
     </div>
 
-    {/* Volver a podcasts */}
+    {/*
+      La serie, no el episodio suelto.
+
+      Aquí sólo había un «volver a todos los episodios». El anterior y el
+      siguiente estaban a un `findIndex` de distancia sobre la misma lista que
+      ordena el índice: sin datos nuevos, un episodio deja de ser un callejón
+      sin salida.
+    */}
     <Separator className="mt-step-xl" />
-    <div class="pt-step-lg">
+    <nav class="gap-step-sm pt-step-lg grid grid-cols-1 sm:grid-cols-2" aria-label="Más episodios">
+      {
+        older ? (
+          <a
+            href={`/podcasts/${older.slug}`}
+            class="group rounded-card border-hairline p-step-md gap-step-xs focus-ring flex cursor-pointer flex-col border bg-surface transition-standard hover:border-hairline-hover"
+          >
+            <Text variant="eyebrow" tone="muted" as="span" className="gap-step-xs flex items-center">
+              <Icon as={ArrowLeft} />
+              Episodio anterior
+            </Text>
+            <Text variant="ui" as="span" className="group-hover:text-accent transition-standard font-medium">
+              {older.title}
+            </Text>
+          </a>
+        ) : (
+          <span class="hidden sm:block" />
+        )
+      }
+
+      {
+        newer && (
+          <a
+            href={`/podcasts/${newer.slug}`}
+            class="group rounded-card border-hairline p-step-md gap-step-xs focus-ring flex cursor-pointer flex-col border bg-surface transition-standard hover:border-hairline-hover sm:text-right"
+          >
+            <Text variant="eyebrow" tone="muted" as="span" className="gap-step-xs flex items-center sm:justify-end">
+              Episodio siguiente
+              <Icon as={ArrowRight} />
+            </Text>
+            <Text variant="ui" as="span" className="group-hover:text-accent transition-standard font-medium">
+              {newer.title}
+            </Text>
+          </a>
+        )
+      }
+    </nav>
+
+    <div class="pt-step-md">
       <a href="/podcasts" class={buttonVariants({ variant: "tertiary" })}>
         <Icon as={ArrowLeft} />
         Volver a todos los episodios

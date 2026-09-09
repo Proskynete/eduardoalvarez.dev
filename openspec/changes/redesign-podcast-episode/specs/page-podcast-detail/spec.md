@@ -20,7 +20,7 @@ La página `/podcasts/[slug]` SHALL identificar el episodio con una cabecera de 
 #### Scenario: El título se dice una vez en el contenido
 - **WHEN** se carga la página
 - **THEN** SHALL existir exactamente un `<h1>` con el título
-- **THEN** el reproductor SHALL NO repetir el título
+- **THEN** el reproductor estático SHALL NO repetir el título
 
 ---
 
@@ -89,3 +89,72 @@ Cuando el episodio tenga invitados, SHALL renderizarse uno por tarjeta con su no
 #### Scenario: Un episodio sin invitados omite el bloque
 - **WHEN** el episodio no tiene invitados
 - **THEN** SHALL NO renderizarse ni el encabezado "Invitado"/"Invitados" ni ninguna tarjeta
+
+---
+
+### Requirement: El episodio se presenta y se escucha en una sola pieza
+
+La cabecera y el reproductor SHALL formar un único panel, marcado con el tinte de acento que el sistema usa para el audio. El panel SHALL contener, en este orden: número de episodio, ruta del episodio, título, meta, invitados y reproductor, y los temas al cierre.
+
+#### Scenario: El panel contiene la identificación y el control
+- **WHEN** se carga la página
+- **THEN** el número de episodio, el `<h1>` y el reproductor SHALL estar dentro del mismo contenedor
+
+#### Scenario: El número enlaza visualmente con el índice
+- **WHEN** se compara con una fila del listado
+- **THEN** el número SHALL renderizarse en mono, con dos dígitos y `tabular-nums`, como en la fila
+
+#### Scenario: El número no se anuncia
+- **WHEN** un lector de pantalla recorre el panel
+- **THEN** el número SHALL estar marcado `aria-hidden`, porque el título ya lo nombra en el breadcrumb y en la meta
+
+---
+
+### Requirement: El control sobrevive al scroll
+
+El reproductor SHALL seguir disponible cuando el panel salga de la pantalla.
+
+#### Scenario: El flotante aparece al dejar atrás el panel
+- **WHEN** el usuario baja hasta las notas en un viewport menor que `xl`
+- **THEN** SHALL renderizarse el reproductor flotante con el título del episodio
+
+#### Scenario: El bloque no se rotula como narración
+- **WHEN** se carga la página
+- **THEN** SHALL NO existir el texto "Narración de audio", que es copy de los artículos con voz
+
+---
+
+### Requirement: Las notas se pueden recorrer
+
+Cuando las notas tengan más de un encabezado de segundo nivel, la página SHALL listar esos encabezados como saltos, y cada encabezado SHALL tener ancla.
+
+#### Scenario: Cada encabezado recibe ancla
+- **WHEN** las notas contienen `## Temas discutidos`
+- **THEN** el `<h2>` renderizado SHALL tener un `id` derivado de su texto
+- **THEN** SHALL existir un enlace a ese `id` en el índice de la página
+
+#### Scenario: Un solo encabezado no genera índice
+- **WHEN** las notas tienen un encabezado o ninguno
+- **THEN** SHALL NO renderizarse el bloque "En este episodio"
+
+#### Scenario: Los saltos no dependen de JavaScript
+- **WHEN** se inspeccionan los saltos
+- **THEN** SHALL ser enlaces `href="#id"`, navegables y enlazables desde fuera
+
+---
+
+### Requirement: El episodio pertenece a una serie
+
+Al pie, la página SHALL ofrecer el episodio anterior y el siguiente por fecha, cuando existan.
+
+#### Scenario: Un episodio intermedio ofrece los dos
+- **WHEN** el episodio tiene uno anterior y uno posterior
+- **THEN** SHALL renderizarse un enlace a cada uno, con su título
+
+#### Scenario: El más reciente no ofrece siguiente
+- **WHEN** el episodio es el más reciente
+- **THEN** SHALL NO renderizarse el enlace "Episodio siguiente"
+
+#### Scenario: El más antiguo no ofrece anterior
+- **WHEN** el episodio es el más antiguo
+- **THEN** SHALL NO renderizarse el enlace "Episodio anterior"

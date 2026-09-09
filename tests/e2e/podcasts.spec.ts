@@ -116,4 +116,50 @@ test.describe("Episodio de podcast", () => {
     await expect(page.getByRole("heading", { name: "Escuchar en" })).toHaveCount(1);
     await expect(page.getByRole("heading", { name: "Compartir" })).toHaveCount(1);
   });
+
+  test("el panel presenta y reproduce en la misma pieza", async ({ page }) => {
+    const panel = page.locator("section[aria-labelledby='episode-title']");
+
+    await expect(panel.locator("h1")).toBeVisible();
+    await expect(panel.locator("audio")).toHaveCount(1);
+    await expect(panel.getByText("Carlos Mendoza")).toBeVisible();
+  });
+
+  test("no se rotula como narración de artículo", async ({ page }) => {
+    await expect(page.getByText(/narración de audio/i)).toHaveCount(0);
+  });
+
+  test("el reproductor sobrevive al scroll", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const floating = page.locator("div.fixed.inset-x-0.bottom-0").first();
+
+    await expect(floating).toBeHidden();
+    await page.evaluate(() => window.scrollTo(0, 1600));
+    await expect(floating).toBeVisible();
+  });
+
+  test("las notas se pueden recorrer con anclas reales", async ({ page }) => {
+    const jumps = page.locator("section", { has: page.getByRole("heading", { name: "En este episodio" }) }).locator("a");
+    const hrefs = await jumps.evaluateAll((links) => links.map((link) => link.getAttribute("href")!));
+
+    expect(hrefs.length).toBeGreaterThan(1);
+    for (const href of hrefs) {
+      await expect(page.locator(href)).toHaveCount(1);
+    }
+  });
+
+  test("el episodio pertenece a una serie", async ({ page }) => {
+    const nav = page.getByRole("navigation", { name: "Más episodios" });
+
+    await expect(nav.getByText(/episodio anterior/i)).toBeVisible();
+    await expect(nav.getByText(/episodio siguiente/i)).toBeVisible();
+  });
+
+  test("el episodio más reciente no ofrece siguiente", async ({ page }) => {
+    await page.goto("/podcasts/ia-en-desarrollo-web");
+    const nav = page.getByRole("navigation", { name: "Más episodios" });
+
+    await expect(nav.getByText(/episodio siguiente/i)).toHaveCount(0);
+    await expect(nav.getByText(/episodio anterior/i)).toBeVisible();
+  });
 });
