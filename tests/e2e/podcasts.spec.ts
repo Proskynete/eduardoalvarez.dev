@@ -61,3 +61,59 @@ test.describe("Listado de podcasts", () => {
     await expect(page.locator("audio")).toHaveCount(1);
   });
 });
+
+/**
+ * La página de episodio es ahora la única vista del episodio, así que estos
+ * tests fijan lo que la primera pantalla tiene que resolver — de qué va, con
+ * quién, y el play — y lo que ya no debe volver: el título dicho tres veces y
+ * los invitados detrás de las notas.
+ */
+test.describe("Episodio de podcast", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/podcasts/de-junior-a-senior");
+  });
+
+  test("dice el título una sola vez y no envuelve el reproductor en una tarjeta", async ({ page }) => {
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.getByText("Escuchar episodio")).toHaveCount(0);
+  });
+
+  test("los temas viven en la cabecera, no en una sección propia", async ({ page }) => {
+    await expect(page.getByText("Temas tratados")).toHaveCount(0);
+    await expect(page.getByText("Carrera Profesional", { exact: true })).toBeVisible();
+  });
+
+  test("el reproductor sigue montando su audio", async ({ page }) => {
+    await expect(page.locator("audio")).toHaveCount(1);
+  });
+
+  test("en móvil los invitados van antes que las notas y las acciones al final", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+
+    const guests = await page.locator("section", { has: page.getByRole("heading", { name: "Invitados" }) }).boundingBox();
+    const notes = await page
+      .locator("section", { has: page.getByRole("heading", { name: "Notas del episodio" }) })
+      .boundingBox();
+    const actions = await page.locator("aside[aria-label='Escuchar y compartir']").boundingBox();
+
+    expect(guests!.y).toBeLessThan(notes!.y);
+    expect(notes!.y).toBeLessThan(actions!.y);
+  });
+
+  test("en escritorio el raíl queda a la derecha del cuerpo", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+
+    const notes = await page
+      .locator("section", { has: page.getByRole("heading", { name: "Notas del episodio" }) })
+      .boundingBox();
+    const actions = await page.locator("aside[aria-label='Escuchar y compartir']").boundingBox();
+
+    expect(actions!.x).toBeGreaterThan(notes!.x);
+  });
+
+  test("no queda ningún bloque duplicado para móvil y escritorio", async ({ page }) => {
+    await expect(page.getByRole("heading", { name: "Invitados" })).toHaveCount(1);
+    await expect(page.getByRole("heading", { name: "Escuchar en" })).toHaveCount(1);
+    await expect(page.getByRole("heading", { name: "Compartir" })).toHaveCount(1);
+  });
+});

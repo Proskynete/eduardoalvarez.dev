@@ -10,6 +10,7 @@ import PodcastGuest from "../../components/podcast-guest/index";
 import Layout from "../../layouts/main/index.astro";
 import { platformIcons, podcasts } from "../../settings/podcasts";
 import type { PodcastEpisode } from "../../settings/podcasts";
+import { formatDuration, formatGuests } from "../../utils/podcasts";
 
 export const prerender = true;
 
@@ -36,14 +37,18 @@ const seo = {
   image: "/images/podcasts/podcasts-cover.webp",
 };
 
-function formatDuration(minutes: number): string {
-  const hours = Math.floor(minutes / 60);
-  const mins = minutes % 60;
-  if (hours > 0) {
-    return `${hours}h ${mins}min`;
-  }
-  return `${mins} min`;
-}
+const prettyDate = new Date(podcast.date).toLocaleDateString("es-ES", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+/**
+ * La meta va como UNA cadena: `compressHTML` colapsa el espacio entre dos
+ * expresiones adyacentes. Los segmentos se filtran antes de unirse para que un
+ * episodio sin invitados no arrastre un `·` suelto.
+ */
+const meta = [prettyDate, formatDuration(podcast.duration), formatGuests(podcast.guests)].filter(Boolean).join(" · ");
 
 const episodeUrl = `https://eduardoalvarez.dev/podcasts/${podcast.slug}`;
 const shareLinks = [
@@ -73,79 +78,111 @@ const shareLinks = [
       items={[{ label: "Podcasts", href: "/podcasts" }, { label: podcast.title }]}
     />
 
-    {/* Header del episodio */}
-    <header class="mb-step-xl">
-      <div class="rounded-panel from-background to-surface mb-step-md relative h-64 overflow-hidden bg-gradient-to-br md:h-80">
+    {/*
+      La cabecera es texto sobre la superficie de la página.
+
+      Era una banda de 256px en móvil y 320 en escritorio, degradado de
+      `background` a `surface` con un velo negro encima y el título dentro, a la
+      espera de una portada que ningún episodio tiene. El índice ya se deshizo
+      de ese mismo hueco; dos vistas de la misma sección no pueden responder de
+      forma opuesta al mismo dato ausente.
+
+      Con el velo se fue la única excepción de color del archivo: el título
+      estaba fijado a blanco porque el degradado era negro en los dos temas, y
+      ahora vuelve a seguir el tema como todo lo demás.
+    */}
+    <header class="gap-step-lg mb-step-lg flex flex-col sm:flex-row sm:items-start">
+      {
+        podcast.image && (
+          <Image
+            src={podcast.image}
+            alt={`Portada del episodio ${podcast.episode}`}
+            class="rounded-card border-hairline w-full max-w-56 shrink-0 border object-cover"
+            width={448}
+            height={448}
+            widths={[224, 448]}
+            sizes="(max-width: 640px) 100vw, 224px"
+            format="webp"
+            loading="eager"
+            decoding="async"
+          />
+        )
+      }
+
+      <div class="gap-step-sm flex min-w-0 flex-col">
+        <div class="gap-step-sm flex flex-wrap items-center">
+          <Badge variant="accent">Episodio {podcast.episode}</Badge>
+          <Text variant="meta" tone="muted" as="span">
+            <time datetime={podcast.date}>{prettyDate}</time>{meta.slice(prettyDate.length)}
+          </Text>
+        </div>
+
+        <h1 class="text-text-primary">{podcast.title}</h1>
+
+        {/*
+          Los temas eran una sección con `h2` —al mismo nivel que las notas del
+          episodio— para pintar tres badges. Son metadatos del episodio, así que
+          viven donde el resto de sus metadatos.
+        */}
         {
-          podcast.image && (
-            <Image
-              src={podcast.image}
-              alt={podcast.title}
-              class="h-full w-full object-cover opacity-40"
-              width={1200}
-              height={600}
-              widths={[600, 1200]}
-              sizes="(max-width: 768px) 100vw, 1200px"
-              format="webp"
-              loading="eager"
-              decoding="async"
-            />
+          podcast.topics.length > 0 && (
+            <div class="gap-step-xs flex flex-wrap">
+              {podcast.topics.map((topic) => (
+                <Badge variant="neutral">{topic.name}</Badge>
+              ))}
+            </div>
           )
         }
-
-        <div class="p-step-lg absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/50 to-transparent">
-          {/* El velo es negro en los dos temas, así que el texto que va encima
-              se fija en blanco. Seguía a `text-primary` y en claro salía oscuro
-              sobre oscuro: el título del episodio no se leía. */}
-          <div class="gap-step-sm mb-step-sm flex items-center">
-            <Badge variant="neutral" className="border border-white/25 bg-white/15 text-white">
-              Episodio {podcast.episode}
-            </Badge>
-            <Text variant="ui" as="span" className="text-white/80">{formatDuration(podcast.duration)}</Text>
-          </div>
-          <h1 class="text-white">{podcast.title}</h1>
-          <time datetime={podcast.date} class="mt-step-xs">
-            <Text variant="meta" as="span" className="text-white/80">
-              {
-                new Date(podcast.date).toLocaleDateString("es-ES", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })
-              }
-            </Text>
-          </time>
-        </div>
       </div>
-
-      {/* Reproductor de audio destacado */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Escuchar episodio</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <AudioPlayer client:load src={podcast.audioUrl} title={podcast.title} />
-        </CardContent>
-      </Card>
     </header>
 
-    {/* Contenido principal en dos columnas */}
-    <div class="gap-step-lg flex flex-col lg:flex-row">
-      {/* Columna principal: contenido */}
-      <div class="flex-1">
+    {/*
+      El reproductor, desnudo.
+
+      Iba dentro de una `Card` con el encabezado «Escuchar episodio»: una
+      tarjeta y un título para un control que tiene un botón de play. Costaba
+      unos 90px antes de poder pulsarlo y repetía el título del episodio, que
+      ya está en el breadcrumb y en el `<h1>` a doscientos píxeles de ahí — tres
+      veces en la primera pantalla.
+    */}
+    <AudioPlayer client:load src={podcast.audioUrl} />
+
+    {/*
+      Dos órdenes de lectura, un solo árbol en el DOM.
+
+      En móvil los invitados suben entre el reproductor y el cuerpo: es un
+      podcast de entrevistas, quién habla es contenido y no metadato, y estaba a
+      más de tres pantallas de scroll, detrás de las notas completas. Las
+      acciones —dónde escuchar, compartir— se quedan al final, que es cuando se
+      usan. En `lg` el raíl vuelve a la derecha con los tres bloques.
+    */}
+    <div class="gap-step-lg mt-step-xl flex flex-col lg:grid lg:grid-cols-[1fr_20rem] lg:items-start">
+      {
+        podcast.guests.length > 0 && (
+          <section class="gap-step-sm order-1 flex flex-col lg:col-start-2 lg:row-start-1">
+            <Text as="h2" variant="h3">
+              {podcast.guests.length === 1 ? "Invitado" : "Invitados"}
+            </Text>
+            {podcast.guests.map((guest) => (
+              <PodcastGuest
+                name={guest.name}
+                role={guest.role}
+                company={guest.company}
+                linkedin={guest.linkedin}
+                twitter={guest.twitter}
+              />
+            ))}
+          </section>
+        )
+      }
+
+      <div class="order-2 min-w-0 lg:col-start-1 lg:row-span-2 lg:row-start-1">
         <section class="mb-step-xl">
           <Text as="h2" variant="h3" className="mb-step-sm">Sobre este episodio</Text>
           <Text variant="body" tone="secondary">{podcast.description}</Text>
         </section>
 
-        <section class="mb-step-xl">
-          <Text as="h2" variant="h3" className="mb-step-sm">Temas tratados</Text>
-          <div class="gap-step-xs flex flex-wrap">
-            {podcast.topics.map((topic) => <Badge variant="neutral">{topic.name}</Badge>)}
-          </div>
-        </section>
-
-        <section class="mb-step-xl">
+        <section>
           <Text as="h2" variant="h3" className="mb-step-sm">Notas del episodio</Text>
           <div
             class="prose max-w-none
@@ -159,30 +196,21 @@ const shareLinks = [
         </section>
       </div>
 
-      {/* Sidebar */}
-      <aside class="gap-step-md flex shrink-0 flex-col lg:w-80">
-        {
-          podcast.guests.length > 0 && (
-            <section class="gap-step-sm flex flex-col">
-              <Text as="h2" variant="h3">
-                {podcast.guests.length === 1 ? "Invitado" : "Invitados"}
-              </Text>
-              {podcast.guests.map((guest) => (
-                <PodcastGuest
-                  name={guest.name}
-                  role={guest.role}
-                  company={guest.company}
-                  linkedin={guest.linkedin}
-                  twitter={guest.twitter}
-                />
-              ))}
-            </section>
-          )
-        }
+      {/*
+        El aside se queda con lo que de verdad es complementario. Los invitados
+        salieron de aquí: en un podcast de entrevistas son contenido, y en móvil
+        este bloque caía detrás de las notas completas, a más de tres pantallas.
 
-        {/* Plataformas y compartir: dos tarjetas del sistema en vez de
-            `bg-surface rounded-xl p-6 border border-border` escrito tres veces
-            en este archivo. */}
+        En móvil el contenedor es una columna flex y manda `order`: invitados,
+        cuerpo, acciones. En `lg` es una rejilla de dos columnas y el cuerpo
+        ocupa las dos filas de la izquierda, así que el raíl vuelve a la derecha
+        con los invitados arriba y las acciones debajo. Un solo árbol en el DOM
+        en ambos casos.
+      */}
+      <aside
+        class="gap-step-md order-3 flex shrink-0 flex-col lg:col-start-2 lg:row-start-2"
+        aria-label="Escuchar y compartir"
+      >
         <Card>
           <CardHeader>
             <CardTitle>Escuchar en</CardTitle>
