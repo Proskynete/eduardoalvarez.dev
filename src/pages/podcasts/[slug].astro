@@ -1,9 +1,10 @@
 ---
-import { Badge, Breadcrumb, Card, CardContent, CardHeader, CardTitle, Separator, Text, buttonVariants, social } from "@eduardoalvarez/arrecife";
+import { Badge, Breadcrumb, Card, CardContent, CardHeader, CardTitle, Separator, Text, buttonVariants } from "@eduardoalvarez/arrecife";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { ArrowLeft, LinkedinLogo, XLogo } from "@phosphor-icons/react";
 import { Image } from "astro:assets";
 import { marked } from "marked";
 
-import { Icon } from "../../assets/icons";
 import AudioPlayer from "../../components/audio-player/index";
 import PodcastGuest from "../../components/podcast-guest/index";
 import Layout from "../../layouts/main/index.astro";
@@ -195,7 +196,7 @@ const shareLinks = [
                   rel="noopener noreferrer"
                   class={`${buttonVariants({ variant: "secondary" })} justify-start`}
                 >
-                  <Icon.Platform path={platformIcons[platform.icon]} className="h-5 w-5" />
+                  <Icon as={platformIcons[platform.icon]} />
                   {platform.name}
                 </a>
               ))
@@ -217,7 +218,7 @@ const shareLinks = [
                   class={`${buttonVariants({ variant: "secondary" })} flex-1`}
                   aria-label={`Compartir en ${label}`}
                 >
-                  {label === "X" ? <social.X /> : <social.LinkedIn />}
+                  <Icon as={label === "X" ? XLogo : LinkedinLogo} />
                 </a>
               ))
             }
@@ -230,7 +231,7 @@ const shareLinks = [
     <Separator className="mt-step-xl" />
     <div class="pt-step-lg">
       <a href="/podcasts" class={buttonVariants({ variant: "tertiary" })}>
-        <Icon.ArrowLeft className="h-5 w-5" />
+        <Icon as={ArrowLeft} />
         Volver a todos los episodios
       </a>
     </div>

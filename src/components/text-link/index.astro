@@ -1,5 +1,7 @@
 ---
 import { buttonVariants } from "@eduardoalvarez/arrecife";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 
 /**
  * The mono text link that closes a section: `./ver_todos →`.
@@ -13,6 +15,13 @@ import { buttonVariants } from "@eduardoalvarez/arrecife";
  * underline on hover at 4px of offset. The hand-written version was the same
  * declaration with `text-sm` and `duration-200` written out instead of the
  * `text-meta` and `transition-standard` tokens.
+ *
+ * The arrow is Phosphor's and no longer the `←`/`→` characters. Typographic
+ * arrows are drawn by whatever font resolves them — the mono face here, a
+ * fallback elsewhere — so their weight and their length were never ours to set,
+ * and beside the rest of the site's glyphs they read thin. The `&nbsp;` that
+ * held them off the label went with them: `buttonVariants` already carries
+ * `gap-step-xs`.
  */
 export interface Props {
   href: string;
@@ -28,7 +37,7 @@ const { href, back = false, class: className = "" } = Astro.props;
   href={href}
   class:list={[buttonVariants({ variant: "tertiary", size: "sm" }), className]}
 >
-  {back && <span aria-hidden="true">←&nbsp;</span>}
+  {back && <Icon as={ArrowLeft} />}
   <slot />
-  {!back && <span aria-hidden="true">&nbsp;→</span>}
+  {!back && <Icon as={ArrowRight} />}
 </a>

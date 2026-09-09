@@ -10,9 +10,10 @@ import {
   Text,
 } from "@eduardoalvarez/arrecife";
 import { Logo } from "@eduardoalvarez/arrecife/brand";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { List } from "@phosphor-icons/react";
 import { useState } from "react";
 
-import { Icon } from "../../../../../assets/icons";
 import { trackEvent } from "../../../../../utils/analytics";
 import { navItems } from "../constants";
 
@@ -47,7 +48,7 @@ export default function Mobile({ version, pathname }: MobileProps) {
           en `<body>` y el teclado tenía que recorrer la página entera. */}
       <SheetTrigger asChild>
         <Button variant="tertiary" size="icon-sm" aria-label="Abrir menú de navegación" className="sm:hidden">
-          <Icon.Menu className="h-5 w-5" />
+          <Icon as={List} />
         </Button>
       </SheetTrigger>
 
@@ -65,14 +66,12 @@ export default function Mobile({ version, pathname }: MobileProps) {
         <SheetBody className="font-mono">
           {/* Claude CLI prompt — easter egg */}
           <div className="gap-step-xs mb-1 flex items-center">
-            <span className="text-accent">✻</span>
             <Text variant="meta" tone="muted" as="span">
               ~/eduardoalvarez.dev
             </Text>
           </div>
 
           <div className="gap-step-xs mb-step-lg flex items-start">
-            <span className="text-accent mt-0.5">?</span>
             <Text variant="meta" tone="secondary" as="span">
               ¿A dónde quieres navegar?
             </Text>
@@ -83,7 +82,7 @@ export default function Mobile({ version, pathname }: MobileProps) {
             <div className="gap-step-sm flex items-center">
               <span className="text-accent text-label w-24 shrink-0">--help</span>
               <Text variant="label" tone="muted" as="span">
-                Ver las secciones del sitio
+                Navegación de la web
               </Text>
             </div>
             <div className="gap-step-sm flex items-center">
@@ -107,7 +106,9 @@ export default function Mobile({ version, pathname }: MobileProps) {
                   }}
                   aria-current={isActive ? "page" : undefined}
                   className={`group gap-step-sm px-step-sm py-step-sm rounded-chip transition-standard focus-ring flex items-start ${
-                    isActive ? "text-accent pointer-events-none" : "text-text-secondary hover:bg-surface-raised hover:text-text-primary"
+                    isActive
+                      ? "text-accent pointer-events-none"
+                      : "text-text-secondary hover:bg-surface-raised hover:text-text-primary"
                   }`}
                 >
                   <span
@@ -118,8 +119,9 @@ export default function Mobile({ version, pathname }: MobileProps) {
 
                   <span className="flex flex-col gap-0.5">
                     <span className="text-ui">
-                      <span className={isActive ? "text-accent" : "text-text-muted"}>./</span>
-                      {item.name.toLowerCase()}
+                      <Text variant="label" tone={isActive ? "accent" : "muted"} as="span" className="font-mono">
+                        ./{item.name.toLowerCase()}
+                      </Text>
                     </span>
                     {item.description && (
                       <Text variant="label" tone="muted" as="span" className="font-mono">

@@ -1,4 +1,6 @@
 import { TalkCard } from "@eduardoalvarez/arrecife";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { ArrowUpRight } from "@phosphor-icons/react";
 
 export interface TalkResource {
   label: string;
@@ -35,9 +37,10 @@ export default function TalkCardWithResources({ title, event, date, dateTime, lo
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-meta text-accent transition-standard hover:underline hover:underline-offset-4"
+            className="gap-step-xs text-meta text-accent transition-standard inline-flex items-center hover:underline hover:underline-offset-4"
           >
-            {label}&nbsp;↗
+            {label}
+            <Icon as={ArrowUpRight} />
           </a>
         ))}
       </>

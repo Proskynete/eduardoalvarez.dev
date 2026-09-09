@@ -1,6 +1,7 @@
 ---
 import { Badge, Card, TableOfContents, Text, buttonVariants } from "@eduardoalvarez/arrecife";
-import { socialSvg } from "@eduardoalvarez/arrecife/social/data";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { CaretRight, LinkedinLogo, XLogo } from "@phosphor-icons/react";
 
 import TextLink from "../../../components/text-link/index.astro";
 import type { TagsAllowed } from "../../../interfaces";
@@ -70,7 +71,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
         <details class="xl:hidden bg-surface rounded-card border-hairline overflow-hidden border">
           <summary class="px-step-md py-step-sm text-eyebrow font-mono uppercase text-text-muted hover:text-text-primary transition-standard flex cursor-pointer select-none list-none items-center justify-between">
             Secciones del artículo
-            <span class="text-accent text-base leading-none">›</span>
+            <span class="text-accent"><Icon as={CaretRight} /></span>
           </summary>
           <TableOfContents title="En esta página" items={sections} className="px-step-md pb-step-md" />
         </details>
@@ -93,14 +94,10 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
       <Text variant="eyebrow" tone="muted" as="p" className="mb-step-sm">Compartir</Text>
       <div class="gap-step-xs flex">
         {/*
-          The glyphs come from the library. The ones in `assets/icons` rendered
-          `text-text-muted` on `surface-raised` and were barely visible; these
-          are the footer's glyphs on the system's secondary button.
-
-          As markup through `socialSvg`, not as the React components: this is an
-          .astro template and a glyph is a shape, so `./social/data` hands over
-          the same SVG with no renderer in between. Same output, minus a React
-          render per icon.
+          Phosphor's marks, drawn through the library's `Icon`: the same two the
+          footer and the episode page carry, at the same weight and at 1em.
+          Rendered on the server with no client directive, so the sidebar still
+          ships no JavaScript.
         */}
         <a
           href={twitterShare}
@@ -109,7 +106,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
           aria-label="Compartir en X"
         >
-          <Fragment set:html={socialSvg("X")} />
+          <Icon as={XLogo} />
         </a>
         <a
           href={linkedInShare}
@@ -118,7 +115,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
           aria-label="Compartir en LinkedIn"
         >
-          <Fragment set:html={socialSvg("LinkedIn")} />
+          <Icon as={LinkedinLogo} />
         </a>
       </div>
     </Card>

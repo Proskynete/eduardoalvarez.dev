@@ -1,6 +1,6 @@
 import { Button } from "@eduardoalvarez/arrecife";
-
-import { Icon } from "../../../../../assets/icons";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { MagnifyingGlass, X } from "@phosphor-icons/react";
 
 interface SearchToggleButtonProps {
   isInputVisible: boolean;
@@ -8,10 +8,16 @@ interface SearchToggleButtonProps {
 }
 
 /**
- * The library ships no icon set on purpose, so the glyph stays ours. What comes
- * from the system is the control: `tertiary` is the variant with no box, which is
- * what a bare glyph in the bar is, and `icon-sm` is the 32×32 square. Both demand
- * an `aria-label`, which this button already had.
+ * The glyphs are Phosphor's, drawn through the library's `Icon`. The two that
+ * were here — a circle with a stick, two crossed lines — were hand-drawn at
+ * stroke 2 on a 24 grid and sized `h-5 w-5` at the call site, which is the
+ * hand-sizing the system replaces: at 1em the glyph takes the size of the text
+ * around it and nobody picks a number.
+ *
+ * What comes from the system is still the control: `tertiary` is the variant
+ * with no box, which is what a bare glyph in the bar is, and `icon-sm` is the
+ * 32×32 square. Both demand an `aria-label`, which this button already had —
+ * so the icons stay decorative and carry no `label` of their own.
  */
 export default function SearchToggleButton({ isInputVisible, onToggle }: SearchToggleButtonProps) {
   return (
@@ -24,7 +30,7 @@ export default function SearchToggleButton({ isInputVisible, onToggle }: SearchT
       aria-label={isInputVisible ? "Cerrar la búsqueda" : "Buscar"}
       aria-expanded={isInputVisible}
     >
-      {!isInputVisible ? <Icon.Search className="h-5 w-5" /> : <Icon.Close className="h-5 w-5" />}
+      <Icon as={isInputVisible ? X : MagnifyingGlass} />
     </Button>
   );
 }

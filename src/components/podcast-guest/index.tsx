@@ -1,4 +1,6 @@
-import { AuthorCard, buttonVariants, social } from "@eduardoalvarez/arrecife";
+import { AuthorCard, buttonVariants } from "@eduardoalvarez/arrecife";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { LinkedinLogo, XLogo } from "@phosphor-icons/react";
 
 export interface Props {
   name: string;
@@ -19,15 +21,15 @@ export interface Props {
  * initials, the 52px measure and the name/role rhythm; the links go in `action`,
  * which is the slot it opens for exactly this.
  *
- * The glyphs come from `./social` rather than `assets/icons`, which carried its
- * own copies of the same two marks.
+ * The glyphs are Phosphor's, drawn through the library's `Icon` — the same two
+ * marks the footer and the article sidebar carry, at the same weight.
  *
  * Composed in React because `action` is a `ReactNode`. Nothing hydrates.
  */
 export default function PodcastGuest({ name, role, company, linkedin, twitter, className }: Props) {
   const links = [
-    ...(linkedin ? [{ label: "LinkedIn", href: linkedin, icon: <social.LinkedIn /> }] : []),
-    ...(twitter ? [{ label: "X", href: twitter, icon: <social.X /> }] : []),
+    ...(linkedin ? [{ label: "LinkedIn", href: linkedin, icon: <Icon as={LinkedinLogo} /> }] : []),
+    ...(twitter ? [{ label: "X", href: twitter, icon: <Icon as={XLogo} /> }] : []),
   ];
 
   return (

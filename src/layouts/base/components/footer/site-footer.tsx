@@ -1,5 +1,15 @@
-import { Footer, social } from "@eduardoalvarez/arrecife";
+import { Footer } from "@eduardoalvarez/arrecife";
 import { Isotype } from "@eduardoalvarez/arrecife/brand";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import {
+  BellSimple,
+  EnvelopeSimple,
+  GithubLogo,
+  InstagramLogo,
+  LinkedinLogo,
+  RssSimple,
+  XLogo,
+} from "@phosphor-icons/react";
 
 /**
  * The footer, composed in React rather than in the .astro file.
@@ -25,15 +35,26 @@ export default function SiteFooter() {
    * takes no `children`, and a row of loose text links stopped compiling in
    * 0.8.0. The place for those, if they ever come back, is `variant="full"` with
    * `columns`.
+   *
+   * The glyphs are Phosphor's and not `arrecife/social`'s. The library draws its
+   * six brand marks solid and its four functional ones at a 1.6 stroke, and says
+   * that mixing the two pens is the normal case; in this row of seven it read as
+   * four filled silhouettes beside three outlines, which is the thing the eye
+   * catches first in a footer. One pen for all seven, at the weight `Icon`
+   * fixes.
+   *
+   * `BellSimple` is the newsletter for the same reason the library's own
+   * `Newsletter` is a bell: it is a way to follow, not a network, and there is
+   * no logo to be faithful to.
    */
   const networks = [
-    { label: "GitHub", href: "https://github.com/Proskynete", icon: <social.GitHub /> },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/eduardoalvarezc/", icon: <social.LinkedIn /> },
-    { label: "X", href: "https://twitter.com/proskynete", icon: <social.X /> },
-    { label: "Instagram", href: "https://www.instagram.com/eduardoalvarez.dev", icon: <social.Instagram /> },
-    { label: "RSS", href: "/rss.xml", icon: <social.Rss /> },
-    { label: "Correo", href: "mailto:soy@eduardoalvarez.dev", icon: <social.Email /> },
-    { label: "Newsletter", href: "/newsletter", icon: <social.Newsletter /> },
+    { label: "GitHub", href: "https://github.com/Proskynete", icon: <Icon as={GithubLogo} /> },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/eduardoalvarezc/", icon: <Icon as={LinkedinLogo} /> },
+    { label: "X", href: "https://twitter.com/proskynete", icon: <Icon as={XLogo} /> },
+    { label: "Instagram", href: "https://www.instagram.com/eduardoalvarez.dev", icon: <Icon as={InstagramLogo} /> },
+    { label: "RSS", href: "/rss.xml", icon: <Icon as={RssSimple} /> },
+    { label: "Correo", href: "mailto:soy@eduardoalvarez.dev", icon: <Icon as={EnvelopeSimple} /> },
+    { label: "Newsletter", href: "/newsletter", icon: <Icon as={BellSimple} /> },
   ];
 
   return (

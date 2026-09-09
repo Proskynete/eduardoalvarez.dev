@@ -1,6 +1,7 @@
 ---
 import { CategoryBadge, Text } from "@eduardoalvarez/arrecife";
-import { socialSvg } from "@eduardoalvarez/arrecife/social/data";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { GithubLogo } from "@phosphor-icons/react";
 
 import type { CategoryAllowed } from "../../../interfaces";
 import { CategoryMap } from "../../../utils/categories";
@@ -41,16 +42,15 @@ const { content } = Astro.props;
     </time>
     <Text variant="meta" tone="muted" as="span" aria-hidden="true">·</Text>
     {/*
-      The GitHub mark instead of the copy in `assets/icons`: the same mark was
-      drawn twice in this repo, and the library's is the one the footer and the
-      share buttons already use.
+      Phosphor's `GithubLogo`, drawn through the library's `Icon` — the same mark
+      the footer and the share buttons carry, at the same weight.
 
-      It arrives as markup through `socialSvg` and not as `<social.GitHub />`,
-      which is the React component: this is an .astro template, and the glyph is
-      the one thing here that does not need a React render to exist. `./social/data`
-      is published for exactly that — the same shapes as a string, no `"use client"`,
-      no renderer. The output is byte-identical bar the `xmlns`, which an inline
-      SVG in HTML ignores.
+      It renders here as a React element and not as markup through `socialSvg`.
+      That was the cheaper path while the glyph was a shape: `./social/data`
+      hands over a string and needs no renderer. Phosphor publishes components
+      and nothing else, and Astro renders this one on the server with no client
+      directive, so the page still ships no JavaScript for it — the cost is a
+      render at build, not a byte in the bundle.
     */}
     <a
       class="gap-step-xs text-meta font-mono text-accent transition-standard focus-ring inline-flex items-center hover:underline"
@@ -59,7 +59,7 @@ const { content } = Astro.props;
       rel="noopener noreferrer"
     >
       ¿Ves una errata? Edita en GitHub
-      <Fragment set:html={socialSvg("GitHub")} />
+      <Icon as={GithubLogo} />
     </a>
   </div>
 </header>

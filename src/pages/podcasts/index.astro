@@ -1,8 +1,9 @@
 ---
 import { Badge, Card, CardContent, CardFooter, EmptyState, PageHeader, Text, buttonVariants } from "@eduardoalvarez/arrecife";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { CaretRight } from "@phosphor-icons/react";
 import { Image } from "astro:assets";
 
-import { Icon } from "../../assets/icons";
 import AudioPlayer from "../../components/audio-player/index";
 import PodcastGuest from "../../components/podcast-guest/index";
 import Layout from "../../layouts/main/index.astro";
@@ -154,7 +155,7 @@ const visible = podcasts.filter((podcast: PodcastEpisode) => podcast.show);
                         class={buttonVariants({ variant: "secondary", size: "sm" })}
                         aria-label={`Escuchar en ${platform.name}`}
                       >
-                        <Icon.Platform path={platformIcons[platform.icon]} className="h-4 w-4" />
+                        <Icon as={platformIcons[platform.icon]} />
                         {platform.name}
                       </a>
                     ))}
@@ -166,7 +167,7 @@ const visible = podcasts.filter((podcast: PodcastEpisode) => podcast.show);
                   class={buttonVariants({ variant: "primary" })}
                 >
                   <span>Ver episodio</span>
-                  <Icon.ChevronRight className="h-4 w-4" />
+                  <Icon as={CaretRight} />
                 </a>
               </CardFooter>
             </Card>
