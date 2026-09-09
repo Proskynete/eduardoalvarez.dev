@@ -3,9 +3,6 @@ import {
   Badge,
   Breadcrumb,
   Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
   Separator,
   Text,
   buttonVariants,
@@ -219,7 +216,15 @@ const shareLinks = [
       acciones —dónde escuchar, compartir— se quedan al final, que es cuando se
       usan. En `lg` el raíl vuelve a la derecha con los tres bloques.
     */}
-    <div class="gap-step-lg mt-step-xl flex flex-col lg:grid lg:grid-cols-[1fr_20rem] lg:items-start">
+    {/*
+      `lg:grid-rows-[auto_1fr]` y no filas automáticas: el cuerpo ocupa las dos
+      filas de la izquierda y, con las dos en `auto`, la rejilla repartía su
+      altura entre ambas. La fila de arriba crecía con las notas y dejaba 325px
+      de vacío entre los invitados y las acciones. Con `1fr` abajo, el espacio
+      sobrante cae en la segunda fila y el raíl vuelve a ser una columna
+      continua.
+    */}
+    <div class="gap-step-lg mt-step-xl flex flex-col lg:grid lg:grid-cols-[1fr_20rem] lg:grid-rows-[auto_1fr] lg:items-start">
       {
         podcast.guests.length > 0 && (
           <section class="gap-step-sm order-1 flex flex-col lg:col-start-2 lg:row-start-1">
@@ -297,51 +302,60 @@ const shareLinks = [
         ocupa las dos filas de la izquierda, así que el raíl vuelve a la derecha
         con los invitados arriba y las acciones debajo. Un solo árbol en el DOM
         en ambos casos.
+
+        Una tarjeta y no dos. Eran dos `Card` con `CardTitle` cada una —dos
+        titulares del tamaño de «Notas del episodio»— para tres enlaces y dos
+        iconos. Es la misma desproporción que el reproductor tenía con su
+        «Escuchar episodio»: aquí los rótulos bajan a `eyebrow`, que es lo que
+        el sistema usa para nombrar un grupo sin abrir una sección.
       */}
       <aside
-        class="gap-step-md order-3 flex shrink-0 flex-col lg:col-start-2 lg:row-start-2"
+        class="order-3 shrink-0 lg:col-start-2 lg:row-start-2"
         aria-label="Escuchar y compartir"
       >
-        <Card>
-          <CardHeader>
-            <CardTitle>Escuchar en</CardTitle>
-          </CardHeader>
-          <CardContent className="gap-step-xs flex flex-col">
+        <Card className="p-step-md gap-step-md flex flex-col">
+          <div class="gap-step-xs flex flex-col">
+            <Text as="h2" variant="eyebrow" tone="muted">Escuchar en</Text>
             {
               podcast.platforms.map((platform) => (
                 <a
                   href={platform.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class={`${buttonVariants({ variant: "secondary" })} justify-start`}
+                  class={`${buttonVariants({ variant: "secondary", size: "sm" })} justify-start`}
                 >
                   <Icon as={platformIcons[platform.icon]} />
                   {platform.name}
                 </a>
               ))
             }
-          </CardContent>
-        </Card>
+          </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Compartir</CardTitle>
-          </CardHeader>
-          <CardContent className="gap-step-xs flex">
-            {
-              shareLinks.map(({ label, href }) => (
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class={`${buttonVariants({ variant: "secondary" })} flex-1`}
-                  aria-label={`Compartir en ${label}`}
-                >
-                  <Icon as={label === "X" ? XLogo : LinkedinLogo} />
-                </a>
-              ))
-            }
-          </CardContent>
+          <Separator />
+
+          <div class="gap-step-sm flex items-center justify-between">
+            <Text as="h2" variant="eyebrow" tone="muted">Compartir</Text>
+            {/*
+              Cuadrados de 32px y no dos botones estirados al 50%: un icono
+              solo en mitad de un botón de 150px de ancho es el mismo defecto
+              que la barra lateral del artículo ya corrigió.
+            */}
+            <div class="gap-step-xs flex">
+              {
+                shareLinks.map(({ label, href }) => (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class={buttonVariants({ variant: "secondary", size: "icon-sm" })}
+                    aria-label={`Compartir en ${label}`}
+                  >
+                    <Icon as={label === "X" ? XLogo : LinkedinLogo} />
+                  </a>
+                ))
+              }
+            </div>
+          </div>
         </Card>
       </aside>
     </div>

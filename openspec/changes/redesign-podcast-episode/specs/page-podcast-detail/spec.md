@@ -158,3 +158,22 @@ Al pie, la página SHALL ofrecer el episodio anterior y el siguiente por fecha, 
 #### Scenario: El más antiguo no ofrece anterior
 - **WHEN** el episodio es el más antiguo
 - **THEN** SHALL NO renderizarse el enlace "Episodio anterior"
+
+---
+
+### Requirement: El raíl es una columna continua y ligera
+
+Los bloques del raíl SHALL quedar contiguos, y las acciones SHALL agruparse en una sola tarjeta con rótulos, no en tarjetas con titular propio.
+
+#### Scenario: Sin huecos entre los bloques del raíl
+- **WHEN** la página se muestra a 1280px con notas largas
+- **THEN** la separación entre el bloque de invitados y el de acciones SHALL ser la del `gap` de la rejilla, no la altura sobrante del cuerpo
+
+#### Scenario: Una sola tarjeta para las acciones
+- **WHEN** se carga la página
+- **THEN** "Escuchar en" y "Compartir" SHALL vivir en el mismo contenedor
+- **THEN** sus rótulos SHALL usar la escala de `eyebrow`, no la de los encabezados de sección del cuerpo
+
+#### Scenario: Los botones de compartir no se estiran
+- **WHEN** se renderizan los enlaces de compartir
+- **THEN** SHALL ser controles cuadrados de icono, no botones que ocupen la mitad del ancho cada uno

@@ -52,3 +52,11 @@
 - [x] 7.6 Renderizar el índice "En este episodio" con anclas reales
 - [x] 7.7 Añadir la navegación anterior/siguiente al pie
 - [x] 7.8 Ampliar los e2e: panel, flotante, anclas del índice y navegación entre episodios
+
+## 8. El raíl
+
+- [x] 8.1 Arreglar el hueco de 325px: `lg:grid-rows-[auto_1fr]` para que el sobrante del cuerpo caiga en la segunda fila y no entre los dos bloques
+- [x] 8.2 Fundir las dos tarjetas de acciones en una, con rótulos `eyebrow` en vez de `CardTitle`
+- [x] 8.3 Compartir con botones `icon-sm` en vez de dos botones estirados al 50%
+- [x] 8.4 Quitar los imports de `CardHeader`, `CardTitle` y `CardContent` que quedan huérfanos
+- [x] 8.5 Verificar altura del bloque y separación en el raíl a 1280px
