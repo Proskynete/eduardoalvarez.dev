@@ -8,7 +8,13 @@ import type { TagsAllowed } from "../../../interfaces";
 import { TagMap } from "../../../utils/categories";
 
 const { content, timeToRead, twitterShare, linkedInShare } = Astro.props;
-const prettyTimeToReadText = timeToRead <= 1 ? "minuto" : "minutos";
+/**
+ * The whole string, and not `{timeToRead} {unit}` in the template.
+ * `compressHTML` collapses the whitespace BETWEEN two adjacent expressions, so
+ * both the rail and the strip have been reading «5minutos aprox.» — the space
+ * only survives inside the expression.
+ */
+const prettyTimeToRead = `${timeToRead} ${timeToRead <= 1 ? "minuto" : "minutos"}`;
 
 /**
  * How many tags fit in the sidebar.
@@ -29,6 +35,109 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
 ---
 
 {/*
+  Two asides, and only one of them is in the document at a time.
+
+  Below `xl` the grid collapses to one column, so this stops being a rail and
+  becomes a stack sitting BETWEEN the title and the first paragraph. The rail's
+  five panels measured about 480px there — a whole phone screen of furniture to
+  scroll past before the article starts, with the two share buttons stretched to
+  half the viewport each because `flex-1` was written for a 220px column.
+
+  So the phone gets the same information in the shape a phone can afford: one
+  strip — reading time, the two share controls as 32px squares, the tags — and
+  the sections, which were already collapsed here. About 120px, and the article
+  begins.
+
+  What the strip does not carry is «./artículos». A link back is the end of a
+  read, not its opening move; on mobile it now closes the article, in the layout.
+
+  The file already worked this way for the table of contents — a `<details>`
+  under `xl` and a `Card` over it — because a 220px rail and a 390px column are
+  not the same problem. This extends that to the rest of the rail instead of
+  making one markup serve both badly.
+*/}
+
+<aside aria-label="Información del artículo" class="mb-step-lg gap-step-sm flex flex-col xl:hidden">
+  <Card className="p-step-md gap-step-sm flex flex-col">
+    <div class="gap-step-sm flex flex-wrap items-center justify-between">
+      <Text variant="meta" tone="muted" as="span">
+        {`${prettyTimeToRead} de lectura`}
+      </Text>
+
+      <div class="gap-step-xs flex">
+        <a
+          href={twitterShare}
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+          class={buttonVariants({ variant: "secondary", size: "icon-sm" })}
+          aria-label="Compartir en X"
+        >
+          <Icon as={XLogo} />
+        </a>
+        <a
+          href={linkedInShare}
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+          class={buttonVariants({ variant: "secondary", size: "icon-sm" })}
+          aria-label="Compartir en LinkedIn"
+        >
+          <Icon as={LinkedinLogo} />
+        </a>
+      </div>
+    </div>
+
+    {
+      tags.length > 0 && (
+        <div class="gap-step-xs flex flex-wrap">
+          {tags.map((tag) => (
+            <Badge variant="neutral">{TagMap.get(tag) ?? tag}</Badge>
+          ))}
+          {remaining > 0 && (
+            <Text variant="chip" tone="muted" as="span" className="self-center">
+              +{remaining}
+            </Text>
+          )}
+        </div>
+      )
+    }
+  </Card>
+
+  {
+    sections.length > 0 && (
+      <details class="group bg-surface rounded-card border-hairline overflow-hidden border">
+        <summary class="px-step-md py-step-sm text-eyebrow font-mono uppercase text-text-muted hover:text-text-primary transition-standard flex cursor-pointer select-none list-none items-center justify-between">
+          Secciones del artículo
+          {/* The caret turns with the disclosure. Pointing right while the list
+              is open said the opposite of what the control had just done. */}
+          <span class="text-accent transition-standard inline-flex group-open:rotate-90">
+            <Icon as={CaretRight} />
+          </span>
+        </summary>
+        {/*
+          An empty `title`, because the `<summary>` above IS this block's
+          heading. With the library's default the panel opened onto «SECCIONES
+          DEL ARTÍCULO» followed by «EN ESTA PÁGINA» — the same list titled
+          twice, which is the duplication this file already removed once on the
+          rail.
+
+          `title` is typed as `string & ReactNode`, so `null` does not typecheck
+          and the empty string is the only way through. It costs the component's
+          own `aria-label`, which it derives from the title — hence the explicit
+          one: the smooth-scroll script binds to `nav[aria-label="En esta
+          página"]` and would stop scrolling the mobile links without it.
+        */}
+        <TableOfContents
+          title=""
+          aria-label="En esta página"
+          items={sections}
+          className="px-step-md pb-step-md"
+        />
+      </details>
+    )
+  }
+</aside>
+
+{/*
   The four panels are `Card` now. They were `bg-surface rounded-xl p-4 border
   border-border` written out four times: the same surface the system publishes as
   one token, with `border` — the token for delimiting a control — where a card
@@ -37,11 +146,11 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
   `p-step-md` and not the card's own `p-step-lg`: this rail is 220px wide and 26
   of padding on each side leaves the tags nowhere to sit.
 */}
-<aside aria-label="Información del artículo" class="xl:sticky xl:top-24 xl:self-start mb-10 xl:mb-0">
+<aside aria-label="Información del artículo" class="hidden xl:sticky xl:top-24 xl:block xl:self-start">
   <div class="gap-step-sm flex flex-col">
     <Card className="p-step-md">
       <Text variant="eyebrow" tone="muted" as="p" className="mb-step-xs">Lectura</Text>
-      <Text variant="ui" as="p" className="font-medium">{timeToRead} {prettyTimeToReadText} aprox.</Text>
+      <Text variant="ui" as="p" className="font-medium">{`${prettyTimeToRead} aprox.`}</Text>
     </Card>
 
     {/*
@@ -66,25 +175,13 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
       )
     }
 
-    {
-      sections.length > 0 && (
-        <details class="xl:hidden bg-surface rounded-card border-hairline overflow-hidden border">
-          <summary class="px-step-md py-step-sm text-eyebrow font-mono uppercase text-text-muted hover:text-text-primary transition-standard flex cursor-pointer select-none list-none items-center justify-between">
-            Secciones del artículo
-            <span class="text-accent"><Icon as={CaretRight} /></span>
-          </summary>
-          <TableOfContents title="En esta página" items={sections} className="px-step-md pb-step-md" />
-        </details>
-      )
-    }
-
     {/*
       `TableOfContents` renders the heading. There used to be a hand-written
       `<p>` above it with the same words, so "En esta página" appeared twice.
     */}
     {
       sections.length > 0 && (
-        <Card className="hidden overflow-hidden p-step-md xl:block">
+        <Card className="overflow-hidden p-step-md">
           <TableOfContents title="En esta página" items={sections} />
         </Card>
       )

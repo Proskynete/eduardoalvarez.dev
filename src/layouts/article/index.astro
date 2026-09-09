@@ -5,6 +5,7 @@ import Layout from "../base/index.astro";
 import Head from "./components/head.astro";
 import Aside from "./components/aside.astro";
 import AudioPlayer from "../../components/audio-player/index";
+import TextLink from "../../components/text-link/index.astro";
 import { GiscusWrapper } from "./components/giscus";
 import { calculateReadingTime } from "../../utils/reading-time";
 import type { Props as BaseHeadProps } from "../base/components/head.astro";
@@ -232,6 +233,17 @@ const seo: BaseHeadProps = {
       <div class="min-w-0">
         <div id="article-body" class="pb-12 max-w-none">
           <slot />
+        </div>
+
+        {/*
+          «./artículos» closes the article on mobile and opens the rail on
+          desktop. Under `xl` the rail stacks above the first paragraph, and a
+          link back sitting there is an exit offered before the entrance; at the
+          foot of the read it is the thing you actually want next. Over `xl` it
+          stays where it was, at the bottom of the sidebar.
+        */}
+        <div class="pb-10 xl:hidden">
+          <TextLink href="/articles" back>./artículos</TextLink>
         </div>
 
         <div class="border-t border-border pt-10">

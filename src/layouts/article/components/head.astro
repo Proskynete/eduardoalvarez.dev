@@ -40,7 +40,12 @@ const { content } = Astro.props;
     <time datetime={content.date}>
       <Text variant="meta" tone="muted" as="span">{prettyDate(content.date)}</Text>
     </time>
-    <Text variant="meta" tone="muted" as="span" aria-hidden="true">·</Text>
+    {/*
+      The separator only exists while the two items share a line. On a phone the
+      meta wraps and the row's own `gap` does the separating, so the dot was left
+      hanging at the end of the date's line with nothing after it.
+    */}
+    <Text variant="meta" tone="muted" as="span" aria-hidden="true" className="hidden sm:inline">·</Text>
     {/*
       Phosphor's `GithubLogo`, drawn through the library's `Icon` — the same mark
       the footer and the share buttons carry, at the same weight.
