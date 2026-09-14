@@ -38,7 +38,7 @@ const schema = hasItems
         is where hydrating the library once cost 332 KB.
       */}
       <FaqAccordion client:visible items={faq!} />
-      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
     </section>
   )
 }
