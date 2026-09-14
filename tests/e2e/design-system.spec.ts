@@ -104,6 +104,43 @@ test.describe("Design System · foundations", () => {
     expect(family).not.toContain("Geist Mono");
   });
 
+  /**
+   * The two tests above read the DECLARED family, which stays "Bricolage" even
+   * when the file behind it has no glyph to draw: the self-hosted woff2 were
+   * Fontsource's latin-ext subset, with no `a`, no `ñ` and no digits, and every
+   * heading fell back to the system face while those tests passed.
+   *
+   * So this one measures, with the same text behind two different fallbacks.
+   * If the face covers every character, both draw only its glyphs and measure
+   * the same; if a single one is missing, that character comes from serif in
+   * one and from monospace in the other, and the widths split. Comparing
+   * against the fallback alone is not enough: that subset did carry the space
+   * and the `A`, which is already a different width.
+   */
+  test("brand faces actually draw Spanish text", async ({ page }) => {
+    await page.goto("/");
+    const widths = await page.evaluate(async () => {
+      const sample = "¿Añoranza?¡Árbol!pingüinoÉxitoCañón0123456789";
+      const ctx = document.createElement("canvas").getContext("2d")!;
+      const measure = (font: string) => {
+        ctx.font = font;
+        return ctx.measureText(sample).width;
+      };
+      const out: Record<string, { serif: number; mono: number }> = {};
+      for (const family of ["Bricolage Grotesque", "JetBrains Mono"]) {
+        await document.fonts.load(`400 32px "${family}"`, sample);
+        out[family] = {
+          serif: measure(`400 32px "${family}", serif`),
+          mono: measure(`400 32px "${family}", monospace`),
+        };
+      }
+      return out;
+    });
+    for (const [family, { serif, mono }] of Object.entries(widths)) {
+      expect(serif, `${family} is missing glyphs for the sample`).toBeCloseTo(mono, 1);
+    }
+  });
+
   test("no colour from the previous system survives", async ({ page }) => {
     await page.goto("/");
     const html = (await page.content()).toLowerCase();
