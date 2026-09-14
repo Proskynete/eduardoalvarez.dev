@@ -90,7 +90,7 @@ export default defineConfig({
       filter(page) {
         const pathname = new URL(page).pathname;
         // `/podcasts` sale del sitemap mientras `podcastsEnabled` esté en
-        // `false` (ver `src/settings/podcasts.ts`): sus rutas responden 404, y
+        // `false` (ver `src/settings/podcasts.ts`): sus rutas redirigen a `/`, y
         // anunciar una puerta cerrada es pedirle a Google que la empuje. La
         // condición se va cuando se encienda la sección.
         return (

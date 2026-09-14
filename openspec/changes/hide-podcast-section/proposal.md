@@ -10,7 +10,7 @@ Cerrarla sólo en la navegación no basta. Las rutas se construían igual, respo
 
 - **Una sola llave**: `podcastsEnabled` en `src/settings/podcasts.ts`, hoy en `false`.
 - **La navegación** deja de mostrar el enlace, en la barra y en el cajón móvil.
-- **Las rutas dejan de existir**: `/podcasts` responde 404 y `getStaticPaths` no declara ningún episodio, así que tampoco se llega escribiendo la URL ni desde un resultado de búsqueda antiguo.
+- **Las rutas dejan de existir**: `/podcasts` y `/podcasts/*` redirigen a `/` con un 302 (en un principio respondían 404; ver tarea 5.1) y `getStaticPaths` no declara ningún episodio, así que tampoco se llega escribiendo la URL ni desde un resultado de búsqueda antiguo.
 - **El sitemap** deja de anunciarlas.
 - **Los tests del índice y del episodio quedan saltados, no borrados**: describen el diseño que vuelve entero cuando se encienda la llave, y hay tests nuevos que verifican que ahora está cerrada.
 
@@ -26,7 +26,7 @@ Cerrarla sólo en la navegación no basta. Las rutas se construían igual, respo
 **Archivos modificados:**
 - `src/settings/podcasts.ts` — la llave
 - `src/layouts/base/components/header/constants/index.ts` — el enlace la sigue
-- `src/pages/podcasts/index.astro` — deja de prerenderizarse y responde 404
+- `src/pages/podcasts/index.astro` — deja de prerenderizarse y redirige a `/`
 - `src/pages/podcasts/[slug].astro` — sin rutas
 - `astro.config.mjs` — el sitemap las excluye
 - `tests/e2e/podcasts.spec.ts` — la suite sigue la llave

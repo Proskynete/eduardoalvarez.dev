@@ -16,29 +16,29 @@ import AudioPlayer from "../../components/audio-player/index";
 import PodcastGuest from "../../components/podcast-guest/index";
 import PodcastGuestChips from "../../components/podcast-guest-chips/index";
 import Layout from "../../layouts/main/index.astro";
-import { platformIcons, podcasts, podcastsEnabled } from "../../settings/podcasts";
+import { platformIcons, podcasts } from "../../settings/podcasts";
 import type { PodcastEpisode } from "../../settings/podcasts";
 import { formatDuration, withHeadingAnchors } from "../../utils/podcasts";
 
-export const prerender = true;
-
 /**
- * Sin rutas mientras la sección esté apagada: una ruta dinámica que no declara
- * ningún camino no existe, así que `/podcasts/lo-que-sea` responde 404 sin
- * necesidad de comprobar nada en tiempo de ejecución.
+ * Rendered on demand, not prerendered, and that is what makes the redirect
+ * reach production. A prerendered route with no paths gets no entry in
+ * Vercel's routing table, so `/podcasts/<slug>` was answered by the static
+ * `404.html` without ever running the middleware — it only redirected under
+ * `astro dev`. On demand, the route exists and goes through the function.
+ *
+ * The episodes are a handful of in-memory records, so resolving one per request
+ * costs nothing; the build still emits no episode page. While the section is
+ * off the middleware redirects before this runs, so the lookup below only
+ * matters once it is on.
  */
-export function getStaticPaths() {
-  if (!podcastsEnabled) return [];
+export const prerender = false;
 
-  return podcasts
-    .filter((podcast) => podcast.show)
-    .map((podcast) => ({
-      params: { slug: podcast.slug },
-      props: { podcast },
-    }));
+const podcast = podcasts.find((item: PodcastEpisode) => item.show && item.slug === Astro.params.slug);
+
+if (!podcast) {
+  return new Response(null, { status: 404, statusText: "Not Found" });
 }
-
-const { podcast } = Astro.props as { podcast: PodcastEpisode };
 
 /**
  * Las notas, con ancla en cada `<h2>`, y su índice.
