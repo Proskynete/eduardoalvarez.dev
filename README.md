@@ -92,7 +92,6 @@ npm run a11y:audit          # Auditoría axe contra localhost:4321
 | `/now` | Qué estoy haciendo ahora |
 | `/stack` | Herramientas y tecnologías que uso |
 | `/about` | Sobre mí |
-| `/working-with-me` | Formas de trabajar juntos |
 | `/newsletter` | Suscripción al newsletter |
 | `/projects` | Proyectos con filtro por estado |
 | `/podcasts` | Episodios con reproductor integrado |

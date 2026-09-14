@@ -18,15 +18,18 @@ test.describe("Sección de podcasts oculta", () => {
     await expect(page.getByRole("link", { name: /podcast/i })).toHaveCount(0);
   });
 
-  test("el listado no existe ni escribiendo la URL", async ({ page }) => {
-    const response = await page.goto("/podcasts");
-    expect(response?.status()).toBe(404);
-  });
-
-  test("ningún episodio existe", async ({ page }) => {
-    const response = await page.goto("/podcasts/de-junior-a-senior");
-    expect(response?.status()).toBe(404);
-  });
+  /*
+   * The index and its episodes were live and in the sitemap, so a 404 would
+   * break every link pointing at them: they redirect home, temporarily, until
+   * the section comes back.
+   */
+  for (const path of ["/podcasts", "/podcasts/ia-en-desarrollo-web", "/podcasts/slug-inventado"]) {
+    test(`${path} redirige a la home con un 302`, async ({ request }) => {
+      const response = await request.get(path, { maxRedirects: 0 });
+      expect(response.status()).toBe(302);
+      expect(response.headers()["location"]).toBe("/");
+    });
+  }
 
   test("no queda rastro en el sitemap", async ({ request }) => {
     const sitemap = await request.get("/sitemap-0.xml");

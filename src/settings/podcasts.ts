@@ -120,8 +120,9 @@ export const platformIcons: Record<Platform["icon"], PhosphorIcon> = {
  * Si la sección existe para el público.
  *
  * En `false` el podcast desaparece por las dos puertas: sale de la navegación
- * y sus rutas dejan de existir —`/podcasts` responde 404 y no se construye
- * ninguna página de episodio— así que tampoco se llega escribiendo la URL ni
+ * y sus rutas dejan de existir —no se construye ninguna página de episodio, y
+ * `/podcasts` y todo lo que cuelga de él redirigen a `/` con un 302 (ver
+ * `src/middleware/podcasts.ts`)— así que tampoco se llega escribiendo la URL ni
  * desde un buscador que la hubiera indexado.
  *
  * Está apagada porque los episodios de abajo son datos de prueba: el audio
@@ -129,9 +130,9 @@ export const platformIcons: Record<Platform["icon"], PhosphorIcon> = {
  * invitados son personas inventadas con cargo y empresa reales. Publicar eso
  * no es una sección a medias, es información falsa sobre gente que existe.
  *
- * Para encenderla: poner `true` cuando haya un episodio real, y devolver
- * `prerender = true` en `src/pages/podcasts/index.astro`, que mientras tanto
- * se sirve en tiempo de petición para poder responder 404.
+ * Para encenderla: poner `true` cuando haya un episodio real. El índice y el
+ * episodio se sirven en tiempo de petición para que la redirección llegue a
+ * producción; devolverles `prerender = true` después es opcional.
  */
 export const podcastsEnabled = false;
 
