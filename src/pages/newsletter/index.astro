@@ -1,7 +1,8 @@
 ---
+import { PageHeader, Separator, Text } from "@eduardoalvarez/arrecife";
+
 import Layout from "../../layouts/main/index.astro";
 import Subscribe from "../../components/subscribe/index.astro";
-import settings from "../../settings";
 
 export const prerender = true;
 
@@ -19,51 +20,46 @@ const valueProps = [
 ---
 
 <Layout seo={seo}>
-  <div class="mx-auto max-w-content">
-    <!-- Page header -->
-    <header class="mb-12">
-      <p class="text-text-muted font-mono text-sm">/newsletter</p>
-      <h1 class="text-4xl font-bold text-text-primary tracking-tight mb-3">Newsletter</h1>
-      <p class="text-text-secondary text-lg mb-4">
-        Artículos sobre liderazgo de ingeniería, arquitectura de plataformas y la era de la IA — directamente en tu
-        correo.
-      </p>
-      <p class="text-text-secondary text-base leading-relaxed mb-4">
+  <div class="mx-auto max-w-wide">
+    {/* La misma cabecera del sistema que ya usan /articles, /about y /speaking.
+        Lo que había aquí la reescribía con `text-[12.5px]`, `clamp(...)` y
+        `max-w-[62ch]` a mano. */}
+    <PageHeader
+      eyebrow="/newsletter"
+      title="Newsletter"
+      description="Artículos sobre liderazgo de ingeniería, arquitectura de plataformas y la era de la IA — directamente en tu correo."
+    />
+
+    <div class="gap-step-md mb-step-xl flex flex-col">
+      <Text variant="body" tone="secondary">
         Una edición mensual con ensayos originales sobre cómo los equipos de ingeniería están evolucionando en la era
         de la IA, reflexiones sobre liderazgo técnico y recomendaciones de lectura. Dirigida a Staff Engineers,
         Engineering Managers y Tech Leads que quieren profundidad, no titulares. Sin spam, cancelas cuando quieras.
-      </p>
-      <p class="text-text-muted text-sm">
-        {settings.authorInlineBio.text}{" "}
-        <a href={settings.authorInlineBio.href} class="text-accent underline">{settings.authorInlineBio.cta}</a>
-      </p>
-    </header>
+      </Text>
 
-    <!-- Value proposition -->
-    <section class="mb-10">
-      <ul class="space-y-3">
+      <ul class="gap-step-sm flex flex-col">
         {
           valueProps.map((prop) => (
-            <li class="flex gap-3 text-text-secondary leading-relaxed">
-              <span class="text-accent flex-shrink-0 mt-1">✓</span>
-              {prop}
+            <li class="gap-step-sm flex items-start">
+              <span class="text-accent mt-1 shrink-0" aria-hidden="true">✓</span>
+              <Text variant="ui" tone="secondary" as="span">{prop}</Text>
             </li>
           ))
         }
       </ul>
-    </section>
+    </div>
 
-    <!-- Subscribe form -->
-    <section class="bg-surface rounded-xl border border-surface-border p-8">
-      <h2 class="text-lg font-bold text-text-primary mb-1">Suscríbete</h2>
-      <p class="text-text-muted text-sm mb-6">Mensual. Sin spam.</p>
-      <Subscribe />
-    </section>
+    <!-- Subscribe: rompe el contenedor de lectura porque es un panel de dos
+         columnas y a 760px la rejilla se ahoga. -->
+    <Subscribe />
 
     <!-- Archive placeholder -->
-    <section class="mt-16 border-t border-surface-border pt-10">
-      <h2 class="text-xl font-bold text-text-primary mb-4">Archivo</h2>
-      <p class="text-text-muted text-sm">El archivo de ediciones anteriores estará disponible próximamente.</p>
+    <Separator className="mt-step-xl" />
+    <section class="pt-step-xl">
+      <Text as="h2" variant="h3" className="mb-step-sm">Archivo</Text>
+      <Text variant="label" tone="secondary" as="p" className="font-normal">
+        El archivo de ediciones anteriores estará disponible próximamente.
+      </Text>
     </section>
   </div>
 </Layout>

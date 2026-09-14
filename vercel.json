@@ -75,6 +75,11 @@
       "source": "/projects",
       "destination": "/about",
       "permanent": true
+    },
+    {
+      "source": "/working-with-me",
+      "destination": "/about",
+      "permanent": true
     }
   ]
 }

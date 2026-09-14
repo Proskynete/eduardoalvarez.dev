@@ -11,7 +11,7 @@
   margin-bottom: 1rem;
   padding-top: 3rem;
   scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
-  color: #f5f5f5; /* text-primary */
+  color: var(--color-text-primary); /* text-primary */
 }
 
 #article-body h3 {
@@ -21,14 +21,14 @@
   margin-bottom: 0.75rem;
   margin-top: 2rem;
   scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
-  color: #f5f5f5; /* text-primary */
+  color: var(--color-text-primary); /* text-primary */
 }
 
 #article-body p {
   font-weight: 400;
   line-height: 1.75;
   margin-bottom: 1.5rem;
-  color: #f5f5f5; /* text-primary */
+  color: var(--color-text-primary); /* text-primary */
 }
 
 #article-body p strong {
@@ -39,14 +39,20 @@
   font-style: italic;
 }
 
+/* Subrayado permanente, no solo en hover: el acento contra el color del
+   cuerpo da 1.63:1 y el mínimo para distinguir un enlace únicamente por
+   color es 3:1. Sin subrayado el enlace es invisible para quien no
+   distingue ese contraste. */
 #article-body p a {
-  color: #06b6d4; /* accent */
-  text-decoration: none;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
 
 #article-body p a:hover {
-  color: #0891b2; /* accent-hover */
-  text-decoration: underline;
+  color: var(--color-accent-hover);
+  text-decoration-thickness: 2px;
 }
 
 #article-body p img {
@@ -65,19 +71,19 @@
 }
 
 #article-body p code {
-  background-color: #161616; /* surface-raised */
+  background-color: var(--color-surface-raised); /* surface-raised */
   border-radius: 4px;
-  color: #f5f5f5; /* text-primary */
-  font-family: "Geist Mono", "Fira Code", monospace;
+  color: var(--color-text-primary); /* text-primary */
+  font-family: var(--font-mono);
   font-style: normal;
   padding: 2px 6px;
   font-size: 0.875em;
 }
 
 #article-body blockquote {
-  border-left: 3px solid #06b6d4; /* accent */
+  border-left: 3px solid var(--color-accent); /* accent */
   background-color: transparent;
-  color: #a3a3a3; /* text-secondary */
+  color: var(--color-text-secondary); /* text-secondary */
   font-style: italic;
   margin-bottom: 1.5rem;
   margin-top: 2rem;
@@ -88,21 +94,21 @@
   font-size: 1rem;
   line-height: 1.6;
   margin: 0;
-  color: #a3a3a3; /* text-secondary */
+  color: var(--color-text-secondary); /* text-secondary */
 }
 
 #article-body blockquote p strong {
   font-weight: 700;
-  color: #f5f5f5;
+  color: var(--color-text-primary);
 }
 
 #article-body blockquote p a {
   font-weight: 500;
-  color: #06b6d4;
+  color: var(--color-accent);
 }
 
 #article-body blockquote p code {
-  background-color: #1f1f1f; /* surface-border */
+  background-color: var(--color-border); /* surface-border */
   border-radius: 3px;
   font-style: normal;
   padding: 2px 5px;
@@ -111,7 +117,7 @@
 #article-body blockquote ul li {
   font-size: 1rem;
   line-height: 1.6;
-  color: #a3a3a3;
+  color: var(--color-text-secondary);
 }
 
 #article-body blockquote ul li strong {
@@ -122,50 +128,47 @@
   border-radius: 8px;
   margin-bottom: 1.5rem;
   overflow: hidden;
-  border: 1px solid #1f1f1f; /* surface-border */
+  border: 1px solid var(--color-border); /* surface-border */
 }
 
 #article-body .code-block-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #161616; /* surface-raised */
+  background-color: var(--color-surface-raised); /* surface-raised */
   padding: 0.55rem 1rem;
-  border-bottom: 1px solid #1f1f1f; /* surface-border */
+  border-bottom: 1px solid var(--color-border); /* surface-border */
 }
 
-#article-body .code-traffic-lights {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-#article-body .code-traffic-lights span {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+/* The fin replaces the macOS traffic lights: the system asks for the brand in
+   the block's title bar, and the lights were a borrowed idiom. */
+#article-body .code-block-fin {
   display: block;
+  width: 18px;
+  height: auto;
+  flex: none;
+  opacity: 0.9;
 }
-
-#article-body .code-traffic-lights span:nth-child(1) { background-color: #ff5f57; }
-#article-body .code-traffic-lights span:nth-child(2) { background-color: #febc2e; }
-#article-body .code-traffic-lights span:nth-child(3) { background-color: #28c840; }
 
 #article-body .code-language-label {
-  font-family: "Geist Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: #7c7c7c; /* text-muted */
+  /* Mismo caso que el botón de copiar: `muted` sobre surface-raised se
+     queda en 4.07:1. */
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 #article-body .code-copy-btn {
-  font-family: "Geist Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.65rem;
   letter-spacing: 0.1em;
-  color: #7c7c7c; /* text-muted */
+  /* `muted` daba 4.07:1 sobre surface-raised, justo bajo el 4.5 de AA.
+     `secondary` es el mismo papel visual y sí llega. */
+  color: var(--color-text-secondary);
   background: transparent;
-  border: 1px solid #1f1f1f; /* surface-border */
+  border: 1px solid var(--color-border); /* surface-border */
   border-radius: 4px;
   padding: 2px 8px;
   cursor: pointer;
@@ -174,18 +177,20 @@
 }
 
 #article-body .code-copy-btn:hover {
-  color: #f5f5f5; /* text-primary */
-  border-color: #a3a3a3; /* text-secondary */
+  color: var(--color-text-primary); /* text-primary */
+  border-color: var(--color-text-secondary); /* text-secondary */
 }
 
 #article-body .code-copy-btn.copied {
-  color: #22c55e; /* success */
-  border-color: #22c55e;
+  color: var(--color-success); /* success */
+  border-color: var(--color-success);
 }
 
+/* Code block — hull ground (#0B1524, the mascot's outline).
+   The title bar is injected by the article layout script. */
 #article-body pre {
-  background-color: #111111; /* surface */
-  border-radius: 0;
+  background-color: var(--color-brand-hull);
+  border-radius: 0 0 12px 12px;
   margin-bottom: 0;
   padding: 1.25rem;
   overflow-x: auto;
@@ -205,12 +210,12 @@
   line-height: 1.8;
   padding-left: 1.25rem;
   position: relative;
-  color: #f5f5f5;
+  color: var(--color-text-primary);
 }
 
 #article-body ul li::before {
   content: "•";
-  color: #06b6d4; /* accent */
+  color: var(--color-accent); /* accent */
   font-weight: 700;
   left: 0;
   position: absolute;
@@ -229,7 +234,7 @@
 #article-body ul li a {
   display: contents;
   text-decoration: none;
-  color: #06b6d4;
+  color: var(--color-accent);
 }
 
 #article-body ul li a:hover {
@@ -237,10 +242,52 @@
 }
 
 #article-body ul li code {
-  background-color: #161616;
+  background-color: var(--color-surface-raised);
   border-radius: 3px;
-  font-family: "Geist Mono", monospace;
+  font-family: var(--font-mono);
   font-style: normal;
   font-size: 0.875em;
   padding: 2px 5px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Contenido del artículo · Design System v1
+   prose 18/1.75 bruma · máx 68ch · h2 y h3 en display · cita con borde arena
+   de 3px, cursiva y SIN fondo · código inline sobre corriente r4 pad 2px 6px.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+#article-body p,
+#article-body ul,
+#article-body ol {
+  font-size: 18px;
+  line-height: 1.75;
+  color: rgb(var(--c-text-secondary));
+  max-width: 68ch;
+}
+
+#article-body h2,
+#article-body h3 {
+  font-family: var(--font-display);
+}
+
+/* Quotes take an arena border and NO background: the system is explicit. */
+#article-body blockquote {
+  margin: 0 0 22px;
+  border-left: 3px solid var(--color-warm);
+  padding-left: 22px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgb(var(--c-text-secondary));
+  font-style: italic;
+  background: none;
+}
+
+/* Inline code — on current, not on the block's ground. */
+#article-body :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: rgb(var(--c-text-primary));
+  background: rgb(var(--c-surface-raised));
+  border-radius: 4px;
+  padding: 2px 6px;
 }

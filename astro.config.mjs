@@ -6,6 +6,7 @@ import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 import sentry from "@sentry/astro";
 import { defineConfig } from "astro/config";
@@ -14,6 +15,7 @@ import serviceWorker from "astrojs-service-worker";
 
 import { publishAlgoliaRSS } from "./src/scripts/algolia.ts";
 import config from "./src/settings/manifest-config.ts";
+import { arrecife } from "@eduardoalvarez/arrecife/shiki";
 import { validateEnvAtStartup } from "./src/utils/env.ts";
 
 // Build a map of article slug → ISO date from MDX frontmatter for sitemap lastmod
@@ -47,8 +49,25 @@ if (process.env.SKIP_ENV_VALIDATION !== "true") {
 
 export default defineConfig({
   site: "https://eduardoalvarez.dev",
-  redirects: {
-    "/podcasts": "/",
+  // Tailwind v4 installs as a Vite plugin. It replaces the postcss.config.mjs
+  // that v3 used: the PostCSS pipeline is no longer involved.
+  vite: {
+    plugins: [tailwindcss()],
+    ssr: {
+      /*
+       * Bundle these into the server build instead of loading them from
+       * node_modules at runtime. Left external, the first request to any
+       * on-demand page loaded 6,642 ES modules: 4,541 of them are Phosphor's,
+       * one file per icon, and 826 are date-fns, pulled in through the
+       * library's date picker. That took ~2 s on a laptop and more than the
+       * function's 15 s limit on a Vercel cold start, so every article, the RSS
+       * feed and the API answered 504 on the develop previews. Bundled, Vite
+       * tree-shakes them down to what is used: ~1,100 modules, ~0.25 s, and the
+       * function goes from 9,331 files (99 MB) to 2,790 (64 MB). The rendered
+       * HTML is unchanged.
+       */
+      noExternal: ["@phosphor-icons/react", "@eduardoalvarez/arrecife", "react-day-picker", "date-fns"],
+    },
   },
   build: {
     inlineStylesheets: "always",
@@ -67,7 +86,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {
-      theme: "monokai",
+      theme: arrecife,
     },
   },
   integrations: [
@@ -85,7 +104,15 @@ export default defineConfig({
     sitemap({
       filter(page) {
         const pathname = new URL(page).pathname;
-        return !pathname.startsWith("/resources") && !pathname.startsWith("/cdn-cgi");
+        // `/podcasts` sale del sitemap mientras `podcastsEnabled` esté en
+        // `false` (ver `src/settings/podcasts.ts`): sus rutas redirigen a `/`, y
+        // anunciar una puerta cerrada es pedirle a Google que la empuje. La
+        // condición se va cuando se encienda la sección.
+        return (
+          !pathname.startsWith("/resources") &&
+          !pathname.startsWith("/cdn-cgi") &&
+          !pathname.startsWith("/podcasts")
+        );
       },
       serialize(item) {
         const pathname = new URL(item.url).pathname.replace(/\/$/, "");

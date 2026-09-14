@@ -1,7 +1,11 @@
 ---
+import { TalkCard, Text, buttonVariants } from "@eduardoalvarez/arrecife";
+import { Mascot } from "@eduardoalvarez/arrecife/brand";
+
 import type { Article as IArticle } from "../interfaces";
 import Layout from "../layouts/main/index.astro";
 import Article from "../components/article/index.astro";
+import TextLink from "../components/text-link/index.astro";
 import Subscribe from "../components/subscribe/index.astro";
 import { talks } from "../settings/talks";
 import type { Talk } from "../settings/talks";
@@ -14,12 +18,19 @@ interface Post {
   frontmatter: IArticle;
 }
 
-const _MAX_ARTICLES = 3;
+/**
+ * Cuántos artículos y charlas destacar en la portada.
+ *
+ * Las dos rejillas son de dos columnas en `sm`, así que tres dejaban un hueco
+ * en la segunda fila. Cuatro la completan y siguen siendo una muestra: hay 9
+ * artículos y 7 charlas publicadas.
+ */
+const _MAX_FEATURED = 4;
 const rawPosts = import.meta.glob<{ frontmatter: IArticle }>("./articles/*.mdx", { eager: true });
 const posts: Post[] = Object.values(rawPosts);
-posts.sort(articlesSort).splice(_MAX_ARTICLES);
+posts.sort(articlesSort).splice(_MAX_FEATURED);
 
-const featuredTalks = talks.filter((t: Talk) => t.show).slice(0, 3);
+const featuredTalks = talks.filter((t: Talk) => t.show).slice(0, _MAX_FEATURED);
 
 const githubLink = settings.social_network.find((s) => s.name === "Github")?.link ?? "";
 const linkedinLink = settings.social_network.find((s) => s.name === "LinkedIn")?.link ?? "";
@@ -58,45 +69,67 @@ const seo = {
 
 <Layout seo={seo}>
   <!-- Hero -->
-  <section aria-label="Presentación" class="pt-16 pb-20 mb-20 bg-hero-gradient rounded-2xl px-8 sm:px-12">
-    <p class="text-accent text-xs font-semibold uppercase tracking-widest mb-5">
-      Engineering Leadership & Platform Thinking
-    </p>
-    <h1 class="text-5xl sm:text-6xl font-bold text-text-primary tracking-tight leading-none mb-6">
-      Eduardo<br />Álvarez
-    </h1>
-    <p class="text-text-secondary text-lg leading-relaxed max-w-lg mb-6">
-      Ayudo a equipos de ingeniería a escalar con criterio — desde la arquitectura de plataforma hasta la cultura de
-      liderazgo técnico en la era de la IA.
-    </p>
-    <p class="text-text-secondary text-base leading-relaxed max-w-2xl mb-10">
-      Este sitio reúne mis artículos sobre liderazgo técnico, arquitectura de plataformas y el impacto de la IA en los
-      equipos de software. También encontrarás un resumen de mis charlas, los servicios de consultoría y mentoring que
-      ofrezco, y la newsletter mensual donde profundizo en estos temas sin spam.
-    </p>
-    <div class="flex flex-wrap gap-4">
-      <a
-        href="/articles"
-        class="px-6 py-3 bg-accent text-background text-sm font-semibold rounded-lg hover:bg-accent-hover transition-colors duration-200"
-      >
-        Leer artículos
-      </a>
-      <a
-        href="/working-with-me"
-        class="px-6 py-3 border border-surface-border text-text-primary text-sm font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors duration-200"
-      >
-        Trabajar juntos
-      </a>
+  {/* Hero. No wrapper: the mascot floats free instead of sitting inside a
+      gradient panel, so the page opens on the character and not on a box. */}
+  <section aria-label="Introduction" class="mb-20 pt-6 sm:pt-10">
+    <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
+      {/* La escala viene de `Text`. Antes eran cinco valores arbitrarios escritos
+          a mano —`text-[11.5px]`, `clamp(2.6rem,6.4vw,64px)`, `tracking-[0.12em]`,
+          `leading-[0.96]`, `tracking-[-0.035em]`— justo lo que los tokens de la
+          librería existen para evitar. `display` es el escalón mayor de la escala
+          y el que le corresponde a la portada. */}
+      <div class="gap-step-sm flex flex-col items-start">
+        <Text variant="eyebrow" tone="accent" as="p">Engineering Leadership &amp; Platform Thinking</Text>
+
+        <Text as="h1" variant="display">Eduardo<br />Álvarez</Text>
+
+        <Text variant="body" tone="secondary">
+          Ayudo a equipos de ingeniería a escalar con criterio — desde la arquitectura de plataforma hasta la cultura de
+          liderazgo técnico en la era de la IA.
+        </Text>
+
+        <Text variant="ui" tone="secondary">
+          Este sitio reúne mis artículos sobre liderazgo técnico, arquitectura de plataformas y el impacto de la IA en
+          los equipos de software. También encontrarás un resumen de mis charlas, los servicios de consultoría y
+          mentoring que ofrezco, y la newsletter mensual donde profundizo en estos temas sin spam.
+        </Text>
+
+        <div class="gap-step-sm mt-step-xs flex flex-wrap">
+          {/* `buttonVariants` en vez de `<Button asChild>`: esto son dos enlaces
+              estáticos y montar una isla de React para pintarlos sería pagar
+              hidratación por nada. La CVA se evalúa al construir. */}
+          <a href="/articles" class={buttonVariants({ variant: "primary" })}>Leer artículos</a>
+          <a href="/about" class={buttonVariants({ variant: "secondary" })}>Sobre mí</a>
+        </div>
+      </div>
+
+      {/* Centred and floating. The animation is a slow vertical drift — it
+          reads as buoyancy, not as a bounce. Disabled under reduced motion. */}
+      <div class="order-first flex justify-center lg:order-none">
+        {/* `Mascot` de la librería: la ruta y el nombre del archivo los resuelve
+            el catálogo de marca, no una cadena escrita aquí. La deriva vertical
+            se queda — es de esta página, no del sistema. */}
+        <Mascot
+          pose="laptop-coffee"
+          data-testid="hero-mascot"
+          aria-hidden="true"
+          width={346}
+          height={276}
+          fetchPriority="high"
+          decoding="async"
+          className="w-[260px] max-w-full motion-safe:animate-float sm:w-[300px] lg:w-full"
+        />
+      </div>
     </div>
   </section>
 
   <!-- Latest Writing -->
   <section aria-label="Últimos artículos" class="mb-20 mx-auto max-w-full">
     <div class="flex items-center justify-between mb-8">
-      <h2 class="text-2xl font-bold text-text-primary">Últimos artículos</h2>
-      <a href="/articles" class="text-accent text-sm hover:underline">Ver todos →</a>
+      <h2 class="text-text-primary">Últimos artículos</h2>
+      <TextLink href="/articles">./ver_todos</TextLink>
     </div>
-    <div class="divide-y divide-surface-border">
+    <div class="grid gap-4 sm:grid-cols-2">
       {posts.map(({ frontmatter }) => <Article article={frontmatter} />)}
     </div>
   </section>
@@ -106,33 +139,23 @@ const seo = {
     featuredTalks.length > 0 && (
       <section aria-label="Charlas recientes" class="mb-20 mx-auto max-w-full">
         <div class="flex items-center justify-between mb-8">
-          <h2 class="text-2xl font-bold text-text-primary">Charlas recientes</h2>
-          <a href="/speaking" class="text-accent text-sm hover:underline">
-            Ver todas →
-          </a>
+          <h2 class="text-text-primary">Charlas recientes</h2>
+          <TextLink href="/speaking">./ver_todas</TextLink>
         </div>
-        <div class="divide-y divide-surface-border">
+        <div class="gap-step-md grid sm:grid-cols-2">
           {featuredTalks.map((talk: Talk) => (
-            <div class="py-6 first:pt-0">
-              <div class="flex items-center gap-2 text-xs text-text-muted mb-2">
-                <time datetime={talk.date[0]}>
-                  {new Date(talk.date[0]).toLocaleDateString("es-CL", { year: "numeric", month: "long" })}
-                </time>
-                <span class="text-surface-border">·</span>
-                <a
-                  href={talk.location.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="hover:text-text-secondary transition-colors duration-200"
-                >
-                  {talk.location.name}
-                </a>
-              </div>
-              <p class="font-semibold text-text-primary">{talk.title}</p>
-              {talk.description && (
-                <p class="text-text-secondary text-sm mt-1 leading-relaxed line-clamp-2">{talk.description}</p>
-              )}
-            </div>
+            <TalkCard
+              href={talk.options?.presentation ?? talk.options?.repo ?? talk.location.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={talk.title}
+              event={talk.organizations[0]?.name ?? talk.location.name}
+              date={new Date(talk.date[0]).toLocaleDateString("es-CL", { year: "numeric", month: "long" })}
+              dateTime={talk.date[0]}
+              location={talk.location.name}
+              description={talk.description}
+              className="h-full"
+            />
           ))}
         </div>
       </section>
@@ -140,11 +163,5 @@ const seo = {
   }
 
   <!-- Newsletter CTA -->
-  <section aria-label="Newsletter" class="mx-auto max-w-content bg-surface rounded-xl border border-surface-border p-8 sm:p-10">
-    <h2 class="text-xl font-bold text-text-primary mb-1">Newsletter</h2>
-    <p class="text-text-secondary text-sm mb-6">
-      Artículos sobre liderazgo, plataforma y la era de la IA — directamente en tu correo.
-    </p>
-    <Subscribe />
-  </section>
+  <Subscribe />
 </Layout>

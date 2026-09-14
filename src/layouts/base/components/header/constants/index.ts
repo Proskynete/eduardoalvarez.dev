@@ -1,3 +1,5 @@
+import { podcastsEnabled } from "../../../../../settings/podcasts";
+
 export interface NavItem {
   name: string;
   href: string;
@@ -31,15 +33,14 @@ export const navItems: NavItem[] = [
     description: "Quién soy y qué hago",
   },
   {
-    name: "Hablemos",
-    href: "/working-with-me",
-    show: true,
-    description: "Cómo podemos colaborar",
-  },
-  {
+    /**
+     * The podcast follows `podcastsEnabled`, and there is no second switch to
+     * forget: the same flag that takes this link out of the bar and the drawer
+     * makes the routes stop existing. See `settings/podcasts.ts`.
+     */
     name: "Podcast",
     href: "/podcasts",
-    show: false,
+    show: podcastsEnabled,
     description: "Episodios y charlas en audio",
   },
 ];
