@@ -13,7 +13,7 @@ const SubscribeSchema = z.object({
   email: z
     .string()
     .min(1, "El email es requerido")
-    .email("Email inválido")
+    .check(z.email("Email inválido"))
     .max(100, "Email demasiado largo")
     .toLowerCase()
     .trim(),
