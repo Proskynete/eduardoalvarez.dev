@@ -57,11 +57,16 @@ export default function SiteFooter() {
     { label: "Newsletter", href: "/newsletter", icon: <Icon as={BellSimpleIcon} /> },
   ];
 
+  /**
+   * `builtWith` is off in the library by default; this site turns it on, so the
+   * signature carries «Creado con Arrecife» under it, linking to the Storybook.
+   */
   return (
     <Footer
       id="site-footer"
       className="mt-20"
       social={networks}
+      builtWith
       brand={
         <span className="gap-step-sm flex items-center">
           <Isotype background="dark" className="block h-6 w-auto flex-none light:hidden" />
