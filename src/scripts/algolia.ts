@@ -9,6 +9,34 @@ import kleur from "kleur";
 
 import config from "../settings/index.ts";
 
+/**
+ * El indexado en Algolia solo debe ocurrir en el deploy de producción (rama `main`).
+ *
+ * Vercel construye cada MR como Preview Deployment, y hasta ahora ese build
+ * también escribía en el índice: artículos de prueba que nunca llegaron a
+ * producción terminaban siendo buscables. `VERCEL_ENV` vale `production`
+ * únicamente en el build de la rama de producción, así que es la señal correcta.
+ *
+ * Escape hatch: `ALGOLIA_FORCE_INDEX=true` fuerza el push (reindexado manual
+ * desde local sin tener que tocar este archivo).
+ */
+const shouldPublishToAlgolia = (): { publish: boolean; reason: string } => {
+  if (process.env.ALGOLIA_FORCE_INDEX === "true") {
+    return { publish: true, reason: "ALGOLIA_FORCE_INDEX=true" };
+  }
+
+  if (process.env.VERCEL !== "1") {
+    return { publish: false, reason: "build local (usa ALGOLIA_FORCE_INDEX=true para forzarlo)" };
+  }
+
+  if (process.env.VERCEL_ENV !== "production") {
+    const ref = process.env.VERCEL_GIT_COMMIT_REF ?? "desconocida";
+    return { publish: false, reason: `deploy ${process.env.VERCEL_ENV ?? "preview"} (rama ${ref})` };
+  }
+
+  return { publish: true, reason: "deploy de producción" };
+};
+
 export const publishAlgoliaRSS = () => {
   const hooks = [
     `astro:config:setup`,
@@ -27,6 +55,13 @@ export const publishAlgoliaRSS = () => {
     name: "astro-integration-publish-algolia-rss-posts",
     hooks: {
       [hooks[7]]: async () => {
+        const { publish, reason } = shouldPublishToAlgolia();
+
+        if (!publish) {
+          console.log(`${kleur.yellow("publishAlgoliaRSS: ")} Indexado omitido — ${reason}.\n`);
+          return;
+        }
+
         const appId = process.env.PUBLIC_ALGOLIA_APPLICATION_ID;
         const adminKey = process.env.ALGOLIA_ADMIN_API_KEY;
         const indexName = process.env.PUBLIC_ALGOLIA_INDEX_NAME;
@@ -56,8 +91,13 @@ export const publishAlgoliaRSS = () => {
           });
 
           const client = algoliasearch(appId, adminKey);
-          await client.saveObjects({ indexName, objects });
-          console.log(`${kleur.green("publishAlgoliaRSS: ")} Sent posts to Algolia... 🚀\n`);
+          // `replaceAllObjects` (y no `saveObjects`) para que el índice sea un espejo
+          // exacto de los MDX de `main`: lo que se borra del repo desaparece de la
+          // búsqueda, incluidos los artículos de prueba que quedaron de builds viejos.
+          await client.replaceAllObjects({ indexName, objects });
+          console.log(
+            `${kleur.green("publishAlgoliaRSS: ")} ${objects.length} artículos enviados a Algolia (${reason})... 🚀\n`,
+          );
         } catch (err) {
           console.log(`${kleur.red("publishAlgoliaRSS: ")} ${err}.\n`);
         }
