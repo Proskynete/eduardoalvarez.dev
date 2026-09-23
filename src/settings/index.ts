@@ -11,6 +11,14 @@ export default {
   author: {
     name: "Eduardo Álvarez Castañeda",
   },
+  /* La autoría visible en el DOM, no solo en el JSON-LD: los buscadores que
+     citan (Perplexity, ChatGPT Search) leen el texto de la página. La usan
+     /speaking y /newsletter (openspec: seo-author-attribution). */
+  authorInlineBio: {
+    text: "Escrito por Eduardo Álvarez, Engineering Leader con foco en liderazgo técnico, plataformas y la era de la IA.",
+    href: "/about",
+    cta: "Conoce más →",
+  },
   social_network: [
     {
       name: "Github",
