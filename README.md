@@ -2,7 +2,7 @@
 
   <h1><a href="https://www.eduardoalvarez.dev">eduardoalvarez.dev</a></h1>
 
-  <p>Engineering Leadership & Platform Thinking in the AI Era</p>
+  <p>Technical Lead · Spec-Driven Development — Entender antes de construir.</p>
 
 ![Astro](https://img.shields.io/badge/Developed%20with-Astro-e73bba?logo=astro) ![Vercel](https://img.shields.io/badge/Hosted%20in-Vercel-000000?logo=vercel) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript) ![Node](https://img.shields.io/badge/Node-24.x-5FA04E?logo=nodedotjs&logoColor=white) ![!PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
@@ -10,9 +10,9 @@
 
 ---
 
-Sitio personal de Eduardo Álvarez: artículos, charlas, stack, podcasts y recursos sobre liderazgo de ingeniería, arquitectura de plataformas y desarrollo de software en la era de la IA.
+Sitio personal de Eduardo Álvarez: artículos, charlas y recursos sobre liderazgo de ingeniería, arquitectura de plataformas y desarrollo de software en la era de la IA.
 
-Este repositorio es además la **implementación de referencia del sistema de diseño**: los demás proyectos (links, resume, cursos, blog-content-manager) toman de aquí la paleta, la tipografía y los patrones de componentes.
+El sistema de diseño vive en su propio paquete, [`@eduardoalvarez/arrecife`](https://www.npmjs.com/package/@eduardoalvarez/arrecife): tokens, componentes, iconos y el tema de Shiki. Este sitio lo consume igual que los demás proyectos (links, resume, cursos, blog-content-manager).
 
 ## Entornos
 
@@ -40,23 +40,30 @@ La marca gira en torno a **Tiburoncín**, un tiburón ballena. La paleta nace de
 
 > En modo claro los acentos usan variantes oscurecidas a propósito: bioluz y arena plenos miden 3.57:1 y 3.95:1 sobre papel, por debajo del mínimo AA de 4.5:1. Las variantes conservan el tono y llegan a 4.55:1 y 4.54:1.
 
-Los colores viven como tripletas R G B en `src/assets/styles/base.css`, lo que permite que `data-theme="light"` en `<html>` cambie todas las utilidades de Tailwind de una sola vez. El sitio arranca en modo oscuro por defecto.
+Los tokens llegan desde `@eduardoalvarez/arrecife/tokens/theme.css`, que `src/assets/styles/base.css` importa. La librería trae sus propios bloques `[data-theme]`, así que `data-theme="light"` en `<html>` cambia todas las utilidades de Tailwind de una vez. El sitio arranca en modo oscuro por defecto.
 
 ## Stack principal
 
 | Tecnología | Uso |
 |---|---|
-| **Astro 5** | SSG + rutas serverless |
+| **Astro 7** | Páginas prerenderizadas + render bajo demanda en Vercel |
 | **React 19** | Componentes interactivos (búsqueda, audio player, nav mobile) |
-| **TypeScript 5** | Strict mode, sin `any` |
-| **Tailwind CSS 3** | Sistema de diseño con tokens en variables CSS |
+| **TypeScript 5.9** | Strict mode, sin `any` |
+| **Tailwind CSS 4** | Vía `@tailwindcss/vite`, con los tokens de arrecife |
+| **@eduardoalvarez/arrecife** | Sistema de diseño: tokens, componentes, iconos |
 | **MDX** | Artículos con componentes embebidos |
 | **Algolia v5** | Búsqueda full-text, indexada en build |
 | **Giscus** | Comentarios vía GitHub Discussions |
 | **Mailchimp** | Newsletter |
-| **Shiki** | Resaltado de código con tema propio (`shiki-reef`) |
+| **Shiki** | Resaltado de código con el tema de arrecife |
+| **Sentry** | Seguimiento de errores |
 | **Vercel** | Deploy, serverless functions |
+| **Workbox** | Service worker de la PWA |
 | **Vitest + Playwright** | Unit + E2E tests |
+
+## Requisitos
+
+Node según `.nvmrc` (hoy `v24.18.0`). Con fnm o nvm el cambio es automático al entrar al directorio. Las herramientas instaladas de forma global, como `openspec`, existen solo en la versión de Node donde se instalaron: si `openspec` no aparece, revisa que `.nvmrc` apunte a una versión que la tenga.
 
 ## Comandos
 
@@ -86,18 +93,19 @@ npm run a11y:audit          # Auditoría axe contra localhost:4321
 | Ruta | Descripción |
 |---|---|
 | `/` | Home con hero, últimos artículos y charlas recientes |
-| `/articles` | Listado de artículos con filtro por categoría |
+| `/articles` | Listado paginado de artículos |
 | `/articles/[slug]` | Detalle con TOC, comentarios y compartir |
 | `/speaking` | Charlas y talleres agrupados por año |
-| `/now` | Qué estoy haciendo ahora |
-| `/stack` | Herramientas y tecnologías que uso |
-| `/about` | Sobre mí |
+| `/about` | Sobre mí, incluido en qué estoy ahora |
 | `/newsletter` | Suscripción al newsletter |
-| `/projects` | Proyectos con filtro por estado |
-| `/podcasts` | Episodios con reproductor integrado |
-| `/podcasts/[slug]` | Detalle de episodio |
+| `/offline` | Respaldo del service worker sin conexión (`noindex`) |
+| `/podcasts` | Episodios con reproductor. **Apagada** mientras `podcastsEnabled` sea `false` (redirige a `/`) |
 
-Redirecciones heredadas en `vercel.json`: `/articulos` → `/articles`, `/charlas-talleres` → `/speaking`.
+Redirecciones en `vercel.json`: `/articulos` → `/articles`, `/charlas-talleres` → `/speaking`, y las páginas retiradas `/stack`, `/projects` y `/working-with-me` → `/about`.
+
+## PWA
+
+El sitio se puede instalar. El manifiesto sale de `src/settings/manifest-config.ts` y los iconos, de `public/images/manifest/` (se regeneran con `npm run brand:icons`). `head.astro` escribe el `<link rel="manifest">` en todas las páginas, también en los artículos que se renderizan bajo demanda. El service worker (Workbox, configurado en `astro.config.mjs`) guarda de antemano solo lo esencial: JS, CSS, fuentes, iconos y las páginas prerenderizadas. Los artículos y las imágenes se guardan a medida que se visitan, y una página nunca abierta sin conexión muestra `/offline`. Al abrir la app instalada, iOS muestra una imagen de arranque por modelo (`src/settings/apple-startup-images.json`) y luego el splash animado continúa desde la misma aleta.
 
 ## Variables de entorno
 
@@ -116,12 +124,17 @@ PUBLIC_GISCUS_CATEGORY_ID=
 # Mailchimp (newsletter)
 MAILCHIMP_API_KEY=
 MAILCHIMP_LIST_ID=
+
+# Opcionales
+SENTRY_AUTH_TOKEN=              # Sube source maps a Sentry en el build
+SKIP_ENV_VALIDATION=true        # Build local sin las variables anteriores
+ALGOLIA_FORCE_INDEX=true         # Indexar en Algolia desde un build local
 ```
 
 ## Calidad
 
-- **160 tests unitarios** en 11 archivos (Vitest)
-- **43 tests E2E** en 4 archivos (Playwright)
+- **186 tests unitarios** en 12 archivos (Vitest)
+- **Tests E2E** en 5 archivos (Playwright): accesibilidad, sistema de diseño, podcasts, búsqueda y suscripción
 - 0 errores de TypeScript en strict mode (`astro check` corre dentro del build)
 - Contraste verificado contra WCAG 2.2 AA en ambos temas
 - CI: lint, tests, build, escaneo de seguridad y revisión ortográfica
@@ -132,3 +145,4 @@ MAILCHIMP_LIST_ID=
 
 - [`BRAND.md`](BRAND.md) — registro de implementación del sistema de diseño: correcciones de contraste, ubicación de tokens por proyecto, pipeline de regeneración de assets y pendientes.
 - [`CLAUDE.md`](CLAUDE.md) — guía de arquitectura y convenciones del repositorio.
+- [`openspec/`](openspec/) — specs de las capacidades del sitio y los cambios en curso (`openspec list`).

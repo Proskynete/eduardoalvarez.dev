@@ -6,12 +6,12 @@
  * sin ola ni spots. Ahora compone `public/brand/fin-foam.png`, que es el
  * mismo asset que usa el design system como su propio favicon.
  */
-import { mkdirSync, unlinkSync, writeFileSync } from "fs";
+import { mkdirSync, readFileSync, unlinkSync, writeFileSync } from "fs";
 import { dirname, resolve } from "path";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 
-import { FIN_FOAM, COLOR, SCALE, RADIUS } from "./brand.mjs";
+import { FIN_FOAM, COLOR, SCALE, RADIUS, STARTUP } from "./brand.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestDir = resolve(root, "public/images/manifest");
@@ -45,7 +45,7 @@ async function composeIcon({ size, escala, radio = 0, fondo = COLOR.abyss }) {
 const write = async (opts, target) => writeFileSync(target, await composeIcon(opts));
 
 // ── Manifest ────────────────────────────────────────────────────────────────
-// Android recorta los iconos `purpose: "any maskable"` a un círculo del 80%.
+// Android recorta los iconos `purpose: "maskable"` a un círculo del 80%.
 for (const size of [192, 512]) {
   await write({ size, escala: SCALE.maskable }, resolve(manifestDir, `android-chrome-${size}x${size}.png`));
   console.log(`✓ android-chrome-${size}x${size}.png`);
@@ -108,5 +108,32 @@ writeFileSync(
 </svg>\n`,
 );
 console.log("✓ safari-pinned-tab.svg");
+
+// ── iOS launch screens ──────────────────────────────────────────────────────
+// Sin ellas, la app instalada abre en blanco hasta que carga la página. iOS
+// solo muestra la imagen cuyo media query calza exacto con el equipo, así que
+// va una por pantalla; la lista la comparte `head.astro`.
+const { devices } = JSON.parse(readFileSync(resolve(root, "src/settings/apple-startup-images.json"), "utf-8"));
+const startupDir = resolve(manifestDir, "startup");
+mkdirSync(startupDir, { recursive: true });
+for (const { width, height, ratio } of devices) {
+  const w = width * ratio;
+  const h = height * ratio;
+  const fin = await sharp(finPath).resize({ height: STARTUP.finHeight * ratio }).toBuffer();
+  const meta = await sharp(fin).metadata();
+  const canvas = Buffer.from(`<svg width="${w}" height="${h}"><rect width="${w}" height="${h}" fill="${COLOR.abyss}"/></svg>`);
+  const png = await sharp(canvas)
+    .composite([
+      {
+        input: fin,
+        left: Math.round((w - meta.width) / 2),
+        top: Math.round((h - meta.height) / 2 - STARTUP.lift * ratio),
+      },
+    ])
+    .png({ compressionLevel: 9, palette: true })
+    .toBuffer();
+  writeFileSync(resolve(startupDir, `apple-splash-${w}x${h}.png`), png);
+}
+console.log(`✓ ${devices.length} pantallas de arranque de iOS`);
 
 console.log(`\nListo. Aleta del design system sobre ${COLOR.abyss}.`);

@@ -1,4 +1,9 @@
-## ADDED Requirements
+# seo-about-schema Specification
+
+## Purpose
+Datos estructurados (JSON-LD) de la página `/about`.
+
+## Requirements
 
 ### Requirement: Schema Person extendido en página /about
 
@@ -10,7 +15,7 @@
 
 #### Scenario: Schema Person incluye knowsAbout con áreas de expertise
 - **WHEN** el schema Person se renderiza en /about
-- **THEN** el campo `knowsAbout` SHALL ser un array que incluya al menos: `"Engineering Leadership"`, `"Platform Engineering"`, `"AI-native Engineering"`, `"Technical Leadership"`
+- **THEN** el campo `knowsAbout` SHALL ser un array que incluya al menos: `"Spec-Driven Development"`, `"AI-assisted Software Development"`, `"Technical Leadership"`, `"Technical Education"`
 
 #### Scenario: Schema Person incluye sameAs con todos los perfiles públicos
 - **WHEN** el schema Person se renderiza en /about
@@ -18,7 +23,7 @@
 
 #### Scenario: Schema Person incluye jobTitle y email
 - **WHEN** el schema Person se renderiza en /about
-- **THEN** el campo `jobTitle` SHALL ser `"Engineering Leader"`
+- **THEN** el campo `jobTitle` SHALL ser `"Technical Lead"`
 - **THEN** el campo `email` SHALL ser `"soy@eduardoalvarez.dev"`
 
 #### Scenario: Schema Person es coherente con el schema Person de la homepage

@@ -1,4 +1,9 @@
-## ADDED Requirements
+# seo-collection-schema Specification
+
+## Purpose
+Datos estructurados de las páginas de listado (colecciones).
+
+## Requirements
 
 ### Requirement: Schema CollectionPage en /articles
 
@@ -26,6 +31,8 @@
 
 ### Requirement: Schema CollectionPage incluye author como Person
 
+El schema `CollectionPage` SHALL incluir un `author` de tipo `Person` que referencie al autor del sitio.
+
 #### Scenario: CollectionPage tiene author referenciando al autor del sitio
 - **WHEN** el schema CollectionPage se renderiza
 - **THEN** el campo `"author"` SHALL ser un objeto `{"@type": "Person", "name": "Eduardo Álvarez Castañeda", "url": "https://eduardoalvarez.dev"}`
@@ -33,6 +40,8 @@
 ---
 
 ### Requirement: Schema CollectionPage es JSON válido
+
+El bloque JSON-LD del schema `CollectionPage` SHALL ser JSON válido.
 
 #### Scenario: JSON-LD de /articles es parseable
 - **WHEN** el HTML de /articles se renderiza

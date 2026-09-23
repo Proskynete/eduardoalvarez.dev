@@ -1,15 +1,23 @@
 export default {
   title: "Eduardo Álvarez",
   description:
-    "Engineering Leadership & Platform Thinking in the AI Era. Artículos, charlas y recursos sobre liderazgo de ingeniería, arquitectura de plataformas y desarrollo de software.",
+    "Technical Lead · Spec-Driven Development. Enseño a construir software con IA sin dejar de entender lo que hacemos. Artículos, charlas y cursos sobre desarrollo con IA.",
   keywords:
-    "engineering leadership, platform architecture, platform thinking, AI era, engineering culture, software architecture, engineering management, staff engineer, typescript, react, node, astro",
+    "spec-driven development, sdd, desarrollo con ia, agentes de ia, technical lead, liderazgo técnico, frontend, software architecture, typescript, react, node, astro",
   url: "https://eduardoalvarez.dev",
   repo_url: "https://github.com/Proskynete/eduardoalvarez.dev",
   language: "es-ES",
   email: "soy@eduardoalvarez.dev",
   author: {
     name: "Eduardo Álvarez Castañeda",
+  },
+  /* La autoría visible en el DOM, no solo en el JSON-LD: los buscadores que
+     citan (Perplexity, ChatGPT Search) leen el texto de la página. La usan
+     /speaking y /newsletter (openspec: seo-author-attribution). */
+  authorInlineBio: {
+    text: "Escrito por Eduardo Álvarez, Technical Lead. Enseña a construir software con IA sin dejar de entender lo que hacemos.",
+    href: "/about",
+    cta: "Conoce más →",
   },
   social_network: [
     {

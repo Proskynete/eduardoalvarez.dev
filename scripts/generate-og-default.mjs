@@ -64,7 +64,7 @@ const svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http
         font-size="72" fill="${COLOR.textPrimary}" letter-spacing="-1.5">Eduardo Álvarez</text>
 
   <text x="${TEXT_X}" y="352" font-family="Geist, system-ui, sans-serif" font-weight="400"
-        font-size="28" fill="${COLOR.textSecondary}" letter-spacing="-0.3">Engineering Leadership &amp; Platform Thinking</text>
+        font-size="28" fill="${COLOR.textSecondary}" letter-spacing="-0.3">Technical Lead · Spec-Driven Development</text>
 
   <line x1="${TEXT_X}" y1="382" x2="${W - 80}" y2="382" stroke="${COLOR.border}" stroke-width="1"/>
   <circle cx="${TEXT_X - 2}" cy="382" r="3" fill="${COLOR.accent}"/>

@@ -111,7 +111,8 @@ export default defineConfig({
         return (
           !pathname.startsWith("/resources") &&
           !pathname.startsWith("/cdn-cgi") &&
-          !pathname.startsWith("/podcasts")
+          !pathname.startsWith("/podcasts") &&
+          !pathname.startsWith("/offline")
         );
       },
       serialize(item) {
@@ -128,6 +129,66 @@ export default defineConfig({
     }),
     webmanifest(config),
     publishAlgoliaRSS(),
-    serviceWorker(),
+    serviceWorker({
+      workbox: {
+        /*
+         * Precache only what every visit needs. The default, every file in the build, took 87
+         * files, ~6.6 MB, on the first visit: every article image, the brand
+         * illustrations, the fonts and Partytown's own service worker, even for
+         * someone who reads one article. Images now cache as they are seen, and
+         * the pages as they are opened.
+         */
+        globPatterns: [
+          "_astro/*.{js,css}",
+          "fonts/*.woff2",
+          "images/favicon/*",
+          "images/manifest/*.png", // not startup/: iOS fetches those itself, at install
+          "favicon.ico",
+          "manifest.webmanifest",
+          // The prerendered pages: home, listings, about, newsletter, 404, offline.
+          "index.html",
+          "*/index.html",
+          "404.html",
+          // The faces the 404 and the offline page draw, so they draw offline.
+          "brand/face-confused.png",
+          "brand/face-waiting.png",
+          // The fin, for the splash and the header when the app opens offline.
+          "brand/fin-foam.png",
+          "brand/fin.png",
+        ],
+        runtimeCaching: [
+          {
+            /*
+             * Pages: network first, so a new article or a fix is never hidden
+             * behind the cache, and the copy stays for when there is no network.
+             * The second half catches the ClientRouter, which fetches the next
+             * page with `fetch()` instead of navigating.
+             */
+            urlPattern: ({ request, url, sameOrigin }) =>
+              request.mode === "navigate" ||
+              (sameOrigin &&
+                request.destination === "" &&
+                !url.pathname.startsWith("/api/") &&
+                !url.pathname.includes(".")),
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "pages",
+              networkTimeoutSeconds: 4,
+              expiration: { maxEntries: 40 },
+              // A page never opened, with no network: `src/pages/offline.astro`.
+              precacheFallback: { fallbackURL: "/offline/index.html" },
+            },
+          },
+          {
+            urlPattern: ({ request, sameOrigin }) => sameOrigin && request.destination === "image",
+            handler: "CacheFirst",
+            options: {
+              cacheName: "images",
+              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 30 },
+            },
+          },
+        ],
+      },
+    }),
   ],
 });

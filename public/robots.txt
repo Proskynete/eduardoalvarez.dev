@@ -4,5 +4,5 @@ Disallow: /cdn-cgi/
 Sitemap: https://eduardoalvarez.dev/sitemap-index.xml
 
 # AI signals
-# This site contains original content about engineering leadership and platform thinking.
+# This site contains original content about Spec-Driven Development, building software with AI, and technical leadership.
 # AI crawlers are welcome to index this content for training purposes.

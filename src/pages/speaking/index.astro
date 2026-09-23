@@ -2,6 +2,7 @@
 import { PageHeader, Separator, Text } from "@eduardoalvarez/arrecife";
 
 import Layout from "../../layouts/main/index.astro";
+import settings from "../../settings";
 import TalkCard from "../../components/talk-card/index";
 
 import { talks } from "../../settings/talks";
@@ -45,7 +46,7 @@ const eventsSchema = {
 
 const seo = {
   title: "Charlas y talleres técnicos",
-  description: "Charlas y talleres sobre liderazgo de ingeniería, arquitectura de plataformas y construcción con IA.",
+  description: "Charlas y talleres sobre Spec-Driven Development, desarrollo con IA y frontend.",
   schema: eventsSchema,
 };
 ---
@@ -62,7 +63,7 @@ const seo = {
     <PageHeader
       eyebrow="/charlas"
       title="Charlas"
-      description="Charlas y talleres sobre liderazgo de ingeniería, arquitectura de plataformas y construcción con IA."
+      description="Charlas y talleres sobre Spec-Driven Development, desarrollo con IA y frontend."
     />
 
     <div class="gap-step-sm mb-step-xl flex flex-col">
@@ -74,6 +75,10 @@ const seo = {
       <Text variant="label" tone="secondary" as="p" className="font-normal">
         Me encantaría participar en tu evento. Si quieres que hable, escríbeme a{" "}
         <a href="mailto:soy@eduardoalvarez.dev" class="text-accent underline">soy@eduardoalvarez.dev</a>
+      </Text>
+      <Text variant="label" tone="muted" as="p" className="font-normal">
+        {settings.authorInlineBio.text}{" "}
+        <a href={settings.authorInlineBio.href} class="text-accent underline">{settings.authorInlineBio.cta}</a>
       </Text>
     </div>
 

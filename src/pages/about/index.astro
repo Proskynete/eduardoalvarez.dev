@@ -29,26 +29,25 @@ const schema = {
   name: settings.author.name,
   url: settings.url,
   email: settings.email,
-  jobTitle: "Engineering Leader",
+  jobTitle: "Technical Lead",
   knowsAbout: [
-    "Engineering Leadership",
-    "Platform Engineering",
-    "AI-native Engineering",
+    "Spec-Driven Development",
+    "AI-assisted Software Development",
     "Technical Leadership",
-    "Staff Engineering",
+    "Frontend Development",
     "Software Architecture",
-    "Developer Experience",
+    "Technical Education",
   ],
   hasOccupation: {
     "@type": "Role",
-    roleName: "Engineering Leader & Platform Thinking",
+    roleName: "Technical Lead",
   },
   sameAs,
 };
 
 const seo = {
-  title: "Sobre Eduardo Álvarez — Engineering Leader",
-  description: "Líder de ingeniería, pensador de plataformas y mentor técnico trabajando en la era de la IA.",
+  title: "Sobre Eduardo Álvarez — Technical Lead",
+  description: "Technical Lead · Spec-Driven Development. Enseño a construir software con IA sin dejar de entender lo que hacemos.",
   schema,
 };
 
@@ -72,13 +71,13 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
         <PageHeader
           eyebrow="/sobre_mí"
           title="Hola, soy Eduardo"
-          description="Ingeniero y líder técnico con más de 10 años construyendo en internet. Trabajo en la intersección de arquitectura de plataforma, liderazgo técnico y los flujos de trabajo que la IA está transformando — desde ingeniero individual hasta CTO, en startups y empresas digitales de Chile y Latinoamérica."
+          description="Llevo más de diez años construyendo aplicaciones web y hoy lidero un equipo de desarrollo. Me interesa cómo usamos la IA sin dejar de entender lo que construimos, y por eso trabajo con Spec-Driven Development. Doy charlas, talleres y cursos, muchos de ellos gratis."
           className="py-0"
         />
         <Text variant="body" tone="secondary" className="mt-step-md">
-          Mi foco es transformar equipos desde la entrega de features al pensamiento de plataforma: construir con
-          criterio, escalar con intención y liderar con contexto en lugar de control. Este sitio es donde pienso en voz
-          alta sobre ingeniería — no es un blog de tutoriales, es un espacio para ideas con criterio.
+          Mi primera computadora tenía Windows 95 y desde ahí quise entender cómo se hacían las cosas que veía en la
+          pantalla. Esa curiosidad me llevó a estudiar programación, a trabajar años en frontend y después a liderar
+          equipos. Este sitio es donde comparto lo que voy aprendiendo en el camino.
         </Text>
       </div>
 
@@ -101,16 +100,16 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
         {
           [
             {
-              titulo: "Platform Engineering",
-              texto: "Plataformas internas que permiten a los equipos moverse más rápido con menos fricción técnica.",
+              titulo: "Liderar un equipo",
+              texto: "Entiendo qué hay que construir y evalúo cómo: qué herramientas usamos y si nos sirven. Reviso que el código cumpla lo que acordamos y, si algo se cae, busco por qué para que no vuelva a pasar.",
             },
             {
-              titulo: "Engineering Leadership",
-              texto: "Acompañar a managers y tech leads en su evolución hacia un liderazgo con criterio y escala.",
+              titulo: "Spec-Driven Development",
+              texto: "Trabajo con agentes de IA sin perder el conocimiento de lo que hacen. Primero nos ponemos de acuerdo en qué hay que hacer y después se programa.",
             },
             {
-              titulo: "AI-native Engineering",
-              texto: "Entender cómo los agentes de IA están cambiando los flujos de trabajo y qué significa para los equipos.",
+              titulo: "Enseñar",
+              texto: "Doy charlas y talleres, escribo en este blog y estoy armando cursos, muchos gratis. Antes de cada charla pregunto quién va a estar en la sala para adaptar lo que voy a mostrar.",
             },
           ].map(({ titulo, texto }) => (
             <Card>
@@ -201,22 +200,31 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
     <section>
       <h2 class="text-text-primary mb-6">Cómo pienso</h2>
 
-      {/* `Blockquote` del sistema: barra en acento, sin comillas decorativas. */}
-      <Blockquote className="mb-6">
-        La complejidad más cara no está en el código — está en los equipos que resuelven con precisión el problema
-        equivocado.
-      </Blockquote>
+      {/* One `Blockquote` per belief: the spec asks for 3–4 short statements, not a philosophy essay. */}
+      <div class="space-y-6">
+        <Blockquote>
+          La IA es una herramienta. No le puedo culpar al martillo si la casa no quedó bien construida: soy yo el que
+          maneja la herramienta, no al revés.
+        </Blockquote>
+        <Blockquote>
+          No me gusta construir software sin entender lo que hace el agente. Por eso primero nos ponemos de acuerdo en
+          qué hay que hacer, y después programamos.
+        </Blockquote>
+        <Blockquote>
+          Un buen desarrollador no es el que escribe más rápido ni el que entrega sin bugs. Es el que entiende el
+          problema y lo resuelve usando el código como herramienta, y ahora también la IA.
+        </Blockquote>
+        <Blockquote>El que no es capaz de escuchar y aprender llega a su techo más rápido.</Blockquote>
+      </div>
+    </section>
 
-      <Text variant="body" tone="secondary" className="mb-step-md">
-        Creo en la ingeniería con criterio: no seguir tendencias por inercia, sino entender el costo real de cada
-        decisión técnica y organizacional. Creo que la documentación, la cultura de feedback y los sistemas de
-        plataforma son multiplicadores de impacto.
-      </Text>
-
-      <Blockquote className="mt-6">
-        No es tu trabajo tener las respuestas — es instalar en el equipo el hábito de buscar el contexto que les falta
-        antes de decidir.
-      </Blockquote>
+    <!-- Filosofía de vida -->
+    <section>
+      <h2 class="text-text-primary mb-6">Filosofía de vida</h2>
+      <div class="space-y-6">
+        <Blockquote>Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo.</Blockquote>
+        <Blockquote>No permitas que las cosas tomen más tiempo del que tienen que tomar.</Blockquote>
+      </div>
     </section>
 
     <!-- Comunidad -->
@@ -238,8 +246,8 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
     <Card className="p-step-xl">
       <h2 class="text-text-primary mb-3">¿Hablamos?</h2>
       <Text variant="body" tone="secondary" className="mb-step-xl">
-        Si estás trabajando en un desafío de plataforma, liderazgo o arquitectura — o simplemente quieres comentar algo
-        que leíste aquí — escríbeme.
+        Si quieres que dé una charla o un taller, estás llevando Spec-Driven Development a tu equipo o solo quieres
+        comentar algo que leíste aquí, escríbeme.
       </Text>
       <div class="gap-step-sm flex flex-wrap">
         <a href="mailto:soy@eduardoalvarez.dev" class={buttonVariants({ variant: "primary" })}>Escríbeme</a>
