@@ -1,5 +1,8 @@
-## ADDED Requirements
+# page-newsletter Specification
 
+## Purpose
+Contenido y estructura de la página `/newsletter` y su formulario de suscripción.
+## Requirements
 ### Requirement: Newsletter dedicated page
 The `/newsletter` route SHALL be a standalone page for the newsletter. It has a value proposition, a subscribe form, and a placeholder for future issue archives. The newsletter does not have a name yet — use "Newsletter" as the label until a name is defined.
 
@@ -60,3 +63,22 @@ The archive is empty — you'll be among the first subscribers.
 #### Scenario: Empty archive shows placeholder
 - **WHEN** the newsletter page loads and no issues exist in the archive
 - **THEN** the placeholder message SHALL render instead of an empty list
+
+### Requirement: /newsletter incluye TL;DR ampliado de 40–60 palabras
+
+`/newsletter` SHALL incluir, en el header de página, un párrafo de 40–60 palabras describiendo contenido, frecuencia y audiencia objetivo de la newsletter. Puede reemplazar o complementar el subtítulo actual.
+
+#### Scenario: /newsletter renderiza TL;DR como `<p>`
+- **WHEN** se accede a `/newsletter`
+- **THEN** el HTML SHALL contener un párrafo de 40–60 palabras en la cabecera de la página (inmediatamente después del `PageHeader`)
+
+---
+
+### Requirement: /newsletter usa título descriptivo en rango 30–60 chars
+
+El `seo.title` de `/newsletter` SHALL ser más descriptivo que la palabra "Newsletter" sola. El `<title>` final renderizado SHALL caer en el rango 30–60 chars.
+
+#### Scenario: `<title>` de /newsletter cae en rango
+- **WHEN** se accede a `/newsletter`
+- **THEN** el `<title>` renderizado SHALL tener entre 30 y 60 chars
+

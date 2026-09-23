@@ -1,5 +1,8 @@
-## ADDED Requirements
+# page-about Specification
 
+## Purpose
+Contenido y estructura de la página `/about`.
+## Requirements
 ### Requirement: About page
 The `/about` route SHALL be a semi-static page communicating who Eduardo is, what he builds, and why it matters to his audience. It replaces any existing about content that was embedded in the homepage.
 
@@ -51,3 +54,13 @@ The about page SHALL include 3–4 short opinionated statements that reflect Edu
 #### Scenario: Philosophy quotes render with accent border
 - **WHEN** the about page loads
 - **THEN** each "How I think" statement SHALL have a 3px left border in `accent` color
+
+### Requirement: /about usa título descriptivo en rango 30–60 chars
+
+El `seo.title` de `/about` SHALL ser más descriptivo que "Sobre mí" genérico. El `<title>` final renderizado SHALL caer en el rango 30–60 chars.
+
+#### Scenario: `<title>` de /about cae en rango
+- **WHEN** se accede a `/about`
+- **THEN** el `<title>` renderizado SHALL tener entre 30 y 60 chars
+- **THEN** SHALL contener el nombre del autor o su rol profesional
+

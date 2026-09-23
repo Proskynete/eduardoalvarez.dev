@@ -1,4 +1,9 @@
-## ADDED Requirements
+# page-projects Specification
+
+## Purpose
+Contenido y estructura de la página de proyectos.
+
+## Requirements
 
 ### Requirement: Projects page
 The `/projects` route SHALL display Eduardo's open-source and personal projects. This was previously hidden — it is now a public, indexed page.

@@ -1,3 +1,8 @@
+# seo-schema-markup Specification
+
+## Purpose
+Datos estructurados globales del sitio (WebSite, Person y similares).
+
 ## Requirements
 
 ### Requirement: Schema WebSite en homepage

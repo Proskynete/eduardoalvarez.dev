@@ -56,3 +56,7 @@ No se modifica ningún change archivado (son historial inmutable); este change e
 - `src/components/article-faq/index.astro` — ya no queda ningún artículo que lo consuma (ver design.md §D6)
 
 **Sin cambios breaking a nivel público.** El componente eliminado era privado del layout de artículos; su eliminación solo afecta al frontmatter de los 2 artículos que ya estaban incluidos en este change.
+
+## Estado al cierre (2026-09-22)
+
+Implementado en `e079770`. Antes de archivar se reconcilió con el rediseño de septiembre (ver _design.md_ §D7): lo de `/working-with-me` queda superado porque la página se eliminó, `PageFAQ` se borra por no tener consumidores y la bio inline, perdida en un refactor, se restaura.

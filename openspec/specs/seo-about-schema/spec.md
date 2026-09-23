@@ -1,4 +1,9 @@
-## ADDED Requirements
+# seo-about-schema Specification
+
+## Purpose
+Datos estructurados (JSON-LD) de la página `/about`.
+
+## Requirements
 
 ### Requirement: Schema Person extendido en página /about
 

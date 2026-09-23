@@ -1,4 +1,9 @@
-## ADDED Requirements
+# seo-per-article-keywords Specification
+
+## Purpose
+Palabras clave por artículo en los metadatos.
+
+## Requirements
 
 ### Requirement: Campo keywords opcional en frontmatter de artículos
 

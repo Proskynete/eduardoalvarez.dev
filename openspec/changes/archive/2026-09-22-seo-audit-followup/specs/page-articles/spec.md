@@ -6,7 +6,7 @@ La página `/articles` SHALL incluir un párrafo de 40–60 palabras después de
 
 #### Scenario: /articles renderiza overview como `<p>`
 - **WHEN** se accede a `/articles`
-- **THEN** el HTML SHALL contener, dentro del `<header>` de la página, un `<p>` adicional con entre 40 y 60 palabras
+- **THEN** el HTML SHALL contener, en la cabecera de la página (el `PageHeader` o el bloque inmediatamente después), un párrafo con entre 40 y 60 palabras
 
 ---
 

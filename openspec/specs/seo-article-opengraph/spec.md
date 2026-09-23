@@ -1,4 +1,9 @@
-## ADDED Requirements
+# seo-article-opengraph Specification
+
+## Purpose
+Metadatos Open Graph de los artículos.
+
+## Requirements
 
 ### Requirement: og:type correcto para artículos
 

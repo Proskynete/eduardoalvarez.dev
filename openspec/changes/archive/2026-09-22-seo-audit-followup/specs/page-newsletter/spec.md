@@ -6,7 +6,7 @@
 
 #### Scenario: /newsletter renderiza TL;DR como `<p>`
 - **WHEN** se accede a `/newsletter`
-- **THEN** el HTML SHALL contener un `<p>` con 40–60 palabras dentro del `<header>` de la página
+- **THEN** el HTML SHALL contener un párrafo de 40–60 palabras en la cabecera de la página (inmediatamente después del `PageHeader`)
 
 ---
 

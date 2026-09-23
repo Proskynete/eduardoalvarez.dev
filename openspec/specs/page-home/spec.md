@@ -1,5 +1,8 @@
-## ADDED Requirements
+# page-home Specification
 
+## Purpose
+Contenido y estructura de la página de inicio.
+## Requirements
 ### Requirement: Hero section
 The homepage SHALL open with a hero section containing a brief personal intro and a positioning tagline. The hero SHALL NOT be a fullscreen splash — it occupies roughly 40vh on desktop.
 
@@ -104,3 +107,16 @@ The `/donaciones` page SHALL be removed. The homepage SHALL NOT include any dona
 #### Scenario: Donations page no longer accessible
 - **WHEN** a user visits `/donaciones`
 - **THEN** they SHALL be redirected to the homepage (301)
+
+### Requirement: Homepage incluye TL;DR de 40–60 palabras
+
+La homepage SHALL incluir, después del hero existente, un párrafo adicional de 40–60 palabras que resume funcionalmente qué encontrará el visitante en el sitio (artículos, charlas, newsletter, servicios). El párrafo está en lenguaje natural con sentencias completas (apto para voice search y featured snippets).
+
+#### Scenario: Homepage renderiza TL;DR como `<p>`
+- **WHEN** se accede a `/`
+- **THEN** el HTML SHALL contener un `<p>` con entre 40 y 60 palabras, después del hero y antes de "Últimos artículos"
+
+#### Scenario: El TL;DR no es lista ni tabla
+- **WHEN** se inspecciona el bloque TL;DR
+- **THEN** SHALL ser un único `<p>`, no `<ul>` ni `<ol>` ni `<table>`
+

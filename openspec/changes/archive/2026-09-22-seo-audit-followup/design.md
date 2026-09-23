@@ -98,3 +98,11 @@ El audit SEO del 19 de abril 2026 (score 69/100) se ejecutó 5 días después de
 
 - ¿Mantener la bio inline en solo 2 páginas o extenderla a `/articles` y `/now`? → Por ahora limitar a `/speaking` y `/newsletter` (las flagged por el audit). Otras páginas ya tienen contexto suficiente.
 - ¿Añadir `LastReviewed` o `dateModified` visible en páginas índice? → Fuera de scope; el `dateModified` en JSON-LD ya está cubierto por el change anterior. Mostrarlo visible es candidato para una iteración posterior.
+
+### D7 — Cierre: lo que el rediseño de septiembre dejó atrás (2026-09-22)
+
+El change se implementó en `e079770` (abril) pero quedó sin archivar, y el rediseño de identidad de septiembre cambió parte del terreno antes de cerrarlo. Al reconciliar:
+
+- **`/working-with-me` ya no existe** (`857bad9`, redirige a `/about`). Con ella se van el FAQ de §D6, su TL;DR y su título. Como era el único consumidor, `PageFAQ` y el tipo `FAQItem` se eliminan: mantenerlos sería el mismo código muerto que §D2 ya rechazó para `ArticleFAQ`. El delta `seo-page-faq` se descarta y `seo-faq-schema` pasa a registrar que el sitio no usa FAQ como táctica de SEO. Los specs principales `page-working-with-me` y `seo-service-schema` se borran con este change: describían solo una página que ya no existe, y OpenSpec no admite un delta que deje un spec sin requisitos. El historial queda en git y en los changes archivados que los crearon.
+- **La bio inline se había perdido sin decisión explícita**: el refactor `8ec0fd6` (adopción de componentes de arrecife) reescribió las cabeceras de `/speaking` y `/newsletter` y borró `authorInlineBio` junto con el markup viejo, sin que el mensaje del commit lo mencione. Se restaura con los componentes del sistema (`Text variant="label" tone="muted"`), porque la razón de §seo-author-attribution sigue vigente.
+- **Los TL;DR sobrevivieron**, pero ahora viven en el `PageHeader` de la librería o justo después, no dentro de un `<header>` escrito a mano. Los escenarios se ajustan a esa estructura; la exigencia de 40–60 palabras no cambia.

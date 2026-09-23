@@ -1,4 +1,9 @@
-## ADDED Requirements
+# site-navigation Specification
+
+## Purpose
+Navegación principal, navegación móvil, cabecera, pie y redirecciones de rutas.
+
+## Requirements
 
 ### Requirement: Primary navigation structure
 The site SHALL have a primary navigation with the following links. The navigation SHALL be consistent across all pages via the base layout header.

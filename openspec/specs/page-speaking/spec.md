@@ -1,5 +1,8 @@
-## ADDED Requirements
+# page-speaking Specification
 
+## Purpose
+Contenido y estructura de la página de charlas `/speaking`.
+## Requirements
 ### Requirement: Speaking page
 The `/speaking` route SHALL replace `/charlas-talleres`. It lists all talks, workshops, and conference appearances with year, event, and available resources.
 
@@ -64,3 +67,22 @@ Talks SHALL be grouped by year in descending order (most recent year first).
 #### Scenario: Talks are grouped by year
 - **WHEN** the speaking page renders with talks from multiple years
 - **THEN** each year SHALL have a labeled group header and talks sorted within the group
+
+### Requirement: /speaking incluye TL;DR sobre formatos y topics
+
+`/speaking` SHALL incluir un párrafo de 40–60 palabras tras el subtítulo describiendo los tipos de charlas (keynotes, workshops, panels) y topics principales (liderazgo técnico, plataformas, IA).
+
+#### Scenario: /speaking renderiza TL;DR como `<p>`
+- **WHEN** se accede a `/speaking`
+- **THEN** el HTML SHALL contener un párrafo de 40–60 palabras en la cabecera de la página (inmediatamente después del `PageHeader`)
+
+---
+
+### Requirement: /speaking usa título descriptivo en rango 30–60 chars
+
+El `seo.title` de `/speaking` SHALL ser más descriptivo que la palabra "Charlas" genérica. El `<title>` final renderizado SHALL caer en el rango 30–60 chars.
+
+#### Scenario: `<title>` de /speaking cae en rango
+- **WHEN** se accede a `/speaking`
+- **THEN** el `<title>` renderizado SHALL tener entre 30 y 60 chars
+

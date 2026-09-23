@@ -1,4 +1,9 @@
-## MODIFIED Requirements
+# seo-meta-description-guard Specification
+
+## Purpose
+Límite de longitud de la meta description.
+
+## Requirements
 
 ### Requirement: Meta description truncada a ≤ 160 caracteres
 
