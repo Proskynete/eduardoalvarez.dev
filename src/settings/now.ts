@@ -4,7 +4,7 @@ export interface NowItem {
   description?: string;
 }
 
-export const lastUpdated = "2026-07-04";
+export const lastUpdated = "2026-09-23";
 
 export const nowItems: NowItem[] = [
   {
@@ -12,12 +12,6 @@ export const nowItems: NowItem[] = [
     label: "Technical Lead en CMPC",
     description:
       "Liderando la evolución del ecosistema frontend corporativo y la adopción de IA en los equipos de ingeniería, con un marco de Spec-Driven Development adoptado a nivel de empresa.",
-  },
-  {
-    category: "Trabajando en",
-    label: "CTO y CoFounder en AmiPet",
-    description:
-      "Construyendo amipet.app, una app para dueños de mascotas. Liderando la visión técnica y la estrategia de producto desde el inicio.",
   },
   {
     category: "Aprendiendo",

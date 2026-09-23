@@ -40,13 +40,13 @@ The about page SHALL include a profile image. The image SHALL use the existing `
 ---
 
 ### Requirement: "How I think" statements
-The about page SHALL include 3–4 short opinionated statements that reflect Eduardo's engineering philosophy. These are not a mission statement — they are concrete beliefs.
+The about page SHALL include 3–4 short opinionated statements that reflect Eduardo's engineering philosophy. These are not a mission statement — they are concrete beliefs, in Eduardo's own words from the 2026-09-23 brand interview.
 
 **Format:**
 ```
-"Shipping beats planning. But shipping without a mental model creates legacy debt."
-"AI doesn't replace engineering judgment. It amplifies it — for better or worse."
-"The best platform teams are invisible to the engineers who use them."
+"La IA es una herramienta. No le puedo culpar al martillo si la casa no quedó bien construida: soy yo el que maneja la herramienta, no al revés."
+"Un buen desarrollador no es el que escribe más rápido ni el que entrega sin bugs. Es el que entiende el problema y lo resuelve usando el código como herramienta, y ahora también la IA."
+"El que no es capaz de escuchar y aprender llega a su techo más rápido."
 ```
 
 **Visual:** Large `text-xl` quotes, `text-secondary`, left border `accent`, separated by spacing.

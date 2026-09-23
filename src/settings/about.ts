@@ -16,12 +16,12 @@ export const experience: Experience[] = [
     current: true,
   },
   {
-    date: "2025 → hoy",
+    date: "2025 → 2026",
     role: "CTO & CoFounder",
     company: "AmiPet",
     description:
-      "Co-fundando una plataforma en el espacio pet-tech. Definiendo arquitectura, stack y roadmap técnico desde cero, con foco en validar product-market fit.",
-    current: true,
+      "Co-fundé una plataforma para dueños de mascotas. Definí la arquitectura, el stack y el roadmap técnico desde cero.",
+    current: false,
   },
   {
     date: "2024 → 2026",
