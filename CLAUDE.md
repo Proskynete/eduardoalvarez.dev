@@ -85,6 +85,7 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 
 - **Manifest**: `astro-webmanifest` generates `/manifest.webmanifest` from `settings/manifest-config.ts`. Its automatic `<head>` injection is **off** (`insertManifestLink`/`insertThemeColorMeta: false`) because it only reaches prerendered HTML; `head.astro` writes the `<link rel="manifest">` and `theme-color` for every page, articles included.
 - **Icons**: `public/images/manifest/` (192/512 declared once as `any` and once as `maskable`; the fin fits the maskable safe zone) and `public/images/favicon/`. Regenerate with `npm run brand:icons`.
+- **Launch screens**: iOS gets `apple-touch-startup-image`s (`public/images/manifest/startup/`, one per device listed in `src/settings/apple-startup-images.json`, linked from `head.astro`). Android builds its own from the manifest. Then `src/components/splash-screen` (standalone only, once per session, ~1.5 s) takes over: its fin starts where the launch image draws it (`STARTUP` in `scripts/brand.mjs`), so change both together.
 - **Service worker**: `astrojs-service-worker` (Workbox `generateSW`), configured in `astro.config.mjs`. It precaches only the app shell (JS/CSS, fonts, icons, prerendered pages, the 404/offline faces); pages are `NetworkFirst` (so they are cached as read), same-origin images `CacheFirst`, and a never-visited page with no network gets `/offline/`.
 
 ### Design Patterns

@@ -105,7 +105,7 @@ Redirecciones en `vercel.json`: `/articulos` → `/articles`, `/charlas-talleres
 
 ## PWA
 
-El sitio se puede instalar. El manifiesto sale de `src/settings/manifest-config.ts` y los iconos, de `public/images/manifest/` (se regeneran con `npm run brand:icons`). `head.astro` escribe el `<link rel="manifest">` en todas las páginas, también en los artículos que se renderizan bajo demanda. El service worker (Workbox, configurado en `astro.config.mjs`) guarda de antemano solo lo esencial: JS, CSS, fuentes, iconos y las páginas prerenderizadas. Los artículos y las imágenes se guardan a medida que se visitan, y una página nunca abierta sin conexión muestra `/offline`.
+El sitio se puede instalar. El manifiesto sale de `src/settings/manifest-config.ts` y los iconos, de `public/images/manifest/` (se regeneran con `npm run brand:icons`). `head.astro` escribe el `<link rel="manifest">` en todas las páginas, también en los artículos que se renderizan bajo demanda. El service worker (Workbox, configurado en `astro.config.mjs`) guarda de antemano solo lo esencial: JS, CSS, fuentes, iconos y las páginas prerenderizadas. Los artículos y las imágenes se guardan a medida que se visitan, y una página nunca abierta sin conexión muestra `/offline`. Al abrir la app instalada, iOS muestra una imagen de arranque por modelo (`src/settings/apple-startup-images.json`) y luego el splash animado continúa desde la misma aleta.
 
 ## Variables de entorno
 

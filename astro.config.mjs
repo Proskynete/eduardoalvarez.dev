@@ -142,7 +142,7 @@ export default defineConfig({
           "_astro/*.{js,css}",
           "fonts/*.woff2",
           "images/favicon/*",
-          "images/manifest/*.png",
+          "images/manifest/*.png", // not startup/: iOS fetches those itself, at install
           "favicon.ico",
           "manifest.webmanifest",
           // The prerendered pages: home, listings, about, newsletter, 404, offline.
@@ -152,6 +152,9 @@ export default defineConfig({
           // The faces the 404 and the offline page draw, so they draw offline.
           "brand/face-confused.png",
           "brand/face-waiting.png",
+          // The fin, for the splash and the header when the app opens offline.
+          "brand/fin-foam.png",
+          "brand/fin.png",
         ],
         runtimeCaching: [
           {

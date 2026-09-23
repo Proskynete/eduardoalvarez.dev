@@ -38,7 +38,7 @@ export const COLOR = {
  * How much of the canvas the fin's WIDTH takes, per icon type.
  *
  * `maskable` is 0.62 and it is not arbitrary: Android crops icons declared
- * `purpose: "any maskable"` to a circle of 80% of the width, and a square box
+ * `purpose: "maskable"` to a circle of 80% of the width, and a square box
  * inscribed in that circle cannot exceed ~0.57. Raising it clips the fin.
  */
 export const SCALE = {
@@ -50,3 +50,15 @@ export const SCALE = {
 
 /** Rounded-square radius, as a fraction of the side. */
 export const RADIUS = 15 / 64;
+
+/**
+ * iOS launch screens. They show the fin exactly where the animated splash
+ * (`src/components/splash-screen`) draws it, so the hand-off from the static
+ * image to the page is not a jump: 112 CSS px tall (`h-28`), and lifted 38.5 CSS
+ * px above centre because the splash centres the fin and the wordmark as one
+ * group. Change the splash's layout and these two numbers go with it.
+ */
+export const STARTUP = {
+  finHeight: 112,
+  lift: 38.5,
+};
