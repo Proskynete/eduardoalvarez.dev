@@ -64,7 +64,7 @@ export function SubscribeForm() {
   return (
     <div ref={container}>
       <NewsletterForm
-        title="Artículos sobre liderazgo, plataforma y la era de la IA"
+        title="Artículos sobre desarrollo con IA y Spec-Driven Development"
         description="Una edición mensual. Directamente en tu correo, sin intermediarios y sin ruido."
         state={state}
         onSubmitEmail={subscribe}

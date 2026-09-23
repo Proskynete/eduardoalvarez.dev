@@ -3,7 +3,7 @@ import { dark } from "@eduardoalvarez/arrecife/tokens";
 import config from "./index";
 
 export default {
-  name: "Eduardo Álvarez — Engineering Leadership",
+  name: "Eduardo Álvarez — Technical Lead",
   short_name: "Eduardo Álvarez",
   description: config.description,
   lang: "es",

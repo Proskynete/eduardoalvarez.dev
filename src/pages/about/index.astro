@@ -29,26 +29,25 @@ const schema = {
   name: settings.author.name,
   url: settings.url,
   email: settings.email,
-  jobTitle: "Engineering Leader",
+  jobTitle: "Technical Lead",
   knowsAbout: [
-    "Engineering Leadership",
-    "Platform Engineering",
-    "AI-native Engineering",
+    "Spec-Driven Development",
+    "AI-assisted Software Development",
     "Technical Leadership",
-    "Staff Engineering",
+    "Frontend Development",
     "Software Architecture",
-    "Developer Experience",
+    "Technical Education",
   ],
   hasOccupation: {
     "@type": "Role",
-    roleName: "Engineering Leader & Platform Thinking",
+    roleName: "Technical Lead",
   },
   sameAs,
 };
 
 const seo = {
-  title: "Sobre Eduardo Álvarez — Engineering Leader",
-  description: "Líder de ingeniería, pensador de plataformas y mentor técnico trabajando en la era de la IA.",
+  title: "Sobre Eduardo Álvarez — Technical Lead",
+  description: "Technical Lead · Spec-Driven Development. Enseño a construir software con IA sin dejar de entender lo que hacemos.",
   schema,
 };
 
@@ -72,13 +71,13 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
         <PageHeader
           eyebrow="/sobre_mí"
           title="Hola, soy Eduardo"
-          description="Ingeniero y líder técnico con más de 10 años construyendo en internet. Trabajo en la intersección de arquitectura de plataforma, liderazgo técnico y los flujos de trabajo que la IA está transformando — desde ingeniero individual hasta CTO, en startups y empresas digitales de Chile y Latinoamérica."
+          description="Soy Eduardo. Llevo más de diez años construyendo aplicaciones web y hoy lidero un equipo de desarrollo. Me interesa cómo usamos la IA sin dejar de entender lo que construimos, y por eso trabajo con Spec-Driven Development. Doy charlas, talleres y cursos, muchos de ellos gratis."
           className="py-0"
         />
         <Text variant="body" tone="secondary" className="mt-step-md">
-          Mi foco es transformar equipos desde la entrega de features al pensamiento de plataforma: construir con
-          criterio, escalar con intención y liderar con contexto en lugar de control. Este sitio es donde pienso en voz
-          alta sobre ingeniería — no es un blog de tutoriales, es un espacio para ideas con criterio.
+          Para mí, la IA es una herramienta: los ingenieros le damos la dirección y respondemos por el resultado. Un
+          buen desarrollador es el que entiende el problema y lo resuelve usando el código como herramienta, y ahora
+          también la IA. Este sitio es donde comparto lo que voy aprendiendo en el camino.
         </Text>
       </div>
 
@@ -101,16 +100,16 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
         {
           [
             {
-              titulo: "Platform Engineering",
-              texto: "Plataformas internas que permiten a los equipos moverse más rápido con menos fricción técnica.",
+              titulo: "Spec-Driven Development",
+              texto: "Primero definimos qué hay que construir y después lo construimos con agentes, sin perder de vista lo que hacen.",
             },
             {
-              titulo: "Engineering Leadership",
-              texto: "Acompañar a managers y tech leads en su evolución hacia un liderazgo con criterio y escala.",
+              titulo: "Liderar un equipo",
+              texto: "Decidir cómo se construye, revisar que el código cumpla los acuerdos del equipo y ayudar a que cada persona crezca.",
             },
             {
-              titulo: "AI-native Engineering",
-              texto: "Entender cómo los agentes de IA están cambiando los flujos de trabajo y qué significa para los equipos.",
+              titulo: "Enseñar",
+              texto: "Charlas, talleres y cursos que parten desde cero, para que lo complejo se entienda sin palabras rebuscadas.",
             },
           ].map(({ titulo, texto }) => (
             <Card>
