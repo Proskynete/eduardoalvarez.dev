@@ -39,6 +39,7 @@ El podcast no está «oculto de la navegación»: está apagado. Mientras la lla
 - **WHEN** `podcastsEnabled` es `false`
 - **THEN** ni la barra ni el cajón móvil SHALL contener un enlace a `/podcasts`
 
-#### Scenario: Con la llave encendida el podcast cierra la navegación
+#### Scenario: El podcast es alcanzable desde la navegación
 - **WHEN** `podcastsEnabled` es `true`
 - **THEN** SHALL aparecer un enlace a `/podcasts`, en último lugar
+- **THEN** ese enlace SHALL aparecer también en el cajón de navegación móvil
