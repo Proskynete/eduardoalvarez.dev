@@ -171,3 +171,8 @@ extend-exclude = [
 # episodio, la segunda en el nombre de un test.
 "normales" = "normales"
 "ignora" = "ignora"
+
+# De la página About: «se programa» (Spec-Driven Development) y «No permitas»
+# (filosofía de vida). El diccionario los toma por `program` y `permits`.
+"programa" = "programa"
+"permitas" = "permitas"
