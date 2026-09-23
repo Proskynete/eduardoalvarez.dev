@@ -9,7 +9,7 @@ The `/speaking` route SHALL replace `/charlas-talleres`. It lists all talks, wor
 **Page header:**
 ```
 Speaking
-Talks and workshops on engineering leadership, platform architecture, and building with AI.
+Charlas y talleres sobre Spec-Driven Development, desarrollo con IA y frontend.
 [CTA]: "Want me to speak at your event? → [contact link]"
 ```
 

@@ -2,7 +2,7 @@
 
   <h1><a href="https://www.eduardoalvarez.dev">eduardoalvarez.dev</a></h1>
 
-  <p>Engineering Leadership & Platform Thinking in the AI Era</p>
+  <p>Technical Lead · Spec-Driven Development — Entender antes de construir.</p>
 
 ![Astro](https://img.shields.io/badge/Developed%20with-Astro-e73bba?logo=astro) ![Vercel](https://img.shields.io/badge/Hosted%20in-Vercel-000000?logo=vercel) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript) ![Node](https://img.shields.io/badge/Node-24.x-5FA04E?logo=nodedotjs&logoColor=white) ![!PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 

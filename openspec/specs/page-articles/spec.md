@@ -9,7 +9,7 @@ The `/articles` route SHALL display all published articles. The page route chang
 **Page header:**
 ```
 Articles
-Writing about engineering leadership, platform architecture, and the AI era.
+Artículos sobre Spec-Driven Development, desarrollo con IA y lo que voy aprendiendo liderando un equipo.
 ```
 
 **Layout:** Single-column list, max-width `content` (672px), centered.

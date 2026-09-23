@@ -388,3 +388,50 @@ está escrito.
    la parte de motion queda acotada por diseño.
 4. **Reservar `@tiburoncin`** en redes y el subdominio.
 5. **Generador de OG** con las dos plantillas del handoff (artículo y curso).
+
+---
+
+## 14. Posicionamiento, voz y avatar
+
+Decidido con Eduardo el 2026-09-23. La fuente canónica de la marca es el manual de Arrecife
+(`docs/architecture/brand-manual.md`); la voz detallada de escritura vive en el corpus de
+`blog-content-manager` (`author-voice-profile`). Esto es lo que este sitio aplica.
+
+| Pieza | Texto |
+| --- | --- |
+| Lema | Entender antes de construir. |
+| Línea del lockup | entender · construir · compartir |
+| Bajada | Technical Lead · Spec-Driven Development — Enseño a construir software con IA sin dejar de entender lo que hacemos. |
+| Bio corta | Soy Eduardo. Llevo más de diez años construyendo aplicaciones web y hoy lidero un equipo de desarrollo. Me interesa cómo usamos la IA sin dejar de entender lo que construimos, y por eso trabajo con Spec-Driven Development. Doy charlas, talleres y cursos, muchos de ellos gratis. |
+
+**Dónde se usa en este repo:** eyebrow y bajada del hero (`src/pages/index.astro`), cabecera
+de `/about`, `settings.description` y `authorInlineBio` (`src/settings/index.ts`), nombre del
+manifiesto, `application-name`, splash (línea del lockup) y la imagen OG por defecto
+(`npm run brand:og`).
+
+**Retirado como posicionamiento:** «Engineering Leadership», «Platform Thinking»,
+«Frontend Architect», «in the AI Era», y los lemas `code · build · explore`,
+`BUILD · LEARN · SHARE` y `FILTRA EL RUIDO`. Los cargos pasados en la línea de tiempo de
+`/about` se quedan: son hechos, no posicionamiento. La categoría de artículos
+`platform-thinking` también se queda, porque clasifica artículos ya publicados.
+
+### Voz
+
+- Español neutro. Sin chilenismos ni regionalismos en material público.
+- Primera persona. La experiencia se cuenta como «yo hice» o «hicimos con mi equipo». Cuando
+  advierte algo, se incluye: «nos va a pasar esto si no hacemos esto otro». Nunca «tú deberías».
+- Lo complejo se explica simple, con ejemplos concretos. Nada de vocabulario rebuscado para
+  parecer más inteligente.
+- Honesto, nada de vender humo. La IA es una herramienta: los ingenieros le damos la dirección
+  y respondemos por el resultado.
+
+### Emojis
+
+Pocos, no cero. Se permiten con moderación en Instagram y LinkedIn. No van en artículos,
+slides ni material impreso o de marca.
+
+### Avatar
+
+Foto real de Eduardo en LinkedIn e Instagram: la gente tiene que reconocer su cara en una
+conferencia. Tiburoncín (nivel 2) en plataformas de desarrollo: GitHub, X, Discord, npm.
+Esto reemplaza la regla anterior de «avatar nivel 2 idéntico en todas las plataformas».

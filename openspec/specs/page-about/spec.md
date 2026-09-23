@@ -8,7 +8,7 @@ The `/about` route SHALL be a semi-static page communicating who Eduardo is, wha
 
 **Page sections:**
 1. **Intro** — Short professional bio (3–5 sentences). First person, opinionated tone. No bullet list of technologies.
-2. **What I work on** — Current focus areas: Engineering Leadership, Platform Architecture, AI integration in engineering orgs.
+2. **What I work on** — Current focus areas: Spec-Driven Development, leading a development team, and teaching.
 3. **Where I've been** — Career highlights (text, not a timeline). Notable companies, roles, outcomes.
 4. **How I think** — 3–4 one-liners that capture the POV: "I believe X", "I've learned Y". These replace a long philosophy section.
 5. **Connect** — Links: GitHub, LinkedIn, Twitter/X, Email, Resume.

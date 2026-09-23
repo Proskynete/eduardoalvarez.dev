@@ -10,8 +10,8 @@ The homepage SHALL open with a hero section containing a brief personal intro an
 ```
 [Isotipo — small, 32px]
 Eduardo Álvarez
-Engineering Leadership & Platform Thinking in the AI Era.
-[Tagline]: "Building engineering culture for the AI era."
+Technical Lead · Spec-Driven Development. Enseño a construir software con IA sin dejar de entender lo que hacemos.
+[Tagline]: "Entender antes de construir."
 [CTA links]: "Read articles →"  |  "Work with me →"
 ```
 
@@ -86,7 +86,7 @@ Near the bottom of the homepage, a minimal newsletter signup section SHALL appea
 **Content:**
 ```
 Newsletter
-Stay updated on engineering leadership, platform thinking, and AI.
+Artículos sobre Spec-Driven Development y desarrollo con IA.
 [Email input]  [Subscribe button]
 ```
 

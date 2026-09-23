@@ -9,7 +9,7 @@ The `/newsletter` route SHALL be a standalone page for the newsletter. It has a 
 **Page header:**
 ```
 Newsletter
-Thoughts on engineering leadership, platform architecture, and AI — direct to your inbox.
+Artículos sobre Spec-Driven Development y desarrollo con IA, directamente en tu correo.
 Sent when there's something worth saying. No cadence pressure.
 ```
 

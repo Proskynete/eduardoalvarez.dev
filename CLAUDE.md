@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal site of Eduardo Álvarez — **Engineering Leadership & Platform Thinking in the AI Era** — built with **Astro 7**, React 19 and TypeScript. MDX articles, full-text search via Algolia, comments via Giscus, newsletter via Mailchimp, error tracking via Sentry, and an installable PWA. The visual language comes from **`@eduardoalvarez/arrecife`**, the published design system (tokens, components, icons, Shiki theme). Deployed to Vercel: pages are prerendered where possible and the rest render on demand in a serverless function.
+Personal site of Eduardo Álvarez — **Technical Lead · Spec-Driven Development** (lema: *Entender antes de construir.*; positioning and voice rules in `BRAND.md` §14) — built with **Astro 7**, React 19 and TypeScript. MDX articles, full-text search via Algolia, comments via Giscus, newsletter via Mailchimp, error tracking via Sentry, and an installable PWA. The visual language comes from **`@eduardoalvarez/arrecife`**, the published design system (tokens, components, icons, Shiki theme). Deployed to Vercel: pages are prerendered where possible and the rest render on demand in a serverless function.
 
 ## Environment
 

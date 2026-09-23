@@ -12,7 +12,7 @@ The system SHALL display the typographic wordmark "Eduardo Álvarez" as the prim
 
 **Specs:**
 - Text: "Eduardo Álvarez" in Geist Bold (700), `text-text-primary`
-- Tagline below (desktop only): "Engineering Leadership · Platform Thinking", `text-text-muted`, uppercase, `text-xs`, wide tracking
+- Tagline below (desktop only): "Technical Lead · Spec-Driven Development", `text-text-muted`, uppercase, `text-xs`, wide tracking
 - No background, no border, no shadow
 
 #### Scenario: Logo renders in header
@@ -173,7 +173,7 @@ The system SHALL have a default OG image for pages without a specific `seo_image
 - Fin: centred-left in a 290px column, 190px tall, `full` variant with spots, cyan glow
 - Vertical rule `#1f1f1f` separating mark from text
 - Wordmark: Geist Bold 66px, `#f5f5f5`
-- Tagline below: "Engineering Leadership & Platform Thinking", Geist Regular 27px, `#a3a3a3`
+- Tagline below: "Technical Lead · Spec-Driven Development", Geist Regular 27px, `#a3a3a3`
 - File: `public/images/og-default.png`
 
 #### Scenario: Article without custom OG uses default

@@ -12,8 +12,8 @@ TBD - created by archiving change seo-audit-followup. Update Purpose after archi
 - **THEN** el `<title>` renderizado SHALL ser `"Charlas y talleres técnicos | Eduardo Álvarez"` (45 chars)
 
 #### Scenario: Título largo con sufijo excedería 60 chars
-- **WHEN** una página pasa `seo.title = "Eduardo Álvarez — Engineering Leadership & Platform Thinking"` (60 chars)
-- **THEN** el `<title>` renderizado SHALL ser `"Eduardo Álvarez — Engineering Leadership & Platform Thinking"` sin sufijo (60 chars)
+- **WHEN** una página pasa `seo.title = "Eduardo Álvarez — Technical Lead · Spec-Driven Development"` (58 chars)
+- **THEN** el `<title>` renderizado SHALL ser `"Eduardo Álvarez — Technical Lead · Spec-Driven Development"` sin sufijo (58 chars)
 
 #### Scenario: Página sin `seo.title` usa `settings.title`
 - **WHEN** una página no pasa `seo.title`
