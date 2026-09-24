@@ -64,13 +64,13 @@ export function useAlgoliaSearch(algolia?: AlgoliaConfig): SearchHookResult {
 
     // Validar configuración antes de buscar
     if (!algolia?.ALGOLIA_APPLICATION_ID || !algolia?.ALGOLIA_INDEX_NAME || !algolia?.ALGOLIA_SEARCH_API_KEY) {
-      setError("La configuración de búsqueda no está disponible.");
+      setError("La búsqueda no está disponible por ahora.");
       setIsSearching(false);
       return false;
     }
 
     if (!searchClientRef.current) {
-      setError("El servicio de búsqueda no está inicializado.");
+      setError("La búsqueda no está disponible por ahora.");
       setIsSearching(false);
       return false;
     }
@@ -96,7 +96,7 @@ export function useAlgoliaSearch(algolia?: AlgoliaConfig): SearchHookResult {
       return hits.length > 0;
     } catch (error) {
       console.error("Error searching:", error);
-      setError("Hubo un error al realizar la búsqueda. Por favor, intenta nuevamente.");
+      setError("No pude completar la búsqueda. Intenta de nuevo.");
       setSearchResults([]);
       setIsSearching(false);
       setHasSearched(true);

@@ -11,7 +11,7 @@ import {
 } from "@eduardoalvarez/arrecife";
 import { Logo } from "@eduardoalvarez/arrecife/brand";
 import { Icon } from "@eduardoalvarez/arrecife/icons";
-import { ListIcon } from "@phosphor-icons/react";
+import { CaretRightIcon, ListIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 
 import { trackEvent } from "../../../../../utils/analytics";
@@ -111,20 +111,24 @@ export default function Mobile({ version, pathname }: MobileProps) {
                       : "text-text-secondary hover:bg-surface-raised hover:text-text-primary"
                   }`}
                 >
+                  {/* A Phosphor caret, filled on the current page: the system has
+                      one icon family and no glyphs standing in for icons. */}
                   <span
-                    className={`text-label mt-0.5 shrink-0 ${isActive ? "text-accent" : "text-text-muted group-hover:text-accent"}`}
+                    className={`text-label mt-0.5 shrink-0 ${isActive ? "text-accent" : "text-text-secondary group-hover:text-accent"}`}
                   >
-                    {isActive ? "◆" : "◇"}
+                    <Icon as={CaretRightIcon} tone={isActive ? "current" : "action"} />
                   </span>
 
                   <span className="flex flex-col gap-0.5">
                     <span className="text-ui">
-                      <Text variant="label" tone={isActive ? "accent" : "muted"} as="span" className="font-mono">
+                      <Text variant="label" tone={isActive ? "accent" : "secondary"} as="span" className="font-mono">
                         ./{item.name.toLowerCase()}
                       </Text>
                     </span>
+                    {/* Secondary, not muted: muted over the raised hover surface
+                        drops to 4.07:1. */}
                     {item.description && (
-                      <Text variant="label" tone="muted" as="span" className="font-mono">
+                      <Text variant="label" tone="secondary" as="span" className="font-mono">
                         {item.description}
                       </Text>
                     )}
@@ -134,10 +138,11 @@ export default function Mobile({ version, pathname }: MobileProps) {
             })}
           </nav>
 
-          {/* Blinking cursor */}
+          {/* The CLI signature's cursor: a static block in sand (manual § 03,
+              level 4). The library dropped the blinking caret (§ 23). */}
           <div className="text-accent mt-step-lg gap-step-xs flex items-center">
-            <span>❯</span>
-            <span className="bg-accent rounded-xs ml-1 inline-block h-3 w-1 motion-safe:animate-ping motion-safe:duration-75" />
+            <span aria-hidden="true">❯</span>
+            <span aria-hidden="true" className="bg-warm ml-1 inline-block h-3 w-1.5" />
           </div>
         </SheetBody>
 

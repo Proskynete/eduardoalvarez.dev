@@ -10,7 +10,7 @@
 
 ---
 
-Sitio personal de Eduardo Álvarez: artículos, charlas y recursos sobre liderazgo de ingeniería, arquitectura de plataformas y desarrollo de software en la era de la IA.
+Sitio personal de Eduardo Álvarez, Technical Lead · Spec-Driven Development. Enseño a construir software con IA sin dejar de entender lo que hacemos: artículos, charlas y la newsletter.
 
 El sistema de diseño vive en su propio paquete, [`@eduardoalvarez/arrecife`](https://www.npmjs.com/package/@eduardoalvarez/arrecife): tokens, componentes, iconos y el tema de Shiki. Este sitio lo consume igual que los demás proyectos (links, resume, cursos, blog-content-manager).
 

@@ -4,31 +4,45 @@
   display: grid;
 }
 
+/* Headings follow the system's type scale (h2 30/1.1/600, h3 25/1.15/600, in
+   the display face). They used to be written by hand at 700 and 20px. */
 #article-body h2 {
-  font-size: 1.875rem; /* text-3xl */
-  font-weight: 700;
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: var(--text-h2--font-weight);
+  line-height: var(--text-h2--line-height);
+  letter-spacing: var(--text-h2--letter-spacing);
   margin-bottom: 1rem;
   padding-top: 3rem;
   scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
-  color: var(--color-text-primary); /* text-primary */
+  color: var(--color-text-primary);
 }
 
 #article-body h3 {
-  font-size: 1.25rem; /* text-xl */
-  font-weight: 600;
-  line-height: 1.6;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--text-h3--font-weight);
+  line-height: var(--text-h3--line-height);
+  letter-spacing: var(--text-h3--letter-spacing);
   margin-bottom: 0.75rem;
   margin-top: 2rem;
   scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
-  color: var(--color-text-primary); /* text-primary */
+  color: var(--color-text-primary);
+}
+
+/* Prose: 18/1.75 in bruma, 68ch at most (Design System v1). */
+#article-body p,
+#article-body ul,
+#article-body ol {
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  color: var(--color-text-secondary);
+  max-width: 68ch;
 }
 
 #article-body p {
   font-weight: 400;
-  line-height: 1.75;
   margin-bottom: 1.5rem;
-  color: var(--color-text-primary); /* text-primary */
 }
 
 #article-body p strong {
@@ -56,13 +70,13 @@
 }
 
 #article-body p img {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-standard);
   display: block;
   margin-left: auto;
   margin-right: auto;
   margin-top: 2rem;
   max-width: 100%;
-  border-radius: 6px;
+  border-radius: var(--radius-chip);
 
   @media (min-width: 1200px) {
     max-width: 80%;
@@ -70,31 +84,11 @@
   }
 }
 
-#article-body p code {
-  background-color: var(--color-surface-raised); /* surface-raised */
-  border-radius: 4px;
-  color: var(--color-text-primary); /* text-primary */
-  font-family: var(--font-mono);
-  font-style: normal;
-  padding: 2px 6px;
-  font-size: 0.875em;
-}
-
-#article-body blockquote {
-  border-left: 3px solid var(--color-accent); /* accent */
-  background-color: transparent;
-  color: var(--color-text-secondary); /* text-secondary */
-  font-style: italic;
-  margin-bottom: 1.5rem;
-  margin-top: 2rem;
-  padding: 0.75rem 0 0.75rem 1rem;
-}
-
 #article-body blockquote p {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: inherit;
+  line-height: inherit;
   margin: 0;
-  color: var(--color-text-secondary); /* text-secondary */
+  color: var(--color-text-secondary);
 }
 
 #article-body blockquote p strong {
@@ -107,13 +101,6 @@
   color: var(--color-accent);
 }
 
-#article-body blockquote p code {
-  background-color: var(--color-border); /* surface-border */
-  border-radius: 3px;
-  font-style: normal;
-  padding: 2px 5px;
-}
-
 #article-body blockquote ul li {
   font-size: 1rem;
   line-height: 1.6;
@@ -124,20 +111,26 @@
   font-weight: 700;
 }
 
+/* Code block: the whole block, title bar included, is a dark island on the
+   hull (#0B1524) in both modes. The bar used to sit on surface-raised, which in
+   light mode is #EFE9DE: the foam fin on it disappeared. On the hull the foam
+   fin is the right variant (manual, «La aleta usa la variante correcta para el
+   fondo»), and the spots colour keeps the labels readable. */
 #article-body .code-block-wrapper {
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   margin-bottom: 1.5rem;
   overflow: hidden;
-  border: 1px solid var(--color-border); /* surface-border */
+  background-color: var(--color-brand-hull);
 }
 
 #article-body .code-block-header {
   display: flex;
   align-items: center;
+  gap: 0.75rem;
   justify-content: space-between;
-  background-color: var(--color-surface-raised); /* surface-raised */
+  background-color: var(--color-brand-hull);
   padding: 0.55rem 1rem;
-  border-bottom: 1px solid var(--color-border); /* surface-border */
+  border-bottom: 1px solid color-mix(in srgb, var(--color-brand-spots) 15%, transparent);
 }
 
 /* The fin replaces the macOS traffic lights: the system asks for the brand in
@@ -147,50 +140,45 @@
   width: 18px;
   height: auto;
   flex: none;
-  opacity: 0.9;
 }
 
+/* 13px: the manual's absolute minimum on screen. */
 #article-body .code-language-label {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  /* Mismo caso que el botón de copiar: `muted` sobre surface-raised se
-     queda en 4.07:1. */
-  color: var(--color-text-secondary);
+  font-size: var(--text-meta);
+  color: var(--color-brand-spots);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  margin-right: auto;
 }
 
 #article-body .code-copy-btn {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  /* `muted` daba 4.07:1 sobre surface-raised, justo bajo el 4.5 de AA.
-     `secondary` es el mismo papel visual y sí llega. */
-  color: var(--color-text-secondary);
+  font-size: var(--text-meta);
+  letter-spacing: 0.08em;
+  color: var(--color-brand-spots);
   background: transparent;
-  border: 1px solid var(--color-border); /* surface-border */
-  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--color-brand-spots) 35%, transparent);
+  border-radius: var(--radius-chip);
   padding: 2px 8px;
   cursor: pointer;
   text-transform: uppercase;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 150ms ease-out, border-color 150ms ease-out;
 }
 
+/* The bar is dark in both modes, so the hover strengthens the border instead of
+   switching to a text colour that would flip with the theme. */
 #article-body .code-copy-btn:hover {
-  color: var(--color-text-primary); /* text-primary */
-  border-color: var(--color-text-secondary); /* text-secondary */
+  border-color: var(--color-brand-spots);
 }
 
 #article-body .code-copy-btn.copied {
-  color: var(--color-success); /* success */
+  color: var(--color-success);
   border-color: var(--color-success);
 }
 
-/* Code block — hull ground (#0B1524, the mascot's outline).
-   The title bar is injected by the article layout script. */
 #article-body pre {
   background-color: var(--color-brand-hull);
-  border-radius: 0 0 12px 12px;
   margin-bottom: 0;
   padding: 1.25rem;
   overflow-x: auto;
@@ -210,7 +198,7 @@
   line-height: 1.8;
   padding-left: 1.25rem;
   position: relative;
-  color: var(--color-text-primary);
+  color: var(--color-text-secondary);
 }
 
 #article-body ul li::before {
@@ -241,35 +229,6 @@
   text-decoration: underline;
 }
 
-#article-body ul li code {
-  background-color: var(--color-surface-raised);
-  border-radius: 3px;
-  font-family: var(--font-mono);
-  font-style: normal;
-  font-size: 0.875em;
-  padding: 2px 5px;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   Contenido del artículo · Design System v1
-   prose 18/1.75 bruma · máx 68ch · h2 y h3 en display · cita con borde arena
-   de 3px, cursiva y SIN fondo · código inline sobre corriente r4 pad 2px 6px.
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-#article-body p,
-#article-body ul,
-#article-body ol {
-  font-size: 18px;
-  line-height: 1.75;
-  color: rgb(var(--c-text-secondary));
-  max-width: 68ch;
-}
-
-#article-body h2,
-#article-body h3 {
-  font-family: var(--font-display);
-}
-
 /* Quotes take an arena border and NO background: the system is explicit. */
 #article-body blockquote {
   margin: 0 0 22px;
@@ -277,7 +236,7 @@
   padding-left: 22px;
   font-size: 18px;
   line-height: 1.7;
-  color: rgb(var(--c-text-secondary));
+  color: var(--color-text-secondary);
   font-style: italic;
   background: none;
 }
@@ -286,8 +245,8 @@
 #article-body :not(pre) > code {
   font-family: var(--font-mono);
   font-size: 0.9em;
-  color: rgb(var(--c-text-primary));
-  background: rgb(var(--c-surface-raised));
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
   border-radius: 4px;
   padding: 2px 6px;
 }

@@ -3,6 +3,7 @@ import { PageHeader, Separator, Text } from "@eduardoalvarez/arrecife";
 
 import Layout from "../../layouts/main/index.astro";
 import settings from "../../settings";
+import { personRef } from "../../utils/person-schema";
 import TalkCard from "../../components/talk-card/index";
 
 import { talks } from "../../settings/talks";
@@ -30,17 +31,28 @@ const eventsSchema = {
     "@type": "Event",
     name: talk.title,
     startDate: new Date(talk.date[0]).toISOString(),
+    ...(talk.date[1] ? { endDate: new Date(talk.date[1]).toISOString() } : {}),
     ...(talk.description ? { description: talk.description } : {}),
+    ...(talk.image ? { image: new URL(talk.image.src, settings.url).toString() } : {}),
+    eventStatus: "https://schema.org/EventScheduled",
+    // Every talk so far was given in person; add a field to Talk before the first remote one.
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    performer: personRef,
     location: {
       "@type": "Place",
       name: talk.location.name,
+      address: talk.location.name,
       url: talk.location.url,
     },
-    organizer: talk.organizations.map((org) => ({
-      "@type": "Organization",
-      name: org.name,
-      url: org.url,
-    })),
+    ...(talk.organizations.length > 0
+      ? {
+          organizer: talk.organizations.map((org) => ({
+            "@type": "Organization",
+            name: org.name,
+            url: org.url,
+          })),
+        }
+      : {}),
   })),
 };
 
@@ -61,24 +73,25 @@ const seo = {
       como tokens. Tres páginas la copiaban; las tres ya habían derivado.
     */}
     <PageHeader
-      eyebrow="/charlas"
+      eyebrow="./charlas"
       title="Charlas"
       description="Charlas y talleres sobre Spec-Driven Development, desarrollo con IA y frontend."
     />
 
     <div class="gap-step-sm mb-step-xl flex flex-col">
       <Text variant="ui" tone="secondary">
-        Participo regularmente en conferencias, meetups y workshops privados hablando sobre liderazgo técnico,
-        plataformas internas, Developer Experience y el impacto real de la IA en equipos de ingeniería. Los formatos
-        incluyen keynotes, charlas de 30-45 minutos, paneles y workshops intensivos presenciales o remotos.
+        Doy charlas y talleres en conferencias, meetups, universidades y empresas. Hoy hablo sobre todo de Spec-Driven
+        Development y de cómo construir software con IA sin dejar de entender lo que hacemos. Antes de cada charla
+        pregunto quién va a estar en la sala para adaptar el nivel. Hago charlas de 30 a 45 minutos, paneles y talleres,
+        presenciales o remotos.
       </Text>
-      <Text variant="label" tone="secondary" as="p" className="font-normal">
+      <Text variant="meta" tone="secondary" as="p">
         Me encantaría participar en tu evento. Si quieres que hable, escríbeme a{" "}
-        <a href="mailto:soy@eduardoalvarez.dev" class="text-accent underline">soy@eduardoalvarez.dev</a>
+        <a href="mailto:soy@eduardoalvarez.dev" class="text-accent hover:text-accent-hover transition-standard underline">soy@eduardoalvarez.dev</a>
       </Text>
-      <Text variant="label" tone="muted" as="p" className="font-normal">
+      <Text variant="meta" tone="muted" as="p">
         {settings.authorInlineBio.text}{" "}
-        <a href={settings.authorInlineBio.href} class="text-accent underline">{settings.authorInlineBio.cta}</a>
+        <a href={settings.authorInlineBio.href} class="text-accent hover:text-accent-hover transition-standard underline">{settings.authorInlineBio.cta}</a>
       </Text>
     </div>
 

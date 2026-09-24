@@ -1,10 +1,12 @@
 import { dark } from "@eduardoalvarez/arrecife/tokens";
 
+import { brandAssets } from "./brand-assets";
 import config from "./index";
 
 export default {
   name: "Eduardo Álvarez — Technical Lead",
-  short_name: "Eduardo Álvarez",
+  // Android truncates the home-screen label at about 12 characters.
+  short_name: "Eduardo",
   description: config.description,
   lang: "es",
   id: "/",
@@ -25,10 +27,10 @@ export default {
      de `maskable` (el círculo del 80 %), así que los mismos archivos sirven
      para ambos. */
   icons: [
-    { src: "/images/manifest/android-chrome-192x192.png", sizes: "192x192", type: "image/png", purpose: "any" },
-    { src: "/images/manifest/android-chrome-512x512.png", sizes: "512x512", type: "image/png", purpose: "any" },
-    { src: "/images/manifest/android-chrome-192x192.png", sizes: "192x192", type: "image/png", purpose: "maskable" },
-    { src: "/images/manifest/android-chrome-512x512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+    { src: brandAssets.androidChrome192, sizes: "192x192", type: "image/png", purpose: "any" },
+    { src: brandAssets.androidChrome512, sizes: "512x512", type: "image/png", purpose: "any" },
+    { src: brandAssets.androidChrome192, sizes: "192x192", type: "image/png", purpose: "maskable" },
+    { src: brandAssets.androidChrome512, sizes: "512x512", type: "image/png", purpose: "maskable" },
   ],
   /* El `<link rel="manifest">` y el `theme-color` los escribe `head.astro`.
      El plugin solo sabe insertarlos en el HTML prerenderado al final del build,

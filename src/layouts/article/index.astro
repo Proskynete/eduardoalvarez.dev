@@ -11,6 +11,7 @@ import { calculateReadingTime } from "../../utils/reading-time";
 import type { Props as BaseHeadProps } from "../base/components/head.astro";
 import type { Article } from "../../interfaces";
 import settings from "../../settings";
+import { personRef } from "../../utils/person-schema";
 
 type Props = {
   content: Article;
@@ -34,12 +35,11 @@ const schema = {
   datePublished: content.date,
   ...(content.date_modified ? { dateModified: content.date_modified } : {}),
   url: `${settings.url}/articles/${content.slug}`,
-  image: content.seo_image,
-  author: {
-    "@type": "Person",
-    name: settings.author.name,
-    url: settings.url,
-  },
+  mainEntityOfPage: `${settings.url}/articles/${content.slug}`,
+  image: new URL(content.seo_image, settings.url).toString(),
+  inLanguage: "es",
+  author: personRef,
+  publisher: personRef,
   keywords: articleKeywords,
 };
 
@@ -222,7 +222,7 @@ const seo: BaseHeadProps = {
     <Head content={content} />
 
     {content.audio_narration && (
-      <div class="mt-step-md rounded-card px-step-md py-step-sm border border-accent/25 bg-gradient-to-r from-accent/[0.08] via-accent/[0.04] to-transparent">
+      <div class="mt-step-md rounded-card px-step-md py-step-sm border-hairline bg-surface border">
         <AudioPlayer client:load src={content.audio_narration} title={content.title} banner={true} />
       </div>
     )}

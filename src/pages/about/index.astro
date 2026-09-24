@@ -15,39 +15,21 @@ import { experience } from "../../settings/about";
 import { nowItems, lastUpdated } from "../../settings/now";
 import type { NowItem } from "../../settings/now";
 import settings from "../../settings";
+import { personSchema } from "../../utils/person-schema";
 
 export const prerender = true;
 
-const sameAs = [
-  ...settings.social_network.filter((s) => s.link).map((s) => s.link),
-  ...settings.contacts.filter((c) => c.href && c.href.startsWith("http")).map((c) => c.href),
-].filter((url, idx, arr) => arr.indexOf(url) === idx);
-
 const schema = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: settings.author.name,
-  url: settings.url,
-  email: settings.email,
-  jobTitle: "Technical Lead",
-  knowsAbout: [
-    "Spec-Driven Development",
-    "AI-assisted Software Development",
-    "Technical Leadership",
-    "Frontend Development",
-    "Software Architecture",
-    "Technical Education",
-  ],
-  hasOccupation: {
-    "@type": "Role",
-    roleName: "Technical Lead",
-  },
-  sameAs,
+  "@type": "ProfilePage",
+  url: `${settings.url}/about`,
+  mainEntity: personSchema,
 };
 
 const seo = {
-  title: "Sobre Eduardo Álvarez — Technical Lead",
-  description: "Technical Lead · Spec-Driven Development. Enseño a construir software con IA sin dejar de entender lo que hacemos.",
+  title: "Sobre mí — Technical Lead · Spec-Driven Development",
+  description:
+    "Llevo más de diez años construyendo aplicaciones web y hoy lidero un equipo de desarrollo. Doy charlas, talleres y cursos, muchos de ellos gratis.",
   schema,
 };
 
@@ -69,7 +51,7 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
     <section class="flex flex-col-reverse sm:flex-row items-start gap-10 sm:gap-16">
       <div class="flex-1">
         <PageHeader
-          eyebrow="/sobre_mí"
+          eyebrow="./sobre_mí"
           title="Hola, soy Eduardo"
           description="Llevo más de diez años construyendo aplicaciones web y hoy lidero un equipo de desarrollo. Me interesa cómo usamos la IA sin dejar de entender lo que construimos, y por eso trabajo con Spec-Driven Development. Doy charlas, talleres y cursos, muchos de ellos gratis."
           className="py-0"
@@ -83,10 +65,10 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
 
       <div class="w-48 sm:w-64 shrink-0">
         <img
-          src="/images/eduardo_alvarez_2.png"
-          alt="Eduardo Álvarez"
-          width="512"
-          height="680"
+          src="/images/eduardo-alvarez.webp"
+          alt="Retrato de Eduardo Álvarez"
+          width="768"
+          height="1145"
           class="w-full aspect-[3/4] object-cover object-top rounded-panel border-hairline border"
           loading="eager"
         />
@@ -127,12 +109,12 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
     <section id="ahora">
       <div class="flex items-baseline justify-between mb-8">
         <h2 class="text-text-primary">Ahora</h2>
-        <Text variant="label" tone="muted" as="p" className="font-normal">
+        <Text variant="meta" tone="muted" as="p">
           Actualizado: {formattedDate} · <a
             href="https://nownownow.com/about"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-accent underline">¿Qué es esto?</a
+            class="text-accent hover:text-accent-hover transition-standard underline">¿Qué es esto?</a
           >
         </Text>
       </div>
@@ -147,7 +129,7 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
                   <div class="border-hairline pl-step-md hover:border-accent transition-standard border-l-2">
                     <Text variant="ui" as="p" className="mb-step-xs font-medium">{item.label}</Text>
                     {item.description && (
-                      <Text variant="label" tone="secondary" as="p" className="font-normal">
+                      <Text variant="meta" tone="secondary" as="p">
                         {item.description}
                       </Text>
                     )}
@@ -188,7 +170,7 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
                 >
                   <Text variant="ui" as="p" className="font-medium">{item.role}</Text>
                   <Text variant="label" tone="accent" as="p" className="mb-step-xs font-normal">{item.company}</Text>
-                  <Text variant="label" tone="secondary" as="p" className="font-normal">{item.description}</Text>
+                  <Text variant="meta" tone="secondary" as="p">{item.description}</Text>
                 </div>
               </div>
             ))
@@ -232,7 +214,7 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
       <h2 class="text-text-primary mb-4">Comunidad</h2>
       <Text variant="body" tone="secondary">
         He dado charlas en conferencias técnicas, talleres en instituciones académicas y mentorías a decenas de
-        ingenieros en distintos momentos de su carrera. Fui staff volunteer en <strong class="text-text-primary"
+        ingenieros en distintos momentos de su carrera. Fui voluntario en <strong class="text-text-primary"
           >JSConf Chile</strong
         >, mentor en <strong class="text-text-primary">Laboratoria</strong> y en <strong class="text-text-primary"
           >TechSchool</strong

@@ -412,8 +412,10 @@ manifiesto, `application-name`, splash (línea del lockup) y la imagen OG por de
 **Retirado como posicionamiento:** «Engineering Leadership», «Platform Thinking»,
 «Frontend Architect», «in the AI Era», y los lemas `code · build · explore`,
 `BUILD · LEARN · SHARE` y `FILTRA EL RUIDO`. Los cargos pasados en la línea de tiempo de
-`/about` se quedan: son hechos, no posicionamiento. La categoría de artículos
-`platform-thinking` también se queda, porque clasifica artículos ya publicados.
+`/about` se quedan: son hechos, no posicionamiento. La taxonomía de artículos
+(categorías como `platform-engineering` y `engineering-leadership`, y tags como
+`platform-thinking`) queda pendiente de revisar aparte: no rompe URLs, pero cambia los
+badges y los hashtags al compartir.
 
 ### Voz
 

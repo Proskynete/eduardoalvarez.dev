@@ -94,16 +94,12 @@ const SearchResults = forwardRef<HTMLDivElement, SearchResultsProps>(
     if (hasSearched && results.length === 0) {
       return (
         <div ref={ref} id="search-results" className={containerClass} role="status" aria-live="polite">
-          {/* `EmptyState variant="page"` is the one that carries the face, and a
-              search with nothing in it is one of the places the humour contract
-              allows one. The panel already paints a surface, so the component's
-              own card is turned off rather than stacked on top of it. */}
+          {/* Inline, without a face: the manual limits this site's faces to the
+              404 and the newsletter, and the search panel opens on every page. */}
           <EmptyState
-            variant="page"
-            expression="waiting"
+            variant="inline"
             title="Sin resultados"
             description={`No encontré nada con "${searchQuery}". Prueba con menos palabras.`}
-            className="border-0 bg-transparent"
           />
         </div>
       );

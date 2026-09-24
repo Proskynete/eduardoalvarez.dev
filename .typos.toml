@@ -176,3 +176,6 @@ extend-exclude = [
 # (filosofía de vida). El diccionario los toma por `program` y `permits`.
 "programa" = "programa"
 "permitas" = "permitas"
+
+# From /about «Ahora»: «trabajo repetitivo».
+"repetitivo" = "repetitivo"

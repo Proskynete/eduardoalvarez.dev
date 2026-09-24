@@ -45,28 +45,32 @@ async function composeIcon({ size, escala, radio = 0, fondo = COLOR.abyss }) {
 const write = async (opts, target) => writeFileSync(target, await composeIcon(opts));
 
 // ── Manifest ────────────────────────────────────────────────────────────────
+// Every file whose path existed with the old isotype carries a `-v2` suffix:
+// Vercel serves /images/* as immutable for a year, so reusing a path would keep
+// the old mark in every cache that already has it. Bump the suffix, and the
+// paths in src/settings/brand-assets.ts, whenever the drawing changes.
 // Android recorta los iconos `purpose: "maskable"` a un círculo del 80%.
 for (const size of [192, 512]) {
-  await write({ size, escala: SCALE.maskable }, resolve(manifestDir, `android-chrome-${size}x${size}.png`));
-  console.log(`✓ android-chrome-${size}x${size}.png`);
+  await write({ size, escala: SCALE.maskable }, resolve(manifestDir, `android-chrome-${size}x${size}-v2.png`));
+  console.log(`✓ android-chrome-${size}x${size}-v2.png`);
 }
-await write({ size: 180, escala: SCALE.apple }, resolve(manifestDir, "apple-touch-icon.png"));
-console.log("✓ apple-touch-icon.png");
-await write({ size: 150, escala: SCALE.tile }, resolve(manifestDir, "mstile-150x150.png"));
-console.log("✓ mstile-150x150.png");
+await write({ size: 180, escala: SCALE.apple }, resolve(manifestDir, "apple-touch-icon-v2.png"));
+console.log("✓ apple-touch-icon-v2.png");
+await write({ size: 150, escala: SCALE.tile }, resolve(manifestDir, "mstile-150x150-v2.png"));
+console.log("✓ mstile-150x150-v2.png");
 
 // ── Favicons ────────────────────────────────────────────────────────────────
 // El SVG queda como envoltorio del PNG: no hay vector de la marca todavía, y
 // un <img> dentro de un SVG es lo único honesto hasta que lo haya.
 const finB64 = (await sharp(finPath).resize({ width: 256 }).png().toBuffer()).toString("base64");
 writeFileSync(
-  resolve(faviconDir, "favicon.svg"),
+  resolve(faviconDir, "favicon-v2.svg"),
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Eduardo Álvarez">
   <rect width="64" height="64" rx="15" fill="${COLOR.abyss}"/>
   <image href="data:image/png;base64,${finB64}" x="8" y="17" width="48" height="36"/>
 </svg>\n`,
 );
-console.log("✓ favicon.svg");
+console.log("✓ favicon-v2.svg");
 
 const buffers = [];
 for (const size of [16, 32, 48]) {
@@ -99,15 +103,8 @@ writeFileSync(resolve(root, "public/favicon.ico"), ico);
 console.log("✓ favicon.ico (16+32+48) — también en la raíz de public/");
 unlinkSync(resolve(faviconDir, "favicon-48x48.png"));
 
-// Safari pinned tab: una tinta, sin fondo. Se deriva de la silueta.
-const mask = await sharp(finPath).resize({ width: 512 }).png().toBuffer();
-writeFileSync(
-  resolve(manifestDir, "safari-pinned-tab.svg"),
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 386">
-  <image href="data:image/png;base64,${mask.toString("base64")}" width="512" height="386"/>
-</svg>\n`,
-);
-console.log("✓ safari-pinned-tab.svg");
+// No Safari pinned-tab icon: `mask-icon` needs a single-colour vector, and the
+// fin only exists as a bitmap. It comes back when the fin is vectorised.
 
 // ── iOS launch screens ──────────────────────────────────────────────────────
 // Sin ellas, la app instalada abre en blanco hasta que carga la página. iOS

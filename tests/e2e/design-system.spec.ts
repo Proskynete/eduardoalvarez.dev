@@ -316,7 +316,7 @@ test.describe("Design System · brand", () => {
     await expect(mascot).toBeVisible();
     // No wrapper: the hero section must not paint a gradient panel behind it.
     const heroBg = await page
-      .locator('section[aria-label="Introduction"]')
+      .locator('section[aria-label="Presentación"]')
       .evaluate((el) => getComputedStyle(el).backgroundImage);
     expect(heroBg).toBe("none");
     await expect(mascot).toHaveCSS("animation-name", "float");

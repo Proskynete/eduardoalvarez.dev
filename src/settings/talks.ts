@@ -45,7 +45,7 @@ export const talks: Talk[] = [
   {
     title: "Microfrontends sin dolor: cómo escalar React (y tu equipo) sin romperlo todo",
     description:
-      "Cómo unificamos 12 aplicaciones separadas bajo una sola experiencia con microfrontends: React + Vite orquestados con single-spa, un design system compartido sobre shadcn/ui, librerías comunes y despliegue en GCP. Un marco de decisión honesto —basado en cicatrices propias— sobre cuándo SÍ y cuándo NO usar microfrontends.",
+      "Cómo unificamos 12 aplicaciones separadas bajo una sola experiencia con microfrontends: React + Vite orquestados con single-spa, un design system compartido sobre shadcn/ui, librerías comunes y despliegue en GCP. Un marco de decisión honesto, a partir de lo que nos salió bien y lo que nos salió mal, sobre cuándo sí y cuándo no usar microfrontends.",
     date: ["2026-08-14T14:00:00.000Z", "2026-08-15T22:00:00.000Z"],
     show: true,
     location: {
@@ -61,7 +61,7 @@ export const talks: Talk[] = [
   {
     title: "Taller de Astro: Crea tu portafolio",
     description:
-      "Aprenderemos de astro mientras creamos un sitio web donde podamos mostrar nuestras redes sociales, habilidades y proyectos. Este taller es ideal para quienes quieren aprender a crear un sitio web de forma rápida y sencilla, sin necesidad de tener experiencia previa en desarrollo web.",
+      "Aprendimos Astro mientras creábamos un sitio web para mostrar nuestras redes sociales, habilidades y proyectos. El taller era para quienes querían aprender a crear un sitio web de forma rápida y sencilla, sin experiencia previa en desarrollo web.",
     date: ["2025-05-31T11:00:00.839Z", "2025-05-31T13:00:00.839Z"],
     show: true,
     location: {
@@ -85,7 +85,7 @@ export const talks: Talk[] = [
   {
     title: "JavaScript: ¡El lenguaje que le da vida a la web!",
     description:
-      "En esta charla, pudimos aprender los conceptos básicos de JavaScript, como ha sido su evolución, entendimos que es ECMA y como se relaciona con las versiones de JavaScript, También vimos como JavaScript trabaja con el asincronismo y la evolución de su sintaxis.",
+      "En esta charla aprendimos los conceptos básicos de JavaScript y cómo ha evolucionado, entendimos qué es ECMA y cómo se relaciona con las versiones de JavaScript, y vimos cómo JavaScript trabaja con la asincronía y cómo cambió su sintaxis.",
     date: ["2024-05-21T11:30:00.839Z", "2024-05-21T13:00:00.839Z"],
     image: JS_TALK,
     show: true,
@@ -108,7 +108,7 @@ export const talks: Talk[] = [
   {
     title: "Astro y Pokémon: Atrapando componentes web en la selva moderna del desarrollo",
     description:
-      "Sumerjámonos en el emocionante mundo de Astro, el framework que está revolucionando el desarrollo web, con un taller interactivo de 2 horas. Aprenderemos a construir un sitio web ultra-rápido, consumiendo la API de Pokémon para crear una Pokédex. Descubre cómo Astro te permite integrar componentes de diferentes frameworks en un solo proyecto, optimizando el rendimiento sin sacrificar la flexibilidad. Perfecto para principiantes y no tan principiantes, este taller es tu portal a las últimas tendencias en tecnología web.",
+      "Taller de 2 horas donde construimos una Pokédex con Astro consumiendo la API de Pokémon. Vimos cómo mezclar componentes de distintos frameworks en un mismo proyecto. Servía si estabas empezando y también si ya programabas.",
     date: ["2024-04-06T13:00:00.839Z", "2024-04-06T20:00:00.839Z"],
     image: ASTRO_TALK,
     show: true,
@@ -145,7 +145,7 @@ export const talks: Talk[] = [
   {
     title: "Conseguir trabajo en tecnología",
     description:
-      "En este taller aprendimos a cómo buscar trabajo en tecnología, revisamos algunos tips para preparar nuestra primera entrevista de trabajo, creación y revisión de tu CV.",
+      "En este taller aprendimos cómo buscar trabajo en tecnología, revisamos consejos para preparar la primera entrevista de trabajo y cómo crear y revisar el CV.",
     date: ["2023-10-28T13:00:00.839Z", "2023-10-28T20:00:00.839Z"],
     image: TRABAJO_TALK,
     show: true,
@@ -167,7 +167,7 @@ export const talks: Talk[] = [
   {
     title: "React y Redux avanzado - Parte 2",
     description:
-      "Aprendimos como trabajar con Redux, configurar middlewares, y como manejar el estado de nuestra aplicación de forma eficiente.",
+      "Aprendimos cómo trabajar con Redux, configurar middlewares y cómo manejar el estado de nuestra aplicación de forma eficiente.",
     date: ["2019-03-16T13:00:00.839Z", "2019-03-16T20:00:00.839Z"],
     image: REACT_REDUX_TALK,
     show: true,
@@ -194,7 +194,7 @@ export const talks: Talk[] = [
   {
     title: "React y Redux avanzado - Parte 1",
     description:
-      "Aprendimos como trabajar con React, revisamos todos los conceptos básicos y como trabajar con la librería optado las mejores prácticas y dejamos todo listo para la parte 2.",
+      "Aprendimos cómo trabajar con React, revisamos los conceptos básicos y cómo trabajar con la librería adoptando buenas prácticas, y dejamos todo listo para la parte 2.",
     date: ["2019-03-05T21:00:00.839Z", "2019-03-06T23:00:00.839Z"],
     image: REACT_REDUX_PART1_TALK,
     show: true,
