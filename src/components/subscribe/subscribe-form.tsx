@@ -1,4 +1,5 @@
 import { NewsletterForm, type NewsletterState } from "@eduardoalvarez/arrecife";
+import { Mascot } from "@eduardoalvarez/arrecife/brand";
 import { useEffect, useRef, useState } from "react";
 
 type ApiResponse = {
@@ -53,10 +54,10 @@ export function SubscribeForm() {
 
       // The API already returns the first Zod error as `message`, so the
       // general notice names which field failed without repeating it below.
-      setMessage(data.message ?? "Error al procesar la suscripción");
+      setMessage(data.message ?? "No pude completar la suscripción. Intenta de nuevo.");
       setState("error");
     } catch {
-      setMessage("Error de conexión. Por favor, verifica tu internet e intenta de nuevo.");
+      setMessage("No hay conexión. Revisa tu internet e intenta de nuevo.");
       setState("error");
     }
   }
@@ -65,24 +66,35 @@ export function SubscribeForm() {
     <div ref={container}>
       <NewsletterForm
         title="Artículos sobre desarrollo con IA y Spec-Driven Development"
-        description="Una edición mensual. Directamente en tu correo, sin intermediarios y sin ruido."
+        description="Una edición al mes, directo a tu correo."
         state={state}
         onSubmitEmail={subscribe}
         nameField
         namePlaceholder="Tu nombre"
         nameInputProps={{ minLength: 2, maxLength: 50 }}
-        fieldLabel="Email"
+        fieldLabel="Correo"
         placeholder="tu@correo.dev"
         successMessage={message}
         errorMessage={message}
-        disclaimer="Sin spam. Solo cuando tengo algo que vale."
-        expression="wink"
+        disclaimer="Sin spam. Una vez al mes, y puedes darte de baja cuando quieras."
+        // One mascot per piece (manual § 04): the desk pose is the panel's
+        // illustration, so the disclaimer carries no face.
+        aside={
+          <Mascot
+            pose="desk"
+            aria-hidden="true"
+            width={362}
+            height={278}
+            loading="lazy"
+            decoding="async"
+            className="pointer-events-none object-contain object-bottom"
+          />
+        }
         // The error notice goes as soon as the person edits a field, which the
         // previous version did with a listener per input. `NewsletterForm`
         // exposes no onChange, but it does spread the rest of its props onto
         // its <section>, so the event is caught where it bubbles.
         onInput={() => setState((current) => (current === "error" ? "idle" : current))}
-        className="md:pr-[330px]"
       />
     </div>
   );

@@ -24,15 +24,14 @@ const suggestions = [
 <Layout seo={{ title: "Sin conexión", noindex: true }}>
   <div class="mx-auto max-w-content pt-step-xl gap-step-lg flex flex-col">
     {
-      /* `waiting` and not `confused`: `faceUsage` reserves `confused` for the
-         404, and this is not a missing page, it is one that has to wait for the
-         network. */
+      /* No face: on this site the manual allows the mascot's faces only on the
+         404 and the newsletter (surfaces table), so the offline page uses the
+         inline variant. */
     }
     <EmptyState
-      variant="page"
-      expression="waiting"
+      variant="inline"
       title="Sin conexión"
-      description="Esta página no alcanzó a guardarse. Los artículos que ya abriste siguen disponibles; el resto vuelve con la red."
+      description="Esta página no se guardó para verla sin conexión. Los artículos que ya abriste siguen disponibles; el resto vuelve con la red."
     />
 
     <div class="gap-step-sm grid sm:grid-cols-2">

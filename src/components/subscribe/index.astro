@@ -1,25 +1,7 @@
 ---
-import { Mascot } from "@eduardoalvarez/arrecife/brand";
-
 import { SubscribeForm } from "./subscribe-form";
 ---
 
-<div class="relative">
-  <SubscribeForm client:visible />
-
-  {
-    /* The only illustration in the system with a ground of its own, which is why
-      it takes the panel radius — otherwise it collides with the panel. It sits
-      outside the form because `NewsletterForm` builds its own children; the
-      form reserves the room for it with `md:pr-[320px]`. */
-  }
-  <Mascot
-    pose="desk"
-    aria-hidden="true"
-    width={362}
-    height={278}
-    loading="lazy"
-    decoding="async"
-    className="pointer-events-none absolute bottom-0 right-step-lg hidden w-[280px] max-w-none object-contain object-bottom md:block"
-  />
-</div>
+{/* The desk pose travels inside the form, through `NewsletterForm`'s `aside`,
+    so the panel lays out its own two columns instead of a hand-placed image. */}
+<SubscribeForm client:visible />

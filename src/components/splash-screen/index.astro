@@ -82,28 +82,25 @@ import BrandFin from "../brand-fin/index.astro";
     text-align: center;
   }
 
+  /* The level-1 lockup's type (manual § 03): wordmark in Bricolage Grotesque
+     700 uppercase with 0.04em tracking, and the line in mono with 0.28em. */
   .splash-name {
     color: var(--color-text-primary);
-    font-family:
-      system-ui,
-      -apple-system,
-      sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: 22px;
-    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     line-height: 1;
   }
 
+  /* 13px: the manual's minimum on screen, and the one muted text needs. */
   .splash-tagline {
     color: var(--color-text-muted);
-    font-family:
-      system-ui,
-      -apple-system,
-      sans-serif;
-    font-size: 10px;
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
     font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.28em;
   }
 
   #pwa-splash.is-exit {
