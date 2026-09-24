@@ -28,31 +28,18 @@ const GiscusWrapper = ({ slug }: GiscusProps) => {
   const isMissingConfig = !giscusRepo || !giscusRepoId || !giscusCategoryId;
 
   if (isMissingConfig) {
+    // The missing variable names go to the console for whoever deploys; the
+    // visitor only needs to know the comments are not there right now.
+    console.warn("Giscus is not configured:", {
+      PUBLIC_GISCUS_REPO: Boolean(giscusRepo),
+      PUBLIC_GISCUS_REPO_ID: Boolean(giscusRepoId),
+      PUBLIC_GISCUS_CATEGORY_ID: Boolean(giscusCategoryId),
+    });
     return (
-      /* `Alert variant="warning"` en vez de una caja dibujada a mano: falta
-         configuración, que es exactamente lo que la variante nombra. Trae el
-         glifo, el rol ARIA y el tinte sobre el borde, no sobre el texto. */
       <Alert variant="warning" title="Comentarios no disponibles">
-        <Text variant="label" tone="secondary" as="p" className="font-normal">
-          La configuración de Giscus no está completa. Variables de entorno faltantes:
+        <Text variant="meta" tone="secondary" as="p">
+          Los comentarios no están disponibles por ahora. Vuelve a intentarlo más tarde.
         </Text>
-        <ul className="mt-step-xs gap-step-xs flex flex-col">
-          {!giscusRepo && (
-            <Text variant="meta" tone="secondary" as="li">
-              PUBLIC_GISCUS_REPO
-            </Text>
-          )}
-          {!giscusRepoId && (
-            <Text variant="meta" tone="secondary" as="li">
-              PUBLIC_GISCUS_REPO_ID
-            </Text>
-          )}
-          {!giscusCategoryId && (
-            <Text variant="meta" tone="secondary" as="li">
-              PUBLIC_GISCUS_CATEGORY_ID
-            </Text>
-          )}
-        </ul>
       </Alert>
     );
   }

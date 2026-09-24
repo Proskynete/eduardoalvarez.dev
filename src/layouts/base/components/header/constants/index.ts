@@ -12,13 +12,13 @@ export const navItems: NavItem[] = [
     name: "Artículos",
     href: "/articles",
     show: true,
-    description: "Posts sobre ingeniería y liderazgo técnico",
+    description: "Lo que aprendo construyendo software con IA",
   },
   {
     name: "Charlas",
     href: "/speaking",
     show: true,
-    description: "Talks y workshops en conferencias",
+    description: "Charlas y talleres",
   },
   {
     name: "Cursos",
@@ -30,7 +30,7 @@ export const navItems: NavItem[] = [
     name: "Sobre_mí",
     href: "/about",
     show: true,
-    description: "Quién soy y qué hago",
+    description: "Quién soy y en qué trabajo",
   },
   {
     /**

@@ -215,7 +215,7 @@ describe("useAlgoliaSearch", () => {
         expect(result.current.isSearching).toBe(false);
       });
 
-      expect(result.current.error).toBe("Hubo un error al realizar la búsqueda. Por favor, intenta nuevamente.");
+      expect(result.current.error).toBe("No pude completar la búsqueda. Intenta de nuevo.");
       expect(result.current.searchResults).toEqual([]);
       expect(result.current.hasSearched).toBe(true);
       expect(searchResult).toBe(false);
@@ -238,7 +238,7 @@ describe("useAlgoliaSearch", () => {
         searchResult = await result.current.search("test query");
       });
 
-      expect(result.current.error).toBe("La configuración de búsqueda no está disponible.");
+      expect(result.current.error).toBe("La búsqueda no está disponible por ahora.");
       expect(mockSearchForHits).not.toHaveBeenCalled();
       expect(searchResult).toBe(false);
     });
@@ -257,7 +257,7 @@ describe("useAlgoliaSearch", () => {
         searchResult = await result.current.search("test query");
       });
 
-      expect(result.current.error).toBe("La configuración de búsqueda no está disponible.");
+      expect(result.current.error).toBe("La búsqueda no está disponible por ahora.");
       expect(mockSearchForHits).not.toHaveBeenCalled();
       expect(searchResult).toBe(false);
     });
@@ -276,7 +276,7 @@ describe("useAlgoliaSearch", () => {
         searchResult = await result.current.search("test query");
       });
 
-      expect(result.current.error).toBe("La configuración de búsqueda no está disponible.");
+      expect(result.current.error).toBe("La búsqueda no está disponible por ahora.");
       expect(mockSearchForHits).not.toHaveBeenCalled();
       expect(searchResult).toBe(false);
     });
@@ -291,7 +291,7 @@ describe("useAlgoliaSearch", () => {
       });
 
       await waitFor(() => {
-        expect(result.current.error).toBe("Hubo un error al realizar la búsqueda. Por favor, intenta nuevamente.");
+        expect(result.current.error).toBe("No pude completar la búsqueda. Intenta de nuevo.");
       });
 
       // Second search successful
@@ -366,7 +366,7 @@ describe("useAlgoliaSearch", () => {
         searchResult = await result.current.search("test query");
       });
 
-      expect(result.current.error).toBe("La configuración de búsqueda no está disponible.");
+      expect(result.current.error).toBe("La búsqueda no está disponible por ahora.");
       expect(searchResult).toBe(false);
     });
 
@@ -383,7 +383,7 @@ describe("useAlgoliaSearch", () => {
         searchResult = await result.current.search("test query");
       });
 
-      expect(result.current.error).toBe("La configuración de búsqueda no está disponible.");
+      expect(result.current.error).toBe("La búsqueda no está disponible por ahora.");
       expect(searchResult).toBe(false);
     });
   });

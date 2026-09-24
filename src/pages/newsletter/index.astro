@@ -1,5 +1,7 @@
 ---
 import { PageHeader, Separator, Text } from "@eduardoalvarez/arrecife";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { CheckIcon } from "@phosphor-icons/react";
 
 import Layout from "../../layouts/main/index.astro";
 import Subscribe from "../../components/subscribe/index.astro";
@@ -14,7 +16,7 @@ const seo = {
 
 const valueProps = [
   "Artículos sobre Spec-Driven Development y desarrollo con IA",
-  "Perspectivas sobre cómo la IA está cambiando el trabajo de los equipos técnicos",
+  "Cómo la IA está cambiando la forma en que trabajamos en los equipos",
   "Lo que hice, lo que me salió mal y lo que aprendimos con mi equipo",
   "Sin spam. Puedes darte de baja cuando quieras.",
 ];
@@ -26,27 +28,27 @@ const valueProps = [
         Lo que había aquí la reescribía con `text-[12.5px]`, `clamp(...)` y
         `max-w-[62ch]` a mano. */}
     <PageHeader
-      eyebrow="/newsletter"
+      eyebrow="./newsletter"
       title="Newsletter"
       description="Artículos sobre Spec-Driven Development y desarrollo con IA, directamente en tu correo."
     />
 
     <div class="gap-step-md mb-step-xl flex flex-col">
       <Text variant="body" tone="secondary">
-        Una edición mensual con ensayos originales sobre cómo los equipos de ingeniería están evolucionando en la era
-        de la IA, reflexiones sobre liderazgo técnico y recomendaciones de lectura. Dirigida a Staff Engineers,
-        Engineering Managers y Tech Leads que quieren profundidad, no titulares. Sin spam, cancelas cuando quieras.
+        Una vez al mes te escribo sobre Spec-Driven Development y cómo construimos software con IA sin dejar de entender
+        lo que hacemos: lo que probé con mi equipo, lo que me salió mal y lo que estoy leyendo. Si estás empezando en
+        esto o cambiando de carrera, también es para ti.
       </Text>
-      <Text variant="label" tone="muted" as="p" className="font-normal">
+      <Text variant="meta" tone="muted" as="p">
         {settings.authorInlineBio.text}{" "}
-        <a href={settings.authorInlineBio.href} class="text-accent underline">{settings.authorInlineBio.cta}</a>
+        <a href={settings.authorInlineBio.href} class="text-accent hover:text-accent-hover transition-standard underline">{settings.authorInlineBio.cta}</a>
       </Text>
 
       <ul class="gap-step-sm flex flex-col">
         {
           valueProps.map((prop) => (
             <li class="gap-step-sm flex items-start">
-              <span class="text-accent mt-1 shrink-0" aria-hidden="true">✓</span>
+              <span class="text-accent mt-1 shrink-0" aria-hidden="true"><Icon as={CheckIcon} /></span>
               <Text variant="ui" tone="secondary" as="span">{prop}</Text>
             </li>
           ))
@@ -62,7 +64,7 @@ const valueProps = [
     <Separator className="mt-step-xl" />
     <section class="pt-step-xl">
       <Text as="h2" variant="h3" className="mb-step-sm">Archivo</Text>
-      <Text variant="label" tone="secondary" as="p" className="font-normal">
+      <Text variant="meta" tone="secondary" as="p">
         El archivo de ediciones anteriores estará disponible próximamente.
       </Text>
     </section>

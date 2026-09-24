@@ -70,7 +70,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           target="_blank"
           rel="nofollow noopener noreferrer"
           class={buttonVariants({ variant: "secondary", size: "icon-sm" })}
-          aria-label="Compartir en XIcon"
+          aria-label="Compartir en X"
         >
           <Icon as={XLogoIcon} />
         </a>
@@ -160,7 +160,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
     {
       tags.length > 0 && (
         <Card className="p-step-md">
-          <Text variant="eyebrow" tone="muted" as="p" className="mb-step-xs">Tags</Text>
+          <Text variant="eyebrow" tone="muted" as="p" className="mb-step-xs">Etiquetas</Text>
           <div class="gap-step-xs flex flex-wrap">
             {tags.map((tag) => (
               <Badge variant="neutral">{TagMap.get(tag) ?? tag}</Badge>
@@ -201,7 +201,7 @@ const sections = (content.sections ?? []).map((section: { anchor: string; title:
           target="_blank"
           rel="nofollow noopener noreferrer"
           class={`${buttonVariants({ variant: "secondary", size: "md" })} flex-1`}
-          aria-label="Compartir en XIcon"
+          aria-label="Compartir en X"
         >
           <Icon as={XLogoIcon} />
         </a>
