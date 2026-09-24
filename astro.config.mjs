@@ -116,7 +116,11 @@ export default defineConfig({
         );
       },
       serialize(item) {
-        const pathname = new URL(item.url).pathname.replace(/\/$/, "");
+        const url = new URL(item.url);
+        const pathname = url.pathname.replace(/\/$/, "");
+        // One URL per page: the sitemap lists the same form as the canonical,
+        // the RSS feed and the JSON-LD, which is without the trailing slash.
+        item.url = pathname ? `${url.origin}${pathname}` : `${url.origin}/`;
         const lastmod = articleDates[pathname];
         if (lastmod) item.lastmod = lastmod;
         return item;

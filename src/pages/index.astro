@@ -11,6 +11,7 @@ import { talks } from "../settings/talks";
 import type { Talk } from "../settings/talks";
 import { articlesSort } from "../utils/articles";
 import settings from "../settings";
+import { personRef, personSchema } from "../utils/person-schema";
 
 export const prerender = true;
 
@@ -32,10 +33,6 @@ posts.sort(articlesSort).splice(_MAX_FEATURED);
 
 const featuredTalks = talks.filter((t: Talk) => t.show).slice(0, _MAX_FEATURED);
 
-const githubLink = settings.social_network.find((s) => s.name === "Github")?.link ?? "";
-const linkedinLink = settings.social_network.find((s) => s.name === "LinkedIn")?.link ?? "";
-const twitterLink = settings.contacts.find((c) => c.name === "Twitter")?.href ?? "";
-
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -43,20 +40,10 @@ const schema = {
       "@type": "WebSite",
       name: settings.title,
       url: settings.url,
-      potentialAction: {
-        "@type": "SearchAction",
-        target: `${settings.url}/articles?q={search_term_string}`,
-        "query-input": "required name=search_term_string",
-      },
+      inLanguage: "es",
+      author: personRef,
     },
-    {
-      "@type": "Person",
-      name: settings.author.name,
-      url: settings.url,
-      email: settings.email,
-      jobTitle: "Technical Lead",
-      sameAs: [githubLink, linkedinLink, twitterLink].filter(Boolean),
-    },
+    personSchema,
   ],
 };
 
@@ -71,7 +58,7 @@ const seo = {
   <!-- Hero -->
   {/* Hero. No wrapper: the mascot floats free instead of sitting inside a
       gradient panel, so the page opens on the character and not on a box. */}
-  <section aria-label="Introduction" class="mb-20 pt-6 sm:pt-10">
+  <section aria-label="Presentación" class="mb-20 pt-6 sm:pt-10">
     <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
       {/* La escala viene de `Text`. Antes eran cinco valores arbitrarios escritos
           a mano —`text-[11.5px]`, `clamp(2.6rem,6.4vw,64px)`, `tracking-[0.12em]`,

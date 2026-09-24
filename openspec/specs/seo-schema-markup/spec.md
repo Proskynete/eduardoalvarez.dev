@@ -7,25 +7,25 @@ Datos estructurados globales del sitio (WebSite, Person y similares).
 
 ### Requirement: Schema WebSite en homepage
 
-La homepage SHALL emitir un bloque `<script type="application/ld+json">` con el schema `WebSite` que incluya `name`, `url` y `potentialAction` (SearchAction apuntando a la búsqueda interna de Algolia).
+La homepage SHALL emitir un bloque `<script type="application/ld+json">` con el schema `WebSite` que incluya `name`, `url` y `author` (referencia al `@id` de la Person). No SHALL incluir `SearchAction`: la búsqueda es un modal de Algolia y `/articles` no lee `?q=`, así que el target anunciaría una búsqueda que no existe.
 
 #### Scenario: Homepage renderiza WebSite schema
 - **WHEN** un crawler o Google accede a `https://eduardoalvarez.dev/`
-- **THEN** el HTML resultante MUST contener un `<script type="application/ld+json">` con `"@type": "WebSite"`, `"url": "https://eduardoalvarez.dev"` y `"name": "eduardoalvarez.dev"`
+- **THEN** el HTML resultante MUST contener un `<script type="application/ld+json">` con `"@type": "WebSite"`, `"url": "https://eduardoalvarez.dev"` y `"name": "Eduardo Álvarez"`
 
-#### Scenario: WebSite schema incluye SearchAction
+#### Scenario: WebSite schema no anuncia SearchAction
 - **WHEN** el schema WebSite se renderiza
-- **THEN** el objeto JSON-LD SHALL incluir `"potentialAction"` con `"@type": "SearchAction"` y `"target"` apuntando al buscador del sitio
+- **THEN** el objeto JSON-LD SHALL NOT incluir `"potentialAction"`
 
 ---
 
 ### Requirement: Schema Person en homepage
 
-La homepage SHALL emitir un schema `Person` en el mismo bloque JSON-LD (o en un bloque separado) con `name`, `url`, `email`, `sameAs` (array con links a GitHub, LinkedIn, Twitter/X) y `jobTitle`.
+La homepage SHALL emitir el schema `Person` compartido (`src/utils/person-schema.ts`) con `@id` `https://eduardoalvarez.dev/#person`, `name`, `alternateName`, `description`, `image`, `url`, `email`, `sameAs` (solo los perfiles con `show: true`, sin el CV) y `jobTitle`. Artículos, charlas y `/about` SHALL referenciar o incluir ese mismo nodo, no uno propio.
 
 #### Scenario: Homepage renderiza Person schema
 - **WHEN** un crawler accede a la homepage
-- **THEN** el HTML SHALL contener `"@type": "Person"` con `"name": "Eduardo Álvarez Castañeda"`, `"url": "https://eduardoalvarez.dev"` y `"email": "soy@eduardoalvarez.dev"`
+- **THEN** el HTML SHALL contener `"@type": "Person"` con `"@id": "https://eduardoalvarez.dev/#person"`, `"name": "Eduardo Álvarez"`, `"alternateName": "Eduardo Álvarez Castañeda"`, `"url": "https://eduardoalvarez.dev"` y `"email": "soy@eduardoalvarez.dev"`
 
 #### Scenario: Person schema incluye sameAs con redes sociales
 - **WHEN** el schema Person se renderiza
@@ -35,7 +35,7 @@ La homepage SHALL emitir un schema `Person` en el mismo bloque JSON-LD (o en un 
 
 ### Requirement: Schema BlogPosting en artículos
 
-Cada página de artículo SHALL emitir un schema `BlogPosting` con los campos: `headline`, `description`, `datePublished`, `author` (objeto `Person`), `url`, `image`, `keywords`. **Adicionalmente**, cuando el artículo tenga `date_modified` definido en su frontmatter, el schema SHALL incluir el campo `dateModified` con ese valor en formato ISO 8601.
+Cada página de artículo SHALL emitir un schema `BlogPosting` con los campos: `headline`, `description`, `datePublished`, `author` y `publisher` (referencias al `@id` de la Person), `url`, `mainEntityOfPage`, `image` (URL absoluta), `keywords`. **Adicionalmente**, cuando el artículo tenga `date_modified` definido en su frontmatter, el schema SHALL incluir el campo `dateModified` con ese valor en formato ISO 8601.
 
 #### Scenario: Artículo renderiza BlogPosting schema
 - **WHEN** un crawler accede a una URL de artículo (ej. `/articles/empezando-en-el-desarrollo-web`)

@@ -66,7 +66,7 @@ The system SHALL provide a complete icon set generated from the fin.
 
 **Files in `public/images/favicon/`:**
 ```
-favicon.svg          — fin on a #080b12 rounded square (rx 15/64)
+favicon-v2.svg       — fin on a #080b12 rounded square (rx 15/64)
 favicon-32x32.png    — 32×32
 favicon-16x16.png    — 16×16
 favicon.ico          — multi-size 16 + 32 + 48, PNG-encoded entries
@@ -74,12 +74,19 @@ favicon.ico          — multi-size 16 + 32 + 48, PNG-encoded entries
 
 **Files in `public/images/manifest/`:**
 ```
-apple-touch-icon.png       — 180×180, full-bleed dark background (iOS rounds it itself)
-android-chrome-192x192.png — 192×192
-android-chrome-512x512.png — 512×512
-mstile-150x150.png         — 150×150
-safari-pinned-tab.svg      — single-colour fin, no background
+apple-touch-icon-v2.png       — 180×180, full-bleed dark background (iOS rounds it itself)
+android-chrome-192x192-v2.png — 192×192
+android-chrome-512x512-v2.png — 512×512
+mstile-150x150-v2.png         — 150×150
 ```
+
+**Versioned paths:** Vercel serves `/images/*` as `immutable` for a year, so a file whose
+drawing changes SHALL also change its path. The `-v2` files replaced the retired EA-01
+isotype. The paths live in `src/settings/brand-assets.ts`, which `head.astro` and the
+manifest read, and a unit test checks that every one of them exists in `public/`.
+
+**No Safari pinned-tab icon** until the fin is vectorised: `mask-icon` needs a
+single-colour vector, and a bitmap wrapped in an SVG is not one.
 
 `public/favicon.ico` SHALL also exist at the root: some crawlers request that path
 directly and never read the `<link>` tags.
@@ -91,12 +98,11 @@ inscribed in that circle cannot exceed ~0.57 of the width.
 
 **HTML meta tags (in `src/layouts/base/components/head.astro`):**
 ```html
-<link rel="icon" href="/images/favicon/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/images/favicon/favicon-v2.svg" type="image/svg+xml" />
 <link rel="icon" href="/images/favicon/favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="icon" href="/images/favicon/favicon-16x16.png" type="image/png" sizes="16x16" />
 <link rel="shortcut icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
-<link rel="apple-touch-icon" sizes="180x180" href="/images/manifest/apple-touch-icon.png" />
-<link rel="mask-icon" href="/images/manifest/safari-pinned-tab.svg" color="#06b6d4" />
+<link rel="apple-touch-icon" sizes="180x180" href="/images/manifest/apple-touch-icon-v2.png" />
 ```
 
 #### Scenario: Browser shows brand favicon
@@ -174,11 +180,11 @@ The system SHALL have a default OG image for pages without a specific `seo_image
 - Vertical rule `#1f1f1f` separating mark from text
 - Wordmark: Geist Bold 66px, `#f5f5f5`
 - Tagline below: "Technical Lead · Spec-Driven Development", Geist Regular 27px, `#a3a3a3`
-- File: `public/images/og-default.png`
+- File: `public/images/og-default-v2.png`
 
 #### Scenario: Article without custom OG uses default
 - **WHEN** an article frontmatter has no `seo_image`
-- **THEN** the `<meta property="og:image">` SHALL point to `/images/og-default.png`
+- **THEN** the `<meta property="og:image">` SHALL point to the absolute URL of `/images/og-default-v2.png`
 
 ---
 

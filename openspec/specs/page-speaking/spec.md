@@ -70,7 +70,7 @@ Talks SHALL be grouped by year in descending order (most recent year first).
 
 ### Requirement: /speaking incluye TL;DR sobre formatos y topics
 
-`/speaking` SHALL incluir un párrafo de 40–60 palabras tras el subtítulo describiendo los tipos de charlas (keynotes, workshops, panels) y topics principales (liderazgo técnico, plataformas, IA).
+`/speaking` SHALL incluir un párrafo de 40–60 palabras tras el subtítulo describiendo los formatos (charlas, talleres, paneles) y los temas principales (Spec-Driven Development y desarrollo con IA).
 
 #### Scenario: /speaking renderiza TL;DR como `<p>`
 - **WHEN** se accede a `/speaking`

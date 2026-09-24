@@ -26,7 +26,7 @@ The `/about` route SHALL be a semi-static page communicating who Eduardo is, wha
 ---
 
 ### Requirement: About page profile image
-The about page SHALL include a profile image. The image SHALL use the existing `eduardo_alvarez.webp` or a new high-resolution version.
+The about page SHALL include a profile image. The image SHALL be `public/images/eduardo-alvarez.webp`, a 768px-wide WebP (about 80 KB), with a descriptive `alt`.
 
 **Image spec:**
 - Size: 160×160px rendered, source ≥ 320×320px
