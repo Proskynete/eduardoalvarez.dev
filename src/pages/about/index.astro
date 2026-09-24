@@ -1,43 +1,35 @@
 ---
+import {
+  Blockquote,
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  PageHeader,
+  Text,
+  buttonVariants,
+} from "@eduardoalvarez/arrecife";
+
 import Layout from "../../layouts/main/index.astro";
 import { experience } from "../../settings/about";
 import { nowItems, lastUpdated } from "../../settings/now";
 import type { NowItem } from "../../settings/now";
 import settings from "../../settings";
+import { personSchema } from "../../utils/person-schema";
 
 export const prerender = true;
 
-const sameAs = [
-  ...settings.social_network.filter((s) => s.link).map((s) => s.link),
-  ...settings.contacts.filter((c) => c.href && c.href.startsWith("http")).map((c) => c.href),
-].filter((url, idx, arr) => arr.indexOf(url) === idx);
-
 const schema = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: settings.author.name,
-  url: settings.url,
-  email: settings.email,
-  jobTitle: "Engineering Leader",
-  knowsAbout: [
-    "Engineering Leadership",
-    "Platform Engineering",
-    "AI-native Engineering",
-    "Technical Leadership",
-    "Staff Engineering",
-    "Software Architecture",
-    "Developer Experience",
-  ],
-  hasOccupation: {
-    "@type": "Role",
-    roleName: "Engineering Leader & Platform Thinking",
-  },
-  sameAs,
+  "@type": "ProfilePage",
+  url: `${settings.url}/about`,
+  mainEntity: personSchema,
 };
 
 const seo = {
-  title: "Sobre Eduardo Álvarez — Engineering Leader",
-  description: "Líder de ingeniería, pensador de plataformas y mentor técnico trabajando en la era de la IA.",
+  title: "Sobre mí — Technical Lead · Spec-Driven Development",
+  description:
+    "Llevo más de diez años construyendo aplicaciones web y hoy lidero un equipo de desarrollo. Doy charlas, talleres y cursos, muchos de ellos gratis.",
   schema,
 };
 
@@ -55,95 +47,91 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
 
 <Layout seo={seo}>
   <div class="mx-auto max-w-full space-y-16">
-    <!-- Hero: texto + foto -->
+    {/* La cabecera es la misma que el resto de las secciones del sitio. */}
     <section class="flex flex-col-reverse sm:flex-row items-start gap-10 sm:gap-16">
-      <div class="flex-1 space-y-4">
-        <p class="text-text-muted font-mono text-sm">/sobre_mi</p>
-        <h1 class="text-4xl font-bold text-text-primary tracking-tight leading-tight">
-          Hola, soy Eduardo.<br />
-          <span class="text-accent">Ingeniero y líder técnico</span><br />
-          con más de 10 años construyendo en internet.
-        </h1>
-        <p class="text-text-secondary text-lg leading-relaxed">
-          Trabajo en la intersección de arquitectura de plataforma, liderazgo técnico y los flujos de trabajo que la IA
-          está transformando. He pasado por startups y empresas digitales en Chile y Latinoamérica — desde ingeniero
-          individual hasta CTO.
-        </p>
-        <p class="text-text-secondary leading-relaxed">
-          Mi foco es transformar equipos desde la entrega de features al pensamiento de plataforma: construir con
-          criterio, escalar con intención y liderar con contexto en lugar de control.
-        </p>
-        <p class="text-text-secondary leading-relaxed">
-          Este sitio es donde pienso en voz alta sobre ingeniería. No es un blog de tutoriales — es un espacio para
-          ideas con criterio.
-        </p>
+      <div class="flex-1">
+        <PageHeader
+          eyebrow="./sobre_mí"
+          title="Hola, soy Eduardo"
+          description="Llevo más de diez años construyendo aplicaciones web y hoy lidero un equipo de desarrollo. Me interesa cómo usamos la IA sin dejar de entender lo que construimos, y por eso trabajo con Spec-Driven Development. Doy charlas, talleres y cursos, muchos de ellos gratis."
+          className="py-0"
+        />
+        <Text variant="body" tone="secondary" className="mt-step-md">
+          Mi primera computadora tenía Windows 95 y desde ahí quise entender cómo se hacían las cosas que veía en la
+          pantalla. Esa curiosidad me llevó a estudiar programación, a trabajar años en frontend y después a liderar
+          equipos. Este sitio es donde comparto lo que voy aprendiendo en el camino.
+        </Text>
       </div>
 
-      <div class="w-48 sm:w-64 flex-shrink-0">
+      <div class="w-48 sm:w-64 shrink-0">
         <img
-          src="/images/eduardo_alvarez_2.png"
-          alt="Eduardo Álvarez"
-          width="512"
-          height="680"
-          class="w-full aspect-[3/4] object-cover object-top rounded-2xl border border-surface-border"
+          src="/images/eduardo-alvarez.webp"
+          alt="Retrato de Eduardo Álvarez"
+          width="768"
+          height="1145"
+          class="w-full aspect-[3/4] object-cover object-top rounded-panel border-hairline border"
           loading="eager"
         />
       </div>
     </section>
 
-    <!-- En qué trabajo -->
     <section>
-      <h2 class="text-2xl font-bold text-text-primary mb-6">En qué trabajo</h2>
-      <div class="grid sm:grid-cols-3 gap-4">
-        <div class="p-5 rounded-xl border border-surface-border bg-surface space-y-2">
-          <span class="text-accent text-xl">⬡</span>
-          <h3 class="font-semibold text-text-primary">Platform Engineering</h3>
-          <p class="text-text-secondary text-sm leading-relaxed">
-            Plataformas internas que permiten a los equipos moverse más rápido con menos fricción técnica.
-          </p>
-        </div>
-        <div class="p-5 rounded-xl border border-surface-border bg-surface space-y-2">
-          <span class="text-accent text-xl">⬡</span>
-          <h3 class="font-semibold text-text-primary">Engineering Leadership</h3>
-          <p class="text-text-secondary text-sm leading-relaxed">
-            Acompañar a managers y tech leads en su evolución hacia un liderazgo con criterio y escala.
-          </p>
-        </div>
-        <div class="p-5 rounded-xl border border-surface-border bg-surface space-y-2">
-          <span class="text-accent text-xl">⬡</span>
-          <h3 class="font-semibold text-text-primary">AI-native Engineering</h3>
-          <p class="text-text-secondary text-sm leading-relaxed">
-            Entender cómo los agentes de IA están cambiando los flujos de trabajo y qué significa para los equipos.
-          </p>
-        </div>
+      <h2 class="text-text-primary mb-6">En qué trabajo</h2>
+      {/* Tarjetas del sistema en vez de `p-5 rounded-xl border bg-surface` a mano. */}
+      <div class="gap-step-md grid sm:grid-cols-3">
+        {
+          [
+            {
+              titulo: "Liderar un equipo",
+              texto: "Entiendo qué hay que construir y evalúo cómo: qué herramientas usamos y si nos sirven. Reviso que el código cumpla lo que acordamos y, si algo se cae, busco por qué para que no vuelva a pasar.",
+            },
+            {
+              titulo: "Spec-Driven Development",
+              texto: "Trabajo con agentes de IA sin perder el conocimiento de lo que hacen. Primero nos ponemos de acuerdo en qué hay que hacer y después se programa.",
+            },
+            {
+              titulo: "Enseñar",
+              texto: "Doy charlas y talleres, escribo en este blog y estoy armando cursos, muchos gratis. Antes de cada charla pregunto quién va a estar en la sala para adaptar lo que voy a mostrar.",
+            },
+          ].map(({ titulo, texto }) => (
+            <Card>
+              <CardHeader>
+                <CardTitle>{titulo}</CardTitle>
+                <CardDescription>{texto}</CardDescription>
+              </CardHeader>
+            </Card>
+          ))
+        }
       </div>
     </section>
 
     <!-- Ahora -->
     <section id="ahora">
       <div class="flex items-baseline justify-between mb-8">
-        <h2 class="text-2xl font-bold text-text-primary">Ahora</h2>
-        <p class="text-xs text-text-muted">
+        <h2 class="text-text-primary">Ahora</h2>
+        <Text variant="meta" tone="muted" as="p">
           Actualizado: {formattedDate} · <a
             href="https://nownownow.com/about"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-accent underline">¿Qué es esto?</a
+            class="text-accent hover:text-accent-hover transition-standard underline">¿Qué es esto?</a
           >
-        </p>
+        </Text>
       </div>
 
       <div class="grid sm:grid-cols-3 gap-8">
         {
           nowCategories.map((category) => (
             <div>
-              <h3 class="text-xs font-semibold uppercase tracking-widest text-accent mb-4">{category}</h3>
-              <div class="space-y-4">
+              <Text as="h3" variant="eyebrow" tone="accent" className="mb-step-md">{category}</Text>
+              <div class="gap-step-md flex flex-col">
                 {nowByCategory[category].map((item: NowItem) => (
-                  <div class="border-l-2 border-surface-border pl-4 hover:border-accent transition-colors duration-200">
-                    <p class="font-semibold text-text-primary text-sm mb-1">{item.label}</p>
+                  <div class="border-hairline pl-step-md hover:border-accent transition-standard border-l-2">
+                    <Text variant="ui" as="p" className="mb-step-xs font-medium">{item.label}</Text>
                     {item.description && (
-                      <p class="text-text-secondary text-sm leading-relaxed">{item.description}</p>
+                      <Text variant="meta" tone="secondary" as="p">
+                        {item.description}
+                      </Text>
                     )}
                   </div>
                 ))}
@@ -156,33 +144,33 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
 
     <!-- Experiencia -->
     <section>
-      <h2 class="text-2xl font-bold text-text-primary mb-8">Experiencia</h2>
+      <h2 class="text-text-primary mb-8">Experiencia</h2>
       <div class="relative">
         <!-- Línea vertical -->
-        <div class="absolute left-[7.5rem] top-0 bottom-0 w-px bg-surface-border hidden sm:block"></div>
+        <div class="absolute left-[7.5rem] top-0 bottom-0 w-px bg-border hidden sm:block"></div>
 
         <div class="space-y-8">
           {
             experience.map((item) => (
               <div class="flex flex-col sm:flex-row gap-2 sm:gap-8">
-                <div class="sm:w-28 flex-shrink-0 flex sm:justify-end items-start pt-0.5">
-                  <span class={`font-mono text-xs ${item.current ? "text-accent" : "text-text-muted"}`}>
+                <div class="sm:w-28 shrink-0 flex sm:justify-end items-start pt-0.5">
+                  <Text variant="meta" tone={item.current ? "accent" : "muted"} as="span">
                     {item.date}
-                  </span>
+                  </Text>
                 </div>
 
-                <div class="hidden sm:flex items-start justify-center w-4 flex-shrink-0 pt-1.5">
+                <div class="hidden sm:flex items-start justify-center w-4 shrink-0 pt-1.5">
                   <div
-                    class={`w-2 h-2 rounded-full border-2 ${item.current ? "border-accent bg-accent" : "border-surface-border bg-background"}`}
+                    class={`w-2 h-2 rounded-pill border-2 ${item.current ? "border-accent bg-accent" : "border-border bg-background"}`}
                   />
                 </div>
 
                 <div
                   class={`flex-1 pb-8 ${item.current ? "border-l-2 border-accent sm:border-none pl-4 sm:pl-0" : ""}`}
                 >
-                  <p class={`font-semibold ${item.current ? "text-text-primary" : "text-text-primary"}`}>{item.role}</p>
-                  <p class="text-accent text-sm mb-2">{item.company}</p>
-                  <p class="text-text-secondary text-sm leading-relaxed">{item.description}</p>
+                  <Text variant="ui" as="p" className="font-medium">{item.role}</Text>
+                  <Text variant="label" tone="accent" as="p" className="mb-step-xs font-normal">{item.company}</Text>
+                  <Text variant="meta" tone="secondary" as="p">{item.description}</Text>
                 </div>
               </div>
             ))
@@ -191,73 +179,69 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
       </div>
     </section>
 
-    <!-- Cómo pienso -->
     <section>
-      <h2 class="text-2xl font-bold text-text-primary mb-6">Cómo pienso</h2>
+      <h2 class="text-text-primary mb-6">Cómo pienso</h2>
 
-      <blockquote class="border-l-4 border-accent pl-6 mb-6">
-        <p class="text-text-secondary text-lg leading-relaxed italic">
-          La complejidad más cara no está en el código — está en los equipos que resuelven con precisión el problema
-          equivocado.
-        </p>
-      </blockquote>
+      {/* One `Blockquote` per belief: the spec asks for 3–4 short statements, not a philosophy essay. */}
+      <div class="space-y-6">
+        <Blockquote>
+          La IA es una herramienta. No le puedo culpar al martillo si la casa no quedó bien construida: soy yo el que
+          maneja la herramienta, no al revés.
+        </Blockquote>
+        <Blockquote>
+          No me gusta construir software sin entender lo que hace el agente. Por eso primero nos ponemos de acuerdo en
+          qué hay que hacer, y después programamos.
+        </Blockquote>
+        <Blockquote>
+          Un buen desarrollador no es el que escribe más rápido ni el que entrega sin bugs. Es el que entiende el
+          problema y lo resuelve usando el código como herramienta, y ahora también la IA.
+        </Blockquote>
+        <Blockquote>El que no es capaz de escuchar y aprender llega a su techo más rápido.</Blockquote>
+      </div>
+    </section>
 
-      <p class="text-text-secondary leading-relaxed mb-4">
-        Creo en la ingeniería con criterio: no seguir tendencias por inercia, sino entender el costo real de cada
-        decisión técnica y organizacional. Creo que la documentación, la cultura de feedback y los sistemas de
-        plataforma son multiplicadores de impacto.
-      </p>
-
-      <blockquote class="border-l-4 border-accent pl-6 mt-6">
-        <p class="text-text-secondary text-lg leading-relaxed italic">
-          No es tu trabajo tener las respuestas — es instalar en el equipo el hábito de buscar el contexto que les
-          falta antes de decidir.
-        </p>
-      </blockquote>
+    <!-- Filosofía de vida -->
+    <section>
+      <h2 class="text-text-primary mb-6">Filosofía de vida</h2>
+      <div class="space-y-6">
+        <Blockquote>Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo.</Blockquote>
+        <Blockquote>No permitas que las cosas tomen más tiempo del que tienen que tomar.</Blockquote>
+      </div>
     </section>
 
     <!-- Comunidad -->
     <section>
-      <h2 class="text-2xl font-bold text-text-primary mb-4">Comunidad</h2>
-      <p class="text-text-secondary leading-relaxed">
+      <h2 class="text-text-primary mb-4">Comunidad</h2>
+      <Text variant="body" tone="secondary">
         He dado charlas en conferencias técnicas, talleres en instituciones académicas y mentorías a decenas de
-        ingenieros en distintos momentos de su carrera. Fui staff volunteer en <strong class="text-text-primary"
+        ingenieros en distintos momentos de su carrera. Fui voluntario en <strong class="text-text-primary"
           >JSConf Chile</strong
         >, mentor en <strong class="text-text-primary">Laboratoria</strong> y en <strong class="text-text-primary"
           >TechSchool</strong
         >.
-      </p>
+      </Text>
     </section>
 
-    <!-- CTA contacto -->
-    <section class="rounded-2xl border border-surface-border bg-surface p-8 sm:p-10">
-      <h2 class="text-2xl font-bold text-text-primary mb-3">¿Hablamos?</h2>
-      <p class="text-text-secondary leading-relaxed mb-8 max-w-xl">
-        Si estás trabajando en un desafío de plataforma, liderazgo o arquitectura — o simplemente quieres comentar algo
-        que leíste aquí — escríbeme.
-      </p>
-      <div class="flex flex-wrap gap-4">
-        <a
-          href="mailto:soy@eduardoalvarez.dev"
-          class="px-5 py-2.5 bg-accent text-background text-sm font-semibold rounded-lg hover:bg-accent-hover transition-colors duration-200"
-        >
-          Escríbeme →
-        </a>
-        <a
-          href="/working-with-me"
-          class="px-5 py-2.5 border border-surface-border text-text-primary text-sm font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors duration-200"
-        >
-          Trabajemos
-        </a>
+    {/* La tarjeta y los tres botones son del sistema. El primario venía
+        escrito a mano con `bg-accent text-background`, que en claro daba 4.39:1
+        sobre crema — por debajo del mínimo. */}
+    <Card className="p-step-xl">
+      <h2 class="text-text-primary mb-3">¿Hablamos?</h2>
+      <Text variant="body" tone="secondary" className="mb-step-xl">
+        Si quieres que dé una charla o un taller, estás llevando Spec-Driven Development a tu equipo o solo quieres
+        comentar algo que leíste aquí, escríbeme.
+      </Text>
+      <div class="gap-step-sm flex flex-wrap">
+        <a href="mailto:soy@eduardoalvarez.dev" class={buttonVariants({ variant: "primary" })}>Escríbeme</a>
         <a
           href="https://www.linkedin.com/in/eduardoalvarezc"
           target="_blank"
           rel="noopener noreferrer"
-          class="px-5 py-2.5 border border-surface-border text-text-primary text-sm font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors duration-200"
+          class={buttonVariants({ variant: "secondary" })}
         >
           LinkedIn
         </a>
       </div>
-    </section>
+    </Card>
   </div>
 </Layout>

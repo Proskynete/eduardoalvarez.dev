@@ -1,4 +1,9 @@
-## ADDED Requirements
+# page-stack-tools Specification
+
+## Purpose
+Contenido y estructura de la página de stack y herramientas.
+
+## Requirements
 
 ### Requirement: Stack & Tools page
 The `/stack` route SHALL list the tools, languages, frameworks, hardware, and applications Eduardo actually uses. No affiliate links. No "sponsored" items. The page reflects genuine personal preference.

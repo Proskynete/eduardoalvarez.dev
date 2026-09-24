@@ -4,38 +4,32 @@ export interface NowItem {
   description?: string;
 }
 
-export const lastUpdated = "2026-07-04";
+export const lastUpdated = "2026-09-23";
 
 export const nowItems: NowItem[] = [
   {
     category: "Trabajando en",
     label: "Technical Lead en CMPC",
     description:
-      "Liderando la evolución del ecosistema frontend corporativo y la adopción de IA en los equipos de ingeniería, con un marco de Spec-Driven Development adoptado a nivel de empresa.",
-  },
-  {
-    category: "Trabajando en",
-    label: "CTO y CoFounder en AmiPet",
-    description:
-      "Construyendo amipet.app, una app para dueños de mascotas. Liderando la visión técnica y la estrategia de producto desde el inicio.",
+      "Lidero la evolución del frontend de la empresa (Design System y Microfrontends) y el marco de Spec-Driven Development que adoptó toda la compañía para trabajar con IA.",
   },
   {
     category: "Aprendiendo",
     label: "Patrones de arquitectura con LLMs",
     description:
-      "Explorando cómo diseñar sistemas que integren modelos de lenguaje de forma robusta, escalable y mantenible.",
+      "Estoy aprendiendo a diseñar aplicaciones que usan modelos de lenguaje sin que se vuelvan difíciles de mantener.",
   },
   {
     category: "Aprendiendo",
-    label: "Spec Driven Development",
+    label: "Spec-Driven Development",
     description:
-      "Adoptando un flujo de desarrollo orientado a especificaciones para mejorar la alineación entre producto e ingeniería.",
+      "Sigo aprendiendo a usarlo mejor con mi equipo: primero acordamos qué hay que construir y después programamos con agentes.",
   },
   {
     category: "Aprendiendo",
-    label: "Management de equipos con IA",
+    label: "Liderar equipos con IA",
     description:
-      "Investigando cómo los líderes de ingeniería pueden apoyarse en herramientas de IA para tomar mejores decisiones y reducir fricción operacional.",
+      "Estoy aprendiendo a usar la IA para tomar mejores decisiones con mi equipo y quitarnos trabajo repetitivo.",
   },
   {
     category: "Leyendo",

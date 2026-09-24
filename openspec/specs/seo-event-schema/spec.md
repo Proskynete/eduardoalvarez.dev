@@ -1,4 +1,9 @@
-## ADDED Requirements
+# seo-event-schema Specification
+
+## Purpose
+Datos estructurados `Event` para las charlas.
+
+## Requirements
 
 ### Requirement: Schema Event por cada charla visible en /speaking
 

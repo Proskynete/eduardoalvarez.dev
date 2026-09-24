@@ -12,9 +12,9 @@ const subscribeRateLimiter = rateLimit({ windowMs: 60_000, maxRequests: 5 });
 const SubscribeSchema = z.object({
   email: z
     .string()
-    .min(1, "El email es requerido")
-    .email("Email inválido")
-    .max(100, "Email demasiado largo")
+    .min(1, "Escribe tu correo")
+    .check(z.email("Ese correo no parece válido"))
+    .max(100, "Ese correo es demasiado largo")
     .toLowerCase()
     .trim(),
   name: z
@@ -54,7 +54,7 @@ export const POST: APIRoute = async ({ request }) => {
       const member = await client.lists.getListMember(import.meta.env.MAILCHIMP_LIST_ID, validatedData.email);
 
       if (member) {
-        return ApiResponseBuilder.conflict("Este correo ya está registrado en nuestra lista");
+        return ApiResponseBuilder.conflict("Ya estás suscrito con este correo.");
       }
     } catch (error: unknown) {
       // Error 404 significa que no existe (proceder con registro)
@@ -73,7 +73,9 @@ export const POST: APIRoute = async ({ request }) => {
       },
     });
 
-    return ApiResponseBuilder.success("¡Registro exitoso! Revisa tu correo para confirmar la suscripción");
+    // `status: "subscribed"` adds the member directly, with no double opt-in
+    // email, so the message cannot ask them to confirm anything.
+    return ApiResponseBuilder.success("Listo, ya estás suscrito. La próxima edición te llega al correo.");
   } catch (error) {
     // Error de validación de Zod
     if (error instanceof z.ZodError) {
@@ -90,7 +92,7 @@ export const POST: APIRoute = async ({ request }) => {
     if (error instanceof Error && "status" in error) {
       console.error("Mailchimp error:", error);
       Sentry.captureException(error, { tags: { context: "newsletter.subscribe" } });
-      return ApiResponseBuilder.internalError("Error al procesar la suscripción. Intenta de nuevo más tarde.");
+      return ApiResponseBuilder.internalError("No pude completar la suscripción. Intenta de nuevo en unos minutos.");
     }
 
     // Error genérico

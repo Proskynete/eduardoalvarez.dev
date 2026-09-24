@@ -1,0 +1,88 @@
+---
+layout: ../../layouts/article/index.astro
+title: "El agente puede escribir código, pero no puede entender por ti"
+slug: "el-agente-puede-escribir-codigo-pero-no-puede-entender-por-ti"
+excerpt: "pero a la larga, podría convertirse en un obstáculo. Si estás aprendiendo programación, es vital ir más allá del código generado y comprender qué lo hace funcionar. Aunque un agente pueda escribir de manera eficiente, la verdadera comprensión radica en saber por qué y cómo conectar cada componente. En este artículo, exploramos la importancia de aprender desde las bases para navegar con éxito en un entorno cada vez más automatizado. ¿Te animas a descubrir por qué los fundamentos siguen siendo esenciales en la era de la inteligencia artificial?"
+seo_description: "Explora si vale la pena aprender programación desde cero en una era donde la IA crea código, pero no entiende por ti. Aprende a aprender."
+seo_image: "/images/articles/el-agente-puede-escribir-codigo-pero-no-puede-entender-por-ti/el-agente-puede-escribir-codigo-pero-no-puede-entender-por-ti.webp"
+date: 2026-09-24T00:01:45-03:00
+categories: ["learning-in-tech", "ai-native-engineering", "developer-experience"]
+tags: ["continuous-learning", "skill-development", "ai-assisted-development", "developer-productivity", "documentation-culture"]
+keywords: ["aprendizaje programación", "agentes de inteligencia artificial", "aplicaciones automatizadas", "fundamentos de programación", "uso de JavaScript", "generación de código por IA", "herramientas de programación", "aprendiendo HTML y CSS", "automatización en desarrollo", "comprensión del código fuente"]
+sections:
+  [
+    { title: "La pregunta cambió", anchor: "la-pregunta-cambio" },
+    { title: "Primero el problema, después el código", anchor: "primero-el-problema-despues-el-codigo" },
+    { title: "¿Qué es una spec?", anchor: "que-es-una-spec" },
+    { title: "Prompt engineering sin magia", anchor: "prompt-engineering-sin-magia" },
+    { title: "¿Qué hace un agente?", anchor: "que-hace-un-agente" },
+    { title: "Lo último lo revisamos nosotros", anchor: "lo-ultimo-lo-revisamos-nosotros" },
+  ]
+audio_narration: "/audio/articles/el-agente-puede-escribir-codigo-pero-no-puede-entender-por-ti.mp3"
+---
+
+## La pregunta cambió
+
+La otra vez estaba pensando en un amigo que está estudiando programación, después de haber pasado por varias carreras (esto es más común de lo que uno cree), y me quedó dando vueltas una pregunta que al principio sonaba un poco exagerada, pero mientras más la pensaba, más sentido tenía: si hoy un agente puede crear un componente, un **endpoint**, **tests** e incluso una aplicación completa, ¿vale la pena que alguien que está comenzando aprenda los fundamentos, como **HTML**, **JavaScript** o **Git**?, y esta pregunta no apareció mirando un video cualquiera de internet, apareció porque de vez en cuando me junto con él, conversamos, le muestro cosas que hago con mis side projects y también algunas cosas que estamos probando en el trabajo, entonces la duda no era teórica, estaba ahí, en la mesa, con alguien real tratando de entender si todavía tenía sentido aprender desde abajo.
+
+Recuerdo una vez que estábamos a punto de cenar y dejé la computadora trabajando en un proyecto, un poco por probar la herramienta y, siendo franco, también por gastar tokens (el que puede, puede), y el proyecto era un sitio web que mostraba el sistema solar, con algunas interacciones simples, planetas, movimiento y una interfaz que se veía bastante bien; lo más curioso es que funcionaba, no perfecto como para decir "esto lo subo a producción", pero funcionaba, y todo había salido desde un solo prompt, que tampoco era el mejor prompt de la vida, entonces mi amigo miraba la pantalla con una mezcla de sorpresa y duda, como diciendo: "si esto salió así, ¿qué se supone que tengo que aprender yo?".
+
+Y ahí está el punto que me interesa conversar en este artículo, porque si miramos ese proyecto del sistema solar desde lejos, vemos planetas moviéndose, botones, colores, textos y una pantalla que responde, pero si lo miramos desde cerca empiezan las preguntas: qué parte es **HTML**, qué parte es **CSS**, qué parte es **JavaScript**, qué archivo controla el movimiento, qué pasa si quiero agregar un planeta, qué pasa si quiero cambiar una órbita, qué pasa si algo deja de funcionar y la consola muestra un error que no entiendo todavía.
+
+Mi amigo no miraba la pantalla porque le faltaran ganas de aprender, todo lo contrario, la miraba porque cuando estás empezando y una herramienta te entrega **JavaScript**, una estructura de **HTML**, estilos, archivos ordenados y un mensaje de "listo", cuesta mucho separar qué parte está bien, qué parte solo se ve bien y qué parte no entendemos todavía (y esto nos puede pasar a todos, con diez años de experiencia o con dos semanas viendo código).
+
+Creo y sin miedo a equivocarme, esa duda es razonable, porque estamos viendo cómo varias partes del desarrollo se automatizan más rápido de lo que esperábamos, pero si corremos directo a la herramienta sin entender qué estamos pidiendo, nos puede pasar algo muy simple: la **IA** acelera, sí, pero también puede esconder lo que todavía no entendemos, y eso al comienzo puede sentirse cómodo, hasta que algo falla y no sabemos por dónde empezar a mirar.
+
+## Primero el problema, después el código
+
+Antes de elegir si vamos a usar **React**, **Vue**, **Angular**, un agente o la herramienta nueva que apareció esta semana, volvamos al sitio del sistema solar por un momento: si yo solo digo "créame un sistema solar interactivo", el agente puede inventar muchas cosas, puede decidir cuántos planetas mostrar, cómo se mueven, qué pasa al hacer clic, si hay información de cada planeta o si todo queda como una animación bonita, y tal vez el resultado se vea bien, pero eso no significa que hayamos definido el problema.
+
+Lo mismo pasa con algo más común, como el inicio de sesión de una aplicación, algo como entrar a Instagram, donde una persona escribe su correo, escribe su contraseña, presiona un botón y espera que pase algo claro en la pantalla; ahí ya tenemos varias preguntas de programación, aunque todavía no hayamos escrito mucho código: qué datos necesita la pantalla, qué pasa si el correo está vacío, qué hacemos si la contraseña está mal, qué respuesta esperamos del servidor y qué mensaje ve la persona usuaria cuando algo falla, porque no es lo mismo mostrar "error" que decir "la contraseña no coincide" (y tampoco siempre queremos decir demasiado por seguridad).
+
+Con el sistema solar la pregunta podría ser otra, pero la idea es la misma: si hago clic en Marte, ¿se abre una tarjeta con información?, si presiono un botón, ¿se pausa la animación?, si cambio el tamaño de la pantalla, ¿los planetas siguen viéndose bien?, entonces cuando después escribimos una función, usamos un evento de **click** o cambiamos una clase de **CSS**, el código está representando una decisión que ya tomamos antes.
+
+También aparece el flujo completo, aunque lo dibujemos en una hoja: la persona hace una acción, la pantalla responde, guardamos algún estado y mostramos otra cosa, y recién ahí palabras como **fetch** o **POST** empiezan a tener sentido, porque cada una lleva a código un paso de ese flujo que ya entendimos (o que al menos intentamos entender antes de pedirle a la herramienta que lo escriba por nosotros).
+
+Si no sabemos explicar el problema, el agente va a escribir más rápido nuestra confusión, y por eso aprender a programar sigue siendo aprender a mirar un caso, partirlo en partes más pequeñas y decidir qué debería pasar en cada una, incluso si después una **IA** nos ayuda a escribir parte del código.
+
+## ¿Qué es una spec?
+
+Una **spec** (de _specification_, o especificación) puede sonar como algo grande, de empresa gigante y documento eterno, pero para comenzar nos sirve pensarla como una lista clara de lo que queremos construir antes de pedirle algo a un agente; en el caso del sistema solar podría ser algo como: "debe mostrar ocho planetas", "cada planeta debe tener nombre", "al hacer clic en un planeta debe aparecer una descripción", "debe existir un botón para pausar el movimiento".
+
+Aunque suene muy simple, esa lista cambia bastante la conversación con la herramienta, porque deja escrito qué esperamos ver y qué casos tenemos que revisar, y el agente ya no tiene que adivinar.
+
+La **spec** es el lugar donde dejamos de pedirle magia a la herramienta y empezamos a pedirle trabajo concreto, porque ahí escribimos qué debe hacer, qué no debe hacer, qué casos hay que revisar y cómo vamos a saber que está listo, que en palabras más simples sería algo como decirle a la **IA**: "esto es lo que espero, estos son los límites y con esto voy a revisar tu respuesta".
+
+Cuando hablamos de **Spec-Driven Development**, nos referimos a ordenar el trabajo alrededor de esa especificación, independientemente del framework que estemos usando, si es **spec kit**, **openspec**, **kiro** u otra opción que aparezca después, porque la herramienta puede cambiar, pero el hábito que nos interesa aprender es describir bien el comportamiento antes de delegar parte del trabajo.
+
+Esto sirve mucho para estudiantes y para personas que vienen de otro rubro, porque baja la ansiedad de "qué herramienta aprendo primero" y nos lleva a una pregunta más manejable: qué quiero que pase en la pantalla, qué datos se mueven, qué errores pueden aparecer y cómo voy a revisar que la solución hace eso que pedí.
+
+## Prompt engineering sin magia
+
+**Prompt engineering** no es escribir una frase secreta para que la **IA** nos haga caso, o al menos no me gusta enseñarlo así, porque eso deja la sensación de que hay una palabra escondida que todavía no conocemos, cuando en la práctica estamos hablando de dar contexto, restricciones y criterios de aceptación, que son cosas bastante normales dentro del desarrollo de software.
+
+_Lector: ¿Criterios de aceptación? Eso ya suena a reunión de trabajo._
+
+_Yo: Uff, dicho así suena más complicado de lo que es. Veamos cómo se ve en un prompt de verdad._
+
+Un prompt vago sería algo como "créame un sistema solar", y probablemente el agente va a inventar estructura, nombres, tamaños, colores, animaciones y comportamiento, mientras que un prompt guiado por una **spec** diría que necesitamos una pantalla con los planetas, una animación que se pueda pausar, una tarjeta de información al hacer clic, datos separados del componente visual y pruebas para revisar que los elementos principales aparecen en la pantalla; esa última parte, la de cómo vamos a saber que está listo, es lo que llamamos criterios de aceptación.
+
+La diferencia está en pedir una solución con bordes claros, porque aprender a programar con **IA** también es aprender a decir que no a una respuesta que parece correcta, especialmente cuando el código compila, la pantalla se ve bien, los planetas se mueven, pero el comportamiento no coincide con lo que habíamos definido.
+
+## ¿Qué hace un agente?
+
+Cuando hablamos de **agentes**, nos referimos a herramientas que, además de responder preguntas como un chat, pueden ejecutar pasos, leer partes del proyecto, modificar archivos, proponer cambios y a veces moverse con más autonomía dentro del código, que es una diferencia grande para quien está aprendiendo, porque además de una explicación, recibe una intervención directa sobre el proyecto.
+
+Volviendo al sistema solar, un agente podría crear archivos nuevos, mover la lógica de los planetas a otro lugar, cambiar estilos, agregar una librería de animación o modificar una función que ya existía, y eso puede ser muy útil si sabemos revisar qué hizo, pero también puede ser peligroso si aceptamos todo porque "se ve bien" en el navegador.
+
+Si el agente toca archivos que no entendemos, igual nos toca revisar, porque un **pull request** no se aprueba solo por haber sido generado por **IA**, y aquí vuelvo a algo que repito bastante: _"no puedo culpar al martillo si la casa no quedó bien construida"_, entonces si aceptamos el cambio, tenemos que entender qué cambió, por qué cambió y qué riesgo aparece con ese cambio.
+
+## Lo último lo revisamos nosotros
+
+La **revisión de código** empieza a volverse una habilidad central para quien aprende en esta etapa, porque leer un **diff**, correr pruebas, preguntar por qué se eligió una solución, comparar contra la **spec** y pedir cambios cuando algo no cuadra, es parte del trabajo real, aunque el primer borrador lo haya escrito una persona, un agente o una mezcla de ambos.
+
+Para el sitio del sistema solar, revisar significa abrir el navegador, sí, pero también mirar qué archivos cambió el agente, si los datos de los planetas quedaron mezclados con la interfaz, si la animación se puede pausar como pedimos, si al hacer clic aparece la información correcta y si hay algo que todavía no entendemos (porque si no lo entendemos, tarde o temprano nos va a tocar volver a ese archivo).
+
+Una ruta pequeña para empezar podría ser esta: escribimos una **spec** de una pantalla simple, armamos un prompt con contexto y criterios de aceptación, dejamos que la **IA** genere un cambio acotado y después hacemos una revisión manual antes de aceptarlo, mirando archivo por archivo qué cambió, qué entendemos y qué todavía tenemos que estudiar.
+
+A pesar de que hemos hablado de varias cosas, aún no hemos aprendido nada, y está bien, porque para comenzar podemos quedarnos con este ciclo pequeño: describir, pedir, revisar y corregir; entonces la pregunta que nos queda para la próxima vez que abramos un agente no es qué tan rápido puede escribir código, sino qué parte de la solución podemos explicar antes de dejarlo tocar el proyecto.

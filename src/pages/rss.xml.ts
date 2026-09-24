@@ -19,7 +19,7 @@ export async function GET(context: APIContext) {
         link: `${config.url}/articles/${frontmatter.slug}`,
         pubDate: frontmatter.date,
         description: frontmatter.seo_description,
-        customData: `<author>${config.author.name}</author>`,
+        customData: `<author>${config.email} (${config.title})</author>`,
       };
     }),
     customData: `<language>es-ES</language>`,

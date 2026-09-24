@@ -1,0 +1,43 @@
+---
+import { buttonVariants } from "@eduardoalvarez/arrecife";
+import { Icon } from "@eduardoalvarez/arrecife/icons";
+import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
+
+/**
+ * The mono text link that closes a section: `./ver_todos →`.
+ *
+ * It was written three times with the same seven classes and had already
+ * drifted — articles said `./ver_todos →`, talks said `Ver todas →`: same look,
+ * different voice.
+ *
+ * The seven classes are now `buttonVariants({ variant: "tertiary" })`, which is
+ * the system's link-shaped control: mono, no box, secondary text and an
+ * underline on hover at 4px of offset. The hand-written version was the same
+ * declaration with `text-sm` and `duration-200` written out instead of the
+ * `text-meta` and `transition-standard` tokens.
+ *
+ * The arrow is Phosphor's and no longer the `←`/`→` characters. Typographic
+ * arrows are drawn by whatever font resolves them — the mono face here, a
+ * fallback elsewhere — so their weight and their length were never ours to set,
+ * and beside the rest of the site's glyphs they read thin. The `&nbsp;` that
+ * held them off the label went with them: `buttonVariants` already carries
+ * `gap-step-xs`.
+ */
+export interface Props {
+  href: string;
+  /** Arrow before the label instead of after. For "back" links. */
+  back?: boolean;
+  class?: string;
+}
+
+const { href, back = false, class: className = "" } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[buttonVariants({ variant: "tertiary", size: "sm" }), className]}
+>
+  {back && <Icon as={ArrowLeftIcon} />}
+  <slot />
+  {!back && <Icon as={ArrowRightIcon} />}
+</a>

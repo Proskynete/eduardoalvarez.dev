@@ -4,31 +4,45 @@
   display: grid;
 }
 
+/* Headings follow the system's type scale (h2 30/1.1/600, h3 25/1.15/600, in
+   the display face). They used to be written by hand at 700 and 20px. */
 #article-body h2 {
-  font-size: 1.875rem; /* text-3xl */
-  font-weight: 700;
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: var(--text-h2--font-weight);
+  line-height: var(--text-h2--line-height);
+  letter-spacing: var(--text-h2--letter-spacing);
   margin-bottom: 1rem;
   padding-top: 3rem;
   scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
-  color: #f5f5f5; /* text-primary */
+  color: var(--color-text-primary);
 }
 
 #article-body h3 {
-  font-size: 1.25rem; /* text-xl */
-  font-weight: 600;
-  line-height: 1.6;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--text-h3--font-weight);
+  line-height: var(--text-h3--line-height);
+  letter-spacing: var(--text-h3--letter-spacing);
   margin-bottom: 0.75rem;
   margin-top: 2rem;
   scroll-margin-top: 88px; /* nav-height (64px) + breathing room */
-  color: #f5f5f5; /* text-primary */
+  color: var(--color-text-primary);
+}
+
+/* Prose: 18/1.75 in bruma, 68ch at most (Design System v1). */
+#article-body p,
+#article-body ul,
+#article-body ol {
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  color: var(--color-text-secondary);
+  max-width: 68ch;
 }
 
 #article-body p {
   font-weight: 400;
-  line-height: 1.75;
   margin-bottom: 1.5rem;
-  color: #f5f5f5; /* text-primary */
 }
 
 #article-body p strong {
@@ -39,24 +53,30 @@
   font-style: italic;
 }
 
+/* Subrayado permanente, no solo en hover: el acento contra el color del
+   cuerpo da 1.63:1 y el mínimo para distinguir un enlace únicamente por
+   color es 3:1. Sin subrayado el enlace es invisible para quien no
+   distingue ese contraste. */
 #article-body p a {
-  color: #06b6d4; /* accent */
-  text-decoration: none;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
 
 #article-body p a:hover {
-  color: #0891b2; /* accent-hover */
-  text-decoration: underline;
+  color: var(--color-accent-hover);
+  text-decoration-thickness: 2px;
 }
 
 #article-body p img {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-standard);
   display: block;
   margin-left: auto;
   margin-right: auto;
   margin-top: 2rem;
   max-width: 100%;
-  border-radius: 6px;
+  border-radius: var(--radius-chip);
 
   @media (min-width: 1200px) {
     max-width: 80%;
@@ -64,128 +84,101 @@
   }
 }
 
-#article-body p code {
-  background-color: #161616; /* surface-raised */
-  border-radius: 4px;
-  color: #f5f5f5; /* text-primary */
-  font-family: "Geist Mono", "Fira Code", monospace;
-  font-style: normal;
-  padding: 2px 6px;
-  font-size: 0.875em;
-}
-
-#article-body blockquote {
-  border-left: 3px solid #06b6d4; /* accent */
-  background-color: transparent;
-  color: #a3a3a3; /* text-secondary */
-  font-style: italic;
-  margin-bottom: 1.5rem;
-  margin-top: 2rem;
-  padding: 0.75rem 0 0.75rem 1rem;
-}
-
 #article-body blockquote p {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: inherit;
+  line-height: inherit;
   margin: 0;
-  color: #a3a3a3; /* text-secondary */
+  color: var(--color-text-secondary);
 }
 
 #article-body blockquote p strong {
   font-weight: 700;
-  color: #f5f5f5;
+  color: var(--color-text-primary);
 }
 
 #article-body blockquote p a {
   font-weight: 500;
-  color: #06b6d4;
-}
-
-#article-body blockquote p code {
-  background-color: #1f1f1f; /* surface-border */
-  border-radius: 3px;
-  font-style: normal;
-  padding: 2px 5px;
+  color: var(--color-accent);
 }
 
 #article-body blockquote ul li {
   font-size: 1rem;
   line-height: 1.6;
-  color: #a3a3a3;
+  color: var(--color-text-secondary);
 }
 
 #article-body blockquote ul li strong {
   font-weight: 700;
 }
 
+/* Code block: the whole block, title bar included, is a dark island on the
+   hull (#0B1524) in both modes. The bar used to sit on surface-raised, which in
+   light mode is #EFE9DE: the foam fin on it disappeared. On the hull the foam
+   fin is the right variant (manual, «La aleta usa la variante correcta para el
+   fondo»), and the spots colour keeps the labels readable. */
 #article-body .code-block-wrapper {
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   margin-bottom: 1.5rem;
   overflow: hidden;
-  border: 1px solid #1f1f1f; /* surface-border */
+  background-color: var(--color-brand-hull);
 }
 
 #article-body .code-block-header {
   display: flex;
   align-items: center;
+  gap: 0.75rem;
   justify-content: space-between;
-  background-color: #161616; /* surface-raised */
+  background-color: var(--color-brand-hull);
   padding: 0.55rem 1rem;
-  border-bottom: 1px solid #1f1f1f; /* surface-border */
+  border-bottom: 1px solid color-mix(in srgb, var(--color-brand-spots) 15%, transparent);
 }
 
-#article-body .code-traffic-lights {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-#article-body .code-traffic-lights span {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+/* The fin replaces the macOS traffic lights: the system asks for the brand in
+   the block's title bar, and the lights were a borrowed idiom. */
+#article-body .code-block-fin {
   display: block;
+  width: 18px;
+  height: auto;
+  flex: none;
 }
 
-#article-body .code-traffic-lights span:nth-child(1) { background-color: #ff5f57; }
-#article-body .code-traffic-lights span:nth-child(2) { background-color: #febc2e; }
-#article-body .code-traffic-lights span:nth-child(3) { background-color: #28c840; }
-
+/* 13px: the manual's absolute minimum on screen. */
 #article-body .code-language-label {
-  font-family: "Geist Mono", monospace;
-  font-size: 0.7rem;
-  color: #7c7c7c; /* text-muted */
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  color: var(--color-brand-spots);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  margin-right: auto;
 }
 
 #article-body .code-copy-btn {
-  font-family: "Geist Mono", monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  color: #7c7c7c; /* text-muted */
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: 0.08em;
+  color: var(--color-brand-spots);
   background: transparent;
-  border: 1px solid #1f1f1f; /* surface-border */
-  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--color-brand-spots) 35%, transparent);
+  border-radius: var(--radius-chip);
   padding: 2px 8px;
   cursor: pointer;
   text-transform: uppercase;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 150ms ease-out, border-color 150ms ease-out;
 }
 
+/* The bar is dark in both modes, so the hover strengthens the border instead of
+   switching to a text colour that would flip with the theme. */
 #article-body .code-copy-btn:hover {
-  color: #f5f5f5; /* text-primary */
-  border-color: #a3a3a3; /* text-secondary */
+  border-color: var(--color-brand-spots);
 }
 
 #article-body .code-copy-btn.copied {
-  color: #22c55e; /* success */
-  border-color: #22c55e;
+  color: var(--color-success);
+  border-color: var(--color-success);
 }
 
 #article-body pre {
-  background-color: #111111; /* surface */
-  border-radius: 0;
+  background-color: var(--color-brand-hull);
   margin-bottom: 0;
   padding: 1.25rem;
   overflow-x: auto;
@@ -205,12 +198,12 @@
   line-height: 1.8;
   padding-left: 1.25rem;
   position: relative;
-  color: #f5f5f5;
+  color: var(--color-text-secondary);
 }
 
 #article-body ul li::before {
   content: "•";
-  color: #06b6d4; /* accent */
+  color: var(--color-accent); /* accent */
   font-weight: 700;
   left: 0;
   position: absolute;
@@ -229,18 +222,31 @@
 #article-body ul li a {
   display: contents;
   text-decoration: none;
-  color: #06b6d4;
+  color: var(--color-accent);
 }
 
 #article-body ul li a:hover {
   text-decoration: underline;
 }
 
-#article-body ul li code {
-  background-color: #161616;
-  border-radius: 3px;
-  font-family: "Geist Mono", monospace;
-  font-style: normal;
-  font-size: 0.875em;
-  padding: 2px 5px;
+/* Quotes take an arena border and NO background: the system is explicit. */
+#article-body blockquote {
+  margin: 0 0 22px;
+  border-left: 3px solid var(--color-warm);
+  padding-left: 22px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  background: none;
+}
+
+/* Inline code — on current, not on the block's ground. */
+#article-body :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+  border-radius: 4px;
+  padding: 2px 6px;
 }

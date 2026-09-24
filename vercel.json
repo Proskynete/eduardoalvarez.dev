@@ -75,6 +75,12 @@
       "source": "/projects",
       "destination": "/about",
       "permanent": true
+    },
+    {
+      "source": "/working-with-me",
+      "destination": "/about",
+      "permanent": true
     }
-  ]
+  ],
+  "ignoreCommand": "bash scripts/vercel-ignore-build.sh"
 }

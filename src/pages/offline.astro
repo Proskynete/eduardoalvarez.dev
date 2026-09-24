@@ -1,0 +1,45 @@
+---
+import { EmptyState, LinkRow } from "@eduardoalvarez/arrecife";
+
+import Layout from "../layouts/main/index.astro";
+
+/*
+ * The page the service worker answers with when a navigation fails and the
+ * page was never cached (see `workbox` in astro.config.mjs). Prerendered so it
+ * can be precached; `noindex` because it only exists for the app, and the
+ * sitemap filter leaves it out for the same reason.
+ */
+export const prerender = true;
+
+/* Only pages the service worker precaches: the other links would land here
+   again. */
+const suggestions = [
+  { href: "/", label: "Inicio", description: "La página principal" },
+  { href: "/articles", label: "Artículos", description: "El listado, y los que ya leíste" },
+  { href: "/speaking", label: "Charlas", description: "Charlas y talleres" },
+  { href: "/about", label: "Sobre mí", description: "Quién soy y en qué trabajo" },
+];
+---
+
+<Layout seo={{ title: "Sin conexión", noindex: true }}>
+  <div class="mx-auto max-w-content pt-step-xl gap-step-lg flex flex-col">
+    {
+      /* No face: on this site the manual allows the mascot's faces only on the
+         404 and the newsletter (surfaces table), so the offline page uses the
+         inline variant. */
+    }
+    <EmptyState
+      variant="inline"
+      title="Sin conexión"
+      description="Esta página no se guardó para verla sin conexión. Los artículos que ya abriste siguen disponibles; el resto vuelve con la red."
+    />
+
+    <div class="gap-step-sm grid sm:grid-cols-2">
+      {
+        suggestions.map(({ href, label, description }) => (
+          <LinkRow href={href} name={label} description={description} />
+        ))
+      }
+    </div>
+  </div>
+</Layout>
