@@ -1,10 +1,15 @@
 version: 2
+# Twice a year: a weekly schedule kept a queue of open PRs that nobody was
+# reviewing. Security updates are not affected by this and still arrive as soon
+# as an advisory is published. Updates target `develop`, like every other
+# change, instead of going straight to production on `main`.
 updates:
   # NPM dependencies
   - package-ecosystem: "npm"
     directory: "/"
+    target-branch: "develop"
     schedule:
-      interval: "weekly"
+      interval: "semiannually"
     commit-message:
       prefix: "fix"
       prefix-development: "chore"
@@ -13,12 +18,25 @@ updates:
     labels:
       - "📦 Dependencies"
     open-pull-requests-limit: 10
+    groups:
+      # Minors and patches in one PR; majors keep their own so a breaking change
+      # is reviewed on its own.
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # @astrojs/check only accepts TypeScript ^5 || ^6, so a TypeScript major
+      # fails the install (see #186).
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
 
   # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
+    target-branch: "develop"
     schedule:
-      interval: "weekly"
+      interval: "semiannually"
     labels:
       - "📦 Dependencies"
       - "🚀 CI/CD"
