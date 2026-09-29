@@ -1,4 +1,9 @@
-## ADDED Requirements
+# design-system Specification
+
+## Purpose
+Tokens y reglas visuales del sitio (color, tipografía, espaciado) que consumen las páginas y componentes.
+
+## Requirements
 
 ### Requirement: Color token system
 The system SHALL define all colors as named tokens in `tailwind.config.mjs`, replacing the current pink-based palette. No component SHALL reference raw Tailwind color classes (e.g., `pink-500`, `teal-700`) — only semantic tokens.

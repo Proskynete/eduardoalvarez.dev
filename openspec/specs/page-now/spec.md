@@ -1,4 +1,9 @@
-## ADDED Requirements
+# page-now Specification
+
+## Purpose
+Contenido y estructura de la página `/now`.
+
+## Requirements
 
 ### Requirement: Now page
 The `/now` route SHALL be a static page describing what Eduardo is focused on at the present moment. Content is manually updated. The page follows the `/now` movement convention (nownownow.com).

@@ -1,4 +1,9 @@
-## MODIFIED Requirements
+# article-layout Specification
+
+## Purpose
+Estructura del layout de artículo: cabecera, cuerpo, barra lateral, comentarios y progreso de lectura.
+
+## Requirements
 
 ### Requirement: Article layout visual redesign
 The article layout (`src/layouts/article/index.astro`) SHALL be redesigned to match the editorial spec defined in `page-article-detail/spec.md`. The layout structure (grid with sidebar) is preserved; the visual treatment changes completely.

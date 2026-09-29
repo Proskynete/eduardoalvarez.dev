@@ -48,7 +48,7 @@ export function validatePublicEnv(): PublicEnv {
 
   if (!result.success) {
     console.error("❌ Variables de entorno públicas inválidas:");
-    console.error(JSON.stringify(result.error.format(), null, 2));
+    console.error(JSON.stringify(z.treeifyError(result.error), null, 2));
     throw new Error("Validación de environment público falló");
   }
 
@@ -86,7 +86,7 @@ export function validatePrivateEnv(): PrivateEnv {
 
   if (!result.success) {
     console.error("❌ Variables de entorno privadas inválidas:");
-    console.error(JSON.stringify(result.error.format(), null, 2));
+    console.error(JSON.stringify(z.treeifyError(result.error), null, 2));
     throw new Error("Validación de environment privado falló");
   }
 
@@ -141,12 +141,12 @@ export function validateEnvAtStartup(): Env {
   }
 
   // Combinar ambos schemas para validar todo desde process.env
-  const AllEnvSchema = PublicEnvSchema.merge(PrivateEnvSchema);
+  const AllEnvSchema = PublicEnvSchema.extend(PrivateEnvSchema.shape);
   const result = AllEnvSchema.safeParse(process.env);
 
   if (!result.success) {
     console.error("❌ Variables de entorno inválidas:");
-    console.error(JSON.stringify(result.error.format(), null, 2));
+    console.error(JSON.stringify(z.treeifyError(result.error), null, 2));
     throw new Error("Validación de environment falló");
   }
 

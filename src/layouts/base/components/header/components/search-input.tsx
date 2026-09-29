@@ -1,3 +1,5 @@
+import { Input } from "@eduardoalvarez/arrecife";
+
 interface SearchInputProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
@@ -6,6 +8,15 @@ interface SearchInputProps {
   selectedIndex?: number;
 }
 
+/**
+ * The field is the library's `Input`. The wrapper div that hand-drew the border
+ * and the focus ring is gone with it — `Input` already carries the control
+ * height, the radius, the hairline and the bioluz ring, and it follows the theme,
+ * which the hand-written `border-border` on a transparent ground did not.
+ *
+ * The combobox attributes stay here: they describe THIS widget's relationship
+ * with its listbox, and the library takes no opinion on them.
+ */
 export default function SearchInput({
   searchQuery,
   onSearchChange,
@@ -14,22 +25,20 @@ export default function SearchInput({
   selectedIndex = -1,
 }: SearchInputProps) {
   return (
-    <div className="relative flex items-center px-3 rounded-md bg-transparent border border-surface-border focus-within:border-accent transition-colors duration-300">
-      <input
-        type="text"
-        placeholder="Buscar artículos..."
-        value={searchQuery}
-        onChange={(e) => onSearchChange(e.target.value)}
-        onFocus={onFocus}
-        className="w-64 bg-transparent border-0 focus:ring-0 focus:outline-none text-text-primary placeholder:text-text-muted"
-        autoFocus
-        role="combobox"
-        aria-label="Buscar artículos"
-        aria-expanded={isSearchOpen}
-        aria-controls="search-results"
-        aria-activedescendant={selectedIndex >= 0 ? `result-${selectedIndex}` : undefined}
-        aria-autocomplete="list"
-      />
-    </div>
+    <Input
+      type="text"
+      placeholder="Buscar artículos..."
+      value={searchQuery}
+      onChange={(e) => onSearchChange(e.target.value)}
+      onFocus={onFocus}
+      className="w-64"
+      autoFocus
+      role="combobox"
+      aria-label="Buscar artículos"
+      aria-expanded={isSearchOpen}
+      aria-controls="search-results"
+      aria-activedescendant={selectedIndex >= 0 ? `result-${selectedIndex}` : undefined}
+      aria-autocomplete="list"
+    />
   );
 }

@@ -1,8 +1,13 @@
-## ADDED Requirements
+# seo-about-schema Specification
+
+## Purpose
+Datos estructurados (JSON-LD) de la página `/about`.
+
+## Requirements
 
 ### Requirement: Schema Person extendido en página /about
 
-`src/pages/about/index.astro` SHALL emitir un schema `Person` extendido como JSON-LD, pasándolo a `BaseHead` vía la prop `seo.schema`. El schema SHALL incluir los campos: `@type`, `name`, `url`, `email`, `jobTitle`, `knowsAbout`, `sameAs`.
+`src/pages/about/index.astro` SHALL emitir un schema `ProfilePage` cuyo `mainEntity` es la Person compartida de `src/utils/person-schema.ts`, pasándolo a `BaseHead` vía la prop `seo.schema`. La Person SHALL incluir los campos: `@type`, `@id`, `name`, `url`, `email`, `jobTitle`, `knowsAbout`, `sameAs`.
 
 #### Scenario: Página /about emite JSON-LD con @type Person
 - **WHEN** un crawler o motor de IA accede a `https://eduardoalvarez.dev/about`
@@ -10,15 +15,15 @@
 
 #### Scenario: Schema Person incluye knowsAbout con áreas de expertise
 - **WHEN** el schema Person se renderiza en /about
-- **THEN** el campo `knowsAbout` SHALL ser un array que incluya al menos: `"Engineering Leadership"`, `"Platform Engineering"`, `"AI-native Engineering"`, `"Technical Leadership"`
+- **THEN** el campo `knowsAbout` SHALL ser un array que incluya al menos: `"Spec-Driven Development"`, `"AI-assisted Software Development"`, `"Technical Education"`
 
 #### Scenario: Schema Person incluye sameAs con todos los perfiles públicos
 - **WHEN** el schema Person se renderiza en /about
-- **THEN** el campo `sameAs` SHALL ser un array que incluya las URLs de GitHub, LinkedIn, Twitter/X e Instagram del autor, derivadas de `src/settings/index.ts`
+- **THEN** el campo `sameAs` SHALL ser un array que incluya las URLs de GitHub, LinkedIn, X (`x.com`) e Instagram del autor, derivadas de `src/settings/index.ts` y filtradas por `show`
 
 #### Scenario: Schema Person incluye jobTitle y email
 - **WHEN** el schema Person se renderiza en /about
-- **THEN** el campo `jobTitle` SHALL ser `"Engineering Leader"`
+- **THEN** el campo `jobTitle` SHALL ser `"Technical Lead"`
 - **THEN** el campo `email` SHALL ser `"soy@eduardoalvarez.dev"`
 
 #### Scenario: Schema Person es coherente con el schema Person de la homepage

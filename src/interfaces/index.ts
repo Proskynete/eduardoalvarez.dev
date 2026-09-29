@@ -3,11 +3,6 @@ export interface Section {
   anchor: string;
 }
 
-export interface FAQItem {
-  question: string;
-  answer: string;
-}
-
 export type CategoryAllowed =
   | "engineering-leadership"
   | "platform-engineering"

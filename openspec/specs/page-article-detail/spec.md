@@ -1,4 +1,9 @@
-## ADDED Requirements
+# page-article-detail Specification
+
+## Purpose
+Presentación de un artículo individual en `/articles/<slug>`.
+
+## Requirements
 
 ### Requirement: Article detail layout
 Individual article pages SHALL use an editorial layout: wide content area with a sticky sidebar on desktop. The layout SHALL feel like a premium technical publication, not a tutorial blog.

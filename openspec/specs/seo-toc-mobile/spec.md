@@ -1,4 +1,9 @@
-## ADDED Requirements
+# seo-toc-mobile Specification
+
+## Purpose
+Tabla de contenidos de los artículos en pantallas móviles.
+
+## Requirements
 
 ### Requirement: Tabla de contenidos visible en mobile
 
@@ -29,6 +34,8 @@ El componente `src/layouts/article/components/aside.astro` SHALL renderizar la t
 ---
 
 ### Requirement: TOC mobile es accesible (A11y)
+
+La tabla de contenidos móvil SHALL ser operable con teclado y anunciable por lectores de pantalla.
 
 #### Scenario: TOC mobile es operable con teclado
 - **WHEN** un usuario navega con teclado

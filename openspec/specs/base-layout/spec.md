@@ -1,4 +1,9 @@
-## MODIFIED Requirements
+# base-layout Specification
+
+## Purpose
+Layout raíz del sitio: `<head>` con SEO, cabecera, pie y comportamiento compartido por todas las páginas.
+
+## Requirements
 
 ### Requirement: Base layout visual design
 The base layout (`src/layouts/base/index.astro`) SHALL be updated to use the new design system tokens. All pink/teal/indigo color references SHALL be replaced with the new semantic token classes.

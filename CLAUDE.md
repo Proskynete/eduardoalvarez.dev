@@ -4,478 +4,188 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal site of Eduardo Álvarez — **Engineering Leadership & Platform Thinking in the AI Era** — built with **Astro 5**, React, and TypeScript. Features MDX articles, full-text search via Algolia, comments via Giscus, newsletter via Mailchimp, podcast player with custom AudioPlayer component, and a complete design system (Geist + cyan/dark palette). Deployed to Vercel with static site generation and serverless API routes.
+Personal site of Eduardo Álvarez — **Technical Lead · Spec-Driven Development** (lema: *Entender antes de construir.*; positioning and voice rules in `BRAND.md` §14) — built with **Astro 7**, React 19 and TypeScript. MDX articles, full-text search via Algolia, comments via Giscus, newsletter via Mailchimp, error tracking via Sentry, and an installable PWA. The visual language comes from **`@eduardoalvarez/arrecife`**, the published design system (tokens, components, icons, Shiki theme). Deployed to Vercel: pages are prerendered where possible and the rest render on demand in a serverless function.
+
+## Environment
+
+- **Node**: `.nvmrc` pins the version (`v24.18.0`, current LTS); `package.json` accepts `24.x`. The shell's fnm auto-switches on `cd`.
+- **Global CLIs follow the Node version.** OpenSpec (`openspec`) is installed globally with npm, so it only exists in the Node version it was installed under. If `openspec` is "command not found" here, `.nvmrc` points at a Node without it: either bump `.nvmrc` or run `npm i -g @fission-ai/openspec` under that version.
 
 ## Development Commands
 
 ```bash
-# Start development server
-npm run dev
-# or
-npm start
+npm run dev                 # Dev server (also: npm start)
+npm run build               # astro check + astro build
+npm run preview             # Preview the production build
 
-# Build for production (includes TypeScript checking)
-npm run build
-
-# Preview production build locally
-npm run preview
-
-# Lint TypeScript/JSX files
-npm run lint
-
-# Auto-fix linting issues
+npm run lint                # ESLint (eslint.config.js)
 npm run lint:fix
 
-# Run tests (watch mode)
-npm test
+npm test                    # Unit, then E2E
+npm run test:unit           # Vitest, watch mode
+npm run test:unit:run       # Vitest once (CI)
+npm run test:unit:coverage  # Coverage report
+npm run test:e2e            # Playwright (also :ui, :headed)
 
-# Run tests with UI
-npm run test:ui
-
-# Run tests with coverage report
-npm run test:coverage
-
-# Run tests once (for CI)
-npm run test:run
-
-# Run Astro CLI directly
-npm run astro -- [command]
+npm run brand:icons         # Regenerate favicons and manifest icons from the fin
+npm run brand:og            # Regenerate the default Open Graph image
+npm run brand:assets        # Both
+npm run a11y:audit          # axe against localhost:4321
 ```
+
+A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run build`.
 
 ## Code Architecture
 
 ### Directory Structure
 
-**`src/pages/`** - File-based routing following Astro conventions
-- `index.astro` - Homepage (hero, latest articles, recent talks, newsletter CTA)
-- `404.astro` - Custom 404 with branded disconnected-node SVG animation
-- `articles/` - Articles section
-  - `index.astro` - Listing with client-side category filter
-  - `*.mdx` - Individual MDX articles
-- `speaking/index.astro` - Talks grouped by year (replaces `/charlas-talleres/`)
-- `now/index.astro` - Now page: what I'm currently working on
-- `stack/index.astro` - Tools and technologies by category
-- `about/index.astro` - About page
-- `working-with-me/index.astro` - Engagement types and contact info
-- `newsletter/index.astro` - Newsletter subscription page
-- `projects/index.astro` - Projects with client-side status filter
-- `podcasts/` - Podcast section
-  - `index.astro` - Episode listing with inline AudioPlayer
-  - `[slug].astro` - Episode detail with notes, guests, platforms
-- `api/subscribe.ts` - Newsletter subscription endpoint with Zod validation
-- `rss.xml.ts` - RSS feed generation
+**`src/pages/`** — file-based routing
+- `index.astro` — Home (hero, latest articles, recent talks, newsletter CTA). Prerendered.
+- `404.astro` — Branded 404 (`EmptyState` with the `confused` face). Prerendered.
+- `offline.astro` — Offline fallback served by the service worker. Prerendered, `noindex`, out of the sitemap.
+- `articles/[...page].astro` — Paginated listing (10 per page). Prerendered.
+- `articles/*.mdx` — Individual articles, rendered on demand.
+- `speaking/index.astro` — Talks grouped by year, with `Event` JSON-LD.
+- `about/index.astro` — About, including the "now" block (`settings/now.ts`).
+- `newsletter/index.astro` — Newsletter subscription page.
+- `podcasts/` — Index and `[slug]`. **Switched off** while `podcastsEnabled` is `false` in `settings/podcasts.ts`: the middleware redirects them to `/` and the sitemap leaves them out.
+- `api/subscribe.ts` — Newsletter endpoint (Zod validation, rate limited).
+- `rss.xml.ts` — RSS feed.
 
-> **URL redirects**: `/articulos` → `/articles`, `/articulos/:path*` → `/articles/:path*`, `/charlas-talleres` → `/speaking` (configured in `vercel.json`)
+> **Redirects** (`vercel.json`): `/articulos[/*]` → `/articles[/*]`, `/charlas-talleres` → `/speaking`, and the retired pages `/stack`, `/projects`, `/working-with-me` → `/about`, `/donaciones` → `/`.
 
-**`src/layouts/`** - Page layout templates
-- `base/index.astro` - Root wrapper with SEO head, sticky header (search + mobile nav), and footer
-- `main/index.astro` - General page layout (wraps `base`, provides content container)
-- `article/index.astro` - Article layout with card-based sidebar (TOC, share), Giscus, scroll progress bar
+**`src/middleware/`** — `index.ts` (podcast redirect), `podcasts.ts`, `rate-limit.ts` (in-memory, per IP, used by the API).
 
-**`src/components/`** - Reusable React and Astro components
-- `article/` - Article card component
-- `audio-player/` - Custom audio player (React) with play/pause, skip ±15s, speed, volume, progress bar
-- `dropdown/` - Dropdown menu (React)
-- `pagination/` - Pagination controls
-- `project/` - Project card component
-- `scrolling-progress-bar/` - Reading progress indicator (React)
-- `subscribe/` - Newsletter subscription form with error handling, loading states, and field validation
-- `ui/image/` - Image wrapper component
+**`src/layouts/`**
+- `base/index.astro` — Root wrapper: `components/head.astro` (SEO, icons, manifest, theme script), `components/header/` (nav + Algolia search, `site-nav.tsx`), `components/footer/`.
+- `main/index.astro` — General page layout over `base`.
+- `article/index.astro` — Article layout: sidebar (reading time, TOC, share), Giscus, scroll progress.
 
-**`src/utils/`** - Pure utility functions
-- `articles.ts` - Sort articles by date, generate GitHub edit links
-- `categories.ts` - Category management
-- `date.ts` - Date calculations
-- `reading-time.ts` - Calculate reading time for articles
-- `strings.ts` - String manipulation
+**`src/components/`** — only what the library does not provide: `article`, `audio-player`, `brand-fin`, `pagination`, `podcast-guest`, `podcast-guest-chips`, `podcast-row`, `splash-screen`, `subscribe` (`index.astro` + `subscribe-form.tsx`), `talk-card`, `text-link`, `ui/image`. Before building a UI piece, check whether arrecife already exports it (`PageHeader`, `EmptyState`, `LinkRow`, `Text`, `Separator`, `Nav`, `buttonVariants`…).
 
-**`src/settings/`** - Configuration and data
-- `index.ts` - Main site config (title, description, social links, SEO defaults, contacts)
-- `manifest-config.ts` - PWA web manifest
-- `talks.ts` - Talks/workshops data
-- `projects.ts` - Projects data with `status` field (active/maintained/archived)
-- `now.ts` - "Now" page content (what I'm currently working on)
-- `stack.ts` - Stack items by category (Languages, Frameworks, Infrastructure, AI Tools, Hardware, Apps)
-- `podcasts.ts` - Podcast episodes with guests, platforms, topics, and audio URLs
+**`src/utils/`** — pure functions: `analytics.ts`, `api-response.ts`, `articles.ts`, `categories.ts`, `date.ts`, `env.ts` (Zod-validated env, fail-fast at startup), `podcasts.ts`, `reading-time.ts`, `strings.ts`.
 
-**`src/assets/`** - Static assets
-- `styles/base.css` - Global CSS (focus-visible ring in accent color)
-- `styles/article.css` - Article prose typography overrides
-- `icons/` - SVG icon components (ArrowLeft, Close, GitHub, Mail, Menu, Resources, Search)
+**`src/settings/`** — data and config: `index.ts` (site, author, `authorInlineBio`, social, contacts), `manifest-config.ts` (web manifest), `talks.ts`, `now.ts`, `about.ts`, `podcasts.ts`. `stack.ts` and `projects.ts` are leftovers of retired pages and are not imported.
 
-**`src/interfaces/index.ts`** - TypeScript type definitions
-- Core types: `Article`, `CategoryAllowed`, `ArticleLayout`, `Section`, `Heading`, `HeadingDepth`
-- All types are strictly typed (no `any` types)
+**`src/assets/styles/`** — `base.css` (Tailwind v4 entry: imports arrecife's `tokens/theme.css`, `@source`s the library's `dist`, focus ring) and `article.css` (prose).
 
-**`tests/`** - Testing directory (ALL tests MUST be located here)
-- `units/` - Unit tests with Vitest (*.test.ts, *.test.tsx)
-  - `setup.ts` - Global test setup with jest-dom matchers and cleanup
-  - `utils/` - Tests for utility functions
-    - `articles.test.ts` - Tests for article utilities (11 tests)
-    - `reading-time.test.ts` - Tests for reading time calculation (13 tests)
-    - `date.test.ts` - Tests for date utilities (13 tests)
-  - `layouts/` - Tests for layout components
-  - `components/` - Tests for React/Astro components
-- `e2e/` - End-to-end tests with Playwright (*.spec.ts)
-  - `search.spec.ts` - E2E tests for search functionality (5 tests)
-  - `subscribe.spec.ts` - E2E tests for newsletter subscription (6 tests)
+**`src/interfaces/index.ts`** — `Article`, `CategoryAllowed`, `TagsAllowed`, `Section`, `Heading`, `ArticleLayout`. No `any`.
 
-**IMPORTANT**: All tests MUST be placed in the `tests/` directory:
-- Vitest unit tests → `tests/units/`
-- Playwright E2E tests → `tests/e2e/`
-- Never place test files directly in `src/` alongside source code
+**`scripts/`** — `generate-manifest-icons.mjs`, `generate-og-default.mjs`, `brand.mjs` (shared constants), `vercel-ignore-build.sh` (skips Vercel builds for commits that only touch specs/docs).
 
-**`vitest.config.ts`** - Vitest configuration
-- React support with @vitejs/plugin-react
-- jsdom environment for component testing
-- Coverage reporting with v8 provider
-- Coverage thresholds: 80% (statements, branches, functions, lines)
+**`openspec/`** — spec-driven changes (`openspec list`, `openspec validate --specs`). Main specs live in `openspec/specs/`, archived changes in `openspec/changes/archive/`.
 
-**`src/scripts/algolia.ts`** - Custom Astro integration
-- Hooks into build process (`astro:build:generated`)
-- Extracts article metadata from MDX frontmatter
-- Publishes index to Algolia for search functionality
-- Requires env vars: `PUBLIC_ALGOLIA_APPLICATION_ID`, `PUBLIC_ALGOLIA_INDEX_NAME`, `ALGOLIA_ADMIN_API_KEY`
+**`tests/`** — ALL tests live here, never in `src/`:
+- `units/` — Vitest (`*.test.ts[x]`): `utils/`, `components/`, `layouts/`, `middleware/`; `setup.ts` loads jest-dom.
+- `e2e/` — Playwright (`*.spec.ts`): accessibility, design-system, podcasts, search, subscribe.
+
+**`src/scripts/algolia.ts`** — Astro integration that indexes articles in Algolia on `astro:build:generated`, only on successful production deploys (`ALGOLIA_FORCE_INDEX=true` forces it locally).
+
+### PWA
+
+- **Manifest**: `astro-webmanifest` generates `/manifest.webmanifest` from `settings/manifest-config.ts`. Its automatic `<head>` injection is **off** (`insertManifestLink`/`insertThemeColorMeta: false`) because it only reaches prerendered HTML; `head.astro` writes the `<link rel="manifest">` and `theme-color` for every page, articles included.
+- **Icons**: `public/images/manifest/` (192/512 declared once as `any` and once as `maskable`; the fin fits the maskable safe zone) and `public/images/favicon/`. Regenerate with `npm run brand:icons`.
+- **Launch screens**: iOS gets `apple-touch-startup-image`s (`public/images/manifest/startup/`, one per device listed in `src/settings/apple-startup-images.json`, linked from `head.astro`). Android builds its own from the manifest. Then `src/components/splash-screen` (standalone only, once per session, ~1.5 s) takes over: its fin starts where the launch image draws it (`STARTUP` in `scripts/brand.mjs`), so change both together.
+- **Service worker**: `astrojs-service-worker` (Workbox `generateSW`), configured in `astro.config.mjs`. It precaches only the app shell (JS/CSS, fonts, icons, prerendered pages, the 404/offline faces); pages are `NetworkFirst` (so they are cached as read), same-origin images `CacheFirst`, and a never-visited page with no network gets `/offline/`.
 
 ### Design Patterns
 
-**Layout Composition**: Nested layouts inherit from `BaseLayout` (`src/layouts/base/index.astro`), which includes SEO head, sticky header with Algolia search, and footer. `MainLayout` (`src/layouts/main/index.astro`) wraps `BaseLayout` for general pages. `ArticleLayout` extends `MainLayout` and adds card-based sidebar (reading time, TOC, share), Giscus comments, and scroll progress bar.
+**Design system**: tokens, components and icons come from `@eduardoalvarez/arrecife`. Use its token classes (`bg-background`, `bg-surface`, `border-hairline`, `text-text-secondary`, `text-accent`, `p-step-lg`, `gap-step-sm`, `max-w-content`…) — never raw hex colors or arbitrary Tailwind values. Colors for non-CSS contexts (manifest, `theme-color`) are imported from `@eduardoalvarez/arrecife/tokens`. See `BRAND.md` and the README for the palette.
 
-**Design System**: Custom Tailwind tokens defined in `tailwind.config.mjs`:
-- **Colors**: `background` (#0a0a0a), `surface` / `surface-raised` / `surface-border`, `text-primary` / `text-secondary` / `text-muted`, `accent` (#06b6d4) / `accent-hover` / `accent-subtle`, `error`, `success`, `warning`
-- **Typography**: Geist (sans) + Geist Mono
-- **Widths**: `max-w-content` (760px), `max-w-wide` (1100px), `max-w-full` (1280px)
-- **Spacing**: `section-gap` (96px), `card-pad` (24px), `nav-height` (64px)
-- **Gradients**: `hero-gradient`, `accent-glow`
+**Theming**: dark is the base mode; `themeScript({ base: "dark" })` from `@eduardoalvarez/arrecife/theme` runs before first paint, and `data-theme` on `<html>` switches palettes.
 
-**View Transitions**: `ClientRouter` (Astro View Transitions) is enabled. Filter scripts on `/articles` and `/projects` are wrapped in an `initFilter()` function subscribed to `document.addEventListener('astro:page-load', initFilter)` so they re-initialize after each navigation.
+**View Transitions**: `ClientRouter` is enabled. Client scripts that must re-run after navigation subscribe to `astro:page-load`.
 
-**Component Organization**: Feature-based grouping. Astro components use `.astro` extension, React components use `.tsx`. Interactive components (search, audio player, dropdown, progress bar, mobile nav) are React with appropriate client directives (`client:load` for above-fold, `client:visible` for below-fold). Static components are Astro.
+**Rendering**: `output: "server"` with the Vercel adapter. Pages that can be static declare `export const prerender = true`. Heavy dependencies (`@phosphor-icons/react`, arrecife, `react-day-picker`, `date-fns`) are bundled via `vite.ssr.noExternal` to keep cold starts short.
 
-**Data Structure**: Article metadata in MDX frontmatter with these required fields:
-- `layout`: Path to layout file (e.g., `../../layouts/article/index.astro`)
-- `title`: Article title
-- `slug`: URL-friendly identifier
-- `description`: SEO description (máximo 160 caracteres — el sitio trunca automáticamente, pero es mejor escribirla dentro del límite)
-- `date`: Publication date (ISO format)
-- `categories`: Array of `CategoryAllowed` types
-- `seo_image`: Path to social media image
-- `sections`: Array of `{title, anchor}` for table of contents
+**Components**: Astro for static markup, React (`.tsx`) for interactivity, with `client:load` above the fold and `client:visible` below.
 
-**Utility Functions**: Pure functions for sorting (`articlesSort`), filtering, and formatting. All utilities import centralized config from `src/settings/index.ts`.
+**Article frontmatter** (`Article` in `src/interfaces/index.ts`):
+- `layout`: `../../layouts/article/index.astro`
+- `title`, `slug`, `excerpt`
+- `seo_description`: ≤ 160 chars (the layout truncates, but write it within the limit)
+- `seo_image`: `/images/articles/<slug>/<slug>.webp`
+- `date` (ISO), optional `date_modified`
+- `categories`: `CategoryAllowed[]` — `engineering-leadership`, `platform-engineering`, `ai-native-engineering`, `career-strategy`, `engineering-culture`, `developer-experience`, `technical-decisions`, `learning-in-tech`
+- `tags`: `TagsAllowed[]`; `keywords`: `string[]` (falls back to categories)
+- `sections`: `{ title, anchor }[]` for the TOC; heading IDs must match
+- optional `audio_narration`
 
-## Key Technologies & Integrations
+**SEO**: `head.astro` builds the `<title>` with a length guard (drops the ` | Eduardo Álvarez` suffix past 60 chars), truncates descriptions to 160, emits OG/Twitter tags and optional JSON-LD (`schema` prop), and accepts `noindex`.
+
+## Key Technologies
 
 | Technology | Purpose |
 |---|---|
-| **Astro 5** | Static site generation with serverless API routes |
-| **React 19** | Interactive components (search, dropdown, progress bar) |
-| **TypeScript 5.3** | Type safety (strict mode with `strictNullChecks: true`) |
-| **Tailwind CSS 3.4** | Utility-first styling with typography and forms plugins |
-| **MDX** | Blog content with embedded React components |
-| **Algolia v5** | Full-text search with custom build integration (src/scripts/algolia.ts) |
-| **Giscus** | GitHub Discussions-based comments (@giscus/react) |
-| **Mailchimp** | Newsletter subscription backend (via api/subscribe.ts) |
-| **Zod** | Schema validation and type inference for API endpoints |
-| **Vercel** | Hosting with static site generation and serverless API functions (configured via vercel.json) |
-| **Vitest** | Unit testing framework with React Testing Library integration |
-
-**Testing Stack**:
-- Vitest 4.0 for unit testing
-- @testing-library/react for component testing
-- @testing-library/user-event for user interaction testing
-- @testing-library/jest-dom for DOM matchers
-- jsdom for browser environment simulation
-- @vitest/ui for visual test debugging
-- @vitest/coverage-v8 for code coverage reporting
-
-**Additional Features**:
-- PWA support (web manifest via astro-webmanifest, service worker via astrojs-service-worker)
-- Auto-generated sitemap and RSS feed
-- Image optimization
-- Shiki syntax highlighting (Monokai theme)
-- Partytown for off-thread analytics scripts
+| **Astro 7** | Prerendered pages + on-demand rendering, Vercel adapter |
+| **React 19** | Interactive components |
+| **TypeScript 5.9** | Strict (`strictNullChecks`), no `any` |
+| **Tailwind CSS 4** | Via `@tailwindcss/vite`; tokens from arrecife, no `tailwind.config` |
+| **@eduardoalvarez/arrecife** | Design system: tokens, components, icons, Shiki theme |
+| **MDX** | Articles |
+| **Algolia v5** | Search, indexed at build |
+| **Giscus** | Comments |
+| **Mailchimp** | Newsletter |
+| **Zod 4** | API and env validation |
+| **Sentry** | Error tracking; source maps upload when `SENTRY_AUTH_TOKEN` is set |
+| **Partytown** | GA4 off the main thread |
+| **Vitest 4 / Playwright** | Unit and E2E tests |
 
 ## Common Development Tasks
 
-### Adding a Blog Article
+### Adding an Article
 
-1. Create new file in `src/pages/articles/my-article.mdx`
-2. Add frontmatter with required fields:
-   ```yaml
-   ---
-   layout: ../../layouts/article/index.astro
-   title: "Article Title"
-   slug: "article-title"
-   description: "Brief summary for SEO"
-   date: 2025-11-04T12:00:00-03:00
-   categories: ["web-development", "javascript"]
-   seo_image: /images/articles/my-article/cover.webp
-   sections:
-     [
-       { title: 'Section 1', anchor: 'section-1' },
-       { title: 'Section 2', anchor: 'section-2' },
-     ]
-   ---
-   ```
-3. Write content in MDX format with heading IDs matching section anchors
-4. On build, the article is automatically indexed in Algolia (via `src/scripts/algolia.ts`)
+1. Create `src/pages/articles/<slug>.mdx` with the frontmatter above.
+2. Put images in `public/images/articles/<slug>/`.
+3. Heading IDs must match `sections[].anchor`.
+4. It is indexed in Algolia on the next production deploy.
 
-**Note**: Categories must be one of the allowed types defined in `src/interfaces/index.ts`: `web-development`, `javascript`, `react`, `vue`, `astro`, `node`, `express`, `sql`, `no-sql`.
+### API Endpoints
 
-### Working with API Endpoints
+Endpoints in `src/pages/api/` validate input with Zod and answer through `utils/api-response.ts`. `subscribe.ts` returns 400 (validation), 409 (already subscribed), 429 (rate limit), 200, or 500. Zod 4: use `z.treeifyError` / `error.issues`, not the deprecated `error.errors`.
 
-API endpoints in `src/pages/api/` use Zod for input validation. Example pattern:
+### Subscribe Form
 
-```typescript
-import { z } from 'zod';
-import type { APIRoute } from 'astro';
-
-// 1. Define validation schema
-const InputSchema = z.object({
-  email: z.string().email().toLowerCase().trim(),
-  name: z.string().min(2).max(50).trim(),
-});
-
-type Input = z.infer<typeof InputSchema>;
-
-// 2. Validate in endpoint
-export const POST: APIRoute = async ({ request }) => {
-  try {
-    const body = await request.json();
-    const validatedData: Input = InputSchema.parse(body);
-
-    // 3. Use validated data
-    // ...
-
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return new Response(JSON.stringify({
-        success: false,
-        message: error.errors[0].message,
-        errors: error.errors,
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-    // Handle other errors...
-  }
-};
-```
-
-**Subscribe API** (`src/pages/api/subscribe.ts`):
-- Validates email (format, length, sanitization) and name (length, letters only, including accents)
-- Uses `getListMember()` for O(1) duplicate checking
-- Returns proper status codes: 400 (validation), 409 (duplicate), 200 (success), 500 (server error)
-- See `docs/VALIDACION_ZOD_API_SUBSCRIBE.md` for detailed documentation
-
-### Working with the Subscribe Form
-
-The newsletter subscription form (`src/components/subscribe/index.astro`) has complete error handling and state management:
-
-**Features**:
-- HTML5 validation (required, minlength, maxlength, type)
-- Loading state with spinner and disabled inputs
-- Success state with auto-hide after 5 seconds
-- Error state with field-specific messages
-- Automatic error cleanup when typing
-- Dark theme consistent with site design
-
-**States handled**:
-- **200 (Success)**: Green message, form cleared, auto-hide
-- **400 (Validation)**: Red message + field-specific errors with red borders
-- **409 (Duplicate)**: Red message for already registered email
-- **500 (Server Error)**: Generic error message
-- **Network Error**: Connection error message
-
-**Integration**:
-The form consumes the Zod-validated API endpoint and displays appropriate UI for each response type. All error messages are in Spanish and user-friendly.
-
-See `docs/MANEJO_ERRORES_FORMULARIO_SUBSCRIBE.md` for detailed documentation.
-
-### Creating a New Component
-
-1. Create folder in `src/components/feature-name/`
-2. Create `index.astro` (static) or `index.tsx` (interactive)
-3. Use TypeScript for type safety
-4. Import in layout or parent component
-5. For React components that need interactivity, use client directives (`client:load`, `client:visible`)
+`src/components/subscribe/` (`index.astro` wraps `subscribe-form.tsx`): HTML5 validation, loading/success/error states, field-level errors. User-facing messages are in Spanish.
 
 ### Updating Site Configuration
 
-Edit `src/settings/index.ts` to update:
-- Site title, description, and keywords
-- Social media links (social_network array)
-- Contact information (contacts array)
-- Author information
-- SEO defaults and URLs
-
-### Debugging Build Issues
-
-Run `astro check` to validate TypeScript without building. This catches type errors before the full build runs.
+`src/settings/index.ts`: title, description, keywords, author, `authorInlineBio`, social links, contacts. Manifest: `src/settings/manifest-config.ts`.
 
 ### Running Tests
 
-The project has a comprehensive test suite with 55 tests and >93% coverage:
-
-**Running tests**:
 ```bash
-# Watch mode (recommended for development)
-npm test
-
-# Run once (for CI)
-npm run test:run
-
-# With UI for debugging
-npm run test:ui
-
-# With coverage report
-npm run test:coverage
+npm run test:unit      # watch
+npm run test:unit:run  # once
+npm run test:unit:coverage
+npm run test:e2e
 ```
 
-**Test structure**:
-- All test files are located next to the files they test
-- Test files end with `.test.ts` or `.test.tsx`
-- Use `describe` blocks to group related tests
-- Use `it` or `test` for individual test cases
-
-**Writing tests**:
-```typescript
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { renderHook, waitFor } from '@testing-library/react';
-
-describe('MyFunction', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it('should do something', () => {
-    const result = myFunction();
-    expect(result).toBe(expected);
-  });
-});
-```
-
-**Testing hooks**:
-```typescript
-import { renderHook, waitFor } from '@testing-library/react';
-
-it('should update state', async () => {
-  const { result } = renderHook(() => useMyHook());
-
-  await result.current.doSomething();
-
-  await waitFor(() => {
-    expect(result.current.state).toBe(expected);
-  });
-});
-```
-
-**Mocking modules**:
-```typescript
-vi.mock('module-name', () => ({
-  functionName: vi.fn(() => mockValue),
-}));
-```
-
-**Coverage requirements**:
-- Statements: 80%
-- Branches: 80%
-- Functions: 80%
-- Lines: 80%
-
-Current coverage: 93.84% statements, 86.95% branches, 100% functions
+Coverage thresholds: 80% statements, branches, functions and lines (`vitest.config.ts`).
 
 ## Code Style & Quality
 
-**Linting Rules** (.eslintrc.cjs):
-- Import sorting enforced via `simple-import-sort` plugin
-- React components don't require `React` import (JSX transform enabled)
-- TypeScript strict mode enabled (`strictNullChecks: true`)
-- No duplicate imports allowed
-- `@typescript-eslint/no-explicit-any`: 'error' - `any` types are forbidden
-- `@typescript-eslint/consistent-type-imports`: 'error' - Type imports must use `import type`
-- Empty functions are allowed (overrides default TS rules)
+- **ESLint** (`eslint.config.js`): `simple-import-sort`, no duplicate imports, `no-explicit-any: error`, `consistent-type-imports: error`.
+- **Prettier** (`.prettierrc`): 2 spaces, semicolons, 120 columns.
+- **Commits**: Conventional Commits, enforced by commitlint via husky; lint-staged runs on pre-commit.
+- **Language**: identifiers and code comments in English (the CI spell checker, `typos`, would "fix" Spanish words inside identifiers); user-facing text in Spanish.
+- **Branches**: `feat/*`/`fix/*` → `develop` → `main`. `main` is production.
 
-**Prettier Formatting** (.prettierrc):
-- 2-space indentation (tabWidth: 2)
-- Semicolons required (semi: true)
-- Bracket spacing enabled
-- 120 character line width (printWidth: 120)
+### Environment Variables
 
-**Commit Messages**:
-- Follows Conventional Commits (enforced by commitlint via husky)
-- Format: `type(scope): description`
-- Common types: feat, fix, refactor, perf, docs, chore, style, test
-- Enforced via `.husky/commit-msg` hook
-
-**Pre-commit Hooks**:
-- Husky runs lint-staged before commits
-- Lints and auto-fixes staged files via `.husky/pre-commit`
-
-**Environment Variables**:
-- `.env` or `.env.local` for local development (not in version control)
-- Required for Algolia integration:
-  - `PUBLIC_ALGOLIA_APPLICATION_ID` - Application ID (shared between client and server)
-  - `PUBLIC_ALGOLIA_INDEX_NAME` - Index name (shared between client and server)
-  - `PUBLIC_ALGOLIA_SEARCH_API_KEY` - Search-only API key for client-side searches (read-only)
-  - `ALGOLIA_ADMIN_API_KEY` - Admin API key for server-side indexing during build (private, keep secret)
-- Required for Giscus comments:
-  - `PUBLIC_GISCUS_REPO` - GitHub repository in format owner/repo
-  - `PUBLIC_GISCUS_REPO_ID` - Repository ID from giscus.app
-  - `PUBLIC_GISCUS_CATEGORY_ID` - Discussion category ID from giscus.app
-- Required for Mailchimp newsletter:
-  - `MAILCHIMP_API_KEY` - Mailchimp API key (private)
-  - `MAILCHIMP_LIST_ID` - Newsletter list ID (private)
-
-## Architecture Decisions
-
-1. **MDX for Content**: Allows mixing markdown with React components for rich, interactive content in articles.
-
-2. **Algolia v5 for Search**: Client-side search without backend queries; indexed at build time via custom integration (src/scripts/algolia.ts) that hooks into `astro:build:generated`. Uses the new Algolia v5 client API with `searchForHits` method.
-
-3. **Giscus for Comments**: Leverages GitHub Discussions, no separate comment backend needed. Comments are embedded per-article using the article slug. Configuration is managed via environment variables with validation and fallback UI for missing configuration.
-
-4. **Vercel Deployment**: Automatic deployments from git, serverless functions support for API endpoints. Using `output: "server"` (server-side rendering) with Vercel adapter enabled. API routes in `src/pages/api/` are automatically deployed as serverless functions by Vercel.
-
-5. **Astro + React Hybrid**: Astro handles static content and routing with file-based routing; React for interactive features only (search with Downshift, dropdowns, progress bar). Interactive components use client directives.
-
-6. **Layout System**: BaseLayout provides common structure (header with search, footer); ArticleLayout extends it with article-specific features (sidebar, TOC from sections, Giscus, share button).
-
-## Design System Reference
-
-Use these token classes throughout the codebase — never use raw hex colors or arbitrary Tailwind values:
-
-| Token | Class | Value |
-|---|---|---|
-| Page background | `bg-background` | `#0a0a0a` |
-| Card / section bg | `bg-surface` | `#111111` |
-| Elevated surface | `bg-surface-raised` | `#161616` |
-| Borders | `border-surface-border` | `#1f1f1f` |
-| Primary text | `text-text-primary` | `#f5f5f5` |
-| Secondary text | `text-text-secondary` | `#a3a3a3` |
-| Muted text | `text-text-muted` | `#7c7c7c` |
-| Accent (cyan) | `text-accent` / `bg-accent` | `#06b6d4` |
-| Accent hover | `hover:bg-accent-hover` | `#0891b2` |
-| Error | `bg-error` / `text-error` | `#ef4444` |
-| Success | `bg-success` | `#22c55e` |
+Validated at startup by `src/utils/env.ts`:
+- Algolia: `PUBLIC_ALGOLIA_APPLICATION_ID`, `PUBLIC_ALGOLIA_INDEX_NAME`, `PUBLIC_ALGOLIA_SEARCH_API_KEY`, `ALGOLIA_ADMIN_API_KEY` (server only)
+- Giscus: `PUBLIC_GISCUS_REPO`, `PUBLIC_GISCUS_REPO_ID`, `PUBLIC_GISCUS_CATEGORY_ID`
+- Mailchimp: `MAILCHIMP_API_KEY`, `MAILCHIMP_LIST_ID`
+- Optional: `SENTRY_AUTH_TOKEN` (source maps), `SKIP_ENV_VALIDATION`, `ALGOLIA_FORCE_INDEX`
 
 ## Performance Considerations
 
-- **Inline Critical CSS**: All styles inlined via `inlineStylesheets: "always"` to avoid render-blocking
-- **Service Worker**: Enables offline fallback via astrojs-service-worker
-- **Image Optimization**: Astro Image component auto-optimizes images
-- **Shiki Syntax Highlighting**: Server-side highlighting, no client JS needed
-- **Partytown**: Analytics scripts run off main thread to avoid blocking
-- **HTML Compression**: Enabled via `compressHTML: true` in astro.config
-- **Prefetching**: Enabled for faster navigation via `prefetch: true`
-
-<!-- autoskills:start -->
+- `inlineStylesheets: "always"`, `compressHTML: true`, `prefetch: true`
+- Service worker precaches only the app shell (see PWA)
+- Shiki highlighting at build time, no client JS
+- Partytown for analytics
+- `vite.ssr.noExternal` bundling for fast cold starts
 
 Summary generated by `autoskills`. Check the full files inside `.claude/skills`.
 
