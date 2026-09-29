@@ -19,12 +19,12 @@ updates:
       - "📦 Dependencies"
     open-pull-requests-limit: 10
     groups:
-      # Minors and patches in one PR; majors keep their own so a breaking change
-      # is reviewed on its own.
-      minor-and-patch:
-        update-types:
-          - "minor"
-          - "patch"
+      # Everything in one PR per run: two runs a year, two PRs at most (npm and
+      # GitHub Actions). Majors come in the same PR and are tested together; a
+      # major that breaks is taken out of that PR, not given its own.
+      npm:
+        patterns:
+          - "*"
     ignore:
       # @astrojs/check only accepts TypeScript ^5 || ^6, so a TypeScript major
       # fails the install (see #186).
@@ -41,3 +41,7 @@ updates:
       - "📦 Dependencies"
       - "🚀 CI/CD"
     open-pull-requests-limit: 5
+    groups:
+      github-actions:
+        patterns:
+          - "*"
