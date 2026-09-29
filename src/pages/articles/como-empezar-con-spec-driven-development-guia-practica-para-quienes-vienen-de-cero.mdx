@@ -1,0 +1,86 @@
+---
+layout: ../../layouts/article/index.astro
+title: "Cómo empezar con Spec-Driven Development: guía práctica para quienes vienen de cero"
+slug: "como-empezar-con-spec-driven-development-guia-practica-para-quienes-vienen-de-cero"
+excerpt: "¿Alguna vez te has encontrado mirando líneas de código generadas por una IA y preguntándote qué quisiste pedir exactamente? En el mundo del Spec-Driven Development, aclaramos esos vacíos creando especificaciones claras antes de que el código tome forma. Acompáñame a descubrir cómo esta metodología puede transformar nuestra manera de trabajar, asegurándonos de que cada aspecto de nuestra aplicación esté bien definido y revisable desde el principio."
+seo_description: "Descubre Spec-Driven Development, una metodología clara para optimizar tu desarrollo con IA al definir especificaciones antes de generar código."
+seo_image: "/images/articles/como-empezar-con-spec-driven-development-guia-practica-para-quienes-vienen-de-cero/como-empezar-con-spec-driven-development-guia-practica-para-quienes-vienen-de-cero.webp"
+date: 2026-09-29T19:06:05-03:00
+categories: ["ai-native-engineering", "developer-experience"]
+tags: ["ai-assisted-development", "documentation", "code-quality", "automation", "developer-productivity"]
+keywords: ["Spec-Driven Development", "SDD guide", "how to start spec-driven development", "writing software specifications", "specifications for login functionality", "specification tools OpenSpec", "Spec Kit", "Kiro integration with specs", "specification writing practices", "benefits of spec-driven development"]
+sections:
+  [
+    { title: "Cuando el agente responde antes de que sepamos qué pedir", anchor: "cuando-el-agente-responde-antes-de-que-sepamos-que-pedir" },
+    { title: "¿Qué es Spec-Driven Development?", anchor: "que-es-spec-driven-development" },
+    { title: "Primer paso: escribir lo que queremos que pase", anchor: "primer-paso-escribir-lo-que-queremos-que-pase" },
+    { title: "Segundo paso: pedir código con una spec al lado", anchor: "segundo-paso-pedir-codigo-con-una-spec-al-lado" },
+    { title: "Tercer paso: revisar contra lo que escribimos", anchor: "tercer-paso-revisar-contra-lo-que-escribimos" },
+    { title: "¿Dónde entran OpenSpec y Spec Kit?", anchor: "donde-entran-openspec-y-spec-kit" },
+    { title: "¿Qué sigue si estás empezando?", anchor: "que-sigue-si-estas-empezando" },
+  ]
+audio_narration: "/audio/articles/como-empezar-con-spec-driven-development-guia-practica-para-quienes-vienen-de-cero.mp3"
+---
+
+Una persona abre el agente y escribe algo parecido a "construye el inicio de sesión de una aplicación", pensando en algo simple, dos campos, correo y contraseña, un botón que diga entrar, una respuesta correcta cuando todo funciona, y a los pocos segundos empiezan a aparecer archivos, componentes, nombres de funciones y quizás hasta una ruta para conectar con el **endpoint** que valida los datos.
+
+## Cuando el agente responde antes de que sepamos qué pedir
+
+Hasta ahí todo parece bien, porque el agente hizo algo, el editor se llenó de código y podemos ver una pantalla que más o menos se parece a lo que teníamos en la cabeza, pero cuando toca revisar aparece la pregunta incómoda: ¿qué le pedimos exactamente?, porque si nadie escribió antes qué debía pasar cuando el correo viene vacío, cuando la contraseña falla o cuando el servidor responde con error, revisar el código se convierte en adivinar intenciones.
+
+Y esto nos va a pasar mucho si usamos IA apurados, porque decimos "login" como si todos entendiéramos lo mismo, pero dentro de esa palabra hay validaciones, mensajes, estados de carga, errores de red, accesibilidad, redirecciones y decisiones pequeñas que terminan viviendo en el código, aunque nunca las hayamos conversado como equipo (o aunque nunca las hayamos escrito nosotros mismos).
+
+El problema no es que la IA escriba código, creo y sin miedo a equivocarme que eso ya es parte del trabajo de muchas personas, el problema aparece cuando le pedimos construir algo que todavía no explicamos bien, porque si la dirección no está escrita, el agente puede producir mucho código y aun así dejarnos sin una forma clara de evaluar si resolvió el problema. Si la **spec** no existe, el agente no está implementando una decisión del equipo, está completando espacios vacíos.
+
+## ¿Qué es Spec-Driven Development?
+
+**Spec-Driven Development**, o **SDD** para hacerlo más corto, es una forma de trabajar donde antes de pedir código escribimos una spec _(especificación)_, es decir, un texto que describe qué queremos que pase, cómo debería comportarse la funcionalidad y cómo vamos a revisar si eso quedó bien implementado (no perfecto, porque perfecto no existe, pero sí revisable por otra persona).
+
+El flujo, explicado desde cero, sería algo así: primero escribimos la spec, después conversamos con el agente usando esa spec como referencia, luego dejamos que proponga o implemente el código, y finalmente revisamos el resultado contra lo que escribimos, no contra una idea suelta que tenemos dando vueltas mientras miramos el **diff** en el editor.
+
+Esto no pertenece a un framework puntual, y acá es donde conviene separar el concepto de la herramienta, porque podemos trabajar con **OpenSpec**, **Spec Kit**, **Kiro** o con cualquier flujo parecido que nos permita escribir, guardar y revisar especificaciones. La herramienta puede cambiar, pero el hábito importante es el mismo: escribir el comportamiento antes de pedir el código.
+
+## Primer paso: escribir lo que queremos que pase
+
+Volvamos al login, porque es un ejemplo simple y a la vez tiene bordes reales, de esos que aparecen cuando alguien usa la aplicación con el correo vacío, con una contraseña incorrecta, con el servidor caído o con una conexión lenta, y si no los escribimos antes, el agente va a tomar decisiones por nosotros (y a veces esas decisiones se ven muy razonables hasta que alguien las revisa con más calma).
+
+Una spec pequeña no tiene que ser un documento enorme ni una plantilla pesada, puede ser media página donde digamos, con lenguaje normal, qué queremos construir y qué casos vamos a aceptar como válidos. Por ejemplo, para un inicio de sesión podríamos escribir:
+
+- **Objetivo:** permitir que una persona ingrese con correo y contraseña.
+- **Usuarios involucrados:** persona que quiere entrar a la aplicación.
+- **Entradas:** correo y contraseña.
+- **Salidas esperadas:** ingreso correcto, mensaje de error o estado de carga.
+- **Casos de error:** correo vacío, contraseña vacía, credenciales inválidas, error del servidor.
+- **Criterios de aceptación:** cada caso anterior tiene un comportamiento visible y revisable.
+
+Fíjate que aún no hemos abierto el editor para crear componentes, tampoco hemos decidido si será **React**, **Vue**, **Svelte** o cualquier otra cosa, porque lo primero es dejar claro el problema en un lenguaje que una persona del equipo pueda leer y discutir, incluso si esa persona no quiere meterse todavía en el detalle de los archivos.
+
+## Segundo paso: pedir código con una spec al lado
+
+Ahora el pedido cambia bastante, porque no es lo mismo escribir "construye un login" que decirle al agente "usa esta spec y propón una implementación para este login, respetando los casos de error y los criterios de aceptación", ya que en el segundo caso el agente no parte desde una palabra gigante, parte desde una lista de decisiones que ya tomamos.
+
+_Lector: Pero eso suena como escribir más para avanzar menos, si igual el agente podría hacerlo rápido._
+
+_Yo: Mmmh... entiendo esa sensación, porque a mí también me pasa cuando quiero resolver algo rápido, pero lo que estamos haciendo no es escribir por escribir, estamos reduciendo ambigüedad antes de que el agente genere archivos, nombres, estados y decisiones que después nos va a costar revisar._
+
+Cuando usamos la spec como contexto real, y no como un texto pegado por cumplir, podemos pedirle al agente que implemente solo lo descrito, que pregunte si falta algo o que proponga una estructura antes de tocar código, y eso nos da una conversación más ordenada, porque el centro ya no es "a ver qué sale", sino "esto es lo que dijimos que debía pasar".
+
+## Tercer paso: revisar contra lo que escribimos
+
+Después viene la parte que a veces saltamos, sobre todo cuando el código compila y la pantalla se ve bien: revisar. Pero revisar código generado por IA sin una spec es mirar una respuesta sin recordar bien cuál era la pregunta, y por eso terminamos diciendo cosas como "se ve bien", cuando en realidad todavía no sabemos si cubre los casos que necesitábamos cubrir.
+
+Revisar contra la spec significa abrir los cambios, leer qué archivos fueron modificados, ejecutar pruebas si existen, probar el login con correo vacío, con contraseña vacía, con credenciales incorrectas y con un error del servidor, y comparar cada resultado contra lo que escribimos antes, punto por punto, sin asumir que el agente entendió todo porque nombró bien una función.
+
+Esto no promete ausencia de bugs, y sería irresponsable venderlo así, porque los bugs van a seguir existiendo, con IA y sin IA, pero nos da una forma más clara de conversar con el código generado, detectar cuando el agente inventó comportamiento, cuando dejó fuera un borde o cuando implementó algo que parece correcto pero no estaba en el acuerdo inicial.
+
+## ¿Dónde entran OpenSpec y Spec Kit?
+
+Herramientas como OpenSpec o Spec Kit entran cuando queremos ordenar este hábito y llevarlo a un flujo de equipo, porque nos ayudan a guardar **specs**, versionarlas junto al código, usarlas dentro del **pull request** y permitir que otra persona entienda por qué se hizo un cambio, sin tener que reconstruir toda la historia mirando solamente los archivos modificados.
+
+El tema está apareciendo con repositorios públicos y discusiones recientes sobre su definición y valor, incluso hay material académico circulando sobre esto ([arxiv.org](https://arxiv.org/abs/2608.25202?utm_source=openai)), pero no quiero inflar el punto más de la cuenta: lo relevante para nosotros es que pasar de prompts sueltos a una forma común de trabajo cambia la conversación del equipo, porque la revisión ya tiene una referencia compartida.
+
+## ¿Qué sigue si estás empezando?
+
+Si vienes de cero, mi recomendación sería tomar una funcionalidad pequeña, ojalá algo tan concreto como un login, escribir una spec de media página, pedirle al agente que implemente solo eso y revisar punto por punto antes de seguir, sin intentar ordenar toda la arquitectura de una aplicación completa en el primer intento (porque ahí nos vamos a cansar antes de aprender el ciclo).
+
+A pesar de que hemos hablado de varias cosas, aún no hemos aprendido todo sobre Spec-Driven Development, pero ya tenemos una forma de no entregarle el volante completo al agente: escribir qué queremos, pedir código con esa referencia y revisar contra lo escrito. Después de repetirlo con algo pequeño, ¿qué funcionalidad apenas más grande podrías especificar antes de pedirle código al agente?
