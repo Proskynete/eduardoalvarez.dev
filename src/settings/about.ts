@@ -64,3 +64,19 @@ export const experience: Experience[] = [
     current: false,
   },
 ];
+
+/**
+ * The «Cómo pienso» statements. They live here, not in the page markup, so the
+ * profile endpoint serves the same words the About page shows.
+ */
+export const beliefs: string[] = [
+  "La IA es una herramienta. No le puedo culpar al martillo si la casa no quedó bien construida: soy yo el que maneja la herramienta, no al revés.",
+  "No me gusta construir software sin entender lo que hace el agente. Por eso primero nos ponemos de acuerdo en qué hay que hacer, y después programamos.",
+  "Un buen desarrollador no es el que escribe más rápido ni el que entrega sin bugs. Es el que entiende el problema y lo resuelve usando el código como herramienta, y ahora también la IA.",
+  "El que no es capaz de escuchar y aprender llega a su techo más rápido.",
+];
+
+export const lifePhilosophy: string[] = [
+  "Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo.",
+  "No permitas que las cosas tomen más tiempo del que tienen que tomar.",
+];

@@ -11,7 +11,7 @@ import {
 } from "@eduardoalvarez/arrecife";
 
 import Layout from "../../layouts/main/index.astro";
-import { experience } from "../../settings/about";
+import { beliefs, experience, lifePhilosophy } from "../../settings/about";
 import { nowItems, lastUpdated } from "../../settings/now";
 import type { NowItem } from "../../settings/now";
 import settings from "../../settings";
@@ -184,19 +184,7 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
 
       {/* One `Blockquote` per belief: the spec asks for 3–4 short statements, not a philosophy essay. */}
       <div class="space-y-6">
-        <Blockquote>
-          La IA es una herramienta. No le puedo culpar al martillo si la casa no quedó bien construida: soy yo el que
-          maneja la herramienta, no al revés.
-        </Blockquote>
-        <Blockquote>
-          No me gusta construir software sin entender lo que hace el agente. Por eso primero nos ponemos de acuerdo en
-          qué hay que hacer, y después programamos.
-        </Blockquote>
-        <Blockquote>
-          Un buen desarrollador no es el que escribe más rápido ni el que entrega sin bugs. Es el que entiende el
-          problema y lo resuelve usando el código como herramienta, y ahora también la IA.
-        </Blockquote>
-        <Blockquote>El que no es capaz de escuchar y aprender llega a su techo más rápido.</Blockquote>
+        {beliefs.map((belief) => <Blockquote>{belief}</Blockquote>)}
       </div>
     </section>
 
@@ -204,8 +192,7 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString("es-CL", {
     <section>
       <h2 class="text-text-primary mb-6">Filosofía de vida</h2>
       <div class="space-y-6">
-        <Blockquote>Si no estás dispuesto a darlo todo, no tienes derecho a intentarlo.</Blockquote>
-        <Blockquote>No permitas que las cosas tomen más tiempo del que tienen que tomar.</Blockquote>
+        {lifePhilosophy.map((quote) => <Blockquote>{quote}</Blockquote>)}
       </div>
     </section>
 
