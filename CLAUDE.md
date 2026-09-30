@@ -50,6 +50,7 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 - `newsletter/index.astro` — Newsletter subscription page.
 - `podcasts/` — Index and `[slug]`. **Switched off** while `podcastsEnabled` is `false` in `settings/podcasts.ts`: the middleware redirects them to `/` and the sitemap leaves them out.
 - `api/subscribe.ts` — Newsletter endpoint (Zod validation, rate limited).
+- `api/profile.json.ts` — Public profile JSON (talks, now, About quotes, articles), prerendered. Read at build time by terminal.eduardoalvarez.dev; its shape is versioned (`PROFILE_VERSION` in `utils/profile.ts`).
 - `rss.xml.ts` — RSS feed.
 
 > **Redirects** (`vercel.json`): `/articulos[/*]` → `/articles[/*]`, `/charlas-talleres` → `/speaking`, and the retired pages `/stack`, `/projects`, `/working-with-me` → `/about`, `/donaciones` → `/`.
@@ -63,9 +64,9 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 
 **`src/components/`** — only what the library does not provide: `article`, `audio-player`, `brand-fin`, `pagination`, `podcast-guest`, `podcast-guest-chips`, `podcast-row`, `splash-screen`, `subscribe` (`index.astro` + `subscribe-form.tsx`), `talk-card`, `text-link`, `ui/image`. Before building a UI piece, check whether arrecife already exports it (`PageHeader`, `EmptyState`, `LinkRow`, `Text`, `Separator`, `Nav`, `buttonVariants`…).
 
-**`src/utils/`** — pure functions: `analytics.ts`, `api-response.ts`, `articles.ts`, `categories.ts`, `date.ts`, `env.ts` (Zod-validated env, fail-fast at startup), `podcasts.ts`, `reading-time.ts`, `strings.ts`.
+**`src/utils/`** — pure functions: `analytics.ts`, `api-response.ts`, `articles.ts`, `categories.ts`, `date.ts`, `env.ts` (Zod-validated env, fail-fast at startup), `podcasts.ts`, `profile.ts` (builds the profile JSON), `reading-time.ts`, `strings.ts`.
 
-**`src/settings/`** — data and config: `index.ts` (site, author, `authorInlineBio`, social, contacts), `manifest-config.ts` (web manifest), `talks.ts`, `now.ts`, `about.ts`, `podcasts.ts`. `stack.ts` and `projects.ts` are leftovers of retired pages and are not imported.
+**`src/settings/`** — data and config: `index.ts` (site, author, `authorInlineBio`, social, contacts), `manifest-config.ts` (web manifest), `talks.ts`, `now.ts`, `about.ts` (experience plus the About quotes: `beliefs`, `lifePhilosophy`), `podcasts.ts`. `stack.ts` and `projects.ts` are leftovers of retired pages and are not imported.
 
 **`src/assets/styles/`** — `base.css` (Tailwind v4 entry: imports arrecife's `tokens/theme.css`, `@source`s the library's `dist`, focus ring) and `article.css` (prose).
 
