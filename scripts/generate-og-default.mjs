@@ -1,5 +1,5 @@
 /**
- * Generates og-default-v2.png with the fin and the current palette.
+ * Generates og-default.png with the fin and the current palette.
  * Run: node scripts/generate-og-default.mjs  (or `npm run brand:og`)
  *
  * The design system documents this template as "recreated from
@@ -16,7 +16,7 @@ import { dirname, resolve } from "path";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 
-import { COLOR, FIN_FOAM } from "./brand.mjs";
+import { COLOR, FIN_FOAM, recordVersions } from "./brand.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -73,6 +73,8 @@ const svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http
 await sharp(Buffer.from(svg), { density: 144 })
   .resize(W, H)
   .png()
-  .toFile(resolve(root, "public/images/og-default-v2.png"));
+  .toFile(resolve(root, "public/images/og-default.png"));
+// The URL carries the content hash: LinkedIn and X cache previews by URL.
+recordVersions(root, ["/images/og-default.png"]);
 
-console.log(`✓ og-default-v2.png (${W}×${H}) — foam fin on ${COLOR.abyss}`);
+console.log(`✓ og-default.png (${W}×${H}) — foam fin on ${COLOR.abyss}`);
