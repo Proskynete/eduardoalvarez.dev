@@ -48,15 +48,34 @@ describe("splashScript", () => {
   it("measures what the iOS status bar takes from the viewport", () => {
     // The launch image centres on the screen; the page starts below the status bar.
     setStandalone(true);
-    vi.stubGlobal("navigator", { ...navigator, standalone: true });
+    // No `standalone` flag: an app added from Chrome on iOS does not have it.
+    vi.stubGlobal("navigator", {
+      userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 26_0 like Mac OS X) AppleWebKit/605.1.15 CriOS/141.0",
+      platform: "iPhone",
+      maxTouchPoints: 5,
+    });
     vi.stubGlobal("screen", { height: 874 });
     vi.stubGlobal("innerHeight", 812);
     run();
     expect(html.style.getPropertyValue(SPLASH_OFFSET_PROPERTY)).toBe("62px");
   });
 
+  it("measures it on iPadOS, which reports a Mac", () => {
+    setStandalone(true);
+    vi.stubGlobal("navigator", { userAgent: "Mozilla/5.0 (Macintosh)", platform: "MacIntel", maxTouchPoints: 5 });
+    vi.stubGlobal("screen", { height: 1194 });
+    vi.stubGlobal("innerHeight", 1170);
+    run();
+    expect(html.style.getPropertyValue(SPLASH_OFFSET_PROPERTY)).toBe("24px");
+  });
+
   it("leaves the offset at zero outside iOS", () => {
     setStandalone(true);
+    vi.stubGlobal("navigator", {
+      userAgent: "Mozilla/5.0 (Linux; Android 15)",
+      platform: "Linux armv8l",
+      maxTouchPoints: 5,
+    });
     vi.stubGlobal("screen", { height: 915 });
     vi.stubGlobal("innerHeight", 830);
     run();

@@ -15,8 +15,10 @@
  * the page starts below the iOS status bar (~62 px on a Pro). Centred in the
  * viewport, the fin landed half of that lower than the launch image's, so the
  * script measures it and the CSS lifts the fin by half (`--pwa-splash-offset`).
- * `navigator.standalone` only exists on iOS, the one place there is a launch
- * image to match.
+ * Only on iOS, the one place there is a launch image to match. Detected by the
+ * device, not by `navigator.standalone`: an app added to the home screen from
+ * Chrome is a WebKit web app too, and that flag is Safari's. iPadOS reports a
+ * Mac, so a touch screen gives it away.
  */
 export const SPLASH_ATTRIBUTE = "data-pwa-splash";
 export const SPLASH_GROUND_PROPERTY = "--pwa-splash-ground";
@@ -31,7 +33,10 @@ export const splashScript = ({ ground }: { ground: string }) => `(function () {
     sessionStorage.setItem("pwa-splash-shown", "true");
     var html = document.documentElement;
     html.style.setProperty("${SPLASH_GROUND_PROPERTY}", ${JSON.stringify(ground)});
-    var offset = window.navigator.standalone === true ? Math.max(0, screen.height - window.innerHeight) : 0;
+    var ios =
+      /iP(hone|ad|od)/.test(window.navigator.userAgent) ||
+      (window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1);
+    var offset = ios ? Math.max(0, screen.height - window.innerHeight) : 0;
     html.style.setProperty("${SPLASH_OFFSET_PROPERTY}", offset + "px");
     html.setAttribute("${SPLASH_ATTRIBUTE}", "");
     setTimeout(function () {
