@@ -4,6 +4,7 @@ import { dark } from "@eduardoalvarez/arrecife/tokens";
 import settings from "../../../settings";
 import appleStartup from "../../../settings/apple-startup-images.json";
 import { brandAssets, versioned } from "../../../settings/brand-assets";
+import { splashScript } from "../../../components/splash-screen/script";
 
 export interface Props {
   title?: string;
@@ -66,6 +67,9 @@ const { articlePublishedTime, articleAuthor, articleTags, schema, noindex } = As
       />
     ))
   }
+  <!-- The splash's fin, fetched early and only by the installed app: it has to be
+       on screen in the first paint, the frame where iOS drops its launch image. -->
+  <link rel="preload" as="image" href="/brand/fin-foam.png" media="(display-mode: standalone)" fetchpriority="high" />
   <meta name="generator" content={Astro.generator} />
 
   <link rel="canonical" href={canonicalURL} />
@@ -134,6 +138,8 @@ const { articlePublishedTime, articleAuthor, articleTags, schema, noindex } = As
     preference to be asked about.
   */}
   <script is:inline set:html={themeScript({ base: "dark" })} />
+  {/* Before the first paint too: see components/splash-screen/script.ts. */}
+  <script is:inline set:html={splashScript} />
 </head>
 
 <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-YP2WF7DHFM" is:inline></script>

@@ -1,66 +1,78 @@
 ---
-import BrandFin from "../brand-fin/index.astro";
+import { Isotype } from "@eduardoalvarez/arrecife/brand";
 
-// Animated PWA splash screen — shows only in standalone mode (iOS & Android PWA),
-// once per session. The fin powers on and the wordmark follows: ~1.5s.
+// Animated PWA splash screen — standalone only (iOS & Android PWA), once per
+// session, ~1.5 s. `splashScript` (./script.ts) decides in <head>, before the
+// first paint, and sets `data-pwa-splash` on <html>; everything else is CSS.
 //
-// The fin is `BrandFin`, the library's Isotype, and not a path drawn here. The
-// old one was a hand-written silhouette in accent, with spots and no wave: the
-// icon on the home screen and the splash that opened from it were two different
-// marks. It also ran ~4.3s, long enough to read as the app being slow.
-//
-// The fin starts already visible, in the place and at the size the iOS launch
-// image draws it (see `STARTUP` in scripts/brand.mjs), so the static image hands
-// over to this page without a jump; only the glow and the wordmark animate.
+// It continues the iOS launch image instead of replacing it, so the hand-off is
+// invisible:
+// - Same ground: always dark (`data-theme="dark"`), like the launch image, even
+//   when the visitor reads in light mode. The page fades in after it.
+// - Same fin, same place: 112 px tall, its centre 38.5 px above the screen's
+//   (`STARTUP` in scripts/brand.mjs draws the launch images with those numbers;
+//   change both together). Positioned absolutely, so neither the wordmark nor
+//   the fonts can move it.
+// Then only the glow and the wordmark animate.
 ---
 
-<div id="pwa-splash" aria-hidden="true" role="presentation">
-  <div class="splash-inner">
-    <div class="splash-fin">
-      <BrandFin class="h-28 w-auto" />
-    </div>
+<div id="pwa-splash" data-theme="dark" aria-hidden="true" role="presentation">
+  <div class="splash-fin">
+    <Isotype background="dark" alt="" decoding="sync" fetchPriority="high" />
+  </div>
 
-    <!-- Wordmark: fades in once the fin is up -->
-    <div class="splash-logotype">
-      <div class="splash-separator"></div>
-      <div class="splash-text">
-        <span class="splash-name">Eduardo Álvarez</span>
-        <span class="splash-tagline">entender · construir · compartir</span>
-      </div>
+  <!-- Wordmark: fades in once the fin is up -->
+  <div class="splash-logotype">
+    <div class="splash-separator"></div>
+    <div class="splash-text">
+      <span class="splash-name">Eduardo Álvarez</span>
+      <span class="splash-tagline">entender · construir · compartir</span>
     </div>
   </div>
 </div>
 
 <style is:global>
   /*
-    Cero hexadecimales literales — regla 1 del sistema. El fondo, el brillo y el
-    texto salen de los tokens, así que la pantalla de arranque sigue el tema; la
-    aleta la resuelve `BrandFin` (espuma sobre oscuro, dos azules sobre claro).
+    Cero hexadecimales literales — regla 1 del sistema. `data-theme="dark"` en
+    el contenedor resuelve los tokens oscuros aunque la página esté en claro.
   */
   #pwa-splash {
+    /* Must match STARTUP in scripts/brand.mjs. */
+    --splash-fin-height: 112px;
+    --splash-fin-lift: 38.5px;
+    --splash-fin-top: calc(50% - var(--splash-fin-lift) - var(--splash-fin-height) / 2);
+
     position: fixed;
     inset: 0;
     z-index: 9999;
     background: var(--color-background);
     display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
   }
 
-  #pwa-splash.is-active {
-    display: flex;
+  html[data-pwa-splash] #pwa-splash {
+    display: block;
+    animation: splash-exit 0.3s ease-out 1.2s forwards;
   }
 
-  .splash-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 28px;
+  .splash-fin {
+    position: absolute;
+    top: var(--splash-fin-top);
+    left: 50%;
+    height: var(--splash-fin-height);
+    transform: translateX(-50%);
+  }
+
+  .splash-fin img {
+    display: block;
+    height: 100%;
+    width: auto;
   }
 
   .splash-logotype {
+    position: absolute;
+    top: calc(var(--splash-fin-top) + var(--splash-fin-height) + 28px);
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -101,14 +113,23 @@ import BrandFin from "../brand-fin/index.astro";
     font-size: var(--text-meta);
     font-weight: 400;
     letter-spacing: 0.28em;
+    /* The tracking also follows the last letter; this puts the line back on centre. */
+    padding-inline-start: 0.28em;
   }
 
-  #pwa-splash.is-exit {
-    animation: splash-exit 0.3s ease-out forwards;
-    pointer-events: none;
+  /* ─── Sequence ─── */
+
+  /* 1. The fin powers on */
+  html[data-pwa-splash] .splash-fin {
+    animation: glow-on 0.5s ease-out 0.1s forwards;
   }
 
-  /* ─── Keyframes ─── */
+  /* 2. The wordmark enters */
+  html[data-pwa-splash] .splash-logotype {
+    animation: logotype-in 0.4s ease-out 0.3s forwards;
+  }
+
+  /* 3. The splash fades out over the page (on #pwa-splash, above) */
 
   @keyframes glow-on {
     from {
@@ -117,15 +138,6 @@ import BrandFin from "../brand-fin/index.astro";
     to {
       filter: drop-shadow(0 0 10px color-mix(in oklab, var(--color-accent) 45%, transparent))
         drop-shadow(0 0 28px color-mix(in oklab, var(--color-accent) 20%, transparent));
-    }
-  }
-
-  @keyframes splash-exit {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
     }
   }
 
@@ -140,56 +152,24 @@ import BrandFin from "../brand-fin/index.astro";
     }
   }
 
-  /* ─── Sequence (.is-drawing fires everything) ─── */
-
-  /* 1. The fin powers on */
-  #pwa-splash.is-drawing .splash-fin {
-    animation: glow-on 0.5s ease-out 0.1s forwards;
+  @keyframes splash-exit {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
   }
 
-  /* 2. The wordmark enters */
-  #pwa-splash.is-drawing .splash-logotype {
-    animation: logotype-in 0.4s ease-out 0.3s forwards;
-  }
-
-  /* No animation: jump straight to the finished state */
+  /* No animation: the finished state, then out */
   @media (prefers-reduced-motion: reduce) {
-    #pwa-splash.is-drawing .splash-fin {
+    html[data-pwa-splash] .splash-fin {
       animation: none;
     }
-    #pwa-splash.is-drawing .splash-logotype {
+    html[data-pwa-splash] .splash-logotype {
       animation: none;
       opacity: 1;
     }
   }
 </style>
-
-<script>
-  const splash = document.getElementById("pwa-splash");
-  if (splash) {
-    const isStandalone =
-      window.matchMedia("(display-mode: standalone)").matches ||
-      (window.navigator as unknown as { standalone?: boolean }).standalone === true;
-
-    const alreadyShown = sessionStorage.getItem("pwa-splash-shown");
-
-    if (isStandalone && !alreadyShown) {
-      sessionStorage.setItem("pwa-splash-shown", "true");
-
-      splash.classList.add("is-active");
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          splash.classList.add("is-drawing");
-        });
-      });
-
-      setTimeout(() => {
-        splash.classList.add("is-exit");
-        setTimeout(() => splash.remove(), 300);
-      }, 1200);
-    } else {
-      splash.remove();
-    }
-  }
-</script>
