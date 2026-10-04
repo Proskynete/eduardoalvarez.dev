@@ -66,7 +66,7 @@ The system SHALL provide a complete icon set generated from the fin.
 
 **Files in `public/images/favicon/`:**
 ```
-favicon-v2.svg       — fin on a #080b12 rounded square (rx 15/64)
+favicon.svg          — fin on a #080b12 rounded square (rx 15/64)
 favicon-32x32.png    — 32×32
 favicon-16x16.png    — 16×16
 favicon.ico          — multi-size 16 + 32 + 48, PNG-encoded entries
@@ -74,16 +74,20 @@ favicon.ico          — multi-size 16 + 32 + 48, PNG-encoded entries
 
 **Files in `public/images/manifest/`:**
 ```
-apple-touch-icon-v2.png       — 180×180, full-bleed dark background (iOS rounds it itself)
-android-chrome-192x192-v2.png — 192×192
-android-chrome-512x512-v2.png — 512×512
-mstile-150x150-v2.png         — 150×150
+apple-touch-icon.png          — 180×180, full-bleed dark background (iOS rounds it itself)
+android-chrome-192x192.png    — 192×192
+android-chrome-512x512.png    — 512×512
+mstile-150x150.png            — 150×150
 ```
 
-**Versioned paths:** Vercel serves `/images/*` as `immutable` for a year, so a file whose
-drawing changes SHALL also change its path. The `-v2` files replaced the retired EA-01
-isotype. The paths live in `src/settings/brand-assets.ts`, which `head.astro` and the
-manifest read, and a unit test checks that every one of them exists in `public/`.
+**Versioned URLs:** Vercel serves `/images/*` as `immutable` for a year, and the retired
+EA-01 isotype used these same file names, so a file whose drawing changes SHALL also change
+its URL. File names are stable; every URL carries `?v=<first 8 hex of the content's SHA-256>`.
+The generators (`npm run brand:assets`) record the hashes in
+`src/settings/brand-asset-versions.json`; `src/settings/brand-assets.ts` builds the URLs
+that `head.astro`, the manifest and `public/browserconfig.xml` use, iOS launch screens
+included. A unit test checks that every file exists and that its recorded hash matches its
+content. The service worker ignores the `v` parameter when matching its precache.
 
 **No Safari pinned-tab icon** until the fin is vectorised: `mask-icon` needs a
 single-colour vector, and a bitmap wrapped in an SVG is not one.
@@ -98,11 +102,11 @@ inscribed in that circle cannot exceed ~0.57 of the width.
 
 **HTML meta tags (in `src/layouts/base/components/head.astro`):**
 ```html
-<link rel="icon" href="/images/favicon/favicon-v2.svg" type="image/svg+xml" />
-<link rel="icon" href="/images/favicon/favicon-32x32.png" type="image/png" sizes="32x32" />
-<link rel="icon" href="/images/favicon/favicon-16x16.png" type="image/png" sizes="16x16" />
-<link rel="shortcut icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
-<link rel="apple-touch-icon" sizes="180x180" href="/images/manifest/apple-touch-icon-v2.png" />
+<link rel="icon" href="/images/favicon/favicon.svg?v=<hash>" type="image/svg+xml" />
+<link rel="icon" href="/images/favicon/favicon-32x32.png?v=<hash>" type="image/png" sizes="32x32" />
+<link rel="icon" href="/images/favicon/favicon-16x16.png?v=<hash>" type="image/png" sizes="16x16" />
+<link rel="shortcut icon" href="/favicon.ico?v=<hash>" sizes="16x16 32x32 48x48" />
+<link rel="apple-touch-icon" sizes="180x180" href="/images/manifest/apple-touch-icon.png?v=<hash>" />
 ```
 
 #### Scenario: Browser shows brand favicon
@@ -180,11 +184,11 @@ The system SHALL have a default OG image for pages without a specific `seo_image
 - Vertical rule `#1f1f1f` separating mark from text
 - Wordmark: Geist Bold 66px, `#f5f5f5`
 - Tagline below: "Technical Lead · Spec-Driven Development", Geist Regular 27px, `#a3a3a3`
-- File: `public/images/og-default-v2.png`
+- File: `public/images/og-default.png`
 
 #### Scenario: Article without custom OG uses default
 - **WHEN** an article frontmatter has no `seo_image`
-- **THEN** the `<meta property="og:image">` SHALL point to the absolute URL of `/images/og-default-v2.png`
+- **THEN** the `<meta property="og:image">` SHALL point to the absolute URL of `/images/og-default.png?v=<hash>`
 
 ---
 

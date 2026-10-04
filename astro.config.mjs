@@ -160,6 +160,9 @@ export default defineConfig({
           "brand/fin-foam.png",
           "brand/fin.png",
         ],
+        // Brand URLs carry `?v=<hash>` (src/settings/brand-assets.ts); the
+        // precache stores them without it, so drop it when matching.
+        ignoreURLParametersMatching: [/^utm_/, /^fbclid$/, /^v$/],
         runtimeCaching: [
           {
             /*
