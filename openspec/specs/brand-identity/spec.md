@@ -205,9 +205,13 @@ base          M52 55 L15 55 C11.5 55 11 54 12 52
 Every animated stroke SHALL declare `pathLength="100"` so a single
 `stroke-dasharray: 100` normalises timing across segments of different real length.
 
-**PWA splash** (`src/components/splash-screen/index.astro`): the outline draws, the fill
-rises behind it, the spots pop in staggered, the mark glows, the wordmark enters. Total
-under the 3800ms exit timeout.
+**PWA splash** (`src/components/splash-screen/index.astro`): standalone only, once per
+session, ~1.5 s. It continues the iOS launch image instead of replacing it: an inline
+script in `<head>` (`splash-screen/script.ts`) marks `<html>` with `data-pwa-splash` before
+the first paint, so the splash is already on screen in the frame where iOS drops the launch
+image. It is always dark like the launch image, whatever the theme, and the fin sits at
+the launch image's size and place (`STARTUP` in `scripts/brand.mjs`), absolutely positioned.
+Then the mark glows, the wordmark enters and the splash fades out over the page.
 
 **404** (`src/pages/404.astro`): the same three strokes, failing progressively — the leading
 edge completes, the trailing edge reaches 78% and collapses, the base freezes as a fragment,
