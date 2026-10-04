@@ -55,11 +55,9 @@ export const SCALE = {
 export const RADIUS = 15 / 64;
 
 /**
- * iOS launch screens. They show the fin exactly where the animated splash
- * (`src/components/splash-screen`) draws it, so the hand-off from the static
- * image to the page is not a jump: 112 CSS px tall (`h-28`), and lifted 38.5 CSS
- * px above centre because the splash centres the fin and the wordmark as one
- * group. Change the splash's layout and these two numbers go with it.
+ * iOS launch screens: the fin, 112 CSS px tall, lifted 38.5 CSS px above the
+ * centre of the screen. They are the installed app's only splash; the page
+ * follows them directly.
  */
 export const STARTUP = {
   finHeight: 112,
