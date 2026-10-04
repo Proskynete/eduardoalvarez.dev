@@ -4,6 +4,7 @@ import {
   SPLASH_ATTRIBUTE,
   SPLASH_DURATION_MS,
   SPLASH_GROUND_PROPERTY,
+  SPLASH_OFFSET_PROPERTY,
   splashScript,
 } from "../../../src/components/splash-screen/script";
 
@@ -24,6 +25,7 @@ describe("splashScript", () => {
     sessionStorage.clear();
     html.removeAttribute(SPLASH_ATTRIBUTE);
     html.style.removeProperty(SPLASH_GROUND_PROPERTY);
+    html.style.removeProperty(SPLASH_OFFSET_PROPERTY);
   });
 
   afterEach(() => {
@@ -43,12 +45,31 @@ describe("splashScript", () => {
     expect(html.style.getPropertyValue(SPLASH_GROUND_PROPERTY)).toBe(GROUND);
   });
 
+  it("measures what the iOS status bar takes from the viewport", () => {
+    // The launch image centres on the screen; the page starts below the status bar.
+    setStandalone(true);
+    vi.stubGlobal("navigator", { ...navigator, standalone: true });
+    vi.stubGlobal("screen", { height: 874 });
+    vi.stubGlobal("innerHeight", 812);
+    run();
+    expect(html.style.getPropertyValue(SPLASH_OFFSET_PROPERTY)).toBe("62px");
+  });
+
+  it("leaves the offset at zero outside iOS", () => {
+    setStandalone(true);
+    vi.stubGlobal("screen", { height: 915 });
+    vi.stubGlobal("innerHeight", 830);
+    run();
+    expect(html.style.getPropertyValue(SPLASH_OFFSET_PROPERTY)).toBe("0px");
+  });
+
   it("clears the mark once the sequence has finished", () => {
     setStandalone(true);
     run();
     vi.advanceTimersByTime(SPLASH_DURATION_MS);
     expect(html.hasAttribute(SPLASH_ATTRIBUTE)).toBe(false);
     expect(html.style.getPropertyValue(SPLASH_GROUND_PROPERTY)).toBe("");
+    expect(html.style.getPropertyValue(SPLASH_OFFSET_PROPERTY)).toBe("");
   });
 
   it("shows once per session", () => {
