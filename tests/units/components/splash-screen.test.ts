@@ -1,9 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { SPLASH_ATTRIBUTE, SPLASH_DURATION_MS, splashScript } from "../../../src/components/splash-screen/script";
+import {
+  SPLASH_ATTRIBUTE,
+  SPLASH_DURATION_MS,
+  SPLASH_GROUND_PROPERTY,
+  splashScript,
+} from "../../../src/components/splash-screen/script";
 
 const html = document.documentElement;
-const run = () => new Function(splashScript)();
+const GROUND = "#091319";
+const run = () => new Function(splashScript({ ground: GROUND }))();
 
 function setStandalone(standalone: boolean) {
   vi.stubGlobal(
@@ -17,6 +23,7 @@ describe("splashScript", () => {
     vi.useFakeTimers();
     sessionStorage.clear();
     html.removeAttribute(SPLASH_ATTRIBUTE);
+    html.style.removeProperty(SPLASH_GROUND_PROPERTY);
   });
 
   afterEach(() => {
@@ -30,11 +37,18 @@ describe("splashScript", () => {
     expect(html.hasAttribute(SPLASH_ATTRIBUTE)).toBe(true);
   });
 
+  it("hands <html> the launch image's ground, whatever the theme", () => {
+    setStandalone(true);
+    run();
+    expect(html.style.getPropertyValue(SPLASH_GROUND_PROPERTY)).toBe(GROUND);
+  });
+
   it("clears the mark once the sequence has finished", () => {
     setStandalone(true);
     run();
     vi.advanceTimersByTime(SPLASH_DURATION_MS);
     expect(html.hasAttribute(SPLASH_ATTRIBUTE)).toBe(false);
+    expect(html.style.getPropertyValue(SPLASH_GROUND_PROPERTY)).toBe("");
   });
 
   it("shows once per session", () => {

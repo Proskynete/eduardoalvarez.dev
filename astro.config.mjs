@@ -149,9 +149,11 @@ export default defineConfig({
           "images/manifest/*.png", // not startup/: iOS fetches those itself, at install
           "favicon.ico",
           "manifest.webmanifest",
-          // The prerendered pages: home, listings, about, newsletter, 404, offline.
-          "index.html",
-          "*/index.html",
+          // No page HTML but the fallbacks. A precached page is served cache-first,
+          // ahead of the NetworkFirst route below: after every deploy the installed
+          // app opened the previous version of the home page. Pages are cached as
+          // they are read instead.
+          "offline/index.html",
           "404.html",
           // The faces the 404 and the offline page draw, so they draw offline.
           "brand/face-confused.png",

@@ -139,7 +139,7 @@ const { articlePublishedTime, articleAuthor, articleTags, schema, noindex } = As
   */}
   <script is:inline set:html={themeScript({ base: "dark" })} />
   {/* Before the first paint too: see components/splash-screen/script.ts. */}
-  <script is:inline set:html={splashScript} />
+  <script is:inline set:html={splashScript({ ground: dark.background })} />
 </head>
 
 <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-YP2WF7DHFM" is:inline></script>
