@@ -7,21 +7,26 @@
  * of it: a flash, and what read as a second splash.
  *
  * Standalone only, once per session. The attribute drives the whole sequence in
- * CSS (`index.astro`) and is removed when the exit fade has finished.
+ * CSS (`index.astro`) and is removed when the exit fade has finished. `ground`
+ * is the launch image's colour: `<html>` paints it, with the fin, from the first
+ * frame, before `<body>` (and the splash element in it) has even arrived.
  */
 export const SPLASH_ATTRIBUTE = "data-pwa-splash";
+export const SPLASH_GROUND_PROPERTY = "--pwa-splash-ground";
 export const SPLASH_DURATION_MS = 1500;
 
-export const splashScript = `(function () {
+export const splashScript = ({ ground }: { ground: string }) => `(function () {
   try {
     var standalone =
       window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
     if (!standalone || sessionStorage.getItem("pwa-splash-shown")) return;
     sessionStorage.setItem("pwa-splash-shown", "true");
     var html = document.documentElement;
+    html.style.setProperty("${SPLASH_GROUND_PROPERTY}", ${JSON.stringify(ground)});
     html.setAttribute("${SPLASH_ATTRIBUTE}", "");
     setTimeout(function () {
       html.removeAttribute("${SPLASH_ATTRIBUTE}");
+      html.style.removeProperty("${SPLASH_GROUND_PROPERTY}");
     }, ${SPLASH_DURATION_MS});
   } catch (e) {}
 })();`;
