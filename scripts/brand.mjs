@@ -7,6 +7,9 @@
  *
  * Values must match BRAND.md and tailwind.config.mjs.
  */
+import { createHash } from "crypto";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { resolve } from "path";
 
 /**
  * The fin — the real brand mark, in `public/brand/`.
@@ -62,3 +65,28 @@ export const STARTUP = {
   finHeight: 112,
   lift: 38.5,
 };
+
+/**
+ * Cache-busting for the brand files.
+ *
+ * Vercel serves `/images/*` as `immutable` for a year, and the old brand used
+ * these same paths, so a file whose drawing changes must change its URL. The
+ * file names stay stable; the URL carries `?v=<hash of the content>`. Every
+ * generator records the hash of what it writes here, and
+ * `src/settings/brand-assets.ts` builds the URLs from it.
+ */
+export const VERSIONS_FILE = "src/settings/brand-asset-versions.json";
+
+/** @param {string} root @param {string[]} publicPaths — site paths, e.g. `/images/og-default.png` */
+export function recordVersions(root, publicPaths) {
+  const file = resolve(root, VERSIONS_FILE);
+  const current = existsSync(file) ? JSON.parse(readFileSync(file, "utf-8")) : {};
+  for (const path of publicPaths) {
+    current[path] = createHash("sha256")
+      .update(readFileSync(resolve(root, `public${path}`)))
+      .digest("hex")
+      .slice(0, 8);
+  }
+  const sorted = Object.fromEntries(Object.entries(current).sort(([a], [b]) => a.localeCompare(b)));
+  writeFileSync(file, `${JSON.stringify(sorted, null, 2)}\n`);
+}
