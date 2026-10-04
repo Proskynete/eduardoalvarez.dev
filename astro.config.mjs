@@ -158,7 +158,7 @@ export default defineConfig({
           // The faces the 404 and the offline page draw, so they draw offline.
           "brand/face-confused.png",
           "brand/face-waiting.png",
-          // The fin, for the splash and the header when the app opens offline.
+          // The fin, for the header when the app opens offline.
           "brand/fin-foam.png",
           "brand/fin.png",
         ],
