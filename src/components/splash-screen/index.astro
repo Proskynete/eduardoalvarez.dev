@@ -13,6 +13,9 @@ import { Isotype } from "@eduardoalvarez/arrecife/brand";
 //   (`STARTUP` in scripts/brand.mjs draws the launch images with those numbers;
 //   change both together). Positioned absolutely, so neither the wordmark nor
 //   the fonts can move it.
+// - From the first frame: `<html>` itself paints the ground and the fin, so
+//   nothing depends on `<body>` having arrived (the inlined CSS puts it ~130 KB
+//   into the document). The splash element then covers it with the same image.
 // Then only the glow and the wordmark animate.
 ---
 
@@ -37,9 +40,6 @@ import { Isotype } from "@eduardoalvarez/arrecife/brand";
     el contenedor resuelve los tokens oscuros aunque la página esté en claro.
   */
   #pwa-splash {
-    /* Must match STARTUP in scripts/brand.mjs. */
-    --splash-fin-height: 112px;
-    --splash-fin-lift: 38.5px;
     --splash-fin-top: calc(50% - var(--splash-fin-lift) - var(--splash-fin-height) / 2);
 
     position: fixed;
@@ -47,6 +47,20 @@ import { Isotype } from "@eduardoalvarez/arrecife/brand";
     z-index: 9999;
     background: var(--color-background);
     display: none;
+  }
+
+  /* The launch image again, painted by <html> while <body> is still on its way.
+     `min-height` gives the root a viewport-tall box to centre in; iOS ignores
+     `background-attachment: fixed`. */
+  html[data-pwa-splash] {
+    /* Must match STARTUP in scripts/brand.mjs. */
+    --splash-fin-height: 112px;
+    --splash-fin-lift: 38.5px;
+
+    min-height: 100%;
+    background: var(--pwa-splash-ground) url("/brand/fin-foam.png") no-repeat;
+    background-size: auto var(--splash-fin-height);
+    background-position: 50% calc(50% - var(--splash-fin-lift));
   }
 
   html[data-pwa-splash] #pwa-splash {
