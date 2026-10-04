@@ -7,7 +7,6 @@ import { ScrollingProgressBar } from "@eduardoalvarez/arrecife";
 import BaseHead, { type Props as BaseHeadProps } from "./components/head.astro";
 import Footer from "./components/footer/index.astro";
 import Header from "./components/header/index.astro";
-import SplashScreen from "../../components/splash-screen/index.astro";
 
 import SpeedInsights from "@vercel/speed-insights/astro";
 import settings from "../../settings";
@@ -32,8 +31,6 @@ const { seo } = Astro.props;
   <ClientRouter />
 
   <body class="antialiased bg-background text-text-primary">
-    <SplashScreen />
-
     <!-- Skip Navigation Links -->
     <a href="#main-content" class="skip-to-content">Saltar al contenido principal</a>
 
