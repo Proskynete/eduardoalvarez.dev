@@ -210,7 +210,9 @@ session, ~1.5 s. It continues the iOS launch image instead of replacing it: an i
 script in `<head>` (`splash-screen/script.ts`) marks `<html>` with `data-pwa-splash` before
 the first paint, so the splash is already on screen in the frame where iOS drops the launch
 image; until `<body>` arrives, `<html>` itself paints the launch image's ground and fin. It is always dark like the launch image, whatever the theme, and the fin sits at
-the launch image's size and place (`STARTUP` in `scripts/brand.mjs`), absolutely positioned.
+the launch image's size and place (`STARTUP` in `scripts/brand.mjs`), absolutely positioned,
+centred on the screen rather than the viewport: on iOS the page starts below the status bar,
+so the script measures that offset and the fin rises by half of it.
 Then the mark glows, the wordmark enters and the splash fades out over the page.
 
 **404** (`src/pages/404.astro`): the same three strokes, failing progressively — the leading

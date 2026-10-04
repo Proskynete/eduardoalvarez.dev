@@ -9,10 +9,11 @@ import { Isotype } from "@eduardoalvarez/arrecife/brand";
 // invisible:
 // - Same ground: always dark (`data-theme="dark"`), like the launch image, even
 //   when the visitor reads in light mode. The page fades in after it.
-// - Same fin, same place: 112 px tall, its centre 38.5 px above the screen's
+// - Same fin, same place: 112 px tall, its centre 38.5 px above the SCREEN's
 //   (`STARTUP` in scripts/brand.mjs draws the launch images with those numbers;
-//   change both together). Positioned absolutely, so neither the wordmark nor
-//   the fonts can move it.
+//   change both together). The screen's, not the viewport's: on iOS the page
+//   starts below the status bar, and the script measures by how much.
+//   Positioned absolutely, so neither the wordmark nor the fonts can move it.
 // - From the first frame: `<html>` itself paints the ground and the fin, so
 //   nothing depends on `<body>` having arrived (the inlined CSS puts it ~130 KB
 //   into the document). The splash element then covers it with the same image.
@@ -40,7 +41,7 @@ import { Isotype } from "@eduardoalvarez/arrecife/brand";
     el contenedor resuelve los tokens oscuros aunque la página esté en claro.
   */
   #pwa-splash {
-    --splash-fin-top: calc(50% - var(--splash-fin-lift) - var(--splash-fin-height) / 2);
+    --splash-fin-top: calc(50% - var(--splash-fin-lift) - var(--splash-offset) / 2 - var(--splash-fin-height) / 2);
 
     position: fixed;
     inset: 0;
@@ -56,11 +57,14 @@ import { Isotype } from "@eduardoalvarez/arrecife/brand";
     /* Must match STARTUP in scripts/brand.mjs. */
     --splash-fin-height: 112px;
     --splash-fin-lift: 38.5px;
+    /* What the iOS status bar takes from the top of the viewport; the launch
+       image centres on the screen, not on the viewport. See script.ts. */
+    --splash-offset: var(--pwa-splash-offset, 0px);
 
     min-height: 100%;
     background: var(--pwa-splash-ground) url("/brand/fin-foam.png") no-repeat;
     background-size: auto var(--splash-fin-height);
-    background-position: 50% calc(50% - var(--splash-fin-lift));
+    background-position: 50% calc(50% - var(--splash-fin-lift) - var(--splash-offset) / 2);
   }
 
   html[data-pwa-splash] #pwa-splash {
