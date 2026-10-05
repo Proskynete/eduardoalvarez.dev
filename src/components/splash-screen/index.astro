@@ -1,0 +1,52 @@
+---
+// The installed app's splash: the iOS launch image itself, held still and then
+// faded into the page. `splashScript` (./script.ts) decides in <head> and sets
+// the attribute and the image; this is the element that covers the page, with
+// the same picture `<html>` paints before `<body>` arrives. Why an image and not
+// an animation: see script.ts.
+---
+
+<div id="pwa-splash" aria-hidden="true" role="presentation"></div>
+
+<style is:global>
+  /* The launch image covers the whole screen; the viewport starts below the iOS
+     status bar. Drawn at screen size and lifted by the difference, it lands
+     exactly where iOS drew it. */
+  html[data-pwa-splash],
+  html[data-pwa-splash] #pwa-splash {
+    background: var(--pwa-splash-ground) var(--pwa-splash-image) no-repeat;
+    background-size: var(--pwa-splash-width) var(--pwa-splash-height);
+    background-position: 50% calc(-1 * var(--pwa-splash-offset));
+  }
+
+  /* A viewport-tall box, so the first frame (no <body> yet) has room to paint. */
+  html[data-pwa-splash] {
+    min-height: 100%;
+  }
+
+  #pwa-splash {
+    display: none;
+  }
+
+  /* Holds 1.4 s, fades 0.4 s: SPLASH_HOLD_MS and SPLASH_FADE_MS in script.ts. */
+  html[data-pwa-splash] #pwa-splash {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    animation: pwa-splash-out 0.4s ease-out 1.4s forwards;
+  }
+
+  @keyframes pwa-splash-out {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html[data-pwa-splash] #pwa-splash {
+      animation-duration: 0s;
+    }
+  }
+</style>
