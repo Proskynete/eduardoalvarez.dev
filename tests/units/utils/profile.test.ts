@@ -107,6 +107,12 @@ describe("buildProfile", () => {
     expect(profile.quotes.lifePhilosophy).toHaveLength(1);
   });
 
+  it("debe llevar el fragmento de la búsqueda de la terminal sin cambiar la versión", () => {
+    const profile = buildProfile(baseInput());
+    expect(profile.tiburoncin).toMatch(/^🦈 5\/6 «.+»$/);
+    expect(profile.version).toBe(1);
+  });
+
   it("debe usar la fecha actual cuando no recibe una", () => {
     const profile = buildProfile(baseInput({ now: undefined }));
 
