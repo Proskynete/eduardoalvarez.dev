@@ -28,13 +28,13 @@
     display: none;
   }
 
-  /* Holds 1.4 s, fades 0.4 s: SPLASH_HOLD_MS and SPLASH_FADE_MS in script.ts. */
+  /* Holds, then fades: SPLASH_HOLD_MS and SPLASH_FADE_MS in script.ts. */
   html[data-pwa-splash] #pwa-splash {
     display: block;
     position: fixed;
     inset: 0;
     z-index: 9999;
-    animation: pwa-splash-out 0.4s ease-out 1.4s forwards;
+    animation: pwa-splash-out var(--pwa-splash-fade) ease-out var(--pwa-splash-hold) forwards;
   }
 
   @keyframes pwa-splash-out {

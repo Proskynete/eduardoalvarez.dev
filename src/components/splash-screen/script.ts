@@ -20,9 +20,13 @@
  */
 export const SPLASH_ATTRIBUTE = "data-pwa-splash";
 export const SPLASH_SHOWN_KEY = "pwa-splash-shown";
-/** When the splash starts fading, and how long the fade takes (index.astro). */
-export const SPLASH_HOLD_MS = 1400;
-export const SPLASH_FADE_MS = 400;
+/**
+ * How long the splash stays fully on screen, and how long it takes to fade.
+ * The single source: the script hands both to the CSS. 1.4 s was too short to
+ * read the wordmark.
+ */
+export const SPLASH_HOLD_MS = 2500;
+export const SPLASH_FADE_MS = 500;
 
 /** Launch image URLs keyed by `${width}x${height}@${ratio}`, in CSS px. */
 export type SplashImages = Record<string, string>;
@@ -51,10 +55,12 @@ export const splashScript = ({ ground, images }: { ground: string; images: Splas
     style.setProperty("--pwa-splash-width", Math.min(w, h) + "px");
     style.setProperty("--pwa-splash-height", Math.max(w, h) + "px");
     style.setProperty("--pwa-splash-offset", Math.max(0, Math.max(w, h) - window.innerHeight) + "px");
+    style.setProperty("--pwa-splash-hold", "${SPLASH_HOLD_MS}ms");
+    style.setProperty("--pwa-splash-fade", "${SPLASH_FADE_MS}ms");
     html.setAttribute("${SPLASH_ATTRIBUTE}", "");
     setTimeout(function () {
       html.removeAttribute("${SPLASH_ATTRIBUTE}");
-      ["ground", "image", "width", "height", "offset"].forEach(function (name) {
+      ["ground", "image", "width", "height", "offset", "hold", "fade"].forEach(function (name) {
         style.removeProperty("--pwa-splash-" + name);
       });
     }, ${SPLASH_HOLD_MS + SPLASH_FADE_MS});

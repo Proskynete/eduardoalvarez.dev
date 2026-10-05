@@ -209,8 +209,8 @@ Every animated stroke SHALL declare `pathLength="100"` so a single
 the level-1 lockup stacked: the fin (112 px, centre 38.5 px above the screen's), the
 wordmark and the line, rendered by WebKit with the brand fonts
 (`scripts/generate-startup-images.mjs`). iOS only shows them until the page's first paint,
-so the page's splash (`src/components/splash-screen`) holds the same PNG for 1.4 s and
-fades it out in 0.4 s: chosen in `<head>` for the device, painted by `<html>` before
+so the page's splash (`src/components/splash-screen`) holds the same PNG for 2.5 s and
+fades it out in 0.5 s: chosen in `<head>` for the device, painted by `<html>` before
 `<body>` arrives, at screen size and lifted by the iOS status bar. Standalone only, portrait
 only, once per session, and only where a launch image exists for the device.
 

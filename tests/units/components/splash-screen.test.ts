@@ -54,6 +54,13 @@ describe("splashScript", () => {
     expect(prop("offset")).toBe("62px");
   });
 
+  it("hands the CSS how long to hold and fade", () => {
+    iPhone();
+    run();
+    expect(prop("hold")).toBe(`${SPLASH_HOLD_MS}ms`);
+    expect(prop("fade")).toBe(`${SPLASH_FADE_MS}ms`);
+  });
+
   it("holds, fades, then clears everything", () => {
     iPhone();
     run();
