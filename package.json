@@ -31,7 +31,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "brand:icons": "node scripts/generate-manifest-icons.mjs",
+    "brand:icons": "node scripts/generate-manifest-icons.mjs && node scripts/generate-startup-images.mjs",
     "brand:og": "node scripts/generate-og-default.mjs",
     "brand:assets": "npm run brand:icons && npm run brand:og",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",

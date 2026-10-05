@@ -406,7 +406,7 @@ Decidido con Eduardo el 2026-09-23. La fuente canónica de la marca es el manual
 
 **Dónde se usa en este repo:** eyebrow y bajada del hero (`src/pages/index.astro`), cabecera
 de `/about`, `settings.description` y `authorInlineBio` (`src/settings/index.ts`), nombre del
-manifiesto, `application-name` y la imagen OG por defecto
+manifiesto, `application-name`, las pantallas de arranque de iOS (línea del lockup) y la imagen OG por defecto
 (`npm run brand:og`).
 
 **Retirado como posicionamiento:** «Engineering Leadership», «Platform Thinking»,
