@@ -8,6 +8,13 @@ import type { Talk } from "../settings/talks";
  */
 export const PROFILE_VERSION = 1;
 
+/**
+ * The fifth of six fragments of the hunt in terminal.eduardoalvarez.dev, for
+ * whoever reads this API. Nothing consumes it; the terminal keeps only its
+ * hash, so changing the text breaks the hunt.
+ */
+export const HUNT_FRAGMENT = "🦈 5/6 «el océano»";
+
 export interface ProfileTalk {
   title: string;
   description: string;
@@ -40,6 +47,7 @@ export interface Profile {
   now: { updatedAt: string; items: NowItem[] };
   quotes: { beliefs: string[]; lifePhilosophy: string[] };
   articles: ProfileArticle[];
+  tiburoncin: string;
 }
 
 export interface ProfileInput {
@@ -102,5 +110,6 @@ export function buildProfile(input: ProfileInput): Profile {
     now: { updatedAt: input.nowUpdatedAt, items: input.nowItems },
     quotes: { beliefs: input.beliefs, lifePhilosophy: input.lifePhilosophy },
     articles,
+    tiburoncin: HUNT_FRAGMENT,
   };
 }
