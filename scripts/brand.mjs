@@ -55,9 +55,10 @@ export const SCALE = {
 export const RADIUS = 15 / 64;
 
 /**
- * iOS launch screens: the fin, 112 CSS px tall, lifted 38.5 CSS px above the
- * centre of the screen. They are the installed app's only splash; the page
- * follows them directly.
+ * iOS launch screens (scripts/generate-startup-images.mjs): the fin, 112 CSS px
+ * tall, its centre 38.5 CSS px above the screen's, with the wordmark and the
+ * line below it. The page's splash shows the same PNG, so nothing here needs a
+ * twin in CSS.
  */
 export const STARTUP = {
   finHeight: 112,
