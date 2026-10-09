@@ -1,0 +1,17 @@
+{
+  "title": "Microfrontends sin dolor: cómo escalar React (y tu equipo) sin romperlo todo",
+  "description": "Cómo unificamos 12 aplicaciones separadas bajo una sola experiencia con microfrontends: React + Vite orquestados con single-spa, un design system compartido sobre shadcn/ui, librerías comunes y despliegue en GCP. Un marco de decisión honesto, a partir de lo que nos salió bien y lo que nos salió mal, sobre cuándo sí y cuándo no usar microfrontends.",
+  "show": true,
+  "date": [
+    "2026-08-14T14:00:00.000Z",
+    "2026-08-15T22:00:00.000Z"
+  ],
+  "location": {
+    "name": "CaribeConf — Barranquilla, Colombia",
+    "url": "https://sessionize.com/caribeconf-2026/"
+  },
+  "organizations": [],
+  "options": {
+    "presentation": "https://www.canva.com/design/DAHRpQNMyOM/g_qS5cE8udiDqogqWHtyCg/view?utm_content=DAHRpQNMyOM&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hb33e9ca337"
+  }
+}

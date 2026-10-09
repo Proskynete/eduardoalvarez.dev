@@ -1,0 +1,24 @@
+{
+  "title": "Conseguir trabajo en tecnología",
+  "description": "En este taller aprendimos cómo buscar trabajo en tecnología, revisamos consejos para preparar la primera entrevista de trabajo y cómo crear y revisar el CV.",
+  "show": true,
+  "date": [
+    "2023-10-28T13:00:00.839Z",
+    "2023-10-28T20:00:00.839Z"
+  ],
+  "image": "/images/talks/trabajo-en-tecnologia/final.webp",
+  "location": {
+    "name": "Hub Providencia, Los Jesuitas #881, Providencia. Chile",
+    "url": "https://maps.app.goo.gl/oYJzcnDYitngMXhFA"
+  },
+  "organizations": [
+    {
+      "name": "Tech School",
+      "url": "https://tsc.lat/",
+      "logo": "/images/organizations/tech-school.webp"
+    }
+  ],
+  "options": {
+    "repo": "https://github.com/Proskynete/Conseguir-Trabajo-TI"
+  }
+}
