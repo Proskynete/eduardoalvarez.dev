@@ -1,17 +1,20 @@
 import { describe, expect, it } from "vitest";
 
+import { talks } from "../../../src/settings/talks";
 import type { Talk } from "../../../src/settings/talks";
+import profileTalksBeforeMigration from "./__fixtures__/profile-talks.json";
 import { buildProfile, PROFILE_VERSION, type ProfileInput } from "../../../src/utils/profile";
 
-const logo = { src: "/logo.webp", width: 10, height: 10, format: "webp" } as Talk["organizations"][number]["logo"];
 
 const talk = (overrides: Partial<Talk>): Talk => ({
   title: "Charla",
   description: "Descripción",
   show: true,
+  slug: "charla",
+  attendance: "in-person",
   date: ["2024-01-01T10:00:00.000Z", "2024-01-01T12:00:00.000Z"],
   location: { name: "Santiago", url: "https://maps.example" },
-  organizations: [{ name: "Tech School", logo, url: "https://techschool.example" }],
+  organizations: [{ name: "Tech School", logo: "/logo.webp", url: "https://techschool.example" }],
   ...overrides,
 });
 
@@ -117,5 +120,11 @@ describe("buildProfile", () => {
     const profile = buildProfile(baseInput({ now: undefined }));
 
     expect(Number.isNaN(Date.parse(profile.generatedAt))).toBe(false);
+  });
+
+  it("debe publicar las charlas migradas a JSON igual que antes de la migración", () => {
+    const profile = buildProfile(baseInput({ talks }));
+
+    expect(profile.talks).toEqual(profileTalksBeforeMigration);
   });
 });

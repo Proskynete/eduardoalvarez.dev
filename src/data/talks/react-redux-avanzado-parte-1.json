@@ -1,0 +1,29 @@
+{
+  "title": "React y Redux avanzado - Parte 1",
+  "description": "Aprendimos cómo trabajar con React, revisamos los conceptos básicos y cómo trabajar con la librería adoptando buenas prácticas, y dejamos todo listo para la parte 2.",
+  "show": true,
+  "date": [
+    "2019-03-05T21:00:00.839Z",
+    "2019-03-06T23:00:00.839Z"
+  ],
+  "image": "/images/talks/react-redux/parte-1.webp",
+  "location": {
+    "name": "Cerro el Plomo #5630, Las Condes. Chile",
+    "url": "https://maps.app.goo.gl/5d1ZAxr9T6z6XXyG8"
+  },
+  "organizations": [
+    {
+      "name": "Globant",
+      "url": "https://www.globant.com/",
+      "logo": "/images/organizations/globant.webp"
+    },
+    {
+      "name": "Laboratoria",
+      "url": "https://www.laboratoria.la/",
+      "logo": "/images/organizations/laboratoria.webp"
+    }
+  ],
+  "options": {
+    "repo": "https://github.com/Proskynete/workshop-laboratoria-globant"
+  }
+}
