@@ -3,7 +3,8 @@ import { z } from "zod";
 /**
  * A talk is one JSON file in `src/data/talks/`, named after its slug. The
  * content manager writes these files through a PR, so this schema is the
- * contract between both repos: change it here and there together.
+ * contract between both repos: change it here and in the content manager's
+ * copy (blog-content-manager/src/lib/talks/contract.ts) together.
  */
 const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
