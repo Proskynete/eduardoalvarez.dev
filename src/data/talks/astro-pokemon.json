@@ -1,0 +1,44 @@
+{
+  "title": "Astro y Pokémon: Atrapando componentes web en la selva moderna del desarrollo",
+  "description": "Taller de 2 horas donde construimos una Pokédex con Astro consumiendo la API de Pokémon. Vimos cómo mezclar componentes de distintos frameworks en un mismo proyecto. Servía si estabas empezando y también si ya programabas.",
+  "show": true,
+  "date": [
+    "2024-04-06T13:00:00.839Z",
+    "2024-04-06T20:00:00.839Z"
+  ],
+  "image": "/images/talks/astro-pokemon/final.webp",
+  "location": {
+    "name": "DUOC UC Sede Valparaíso. Chile",
+    "url": "https://maps.app.goo.gl/G7hdHkZdwcDKbHxb8"
+  },
+  "organizations": [
+    {
+      "name": "Tech School",
+      "url": "https://tsc.lat/",
+      "logo": "/images/organizations/tech-school.webp"
+    },
+    {
+      "name": "Duoc UC",
+      "url": "https://www.duoc.cl/",
+      "logo": "/images/organizations/duoc.webp"
+    }
+  ],
+  "options": {
+    "repo": "https://github.com/Proskynete/Astro-Pokemon-Taller",
+    "presentation": "https://www.canva.com/design/DAGBY3leSdU/I58oujde9CXFZ72gR0vBLw/view?utm_content=DAGBY3leSdU&utm_campaign=designshare&utm_medium=link",
+    "resources": [
+      {
+        "label": "Configuración",
+        "url": "/resources/astro-pokemon/config.zip"
+      },
+      {
+        "label": "Imágenes",
+        "url": "/resources/astro-pokemon/images.zip"
+      },
+      {
+        "label": "Estilos",
+        "url": "/resources/astro-pokemon/styles.zip"
+      }
+    ]
+  }
+}

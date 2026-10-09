@@ -7,9 +7,15 @@ import { personRef } from "../../utils/person-schema";
 import TalkCard from "../../components/talk-card/index";
 
 import { talks } from "../../settings/talks";
-import type { Talk } from "../../settings/talks";
+import type { Talk, TalkAttendance } from "../../settings/talks";
 
 export const prerender = true;
+
+const ATTENDANCE_MODE: Record<TalkAttendance, string> = {
+  "in-person": "https://schema.org/OfflineEventAttendanceMode",
+  online: "https://schema.org/OnlineEventAttendanceMode",
+  hybrid: "https://schema.org/MixedEventAttendanceMode",
+};
 
 const visibleTalks = talks.filter((t: Talk) => t.show);
 
@@ -33,10 +39,9 @@ const eventsSchema = {
     startDate: new Date(talk.date[0]).toISOString(),
     ...(talk.date[1] ? { endDate: new Date(talk.date[1]).toISOString() } : {}),
     ...(talk.description ? { description: talk.description } : {}),
-    ...(talk.image ? { image: new URL(talk.image.src, settings.url).toString() } : {}),
+    ...(talk.image ? { image: new URL(talk.image, settings.url).toString() } : {}),
     eventStatus: "https://schema.org/EventScheduled",
-    // Every talk so far was given in person; add a field to Talk before the first remote one.
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventAttendanceMode: ATTENDANCE_MODE[talk.attendance],
     performer: personRef,
     location: {
       "@type": "Place",

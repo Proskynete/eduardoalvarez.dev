@@ -66,7 +66,9 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 
 **`src/utils/`** — pure functions: `analytics.ts`, `api-response.ts`, `articles.ts`, `categories.ts`, `date.ts`, `env.ts` (Zod-validated env, fail-fast at startup), `podcasts.ts`, `profile.ts` (builds the profile JSON), `reading-time.ts`, `strings.ts`.
 
-**`src/settings/`** — data and config: `index.ts` (site, author, `authorInlineBio`, social, contacts), `manifest-config.ts` (web manifest), `talks.ts`, `now.ts`, `about.ts` (experience plus the About quotes: `beliefs`, `lifePhilosophy`), `podcasts.ts`. `stack.ts` and `projects.ts` are leftovers of retired pages and are not imported.
+**`src/settings/`** — data and config: `index.ts` (site, author, `authorInlineBio`, social, contacts), `manifest-config.ts` (web manifest), `talks.ts` (loads and validates `src/data/talks/*.json`), `now.ts`, `about.ts` (experience plus the About quotes: `beliefs`, `lifePhilosophy`), `podcasts.ts`. `stack.ts` and `projects.ts` are leftovers of retired pages and are not imported.
+
+**`src/data/talks/`** — one JSON per talk, named by its slug; the schema is `talkSchema` in `utils/talks.ts`. The content manager writes these files through PRs, so the schema is a contract with that repo. Talk images and organization logos live in `public/images/talks/` and `public/images/organizations/`.
 
 **`src/assets/styles/`** — `base.css` (Tailwind v4 entry: imports arrecife's `tokens/theme.css`, `@source`s the library's `dist`, focus ring) and `article.css` (prose).
 

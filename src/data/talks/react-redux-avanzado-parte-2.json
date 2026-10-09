@@ -1,0 +1,29 @@
+{
+  "title": "React y Redux avanzado - Parte 2",
+  "description": "Aprendimos cómo trabajar con Redux, configurar middlewares y cómo manejar el estado de nuestra aplicación de forma eficiente.",
+  "show": true,
+  "date": [
+    "2019-03-16T13:00:00.839Z",
+    "2019-03-16T20:00:00.839Z"
+  ],
+  "image": "/images/talks/react-redux/parte-2.webp",
+  "location": {
+    "name": "Av. Puma #1180, Santiago. Chile",
+    "url": "https://maps.app.goo.gl/XHwMNdveB5pUko6C6"
+  },
+  "organizations": [
+    {
+      "name": "Globant",
+      "url": "https://www.globant.com/",
+      "logo": "/images/organizations/globant.webp"
+    },
+    {
+      "name": "Laboratoria",
+      "url": "https://www.laboratoria.la/",
+      "logo": "/images/organizations/laboratoria.webp"
+    }
+  ],
+  "options": {
+    "repo": "https://github.com/Proskynete/workshop-laboratoria-globant"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "JavaScript: ¡El lenguaje que le da vida a la web!",
+  "description": "En esta charla aprendimos los conceptos básicos de JavaScript y cómo ha evolucionado, entendimos qué es ECMA y cómo se relaciona con las versiones de JavaScript, y vimos cómo JavaScript trabaja con la asincronía y cómo cambió su sintaxis.",
+  "show": true,
+  "date": [
+    "2024-05-21T11:30:00.839Z",
+    "2024-05-21T13:00:00.839Z"
+  ],
+  "image": "/images/talks/javascript-lenguaje-de-la-web/final.webp",
+  "location": {
+    "name": "Av. Ejército Libertador 233, Santiago, Chile.",
+    "url": "https://maps.app.goo.gl/CMo5webEuoPDF55G9"
+  },
+  "organizations": [
+    {
+      "name": "IEEE Student Branch UDP",
+      "url": "https://www.instagram.com/ieee.udp",
+      "logo": "/images/organizations/ieee_udp.webp"
+    }
+  ],
+  "options": {
+    "presentation": "https://www.canva.com/design/DAGF74TdAiU/z7df9PVWj-3mi9JFE41pjw/view?utm_content=DAGF74TdAiU&utm_campaign=designshare&utm_medium=link"
+  }
+}
