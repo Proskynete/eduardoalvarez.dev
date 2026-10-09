@@ -1,0 +1,20 @@
+{
+  "title": "Prueba de charla",
+  "description": "Esto es una prueba",
+  "show": true,
+  "date": [
+    "2026-10-09T21:08:00.000Z",
+    "2026-10-09T21:08:00.000Z"
+  ],
+  "attendance": "in-person",
+  "location": {
+    "name": "Globant, Chile",
+    "url": "https://www.google.com/maps/place/Globant/data=!4m2!3m1!1s0x0:0x7d6206a0de12afc9?sa=X&ved=1t:2428&ictx=111"
+  },
+  "organizations": [
+    {
+      "name": "globant",
+      "url": "https://www.globant.com/"
+    }
+  ]
+}
