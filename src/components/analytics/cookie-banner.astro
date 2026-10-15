@@ -1,0 +1,79 @@
+---
+import { buttonVariants } from "@eduardoalvarez/arrecife";
+---
+
+<!--
+  The consent banner. Shown until there is a decision, and again whenever the
+  footer's «./cookies» is clicked. The decision lives in localStorage under
+  `cookie-consent` ("granted" | "denied").
+
+  Both buttons are the same variant on purpose: same weight, no nudge towards
+  accepting. `transition:persist` keeps it across ClientRouter navigations.
+-->
+<div
+  data-cookie-banner
+  hidden
+  transition:persist="cookie-banner"
+  class="inset-x-4 bottom-4 sm:left-auto sm:right-4 sm:max-w-sm fixed z-50"
+>
+  <section
+    role="dialog"
+    aria-labelledby="cookie-banner-title"
+    aria-describedby="cookie-banner-description"
+    class="gap-step-sm rounded-card border-hairline bg-surface p-step-md shadow-standard flex flex-col border"
+  >
+    <h2 id="cookie-banner-title" class="text-ui font-display font-bold text-text-primary">¿Puedo medir tu visita?</h2>
+    <p id="cookie-banner-description" class="text-meta text-text-secondary">
+      Uso Google Analytics para saber qué se lee y cómo llega la gente hasta aquí. Deja cookies, así que solo lo activo
+      si aceptas. Puedes cambiar de opinión cuando quieras desde «./cookies», al pie de la página.
+    </p>
+    <div class="gap-step-sm flex flex-wrap">
+      <button type="button" data-cookie-choice="denied" class={buttonVariants({ variant: "secondary", size: "sm" })}>
+        No, gracias
+      </button>
+      <button type="button" data-cookie-choice="granted" class={buttonVariants({ variant: "secondary", size: "sm" })}>
+        Aceptar
+      </button>
+    </div>
+  </section>
+</div>
+
+<script>
+  import { readConsent, writeConsent } from "../../utils/consent";
+
+  type ConsentWindow = Window & { loadAnalytics?: () => void; disableAnalytics?: () => void };
+
+  const banner = () => document.querySelector<HTMLElement>("[data-cookie-banner]");
+
+  // On every page, the first one included: show the banner while there is no decision.
+  document.addEventListener("astro:page-load", () => {
+    const element = banner();
+    if (element && !readConsent()) element.hidden = false;
+  });
+
+  // Delegated once on the document, so it survives ClientRouter navigations.
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target) return;
+    const w = window as ConsentWindow;
+
+    const choice = target.closest<HTMLElement>("[data-cookie-choice]")?.dataset.cookieChoice;
+    if (choice === "granted" || choice === "denied") {
+      writeConsent(choice);
+      if (choice === "granted") w.loadAnalytics?.();
+      else w.disableAnalytics?.();
+      const element = banner();
+      if (element) element.hidden = true;
+      return;
+    }
+
+    if (target.closest("[data-cookie-preferences]")) {
+      event.preventDefault();
+      const element = banner();
+      if (!element) return;
+      element.hidden = false;
+      element.querySelector<HTMLButtonElement>("[data-cookie-choice]")?.focus();
+    }
+  });
+
+</script>

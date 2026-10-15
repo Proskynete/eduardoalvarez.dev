@@ -3,7 +3,6 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import mdx from "@astrojs/mdx";
-import partytown from "@astrojs/partytown";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
@@ -55,6 +54,9 @@ export default defineConfig({
   site: "https://eduardoalvarez.dev",
   env: {
     schema: {
+      // GA4 measurement ID. Public and inlined at build time; without it, or in
+      // dev, Google Analytics and the cookie banner are not rendered at all.
+      PUBLIC_GA_ID: envField.string({ context: "client", access: "public", optional: true }),
       // Shared secret for /api/sentry-test. Read at runtime; without it the
       // route answers 404.
       SENTRY_TEST_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
@@ -139,11 +141,6 @@ export default defineConfig({
         return item;
       },
     }),
-    partytown({
-      // Reenvía gtag/dataLayer al worker para poder emitir eventos custom de
-      // GA4 desde el hilo principal (ver src/utils/analytics.ts).
-      config: { forward: ["dataLayer.push", "gtag"] },
-    }),
     webmanifest(config),
     publishAlgoliaRSS(),
     serviceWorker({
@@ -151,7 +148,7 @@ export default defineConfig({
         /*
          * Precache only what every visit needs. The default, every file in the build, took 87
          * files, ~6.6 MB, on the first visit: every article image, the brand
-         * illustrations, the fonts and Partytown's own service worker, even for
+         * illustrations, the fonts and (back then) Partytown's service worker, even for
          * someone who reads one article. Images now cache as they are seen, and
          * the pages as they are opened.
          */
