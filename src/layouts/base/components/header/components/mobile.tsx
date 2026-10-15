@@ -14,7 +14,7 @@ import { Icon } from "@eduardoalvarez/arrecife/icons";
 import { CaretRightIcon, ListIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 
-import { trackEvent } from "../../../../../utils/analytics";
+import { trackNavigation } from "../../../../../utils/analytics";
 import { navItems } from "../constants";
 
 interface MobileProps {
@@ -101,7 +101,7 @@ export default function Mobile({ version, pathname }: MobileProps) {
                   key={item.name}
                   href={item.href}
                   onClick={() => {
-                    trackEvent("navigation_click", { link: item.name });
+                    trackNavigation(item, "mobile_menu");
                     setOpen(false);
                   }}
                   aria-current={isActive ? "page" : undefined}

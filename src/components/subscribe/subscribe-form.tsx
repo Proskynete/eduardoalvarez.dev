@@ -2,6 +2,8 @@ import { NewsletterForm, type NewsletterState } from "@eduardoalvarez/arrecife";
 import { Mascot } from "@eduardoalvarez/arrecife/brand";
 import { useEffect, useRef, useState } from "react";
 
+import { trackEvent } from "../../utils/analytics";
+
 type ApiResponse = {
   success?: boolean;
   message?: string;
@@ -45,6 +47,8 @@ export function SubscribeForm() {
       if (response.ok && data.success) {
         setMessage(data.message);
         setState("success");
+        // The conversion that matters on this site. No email or name in the params.
+        trackEvent("sign_up", { method: "newsletter" });
         // Clear the fields, as the previous version did: leaving them filled
         // after confirming invites sending the same address twice.
         // `NewsletterForm` does not expose the <form>, so it is found in the tree.

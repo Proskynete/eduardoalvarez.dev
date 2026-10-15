@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1><a href="https://www.eduardoalvarez.dev">eduardoalvarez.dev</a></h1>
+  <h1><a href="https://eduardoalvarez.dev">eduardoalvarez.dev</a></h1>
 
   <p>Technical Lead · Spec-Driven Development — Entender antes de construir.</p>
 
@@ -18,7 +18,7 @@ El sistema de diseño vive en su propio paquete, [`@eduardoalvarez/arrecife`](ht
 
 | Entorno | Rama | URL |
 |---|---|---|
-| **Producción** | `main` | [www.eduardoalvarez.dev](https://www.eduardoalvarez.dev) |
+| **Producción** | `main` | [eduardoalvarez.dev](https://eduardoalvarez.dev) |
 | **Desarrollo** | `develop` | [website-git-develop-eduardoalvarez-dev.vercel.app](https://website-git-develop-eduardoalvarez-dev.vercel.app) |
 
 Cada rama de trabajo genera además su propio preview automático en Vercel. El flujo es `feat/*` → `develop` → `main`.
@@ -125,8 +125,14 @@ PUBLIC_GISCUS_CATEGORY_ID=
 MAILCHIMP_API_KEY=
 MAILCHIMP_LIST_ID=
 
-# Opcionales
+# Observabilidad (opcionales: sin ellas, cada pieza queda apagada)
+PUBLIC_GA_ID=                   # GA4, solo con consentimiento y solo en producción (build)
+PUBLIC_SENTRY_DSN=              # Sentry en el navegador (build)
+SENTRY_DSN=                     # Sentry en el servidor (runtime)
+SENTRY_TEST_TOKEN=              # Habilita /api/sentry-test con el header x-sentry-test (runtime)
 SENTRY_AUTH_TOKEN=              # Sube source maps a Sentry en el build
+
+# Opcionales
 SKIP_ENV_VALIDATION=true        # Build local sin las variables anteriores
 ALGOLIA_FORCE_INDEX=true         # Indexar en Algolia desde un build local
 ```
