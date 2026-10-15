@@ -33,7 +33,7 @@ if (dsn) {
     // Ruido de scripts de terceros de Vercel (no son bugs del sitio): Speed
     // Insights re-registra su web component y su script se re-ejecuta con el
     // ClientRouter (View Transitions); el Vercel Toolbar falla en su pagehide.
-    ignoreErrors: [/vercel-speed-insights.*already been used/i, "Failed to execute 'replaceWith' on 'Element'"],
+    ignoreErrors: [/vercel-(speed-insights|analytics).*already been used/i, "Failed to execute 'replaceWith' on 'Element'"],
     denyUrls: [/vercel\.live/, /_next-live\//],
   });
 

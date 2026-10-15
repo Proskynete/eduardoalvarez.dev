@@ -10,6 +10,7 @@ import Header from "./components/header/index.astro";
 import SplashScreen from "../../components/splash-screen/index.astro";
 import Analytics from "../../components/analytics/index.astro";
 
+import VercelAnalytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import settings from "../../settings";
 
@@ -53,6 +54,8 @@ const { seo } = Astro.props;
     </div>
 
     <SpeedInsights />
+    {/* Cookieless and anonymous: counts every visit, whatever the GA decision. */}
+    <VercelAnalytics />
     <Analytics />
   </body>
 </html>
