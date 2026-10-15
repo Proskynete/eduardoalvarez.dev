@@ -1,6 +1,6 @@
 import { NavItem } from "@eduardoalvarez/arrecife";
 
-import { trackEvent } from "../../../../../utils/analytics";
+import { trackNavigation } from "../../../../../utils/analytics";
 import { navItems } from "../constants";
 
 interface NavLinksProps {
@@ -32,7 +32,7 @@ export default function NavLinks({ pathname }: NavLinksProps) {
               key={item.name}
               href={item.href}
               active={isActive}
-              onClick={() => trackEvent("navigation_click", { link: item.name })}
+              onClick={() => trackNavigation(item, "header")}
               className={isActive ? "pointer-events-none cursor-default" : undefined}
             >
               {item.name.toLowerCase()}

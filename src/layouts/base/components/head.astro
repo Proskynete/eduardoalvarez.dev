@@ -145,17 +145,3 @@ const splashImages = Object.fromEntries(
   {/* Before the first paint too: see components/splash-screen/script.ts. */}
   <script is:inline set:html={splashScript({ ground: dark.background, images: splashImages })} />
 </head>
-
-<script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-YP2WF7DHFM" is:inline></script>
-
-<script type="text/partytown" is:inline>
-  window.dataLayer = window.dataLayer || [];
-  // Asignar a window.gtag (no una función local) para que Partytown pueda
-  // reenviar eventos custom del hilo principal vía `forward: ["gtag"]`.
-  window.gtag = function gtag() {
-    dataLayer.push(arguments);
-  };
-  gtag("js", new Date());
-
-  gtag("config", "G-YP2WF7DHFM");
-</script>

@@ -50,21 +50,22 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 - `newsletter/index.astro` — Newsletter subscription page.
 - `podcasts/` — Index and `[slug]`. **Switched off** while `podcastsEnabled` is `false` in `settings/podcasts.ts`: the middleware redirects them to `/` and the sitemap leaves them out.
 - `api/subscribe.ts` — Newsletter endpoint (Zod validation, rate limited).
+- `api/sentry-test.ts` — Throws a test error for Sentry; 404 unless `SENTRY_TEST_TOKEN` is set and sent as `x-sentry-test`.
 - `api/profile.json.ts` — Public profile JSON (talks, now, About quotes, articles), prerendered. Read at build time by terminal.eduardoalvarez.dev; its shape is versioned (`PROFILE_VERSION` in `utils/profile.ts`).
 - `rss.xml.ts` — RSS feed.
 
 > **Redirects** (`vercel.json`): `/articulos[/*]` → `/articles[/*]`, `/charlas-talleres` → `/speaking`, and the retired pages `/stack`, `/projects`, `/working-with-me` → `/about`, `/donaciones` → `/`.
 
-**`src/middleware/`** — `index.ts` (podcast redirect), `podcasts.ts`, `rate-limit.ts` (in-memory, per IP, used by the API).
+**`src/middleware/`** — `index.ts` (Sentry init + `handleRequest`, then the podcast redirect), `sentry-flush.ts` (flushes Sentry before Vercel freezes the function), `podcasts.ts`, `rate-limit.ts` (in-memory, per IP, used by the API).
 
 **`src/layouts/`**
 - `base/index.astro` — Root wrapper: `components/head.astro` (SEO, icons, manifest, theme script), `components/header/` (nav + Algolia search, `site-nav.tsx`), `components/footer/`.
 - `main/index.astro` — General page layout over `base`.
 - `article/index.astro` — Article layout: sidebar (reading time, TOC, share), Giscus, scroll progress.
 
-**`src/components/`** — only what the library does not provide: `article`, `audio-player`, `brand-fin`, `pagination`, `podcast-guest`, `podcast-guest-chips`, `podcast-row`, `splash-screen`, `subscribe` (`index.astro` + `subscribe-form.tsx`), `talk-card`, `text-link`, `ui/image`. Before building a UI piece, check whether arrecife already exports it (`PageHeader`, `EmptyState`, `LinkRow`, `Text`, `Separator`, `Nav`, `buttonVariants`…).
+**`src/components/`** — only what the library does not provide: `analytics` (GA4 consent loader + cookie banner), `article`, `audio-player`, `brand-fin`, `pagination`, `podcast-guest`, `podcast-guest-chips`, `podcast-row`, `splash-screen`, `subscribe` (`index.astro` + `subscribe-form.tsx`), `talk-card`, `text-link`, `ui/image`. Before building a UI piece, check whether arrecife already exports it (`PageHeader`, `EmptyState`, `LinkRow`, `Text`, `Separator`, `Nav`, `buttonVariants`…).
 
-**`src/utils/`** — pure functions: `analytics.ts`, `api-response.ts`, `articles.ts`, `categories.ts`, `date.ts`, `env.ts` (Zod-validated env, fail-fast at startup), `podcasts.ts`, `profile.ts` (builds the profile JSON), `reading-time.ts`, `strings.ts`.
+**`src/utils/`** — pure functions: `analytics.ts` (`trackEvent`, no-op until GA loads with consent), `consent.ts`, `api-response.ts`, `articles.ts`, `categories.ts`, `date.ts`, `env.ts` (Zod-validated env, fail-fast at startup), `podcasts.ts`, `profile.ts` (builds the profile JSON), `reading-time.ts`, `strings.ts`.
 
 **`src/settings/`** — data and config: `index.ts` (site, author, `authorInlineBio`, social, contacts), `manifest-config.ts` (web manifest), `talks.ts` (loads and validates `src/data/talks/*.json`), `now.ts`, `about.ts` (experience plus the About quotes: `beliefs`, `lifePhilosophy`), `podcasts.ts`. `stack.ts` and `projects.ts` are leftovers of retired pages and are not imported.
 
@@ -130,8 +131,8 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 | **Giscus** | Comments |
 | **Mailchimp** | Newsletter |
 | **Zod 4** | API and env validation |
-| **Sentry** | Error tracking; source maps upload when `SENTRY_AUTH_TOKEN` is set |
-| **Partytown** | GA4 off the main thread |
+| **Sentry** | Errors, tracing (Web Vitals) and replay on error only; source maps upload when `SENTRY_AUTH_TOKEN` is set. Test hooks: `?sentry-test=1` (client), `GET /api/sentry-test` with `x-sentry-test: $SENTRY_TEST_TOKEN` (server) |
+| **GA4** | gtag.js loaded only after consent (`components/analytics/`); events through `trackEvent` in `utils/analytics.ts` |
 | **Vitest 4 / Playwright** | Unit and E2E tests |
 
 ## Common Development Tasks
@@ -180,14 +181,15 @@ Validated at startup by `src/utils/env.ts`:
 - Algolia: `PUBLIC_ALGOLIA_APPLICATION_ID`, `PUBLIC_ALGOLIA_INDEX_NAME`, `PUBLIC_ALGOLIA_SEARCH_API_KEY`, `ALGOLIA_ADMIN_API_KEY` (server only)
 - Giscus: `PUBLIC_GISCUS_REPO`, `PUBLIC_GISCUS_REPO_ID`, `PUBLIC_GISCUS_CATEGORY_ID`
 - Mailchimp: `MAILCHIMP_API_KEY`, `MAILCHIMP_LIST_ID`
-- Optional: `SENTRY_AUTH_TOKEN` (source maps), `SKIP_ENV_VALIDATION`, `ALGOLIA_FORCE_INDEX`
+- Observability (all optional, each a no-op when missing): `PUBLIC_GA_ID` (build time), `PUBLIC_SENTRY_DSN` (build time), `SENTRY_DSN` and `SENTRY_TEST_TOKEN` (runtime), `SENTRY_AUTH_TOKEN` (+ optional `SENTRY_ORG`/`SENTRY_PROJECT`, build time: source maps)
+- Optional: `SKIP_ENV_VALIDATION`, `ALGOLIA_FORCE_INDEX`
 
 ## Performance Considerations
 
 - `inlineStylesheets: "always"`, `compressHTML: true`, `prefetch: true`
 - Service worker precaches only the app shell (see PWA)
 - Shiki highlighting at build time, no client JS
-- Partytown for analytics
+- GA4 only after consent, async; Speed Insights and Vercel Web Analytics are cookieless
 - `vite.ssr.noExternal` bundling for fast cold starts
 
 Summary generated by `autoskills`. Check the full files inside `.claude/skills`.

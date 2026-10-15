@@ -22,8 +22,8 @@ const { content } = Astro.props;
 const timeToRead = calculateReadingTime(await Astro.slots.render("default"));
 
 const tags = content.categories.map((tag) => tag.replaceAll(/(-)/g, "")).join(",");
-const twitterShare = `https://twitter.com/intent/tweet?text=${content.title}&url=https://www.eduardoalvarez.dev/articles/${content.slug}&via=proskynete&hashtags=${tags}`;
-const linkedInShare = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://www.eduardoalvarez.dev/articles/${content.slug}`)}&title=${encodeURIComponent(content.title)}`;
+const twitterShare = `https://twitter.com/intent/tweet?text=${content.title}&url=${settings.url}/articles/${content.slug}&via=proskynete&hashtags=${tags}`;
+const linkedInShare = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`${settings.url}/articles/${content.slug}`)}&title=${encodeURIComponent(content.title)}`;
 
 const articleKeywords = content.keywords ?? content.categories;
 
@@ -157,6 +157,8 @@ const seo: BaseHeadProps = {
         const code = pre.querySelector("code");
         const text = code ? code.innerText : pre.innerText;
         navigator.clipboard.writeText(text).then(() => {
+          const slug = document.querySelector<HTMLElement>("[data-article-slug]")?.dataset.articleSlug;
+          trackEvent("copy_code", { item_id: slug ?? "", language: lang });
           copyBtn.textContent = "Copiado";
           copyBtn.classList.add("copied");
           setTimeout(() => {
@@ -209,6 +211,18 @@ const seo: BaseHeadProps = {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
   }
+
+  /*
+   * Share clicks (the X and LinkedIn buttons in the aside). Delegated once on
+   * the document, because this module runs once and the ClientRouter swaps the
+   * aside on every navigation.
+   */
+  document.addEventListener("click", (event) => {
+    const link = event.target instanceof Element ? event.target.closest<HTMLElement>("[data-share]") : null;
+    const slug = document.querySelector<HTMLElement>("[data-article-slug]")?.dataset.articleSlug;
+    if (!link?.dataset.share || !slug) return;
+    trackEvent("share", { method: link.dataset.share, content_type: "article", item_id: slug });
+  });
 
   initIndice();
   document.addEventListener("astro:page-load", initIndice);

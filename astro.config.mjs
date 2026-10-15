@@ -3,13 +3,12 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import mdx from "@astrojs/mdx";
-import partytown from "@astrojs/partytown";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 import sentry from "@sentry/astro";
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import webmanifest from "astro-webmanifest";
 import serviceWorker from "astrojs-service-worker";
 
@@ -47,8 +46,22 @@ if (process.env.SKIP_ENV_VALIDATION !== "true") {
   console.log("⚠️  Validación de environment omitida (SKIP_ENV_VALIDATION=true)");
 }
 
+const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
+
 export default defineConfig({
+  // The apex is the canonical domain: the sitemap, robots.txt, canonical URLs,
+  // the RSS feed and the JSON-LD all build on it. Vercel redirects www → apex.
   site: "https://eduardoalvarez.dev",
+  env: {
+    schema: {
+      // GA4 measurement ID. Public and inlined at build time; without it, or in
+      // dev, Google Analytics and the cookie banner are not rendered at all.
+      PUBLIC_GA_ID: envField.string({ context: "client", access: "public", optional: true }),
+      // Shared secret for /api/sentry-test. Read at runtime; without it the
+      // route answers 404.
+      SENTRY_TEST_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
+    },
+  },
   // Tailwind v4 installs as a Vite plugin. It replaces the postcss.config.mjs
   // that v3 used: the PostCSS pipeline is no longer involved.
   vite: {
@@ -90,14 +103,20 @@ export default defineConfig({
     },
   },
   integrations: [
-    // Sentry primero para instrumentar el resto del pipeline. La subida de
-    // source maps solo ocurre si hay SENTRY_AUTH_TOKEN (configurado en Vercel).
+    // Sentry primero para instrumentar el resto del pipeline. The runtime SDK
+    // lives in sentry.client.config.js / sentry.server.config.js. Source maps
+    // are generated and uploaded only when SENTRY_AUTH_TOKEN exists (Vercel
+    // builds), so a local or CI build without it neither fails nor ships maps.
     sentry({
-      sourceMapsUploadOptions: {
-        org: "eduardoalvarezdev",
-        project: "blog-eduardoalvarez",
-        authToken: process.env.SENTRY_AUTH_TOKEN,
-      },
+      org: process.env.SENTRY_ORG ?? "eduardoalvarezdev",
+      project: process.env.SENTRY_PROJECT ?? "blog-eduardoalvarez",
+      authToken: sentryAuthToken,
+      telemetry: false,
+      sourcemaps: { disable: !sentryAuthToken },
+      // The server SDK is initialised and wired in src/middleware/ instead: the
+      // integration's init script only reached SSR pages, and its middleware
+      // did not flush before Vercel froze the function.
+      enabled: { client: true, server: false },
     }),
     mdx(),
     react(),
@@ -126,11 +145,6 @@ export default defineConfig({
         return item;
       },
     }),
-    partytown({
-      // Reenvía gtag/dataLayer al worker para poder emitir eventos custom de
-      // GA4 desde el hilo principal (ver src/utils/analytics.ts).
-      config: { forward: ["dataLayer.push", "gtag"] },
-    }),
     webmanifest(config),
     publishAlgoliaRSS(),
     serviceWorker({
@@ -138,7 +152,7 @@ export default defineConfig({
         /*
          * Precache only what every visit needs. The default, every file in the build, took 87
          * files, ~6.6 MB, on the first visit: every article image, the brand
-         * illustrations, the fonts and Partytown's own service worker, even for
+         * illustrations, the fonts and (back then) Partytown's service worker, even for
          * someone who reads one article. Images now cache as they are seen, and
          * the pages as they are opened.
          */
