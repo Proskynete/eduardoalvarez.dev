@@ -8,6 +8,7 @@ import { defineMiddleware, sequence } from "astro:middleware";
 
 import { podcastsEnabled } from "../settings/podcasts";
 import { PODCASTS_REDIRECT_STATUS, podcastsRedirect } from "./podcasts";
+import { createSentryEnvironment } from "./sentry-environment";
 import { createSentryFlush } from "./sentry-flush";
 
 /**
@@ -25,8 +26,15 @@ const podcasts = defineMiddleware((context, next) => {
 /*
  * 1. createSentryFlush: outermost, so it flushes after everything below has
  *    reported (see sentry-flush.ts for why Sentry's own flush is not enough).
- * 2. Sentry.handleRequest: one transaction per request named after the route
+ * 2. createSentryEnvironment: fills in Sentry's environment from the request
+ *    host when VERCEL_ENV was unknown (see sentry-environment.ts).
+ * 3. Sentry.handleRequest: one transaction per request named after the route
  *    (GET /api/sentry-test), and captures errors thrown by pages, endpoints and
  *    actions.
  */
-export const onRequest = sequence(createSentryFlush(Sentry.flush), Sentry.handleRequest(), podcasts);
+export const onRequest = sequence(
+  createSentryFlush(Sentry.flush),
+  createSentryEnvironment(Sentry.getClient),
+  Sentry.handleRequest(),
+  podcasts,
+);
