@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import { readdirSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -48,6 +49,22 @@ if (process.env.SKIP_ENV_VALIDATION !== "true") {
 
 const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
 
+/*
+ * Sentry's environment and release, fixed at build time and inlined into the
+ * client and server bundles (see src/utils/sentry-environment.ts). VERCEL_ENV
+ * and VERCEL_GIT_COMMIT_SHA only exist when the Vercel project exposes its
+ * system variables; the commit falls back to git when the checkout has it.
+ */
+const sentryEnvironment = process.env.VERCEL_ENV ?? "";
+const sentryRelease = (() => {
+  if (process.env.VERCEL_GIT_COMMIT_SHA) return process.env.VERCEL_GIT_COMMIT_SHA;
+  try {
+    return execSync("git rev-parse HEAD", { stdio: ["ignore", "pipe", "ignore"] }).toString().trim();
+  } catch {
+    return "";
+  }
+})();
+
 export default defineConfig({
   // The apex is the canonical domain: the sitemap, robots.txt, canonical URLs,
   // the RSS feed and the JSON-LD all build on it. Vercel redirects www → apex.
@@ -66,6 +83,10 @@ export default defineConfig({
   // that v3 used: the PostCSS pipeline is no longer involved.
   vite: {
     plugins: [tailwindcss()],
+    define: {
+      __SENTRY_ENVIRONMENT__: JSON.stringify(sentryEnvironment),
+      __SENTRY_RELEASE__: JSON.stringify(sentryRelease),
+    },
     ssr: {
       /*
        * Bundle these into the server build instead of loading them from
@@ -112,6 +133,8 @@ export default defineConfig({
       project: process.env.SENTRY_PROJECT ?? "blog-eduardoalvarez",
       authToken: sentryAuthToken,
       telemetry: false,
+      // Same release the SDKs report, so uploaded source maps match the events.
+      release: sentryRelease ? { name: sentryRelease } : undefined,
       sourcemaps: { disable: !sentryAuthToken },
       // The server SDK is initialised and wired in src/middleware/ instead: the
       // integration's init script only reached SSR pages, and its middleware

@@ -4,6 +4,11 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   plugins: [react()],
+  // Inlined by astro.config.mjs in real builds; empty here, as in a local build.
+  define: {
+    __SENTRY_ENVIRONMENT__: JSON.stringify(""),
+    __SENTRY_RELEASE__: JSON.stringify(""),
+  },
   test: {
     globals: true,
     environment: "jsdom",
