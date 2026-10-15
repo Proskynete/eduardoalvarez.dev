@@ -1,3 +1,8 @@
+// Initialise Sentry on the server before any route runs. The integration only
+// injects this file into SSR pages, so an API route hit on a cold start would
+// otherwise run with no client. Same module, so it is evaluated once.
+import "../../sentry.server.config.js";
+
 import { defineMiddleware } from "astro:middleware";
 
 import { podcastsEnabled } from "../settings/podcasts";

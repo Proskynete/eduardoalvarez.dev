@@ -9,7 +9,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 import sentry from "@sentry/astro";
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import webmanifest from "astro-webmanifest";
 import serviceWorker from "astrojs-service-worker";
 
@@ -47,8 +47,19 @@ if (process.env.SKIP_ENV_VALIDATION !== "true") {
   console.log("⚠️  Validación de environment omitida (SKIP_ENV_VALIDATION=true)");
 }
 
+const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
+
 export default defineConfig({
+  // The apex is the canonical domain: the sitemap, robots.txt, canonical URLs,
+  // the RSS feed and the JSON-LD all build on it. Vercel redirects www → apex.
   site: "https://eduardoalvarez.dev",
+  env: {
+    schema: {
+      // Shared secret for /api/sentry-test. Read at runtime; without it the
+      // route answers 404.
+      SENTRY_TEST_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
+    },
+  },
   // Tailwind v4 installs as a Vite plugin. It replaces the postcss.config.mjs
   // that v3 used: the PostCSS pipeline is no longer involved.
   vite: {
@@ -90,14 +101,16 @@ export default defineConfig({
     },
   },
   integrations: [
-    // Sentry primero para instrumentar el resto del pipeline. La subida de
-    // source maps solo ocurre si hay SENTRY_AUTH_TOKEN (configurado en Vercel).
+    // Sentry primero para instrumentar el resto del pipeline. The runtime SDK
+    // lives in sentry.client.config.js / sentry.server.config.js. Source maps
+    // are generated and uploaded only when SENTRY_AUTH_TOKEN exists (Vercel
+    // builds), so a local or CI build without it neither fails nor ships maps.
     sentry({
-      sourceMapsUploadOptions: {
-        org: "eduardoalvarezdev",
-        project: "blog-eduardoalvarez",
-        authToken: process.env.SENTRY_AUTH_TOKEN,
-      },
+      org: process.env.SENTRY_ORG ?? "eduardoalvarezdev",
+      project: process.env.SENTRY_PROJECT ?? "blog-eduardoalvarez",
+      authToken: sentryAuthToken,
+      telemetry: false,
+      sourcemaps: { disable: !sentryAuthToken },
     }),
     mdx(),
     react(),
