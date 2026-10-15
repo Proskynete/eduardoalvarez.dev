@@ -1,10 +1,10 @@
 import * as Sentry from "@sentry/astro";
 
 /*
- * Server-side Sentry: on-demand pages, API routes and the middleware. A silent
- * no-op without SENTRY_DSN. Imported by the @sentry/astro integration into every
- * SSR page and by src/middleware/index.ts, so it is initialised before any route
- * runs, endpoints included.
+ * Server-side Sentry: on-demand pages, API routes and actions. A silent no-op
+ * without SENTRY_DSN. Imported by src/middleware/index.ts (the integration runs
+ * with `server: false`), so it is initialised before any route runs; request
+ * handling and flushing are wired there too.
  */
 const dsn = process.env.SENTRY_DSN;
 

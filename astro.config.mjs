@@ -113,6 +113,10 @@ export default defineConfig({
       authToken: sentryAuthToken,
       telemetry: false,
       sourcemaps: { disable: !sentryAuthToken },
+      // The server SDK is initialised and wired in src/middleware/ instead: the
+      // integration's init script only reached SSR pages, and its middleware
+      // did not flush before Vercel froze the function.
+      enabled: { client: true, server: false },
     }),
     mdx(),
     react(),

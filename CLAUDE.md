@@ -56,7 +56,7 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 
 > **Redirects** (`vercel.json`): `/articulos[/*]` → `/articles[/*]`, `/charlas-talleres` → `/speaking`, and the retired pages `/stack`, `/projects`, `/working-with-me` → `/about`, `/donaciones` → `/`.
 
-**`src/middleware/`** — `index.ts` (podcast redirect), `podcasts.ts`, `rate-limit.ts` (in-memory, per IP, used by the API).
+**`src/middleware/`** — `index.ts` (Sentry init + `handleRequest`, then the podcast redirect), `sentry-flush.ts` (flushes Sentry before Vercel freezes the function), `podcasts.ts`, `rate-limit.ts` (in-memory, per IP, used by the API).
 
 **`src/layouts/`**
 - `base/index.astro` — Root wrapper: `components/head.astro` (SEO, icons, manifest, theme script), `components/header/` (nav + Algolia search, `site-nav.tsx`), `components/footer/`.

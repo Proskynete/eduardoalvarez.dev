@@ -16,7 +16,7 @@
 ## 3. Sentry
 
 - [x] 3.1 Cliente: trazas al 100 %, `tracePropagationTargets` del mismo origen, replay solo en error y cargado en diferido
-- [x] 3.2 Servidor: iniciado desde el middleware, sin cookies ni cuerpos de request
+- [x] 3.2 Servidor: iniciado desde el middleware con `handleRequest` (integración con `server: false`), flush antes de que Vercel congele la función, sin cookies ni cuerpos de request
 - [x] 3.3 `environment` y `release` desde Vercel; no-op sin DSN
 - [x] 3.4 Opciones de build de v11 (`org`/`project`/`authToken` arriba); source maps solo con token
 - [x] 3.5 `?sentry-test=1` y `/api/sentry-test`
