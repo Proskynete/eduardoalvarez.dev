@@ -1,8 +1,9 @@
 /**
  * Sends a GA4 event. The single entry point for custom events on the site.
  *
- * GA only loads after the visitor accepts in the cookie banner
- * (`components/analytics/index.astro`), which sets `window.analyticsLoaded`.
+ * GA only loads with consent for statistics (`utils/consent.ts`: the stored
+ * decision, or the region default before the visitor acts), and
+ * `components/analytics/index.astro` then sets `window.analyticsLoaded`.
  * Before that, after declining, in dev or without PUBLIC_GA_ID this is a no-op:
  * events are dropped, not queued, so nothing collected before consent is sent
  * once it is given.
