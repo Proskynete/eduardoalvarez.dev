@@ -1,21 +1,19 @@
 ---
 import { PUBLIC_GA_ID } from "astro:env/client";
 
-import CookieBanner from "./cookie-banner.astro";
+import CookiePreferences from "./cookie-preferences";
 
 /**
- * Google Analytics 4 behind consent.
+ * Google Analytics 4 behind the visitor's cookie decision (`utils/consent.ts`).
  *
- * gtag.js is NOT requested until the visitor accepts in the banner. Before a
- * decision, or after «No, gracias», nothing goes to Google. Declining after
- * accepting sets `ga-disable-<ID>` and deletes the `_ga*` cookies.
- *
- * This replaced the Partytown version: Partytown loaded GA on every visit, and a
- * worker that proxies `gtag` cannot be held back until a click without loading
- * it first. The script is async and small; it no longer runs for everybody.
+ * Statistics follow the stored decision or, before the visitor acts, the region
+ * default: ON outside Europe (opt-out, the notice informs), OFF in Europe
+ * (opt-in, nothing goes to Google until «Aceptar»). Switching them off after
+ * they were on sets `ga-disable-<ID>` and deletes the `_ga*` cookies.
  *
  * Only in production builds and only with PUBLIC_GA_ID: in dev, CI or a build
- * without the variable, neither the loader nor the banner is rendered.
+ * without the variable, neither the loader, the notice nor the panel is
+ * rendered. Vercel Web Analytics (cookieless) counts every visit regardless.
  *
  * Page views: the ClientRouter navigates with the History API, which GA4's
  * enhanced measurement already counts as page views.
@@ -27,8 +25,8 @@ const gaId = import.meta.env.PROD ? PUBLIC_GA_ID : undefined;
   gaId && (
     <>
       <script is:inline define:vars={{ gaId }}>
-        // Inline so the decision is applied before anything else runs; guarded
-        // because the ClientRouter re-executes inline scripts on navigation.
+        // Inline so the functions exist before any module runs; guarded because
+        // the ClientRouter re-executes inline scripts on navigation.
         if (!window.loadAnalytics) {
           window.dataLayer = window.dataLayer || [];
           window.gtag = function () {
@@ -47,7 +45,7 @@ const gaId = import.meta.env.PROD ? PUBLIC_GA_ID : undefined;
           };
           window.disableAnalytics = function () {
             window["ga-disable-" + gaId] = true;
-            // Delete GA's cookies (_ga, _ga_XXXX) on this host and its parent domain.
+            // Delete GA's cookies (_ga, _ga_XXXX) on this host and its registrable domain.
             var host = location.hostname;
             var domains = ["", host, "." + host.split(".").slice(-2).join(".")];
             document.cookie.split(";").forEach(function (cookie) {
@@ -58,12 +56,38 @@ const gaId = import.meta.env.PROD ? PUBLIC_GA_ID : undefined;
               });
             });
           };
-          try {
-            if (localStorage.getItem("cookie-consent") === "granted") window.loadAnalytics();
-          } catch (e) {}
         }
       </script>
-      <CookieBanner />
+      <script>
+        import {
+          type ConsentState,
+          forgetPreferencesUnlessAllowed,
+          getConsent,
+          onConsentChange,
+          openCookiePreferences,
+        } from "../../utils/consent";
+
+        type AnalyticsWindow = Window & { loadAnalytics?: () => void; disableAnalytics?: () => void };
+
+        // A module: runs once per full page load, not on ClientRouter navigations.
+        const apply = (consent: ConsentState) => {
+          const w = window as AnalyticsWindow;
+          if (consent.statistics) w.loadAnalytics?.();
+          else w.disableAnalytics?.();
+          forgetPreferencesUnlessAllowed(consent);
+        };
+        apply(getConsent());
+        onConsentChange(apply);
+
+        // The footer's «./cookies». Delegated once on the document, so it survives navigations.
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element ? event.target : null;
+          if (!target?.closest("[data-cookie-preferences]")) return;
+          event.preventDefault();
+          openCookiePreferences();
+        });
+      </script>
+      <CookiePreferences client:load transition:persist="cookie-preferences" />
     </>
   )
 }

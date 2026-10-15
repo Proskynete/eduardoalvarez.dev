@@ -3,6 +3,7 @@ import { Logo } from "@eduardoalvarez/arrecife/brand";
 import { useEffect, useRef, useState } from "react";
 
 import { trackEvent } from "../../../../utils/analytics";
+import { forgetPreferencesUnlessAllowed } from "../../../../utils/consent";
 import MobileNav from "./components/mobile";
 import NavLinks from "./components/nav-links";
 import SearchInput from "./components/search-input";
@@ -205,7 +206,11 @@ export default function SiteNav({ pathname: initialPathname = "", version, algol
       <ThemeToggle
         id="theme-toggle"
         aria-label="Cambiar entre modo claro y oscuro"
-        onThemeChange={(theme) => trackEvent("theme_change", { theme })}
+        onThemeChange={(theme) => {
+          // Not remembered without consent for preferences (utils/consent.ts).
+          forgetPreferencesUnlessAllowed();
+          trackEvent("theme_change", { theme });
+        }}
       />
 
       <MobileNav version={version} pathname={pathname} />

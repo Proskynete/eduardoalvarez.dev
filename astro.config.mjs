@@ -112,11 +112,10 @@ export default defineConfig({
     enabled: false,
   },
   output: "server",
-  adapter: vercel({
-    webAnalytics: {
-      enabled: true,
-    },
-  }),
+  // Vercel Web Analytics is the `@vercel/analytics/astro` component in the base
+  // layout, not the adapter's `webAnalytics` option: one injection, and the
+  // component reports ClientRouter navigations with their route.
+  adapter: vercel(),
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {
