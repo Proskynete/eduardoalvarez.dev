@@ -1,19 +1,23 @@
 import * as Sentry from "@sentry/astro";
 
+import { environmentFromHost, normaliseEnvironment } from "./src/utils/sentry-environment";
+
 /*
  * Browser-side Sentry. A silent no-op without PUBLIC_SENTRY_DSN (dev, CI,
  * previews without the variable): nothing is initialised and nothing loads.
  *
- * Vercel exposes its system variables to Astro with the PUBLIC_ prefix at build
- * time, which is where environment and release come from in the browser.
+ * environment: VERCEL_ENV inlined at build time, else the page's host
+ * (eduardoalvarez.dev → production, localhost → development, anything else →
+ * preview). release: the commit SHA inlined at build time. See
+ * src/utils/sentry-environment.ts.
  */
 const dsn = import.meta.env.PUBLIC_SENTRY_DSN;
 
 if (dsn) {
   Sentry.init({
     dsn,
-    environment: import.meta.env.PUBLIC_VERCEL_ENV || "development",
-    release: import.meta.env.PUBLIC_VERCEL_GIT_COMMIT_SHA || undefined,
+    environment: normaliseEnvironment(__SENTRY_ENVIRONMENT__) ?? environmentFromHost(window.location.hostname),
+    release: __SENTRY_RELEASE__ || undefined,
     sendDefaultPii: false,
     // Low-traffic site and a large quota: trace every page load and navigation.
     // browserTracingIntegration also reports the Web Vitals (LCP, INP, CLS, TTFB).

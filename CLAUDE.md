@@ -56,7 +56,7 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 
 > **Redirects** (`vercel.json`): `/articulos[/*]` → `/articles[/*]`, `/charlas-talleres` → `/speaking`, and the retired pages `/stack`, `/projects`, `/working-with-me` → `/about`, `/donaciones` → `/`.
 
-**`src/middleware/`** — `index.ts` (Sentry init + `handleRequest`, then the podcast redirect), `sentry-flush.ts` (flushes Sentry before Vercel freezes the function), `podcasts.ts`, `rate-limit.ts` (in-memory, per IP, used by the API).
+**`src/middleware/`** — `index.ts` (Sentry init + `handleRequest`, then the podcast redirect), `sentry-flush.ts` (flushes Sentry before Vercel freezes the function), `sentry-environment.ts` (Sentry environment from the request host when VERCEL_ENV is unknown), `podcasts.ts`, `rate-limit.ts` (in-memory, per IP, used by the API).
 
 **`src/layouts/`**
 - `base/index.astro` — Root wrapper: `components/head.astro` (SEO, icons, manifest, theme script), `components/header/` (nav + Algolia search, `site-nav.tsx`), `components/footer/`.
@@ -181,7 +181,7 @@ Validated at startup by `src/utils/env.ts`:
 - Algolia: `PUBLIC_ALGOLIA_APPLICATION_ID`, `PUBLIC_ALGOLIA_INDEX_NAME`, `PUBLIC_ALGOLIA_SEARCH_API_KEY`, `ALGOLIA_ADMIN_API_KEY` (server only)
 - Giscus: `PUBLIC_GISCUS_REPO`, `PUBLIC_GISCUS_REPO_ID`, `PUBLIC_GISCUS_CATEGORY_ID`
 - Mailchimp: `MAILCHIMP_API_KEY`, `MAILCHIMP_LIST_ID`
-- Observability (all optional, each a no-op when missing): `PUBLIC_GA_ID` (build time), `PUBLIC_SENTRY_DSN` (build time), `SENTRY_DSN` and `SENTRY_TEST_TOKEN` (runtime), `SENTRY_AUTH_TOKEN` (+ optional `SENTRY_ORG`/`SENTRY_PROJECT`, build time: source maps)
+- Observability (all optional, each a no-op when missing): `PUBLIC_GA_ID` (build time), `PUBLIC_SENTRY_DSN` (build time), `SENTRY_DSN` and `SENTRY_TEST_TOKEN` (runtime), `SENTRY_AUTH_TOKEN` (+ optional `SENTRY_ORG`/`SENTRY_PROJECT`, build time: source maps). Sentry's `environment`/`release` come from `VERCEL_ENV`/`VERCEL_GIT_COMMIT_SHA` (runtime, else inlined at build via `vite.define`), falling back to the host (`eduardoalvarez.dev` → production, other hosts → preview, localhost → development) and `git rev-parse HEAD`: see `src/utils/sentry-environment.ts`
 - Optional: `SKIP_ENV_VALIDATION`, `ALGOLIA_FORCE_INDEX`
 
 ## Performance Considerations
