@@ -15,6 +15,10 @@ El sitio SHALL decidir si la persona está en Europa (EEE, Reino Unido o Suiza) 
 - **THEN** la página SHALL NO pedir nada a `googletagmanager.com`
 - **THEN** SHALL mostrarse un aviso con «Rechazar», «Configurar» y «Aceptar», del mismo peso visual
 
+#### Scenario: Rechazar en el aviso
+- **WHEN** la persona pulsa «Rechazar» en el aviso de primera visita
+- **THEN** SHALL apagarse solo «Estadísticas»; «Preferencias» SHALL seguir activa y el tema guardado SHALL conservarse
+
 ### Requirement: Decisión guardada y migrada
 
 La decisión SHALL guardarse solo cuando la persona actúa, en `localStorage` bajo `cookie-consent` como `{"v":2,"statistics":boolean,"preferences":boolean,"ts":number}`. Los valores de la versión anterior SHALL migrarse al leer: `granted` como estadísticas activas y `denied` como apagadas.
@@ -40,7 +44,7 @@ El panel SHALL ser un diálogo modal accesible (título, foco atrapado y devuelt
 - **THEN** SHALL fijarse `window['ga-disable-<ID>'] = true` y SHALL borrarse las cookies `_ga*` del host y del dominio registrable
 
 #### Scenario: Apagar preferencias
-- **WHEN** «Preferencias» queda apagada
+- **WHEN** «Preferencias» queda apagada («Guardar selección» con el interruptor apagado, o «Rechazar opcionales»)
 - **THEN** SHALL borrarse `arrecife-theme` y el tema elegido SHALL NO recordarse en la siguiente visita
 
 #### Scenario: Sin ID o fuera de producción

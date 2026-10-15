@@ -5,7 +5,7 @@ El aviso de cookies era un sí o no a Google Analytics, igual para todo el mundo
 ## What Changes
 
 - **Panel de preferencias** con categorías e interruptores: «Necesarias» (siempre activas, bloqueado), «Preferencias» (el tema) y «Estadísticas» (GA4). Cada categoría muestra qué guarda: nombre, proveedor, propósito y duración. Botones «Rechazar opcionales», «Guardar selección» y «Aceptar todas». Lo abre «Configurar» en el aviso y «./cookies» en el pie.
-- **Valor por defecto según la región**, por la zona horaria del navegador: fuera de Europa las estadísticas parten activas (opt-out) y un aviso lo informa con «Entendido» y «Configurar»; en Europa (EEE, Reino Unido, Suiza, o si la zona horaria no se puede leer) parten apagadas (opt-in) con «Rechazar», «Configurar» y «Aceptar», del mismo peso.
+- **Valor por defecto según la región**, por la zona horaria del navegador: fuera de Europa las estadísticas parten activas (opt-out) y un aviso lo informa con «Entendido» y «Configurar»; en Europa (EEE, Reino Unido, Suiza, o si la zona horaria no se puede leer) parten apagadas (opt-in) con «Rechazar», «Configurar» y «Aceptar», del mismo peso. «Rechazar» en el aviso apaga solo «Estadísticas»; «Rechazar opcionales» en el panel apaga todas las opcionales.
 - **Decisión versionada** en `localStorage` bajo `cookie-consent` como JSON (`v: 2`). Los valores antiguos (`granted` / `denied`) se migran al leer. Sin decisión guardada se aplica el valor de la región sin persistirlo.
 - **Inventario** de cookies y claves de almacenamiento en `src/settings/cookies.ts`, la única fuente para el panel.
 - **Vercel Web Analytics** con `@vercel/analytics/astro` (sin cookies, anónimo) en vez de la opción `webAnalytics` del adaptador.

@@ -38,6 +38,8 @@ import {
  * region (`isEurope`): outside Europe statistics are already on, so it informs
  * («Entendido» / «Configurar»); in Europe nothing loads until the visitor
  * accepts, and «Rechazar», «Configurar» and «Aceptar» carry the same weight.
+ * The notice is about measuring, so its «Rechazar» only turns statistics off;
+ * the panel's «Rechazar opcionales» turns off every optional category.
  * It is a small card in a corner: it never blocks scrolling.
  *
  * The panel is arrecife's Dialog (Radix): focus is trapped and returned, Esc
@@ -117,7 +119,7 @@ export default function CookiePreferences() {
                   <Button
                     variant="secondary"
                     size="sm"
-                    onClick={() => decide({ preferences: false, statistics: false })}
+                    onClick={() => decide({ preferences: true, statistics: false })}
                   >
                     Rechazar
                   </Button>

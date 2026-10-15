@@ -38,8 +38,11 @@ describe("CookiePreferences", () => {
     expect(screen.getByRole("button", { name: "Configurar" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Aceptar" })).toBeInTheDocument();
 
+    localStorage.setItem("arrecife-theme", "light");
     fireEvent.click(screen.getByRole("button", { name: "Rechazar" }));
-    expect(stored()).toMatchObject({ statistics: false, preferences: false });
+    // Only statistics: the theme preference stays.
+    expect(stored()).toMatchObject({ statistics: false, preferences: true });
+    expect(localStorage.getItem("arrecife-theme")).toBe("light");
   });
 
   it("in Europe «Aceptar» turns statistics on", () => {
