@@ -4,7 +4,7 @@ import { PUBLIC_GA_ID } from "astro:env/client";
 
 import SiteFooter from "./site-footer";
 
-// Same condition as components/analytics: the link only exists when the banner does.
+// Same condition as components/analytics: the link only exists when the panel does.
 const analyticsEnabled = import.meta.env.PROD && Boolean(PUBLIC_GA_ID);
 ---
 
@@ -13,7 +13,7 @@ const analyticsEnabled = import.meta.env.PROD && Boolean(PUBLIC_GA_ID);
 {
   analyticsEnabled && (
     <div class="pt-step-sm flex justify-end">
-      {/* Reopens the consent banner (components/analytics/cookie-banner.astro). */}
+      {/* Opens the cookie preferences panel (components/analytics/cookie-preferences.tsx). */}
       <button type="button" data-cookie-preferences class={buttonVariants({ variant: "tertiary", size: "sm" })}>
         ./cookies
       </button>

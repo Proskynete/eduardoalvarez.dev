@@ -28,6 +28,7 @@ extend-exclude = [
 # este repositorio comenta en español, así que cada una que aparece hay que
 # declararla acá: `typos` no sabe de idiomas, compara contra un diccionario.
 "clases" = "clases"
+"Persistente" = "Persistente"
 "decorativos" = "decorativos"
 "decorativas" = "decorativas"
 "expresion" = "expresion"
