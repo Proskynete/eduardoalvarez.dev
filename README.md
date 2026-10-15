@@ -126,7 +126,7 @@ MAILCHIMP_API_KEY=
 MAILCHIMP_LIST_ID=
 
 # Observabilidad (opcionales: sin ellas, cada pieza queda apagada)
-PUBLIC_GA_ID=                   # GA4, solo con consentimiento y solo en producción (build)
+PUBLIC_GA_ID=                   # GA4 según la decisión de cookies (opt-in en Europa) y solo en producción (build)
 PUBLIC_SENTRY_DSN=              # Sentry en el navegador (build)
 SENTRY_DSN=                     # Sentry en el servidor (runtime)
 SENTRY_TEST_TOKEN=              # Habilita /api/sentry-test con el header x-sentry-test (runtime)
