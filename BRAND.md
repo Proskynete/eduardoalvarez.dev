@@ -387,7 +387,11 @@ está escrito.
    El handoff dice «los estados se comunican con borde y color, no con movimiento», así que
    la parte de motion queda acotada por diseño.
 4. **Reservar `@tiburoncin`** en redes y el subdominio.
-5. **Generador de OG** con las dos plantillas del handoff (artículo y curso).
+5. **Usar el generador de OG en los sitios.** Ya existe en la librería:
+   `@eduardoalvarez/arrecife/og` (en 0.13.0) trae `articleTemplate`, `courseTemplate`,
+   `talkTemplate` y `defaultTemplate` para Satori, más de las dos plantillas que pedía el
+   handoff. En este sitio lo adopta el change de OpenSpec `adopt-arrecife-og`: la OG de
+   cada artículo y `og-default.png`. Falta revisar los demás proyectos.
 
 ---
 
