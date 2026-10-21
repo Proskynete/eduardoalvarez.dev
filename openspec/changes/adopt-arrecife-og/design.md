@@ -33,7 +33,7 @@ La prueba de humo con `defaultTemplate` mostró la aleta a 200 px, fuera del hal
 sharp ya es dependencia y convierte el SVG de Satori (el texto sale como trazos, así que librsvg no necesita fuentes). Se evita sumar `@resvg/resvg-js`, que trae binarios nativos.
 
 **4. Fuentes leídas de disco en el build.**
-Geist sale del paquete `geist` (TTF). Satori no lee `woff2`, y `@fontsource-variable/*` solo trae ese formato, así que se suman `@fontsource/bricolage-grotesque` (800) y `@fontsource/jetbrains-mono` (400) como devDependencies y se lee su `.woff` latin. Se cargan una vez por build en `src/utils/og.ts`.
+Geist sale del paquete `geist` (TTF). Satori no lee `woff2`, y `@fontsource-variable/*` solo trae ese formato, así que se suman `@fontsource/bricolage-grotesque` (800) y `@fontsource/jetbrains-mono` (400) como devDependencies y se lee su `.woff` latin. Se cargan una vez por build en `src/utils/og-render.ts`, separado de `og.ts` para que Satori y las fuentes no entren en la función que renderiza los artículos.
 
 **5. Imágenes de marca como `data:` URIs.**
 Satori pide las `<img>` con `fetch`, y en el build no hay servidor. Se pasa `basePath: "arrecife:"` y, antes de pintar, se recorre el árbol y se reemplaza cada `src` que empieza por `arrecife:/` por el `data:image/png;base64` del archivo de `node_modules/@eduardoalvarez/arrecife/assets/brand/`. Así no hay que duplicar los PNG en `public/` y no se depende de la red.

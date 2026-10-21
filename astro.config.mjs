@@ -17,6 +17,7 @@ import { publishAlgoliaRSS } from "./src/scripts/algolia.ts";
 import config from "./src/settings/manifest-config.ts";
 import { arrecife } from "@eduardoalvarez/arrecife/shiki";
 import { validateEnvAtStartup } from "./src/utils/env.ts";
+import { readArticleOg } from "./src/utils/og-index.ts";
 
 // Build a map of article slug → ISO date from MDX frontmatter for sitemap lastmod
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -30,6 +31,11 @@ for (const file of readdirSync(articlesDir).filter((f) => f.endsWith(".mdx"))) {
     articleDates[`/articles/${slugMatch[1].trim()}`] = new Date(dateMatch[1].trim()).toISOString();
   }
 }
+
+// The OG image of every article, by slug: its cover, or the generated fallback
+// when the cover is missing (src/utils/og.ts). Resolved here because articles
+// render on demand, in a function with no public/ to check covers against.
+const ogImages = Object.fromEntries(readArticleOg(__dirname).map(({ slug, image }) => [slug, image]));
 
 // Validar variables de entorno en startup (fail-fast)
 // Puede omitirse en desarrollo local con: SKIP_ENV_VALIDATION=true
@@ -86,6 +92,7 @@ export default defineConfig({
     define: {
       __SENTRY_ENVIRONMENT__: JSON.stringify(sentryEnvironment),
       __SENTRY_RELEASE__: JSON.stringify(sentryRelease),
+      __OG_IMAGES__: JSON.stringify(ogImages),
     },
     ssr: {
       /*
