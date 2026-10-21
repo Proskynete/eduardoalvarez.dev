@@ -65,9 +65,9 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 
 **`src/components/`** — only what the library does not provide: `analytics` (GA4 loader + first-visit notice and cookie preferences panel), `article`, `audio-player`, `brand-fin`, `pagination`, `podcast-guest`, `podcast-guest-chips`, `podcast-row`, `splash-screen`, `subscribe` (`index.astro` + `subscribe-form.tsx`), `talk-card`, `text-link`, `ui/image`. Before building a UI piece, check whether arrecife already exports it (`PageHeader`, `EmptyState`, `LinkRow`, `Text`, `Separator`, `Nav`, `buttonVariants`…).
 
-**`src/utils/`** — pure functions: `analytics.ts` (`trackEvent`, no-op until GA loads with consent), `consent.ts` (cookie decision store: region default, v1 migration, `getConsent`/`setConsent`/`onConsentChange`/`openCookiePreferences`), `api-response.ts`, `articles.ts`, `categories.ts`, `date.ts`, `env.ts` (Zod-validated env, fail-fast at startup), `podcasts.ts`, `profile.ts` (builds the profile JSON), `reading-time.ts`, `strings.ts`.
+**`src/utils/`** — pure functions: `analytics.ts` (`trackEvent`, no-op until GA loads with consent), `consent.ts` (cookie decision store: region default, v1 migration, `getConsent`/`setConsent`/`onConsentChange`/`openCookiePreferences`), `api-response.ts`, `articles.ts`, `categories.ts`, `date.ts`, `env.ts` (Zod-validated env, fail-fast at startup), `person-schema.ts` (the single `Person` JSON-LD node and `personRef` every schema points at), `podcasts.ts`, `profile.ts` (builds the profile JSON), `reading-time.ts`, `sentry-environment.ts` (where Sentry's `environment`/`release` come from), `strings.ts`, `talks.ts` (`talkSchema` and `parseTalks`).
 
-**`src/settings/`** — data and config: `index.ts` (site, author, `authorInlineBio`, social, contacts), `manifest-config.ts` (web manifest), `talks.ts` (loads and validates `src/data/talks/*.json`), `cookies.ts` (inventory of every cookie and storage key, read by the preferences panel), `now.ts`, `about.ts` (experience plus the About quotes: `beliefs`, `lifePhilosophy`), `podcasts.ts`. `stack.ts` and `projects.ts` are leftovers of retired pages and are not imported.
+**`src/settings/`** — data and config: `index.ts` (site, author, `authorInlineBio`, social, contacts), `manifest-config.ts` (web manifest), `talks.ts` (loads and validates `src/data/talks/*.json`), `cookies.ts` (inventory of every cookie and storage key, read by the preferences panel), `brand-assets.ts` (versioned URLs `?v=<hash>` for icons, launch images and the default OG image; the hashes live in `brand-asset-versions.json`, written by `npm run brand:assets`, never by hand), `apple-startup-images.json` (iOS launch screens per device), `now.ts`, `about.ts` (experience plus the About quotes: `beliefs`, `lifePhilosophy`), `podcasts.ts`. `stack.ts` and `projects.ts` are leftovers of retired pages and are not imported.
 
 **`src/data/talks/`** — one JSON per talk, named by its slug; the schema is `talkSchema` in `utils/talks.ts`. The content manager writes these files through PRs, so the schema is a contract with that repo. Talk images and organization logos live in `public/images/talks/` and `public/images/organizations/`.
 
@@ -75,7 +75,7 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 
 **`src/interfaces/index.ts`** — `Article`, `CategoryAllowed`, `TagsAllowed`, `Section`, `Heading`, `ArticleLayout`. No `any`.
 
-**`scripts/`** — `generate-manifest-icons.mjs`, `generate-og-default.mjs`, `brand.mjs` (shared constants), `vercel-ignore-build.sh` (skips Vercel builds for commits that only touch specs/docs).
+**`scripts/`** — `generate-manifest-icons.mjs`, `generate-startup-images.mjs` (iOS launch images, WebKit), `generate-og-default.mjs`, `brand.mjs` (shared constants), `vercel-ignore-build.sh` (`ignoreCommand`: skips Vercel builds for commits that only touch specs/docs).
 
 **`openspec/`** — spec-driven changes (`openspec list`, `openspec validate --specs`). Main specs live in `openspec/specs/`, archived changes in `openspec/changes/archive/`.
 
@@ -174,7 +174,8 @@ Coverage thresholds: 80% statements, branches, functions and lines (`vitest.conf
 - **Prettier** (`.prettierrc`): 2 spaces, semicolons, 120 columns.
 - **Commits**: Conventional Commits, enforced by commitlint via husky; lint-staged runs on pre-commit.
 - **Language**: identifiers and code comments in English (the CI spell checker, `typos`, would "fix" Spanish words inside identifiers); user-facing text in Spanish.
-- **Branches**: `feat/*`/`fix/*` → `develop` → `main`. `main` is production.
+- **Branches**: `feat/*`/`fix/*` → `develop` → `main`. `main` is production. Work branches (`feat/**`, `fix/**`, `chore/**`, `docs/**`…) do not deploy on Vercel (`git.deploymentEnabled` in `vercel.json`); previews come from `develop`.
+- **OpenSpec**: archive a change once its tasks are done (`openspec archive <name>`), so its deltas reach `openspec/specs/`. A change that replaces another's requirement says so with `MODIFIED`/`REMOVED`, not only `ADDED`. `archive` refuses to leave a spec with no requirements: to retire a whole capability, archive the rest and delete that spec by hand.
 
 ### Environment Variables
 
