@@ -25,6 +25,6 @@
 
 - [ ] 5.1 `npm run build`: 12 PNG de 1200×630 en la salida; revisar cada una
 - [ ] 5.2 Quitar temporalmente `seo_image` de un artículo y verificar `og:image`, `BlogPosting` y Algolia en el HTML; restaurarlo
-- [ ] 5.3 Validar una URL generada en el inspector de LinkedIn o de X sobre un preview
+- [ ] 5.3 Prueba local, no sobre un preview (la rama `docs/**` no despliega): `npm run build && npm run preview`, abrir `/og/articles/<slug>.png` y confirmar que responde PNG de 1200×630 y que el `og:image` del artículo apunta ahí. El inspector de LinkedIn o de X necesita una URL pública: queda para cuando el cambio llegue a `develop`
 - [ ] 5.4 `BRAND.md` §13: el generador de OG existe en arrecife y este sitio lo usa
 - [ ] 5.5 Lint, unitarios, `astro check` y build en verde
