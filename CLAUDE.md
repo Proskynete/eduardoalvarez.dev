@@ -52,6 +52,7 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 - `api/subscribe.ts` — Newsletter endpoint (Zod validation, rate limited).
 - `api/sentry-test.ts` — Throws a test error for Sentry; 404 unless `SENTRY_TEST_TOKEN` is set and sent as `x-sentry-test`.
 - `api/profile.json.ts` — Public profile JSON (talks, now, About quotes, articles), prerendered. Read at build time by terminal.eduardoalvarez.dev; its shape is versioned (`PROFILE_VERSION` in `utils/profile.ts`).
+- `og/articles/[slug].png.ts` — Fallback Open Graph image of every article, drawn with arrecife's `articleTemplate` at build time. Prerendered. Only used when the article's cover is missing (see SEO).
 - `rss.xml.ts` — RSS feed.
 
 > **Redirects** (`vercel.json`): `/articulos[/*]` → `/articles[/*]`, `/charlas-talleres` → `/speaking`, and the retired pages `/stack`, `/projects`, `/working-with-me` → `/about`, `/donaciones` → `/`.
@@ -65,7 +66,7 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 
 **`src/components/`** — only what the library does not provide: `analytics` (GA4 loader + first-visit notice and cookie preferences panel), `article`, `audio-player`, `brand-fin`, `pagination`, `podcast-guest`, `podcast-guest-chips`, `podcast-row`, `splash-screen`, `subscribe` (`index.astro` + `subscribe-form.tsx`), `talk-card`, `text-link`, `ui/image`. Before building a UI piece, check whether arrecife already exports it (`PageHeader`, `EmptyState`, `LinkRow`, `Text`, `Separator`, `Nav`, `buttonVariants`…).
 
-**`src/utils/`** — pure functions: `analytics.ts` (`trackEvent`, no-op until GA loads with consent), `consent.ts` (cookie decision store: region default, v1 migration, `getConsent`/`setConsent`/`onConsentChange`/`openCookiePreferences`), `api-response.ts`, `articles.ts`, `categories.ts`, `date.ts`, `env.ts` (Zod-validated env, fail-fast at startup), `person-schema.ts` (the single `Person` JSON-LD node and `personRef` every schema points at), `podcasts.ts`, `profile.ts` (builds the profile JSON), `reading-time.ts`, `sentry-environment.ts` (where Sentry's `environment`/`release` come from), `strings.ts`, `talks.ts` (`talkSchema` and `parseTalks`).
+**`src/utils/`** — pure functions: `analytics.ts` (`trackEvent`, no-op until GA loads with consent), `consent.ts` (cookie decision store: region default, v1 migration, `getConsent`/`setConsent`/`onConsentChange`/`openCookiePreferences`), `api-response.ts`, `articles.ts`, `categories.ts`, `date.ts`, `env.ts` (Zod-validated env, fail-fast at startup), `og.ts` (which OG image an article uses: `ogImageFor`, the `?v=` hash), `og-index.ts` (reads every article's frontmatter and resolves its OG image, build time), `og-render.ts` (Satori + sharp, build time only), `person-schema.ts` (the single `Person` JSON-LD node and `personRef` every schema points at), `podcasts.ts`, `profile.ts` (builds the profile JSON), `reading-time.ts`, `sentry-environment.ts` (where Sentry's `environment`/`release` come from), `strings.ts`, `talks.ts` (`talkSchema` and `parseTalks`).
 
 **`src/settings/`** — data and config: `index.ts` (site, author, `authorInlineBio`, social, contacts), `manifest-config.ts` (web manifest), `talks.ts` (loads and validates `src/data/talks/*.json`), `cookies.ts` (inventory of every cookie and storage key, read by the preferences panel), `brand-assets.ts` (versioned URLs `?v=<hash>` for icons, launch images and the default OG image; the hashes live in `brand-asset-versions.json`, written by `npm run brand:assets`, never by hand), `apple-startup-images.json` (iOS launch screens per device), `now.ts`, `about.ts` (experience plus the About quotes: `beliefs`, `lifePhilosophy`), `podcasts.ts`. `stack.ts` and `projects.ts` are leftovers of retired pages and are not imported.
 
@@ -108,14 +109,14 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 - `layout`: `../../layouts/article/index.astro`
 - `title`, `slug`, `excerpt`
 - `seo_description`: ≤ 160 chars (the layout truncates, but write it within the limit)
-- `seo_image`: `/images/articles/<slug>/<slug>.webp`
+- `seo_image`: `/images/articles/<slug>/<slug>.webp`, the cover the content manager draws and commits. Optional: without it, or if the local file is missing, the OG falls back to the generated `/og/articles/<slug>.png`
 - `date` (ISO), optional `date_modified`
 - `categories`: `CategoryAllowed[]` — `engineering-leadership`, `platform-engineering`, `ai-native-engineering`, `career-strategy`, `engineering-culture`, `developer-experience`, `technical-decisions`, `learning-in-tech`
 - `tags`: `TagsAllowed[]`; `keywords`: `string[]` (falls back to categories)
 - `sections`: `{ title, anchor }[]` for the TOC; heading IDs must match
 - optional `audio_narration`
 
-**SEO**: `head.astro` builds the `<title>` with a length guard (drops the ` | Eduardo Álvarez` suffix past 60 chars), truncates descriptions to 160, emits OG/Twitter tags and optional JSON-LD (`schema` prop), and accepts `noindex`.
+**SEO**: `head.astro` builds the `<title>` with a length guard (drops the ` | Eduardo Álvarez` suffix past 60 chars), truncates descriptions to 160, emits OG/Twitter tags and optional JSON-LD (`schema` prop), and accepts `noindex`. An article's OG image comes from `ogImageFor` (`utils/og.ts`), resolved once in `astro.config.mjs` and inlined as `__OG_IMAGES__`, because articles render on demand in a function with no `public/` to check covers against; `og:image`, the `BlogPosting` and Algolia all use it. The default OG image (`npm run brand:og`) is still drawn by `scripts/generate-og-default.mjs`, not by arrecife's `defaultTemplate`.
 
 ## Key Technologies
 

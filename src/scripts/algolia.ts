@@ -8,6 +8,8 @@ import matter from "gray-matter";
 import kleur from "kleur";
 
 import config from "../settings/index.ts";
+import { ogArticlePath } from "../utils/og.ts";
+import { readArticleOg } from "../utils/og-index.ts";
 
 /**
  * El indexado en Algolia solo debe ocurrir en el deploy de producción (rama `main`).
@@ -73,6 +75,8 @@ export const publishAlgoliaRSS = () => {
 
         try {
           const articles = await glob("src/pages/articles/**/*.mdx");
+          // Same image as the page's og:image: the cover, or the generated fallback.
+          const ogImages = new Map(readArticleOg(process.cwd()).map(({ slug, image }) => [slug, image]));
           const objects = articles.map((article) => {
             const fileContent = readFileSync(article, "utf-8");
             const { data } = matter(fileContent);
@@ -86,7 +90,7 @@ export const publishAlgoliaRSS = () => {
               guid: `${config.url}/articles/${data.slug}`,
               slug: data.slug,
               author: config.author.name,
-              image: data.image || `${config.url}/${data.seo_image}`,
+              image: new URL(ogImages.get(data.slug) ?? ogArticlePath(data.slug), config.url).toString(),
             };
           });
 

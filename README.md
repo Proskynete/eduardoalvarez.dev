@@ -143,7 +143,7 @@ ALGOLIA_FORCE_INDEX=true         # Indexar en Algolia desde un build local
 
 ## Calidad
 
-- **301 tests unitarios** en 23 archivos (Vitest)
+- **318 tests unitarios** en 24 archivos (Vitest)
 - **Tests E2E** en 5 archivos (Playwright): accesibilidad, sistema de diseño, podcasts, búsqueda y suscripción
 - 0 errores de TypeScript en strict mode (`astro check` corre dentro del build)
 - Contraste verificado contra WCAG 2.2 AA en ambos temas

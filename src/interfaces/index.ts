@@ -89,7 +89,8 @@ export interface Article {
   slug: string;
   excerpt: string;
   seo_description: string;
-  seo_image: string;
+  /** The cover from the content manager. Without it, the OG falls back to the generated one. */
+  seo_image?: string;
   date: string;
   date_modified?: string;
   categories: CategoryAllowed[];

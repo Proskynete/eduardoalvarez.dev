@@ -8,6 +8,7 @@ export default defineConfig({
   define: {
     __SENTRY_ENVIRONMENT__: JSON.stringify(""),
     __SENTRY_RELEASE__: JSON.stringify(""),
+    __OG_IMAGES__: JSON.stringify({}),
   },
   test: {
     globals: true,

@@ -98,6 +98,8 @@
     "@commitlint/cli": "^21.2.3",
     "@commitlint/config-conventional": "^21.2.3",
     "@eslint/js": "^10.0.1",
+    "@fontsource/bricolage-grotesque": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
     "@playwright/test": "^1.63.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^7.0.1",
@@ -123,6 +125,7 @@
     "jsdom": "^30.1.1",
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.9",
+    "satori": "^0.63.2",
     "typescript-eslint": "^8.71.0",
     "vitest": "^5.0.2"
   }
