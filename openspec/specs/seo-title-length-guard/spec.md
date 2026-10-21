@@ -1,7 +1,7 @@
 # seo-title-length-guard Specification
 
 ## Purpose
-TBD - created by archiving change seo-audit-followup. Update Purpose after archive.
+El `<title>` renderizado no supera 60 caracteres por culpa del sufijo ` | Eduardo Álvarez`: `head.astro` lo quita cuando no cabe.
 ## Requirements
 ### Requirement: Title normalizado al rango 30–60 chars en el `<title>` renderizado
 

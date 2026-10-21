@@ -3,27 +3,32 @@ schema: spec-driven
 # Project context
 # This is shown to AI when creating artifacts.
 context: |
-  Project: eduardoalvarez.dev (Personal Website & Blog)
+  Project: eduardoalvarez.dev (Personal Website & Blog of Eduardo Álvarez, Technical Lead · Spec-Driven Development)
   Tech Stack:
-    - Framework: Astro 5
-    - UI Library: React 19
-    - Styling: Tailwind CSS
-    - Language: TypeScript 5.3+
-    - Search: Algolia
-    - Comments: Giscus
-    - Deployment: Vercel
+    - Framework: Astro 7 (output: "server", Vercel adapter; static pages declare `prerender = true`)
+    - UI Library: React 19 (islands: client:load above the fold, client:visible below)
+    - Design system: @eduardoalvarez/arrecife (tokens, components, icons, Shiki theme)
+    - Styling: Tailwind CSS 4 with arrecife tokens (no raw hex, no arbitrary values)
+    - Language: TypeScript 5.9 strict, no `any`
+    - Content: MDX articles in src/pages/articles; talks as JSON in src/data/talks
+    - Search: Algolia v5 (indexed at build) · Comments: Giscus · Newsletter: Mailchimp
+    - Observability: Sentry (errors, tracing, replay on error), GA4 behind the cookie decision, Vercel Web Analytics
+    - PWA: astro-webmanifest + Workbox service worker (app shell only)
+    - Tests: Vitest + Playwright, all under tests/
+    - Deployment: Vercel (feat/* → develop → main)
 
   Architecture:
-    - Content Collections for Blog and Talks
-    - Component-driven development (src/components)
-    - Layout-based structure (src/layouts)
-    - Server-side rendering (SSR) via Vercel adapter
+    - Layouts in src/layouts (base, main, article)
+    - Only what arrecife does not provide lives in src/components
+    - Pure functions in src/utils; data and config in src/settings
+    - Zod for all data validation (env vars, API inputs, talks)
+    - Images through src/components/ui/image (astro:assets)
 
   Conventions:
-    - Use "src/components/ui" for reusable primitives
-    - Prefer "astro:assets" for image optimization
-    - Use Zod for all data validation (Env vars, API inputs)
-    - Semantic HTML and ARIA for accessibility (A11y is a priority)
+    - Identifiers and code comments in English; user-facing text in Spanish
+    - Semantic HTML and ARIA for accessibility (WCAG 2.2 AA is a priority)
+    - Voice and positioning rules in BRAND.md §14
+    - See CLAUDE.md for the full architecture
 
 # Per-artifact rules
 # Add custom rules for specific artifacts.

@@ -33,52 +33,36 @@ Technical Lead · Spec-Driven Development. Enseño a construir software con IA s
 ---
 
 ### Requirement: Featured articles section
-Immediately below the hero, the homepage SHALL show the 3 most recent articles without pagination.
+Immediately below the hero, the homepage SHALL show the 4 most recent articles without pagination.
 
-**Section header:** "Latest Writing" with a link "View all →" aligned right.
+**Section header:** «Últimos artículos» with a «./ver_todos» link aligned right.
 
-**Article card (compact):**
-```
-[Category badge]  [Date — text-muted, text-sm]
-[Title — text-xl, Geist SemiBold, hover: text-accent]
-[Description — text-secondary, text-sm, max 2 lines]
-```
+**Layout:** two-column grid from `sm` up (four cards fill two rows), one column below.
 
-**Layout:** Vertical list (not grid) — single column even on desktop. Clean, editorial.
-
-#### Scenario: Homepage shows exactly 3 articles
+#### Scenario: Homepage shows the latest articles
 - **WHEN** the homepage renders
-- **THEN** exactly 3 article cards SHALL appear, sorted by date descending
+- **THEN** up to 4 article cards SHALL appear, sorted by date descending
 
 #### Scenario: Article card navigates correctly
 - **WHEN** user clicks an article card or its title
 - **THEN** the browser SHALL navigate to `/articles/[slug]`
 
 #### Scenario: View all link works
-- **WHEN** user clicks "View all →"
+- **WHEN** user clicks «./ver_todos»
 - **THEN** the browser SHALL navigate to `/articles`
 
----
-
 ### Requirement: Speaking highlights section
-The homepage SHALL show a compact section with 2–3 recent/featured talks.
+The homepage SHALL show the most recent visible talks as arrecife `TalkCard`s.
 
-**Section header:** "Recent Speaking"
+**Section header:** «Charlas recientes» with a «./ver_todas» link to `/speaking`.
 
-**Talk item (minimal):**
-```
-[Event name — text-secondary]  [Year — text-muted]
-[Talk title — text-base, Geist Medium]
-[Link to slides/video when available]
-```
+**Talk card:** title, event (first organization, else the location), month and year, location and description. It links to the presentation, else the repository, else the event page, in a new tab.
 
-**Layout:** Vertical list, same visual rhythm as articles section.
+**Layout:** two-column grid from `sm` up, same rhythm as the articles section. The section SHALL NOT render when there are no visible talks.
 
-#### Scenario: Speaking section shows featured talks
+#### Scenario: Speaking section shows recent talks
 - **WHEN** the homepage renders
-- **THEN** 2 to 3 featured talks SHALL appear from `src/settings/talks.ts`
-
----
+- **THEN** up to 4 talks with `show: true` SHALL appear, most recent first, from `src/data/talks/*.json` (loaded by `src/settings/talks.ts`)
 
 ### Requirement: Newsletter CTA section
 Near the bottom of the homepage, a minimal newsletter signup section SHALL appear.

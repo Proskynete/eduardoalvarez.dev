@@ -1,7 +1,7 @@
 # talks-data Specification
 
 ## Purpose
-TBD - created by archiving change talks-as-data. Update Purpose after archive.
+Las charlas como datos: un JSON por charla en `src/data/talks/`, validado con `talkSchema`. Es el contrato con el content manager, que escribe esos archivos por PR.
 ## Requirements
 ### Requirement: Cada charla es un archivo JSON
 
