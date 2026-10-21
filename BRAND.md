@@ -390,8 +390,12 @@ está escrito.
 5. **Usar el generador de OG en los sitios.** Ya existe en la librería:
    `@eduardoalvarez/arrecife/og` (en 0.13.0) trae `articleTemplate`, `courseTemplate`,
    `talkTemplate` y `defaultTemplate` para Satori, más de las dos plantillas que pedía el
-   handoff. En este sitio lo adopta el change de OpenSpec `adopt-arrecife-og`: la OG de
-   cada artículo y `og-default.png`. Falta revisar los demás proyectos.
+   handoff. En este sitio, el change de OpenSpec `adopt-arrecife-og` usa `articleTemplate`
+   solo como respaldo: la OG de un artículo sigue siendo la portada que dibuja el content
+   manager, y la plantilla entra si esa portada falta. `og-default.png` sigue saliendo de
+   `scripts/generate-og-default.mjs` hasta que `defaultTemplate` deje la aleta dentro del
+   halo (en la 0.13.0 la dibuja a 200 px y pasa el divisor). Falta revisar los demás
+   proyectos.
 
 ---
 

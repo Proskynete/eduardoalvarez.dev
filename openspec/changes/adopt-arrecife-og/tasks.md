@@ -6,8 +6,9 @@
 ## 2. Generador
 
 - [ ] 2.1 `src/utils/og.ts`: carga única de fuentes, reemplazo de `arrecife:/…` por `data:` URIs, `renderOg(tree)` → PNG con Satori y sharp
-- [ ] 2.2 `ogImageFor(article)`: `seo_image` si existe, si no `/og/articles/<slug>.png?v=<hash>` (título, categoría, minutos y versión de arrecife)
-- [ ] 2.3 Tests de `ogImageFor` (override, generada, hash estable, hash que cambia con el título) y del reemplazo de `src`
+- [ ] 2.2 `astro.config.mjs` lista `public/images/articles/` e inyecta `__ARTICLE_COVERS__` con `vite.define` (y vacío en `vitest.config.ts`)
+- [ ] 2.3 `ogImageFor(article, covers)`: `seo_image` si existe y, siendo local, está en `covers`; si no, `/og/articles/<slug>.png?v=<hash>` (título, categoría, minutos y versión de arrecife)
+- [ ] 2.4 Tests de `ogImageFor` (portada, sin `seo_image`, ruta local rota, URL absoluta, hash estable, hash que cambia con el título) y del reemplazo de `src`
 
 ## 3. Endpoint y consumidores
 
@@ -16,15 +17,10 @@
 - [ ] 3.3 El layout de artículo pasa `ogImageFor` a `head` y al `BlogPosting`; `og:image:width`/`height` se emiten también para la generada
 - [ ] 3.4 `src/scripts/algolia.ts` usa `ogImageFor`
 
-## 4. Imagen por defecto
+## 4. Cierre
 
-- [ ] 4.1 `scripts/generate-og-default.mjs` con `defaultTemplate` y el mismo pipeline (Satori → sharp → `recordVersions`)
-- [ ] 4.2 Comparar la nueva `og-default.png` con la actual y ajustar si hace falta
-
-## 5. Cierre
-
-- [ ] 5.1 `npm run build`: 12 PNG de 1200×630 en la salida; revisar cada una
-- [ ] 5.2 Quitar temporalmente `seo_image` de un artículo y verificar `og:image`, `BlogPosting` y Algolia en el HTML; restaurarlo
-- [ ] 5.3 Prueba local, no sobre un preview (la rama `docs/**` no despliega): `npm run build && npm run preview`, abrir `/og/articles/<slug>.png` y confirmar que responde PNG de 1200×630 y que el `og:image` del artículo apunta ahí. El inspector de LinkedIn o de X necesita una URL pública: queda para cuando el cambio llegue a `develop`
-- [ ] 5.4 `BRAND.md` §13: el generador de OG existe en arrecife y este sitio lo usa
-- [ ] 5.5 Lint, unitarios, `astro check` y build en verde
+- [ ] 4.1 `npm run build`: 12 PNG de 1200×630 en la salida; revisar cada una
+- [ ] 4.2 Probar el respaldo: quitar temporalmente `seo_image` de un artículo, y luego apuntarla a un archivo que no existe; en los dos casos verificar `og:image`, `BlogPosting` y Algolia en el HTML; restaurarlo
+- [ ] 4.3 Prueba local, no sobre un preview (la rama `docs/**` no despliega): `npm run build && npm run preview`, abrir `/og/articles/<slug>.png` y confirmar que responde PNG de 1200×630 y que el `og:image` del artículo apunta ahí. El inspector de LinkedIn o de X necesita una URL pública: queda para cuando el cambio llegue a `develop`
+- [ ] 4.4 `BRAND.md` §13: el sitio usa `articleTemplate` como respaldo de la portada; `defaultTemplate` queda pendiente
+- [ ] 4.5 Lint, unitarios, `astro check` y build en verde
