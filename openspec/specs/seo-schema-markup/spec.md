@@ -2,9 +2,7 @@
 
 ## Purpose
 Datos estructurados globales del sitio (WebSite, Person y similares).
-
 ## Requirements
-
 ### Requirement: Schema WebSite en homepage
 
 La homepage SHALL emitir un bloque `<script type="application/ld+json">` con el schema `WebSite` que incluya `name`, `url` y `author` (referencia al `@id` de la Person). No SHALL incluir `SearchAction`: la búsqueda es un modal de Algolia y `/articles` no lee `?q=`, así que el target anunciaría una búsqueda que no existe.
@@ -35,7 +33,7 @@ La homepage SHALL emitir el schema `Person` compartido (`src/utils/person-schema
 
 ### Requirement: Schema BlogPosting en artículos
 
-Cada página de artículo SHALL emitir un schema `BlogPosting` con los campos: `headline`, `description`, `datePublished`, `author` y `publisher` (referencias al `@id` de la Person), `url`, `mainEntityOfPage`, `image` (URL absoluta), `keywords`. **Adicionalmente**, cuando el artículo tenga `date_modified` definido en su frontmatter, el schema SHALL incluir el campo `dateModified` con ese valor en formato ISO 8601.
+Cada página de artículo SHALL emitir un schema `BlogPosting` con los campos: `headline`, `description`, `datePublished`, `author` y `publisher` (referencias al `@id` de la Person), `url`, `mainEntityOfPage`, `image` (URL absoluta de la imagen OG del artículo, ver `og-images`), `keywords`. **Adicionalmente**, cuando el artículo tenga `date_modified` definido en su frontmatter, el schema SHALL incluir el campo `dateModified` con ese valor en formato ISO 8601.
 
 #### Scenario: Artículo renderiza BlogPosting schema
 - **WHEN** un crawler accede a una URL de artículo (ej. `/articles/empezando-en-el-desarrollo-web`)
@@ -52,20 +50,18 @@ Cada página de artículo SHALL emitir un schema `BlogPosting` con los campos: `
 - **THEN** el schema SHALL NO incluir el campo `"dateModified"` (no usar `datePublished` como fallback)
 
 #### Scenario: BlogPosting incluye imagen
-- **WHEN** el artículo tiene `seo_image` en su frontmatter
-- **THEN** el schema SHALL incluir `"image"` con la URL absoluta de `seo_image`
-
-#### Scenario: BlogPosting incluye author como Person
 - **WHEN** el schema BlogPosting se renderiza
-- **THEN** `"author"` SHALL ser un objeto `{"@type": "Person", "name": "Eduardo Álvarez Castañeda"}`
+- **THEN** `"image"` SHALL ser la URL absoluta de `seo_image` si el artículo la declara, y la de su imagen generada si no
+
+#### Scenario: BlogPosting referencia a la Person
+- **WHEN** el schema BlogPosting se renderiza
+- **THEN** `"author"` y `"publisher"` SHALL ser `{"@id": "https://eduardoalvarez.dev/#person"}`
 
 #### Scenario: BlogPosting incluye keywords del artículo
 - **WHEN** el artículo tiene `keywords` en su frontmatter
-- **THEN** el schema SHALL incluir `"keywords"` como string con las keywords separadas por coma
+- **THEN** el schema SHALL incluir `"keywords"` como arreglo con esas keywords
 - **WHEN** el artículo no tiene `keywords` en su frontmatter
 - **THEN** el schema SHALL derivar `"keywords"` de las `categories` del artículo
-
----
 
 ### Requirement: Schema JSON-LD válido según estándares de Google
 
@@ -75,3 +71,4 @@ Todo schema emitido por el sitio SHALL pasar la validación de Google Rich Resul
 - **WHEN** un schema JSON-LD se renderiza en cualquier página
 - **THEN** el JSON SHALL ser parseable sin errores de sintaxis
 - **THEN** todos los campos SHALL conformar los tipos de datos esperados por schema.org
+
