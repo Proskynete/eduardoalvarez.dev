@@ -1,7 +1,7 @@
 ## 1. Preparación
 
-- [ ] 1.1 Agregar `satori`, `@fontsource/bricolage-grotesque` y `@fontsource/jetbrains-mono` como devDependencies
-- [ ] 1.2 Prueba de humo: pintar `articleTemplate` con un título fijo a PNG desde un script y revisarlo a ojo (fuentes, aleta, cara) antes de tocar el sitio
+- [x] 1.1 Agregar `satori`, `@fontsource/bricolage-grotesque` y `@fontsource/jetbrains-mono` como devDependencies
+- [x] 1.2 Prueba de humo: pintar `articleTemplate` con un título fijo a PNG desde un script y revisarlo a ojo (fuentes, aleta, cara) antes de tocar el sitio
 
 ## 2. Generador
 
