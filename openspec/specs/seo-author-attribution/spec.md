@@ -1,7 +1,7 @@
 # seo-author-attribution Specification
 
 ## Purpose
-TBD - created by archiving change seo-audit-followup. Update Purpose after archive.
+Autoría visible en el DOM (no solo en JSON-LD) en `/speaking` y `/newsletter`, desde una bio corta centralizada en `settings.authorInlineBio`.
 ## Requirements
 ### Requirement: Bio inline centralizada en settings
 

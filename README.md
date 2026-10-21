@@ -21,7 +21,7 @@ El sistema de diseño vive en su propio paquete, [`@eduardoalvarez/arrecife`](ht
 | **Producción** | `main` | [eduardoalvarez.dev](https://eduardoalvarez.dev) |
 | **Desarrollo** | `develop` | [website-git-develop-eduardoalvarez-dev.vercel.app](https://website-git-develop-eduardoalvarez-dev.vercel.app) |
 
-Cada rama de trabajo genera además su propio preview automático en Vercel. El flujo es `feat/*` → `develop` → `main`.
+Las ramas de trabajo (`feat/*`, `fix/*`, `chore/*`, `docs/*`…) no generan deploy en Vercel (`git.deploymentEnabled` en `vercel.json`); el preview sale de `develop`. Además, `scripts/vercel-ignore-build.sh` salta los builds de commits que solo tocan specs o documentación. El flujo es `feat/*` → `develop` → `main`.
 
 ## Identidad de marca
 
@@ -56,7 +56,9 @@ Los tokens llegan desde `@eduardoalvarez/arrecife/tokens/theme.css`, que `src/as
 | **Giscus** | Comentarios vía GitHub Discussions |
 | **Mailchimp** | Newsletter |
 | **Shiki** | Resaltado de código con el tema de arrecife |
-| **Sentry** | Seguimiento de errores |
+| **Sentry** | Errores, trazas (Web Vitals) y replay solo cuando hay un error |
+| **GA4** | Analítica según la decisión de cookies (opt-in en Europa, opt-out fuera) |
+| **Vercel Web Analytics** | Páginas vistas sin cookies, en todas las visitas |
 | **Vercel** | Deploy, serverless functions |
 | **Workbox** | Service worker de la PWA |
 | **Vitest + Playwright** | Unit + E2E tests |
@@ -101,11 +103,13 @@ npm run a11y:audit          # Auditoría axe contra localhost:4321
 | `/offline` | Respaldo del service worker sin conexión (`noindex`) |
 | `/podcasts` | Episodios con reproductor. **Apagada** mientras `podcastsEnabled` sea `false` (redirige a `/`) |
 
-Redirecciones en `vercel.json`: `/articulos` → `/articles`, `/charlas-talleres` → `/speaking`, y las páginas retiradas `/stack`, `/projects` y `/working-with-me` → `/about`.
+Redirecciones en `vercel.json`: `/articulos` → `/articles`, `/charlas-talleres` → `/speaking`, `/donaciones` → `/`, y las páginas retiradas `/stack`, `/projects` y `/working-with-me` → `/about`.
+
+Además, `/api/profile.json` publica el perfil (charlas, «ahora», frases y artículos) como JSON prerenderizado; lo lee terminal.eduardoalvarez.dev en su build.
 
 ## PWA
 
-El sitio se puede instalar. El manifiesto sale de `src/settings/manifest-config.ts` y los iconos, de `public/images/manifest/` (se regeneran con `npm run brand:icons`). `head.astro` escribe el `<link rel="manifest">` en todas las páginas, también en los artículos que se renderizan bajo demanda. El service worker (Workbox, configurado en `astro.config.mjs`) guarda de antemano solo lo esencial: JS, CSS, fuentes, iconos y las páginas prerenderizadas. Los artículos y las imágenes se guardan a medida que se visitan, y una página nunca abierta sin conexión muestra `/offline`. Al abrir la app instalada, iOS muestra una imagen de arranque por modelo (`src/settings/apple-startup-images.json`) con la aleta, el nombre y la línea; la página mantiene esa misma imagen un momento y luego se funde en el contenido.
+El sitio se puede instalar. El manifiesto sale de `src/settings/manifest-config.ts` y los iconos, de `public/images/manifest/` (se regeneran con `npm run brand:icons`). `head.astro` escribe el `<link rel="manifest">` en todas las páginas, también en los artículos que se renderizan bajo demanda. El service worker (Workbox, configurado en `astro.config.mjs`) guarda de antemano solo lo esencial: JS, CSS, fuentes, iconos y las páginas de error y sin conexión. Ninguna otra página va en ese caché previo, porque quedaría desactualizada tras cada deploy: las páginas se piden primero a la red y se guardan a medida que se leen, igual que las imágenes, y una página nunca abierta sin conexión muestra `/offline`. Al abrir la app instalada, iOS muestra una imagen de arranque por modelo (`src/settings/apple-startup-images.json`) con la aleta, el nombre y la línea; la página mantiene esa misma imagen un momento y luego se funde en el contenido.
 
 ## Variables de entorno
 
@@ -139,7 +143,7 @@ ALGOLIA_FORCE_INDEX=true         # Indexar en Algolia desde un build local
 
 ## Calidad
 
-- **186 tests unitarios** en 12 archivos (Vitest)
+- **301 tests unitarios** en 23 archivos (Vitest)
 - **Tests E2E** en 5 archivos (Playwright): accesibilidad, sistema de diseño, podcasts, búsqueda y suscripción
 - 0 errores de TypeScript en strict mode (`astro check` corre dentro del build)
 - Contraste verificado contra WCAG 2.2 AA en ambos temas

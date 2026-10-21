@@ -1,7 +1,7 @@
 # dependency-security Specification
 
 ## Purpose
-TBD - created by archiving change fix-dependency-vulnerabilities. Update Purpose after archive.
+Árbol de dependencias sin vulnerabilidades críticas ni altas en lo que llega a producción, con las moderadas de herramientas de desarrollo documentadas y aceptadas.
 ## Requirements
 ### Requirement: No critical or high vulnerabilities in production dependencies
 
