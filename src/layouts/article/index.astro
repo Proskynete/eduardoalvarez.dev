@@ -12,6 +12,7 @@ import type { Props as BaseHeadProps } from "../base/components/head.astro";
 import type { Article } from "../../interfaces";
 import settings from "../../settings";
 import { personRef } from "../../utils/person-schema";
+import { isGeneratedOgImage, ogImageFor } from "../../utils/og";
 
 type Props = {
   content: Article;
@@ -26,6 +27,8 @@ const twitterShare = `https://twitter.com/intent/tweet?text=${content.title}&url
 const linkedInShare = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`${settings.url}/articles/${content.slug}`)}&title=${encodeURIComponent(content.title)}`;
 
 const articleKeywords = content.keywords ?? content.categories;
+// The cover, or the generated fallback when it is missing (openspec: og-images).
+const ogImage = ogImageFor(content);
 
 const schema = {
   "@context": "https://schema.org",
@@ -36,7 +39,7 @@ const schema = {
   ...(content.date_modified ? { dateModified: content.date_modified } : {}),
   url: `${settings.url}/articles/${content.slug}`,
   mainEntityOfPage: `${settings.url}/articles/${content.slug}`,
-  image: new URL(content.seo_image, settings.url).toString(),
+  image: new URL(ogImage, settings.url).toString(),
   inLanguage: "es",
   author: personRef,
   publisher: personRef,
@@ -46,7 +49,8 @@ const schema = {
 const seo: BaseHeadProps = {
   title: content.title,
   description: content.seo_description,
-  image: content.seo_image,
+  image: ogImage,
+  imageIsOgSize: isGeneratedOgImage(ogImage),
   slug: `/articles/${content.slug}`,
   keywords: content.keywords,
   ogType: "article",
