@@ -1,4 +1,3 @@
-import client from "@mailchimp/mailchimp_marketing";
 import * as Sentry from "@sentry/astro";
 import type { APIRoute } from "astro";
 import { z } from "zod";
@@ -27,16 +26,20 @@ const SubscribeSchema = z.object({
 
 type SubscribeInput = z.infer<typeof SubscribeSchema>;
 
-// Configurar Mailchimp
-client.setConfig({
-  apiKey: import.meta.env.MAILCHIMP_API_KEY,
-  server: import.meta.env.MAILCHIMP_API_KEY.split("-")[1],
-});
+// blog-content-manager owns the newsletter (Resend, templates, welcome email);
+// this endpoint validates the form and hands the signup over.
+const FORWARD_TIMEOUT_MS = 10_000;
 
-const TAGS = {
-  SEND_POST_MAIL: "send-post-mail",
-  FROM_WEB_PAGE: "from-web-page",
-};
+const forwardSignup = (data: SubscribeInput) =>
+  fetch(`${import.meta.env.NEWSLETTER_API_URL}/api/newsletter/subscribe`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-newsletter-secret": import.meta.env.NEWSLETTER_SUBSCRIBE_SECRET,
+    },
+    body: JSON.stringify({ email: data.email, name: data.name }),
+    signal: AbortSignal.timeout(FORWARD_TIMEOUT_MS),
+  });
 
 export const POST: APIRoute = async ({ request }) => {
   const rateLimitResponse = subscribeRateLimiter(request);
@@ -49,32 +52,17 @@ export const POST: APIRoute = async ({ request }) => {
     // Validar con Zod
     const validatedData: SubscribeInput = SubscribeSchema.parse(body);
 
-    // Verificar si el usuario ya existe (O(1) lookup)
-    try {
-      const member = await client.lists.getListMember(import.meta.env.MAILCHIMP_LIST_ID, validatedData.email);
+    const res = await forwardSignup(validatedData);
 
-      if (member) {
-        return ApiResponseBuilder.conflict("Ya estás suscrito con este correo.");
-      }
-    } catch (error: unknown) {
-      // Error 404 significa que no existe (proceder con registro)
-      if (error && typeof error === 'object' && 'status' in error && error.status !== 404) {
-        throw error;
-      }
+    if (res.status === 409) {
+      return ApiResponseBuilder.conflict("Ya estás suscrito con este correo.");
+    }
+    if (!res.ok) {
+      throw new Error(`Newsletter service answered ${res.status}`);
     }
 
-    // Agregar nuevo suscriptor
-    await client.lists.addListMember(import.meta.env.MAILCHIMP_LIST_ID, {
-      email_address: validatedData.email,
-      status: "subscribed",
-      tags: [TAGS.SEND_POST_MAIL, TAGS.FROM_WEB_PAGE],
-      merge_fields: {
-        FNAME: validatedData.name,
-      },
-    });
-
-    // `status: "subscribed"` adds the member directly, with no double opt-in
-    // email, so the message cannot ask them to confirm anything.
+    // The signup is immediate, with no double opt-in email, so the message
+    // cannot ask them to confirm anything.
     return ApiResponseBuilder.success("Listo, ya estás suscrito. La próxima edición te llega al correo.");
   } catch (error) {
     // Error de validación de Zod
@@ -88,16 +76,9 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Errores de Mailchimp
-    if (error instanceof Error && "status" in error) {
-      console.error("Mailchimp error:", error);
-      Sentry.captureException(error, { tags: { context: "newsletter.subscribe" } });
-      return ApiResponseBuilder.internalError("No pude completar la suscripción. Intenta de nuevo en unos minutos.");
-    }
-
-    // Error genérico
-    console.error("Unexpected error:", error);
+    // Newsletter service down, slow or rejecting the request
+    console.error("Newsletter subscribe error:", error);
     Sentry.captureException(error, { tags: { context: "newsletter.subscribe" } });
-    return ApiResponseBuilder.internalError();
+    return ApiResponseBuilder.internalError("No pude completar la suscripción. Intenta de nuevo en unos minutos.");
   }
 };

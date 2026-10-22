@@ -16,9 +16,9 @@ interface ImportMetaEnv {
   readonly PUBLIC_GISCUS_REPO_ID: string;
   readonly PUBLIC_GISCUS_CATEGORY_ID: string;
 
-  // Mailchimp - Private (server-side)
-  readonly MAILCHIMP_API_KEY: string;
-  readonly MAILCHIMP_LIST_ID: string;
+  // Newsletter (blog-content-manager) - Private (server-side)
+  readonly NEWSLETTER_API_URL: string;
+  readonly NEWSLETTER_SUBSCRIBE_SECRET: string;
 }
 
 interface ImportMeta {
