@@ -11,7 +11,7 @@ context: |
     - Styling: Tailwind CSS 4 with arrecife tokens (no raw hex, no arbitrary values)
     - Language: TypeScript 5.9 strict, no `any`
     - Content: MDX articles in src/pages/articles; talks as JSON in src/data/talks
-    - Search: Algolia v5 (indexed at build) · Comments: Giscus · Newsletter: Mailchimp
+    - Search: Algolia v5 (indexed at build) · Comments: Giscus · Newsletter: Resend via blog-content-manager
     - Observability: Sentry (errors, tracing, replay on error), GA4 behind the cookie decision, Vercel Web Analytics
     - PWA: astro-webmanifest + Workbox service worker (app shell only)
     - Tests: Vitest + Playwright, all under tests/

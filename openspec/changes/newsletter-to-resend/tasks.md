@@ -15,6 +15,7 @@
 
 ## 3. Remove Mailchimp (after the 2026-12-01 monthly goes out through Resend)
 
-- [ ] 3.1 Remove `@mailchimp/mailchimp_marketing` and `@types/mailchimp__mailchimp_marketing`.
-- [ ] 3.2 Update `README.md`, `CLAUDE.md`, `openspec/config.yaml` (Newsletter: Resend via blog-content-manager), `src/settings/stack.ts` and the comment in `src/settings/cookies.ts`.
-- [ ] 3.3 Verify lint, build and tests.
+- [x] 3.1 Remove `@mailchimp/mailchimp_marketing` and `@types/mailchimp__mailchimp_marketing`.
+- [x] 3.2 Update `README.md`, `CLAUDE.md`, `openspec/config.yaml` (Newsletter: Resend via blog-content-manager), `src/settings/stack.ts` and the comment in `src/settings/cookies.ts`.
+- [x] 3.3 Verify lint, build and tests.
+  > Done 2026-10-23, ahead of the 2026-12-01 monthly at Eduardo's request: no code used Mailchimp any more. Lint, 327 unit tests and build pass.
