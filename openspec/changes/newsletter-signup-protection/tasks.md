@@ -23,6 +23,8 @@
 - [x] 5.1 Create the Turnstile site for `eduardoalvarez.dev` in Cloudflare (managed mode) and load `PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` in this Vercel project (Production and Preview).
   > Done 2026-10-23 through the Cloudflare API: widget «eduardoalvarez.dev newsletter», managed, domain `eduardoalvarez.dev`. Production has the real keys (secret as `sensitive`). Preview and Development have Cloudflare's always-pass test keys, since previews run on `*.vercel.app`, outside the widget's domain.
 - [ ] 5.2 Deploy `develop` → `main` (ships `newsletter-to-resend` too). Pause the Mailchimp welcome email. Depends on 5.1.
+  > Deployed 2026-10-23 (#305, `a62fada`). Checked in production: no token → 400, fake token → 400, honeypot → 200 with nothing forwarded.
+  > ⛔ BLOCKED: Eduardo pauses the Mailchimp welcome email.
 
 ## Notes
 
