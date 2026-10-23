@@ -50,6 +50,7 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 - `newsletter/index.astro` — Newsletter subscription page.
 - `podcasts/` — Index and `[slug]`. **Switched off** while `podcastsEnabled` is `false` in `settings/podcasts.ts`: the middleware redirects them to `/` and the sitemap leaves them out.
 - `api/subscribe.ts` — Newsletter endpoint (Zod validation, rate limited).
+- `/api/newsletter/confirm` and `/api/newsletter/unsubscribe` are not pages here: `vercel.json` rewrites them to blog-content-manager, so the email links stay on eduardoalvarez.dev.
 - `api/sentry-test.ts` — Throws a test error for Sentry; 404 unless `SENTRY_TEST_TOKEN` is set and sent as `x-sentry-test`.
 - `api/profile.json.ts` — Public profile JSON (talks, now, About quotes, articles), prerendered. Read at build time by terminal.eduardoalvarez.dev; its shape is versioned (`PROFILE_VERSION` in `utils/profile.ts`).
 - `og/articles/[slug].png.ts` — Fallback Open Graph image of every article, drawn with arrecife's `articleTemplate` at build time. Prerendered. Only used when the article's cover is missing (see SEO).
