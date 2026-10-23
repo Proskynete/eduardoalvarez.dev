@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal site of Eduardo Álvarez — **Technical Lead · Spec-Driven Development** (lema: *Entender antes de construir.*; positioning and voice rules in `BRAND.md` §14) — built with **Astro 7**, React 19 and TypeScript. MDX articles, full-text search via Algolia, comments via Giscus, newsletter via Mailchimp, error tracking via Sentry, and an installable PWA. The visual language comes from **`@eduardoalvarez/arrecife`**, the published design system (tokens, components, icons, Shiki theme). Deployed to Vercel: pages are prerendered where possible and the rest render on demand in a serverless function.
+Personal site of Eduardo Álvarez — **Technical Lead · Spec-Driven Development** (lema: *Entender antes de construir.*; positioning and voice rules in `BRAND.md` §14) — built with **Astro 7**, React 19 and TypeScript. MDX articles, full-text search via Algolia, comments via Giscus, newsletter via Resend (through blog-content-manager), error tracking via Sentry, and an installable PWA. The visual language comes from **`@eduardoalvarez/arrecife`**, the published design system (tokens, components, icons, Shiki theme). Deployed to Vercel: pages are prerendered where possible and the rest render on demand in a serverless function.
 
 ## Environment
 
@@ -130,7 +130,7 @@ A local build needs the env vars below, or `SKIP_ENV_VALIDATION=true npm run bui
 | **MDX** | Articles |
 | **Algolia v5** | Search, indexed at build |
 | **Giscus** | Comments |
-| **Mailchimp** | Newsletter |
+| **Resend** | Newsletter, through blog-content-manager |
 | **Zod 4** | API and env validation |
 | **Sentry** | Errors, tracing (Web Vitals) and replay on error only; source maps upload when `SENTRY_AUTH_TOKEN` is set. Test hooks: `?sentry-test=1` (client), `GET /api/sentry-test` with `x-sentry-test: $SENTRY_TEST_TOKEN` (server) |
 | **GA4** | gtag.js behind the cookie decision (`components/analytics/`): opt-out outside Europe, opt-in in Europe (EEA/UK/CH, by time zone); events through `trackEvent` in `utils/analytics.ts` |
@@ -183,7 +183,7 @@ Coverage thresholds: 80% statements, branches, functions and lines (`vitest.conf
 Validated at startup by `src/utils/env.ts`:
 - Algolia: `PUBLIC_ALGOLIA_APPLICATION_ID`, `PUBLIC_ALGOLIA_INDEX_NAME`, `PUBLIC_ALGOLIA_SEARCH_API_KEY`, `ALGOLIA_ADMIN_API_KEY` (server only)
 - Giscus: `PUBLIC_GISCUS_REPO`, `PUBLIC_GISCUS_REPO_ID`, `PUBLIC_GISCUS_CATEGORY_ID`
-- Mailchimp: `MAILCHIMP_API_KEY`, `MAILCHIMP_LIST_ID`
+- Newsletter: `NEWSLETTER_API_URL`, `NEWSLETTER_SUBSCRIBE_SECRET` (server only), `PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` (server only)
 - Observability (all optional, each a no-op when missing): `PUBLIC_GA_ID` (build time), `PUBLIC_SENTRY_DSN` (build time), `SENTRY_DSN` and `SENTRY_TEST_TOKEN` (runtime), `SENTRY_AUTH_TOKEN` (+ optional `SENTRY_ORG`/`SENTRY_PROJECT`, build time: source maps). Sentry's `environment`/`release` come from `VERCEL_ENV`/`VERCEL_GIT_COMMIT_SHA` (runtime, else inlined at build via `vite.define`), falling back to the host (`eduardoalvarez.dev` → production, other hosts → preview, localhost → development) and `git rev-parse HEAD`: see `src/utils/sentry-environment.ts`
 - Optional: `SKIP_ENV_VALIDATION`, `ALGOLIA_FORCE_INDEX`
 

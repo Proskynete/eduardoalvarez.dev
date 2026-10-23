@@ -54,7 +54,7 @@ Los tokens llegan desde `@eduardoalvarez/arrecife/tokens/theme.css`, que `src/as
 | **MDX** | Artículos con componentes embebidos |
 | **Algolia v5** | Búsqueda full-text, indexada en build |
 | **Giscus** | Comentarios vía GitHub Discussions |
-| **Mailchimp** | Newsletter |
+| **Resend** | Newsletter, vía blog-content-manager |
 | **Shiki** | Resaltado de código con el tema de arrecife |
 | **Sentry** | Errores, trazas (Web Vitals) y replay solo cuando hay un error |
 | **GA4** | Analítica según la decisión de cookies (opt-in en Europa, opt-out fuera) |
@@ -125,9 +125,11 @@ PUBLIC_GISCUS_REPO=
 PUBLIC_GISCUS_REPO_ID=
 PUBLIC_GISCUS_CATEGORY_ID=
 
-# Mailchimp (newsletter)
-MAILCHIMP_API_KEY=
-MAILCHIMP_LIST_ID=
+# Newsletter (blog-content-manager) y Turnstile
+NEWSLETTER_API_URL=
+NEWSLETTER_SUBSCRIBE_SECRET=
+PUBLIC_TURNSTILE_SITE_KEY=
+TURNSTILE_SECRET_KEY=
 
 # Observabilidad (opcionales: sin ellas, cada pieza queda apagada)
 PUBLIC_GA_ID=                   # GA4 según la decisión de cookies (opt-in en Europa) y solo en producción (build)

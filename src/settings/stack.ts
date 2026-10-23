@@ -129,11 +129,6 @@ export const stack: StackCategory[] = [
         featured: true,
       },
       {
-        name: "Mailchimp",
-        description: "Email marketing and newsletter management.",
-        url: "https://mailchimp.com/",
-      },
-      {
         name: "Make",
         description: "Visual automation platform for connecting apps and workflows.",
         url: "https://www.make.com/",

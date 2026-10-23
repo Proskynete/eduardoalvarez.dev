@@ -8,7 +8,7 @@
  *
  * Not listed because they store nothing on the visitor's device: Vercel Web
  * Analytics and Speed Insights (cookieless, aggregated), Sentry's error and
- * performance reports (no cookies), Mailchimp (server side only).
+ * performance reports (no cookies), the newsletter (server side only).
  */
 export type CookieCategory = "necessary" | "preferences" | "statistics";
 
