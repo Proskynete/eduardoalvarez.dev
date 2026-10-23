@@ -30,6 +30,19 @@ const SUCCESS_MESSAGE = "Revisa tu correo y confirma con el botón de la bienven
 const BOT_MESSAGE = "No pudimos verificar que no eres un bot. Recarga la página e intenta de nuevo.";
 const TURNSTILE_TIMEOUT_MS = 5_000;
 
+// One line per attempt so Vercel's runtime logs show where a signup stopped.
+// Never the email or the name.
+type Outcome =
+  | "rate-limited"
+  | "honeypot"
+  | "invalid"
+  | "no-token"
+  | "turnstile-rejected"
+  | "already-subscribed"
+  | "forwarded"
+  | "error";
+const logOutcome = (outcome: Outcome) => console.info(`[newsletter] subscribe: ${outcome}`);
+
 /** Whether Cloudflare vouches for the Turnstile token. Throws when siteverify is down. */
 async function isHuman(token: string, request: Request): Promise<boolean> {
   const body = new URLSearchParams({ secret: import.meta.env.TURNSTILE_SECRET_KEY, response: token });
@@ -63,7 +76,10 @@ const forwardSignup = (data: SubscribeInput) =>
 
 export const POST: APIRoute = async ({ request }) => {
   const rateLimitResponse = subscribeRateLimiter(request);
-  if (rateLimitResponse) return rateLimitResponse;
+  if (rateLimitResponse) {
+    logOutcome("rate-limited");
+    return rateLimitResponse;
+  }
 
   try {
     // Parse body
@@ -72,6 +88,7 @@ export const POST: APIRoute = async ({ request }) => {
     // Honeypot: only bots fill the hidden `website` field. They get the same
     // success as everyone, checked before Zod so a junk name gets no hint either.
     if (typeof body?.website === "string" && body.website.trim() !== "") {
+      logOutcome("honeypot");
       return ApiResponseBuilder.success(SUCCESS_MESSAGE);
     }
 
@@ -79,13 +96,19 @@ export const POST: APIRoute = async ({ request }) => {
     const validatedData: SubscribeInput = SubscribeSchema.parse(body);
 
     const token = typeof body.turnstileToken === "string" ? body.turnstileToken : "";
-    if (!token || !(await isHuman(token, request))) {
+    if (!token) {
+      logOutcome("no-token");
+      return ApiResponseBuilder.badRequest(BOT_MESSAGE);
+    }
+    if (!(await isHuman(token, request))) {
+      logOutcome("turnstile-rejected");
       return ApiResponseBuilder.badRequest(BOT_MESSAGE);
     }
 
     const res = await forwardSignup(validatedData);
 
     if (res.status === 409) {
+      logOutcome("already-subscribed");
       return ApiResponseBuilder.conflict("Ya estás suscrito con este correo.");
     }
     if (!res.ok) {
@@ -94,10 +117,12 @@ export const POST: APIRoute = async ({ request }) => {
 
     // The newsletter service keeps the signup pending until the person clicks
     // «Confirmar suscripción» in the welcome, so the message says so.
+    logOutcome("forwarded");
     return ApiResponseBuilder.success(SUCCESS_MESSAGE);
   } catch (error) {
     // Error de validación de Zod
     if (error instanceof z.ZodError) {
+      logOutcome("invalid");
       return ApiResponseBuilder.badRequest(
         error.issues[0].message,
         error.issues.map((err) => ({
@@ -108,6 +133,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Turnstile or the newsletter service down, slow or rejecting the request
+    logOutcome("error");
     console.error("Newsletter subscribe error:", error);
     Sentry.captureException(error, { tags: { context: "newsletter.subscribe" } });
     return ApiResponseBuilder.internalError("No pude completar la suscripción. Intenta de nuevo en unos minutos.");

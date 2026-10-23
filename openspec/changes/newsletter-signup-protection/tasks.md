@@ -26,6 +26,9 @@
   > Deployed 2026-10-23 (#305, `a62fada`). Checked in production: no token → 400, fake token → 400, honeypot → 200 with nothing forwarded.
   > ⛔ BLOCKED: Eduardo pauses the Mailchimp welcome email.
 
+- [x] 5.3 Log one line per attempt in `src/pages/api/subscribe.ts` (`[newsletter] subscribe: <outcome>`, never the email or the name), so Vercel's runtime logs show where a signup stopped. Test in `tests/units/pages/subscribe.test.ts`.
+  > Added 2026-10-23: Eduardo's test signup never reached blog-content-manager and the endpoint logged nothing on the honeypot or a missing token.
+
 ## Notes
 
 - 2026-10-23: lint clean, `npm run test:unit:run` 327/327, `npm run build` (with `SKIP_ENV_VALIDATION`) 0 errors, e2e subscribe 9/9.
