@@ -28,6 +28,8 @@
 
 - [x] 5.3 Log one line per attempt in `src/pages/api/subscribe.ts` (`[newsletter] subscribe: <outcome>`, never the email or the name), so Vercel's runtime logs show where a signup stopped. Test in `tests/units/pages/subscribe.test.ts`.
   > Added 2026-10-23: Eduardo's test signup never reached blog-content-manager and the endpoint logged nothing on the honeypot or a missing token.
+- [x] 5.4 Rewrite `/api/newsletter/confirm` and `/api/newsletter/unsubscribe` in `vercel.json` to blog-content-manager, so the welcome's confirm button and every unsubscribe link stay on `eduardoalvarez.dev`.
+  > Added 2026-10-23: the confirm link 404'd on the blog, and sending people to `*.vercel.app` to confirm looked like another site.
 
 ## Notes
 
