@@ -4,6 +4,22 @@ import { useEffect, useRef, useState } from "react";
 
 import { trackEvent } from "../../utils/analytics";
 
+// The slice of Cloudflare's Turnstile API this form uses. Loaded by script, not npm.
+type Turnstile = {
+  render(el: HTMLElement, options: { sitekey: string; appearance: "interaction-only" }): string;
+  getResponse(widgetId: string): string | undefined;
+  reset(widgetId: string): void;
+};
+
+declare global {
+  interface Window {
+    turnstile?: Turnstile;
+  }
+}
+
+const TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+const SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+
 type ApiResponse = {
   success?: boolean;
   message?: string;
@@ -23,6 +39,35 @@ export function SubscribeForm() {
   const [state, setState] = useState<NewsletterState>("idle");
   const [message, setMessage] = useState<string>();
   const container = useRef<HTMLDivElement>(null);
+  const honeypot = useRef<HTMLInputElement>(null);
+  const turnstileSlot = useRef<HTMLDivElement>(null);
+  const widgetId = useRef<string>(undefined);
+
+  // Turnstile stays invisible unless Cloudflare doubts. Without a site key
+  // (unit and e2e tests) the script is not loaded and the API answers 400.
+  useEffect(() => {
+    if (!SITE_KEY) return;
+    const render = () => {
+      if (window.turnstile && turnstileSlot.current && !widgetId.current) {
+        widgetId.current = window.turnstile.render(turnstileSlot.current, {
+          sitekey: SITE_KEY,
+          appearance: "interaction-only",
+        });
+      }
+    };
+    if (window.turnstile) {
+      render();
+      return;
+    }
+
+    const script =
+      document.querySelector<HTMLScriptElement>(`script[src="${TURNSTILE_SCRIPT}"]`) ??
+      document.head.appendChild(
+        Object.assign(document.createElement("script"), { src: TURNSTILE_SCRIPT, async: true }),
+      );
+    script.addEventListener("load", render);
+    return () => script.removeEventListener("load", render);
+  }, []);
 
   // Success clears itself after 5 seconds, as before: the panel becomes
   // available again instead of pinning the notice to the page.
@@ -40,7 +85,12 @@ export function SubscribeForm() {
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name?.trim(), email: email.trim() }),
+        body: JSON.stringify({
+          name: name?.trim(),
+          email: email.trim(),
+          website: honeypot.current?.value ?? "",
+          turnstileToken: widgetId.current ? window.turnstile?.getResponse(widgetId.current) : undefined,
+        }),
       });
       const data: ApiResponse = await response.json();
 
@@ -63,11 +113,25 @@ export function SubscribeForm() {
     } catch {
       setMessage("No hay conexión. Revisa tu internet e intenta de nuevo.");
       setState("error");
+    } finally {
+      // A Turnstile token works once: the next submit needs a fresh one.
+      if (widgetId.current) window.turnstile?.reset(widgetId.current);
     }
   }
 
   return (
     <div ref={container}>
+      {/* Honeypot. `NewsletterForm` takes no children, so it sits beside the
+          form; bots that fill every input on the page fill it too. */}
+      <input
+        ref={honeypot}
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="sr-only"
+      />
       <NewsletterForm
         title="Artículos sobre desarrollo con IA y Spec-Driven Development"
         description="Una edición al mes, directo a tu correo."
@@ -100,6 +164,7 @@ export function SubscribeForm() {
         // its <section>, so the event is caught where it bubbles.
         onInput={() => setState((current) => (current === "error" ? "idle" : current))}
       />
+      <div ref={turnstileSlot} />
     </div>
   );
 }
