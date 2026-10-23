@@ -136,4 +136,19 @@ describe("POST /api/subscribe", () => {
     expect(Sentry.captureException).toHaveBeenCalledOnce();
     expect(appCalls()).toHaveLength(0);
   });
+
+  it("logs where each attempt stopped, without the email or the name", async () => {
+    const info = vi.spyOn(console, "info").mockImplementation(() => {});
+    answer(async () => json({}));
+    await call(valid);
+    await call({ ...valid, website: "https://spam.test" });
+    await call({ ...valid, turnstileToken: "" });
+
+    expect(info.mock.calls.map(([line]) => line)).toEqual([
+      "[newsletter] subscribe: forwarded",
+      "[newsletter] subscribe: honeypot",
+      "[newsletter] subscribe: no-token",
+    ]);
+    info.mockRestore();
+  });
 });
