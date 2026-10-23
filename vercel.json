@@ -62,7 +62,16 @@
       ]
     }
   ],
-  "rewrites": [],
+  "rewrites": [
+    {
+      "source": "/api/newsletter/confirm",
+      "destination": "https://blog-content-manager-phi.vercel.app/api/newsletter/confirm"
+    },
+    {
+      "source": "/api/newsletter/unsubscribe",
+      "destination": "https://blog-content-manager-phi.vercel.app/api/newsletter/unsubscribe"
+    }
+  ],
   "redirects": [
     {
       "source": "/articulos",
