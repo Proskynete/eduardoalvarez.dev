@@ -8,13 +8,15 @@ const PublicEnvSchema = z.object({
   PUBLIC_GISCUS_REPO: z.string().min(1, "Giscus Repo requerido"),
   PUBLIC_GISCUS_REPO_ID: z.string().min(1, "Giscus Repo ID requerido"),
   PUBLIC_GISCUS_CATEGORY_ID: z.string().min(1, "Giscus Category ID requerido"),
+  PUBLIC_TURNSTILE_SITE_KEY: z.string().min(1, "Turnstile Site Key requerido"),
 });
 
 // Schema para variables privadas (server-side only)
 const PrivateEnvSchema = z.object({
   ALGOLIA_ADMIN_API_KEY: z.string().min(1, "Algolia Admin API Key requerido"),
-  MAILCHIMP_API_KEY: z.string().min(1, "Mailchimp API Key requerido"),
-  MAILCHIMP_LIST_ID: z.string().min(1, "Mailchimp List ID requerido"),
+  NEWSLETTER_API_URL: z.url("URL del servicio de newsletter (blog-content-manager) requerida"),
+  NEWSLETTER_SUBSCRIBE_SECRET: z.string().min(16, "Secreto compartido del newsletter requerido"),
+  TURNSTILE_SECRET_KEY: z.string().min(1, "Turnstile Secret Key requerido"),
 });
 
 // Tipos inferidos
@@ -68,7 +70,7 @@ export function validatePublicEnv(): PublicEnv {
  * ```typescript
  * // En API routes o código server-side
  * const env = validatePrivateEnv();
- * console.log(env.MAILCHIMP_API_KEY);
+ * console.log(env.NEWSLETTER_API_URL);
  * ```
  *
  * @remarks

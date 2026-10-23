@@ -33,7 +33,7 @@ test.describe("Newsletter Subscription", () => {
 
     // Scope selectors to the form to avoid matching the footer email link
     const nameInput = form.getByLabel(/nombre/i);
-    const emailInput = form.getByLabel(/email/i);
+    const emailInput = form.getByLabel(/correo/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     await expect(nameInput).toBeVisible();
@@ -54,7 +54,7 @@ test.describe("Newsletter Subscription", () => {
   test("debe validar formato de email", async ({ page }) => {
     const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
-    const emailInput = form.getByLabel(/email/i);
+    const emailInput = form.getByLabel(/correo/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     await nameInput.fill("Test User");
@@ -73,14 +73,14 @@ test.describe("Newsletter Subscription", () => {
         contentType: "application/json",
         body: JSON.stringify({
           success: true,
-          message: "Registro exitoso",
+          message: "Revisa tu correo y confirma con el botón de la bienvenida.",
         }),
       });
     });
 
     const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
-    const emailInput = form.getByLabel(/email/i);
+    const emailInput = form.getByLabel(/correo/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     await nameInput.fill("Test User");
@@ -88,7 +88,7 @@ test.describe("Newsletter Subscription", () => {
     await submitButton.click();
 
     // Esperar mensaje de éxito
-    const successMessage = page.getByText(/registro exitoso/i);
+    const successMessage = page.getByText(/revisa tu correo y confirma/i);
     await expect(successMessage).toBeVisible();
 
     // Formulario debe limpiarse
@@ -110,7 +110,7 @@ test.describe("Newsletter Subscription", () => {
 
     const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
-    const emailInput = form.getByLabel(/email/i);
+    const emailInput = form.getByLabel(/correo/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     await nameInput.fill("Test User");
@@ -134,7 +134,7 @@ test.describe("Newsletter Subscription", () => {
 
     const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
-    const emailInput = form.getByLabel(/email/i);
+    const emailInput = form.getByLabel(/correo/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     await nameInput.fill("Test User");
@@ -163,7 +163,7 @@ test.describe("Newsletter Subscription", () => {
 
     const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
-    const emailInput = form.getByLabel(/email/i);
+    const emailInput = form.getByLabel(/correo/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     // A valid email so the browser's HTML5 validation lets the submit through
@@ -189,7 +189,7 @@ test.describe("Newsletter Subscription", () => {
 
     const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
-    const emailInput = form.getByLabel(/email/i);
+    const emailInput = form.getByLabel(/correo/i);
     const submitButton = form.getByRole("button", { name: /suscribirme/i });
 
     await nameInput.fill("Test User");
@@ -214,7 +214,7 @@ test.describe("Newsletter Subscription", () => {
 
     const form = subscribeForm(page);
     const nameInput = form.getByLabel(/nombre/i);
-    const emailInput = form.getByLabel(/email/i);
+    const emailInput = form.getByLabel(/correo/i);
 
     await nameInput.fill("Test User");
     await emailInput.fill("test@example.com");
