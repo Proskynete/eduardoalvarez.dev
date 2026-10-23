@@ -7,7 +7,7 @@
 
 ## 2. Deploy
 
-- [ ] 2.1 Load `NEWSLETTER_API_URL` and `NEWSLETTER_SUBSCRIBE_SECRET` in this Vercel project and as GitHub repo secrets. `.github/workflows/ci.yml` already reads them. CI fails until those secrets exist.
+- [ ] 2.1 Load `NEWSLETTER_API_URL` and `NEWSLETTER_SUBSCRIBE_SECRET` in this Vercel project and as GitHub repo secrets. `.github/workflows/ci.yml` passes them to the build, but the build runs with `SKIP_ENV_VALIDATION`, so CI does not fail without them (corrected in `newsletter-signup-protection`).
   > ⛔ BLOCKED: needs Eduardo's Vercel and GitHub access, and the app deployed with the same secret (blog-content-manager `resend-migration` 1.3).
 - [ ] 2.2 Pause the Mailchimp welcome email when this deploys.
   > ⛔ BLOCKED: Eduardo, in Mailchimp.

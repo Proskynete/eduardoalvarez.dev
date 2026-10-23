@@ -19,6 +19,10 @@ interface ImportMetaEnv {
   // Newsletter (blog-content-manager) - Private (server-side)
   readonly NEWSLETTER_API_URL: string;
   readonly NEWSLETTER_SUBSCRIBE_SECRET: string;
+
+  // Cloudflare Turnstile on the subscribe form
+  readonly PUBLIC_TURNSTILE_SITE_KEY: string;
+  readonly TURNSTILE_SECRET_KEY: string;
 }
 
 interface ImportMeta {
