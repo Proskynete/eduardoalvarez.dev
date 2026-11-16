@@ -1,20 +1,8 @@
 {
   "git": {
     "deploymentEnabled": {
-      "develop": false,
-      "feat/**": false,
-      "fix/**": false,
-      "chore/**": false,
-      "docs/**": false,
-      "refactor/**": false,
-      "perf/**": false,
-      "test/**": false,
-      "ci/**": false,
-      "build/**": false,
-      "style/**": false,
-      "content/**": false,
-      "dependabot/**": false,
-      "renovate/**": false
+      "**": false,
+      "main": true
     }
   },
   "headers": [
