@@ -176,7 +176,7 @@ Coverage thresholds: 80% statements, branches, functions and lines (`vitest.conf
 - **Prettier** (`.prettierrc`): 2 spaces, semicolons, 120 columns.
 - **Commits**: Conventional Commits, enforced by commitlint via husky; lint-staged runs on pre-commit.
 - **Language**: identifiers and code comments in English (the CI spell checker, `typos`, would "fix" Spanish words inside identifiers); user-facing text in Spanish.
-- **Branches**: `feat/*`/`fix/*` → `develop` → `main`. `main` is production. Work branches (`feat/**`, `fix/**`, `chore/**`, `docs/**`…) do not deploy on Vercel (`git.deploymentEnabled` in `vercel.json`); previews come from `develop`.
+- **Branches**: `feat/*`/`fix/*` → PR to `main`. `main` is production and the only branch that deploys on Vercel (`git.deploymentEnabled` in `vercel.json` allows only `main`); there are no previews.
 - **OpenSpec**: archive a change once its tasks are done (`openspec archive <name>`), so its deltas reach `openspec/specs/`. A change that replaces another's requirement says so with `MODIFIED`/`REMOVED`, not only `ADDED`. `archive` refuses to leave a spec with no requirements: to retire a whole capability, archive the rest and delete that spec by hand.
 
 ### Environment Variables

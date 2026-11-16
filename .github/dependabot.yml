@@ -1,13 +1,12 @@
 version: 2
 # Twice a year: a weekly schedule kept a queue of open PRs that nobody was
 # reviewing. Security updates are not affected by this and still arrive as soon
-# as an advisory is published. Updates target `develop`, like every other
-# change, instead of going straight to production on `main`.
+# as an advisory is published. Updates open a PR against `main`, like every
+# other change.
 updates:
   # NPM dependencies
   - package-ecosystem: "npm"
     directory: "/"
-    target-branch: "develop"
     schedule:
       interval: "semiannually"
     commit-message:
@@ -34,7 +33,6 @@ updates:
   # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
-    target-branch: "develop"
     schedule:
       interval: "semiannually"
     labels:

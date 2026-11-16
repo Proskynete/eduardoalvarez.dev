@@ -20,7 +20,7 @@ El sistema de diseño vive en su propio paquete, [`@eduardoalvarez/arrecife`](ht
 |---|---|---|
 | **Producción** | `main` | [eduardoalvarez.dev](https://eduardoalvarez.dev) |
 
-Solo `main` genera deploy en Vercel: `develop` y las ramas de trabajo (`feat/*`, `fix/*`, `chore/*`, `docs/*`…) están apagadas en `git.deploymentEnabled` de `vercel.json`. Además, `scripts/vercel-ignore-build.sh` salta los builds de commits que solo tocan specs o documentación. El flujo es `feat/*` → `develop` → `main`.
+Solo `main` genera deploy en Vercel: las ramas de trabajo (`feat/*`, `fix/*`, `chore/*`, `docs/*`…) están apagadas en `git.deploymentEnabled` de `vercel.json`. Además, `scripts/vercel-ignore-build.sh` salta los builds de commits que solo tocan specs o documentación. El flujo es `feat/*` → PR a `main`.
 
 ## Identidad de marca
 
